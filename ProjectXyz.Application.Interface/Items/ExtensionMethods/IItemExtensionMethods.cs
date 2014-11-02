@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectXyz.Interface.Enchantments;
-using ProjectXyz.Interface.Items.ExtensionMethods;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Items;
 
-namespace ProjectXyz.Interface.Items
+namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
 {
     public static class IItemExtensionMethods
     {

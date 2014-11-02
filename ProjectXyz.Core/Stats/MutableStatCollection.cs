@@ -22,6 +22,14 @@ namespace ProjectXyz.Core.Stats
         }
         #endregion
 
+        #region Properties
+        new public TStat this[string id]
+        {
+            get { return Stats[id]; }
+            set { Stats[id] = value; }
+        }
+        #endregion
+
         #region Methods
         public static IMutableStatCollection<TStat> Create()
         {

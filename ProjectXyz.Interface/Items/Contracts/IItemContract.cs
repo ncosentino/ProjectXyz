@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Interface.Enchantments;
+using ProjectXyz.Interface.Stats;
 
 namespace ProjectXyz.Interface.Items.Contracts
 {
@@ -21,6 +22,12 @@ namespace ProjectXyz.Interface.Items.Contracts
                 Contract.Requires<ArgumentException>(Name != string.Empty);
                 return default(string);
             }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
+            }
         }
 
         public string MagicType
@@ -31,41 +38,29 @@ namespace ProjectXyz.Interface.Items.Contracts
                 Contract.Requires<ArgumentException>(MagicType != string.Empty);
                 return default(string);
             }
-        }
 
-        public IDurability Durability
-        {
-            get
+            set
             {
-                Contract.Requires<ArgumentNullException>(Durability != null);
-                return default(IDurability);
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
             }
         }
 
-        public double Weight
+        public IMutableStatCollection<IMutableStat> Stats
         {
             get
             {
-                Contract.Requires<ArgumentOutOfRangeException>(Weight >= 0);
-                return default(double);
+                Contract.Requires<ArgumentNullException>(Stats != null);
+                return default(IMutableStatCollection<IMutableStat>);
             }
         }
-
-        public double Value
-        {
-            get
-            {
-                Contract.Requires<ArgumentOutOfRangeException>(Value >= 0);
-                return default(double);
-            }
-        }
-
-        public IEnchantmentCollection Enchantments
+        
+        public IMutableEnchantmentCollection Enchantments
         {
             get
             {
                 Contract.Requires<ArgumentNullException>(Enchantments != null);
-                return default(IEnchantmentCollection);
+                return default(IMutableEnchantmentCollection);
             }
         }
 
@@ -78,30 +73,16 @@ namespace ProjectXyz.Interface.Items.Contracts
             }
         }
 
-        public IInventory Sockets
+        public IMutableItemCollection SocketedItems
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Sockets != null);
-                return default(IInventory);
+                Contract.Requires<ArgumentNullException>(SocketedItems != null);
+                return default(IMutableItemCollection);
             }
         }
 
         public abstract Guid Id { get; }
-        #endregion
-
-        #region Methods
-        public void Enchant(IEnumerable<IEnchantment> enchantments)
-        {
-            Contract.Requires<ArgumentNullException>(enchantments != null);
-        }
-
-        public void Disenchant(IEnumerable<IEnchantment> enchantments)
-        {
-            Contract.Requires<ArgumentNullException>(enchantments != null);
-        }
-
-        public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
         #endregion
     }
 }

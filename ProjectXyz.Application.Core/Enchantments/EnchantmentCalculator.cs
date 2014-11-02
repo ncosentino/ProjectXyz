@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectXyz.Interface.Enchantments;
 using ProjectXyz.Interface.Stats;
 using ProjectXyz.Core.Stats;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Core.Enchantments;
 
-namespace ProjectXyz.Core.Enchantments
+namespace ProjectXyz.Application.Core.Enchantments
 {
     public class EnchantmentCalculator : IEnchantmentCalculator
     {
@@ -78,7 +79,9 @@ namespace ProjectXyz.Core.Enchantments
                 var newValue = _calculationMappings[enchantment.CalculationId](
                     oldValue,
                     enchantment.Value);
-                newStats.Set(ReadonlyStat.Create(enchantment.StatId, newValue));
+                newStats[enchantment.StatId] = ReadonlyStat.Create(
+                    enchantment.StatId, 
+                    newValue);
             }
         }
 

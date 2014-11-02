@@ -5,24 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-using ProjectXyz.Interface.Stats;
 using ProjectXyz.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Interface.Enchantments
 {
     [ContractClass(typeof(IEnchantmentContract))]
-    public interface IEnchantment : IUpdateElapsedTime
+    public interface IEnchantment
     {
         #region Properties
-        string StatId { get; }
+        string StatId { get; set; }
 
-        double Value { get; }
+        double Value { get; set; }
 
-        string CalculationId { get; }
-        #endregion
+        string CalculationId { get; set; }
 
-        #region Methods
-        TimeSpan RemainingDuration { get; }
+        TimeSpan RemainingDuration { get; set; }
         #endregion
     }
 }

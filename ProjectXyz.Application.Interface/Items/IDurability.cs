@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectXyz.Interface.Items.Contracts;
+using ProjectXyz.Application.Interface.Items.Contracts;
 
-namespace ProjectXyz.Interface.Items
+namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IDurabilityContract))]
     public interface IDurability

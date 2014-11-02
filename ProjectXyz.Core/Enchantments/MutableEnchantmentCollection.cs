@@ -9,7 +9,9 @@ using ProjectXyz.Interface.Enchantments;
 
 namespace ProjectXyz.Core.Enchantments
 {
-    public class MutableEnchantmentCollection : EnchantmentCollection, IMutableEnchantmentCollection
+    public class MutableEnchantmentCollection : 
+        EnchantmentCollection, 
+        IMutableEnchantmentCollection
     {
         #region Constructors
         protected MutableEnchantmentCollection()

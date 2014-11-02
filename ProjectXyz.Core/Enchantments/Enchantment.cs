@@ -21,25 +21,25 @@ namespace ProjectXyz.Core.Enchantments
         public string StatId
         {
             get;
-            private set;
+            set;
         }
 
         public double Value
         {
             get;
-            private set;
+            set;
         }
 
         public string CalculationId
         {
             get;
-            private set;
+            set;
         }
 
         public TimeSpan RemainingDuration
         {
             get;
-            private set;
+            set;
         }
         #endregion
 
@@ -47,20 +47,6 @@ namespace ProjectXyz.Core.Enchantments
         public static IEnchantment Create()
         {
             return new Enchantment();
-        }
-
-        public void UpdateElapsedTime(TimeSpan elapsedTime)
-        {
-            if (this.HasInfiniteDuration())
-            {
-                return;
-            }
-
-            RemainingDuration -= elapsedTime;
-            if (RemainingDuration < TimeSpan.Zero)
-            {
-                RemainingDuration = TimeSpan.Zero;
-            }
         }
         #endregion
     }

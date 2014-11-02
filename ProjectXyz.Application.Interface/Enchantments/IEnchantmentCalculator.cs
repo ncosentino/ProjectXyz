@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 using ProjectXyz.Interface.Stats;
 
-namespace ProjectXyz.Interface.Enchantments
+namespace ProjectXyz.Application.Interface.Enchantments
 {
     public interface IEnchantmentCalculator
     {
         #region Methods
-        IStatCollection<IStat> Calculate<TStat>(IStatCollection<TStat> stats, IEnchantmentCollection enchantments) where TStat : IStat;
+        IStatCollection<IStat> Calculate<TStat>(
+            IStatCollection<TStat> stats,
+            IEnchantmentCollection enchantments)
+            where TStat : IStat;
         #endregion
     }
 }

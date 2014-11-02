@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectXyz.Interface.Items
+using ProjectXyz.Application.Interface.Items;
+
+namespace ProjectXyz.Application.Interface.Items
 {
     public interface IInventory : IUpdateElapsedTime
     {

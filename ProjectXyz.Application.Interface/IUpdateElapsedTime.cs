@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-namespace ProjectXyz.Interface
+namespace ProjectXyz.Application.Interface
 {
     public interface IUpdateElapsedTime
     {

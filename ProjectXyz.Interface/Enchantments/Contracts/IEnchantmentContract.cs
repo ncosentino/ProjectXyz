@@ -19,11 +19,19 @@ namespace ProjectXyz.Interface.Enchantments.Contracts
                 Contract.Requires<ArgumentException>(StatId != string.Empty);
                 return default(string);
             }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
+            }
         }
 
         public double Value
         {
             get { return default(double); }
+
+            set { }
         }
 
         public string CalculationId
@@ -33,6 +41,12 @@ namespace ProjectXyz.Interface.Enchantments.Contracts
                 Contract.Requires<ArgumentNullException>(CalculationId != null);
                 Contract.Requires<ArgumentException>(CalculationId != string.Empty);
                 return default(string);
+            }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
             }
         }
 
@@ -45,15 +59,13 @@ namespace ProjectXyz.Interface.Enchantments.Contracts
                     RemainingDuration == TimeSpan.MinValue);
                 return default(TimeSpan);
             }
-        }
-        #endregion
 
-        #region Methods
-        public void UpdateElapsedTime(TimeSpan elapsedTime)
-        {
-            Contract.Ensures(
-                RemainingDuration >= TimeSpan.Zero ||
-                RemainingDuration == TimeSpan.MinValue);
+            set
+            {
+                Contract.Requires(
+                    value >= TimeSpan.Zero ||
+                    value == TimeSpan.MinValue);
+            }
         }
         #endregion
     }

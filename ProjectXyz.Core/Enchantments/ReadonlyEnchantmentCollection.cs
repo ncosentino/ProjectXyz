@@ -9,7 +9,9 @@ using ProjectXyz.Interface.Enchantments;
 
 namespace ProjectXyz.Core.Enchantments
 {
-    public class ReadonlyEnchantmentCollection : EnchantmentCollection, IReadonlyEnchantmentCollection
+    public class ReadonlyEnchantmentCollection : 
+        EnchantmentCollection, 
+        IReadonlyEnchantmentCollection
     {
         #region Constructors
         protected ReadonlyEnchantmentCollection()
@@ -24,12 +26,12 @@ namespace ProjectXyz.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IReadonlyEnchantmentCollection Create()
+        public static IReadonlyEnchantmentCollection CreateEmpty()
         {
             return new ReadonlyEnchantmentCollection();
         }
 
-        public static IReadonlyEnchantmentCollection Create(IEnumerable<IEnchantment> enchantments)
+        public static IReadonlyEnchantmentCollection CreateCopy(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
             return new ReadonlyEnchantmentCollection(enchantments);

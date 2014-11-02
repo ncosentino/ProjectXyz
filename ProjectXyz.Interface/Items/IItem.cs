@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Interface.Enchantments;
 using ProjectXyz.Interface.Items.Contracts;
+using ProjectXyz.Interface.Stats;
 
 namespace ProjectXyz.Interface.Items
 {
@@ -14,27 +15,17 @@ namespace ProjectXyz.Interface.Items
     public interface IItem : IGameObject
     {
         #region Properties
-        string Name { get; }
+        string Name { get; set; }
 
-        string MagicType { get; }
+        string MagicType { get; set; }
 
-        double Weight { get; }
+        IMutableStatCollection<IMutableStat> Stats { get; }
 
-        double Value { get; }
-
-        IDurability Durability { get; }
-
-        IEnchantmentCollection Enchantments { get; }
+        IMutableEnchantmentCollection Enchantments { get; }
 
         IRequirements Requirements { get; }
 
-        IInventory Sockets { get; }
-        #endregion
-
-        #region Methods
-        void Enchant(IEnumerable<IEnchantment> enchantments);
-
-        void Disenchant(IEnumerable<IEnchantment> enchantments);
+        IMutableItemCollection SocketedItems { get; }
         #endregion
     }
 }

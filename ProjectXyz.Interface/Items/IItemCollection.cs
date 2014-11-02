@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectXyz.Interface.Items
 {
-    public interface IItemCollection : ICollection<IItem>
+    public interface IItemCollection : IEnumerable<IItem>
     {
+        #region Properties
+        int Count { get; }
+        #endregion
     }
 }

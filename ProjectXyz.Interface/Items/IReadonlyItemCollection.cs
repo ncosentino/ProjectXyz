@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectXyz.Interface.Items
 {
-    public interface IMutableDurability : IDurability
+    public interface IReadonlyItemCollection : IItemCollection
     {
-        #region Methods
-        void SetMaximum(int value);
-
-        void SetCurrent(int value);
-        #endregion
     }
 }

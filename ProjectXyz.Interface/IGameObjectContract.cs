@@ -20,12 +20,5 @@ namespace ProjectXyz.Interface
             }
         }
         #endregion
-
-        #region Methods
-        public void UpdateElapsedTime(TimeSpan elapsedTime)
-        {
-            Contract.Requires<ArgumentOutOfRangeException>(elapsedTime.TotalMilliseconds >= 0);
-        }
-        #endregion
     }
 }

@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-using ProjectXyz.Interface.Enchantments;
-
-namespace ProjectXyz.Interface.Items.Contracts
+namespace ProjectXyz.Application.Interface.Items.Contracts
 {
     [ContractClassFor(typeof(IDurability))]
     public abstract class IDurabilityContract : IDurability

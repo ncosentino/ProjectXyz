@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xunit;
 using Moq;
 
-using ProjectXyz.Interface.Enchantments;
 using ProjectXyz.Interface.Stats;
-using ProjectXyz.Interface.Items;
-using ProjectXyz.Core.Items;
-using ProjectXyz.Core.Enchantments;
 using ProjectXyz.Core.Stats;
+using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Application.Interface.Enchantments;
 
 namespace ProjectXyz.Tests.Items
 {
@@ -21,7 +21,9 @@ namespace ProjectXyz.Tests.Items
         [Fact]
         public void Defaults()
         {
-            var item = Item.Create(EnchantmentCalculator.Create());
+            var item = Item.Create(
+                EnchantmentCalculator.Create(),
+                ProjectXyz.Core.Items.Item.Create());
             Assert.NotNull(item.Id);
             Assert.NotEqual(Guid.Empty, item.Id);
             Assert.Equal(0, item.Durability.Maximum);
@@ -30,14 +32,16 @@ namespace ProjectXyz.Tests.Items
             Assert.Equal(0, item.Value);
             Assert.Equal(string.Empty, item.Name);
             Assert.Empty(item.Enchantments);
-            Assert.Empty(item.Sockets.Items);
+            Assert.Empty(item.SocketedItems);
             Assert.Empty(item.Requirements.Stats);
         }
 
         [Fact]
         public void EnchantItemMaximumDurability()
         {
-            var item = Item.Create(EnchantmentCalculator.Create());
+            var item = Item.Create(
+                EnchantmentCalculator.Create(),
+                ProjectXyz.Core.Items.Item.Create());
             var baseDurability = ReadonlyDurability.Clone(item.Durability);
             var enchantment = new Mock<IEnchantment>();
             enchantment

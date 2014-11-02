@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectXyz.Interface.Enchantments
+namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IEnchantmentBlock : IMutableEnchantmentCollection, IUpdateElapsedTime
+    public interface IReadonlyItemCollection : IItemCollection
     {
     }
 }

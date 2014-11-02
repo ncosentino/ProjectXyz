@@ -11,13 +11,13 @@ namespace ProjectXyz.Interface.Items
     public interface IRequirements
     {
         #region Properties
-        int Level { get; }
+        int Level { get; set; }
 
-        string Race { get; }
+        string Race { get; set; }
 
-        string Class { get; }
+        string Class { get; set; }
 
-        IStatCollection<IStat> Stats { get; }
+        IMutableStatCollection<IStat> Stats { get; }
         #endregion
     }
 }

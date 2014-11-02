@@ -5,9 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectXyz.Interface.Enchantments;
-
-namespace ProjectXyz.Interface.Items.ExtensionMethods
+namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
 {
     public static class IItemCollectionExtensionMethods
     {

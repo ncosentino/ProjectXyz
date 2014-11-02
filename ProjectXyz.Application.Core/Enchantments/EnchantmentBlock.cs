@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-using ProjectXyz.Interface.Enchantments;
-using ProjectXyz.Interface.Enchantments.ExtensionMethods;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 
-namespace ProjectXyz.Core.Enchantments
+namespace ProjectXyz.Application.Core.Enchantments
 {
     public class EnchantmentBlock : MutableEnchantmentCollection, IEnchantmentBlock
     {
