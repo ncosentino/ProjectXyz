@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Interface.Enchantments;
+using ProjectXyz.Interface.Enchantments.ExtensionMethods;
 
 namespace ProjectXyz.Core.Enchantments
 {

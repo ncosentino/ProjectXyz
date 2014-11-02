@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Interface.Enchantments;
 
-namespace ProjectXyz.Interface.Items
+namespace ProjectXyz.Interface.Items.Contracts
 {
     [ContractClassFor(typeof(IDurability))]
     public abstract class IDurabilityContract : IDurability

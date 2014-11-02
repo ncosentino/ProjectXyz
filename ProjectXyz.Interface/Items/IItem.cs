@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Interface.Enchantments;
+using ProjectXyz.Interface.Items.Contracts;
 
 namespace ProjectXyz.Interface.Items
 {

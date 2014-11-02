@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ProjectXyz.Interface.Enchantments;
+using ProjectXyz.Interface.Enchantments.ExtensionMethods;
 
 namespace ProjectXyz.Core.Enchantments
 {

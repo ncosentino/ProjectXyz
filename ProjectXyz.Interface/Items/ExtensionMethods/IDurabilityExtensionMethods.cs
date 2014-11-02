@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectXyz.Interface.Items
+namespace ProjectXyz.Interface.Items.ExtensionMethods
 {
     public static class IDurabilityExtensionMethods
     {

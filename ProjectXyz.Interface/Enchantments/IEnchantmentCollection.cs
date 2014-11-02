@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProjectXyz.Interface.Enchantments.Contracts;
+
 namespace ProjectXyz.Interface.Enchantments
 {
     [ContractClass(typeof(IEnchantmentCollectionContract))]

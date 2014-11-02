@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using ProjectXyz.Interface.Enchantments;
 
-namespace ProjectXyz.Interface.Items
+namespace ProjectXyz.Interface.Items.ExtensionMethods
 {
     public static class IItemCollectionExtensionMethods
     {

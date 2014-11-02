@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-namespace ProjectXyz.Interface.Enchantments
+namespace ProjectXyz.Interface.Enchantments.Contracts
 {
     [ContractClassFor(typeof(IMutableEnchantmentCollection))]
     public abstract class IMutableEnchantmentCollectionContract : IMutableEnchantmentCollection
