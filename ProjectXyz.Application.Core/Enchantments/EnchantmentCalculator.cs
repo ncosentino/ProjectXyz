@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectXyz.Interface.Stats;
-using ProjectXyz.Core.Stats;
+using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Core.Enchantments;
+using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {

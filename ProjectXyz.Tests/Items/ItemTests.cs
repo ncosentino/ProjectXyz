@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Xunit;
 using Moq;
 
-using ProjectXyz.Interface.Stats;
-using ProjectXyz.Core.Stats;
+using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
@@ -23,7 +23,7 @@ namespace ProjectXyz.Tests.Items
         {
             var item = Item.Create(
                 EnchantmentCalculator.Create(),
-                ProjectXyz.Core.Items.Item.Create());
+                ProjectXyz.Data.Core.Items.Item.Create());
             Assert.NotNull(item.Id);
             Assert.NotEqual(Guid.Empty, item.Id);
             Assert.Equal(0, item.Durability.Maximum);
@@ -41,7 +41,7 @@ namespace ProjectXyz.Tests.Items
         {
             var item = Item.Create(
                 EnchantmentCalculator.Create(),
-                ProjectXyz.Core.Items.Item.Create());
+                ProjectXyz.Data.Core.Items.Item.Create());
             var baseDurability = ReadonlyDurability.Clone(item.Durability);
             var enchantment = new Mock<IEnchantment>();
             enchantment

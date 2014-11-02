@@ -5,10 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-namespace ProjectXyz.Application.Interface
+namespace ProjectXyz.Data.Interface
 {
     [ContractClass(typeof(IGameObjectContract))]
-    public interface IGameObject : ProjectXyz.Data.Interface.IGameObject, IUpdateElapsedTime
+    public interface IGameObject
     {
+        #region Properties
+        Guid Id { get; }
+        #endregion
     }
 }

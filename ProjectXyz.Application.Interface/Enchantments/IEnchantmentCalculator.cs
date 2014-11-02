@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectXyz.Interface.Stats;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {

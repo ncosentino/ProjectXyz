@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 using ProjectXyz.Data.Interface.Stats;
 
-namespace ProjectXyz.Application.Interface.Items
+namespace ProjectXyz.Data.Interface.Items
 {
     public interface IRequirements
     {
         #region Properties
-        int Level { get; }
+        int Level { get; set; }
 
-        string Race { get; }
+        string Race { get; set; }
 
-        string Class { get; }
+        string Class { get; set; }
 
-        IReadonlyStatCollection<IStat> Stats { get; }
+        IMutableStatCollection<IStat> Stats { get; }
         #endregion
     }
 }

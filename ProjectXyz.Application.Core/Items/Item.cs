@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-using ProjectXyz.Interface.Stats;
-using ProjectXyz.Core.Stats;
+using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
@@ -18,7 +18,7 @@ namespace ProjectXyz.Application.Core.Items
         #region Fields
         private readonly IEnchantmentBlock _enchantments;
         private readonly IEnchantmentCalculator _enchantmentCalculator;
-        private readonly ProjectXyz.Interface.Items.IItem _item;
+        private readonly ProjectXyz.Data.Interface.Items.IItem _item;
 
         private bool _enchantmentsDirty;
         private IDurability _durability;
@@ -27,7 +27,7 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Constructors
-        protected Item(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Interface.Items.IItem item)
+        protected Item(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
@@ -105,7 +105,7 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static IItem Create(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Interface.Items.IItem item)
+        public static IItem Create(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
             return new Item(enchantmentCalculator, item);
         }
