@@ -14,6 +14,7 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Materials;
 
 namespace ProjectXyz.Tests.Items
 {
@@ -22,9 +23,10 @@ namespace ProjectXyz.Tests.Items
         [Fact]
         public void EnchantItemMaximumDurability()
         {
-            var item = Item.Create(
-                EnchantmentCalculator.Create(),
-                ProjectXyz.Data.Core.Items.Item.Create());
+            var item = Item.Builder
+                .Create()
+                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
+                .Build(EnchantmentCalculator.Create(), ProjectXyz.Data.Core.Items.Item.Create());
             var baseDurability = ReadonlyDurability.Clone(item.Durability);
             var enchantment = new Mock<IEnchantment>();
             enchantment

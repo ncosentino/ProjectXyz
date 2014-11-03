@@ -38,6 +38,11 @@ namespace ProjectXyz.Data.Core.Items
             _enchantments = MutableEnchantmentCollection.Create();
             _requirements = null;
             _socketedItems = MutableItemCollection.Create();
+
+            this.MaterialType =
+            this.Name =
+            this.ItemType =
+            this.MagicType = "Default;";
         }
         #endregion
 

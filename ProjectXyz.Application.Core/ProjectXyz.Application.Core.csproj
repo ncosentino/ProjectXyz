@@ -90,6 +90,7 @@
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\MutableEnchantmentCollection.cs" />
     <Compile Include="Enchantments\ReadonlyEnchantmentCollection.cs" />
+    <Compile Include="Items\ItemBuilder.cs" />
     <Compile Include="Items\MutableItemCollection.cs" />
     <Compile Include="Items\ItemCollection.cs" />
     <Compile Include="Items\Durability.cs" />
@@ -113,6 +114,7 @@
       <Name>ProjectXyz.Data.Interface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

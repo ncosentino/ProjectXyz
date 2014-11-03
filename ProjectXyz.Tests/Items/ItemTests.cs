@@ -9,6 +9,7 @@ using Moq;
 
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
@@ -22,9 +23,10 @@ namespace ProjectXyz.Tests.Items
         [Fact]
         public void Defaults()
         {
-            var item = Item.Create(
-                EnchantmentCalculator.Create(),
-                ProjectXyz.Data.Core.Items.Item.Create());
+            var item = Item.Builder
+                .Create()
+                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
+                .Build(EnchantmentCalculator.Create(), ProjectXyz.Data.Core.Items.Item.Create());
             Assert.NotNull(item.Id);
             Assert.NotEqual(Guid.Empty, item.Id);
             Assert.Equal(0, item.Durability.Maximum);

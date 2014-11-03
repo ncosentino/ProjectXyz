@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Items.Materials;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
 {
@@ -43,13 +44,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public string MaterialType
+        public IMaterial Material
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(MaterialType != null);
-                Contract.Requires<ArgumentException>(MaterialType != string.Empty);
-                return default(string);
+                Contract.Requires<ArgumentNullException>(Material != null);
+                return default(IMaterial);
             }
         }
 

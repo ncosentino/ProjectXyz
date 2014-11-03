@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
@@ -14,7 +15,7 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
-    public class Item : IItem
+    public partial class Item : IItem
     {
         #region Fields
         private readonly IMutableItemCollection _socketedItems;
@@ -29,7 +30,7 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Constructors
-        protected Item(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
+        protected Item(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
@@ -37,10 +38,16 @@ namespace ProjectXyz.Application.Core.Items
             _enchantmentCalculator = enchantmentCalculator;
             _item = item;
 
+            this.Material = builder.MaterialFactory.Load(_item.MaterialType);
+
             _socketedItems = MutableItemCollection.Create();
-            foreach (var socketCandidate in _item.SocketedItems)
+            foreach (var socketCandidateData in _item.SocketedItems)
             {
-                _socketedItems.Add(Item.Create(enchantmentCalculator, socketCandidate));
+                var socketCandidate = Item.Create(
+                    builder, 
+                    enchantmentCalculator, 
+                    socketCandidateData);
+                _socketedItems.Add(socketCandidate);
             }
 
             _enchantments = EnchantmentBlock.Create();
@@ -69,9 +76,10 @@ namespace ProjectXyz.Application.Core.Items
             get { return _item.MagicType; }
         }
 
-        public string MaterialType
+        public IMaterial Material
         {
-            get { return _item.MaterialType; }
+            get;
+            private set;
         }
 
         public string ItemType
@@ -150,11 +158,12 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static IItem Create(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
+        public static IItem Create(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
+            Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
-            return new Item(enchantmentCalculator, item);
+            return new Item(builder, enchantmentCalculator, item);
         }
 
         public double GetStat(string statId)
