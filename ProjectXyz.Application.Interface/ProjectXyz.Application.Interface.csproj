@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentCalculatorContract.cs" />
     <Compile Include="Enchantments\Contracts\IMutableEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IReadonlyEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />

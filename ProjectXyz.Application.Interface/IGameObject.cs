@@ -8,7 +8,10 @@ using System.Diagnostics.Contracts;
 namespace ProjectXyz.Application.Interface
 {
     [ContractClass(typeof(IGameObjectContract))]
-    public interface IGameObject : ProjectXyz.Data.Interface.IGameObject, IUpdateElapsedTime
+    public interface IGameObject : IUpdateElapsedTime
     {
+        #region Properties
+        Guid Id { get; }
+        #endregion
     }
 }

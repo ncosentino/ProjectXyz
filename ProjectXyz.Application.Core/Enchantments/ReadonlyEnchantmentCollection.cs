@@ -22,6 +22,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         protected ReadonlyEnchantmentCollection(IEnumerable<IEnchantment> enchantments)
             : base(enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
         }
         #endregion
 

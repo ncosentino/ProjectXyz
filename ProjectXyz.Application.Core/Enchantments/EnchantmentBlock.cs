@@ -22,6 +22,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         protected EnchantmentBlock(IEnumerable<IEnchantment> enchantments)
             : base(enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
         }
         #endregion
 
@@ -33,6 +34,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         new public static IEnchantmentBlock Create(IEnumerable<IEnchantment> enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
             return new EnchantmentBlock(enchantments);
         }
 

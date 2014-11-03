@@ -107,6 +107,8 @@ namespace ProjectXyz.Application.Core.Items
         #region Methods
         public static IItem Create(IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
+            Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
+            Contract.Requires<ArgumentNullException>(item != null);
             return new Item(enchantmentCalculator, item);
         }
 

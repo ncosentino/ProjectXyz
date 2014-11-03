@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Items;
 
@@ -14,17 +15,24 @@ namespace ProjectXyz.Application.Core.Items
         private ReadonlyDurability(int maximum, int current)
             : base(maximum, current)
         {
+            Contract.Requires<ArgumentException>(maximum >= 0);
+            Contract.Requires<ArgumentException>(current >= 0);
+            Contract.Requires<ArgumentException>(maximum >= current);
         }
         #endregion
 
         #region Methods
         public static IDurability Create(int maximum, int current)
         {
+            Contract.Requires<ArgumentException>(maximum >= 0);
+            Contract.Requires<ArgumentException>(current >= 0);
+            Contract.Requires<ArgumentException>(maximum >= current);
             return new ReadonlyDurability(maximum, current);
         }
 
         public static IDurability Clone(IDurability durability)
         {
+            Contract.Requires<ArgumentNullException>(durability != null);
             return new ReadonlyDurability(
                 durability.Maximum,
                 durability.Current);
