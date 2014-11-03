@@ -18,6 +18,10 @@ namespace ProjectXyz.Application.Interface.Items
 
         string MagicType { get; }
 
+        string ItemType { get; }
+
+        string MaterialType { get; }
+
         double Weight { get; }
 
         double Value { get; }

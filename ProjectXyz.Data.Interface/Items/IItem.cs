@@ -19,6 +19,10 @@ namespace ProjectXyz.Data.Interface.Items
 
         string MagicType { get; set; }
 
+        string ItemType { get; set; }
+
+        string MaterialType { get; set; }
+
         IMutableStatCollection<IMutableStat> Stats { get; }
 
         IMutableEnchantmentCollection Enchantments { get; }

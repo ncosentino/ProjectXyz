@@ -54,6 +54,18 @@ namespace ProjectXyz.Data.Core.Items
             set;
         }
 
+        public string ItemType
+        {
+            get;
+            set;
+        }
+
+        public string MaterialType
+        {
+            get;
+            set;
+        }
+
         public IMutableStatCollection<IMutableStat> Stats
         {
             get { return _stats; }

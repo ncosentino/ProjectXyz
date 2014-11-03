@@ -46,6 +46,38 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
+        public string ItemType
+        {
+            get
+            {
+                Contract.Requires<ArgumentNullException>(ItemType != null);
+                Contract.Requires<ArgumentException>(ItemType != string.Empty);
+                return default(string);
+            }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
+            }
+        }
+
+        public string MaterialType
+        {
+            get
+            {
+                Contract.Requires<ArgumentNullException>(MaterialType != null);
+                Contract.Requires<ArgumentException>(MaterialType != string.Empty);
+                return default(string);
+            }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
+            }
+        }
+
         public IMutableStatCollection<IMutableStat> Stats
         {
             get

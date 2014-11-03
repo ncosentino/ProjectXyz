@@ -71,6 +71,16 @@ namespace ProjectXyz.Application.Core.Items
             get { return _item.MagicType; }
         }
 
+        public string MaterialType
+        {
+            get { return _item.MaterialType; }
+        }
+
+        public string ItemType
+        {
+            get { return _item.ItemType; }
+        }
+
         public double Weight
         {
             get

@@ -33,6 +33,26 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
+        public string ItemType
+        {
+            get
+            {
+                Contract.Requires<ArgumentNullException>(ItemType != null);
+                Contract.Requires<ArgumentException>(ItemType != string.Empty);
+                return default(string);
+            }
+        }
+
+        public string MaterialType
+        {
+            get
+            {
+                Contract.Requires<ArgumentNullException>(MaterialType != null);
+                Contract.Requires<ArgumentException>(MaterialType != string.Empty);
+                return default(string);
+            }
+        }
+
         public IDurability Durability
         {
             get
