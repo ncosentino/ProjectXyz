@@ -110,6 +110,13 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #endregion
 
         #region Methods
+        public double GetStat(string statId)
+        {
+            Contract.Requires<ArgumentNullException>(statId != null);
+            Contract.Requires<ArgumentException>(statId != string.Empty);
+            return default(double);
+        }
+
         public void Enchant(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);

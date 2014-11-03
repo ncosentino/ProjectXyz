@@ -34,6 +34,8 @@ namespace ProjectXyz.Application.Interface.Items
         #endregion
 
         #region Methods
+        double GetStat(string statId);
+
         void Enchant(IEnumerable<IEnchantment> enchantments);
 
         void Disenchant(IEnumerable<IEnchantment> enchantments);

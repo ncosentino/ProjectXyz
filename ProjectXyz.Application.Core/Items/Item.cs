@@ -23,11 +23,9 @@ namespace ProjectXyz.Application.Core.Items
         private readonly ProjectXyz.Data.Interface.Items.IItem _item;
 
         private bool _statsDirty;
-        private IDurability _durability;
-        private double _weight;
-        private double _value;
-        private int _totalSockets;
         private int _openSockets;
+        private IDurability _durability;
+        private IMutableStatCollection<IStat> _stats;
         #endregion
 
         #region Constructors
@@ -86,7 +84,7 @@ namespace ProjectXyz.Application.Core.Items
             get
             {
                 EnsureEnchantmentsCalculated();
-                return _weight;
+                return _stats[ItemStats.Weight].Value;
             }
         }
 
@@ -95,13 +93,17 @@ namespace ProjectXyz.Application.Core.Items
             get
             {
                 EnsureEnchantmentsCalculated();
-                return _value;
+                return _stats[ItemStats.Value].Value;
             }
         }
 
         public int RequiredSockets
         {
-            get { return 1; }
+            get
+            {
+                EnsureEnchantmentsCalculated();
+                return (int)_stats[ItemStats.RequiredSockets].Value;
+            }
         }
 
         public int TotalSockets
@@ -109,7 +111,7 @@ namespace ProjectXyz.Application.Core.Items
             get
             {
                 EnsureEnchantmentsCalculated();
-                return _totalSockets;
+                return (int)_stats[ItemStats.TotalSockets].Value;
             }
         }
 
@@ -155,6 +157,14 @@ namespace ProjectXyz.Application.Core.Items
             return new Item(enchantmentCalculator, item);
         }
 
+        public double GetStat(string statId)
+        {
+            EnsureEnchantmentsCalculated();
+            return _stats.Contains(statId)
+                ? _stats[statId].Value
+                : 0;
+        }
+
         public void Enchant(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);
@@ -196,16 +206,24 @@ namespace ProjectXyz.Application.Core.Items
                 return;
             }
 
-            var stats = _enchantmentCalculator.Calculate(
-                _item.Stats,
-                _enchantments);
-            _durability = CalculateDurability(stats);
-            _weight = CalculateWeight(stats, _socketedItems);
-            _value = CalculateValue(stats);
-            _totalSockets = CalculateTotalSockets(stats);
-            _openSockets = CalculateOpenSockets(_totalSockets, _socketedItems);
-
             _statsDirty = false;
+
+            _stats = MutableStatCollection<IStat>.Create(_enchantmentCalculator.Calculate(
+                _item.Stats,
+                _enchantments));
+            _durability = CalculateDurability(_stats);
+            _stats.Set(MutableStat.Create(
+                ItemStats.Weight, 
+                CalculateWeight(_stats, _socketedItems)));
+            _stats.Set(MutableStat.Create(
+                ItemStats.Value, 
+                CalculateValue(_stats)));
+            _stats.Set(MutableStat.Create(
+                ItemStats.TotalSockets, 
+                CalculateTotalSockets(_stats)));
+            _openSockets = CalculateOpenSockets(
+                this.TotalSockets, 
+                _socketedItems);
         }
 
         private void FlagStatsAsDirty()
