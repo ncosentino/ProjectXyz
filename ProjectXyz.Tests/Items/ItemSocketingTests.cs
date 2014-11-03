@@ -138,5 +138,50 @@ namespace ProjectXyz.Tests.Items
                 socketableItem.Socket(socketCandidate.Object),
                 "Expecting the second socket operation to fail.");
         }
+
+        [Fact]
+        public void SocketEnchantmentsCanExpire()
+        {
+            var socketCandidateEnchantment = new Mock<IEnchantment>();
+            socketCandidateEnchantment
+                .Setup(x => x.StatId)
+                .Returns(ItemStats.Value);
+            socketCandidateEnchantment
+                .Setup(x => x.Value)
+                .Returns(123456);
+            socketCandidateEnchantment
+                .Setup(x => x.CalculationId)
+                .Returns(EnchantmentCalculationTypes.Value);
+            socketCandidateEnchantment
+                .SetupSequence(x => x.RemainingDuration)
+                .Returns(TimeSpan.FromSeconds(5))
+                .Returns(TimeSpan.Zero);
+
+            var socketCandidate = new Mock<IItem>();
+            socketCandidate
+                .Setup(x => x.RequiredSockets)
+                .Returns(1);
+            socketCandidate
+                .Setup(x => x.Enchantments)
+                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create(new IEnchantment[]
+                { 
+                    socketCandidateEnchantment.Object 
+                }));
+
+            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
+            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            var socketableItem = Item.Create(
+                EnchantmentCalculator.Create(),
+                socketableItemData);
+
+            Assert.True(
+                socketableItem.Socket(socketCandidate.Object),
+                "Expecting the socket operation to be successful.");
+            Assert.Equal(socketCandidateEnchantment.Object.Value, socketableItem.Value);
+
+            socketableItem.UpdateElapsedTime(socketCandidateEnchantment.Object.RemainingDuration);
+            Assert.DoesNotContain(socketCandidateEnchantment.Object, socketableItem.Enchantments);
+            Assert.Equal(0, socketableItem.Value);
+        }
     }
 }
