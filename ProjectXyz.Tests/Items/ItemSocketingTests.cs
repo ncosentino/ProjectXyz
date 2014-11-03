@@ -9,6 +9,7 @@ using Moq;
 
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
@@ -20,7 +21,7 @@ namespace ProjectXyz.Tests.Items
     public class ItemSocketingTests
     {
         [Fact]
-        public void AddToOpenSocket()
+        public void AddToOpenSocketSumsWeight()
         {
             var socketCandidate = new Mock<IItem>();
             socketCandidate
@@ -29,6 +30,9 @@ namespace ProjectXyz.Tests.Items
             socketCandidate
                 .Setup(x => x.Weight)
                 .Returns(100);
+            socketCandidate
+                .Setup(x => x.Enchantments)
+                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create());
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
@@ -48,12 +52,54 @@ namespace ProjectXyz.Tests.Items
         }
 
         [Fact]
+        public void AddToOpenSocketAppliesEnchantments()
+        {
+            var socketCandidateEnchantment = new Mock<IEnchantment>();
+            socketCandidateEnchantment
+                .Setup(x => x.StatId)
+                .Returns(ItemStats.Value);
+            socketCandidateEnchantment
+                .Setup(x => x.Value)
+                .Returns(123456);
+            socketCandidateEnchantment
+                .Setup(x => x.CalculationId)
+                .Returns(EnchantmentCalculationTypes.Value);
+
+            var socketCandidate = new Mock<IItem>();
+            socketCandidate
+                .Setup(x => x.RequiredSockets)
+                .Returns(1);
+            socketCandidate
+                .Setup(x => x.Enchantments)
+                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create(new IEnchantment[]
+                { 
+                    socketCandidateEnchantment.Object 
+                }));
+
+            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
+            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            var socketableItem = Item.Create(
+                EnchantmentCalculator.Create(),
+                socketableItemData);
+
+            Assert.True(
+                socketableItem.Socket(socketCandidate.Object),
+                "Expecting the socket operation to be successful.");
+            Assert.Contains(socketCandidate.Object, socketableItem.SocketedItems);
+            Assert.Contains(socketCandidateEnchantment.Object, socketableItem.Enchantments);
+            Assert.Equal(socketCandidateEnchantment.Object.Value, socketableItem.Value);
+        }
+
+        [Fact]
         public void SocketBadSocketCandidate()
         {
             var socketCandidate = new Mock<IItem>();
             socketCandidate
                 .Setup(x => x.RequiredSockets)
                 .Returns(0);
+            socketCandidate
+                .Setup(x => x.Enchantments)
+                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create());
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
@@ -74,6 +120,9 @@ namespace ProjectXyz.Tests.Items
             socketCandidate
                 .Setup(x => x.RequiredSockets)
                 .Returns(1);
+            socketCandidate
+                .Setup(x => x.Enchantments)
+                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create());
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));

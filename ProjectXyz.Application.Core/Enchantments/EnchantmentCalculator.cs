@@ -43,7 +43,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         public IStatCollection<IStat> Calculate<TStat>(
             IStatCollection<TStat> stats, 
-            IEnchantmentCollection enchantments) 
+            IEnumerable<IEnchantment> enchantments) 
             where TStat : IStat
         {
             var newStats = MutableStatCollection<IStat>.Create();

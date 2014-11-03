@@ -119,7 +119,10 @@ namespace ProjectXyz.Application.Core.Items
 
         public IEnchantmentCollection Enchantments
         {
-            get { return ReadonlyEnchantmentCollection.CreateCopy(_enchantments); }
+            get
+            {
+                return ReadonlyEnchantmentCollection.CreateCopy(GetAllEnchantments());
+            }
         }
 
         public IRequirements Requirements
@@ -181,14 +184,21 @@ namespace ProjectXyz.Application.Core.Items
                 return;
             }
 
-            var stats =_enchantmentCalculator.Calculate(_item.Stats, _enchantments);
+            var stats =_enchantmentCalculator.Calculate(
+                _item.Stats,
+                GetAllEnchantments());
             _durability = CalculateDurability(stats);
-            _weight = CalculateWeight(stats, SocketedItems);
+            _weight = CalculateWeight(stats, _socketedItems);
             _value = CalculateValue(stats);
             _totalSockets = CalculateTotalSockets(stats);
-            _openSockets = CalculateOpenSockets(_totalSockets, SocketedItems);
+            _openSockets = CalculateOpenSockets(_totalSockets, _socketedItems);
 
             _statsDirty = false;
+        }
+
+        private IEnumerable<IEnchantment> GetAllEnchantments()
+        {
+            return _enchantments.Concat(_socketedItems.AllEnchantments());
         }
 
         private void FlagStatsAsDirty()

@@ -15,7 +15,7 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
         #region Methods
         public IStatCollection<IStat> Calculate<TStat>(
             IStatCollection<TStat> stats,
-            IEnchantmentCollection enchantments)
+            IEnumerable<IEnchantment> enchantments)
             where TStat : IStat
         {
             Contract.Requires<ArgumentNullException>(stats != null);

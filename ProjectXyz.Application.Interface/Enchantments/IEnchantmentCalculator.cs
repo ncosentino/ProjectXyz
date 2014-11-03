@@ -16,7 +16,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
         #region Methods
         IStatCollection<IStat> Calculate<TStat>(
             IStatCollection<TStat> stats,
-            IEnchantmentCollection enchantments)
+            IEnumerable<IEnchantment> enchantments)
             where TStat : IStat;
         #endregion
     }
