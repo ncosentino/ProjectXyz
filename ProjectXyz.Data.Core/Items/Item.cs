@@ -37,7 +37,7 @@ namespace ProjectXyz.Data.Core.Items
 
             _enchantments = MutableEnchantmentCollection.Create();
             _requirements = null;
-            _socketedItems = null;
+            _socketedItems = MutableItemCollection.Create();
         }
         #endregion
 

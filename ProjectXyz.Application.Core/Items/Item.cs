@@ -40,6 +40,10 @@ namespace ProjectXyz.Application.Core.Items
             _item = item;
 
             _socketedItems = MutableItemCollection.Create();
+            foreach (var socketCandidate in _item.SocketedItems)
+            {
+                _socketedItems.Add(Item.Create(enchantmentCalculator, socketCandidate));
+            }
 
             _enchantments = EnchantmentBlock.Create();
             foreach (var enchantment in _item.Enchantments)
