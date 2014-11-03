@@ -214,7 +214,7 @@ namespace ProjectXyz.Application.Core.Items
 
         private int CalculateTotalSockets(IStatCollection<IStat> stats)
         {
-            return 1;
+            return (int)stats[ItemStats.TotalSockets].Value;
         }
 
         private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems)

@@ -33,6 +33,7 @@ namespace ProjectXyz.Data.Core.Items
             _stats.Set(MutableStat.Create(ItemStats.MaximumDurability, 0));
             _stats.Set(MutableStat.Create(ItemStats.Value, 0));
             _stats.Set(MutableStat.Create(ItemStats.Weight, 0));
+            _stats.Set(MutableStat.Create(ItemStats.TotalSockets, 0));
 
             _enchantments = MutableEnchantmentCollection.Create();
             _requirements = null;

@@ -27,9 +27,11 @@ namespace ProjectXyz.Tests.Items
                 .Setup(x => x.RequiredSockets)
                 .Returns(1);
 
+            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
+            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Create(
                 EnchantmentCalculator.Create(),
-                ProjectXyz.Data.Core.Items.Item.Create());
+                socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate.Object),
@@ -48,9 +50,11 @@ namespace ProjectXyz.Tests.Items
                 .Setup(x => x.RequiredSockets)
                 .Returns(0);
 
+            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
+            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Create(
                 EnchantmentCalculator.Create(),
-                ProjectXyz.Data.Core.Items.Item.Create());
+                socketableItemData);
 
             Assert.False(
                 socketableItem.Socket(socketCandidate.Object),
@@ -66,9 +70,11 @@ namespace ProjectXyz.Tests.Items
                 .Setup(x => x.RequiredSockets)
                 .Returns(1);
 
+            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
+            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Create(
                 EnchantmentCalculator.Create(),
-                ProjectXyz.Data.Core.Items.Item.Create());
+                socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate.Object),

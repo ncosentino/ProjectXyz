@@ -15,5 +15,7 @@ namespace ProjectXyz.Data.Core.Stats
         public const string Weight = "ItemWeight";
 
         public const string Value = "ItemValue";
+
+        public const string TotalSockets = "ItemTotalSockets";
     }
 }
