@@ -22,7 +22,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IEnchantmentCalculator _enchantmentCalculator;
         private readonly ProjectXyz.Data.Interface.Items.IItem _item;
 
-        private bool _enchantmentsDirty;
+        private bool _statsDirty;
         private IDurability _durability;
         private double _weight;
         private double _value;
@@ -47,7 +47,7 @@ namespace ProjectXyz.Application.Core.Items
                 _enchantments.Add(Enchantment.CreateFrom(enchantment));
             }
 
-            _enchantmentsDirty = true;
+            _statsDirty = true;
         }
         #endregion
 
@@ -144,13 +144,13 @@ namespace ProjectXyz.Application.Core.Items
         public void Enchant(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);
-            ResetEnchantmentDependencyCache();
+            FlagStatsAsDirty();
         }
 
         public void Disenchant(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.RemoveRange(enchantments);
-            ResetEnchantmentDependencyCache();
+            FlagStatsAsDirty();
         }
 
         public bool Socket(IItem item)
@@ -163,6 +163,7 @@ namespace ProjectXyz.Application.Core.Items
 
             _socketedItems.Add(item);
             _openSockets -= item.RequiredSockets;
+            _statsDirty = true;
             return true;
         }
 
@@ -170,29 +171,29 @@ namespace ProjectXyz.Application.Core.Items
         {
             var enchantmentCount = _enchantments.Count;
             _enchantments.UpdateElapsedTime(elapsedTime);
-            _enchantmentsDirty |= enchantmentCount != _enchantments.Count;
+            _statsDirty |= enchantmentCount != _enchantments.Count;
         }
 
         protected void EnsureEnchantmentsCalculated()
         {
-            if (!_enchantmentsDirty)
+            if (!_statsDirty)
             {
                 return;
             }
 
             var stats =_enchantmentCalculator.Calculate(_item.Stats, _enchantments);
             _durability = CalculateDurability(stats);
-            _weight = CalculateWeight(stats);
+            _weight = CalculateWeight(stats, SocketedItems);
             _value = CalculateValue(stats);
             _totalSockets = CalculateTotalSockets(stats);
             _openSockets = CalculateOpenSockets(_totalSockets, SocketedItems);
 
-            _enchantmentsDirty = false;
+            _statsDirty = false;
         }
 
-        private void ResetEnchantmentDependencyCache()
+        private void FlagStatsAsDirty()
         {
-            _enchantmentsDirty = true;
+            _statsDirty = true;
         }
 
         private IDurability CalculateDurability(IStatCollection<IStat> stats)
@@ -202,9 +203,9 @@ namespace ProjectXyz.Application.Core.Items
                 (int)stats[ItemStats.CurrentDurability].Value);
         }
 
-        private double CalculateWeight(IStatCollection<IStat> stats)
+        private double CalculateWeight(IStatCollection<IStat> stats, IEnumerable<IItem> socketedItems)
         {
-            return stats[ItemStats.Weight].Value;
+            return stats[ItemStats.Weight].Value + socketedItems.TotalWeight();
         }
 
         private double CalculateValue(IStatCollection<IStat> stats)

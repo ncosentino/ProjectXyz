@@ -26,9 +26,13 @@ namespace ProjectXyz.Tests.Items
             socketCandidate
                 .Setup(x => x.RequiredSockets)
                 .Returns(1);
+            socketCandidate
+                .Setup(x => x.Weight)
+                .Returns(100);
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.Weight, 50));
             var socketableItem = Item.Create(
                 EnchantmentCalculator.Create(),
                 socketableItemData);
@@ -40,6 +44,7 @@ namespace ProjectXyz.Tests.Items
             Assert.Equal(
                 socketableItem.TotalSockets - socketCandidate.Object.RequiredSockets,
                 socketableItem.OpenSockets);
+            Assert.Equal(150, socketableItem.Weight);
         }
 
         [Fact]
