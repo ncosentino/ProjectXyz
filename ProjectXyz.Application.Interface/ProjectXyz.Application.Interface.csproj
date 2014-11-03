@@ -84,6 +84,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\Contracts\ISocketableContract.cs" />
+    <Compile Include="Items\ISocketable.cs" />
     <Compile Include="IUpdateElapsedTimeContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />
@@ -100,7 +102,9 @@
     <Compile Include="Enchantments\IReadonlyEnchantmentCollection.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
+    <Compile Include="Items\Contracts\ISocketCandidateContract.cs" />
     <Compile Include="Items\Contracts\IItemContract.cs" />
+    <Compile Include="Items\ExtensionMethods\ISocketCandidateExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IDurabilityExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IItemCollectionExtensionMethods.cs" />
     <Compile Include="Items\IDurability.cs" />
@@ -113,6 +117,7 @@
     <Compile Include="Items\IMutableItemCollection.cs" />
     <Compile Include="Items\IReadonlyItemCollection.cs" />
     <Compile Include="Items\IRequirements.cs" />
+    <Compile Include="Items\ISocketCandidate.cs" />
     <Compile Include="IUpdateElapsedTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -11,7 +11,7 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IItemContract))]
-    public interface IItem : IGameObject
+    public interface IItem : IGameObject, ISocketCandidate, ISocketable
     {
         #region Properties
         string Name { get; }
@@ -27,8 +27,6 @@ namespace ProjectXyz.Application.Interface.Items
         IEnchantmentCollection Enchantments { get; }
 
         IRequirements Requirements { get; }
-
-        IItemCollection SocketedItems { get; }
         #endregion
 
         #region Methods

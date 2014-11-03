@@ -78,16 +78,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IItemCollection SocketedItems
-        {
-            get
-            {
-                Contract.Requires<ArgumentNullException>(SocketedItems != null);
-                return default(IItemCollection);
-            }
-        }
+        public abstract int TotalSockets { get; }
+
+        public abstract int OpenSockets { get; }
+
+        public abstract IReadonlyItemCollection SocketedItems { get; }
 
         public abstract Guid Id { get; }
+
+        public abstract int RequiredSockets { get; }
         #endregion
 
         #region Methods
@@ -100,6 +99,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
         }
+
+        public abstract bool Socket(IItem item);
 
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
         #endregion

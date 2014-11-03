@@ -10,12 +10,14 @@ using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
     public class Item : IItem
     {
         #region Fields
+        private readonly IMutableItemCollection _socketedItems;
         private readonly IEnchantmentBlock _enchantments;
         private readonly IEnchantmentCalculator _enchantmentCalculator;
         private readonly ProjectXyz.Data.Interface.Items.IItem _item;
@@ -24,6 +26,8 @@ namespace ProjectXyz.Application.Core.Items
         private IDurability _durability;
         private double _weight;
         private double _value;
+        private int _totalSockets;
+        private int _openSockets;
         #endregion
 
         #region Constructors
@@ -34,6 +38,8 @@ namespace ProjectXyz.Application.Core.Items
 
             _enchantmentCalculator = enchantmentCalculator;
             _item = item;
+
+            _socketedItems = MutableItemCollection.Create();
 
             _enchantments = EnchantmentBlock.Create();
             foreach (var enchantment in _item.Enchantments)
@@ -79,6 +85,29 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        public int RequiredSockets
+        {
+            get { return 1; }
+        }
+
+        public int TotalSockets
+        {
+            get
+            {
+                EnsureEnchantmentsCalculated();
+                return _totalSockets;
+            }
+        }
+
+        public int OpenSockets
+        {
+            get
+            {
+                EnsureEnchantmentsCalculated();
+                return _openSockets;
+            }
+        }
+
         public IDurability Durability
         {
             get
@@ -98,9 +127,9 @@ namespace ProjectXyz.Application.Core.Items
             get { throw new NotImplementedException(); }
         }
 
-        public IItemCollection SocketedItems
+        public IReadonlyItemCollection SocketedItems
         {
-            get { throw new NotImplementedException(); }
+            get { return ReadonlyItemCollectionWrapper.Create(_socketedItems); }
         }
         #endregion
 
@@ -124,6 +153,19 @@ namespace ProjectXyz.Application.Core.Items
             ResetEnchantmentDependencyCache();
         }
 
+        public bool Socket(IItem item)
+        {
+            if (!item.CanBeUsedForSocketing() ||
+                OpenSockets < item.RequiredSockets)
+            {
+                return false;
+            }
+
+            _socketedItems.Add(item);
+            _openSockets -= item.RequiredSockets;
+            return true;
+        }
+
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
             var enchantmentCount = _enchantments.Count;
@@ -142,6 +184,8 @@ namespace ProjectXyz.Application.Core.Items
             _durability = CalculateDurability(stats);
             _weight = CalculateWeight(stats);
             _value = CalculateValue(stats);
+            _totalSockets = CalculateTotalSockets(stats);
+            _openSockets = CalculateOpenSockets(_totalSockets, SocketedItems);
 
             _enchantmentsDirty = false;
         }
@@ -166,6 +210,16 @@ namespace ProjectXyz.Application.Core.Items
         private double CalculateValue(IStatCollection<IStat> stats)
         {
             return stats[ItemStats.Value].Value;
+        }
+
+        private int CalculateTotalSockets(IStatCollection<IStat> stats)
+        {
+            return 1;
+        }
+
+        private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems)
+        {
+            return Math.Max(0, totalSockets - socketedItems.TotalRequiredSockets());
         }
         #endregion
     }

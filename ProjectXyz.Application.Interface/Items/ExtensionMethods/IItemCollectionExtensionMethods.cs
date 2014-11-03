@@ -15,6 +15,12 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             Contract.Requires<ArgumentNullException>(items != null);
             return items.Sum(x => x.Weight);
         }
+
+        public static int TotalRequiredSockets(this IEnumerable<IItem> items)
+        {
+            Contract.Requires<ArgumentNullException>(items != null);
+            return items.Sum(x => x.RequiredSockets);
+        }
         #endregion
     }
 }

@@ -15,7 +15,7 @@ namespace ProjectXyz.Application.Interface.Items
         
         void Remove(IItem item);
         
-        void RemoveRange(IEnumerable<IItem> item);
+        void RemoveRange(IEnumerable<IItem> items);
         
         void Clear();
         #endregion

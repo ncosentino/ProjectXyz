@@ -90,6 +90,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\ItemEnchantingTests.cs" />
+    <Compile Include="Items\ItemSocketingTests.cs" />
     <Compile Include="Items\ItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
