@@ -13,23 +13,7 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         #region Properties
         public abstract int Count { get; }
 
-        public TStat this[string statId]
-        {
-            get
-            {
-                Contract.Requires<ArgumentNullException>(statId != null);
-                Contract.Requires<ArgumentException>(statId != string.Empty);
-                return default(TStat);
-            }
-
-            set
-            {
-                Contract.Requires<ArgumentNullException>(statId != null);
-                Contract.Requires<ArgumentException>(statId != string.Empty);
-                Contract.Requires<ArgumentNullException>(value != null);
-                Contract.Requires<ArgumentException>(value.Id == statId);
-            }
-        }
+        public abstract TStat this[string statId] { get; }
         #endregion
 
         #region Methods

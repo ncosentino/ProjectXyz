@@ -11,14 +11,7 @@ namespace ProjectXyz.Data.Interface
     public abstract class IGameObjectContract : IGameObject
     {
         #region Properties
-        public Guid Id
-        {
-            get
-            {
-                Contract.Requires<ArgumentNullException>(Id != null);
-                return default(Guid);
-            }
-        }
+        public abstract Guid Id { get; }
         #endregion
     }
 }

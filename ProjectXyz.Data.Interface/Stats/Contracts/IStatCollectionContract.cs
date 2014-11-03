@@ -19,6 +19,7 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
             {
                 Contract.Requires<ArgumentNullException>(statId != null);
                 Contract.Requires<ArgumentException>(statId != string.Empty);
+                Contract.Ensures(Contract.Result<TStat>() != null);
                 return default(TStat);
             }
         }

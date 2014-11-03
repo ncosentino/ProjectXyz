@@ -13,7 +13,7 @@ namespace ProjectXyz.Application.Core.Enchantments
     public class Enchantment : IEnchantment
     {
         #region Fields
-        private ProjectXyz.Data.Interface.Enchantments.IEnchantment _enchantment;
+        private readonly ProjectXyz.Data.Interface.Enchantments.IEnchantment _enchantment;
         #endregion
 
         #region Constructors

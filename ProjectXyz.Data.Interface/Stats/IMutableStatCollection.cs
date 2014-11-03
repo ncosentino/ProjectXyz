@@ -12,10 +12,6 @@ namespace ProjectXyz.Data.Interface.Stats
     [ContractClass(typeof(IMutableStatCollectionContract<>))]
     public interface IMutableStatCollection<TStat> : IStatCollection<TStat> where TStat : IStat
     {
-        #region Properties
-        new TStat this[string statId] { get; set; }
-        #endregion
-
         #region Methods
         void Set(TStat stat);
         

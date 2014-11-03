@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Application.Interface
 {
+    [ContractClass(typeof(IUpdateElapsedTimeContract))]
     public interface IUpdateElapsedTime
     {
         #region Methods

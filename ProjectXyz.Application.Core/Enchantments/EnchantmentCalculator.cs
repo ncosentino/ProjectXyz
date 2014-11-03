@@ -79,9 +79,9 @@ namespace ProjectXyz.Application.Core.Enchantments
                 var newValue = _calculationMappings[enchantment.CalculationId](
                     oldValue,
                     enchantment.Value);
-                newStats[enchantment.StatId] = ReadonlyStat.Create(
+                newStats.Set(ReadonlyStat.Create(
                     enchantment.StatId, 
-                    newValue);
+                    newValue));
             }
         }
 

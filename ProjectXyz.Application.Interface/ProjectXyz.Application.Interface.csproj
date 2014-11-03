@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUpdateElapsedTimeContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentCalculatorContract.cs" />
