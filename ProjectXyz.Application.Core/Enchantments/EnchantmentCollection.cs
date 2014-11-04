@@ -58,13 +58,13 @@ namespace ProjectXyz.Application.Core.Enchantments
             return _enchantments.GetEnumerator();
         }
 
-        protected void AddEnchantment(IEnchantment enchantment)
+        protected virtual void AddEnchantment(IEnchantment enchantment)
         {
             Contract.Requires<ArgumentNullException>(enchantment != null);
             _enchantments.Add(enchantment);
         }
 
-        protected void AddEnchantments(IEnumerable<IEnchantment> enchantments)
+        protected virtual void AddEnchantments(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
 
@@ -74,18 +74,23 @@ namespace ProjectXyz.Application.Core.Enchantments
             }
         }
 
-        protected void RemoveEnchantment(IEnchantment enchantment)
+        protected virtual void RemoveEnchantment(IEnchantment enchantment)
         {
             Contract.Requires<ArgumentNullException>(enchantment != null);
             _enchantments.Remove(enchantment);
         }
 
-        protected void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
+        protected virtual void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+
+            foreach (var enchantment in enchantments)
+            {
+                RemoveEnchantment(enchantment);
+            }
         }
 
-        protected void ClearEnchantments()
+        protected virtual void ClearEnchantments()
         {
             _enchantments.Clear();
         }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Enchantments.ExtensionMethods;
+using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Data.Core.Enchantments
 {
@@ -46,6 +47,7 @@ namespace ProjectXyz.Data.Core.Enchantments
         #region Methods
         public static IEnchantment Create()
         {
+            Contract.Ensures(Contract.Result<IEnchantment>() != null);
             return new Enchantment();
         }
         #endregion

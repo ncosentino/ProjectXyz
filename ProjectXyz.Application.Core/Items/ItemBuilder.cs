@@ -9,21 +9,6 @@ namespace ProjectXyz.Application.Core.Items
 {
     public partial class Item
     {
-        public interface IItemBuilder
-        {
-            #region Properties
-            IMaterialFactory MaterialFactory { get; set; }
-            #endregion
-
-            #region Exposed Members
-            IItemBuilder WithMaterialFactory(IMaterialFactory factory);
-
-            IItem Build(
-                IEnchantmentCalculator enchantmentCalculator,
-                ProjectXyz.Data.Interface.Items.IItem itemData);
-            #endregion
-        }
-
         public class Builder : IItemBuilder
         {
             #region Fields
@@ -60,9 +45,6 @@ namespace ProjectXyz.Application.Core.Items
                 IEnchantmentCalculator enchantmentCalculator, 
                 ProjectXyz.Data.Interface.Items.IItem itemData)
             {
-                Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
-                Contract.Requires<ArgumentNullException>(itemData != null);
-
                 if (_materialFactory == null)
                 {
                     throw new InvalidOperationException("The material factory must be set.");

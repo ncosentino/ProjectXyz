@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
+using System.Collections.Specialized;
 
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Stats;
@@ -32,6 +33,7 @@ namespace ProjectXyz.Application.Core.Items
         #region Constructors
         protected Item(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
+            Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
 
@@ -55,6 +57,8 @@ namespace ProjectXyz.Application.Core.Items
             {
                 _enchantments.Add(Enchantment.CreateFrom(enchantment));
             }
+
+            _enchantments.CollectionChanged += Enchantments_CollectionChanged;
 
             _statsDirty = true;
         }
@@ -177,13 +181,11 @@ namespace ProjectXyz.Application.Core.Items
         public void Enchant(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);
-            FlagStatsAsDirty();
         }
 
         public void Disenchant(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.RemoveRange(enchantments);
-            FlagStatsAsDirty();
         }
 
         public bool Socket(IItem item)
@@ -265,6 +267,13 @@ namespace ProjectXyz.Application.Core.Items
         private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems)
         {
             return Math.Max(0, totalSockets - socketedItems.TotalRequiredSockets());
+        }
+        #endregion
+
+        #region Event Handlers
+        private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            FlagStatsAsDirty();
         }
         #endregion
     }
