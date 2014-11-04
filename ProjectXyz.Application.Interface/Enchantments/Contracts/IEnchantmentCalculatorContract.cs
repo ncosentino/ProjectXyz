@@ -20,6 +20,7 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IStatCollection<IStat>>() != null);
             return default(IStatCollection<IStat>);
         }
         #endregion

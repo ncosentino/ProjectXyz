@@ -15,7 +15,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentOutOfRangeException>(Count >= 0);
+                Contract.Ensures(Contract.Result<int>() >= 0);
                 return default(int);
             }
         }
@@ -26,6 +26,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             {
                 Contract.Requires<ArgumentOutOfRangeException>(index >= 0);
                 Contract.Requires<ArgumentOutOfRangeException>(index < Count);
+                Contract.Ensures(Contract.Result<IEnchantment>() != null);
                 return default(IEnchantment);
             }
         }

@@ -18,8 +18,8 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Name != null);
-                Contract.Requires<ArgumentException>(Name != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
 
@@ -34,8 +34,8 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(MagicType != null);
-                Contract.Requires<ArgumentException>(MagicType != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
 
@@ -50,8 +50,8 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(ItemType != null);
-                Contract.Requires<ArgumentException>(ItemType != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
 
@@ -66,8 +66,8 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(MaterialType != null);
-                Contract.Requires<ArgumentException>(MaterialType != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
 
@@ -82,7 +82,7 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Stats != null);
+                Contract.Ensures(Contract.Result<IMutableStatCollection<IMutableStat>>() != null);
                 return default(IMutableStatCollection<IMutableStat>);
             }
         }
@@ -91,7 +91,7 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Enchantments != null);
+                Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
                 return default(IMutableEnchantmentCollection);
             }
         }
@@ -100,7 +100,7 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Requirements != null);
+                Contract.Ensures(Contract.Result<IRequirements>() != null);
                 return default(IRequirements);
             }
         }
@@ -109,7 +109,7 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(SocketedItems != null);
+                Contract.Ensures(Contract.Result<IMutableItemCollection>() != null);
                 return default(IMutableItemCollection);
             }
         }

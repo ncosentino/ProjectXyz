@@ -27,6 +27,8 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
         public static IEnumerable<IEnchantment> AllEnchantments(this IEnumerable<IItem> items)
         {
             Contract.Requires<ArgumentNullException>(items != null);
+            Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
+
             foreach (var item in items)
             {
                 foreach (var enchantment in item.Enchantments)

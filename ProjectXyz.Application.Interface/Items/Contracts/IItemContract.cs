@@ -18,8 +18,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Name != null);
-                Contract.Requires<ArgumentException>(Name != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
         }
@@ -28,8 +28,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(MagicType != null);
-                Contract.Requires<ArgumentException>(MagicType != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
         }
@@ -38,8 +38,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(ItemType != null);
-                Contract.Requires<ArgumentException>(ItemType != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
         }
@@ -48,7 +48,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Material != null);
+                Contract.Ensures(Contract.Result<IMaterial>() != null);
                 return default(IMaterial);
             }
         }
@@ -57,7 +57,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Durability != null);
+                Contract.Ensures(Contract.Result<IDurability>() != null);
                 return default(IDurability);
             }
         }
@@ -66,7 +66,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentOutOfRangeException>(Weight >= 0);
+                Contract.Ensures(Contract.Result<double>() >= 0);
                 return default(double);
             }
         }
@@ -75,7 +75,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentOutOfRangeException>(Value >= 0);
+                Contract.Ensures(Contract.Result<double>() >= 0);
                 return default(double);
             }
         }
@@ -84,7 +84,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Enchantments != null);
+                Contract.Ensures(Contract.Result<IEnchantmentCollection>() != null);
                 return default(IEnchantmentCollection);
             }
         }
@@ -93,7 +93,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(Requirements != null);
+                Contract.Ensures(Contract.Result<IRequirements>() != null);
                 return default(IRequirements);
             }
         }

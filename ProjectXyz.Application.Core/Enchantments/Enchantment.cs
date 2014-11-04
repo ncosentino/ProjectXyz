@@ -56,6 +56,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         public static IEnchantment CopyFrom(IEnchantment enchantment)
         {
             Contract.Requires<ArgumentNullException>(enchantment != null);
+            Contract.Ensures(Contract.Result<IEnchantment>() != null);
             
             var newEnchantment = ProjectXyz.Data.Core.Enchantments.Enchantment.Create();
             newEnchantment.StatId = enchantment.StatId;

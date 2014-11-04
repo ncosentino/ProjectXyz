@@ -17,6 +17,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
+                Contract.Ensures(Contract.Result<IMaterialFactory>() != null);
                 return default(IMaterialFactory);
             }
 
@@ -29,6 +30,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         public IItemBuilder WithMaterialFactory(IMaterialFactory factory)
         {
             Contract.Requires<ArgumentNullException>(factory != null);
+            Contract.Ensures(Contract.Result<IItemBuilder>() != null);
             return default(IItemBuilder);
         }
 
@@ -36,6 +38,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(itemData != null);
+            Contract.Ensures(Contract.Result<IItem>() != null);
             return default(IItem);
         }
     }

@@ -15,8 +15,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires(TotalSockets >= 0);
-                Contract.Requires(OpenSockets <= TotalSockets);
+                Contract.Ensures(Contract.Result<int>() >= 0);
+                Contract.Ensures(Contract.Result<int>() >= OpenSockets);
                 return default(int);
             }
         }
@@ -25,8 +25,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires(OpenSockets >= 0);
-                Contract.Requires(OpenSockets <= TotalSockets);
+                Contract.Ensures(Contract.Result<int>() >= 0);
+                Contract.Ensures(Contract.Result<int>() <= TotalSockets);
                 return default(int);
             }
         }
@@ -35,7 +35,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(SocketedItems != null);
+                Contract.Ensures(Contract.Result<IReadonlyItemCollection>() != null);
                 return default(IReadonlyItemCollection);
             }
         }

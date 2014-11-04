@@ -15,8 +15,8 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(StatId != null);
-                Contract.Requires<ArgumentException>(StatId != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
 
@@ -38,8 +38,8 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(CalculationId != null);
-                Contract.Requires<ArgumentException>(CalculationId != string.Empty);
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
             }
 
@@ -54,9 +54,9 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         {
             get
             {
-                Contract.Requires(
-                    RemainingDuration >= TimeSpan.Zero ||
-                    RemainingDuration == TimeSpan.MinValue);
+                Contract.Ensures(
+                    Contract.Result<TimeSpan>() >= TimeSpan.Zero ||
+                    Contract.Result<TimeSpan>() == TimeSpan.MinValue);
                 return default(TimeSpan);
             }
 

@@ -15,6 +15,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Requires<ArgumentNullException>(calculationId != null);
             Contract.Requires<ArgumentException>(calculationId != string.Empty);
+            Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
 
             foreach (var enchantment in enchantments)
             {

@@ -15,8 +15,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires(Maximum >= Current);
-                Contract.Requires(Maximum >= 0);
+                Contract.Ensures(Contract.Result<int>() >= Current);
+                Contract.Ensures(Contract.Result<int>() >= 0);
                 return default(int);
             }
         }
@@ -25,8 +25,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             get
             {
-                Contract.Requires(Current <= Maximum);
-                Contract.Requires(Current >= 0);
+                Contract.Ensures(Contract.Result<int>() <= Maximum);
+                Contract.Ensures(Contract.Result<int>() >= 0);
                 return default(int);
             }
         }
