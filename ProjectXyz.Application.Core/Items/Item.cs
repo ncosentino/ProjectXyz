@@ -34,8 +34,10 @@ namespace ProjectXyz.Application.Core.Items
         protected Item(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
+            Contract.Requires<ArgumentNullException>(builder.MaterialFactory != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(item.MaterialType != null);
 
             _enchantmentCalculator = enchantmentCalculator;
             _item = item;

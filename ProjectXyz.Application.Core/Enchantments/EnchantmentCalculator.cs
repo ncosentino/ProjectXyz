@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Stats;
@@ -38,6 +39,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         #region Methods
         public static IEnchantmentCalculator Create()
         {
+            Contract.Ensures(Contract.Result<IEnchantmentCalculator>() != null);
             return new EnchantmentCalculator();
         }
 

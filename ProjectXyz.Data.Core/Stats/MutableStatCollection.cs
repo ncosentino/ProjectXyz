@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
 
@@ -19,6 +20,7 @@ namespace ProjectXyz.Data.Core.Stats
         protected MutableStatCollection(IEnumerable<TStat> stats)
             : base(stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
         }
         #endregion
 
@@ -33,11 +35,14 @@ namespace ProjectXyz.Data.Core.Stats
         #region Methods
         public static IMutableStatCollection<TStat> Create()
         {
+            Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
             return new MutableStatCollection<TStat>();
         }
 
         public static IMutableStatCollection<TStat> Create(IEnumerable<TStat> stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
             return new MutableStatCollection<TStat>(stats);
         }
 

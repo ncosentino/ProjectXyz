@@ -22,18 +22,21 @@ namespace ProjectXyz.Data.Core.Enchantments
         protected ReadonlyEnchantmentCollection(IEnumerable<IEnchantment> enchantments)
             : base(enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
         }
         #endregion
 
         #region Methods
         public static IReadonlyEnchantmentCollection CreateEmpty()
         {
+            Contract.Ensures(Contract.Result<IReadonlyEnchantmentCollection>() != null);
             return new ReadonlyEnchantmentCollection();
         }
 
         public static IReadonlyEnchantmentCollection CreateCopy(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IReadonlyEnchantmentCollection>() != null);
             return new ReadonlyEnchantmentCollection(enchantments);
         }
         #endregion

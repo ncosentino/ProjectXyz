@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
 
@@ -23,6 +24,8 @@ namespace ProjectXyz.Data.Core.Stats
         protected StatCollection(IEnumerable<TStat> stats)
             : this()
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+
             foreach (var stat in stats)
             {
                 _stats[stat.Id] = stat;
@@ -38,7 +41,11 @@ namespace ProjectXyz.Data.Core.Stats
 
         public TStat this[string id]
         {
-            get { return _stats[id]; }
+            get
+            {
+                Contract.Ensures(Contract.Result<TStat>() != null);
+                return _stats[id];
+            }
         }
 
         protected IDictionary<string, TStat> Stats

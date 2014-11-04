@@ -34,12 +34,14 @@ namespace ProjectXyz.Application.Core.Enchantments
         #region Methods
         new public static IEnchantmentBlock Create()
         {
+            Contract.Ensures(Contract.Result<IEnchantmentBlock>() != null);
             return new EnchantmentBlock();
         }
 
         new public static IEnchantmentBlock Create(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IEnchantmentBlock>() != null);
             return new EnchantmentBlock(enchantments);
         }
 

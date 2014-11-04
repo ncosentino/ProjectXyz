@@ -100,6 +100,7 @@ namespace ProjectXyz.Data.Core.Items
         #region Methods
         public static IItem Create()
         {
+            Contract.Ensures(Contract.Result<IItem>() != null);
             return new Item();
         }
         #endregion

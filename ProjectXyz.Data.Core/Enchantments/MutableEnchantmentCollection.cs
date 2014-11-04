@@ -22,18 +22,21 @@ namespace ProjectXyz.Data.Core.Enchantments
         protected MutableEnchantmentCollection(IEnumerable<IEnchantment> enchantments)
             : base(enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
         }
         #endregion
 
         #region Methods
         public static IMutableEnchantmentCollection Create()
         {
+            Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
             return new MutableEnchantmentCollection();
         }
 
         public static IMutableEnchantmentCollection Create(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
             return new MutableEnchantmentCollection(enchantments);
         }
 

@@ -29,12 +29,14 @@ namespace ProjectXyz.Application.Core.Enchantments
         #region Methods
         public static IMutableEnchantmentCollection Create()
         {
+            Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
             return new MutableEnchantmentCollection();
         }
 
         public static IMutableEnchantmentCollection Create(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
             return new MutableEnchantmentCollection(enchantments);
         }
 

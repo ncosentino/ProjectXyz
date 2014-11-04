@@ -45,7 +45,7 @@ namespace ProjectXyz.Data.Core.Items.Materials
             Contract.Requires<ArgumentException>(materialType != string.Empty);
             Contract.Requires<ArgumentNullException>(name != null);
             Contract.Requires<ArgumentException>(name != string.Empty);
-
+            Contract.Ensures(Contract.Result<IMaterial>() != null);
             return new Material(materialType, name);
         }
         #endregion

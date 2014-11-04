@@ -49,6 +49,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         public static IEnchantment CreateFrom(ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
         {
             Contract.Requires<ArgumentNullException>(enchantment != null);
+            Contract.Ensures(Contract.Result<IEnchantment>() != null);
             return new Enchantment(enchantment);
         }
 
