@@ -35,6 +35,7 @@ namespace ProjectXyz.Application.Core.Items
         public static IReadonlyItemCollection Create(IItemCollection items)
         {
             Contract.Requires<ArgumentNullException>(items != null);
+            Contract.Ensures(Contract.Result<IReadonlyItemCollection>() != null);
             return new ReadonlyItemCollectionWrapper(items);
         }
 

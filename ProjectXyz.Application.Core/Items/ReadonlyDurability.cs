@@ -27,12 +27,14 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentException>(maximum >= 0);
             Contract.Requires<ArgumentException>(current >= 0);
             Contract.Requires<ArgumentException>(maximum >= current);
+            Contract.Ensures(Contract.Result<IDurability>() != null);
             return new ReadonlyDurability(maximum, current);
         }
 
         public static IDurability Clone(IDurability durability)
         {
             Contract.Requires<ArgumentNullException>(durability != null);
+            Contract.Ensures(Contract.Result<IDurability>() != null);
             return new ReadonlyDurability(
                 durability.Maximum,
                 durability.Current);

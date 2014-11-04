@@ -32,6 +32,7 @@ namespace ProjectXyz.Application.Core.Items
             #region Exposed Members
             public static IItemBuilder Create()
             {
+                Contract.Ensures(Contract.Result<IItemBuilder>() != null);
                 return new Builder();
             }
 

@@ -28,12 +28,14 @@ namespace ProjectXyz.Application.Core.Items
         #region Methods
         public static IMutableItemCollection Create()
         {
+            Contract.Ensures(Contract.Result<IMutableItemCollection>() != null);
             return new MutableItemCollection();
         }
 
         public static IMutableItemCollection Create(IEnumerable<IItem> items)
         {
             Contract.Requires<ArgumentNullException>(items != null);
+            Contract.Ensures(Contract.Result<IMutableItemCollection>() != null);
             return new MutableItemCollection(items);
         }
 

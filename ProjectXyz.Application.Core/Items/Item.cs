@@ -38,6 +38,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<ArgumentNullException>(item.MaterialType != null);
+            Contract.Requires<ArgumentNullException>(item.SocketedItems != null);
 
             _enchantmentCalculator = enchantmentCalculator;
             _item = item;
@@ -169,6 +170,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Ensures(Contract.Result<IItem>() != null);
             return new Item(builder, enchantmentCalculator, item);
         }
 
