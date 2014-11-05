@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using Xunit;
 using Moq;
+using Xunit;
 
-using ProjectXyz.Data.Interface.Stats;
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Materials;
 
-namespace ProjectXyz.Tests.Items
+namespace ProjectXyz.Tests.Application.Items
 {
     public class ItemEnchantingTests
     {

@@ -90,17 +90,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Items\ItemEnchantingTests.cs" />
-    <Compile Include="Items\ItemSocketingTests.cs" />
-    <Compile Include="Items\ItemTests.cs" />
+    <Compile Include="Application\Enchantments\EnchantmentBlockTests.cs" />
+    <Compile Include="Application\Items\ItemEnchantingTests.cs" />
+    <Compile Include="Application\Items\ItemSocketingTests.cs" />
+    <Compile Include="Application\Items\ItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enchantments\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
       <Project>{5f23d262-459c-4655-acde-d8563fe33698}</Project>

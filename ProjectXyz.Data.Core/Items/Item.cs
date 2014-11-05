@@ -42,7 +42,7 @@ namespace ProjectXyz.Data.Core.Items
             this.MaterialType =
             this.Name =
             this.ItemType =
-            this.MagicType = "Default;";
+            this.MagicType = "Default";
         }
         #endregion
 
