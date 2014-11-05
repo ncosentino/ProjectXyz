@@ -36,7 +36,7 @@ namespace ProjectXyz.Data.Core.Items
             _stats.Set(MutableStat.Create(ItemStats.TotalSockets, 0));
 
             _enchantments = MutableEnchantmentCollection.Create();
-            _requirements = null;
+            _requirements = Items.Requirements.Create();
             _socketedItems = MutableItemCollection.Create();
 
             this.MaterialType =

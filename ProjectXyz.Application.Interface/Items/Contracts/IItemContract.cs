@@ -102,7 +102,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
 
         public abstract int OpenSockets { get; }
 
-        public abstract IReadonlyItemCollection SocketedItems { get; }
+        public abstract IItemCollection SocketedItems { get; }
 
         public abstract Guid Id { get; }
 

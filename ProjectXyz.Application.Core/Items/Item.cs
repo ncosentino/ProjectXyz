@@ -152,12 +152,12 @@ namespace ProjectXyz.Application.Core.Items
 
         public IRequirements Requirements
         {
-            get { throw new NotImplementedException(); }
+            get { return Items.Requirements.Create(_item.Requirements); }
         }
 
-        public IReadonlyItemCollection SocketedItems
+        public IItemCollection SocketedItems
         {
-            get { return ReadonlyItemCollectionWrapper.Create(_socketedItems); }
+            get { return _socketedItems; }
         }
         #endregion
 

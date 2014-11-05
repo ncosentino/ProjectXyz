@@ -31,12 +31,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IReadonlyItemCollection SocketedItems
+        public IItemCollection SocketedItems
         {
             get
             {
-                Contract.Ensures(Contract.Result<IReadonlyItemCollection>() != null);
-                return default(IReadonlyItemCollection);
+                Contract.Ensures(Contract.Result<IItemCollection>() != null);
+                return default(IItemCollection);
             }
         }
         #endregion

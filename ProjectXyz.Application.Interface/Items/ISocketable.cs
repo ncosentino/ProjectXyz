@@ -17,7 +17,7 @@ namespace ProjectXyz.Application.Interface.Items
 
         int OpenSockets { get; }
 
-        IReadonlyItemCollection SocketedItems { get; }
+        IItemCollection SocketedItems { get; }
         #endregion
 
         #region Methods

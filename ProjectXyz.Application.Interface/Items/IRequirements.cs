@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Application.Interface.Items.Contracts;
 
 namespace ProjectXyz.Application.Interface.Items
 {
+    [ContractClass(typeof(IRequirementsContract))]
     public interface IRequirements
     {
         #region Properties
@@ -17,7 +20,7 @@ namespace ProjectXyz.Application.Interface.Items
 
         string Class { get; }
 
-        IReadonlyStatCollection<IStat> Stats { get; }
+        IStatCollection<IStat> Stats { get; }
         #endregion
     }
 }

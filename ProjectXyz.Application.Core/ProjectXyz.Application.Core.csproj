@@ -94,10 +94,10 @@
     <Compile Include="Items\MutableItemCollection.cs" />
     <Compile Include="Items\ItemCollection.cs" />
     <Compile Include="Items\Durability.cs" />
-    <Compile Include="Items\ReadonlyItemCollectionWrapper.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\MutableDurability.cs" />
     <Compile Include="Items\ReadonlyDurability.cs" />
+    <Compile Include="Items\Requirements.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

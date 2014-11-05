@@ -84,7 +84,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\Contracts\IReadonlyEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentExtensionMethods.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />
@@ -93,10 +92,9 @@
     <Compile Include="Enchantments\IEnchantmentCollection.cs" />
     <Compile Include="Enchantments\IEnchantment.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
-    <Compile Include="Enchantments\IReadonlyEnchantmentCollection.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
-    <Compile Include="Items\IReadonlyItemCollection.cs" />
+    <Compile Include="Items\Contracts\IRequirementsContract.cs" />
     <Compile Include="Items\IMutableItemCollection.cs" />
     <Compile Include="Items\Contracts\IItemContract.cs" />
     <Compile Include="Items\IItemCollection.cs" />
@@ -107,7 +105,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Contracts\IStatCollectionContract.cs" />
     <Compile Include="Stats\Contracts\IMutableStatCollectionContract.cs" />
-    <Compile Include="Stats\IReadonlyStatCollection.cs" />
     <Compile Include="Stats\IMutableStat.cs" />
     <Compile Include="Stats\IMutableStatCollection.cs" />
     <Compile Include="Stats\IStat.cs" />

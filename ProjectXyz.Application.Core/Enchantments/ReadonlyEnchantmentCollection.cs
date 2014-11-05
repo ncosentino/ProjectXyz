@@ -11,7 +11,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 {
     public class ReadonlyEnchantmentCollection : 
         EnchantmentCollection, 
-        IReadonlyEnchantmentCollection
+        IEnchantmentCollection
     {
         #region Constructors
         protected ReadonlyEnchantmentCollection()
@@ -27,16 +27,16 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IReadonlyEnchantmentCollection CreateEmpty()
+        public static IEnchantmentCollection CreateEmpty()
         {
-            Contract.Ensures(Contract.Result<IReadonlyEnchantmentCollection>() != null);
+            Contract.Ensures(Contract.Result<IEnchantmentCollection>() != null);
             return new ReadonlyEnchantmentCollection();
         }
 
-        public static IReadonlyEnchantmentCollection CreateCopy(IEnumerable<IEnchantment> enchantments)
+        public static IEnchantmentCollection CreateCopy(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
-            Contract.Ensures(Contract.Result<IReadonlyEnchantmentCollection>() != null);
+            Contract.Ensures(Contract.Result<IEnchantmentCollection>() != null);
             return new ReadonlyEnchantmentCollection(enchantments);
         }
         #endregion
