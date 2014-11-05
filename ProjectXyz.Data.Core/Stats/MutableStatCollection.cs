@@ -23,15 +23,7 @@ namespace ProjectXyz.Data.Core.Stats
             Contract.Requires<ArgumentNullException>(stats != null);
         }
         #endregion
-
-        #region Properties
-        new public TStat this[string id]
-        {
-            get { return Stats[id]; }
-            set { Stats[id] = value; }
-        }
-        #endregion
-
+        
         #region Methods
         public static IMutableStatCollection<TStat> Create()
         {
@@ -48,37 +40,42 @@ namespace ProjectXyz.Data.Core.Stats
 
         public void Set(TStat stat)
         {
-            this.Stats[stat.Id] = stat;
+            SetStat(stat);
         }
 
         public void Add(TStat stat)
         {
-            this.Stats.Add(stat.Id, stat);
+            AddStat(stat);
         }
 
         public void AddRange(IEnumerable<TStat> stats)
         {
             foreach (var stat in stats)
             {
-                this.Stats.Add(stat.Id, stat);
+                if (stat == null)
+                {
+                    throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
+                }
+
+                AddStat(stat);
             }
         }
 
         public void Remove(string id)
         {
-            this.Stats.Remove(id);
+            RemoveStatWithId(id);
         }
 
         public void Remove(TStat stat)
         {
-            this.Stats.Remove(stat.Id);
+            RemoveStatWithId(stat.Id);
         }
 
         public void RemoveRange(IEnumerable<string> ids)
         {
             foreach (var id in ids)
             {
-                this.Stats.Remove(id);
+                RemoveStatWithId(id);
             }
         }
 
@@ -86,7 +83,7 @@ namespace ProjectXyz.Data.Core.Stats
         {
             foreach (var stat in stats)
             {
-                this.Stats.Remove(stat.Id);
+                RemoveStatWithId(stat.Id);
             }
         }
 

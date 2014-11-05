@@ -34,11 +34,8 @@ namespace ProjectXyz.Application.Core.Items
         protected Item(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
-            Contract.Requires<ArgumentNullException>(builder.MaterialFactory != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
             Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Requires<ArgumentNullException>(item.MaterialType != null);
-            Contract.Requires<ArgumentNullException>(item.SocketedItems != null);
 
             _enchantmentCalculator = enchantmentCalculator;
             _item = item;
@@ -248,6 +245,8 @@ namespace ProjectXyz.Application.Core.Items
 
         private IDurability CalculateDurability(IStatCollection<IStat> stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<IDurability>() != null);
             return ReadonlyDurability.Create(
                 (int)stats[ItemStats.MaximumDurability].Value,
                 (int)stats[ItemStats.CurrentDurability].Value);
@@ -255,21 +254,29 @@ namespace ProjectXyz.Application.Core.Items
 
         private double CalculateWeight(IStatCollection<IStat> stats, IEnumerable<IItem> socketedItems)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Requires<ArgumentNullException>(socketedItems != null);
             return stats[ItemStats.Weight].Value + socketedItems.TotalWeight();
         }
 
         private double CalculateValue(IStatCollection<IStat> stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
             return stats[ItemStats.Value].Value;
         }
 
         private int CalculateTotalSockets(IStatCollection<IStat> stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<int>() >= 0);
             return (int)stats[ItemStats.TotalSockets].Value;
         }
 
         private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems)
         {
+            Contract.Requires<ArgumentOutOfRangeException>(totalSockets >= 0);
+            Contract.Requires<ArgumentNullException>(socketedItems != null);
+            Contract.Ensures(Contract.Result<int>() >= 0);
             return Math.Max(0, totalSockets - socketedItems.TotalRequiredSockets());
         }
         #endregion

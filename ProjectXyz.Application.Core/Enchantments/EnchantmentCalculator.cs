@@ -51,6 +51,11 @@ namespace ProjectXyz.Application.Core.Enchantments
             var newStats = MutableStatCollection<IStat>.Create();
             foreach (var stat in stats)
             {
+                if (stat == null)
+                {
+                    throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
+                }
+
                 newStats.Add(stat);
             }
 
@@ -70,6 +75,8 @@ namespace ProjectXyz.Application.Core.Enchantments
             IMutableStatCollection<IStat> newStats, 
             IEnumerable<IEnchantment> enchantments) where TStat : IStat
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
+
             foreach (var enchantment in enchantments)
             {
                 if (!newStats.Contains(enchantment.StatId))

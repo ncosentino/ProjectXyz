@@ -28,6 +28,11 @@ namespace ProjectXyz.Data.Core.Stats
 
             foreach (var stat in stats)
             {
+                if (stat == null)
+                {
+                    throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
+                }
+
                 _stats[stat.Id] = stat;
             }
         }
@@ -43,14 +48,9 @@ namespace ProjectXyz.Data.Core.Stats
         {
             get
             {
-                Contract.Ensures(Contract.Result<TStat>() != null);
+                Contract.Assume(_stats[id] != null);
                 return _stats[id];
             }
-        }
-
-        protected IDictionary<string, TStat> Stats
-        {
-            get { return _stats; }
         }
         #endregion
 
@@ -68,6 +68,25 @@ namespace ProjectXyz.Data.Core.Stats
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _stats.Values.GetEnumerator();
+        }
+
+        protected void SetStat(TStat stat)
+        {
+            Contract.Requires<ArgumentNullException>(stat != null);
+            _stats[stat.Id] = stat;
+        }
+
+        protected void AddStat(TStat stat)
+        {
+            Contract.Requires<ArgumentNullException>(stat != null);
+            _stats.Add(stat.Id, stat);
+        }
+
+        protected void RemoveStatWithId(string statId)
+        {
+            Contract.Requires<ArgumentNullException>(statId != null);
+            Contract.Requires<ArgumentException>(statId != string.Empty);
+            _stats.Remove(statId);
         }
         #endregion
     }
