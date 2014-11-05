@@ -13,6 +13,8 @@ namespace ProjectXyz.Data.Interface.Stats
     public interface IMutableStatCollection<TStat> : IStatCollection<TStat> where TStat : IStat
     {
         #region Methods
+        new TStat this[string id] { get; set; }
+
         void Set(TStat stat);
         
         void Add(TStat stat);

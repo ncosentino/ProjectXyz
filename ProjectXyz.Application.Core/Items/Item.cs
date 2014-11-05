@@ -23,6 +23,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IEnchantmentBlock _enchantments;
         private readonly IEnchantmentCalculator _enchantmentCalculator;
         private readonly ProjectXyz.Data.Interface.Items.IItem _item;
+        private readonly IMutableRequirements _requirements;
 
         private bool _statsDirty;
         private int _openSockets;
@@ -42,7 +43,7 @@ namespace ProjectXyz.Application.Core.Items
 
             this.Material = builder.MaterialFactory.Load(_item.MaterialType);
 
-            _socketedItems = MutableItemCollection.Create();
+            _socketedItems = ItemCollection.Create();
             foreach (var socketCandidateData in _item.SocketedItems)
             {
                 var socketCandidate = Item.Create(
@@ -59,6 +60,8 @@ namespace ProjectXyz.Application.Core.Items
             }
 
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
+
+            _requirements = Items.Requirements.Create(_item.Requirements);
 
             _statsDirty = true;
         }
@@ -152,7 +155,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public IRequirements Requirements
         {
-            get { return Items.Requirements.Create(_item.Requirements); }
+            get { return _requirements; }
         }
 
         public IItemCollection SocketedItems
@@ -224,13 +227,13 @@ namespace ProjectXyz.Application.Core.Items
                 _item.Stats,
                 _enchantments));
             _durability = CalculateDurability(_stats);
-            _stats.Set(MutableStat.Create(
+            _stats.Set(Stat.Create(
                 ItemStats.Weight, 
                 CalculateWeight(_stats, _socketedItems)));
-            _stats.Set(MutableStat.Create(
+            _stats.Set(Stat.Create(
                 ItemStats.Value, 
                 CalculateValue(_stats)));
-            _stats.Set(MutableStat.Create(
+            _stats.Set(Stat.Create(
                 ItemStats.TotalSockets, 
                 CalculateTotalSockets(_stats)));
             _openSockets = CalculateOpenSockets(
@@ -247,7 +250,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<IDurability>() != null);
-            return ReadonlyDurability.Create(
+            return Items.Durability.Create(
                 (int)stats[ItemStats.MaximumDurability].Value,
                 (int)stats[ItemStats.CurrentDurability].Value);
         }

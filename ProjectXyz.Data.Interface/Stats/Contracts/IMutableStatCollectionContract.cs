@@ -14,6 +14,22 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         public abstract int Count { get; }
 
         public abstract TStat this[string statId] { get; }
+
+        TStat IMutableStatCollection<TStat>.this[string id]
+        {
+            get
+            {
+                Contract.Requires<ArgumentNullException>(id != null);
+                Contract.Requires<ArgumentNullException>(id != string.Empty);
+                Contract.Ensures(Contract.Result<TStat>() != null);
+                return default(TStat);
+            }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+            }
+        }
         #endregion
 
         #region Methods
@@ -51,21 +67,15 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         {
             Contract.Requires<ArgumentNullException>(statIds != null);
         }
-        #endregion
         
-        public bool Contains(string id)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract bool Contains(string id);
 
-        public IEnumerator<TStat> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract IEnumerator<TStat> GetEnumerator();
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return default(System.Collections.IEnumerator);
         }
+        #endregion
     }
 }

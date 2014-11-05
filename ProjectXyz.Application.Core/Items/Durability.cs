@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Items;
 
 namespace ProjectXyz.Application.Core.Items
 {
-    public abstract class Durability : IDurability
+    public sealed class Durability : IMutableDurability
     {
         #region Constructors
-        protected Durability()
+        private Durability(int maximum, int current)
         {
-        }
-
-        protected Durability(int maximum, int current)
-            : this()
-        {
+            Contract.Requires<ArgumentException>(maximum >= 0);
+            Contract.Requires<ArgumentException>(current >= 0);
+            Contract.Requires<ArgumentException>(maximum >= current);
             this.Maximum = maximum;
             this.Current = current;
         }
@@ -27,13 +26,24 @@ namespace ProjectXyz.Application.Core.Items
         public int Maximum
         {
             get;
-            protected set;
+            set;
         }
 
         public int Current
         {
             get;
-            protected set;
+            set;
+        }
+        #endregion
+
+        #region Methods
+        public static IMutableDurability Create(int maximum, int current)
+        {
+            Contract.Requires<ArgumentException>(maximum >= 0);
+            Contract.Requires<ArgumentException>(current >= 0);
+            Contract.Requires<ArgumentException>(maximum >= current);
+            Contract.Ensures(Contract.Result<IDurability>() != null);
+            return new Durability(maximum, current);
         }
         #endregion
     }

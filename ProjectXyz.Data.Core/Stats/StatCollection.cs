@@ -9,23 +9,23 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Core.Stats
 {
-    public abstract class StatCollection<TStat> : IStatCollection<TStat> where TStat : IStat
+    public class MutableStatCollection<TStat> : IMutableStatCollection<TStat> where TStat : IStat
     {
         #region Fields
         private readonly Dictionary<string, TStat> _stats;
         #endregion
 
         #region Constructors
-        protected StatCollection()
+        protected MutableStatCollection()
+            : this(new TStat[0])
         {
-            _stats = new Dictionary<string, TStat>();
         }
 
-        protected StatCollection(IEnumerable<TStat> stats)
-            : this()
+        protected MutableStatCollection(IEnumerable<TStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
 
+            _stats = new Dictionary<string, TStat>();
             foreach (var stat in stats)
             {
                 if (stat == null)
@@ -44,7 +44,7 @@ namespace ProjectXyz.Data.Core.Stats
             get { return _stats.Count; }
         }
 
-        public TStat this[string id]
+        TStat IStatCollection<TStat>.this[string id]
         {
             get
             {
@@ -52,9 +52,85 @@ namespace ProjectXyz.Data.Core.Stats
                 return _stats[id];
             }
         }
+
+        TStat IMutableStatCollection<TStat>.this[string id]
+        {
+            get 
+            {
+                Contract.Assume(_stats[id] != null); 
+                return _stats[id]; 
+            }
+
+            set 
+            {
+                _stats[id] = value; 
+            }
+        }
         #endregion
 
         #region Methods
+        public static IMutableStatCollection<TStat> Create()
+        {
+            Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
+            return new MutableStatCollection<TStat>();
+        }
+
+        public static IMutableStatCollection<TStat> Create(IEnumerable<TStat> stats)
+        {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
+            return new MutableStatCollection<TStat>(stats);
+        }
+
+        public void Set(TStat stat)
+        {
+            _stats[stat.Id] = stat;
+        }
+
+        public void Add(TStat stat)
+        {
+            _stats.Add(stat.Id, stat);
+        }
+
+        public void AddRange(IEnumerable<TStat> stats)
+        {
+            foreach (var stat in stats)
+            {
+                if (stat == null)
+                {
+                    throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
+                }
+
+                Add(stat);
+            }
+        }
+
+        public void Remove(string id)
+        {
+            _stats.Remove(id);
+        }
+
+        public void Remove(TStat stat)
+        {
+            Remove(stat.Id);
+        }
+
+        public void RemoveRange(IEnumerable<string> ids)
+        {
+            foreach (var id in ids)
+            {
+                Remove(id);
+            }
+        }
+
+        public void RemoveRange(IEnumerable<TStat> stats)
+        {
+            foreach (var stat in stats)
+            {
+                Remove(stat.Id);
+            }
+        }
+
         public bool Contains(string id)
         {
             return _stats.ContainsKey(id);
@@ -69,25 +145,6 @@ namespace ProjectXyz.Data.Core.Stats
         {
             return _stats.Values.GetEnumerator();
         }
-
-        protected void SetStat(TStat stat)
-        {
-            Contract.Requires<ArgumentNullException>(stat != null);
-            _stats[stat.Id] = stat;
-        }
-
-        protected void AddStat(TStat stat)
-        {
-            Contract.Requires<ArgumentNullException>(stat != null);
-            _stats.Add(stat.Id, stat);
-        }
-
-        protected void RemoveStatWithId(string statId)
-        {
-            Contract.Requires<ArgumentNullException>(statId != null);
-            Contract.Requires<ArgumentException>(statId != string.Empty);
-            _stats.Remove(statId);
-        }
-        #endregion
+        #endregion        
     }
 }

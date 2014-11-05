@@ -27,11 +27,11 @@ namespace ProjectXyz.Tests.Application.Items
                 .Returns(100);
             socketCandidate
                 .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create());
+                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create());
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
-            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.Weight, 50));
+            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
+            socketableItemData.Stats.Set(Stat.Create(ItemStats.Weight, 50));
             var socketableItem = Item.Builder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
@@ -67,13 +67,13 @@ namespace ProjectXyz.Tests.Application.Items
                 .Returns(1);
             socketCandidate
                 .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create(new IEnchantment[]
+                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create(new IEnchantment[]
                 { 
                     socketCandidateEnchantment.Object 
                 }));
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Builder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
@@ -96,10 +96,10 @@ namespace ProjectXyz.Tests.Application.Items
                 .Returns(0);
             socketCandidate
                 .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create());
+                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create());
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Builder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
@@ -120,10 +120,10 @@ namespace ProjectXyz.Tests.Application.Items
                 .Returns(1);
             socketCandidate
                 .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create());
+                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create());
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Builder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
@@ -162,13 +162,13 @@ namespace ProjectXyz.Tests.Application.Items
                 .Returns(1);
             socketCandidate
                 .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.MutableEnchantmentCollection.Create(new IEnchantment[]
+                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create(new IEnchantment[]
                 { 
                     socketCandidateEnchantment.Object 
                 }));
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(MutableStat.Create(ItemStats.TotalSockets, 1));
+            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = Item.Builder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)

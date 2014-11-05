@@ -12,7 +12,7 @@ using ProjectXyz.Application.Interface.Items;
 
 namespace ProjectXyz.Application.Core.Items
 {
-    public sealed class Requirements : IRequirements
+    public sealed class Requirements : IMutableRequirements
     {
         #region Fields
         private readonly ProjectXyz.Data.Interface.Items.IRequirements _requirementsData;
@@ -30,31 +30,39 @@ namespace ProjectXyz.Application.Core.Items
         public int Level
         {
             get { return _requirementsData.Level; }
+            set { _requirementsData.Level = value; }
         }
 
         public string Race
         {
             get { return _requirementsData.Race; }
+            set { _requirementsData.Race = value; }
         }
 
         public string Class
         {
             get { return _requirementsData.Class; }
+            set { _requirementsData.Class = value; }
         }
 
-        public IStatCollection<IStat> Stats
+        IStatCollection<IStat> IRequirements.Stats
+        {
+            get { return _requirementsData.Stats; }
+        }
+
+        IMutableStatCollection<IStat> IMutableRequirements.Stats
         {
             get { return _requirementsData.Stats; }
         }
         #endregion
 
         #region Methods
-        public static IRequirements Create(ProjectXyz.Data.Interface.Items.IRequirements requirementsData)
+        public static IMutableRequirements Create(ProjectXyz.Data.Interface.Items.IRequirements requirementsData)
         {
             Contract.Requires<ArgumentNullException>(requirementsData != null);
-            Contract.Ensures(Contract.Result<IRequirements>() != null);
+            Contract.Ensures(Contract.Result<IMutableRequirements>() != null);
             return new Requirements(requirementsData);
         }
-        #endregion       
+        #endregion
     }
 }

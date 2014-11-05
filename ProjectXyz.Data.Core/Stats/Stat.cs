@@ -3,38 +3,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Core.Stats
 {
-    public abstract class Stat : IStat
+    public sealed class Stat : IMutableStat
     {
         #region Constructors
-        protected Stat(string id, double value)
-            : this(id)
+        private Stat(string id)
+            : this(id, 0)
         {
+            Contract.Requires<ArgumentNullException>(id != null);
+            Contract.Requires<ArgumentException>(id != string.Empty);
+        }
+
+        private Stat(string id, double value)
+        {
+            Contract.Requires<ArgumentNullException>(id != null);
+            Contract.Requires<ArgumentException>(id != string.Empty);
+
+            this.Id = id;
             this.Value = value;
         }
-
-        protected Stat(string id)
-        {
-            this.Id = id;
-        }
         #endregion
-
 
         #region Properties
         public string Id
         {
             get;
-            private set;
+            set;
         }
 
         public double Value
         {
             get;
-            protected set;
+            set;
+        }
+        #endregion
+
+        #region Methods
+        public static IMutableStat Create(string id)
+        {
+            Contract.Requires<ArgumentNullException>(id != null);
+            Contract.Requires<ArgumentException>(id != string.Empty);
+            Contract.Ensures(Contract.Result<IMutableStat>() != null);
+            return new Stat(id);
+        }
+
+        public static IMutableStat Create(string id, double value)
+        {
+            Contract.Requires<ArgumentNullException>(id != null);
+            Contract.Requires<ArgumentException>(id != string.Empty);
+            Contract.Ensures(Contract.Result<IMutableStat>() != null);
+            return new Stat(id, value);
         }
         #endregion
     }

@@ -10,7 +10,7 @@ using ProjectXyz.Data.Interface.Items;
 
 namespace ProjectXyz.Data.Core.Items
 {
-    public abstract class ItemCollection : IItemCollection
+    public class ItemCollection : IMutableItemCollection
     {
         #region Fields
         private readonly List<IItem> _items;
@@ -18,18 +18,19 @@ namespace ProjectXyz.Data.Core.Items
 
         #region Constructors
         protected ItemCollection()
+            : this(new IItem[0])
         {
-            _items = new List<IItem>();
         }
 
         protected ItemCollection(IEnumerable<IItem> items)
-            : this()
         {
             Contract.Requires<ArgumentNullException>(items != null);
+
+            _items = new List<IItem>();
             _items.AddRange(items);
         }
         #endregion
-        
+
         #region Properties
         public int Count
         {
@@ -38,6 +39,47 @@ namespace ProjectXyz.Data.Core.Items
         #endregion
 
         #region Methods
+        public static IMutableItemCollection Create()
+        {
+            Contract.Ensures(Contract.Result<IMutableItemCollection>() != null);
+            return new ItemCollection();
+        }
+
+        public static IMutableItemCollection Create(IEnumerable<IItem> items)
+        {
+            Contract.Requires<ArgumentNullException>(items != null);
+            Contract.Ensures(Contract.Result<IMutableItemCollection>() != null);
+            return new ItemCollection(items);
+        }
+
+        public void Add(IItem item)
+        {
+            _items.Add(item);
+        }
+
+        public void AddRange(IEnumerable<IItem> items)
+        {
+            _items.AddRange(items);
+        }
+
+        public void Remove(IItem item)
+        {
+            _items.Remove(item);
+        }
+
+        public void RemoveRange(IEnumerable<IItem> items)
+        {
+            foreach (var item in items)
+            {
+                Remove(item);
+            }
+        }
+
+        public void Clear()
+        {
+            _items.Clear();
+        }
+
         public IEnumerator<IItem> GetEnumerator()
         {
             return _items.GetEnumerator();
@@ -46,38 +88,6 @@ namespace ProjectXyz.Data.Core.Items
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _items.GetEnumerator();
-        }
-
-        protected void AddItem(IItem item)
-        {
-            Contract.Requires<ArgumentNullException>(item != null);
-            _items.Add(item);
-        }
-
-        protected void AddItemsRange(IEnumerable<IItem> items)
-        {
-            Contract.Requires<ArgumentNullException>(items != null);
-            _items.AddRange(items);
-        }
-
-        protected void RemoveItem(IItem item)
-        {
-            Contract.Requires<ArgumentNullException>(item != null);
-            _items.Remove(item);
-        }
-
-        protected void RemoveItemsRange(IEnumerable<IItem> items)
-        {
-            Contract.Requires<ArgumentNullException>(items != null);
-            foreach (var item in items)
-            {
-                _items.Remove(item);
-            }
-        }
-
-        protected void ClearItems()
-        {
-            _items.Clear();
         }
         #endregion
     }

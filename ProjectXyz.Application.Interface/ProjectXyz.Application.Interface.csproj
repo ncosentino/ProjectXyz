@@ -84,9 +84,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\Contracts\IMutableRequirementsContract.cs" />
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
     <Compile Include="Items\Contracts\IItemBuilderContract.cs" />
     <Compile Include="Items\Contracts\ISocketableContract.cs" />
+    <Compile Include="Items\IMutableRequirements.cs" />
     <Compile Include="Items\ISocketable.cs" />
     <Compile Include="Items\IItemBuilder.cs" />
     <Compile Include="IUpdateElapsedTimeContract.cs" />

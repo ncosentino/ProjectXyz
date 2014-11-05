@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,7 @@ using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Data.Core.Enchantments
 {
-    public abstract class EnchantmentCollection : IEnchantmentCollection
+    public class EnchantmentCollection : IMutableEnchantmentCollection
     {
         #region Fields
         private readonly List<IEnchantment> _enchantments;
@@ -18,14 +17,15 @@ namespace ProjectXyz.Data.Core.Enchantments
 
         #region Constructors
         protected EnchantmentCollection()
+            : this(new IEnchantment[0])
         {
-            _enchantments = new List<IEnchantment>();
         }
 
         protected EnchantmentCollection(IEnumerable<IEnchantment> enchantments)
-            : this()
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+
+            _enchantments = new List<IEnchantment>();
             _enchantments.AddRange(enchantments);
         }
         #endregion
@@ -43,6 +43,47 @@ namespace ProjectXyz.Data.Core.Enchantments
         #endregion
 
         #region Methods
+        public static IMutableEnchantmentCollection Create()
+        {
+            Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
+            return new EnchantmentCollection();
+        }
+
+        public static IMutableEnchantmentCollection Create(IEnumerable<IEnchantment> enchantments)
+        {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
+            return new EnchantmentCollection(enchantments);
+        }
+
+        public virtual void Add(IEnchantment enchantment)
+        {
+            _enchantments.Add(enchantment);
+        }
+
+        public virtual void AddRange(IEnumerable<IEnchantment> enchantments)
+        {
+            _enchantments.AddRange(enchantments);
+        }
+
+        public virtual void Remove(IEnchantment enchantment)
+        {
+            _enchantments.Remove(enchantment);
+        }
+
+        public virtual void RemoveRange(IEnumerable<IEnchantment> enchantments)
+        {
+            foreach (var enchantment in enchantments)
+            {
+                Remove(enchantment);
+            }
+        }
+
+        public virtual void Clear()
+        {
+            _enchantments.Clear();
+        }
+
         public bool Contains(IEnchantment enchantment)
         {
             return _enchantments.Contains(enchantment);
@@ -53,41 +94,9 @@ namespace ProjectXyz.Data.Core.Enchantments
             return _enchantments.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _enchantments.GetEnumerator();
-        }
-
-        protected void AddEnchantment(IEnchantment enchantment)
-        {
-            Contract.Requires<ArgumentNullException>(enchantment != null);
-            _enchantments.Add(enchantment);
-        }
-
-        protected void AddEnchantments(IEnumerable<IEnchantment> enchantments)
-        {
-            Contract.Requires<ArgumentNullException>(enchantments != null);
-
-            foreach (var enchantment in enchantments)
-            {
-                AddEnchantment(enchantment);
-            }
-        }
-
-        protected void RemoveEnchantment(IEnchantment enchantment)
-        {
-            Contract.Requires<ArgumentNullException>(enchantment != null);
-            _enchantments.Remove(enchantment);
-        }
-
-        protected void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
-        {
-            Contract.Requires<ArgumentNullException>(enchantments != null);
-        }
-
-        protected void ClearEnchantments()
-        {
-            _enchantments.Clear();
         }
         #endregion
     }

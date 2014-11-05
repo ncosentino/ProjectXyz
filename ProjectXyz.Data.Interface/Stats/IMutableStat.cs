@@ -8,8 +8,10 @@ namespace ProjectXyz.Data.Interface.Stats
 {
     public interface IMutableStat : IStat
     {
-        #region Methods
-        void SetValue(double value);
+        #region Properties
+        new string Id { get; set; }
+
+        new double Value { get; set; }
         #endregion
     }
 }

@@ -8,10 +8,10 @@ namespace ProjectXyz.Application.Interface.Items
 {
     public interface IMutableDurability : IDurability
     {
-        #region Methods
-        void SetMaximum(int value);
+        #region Properties
+        new int Maximum { get; set; }
 
-        void SetCurrent(int value);
+        new int Current { get; set; }
         #endregion
     }
 }

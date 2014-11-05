@@ -21,7 +21,9 @@ namespace ProjectXyz.Tests.Application.Items
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
                 .Build(EnchantmentCalculator.Create(), ProjectXyz.Data.Core.Items.Item.Create());
-            var baseDurability = ReadonlyDurability.Clone(item.Durability);
+            var baseDurability = Durability.Create(
+                item.Durability.Maximum, 
+                item.Durability.Current);
             var enchantment = new Mock<IEnchantment>();
             enchantment
                 .Setup(x => x.CalculationId)

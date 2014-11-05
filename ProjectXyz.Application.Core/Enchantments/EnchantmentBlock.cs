@@ -8,7 +8,7 @@ using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
-    public class EnchantmentBlock : MutableEnchantmentCollection, IEnchantmentBlock
+    public class EnchantmentBlock : EnchantmentCollection, IEnchantmentBlock
     {
         #region Fields
         private bool _deferCollectionModifiedEvent;
@@ -60,33 +60,33 @@ namespace ProjectXyz.Application.Core.Enchantments
             }
         }
 
-        protected override void AddEnchantment(IEnchantment enchantment)
+        public override void Add(IEnchantment enchantment)
         {
-            base.AddEnchantment(enchantment);
+            base.Add(enchantment);
             OnCollectionChanged(NotifyCollectionChangedAction.Add, enchantment);
         }
 
-        protected override void AddEnchantments(IEnumerable<IEnchantment> enchantments)
+        public override void AddRange(IEnumerable<IEnchantment> enchantments)
         {
-            DeferCollectionModifiedEvent(() => base.AddEnchantments(enchantments));
+            DeferCollectionModifiedEvent(() => base.AddRange(enchantments));
             OnCollectionReset();
         }
 
-        protected override void RemoveEnchantment(IEnchantment enchantment)
+        public override void Remove(IEnchantment enchantment)
         {
-            base.RemoveEnchantment(enchantment);
+            base.Remove(enchantment);
             OnCollectionChanged(NotifyCollectionChangedAction.Remove, enchantment);
         }
 
-        protected override void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
+        public override void RemoveRange(IEnumerable<IEnchantment> enchantments)
         {
-            DeferCollectionModifiedEvent(() => base.RemoveEnchantments(enchantments));
+            DeferCollectionModifiedEvent(() => base.RemoveRange(enchantments));
             OnCollectionReset();
         }
 
-        protected override void ClearEnchantments()
+        public override void Clear()
         {
-            DeferCollectionModifiedEvent(() => base.ClearEnchantments());
+            DeferCollectionModifiedEvent(() => base.Clear());
             OnCollectionReset();
         }
 
