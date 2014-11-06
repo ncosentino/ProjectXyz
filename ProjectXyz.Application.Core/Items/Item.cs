@@ -16,12 +16,12 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
-    public partial class Item : IItem
+    public class Item : IItem
     {
         #region Fields
         private readonly IMutableItemCollection _socketedItems;
         private readonly IEnchantmentBlock _enchantments;
-        private readonly IEnchantmentCalculator _enchantmentCalculator;
+        private readonly IItemContext _context;
         private readonly ProjectXyz.Data.Interface.Items.IItem _item;
         private readonly IMutableRequirements _requirements;
 
@@ -32,13 +32,13 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Constructors
-        protected Item(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
+        protected Item(IItemBuilder builder, IItemContext context, ProjectXyz.Data.Interface.Items.IItem item)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
-            Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
+            Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(item != null);
 
-            _enchantmentCalculator = enchantmentCalculator;
+            _context = context;
             _item = item;
 
             this.Material = builder.MaterialFactory.Load(_item.MaterialType);
@@ -47,8 +47,8 @@ namespace ProjectXyz.Application.Core.Items
             foreach (var socketCandidateData in _item.SocketedItems)
             {
                 var socketCandidate = Item.Create(
-                    builder, 
-                    enchantmentCalculator, 
+                    builder,
+                    _context, 
                     socketCandidateData);
                 _socketedItems.Add(socketCandidate);
             }
@@ -56,7 +56,9 @@ namespace ProjectXyz.Application.Core.Items
             _enchantments = EnchantmentBlock.Create();
             foreach (var enchantment in _item.Enchantments)
             {
-                _enchantments.Add(Enchantment.CreateFrom(enchantment));
+                _enchantments.Add(Enchantment.Create(
+                    context.EnchantmentContext, 
+                    enchantment));
             }
 
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
@@ -165,13 +167,13 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static IItem Create(IItemBuilder builder, IEnchantmentCalculator enchantmentCalculator, ProjectXyz.Data.Interface.Items.IItem item)
+        public static IItem Create(IItemBuilder builder, IItemContext context, ProjectXyz.Data.Interface.Items.IItem item)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
-            Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
+            Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Ensures(Contract.Result<IItem>() != null);
-            return new Item(builder, enchantmentCalculator, item);
+            return new Item(builder, context, item);
         }
 
         public double GetStat(string statId)
@@ -223,7 +225,7 @@ namespace ProjectXyz.Application.Core.Items
 
             _statsDirty = false;
 
-            _stats = MutableStatCollection<IStat>.Create(_enchantmentCalculator.Calculate(
+            _stats = MutableStatCollection<IStat>.Create(_context.EnchantmentCalculator.Calculate(
                 _item.Stats,
                 _enchantments));
             _durability = CalculateDurability(_stats);

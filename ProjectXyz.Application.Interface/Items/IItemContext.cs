@@ -11,19 +11,13 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    [ContractClass(typeof(IItemBuilderContract))]
-    public interface IItemBuilder
+    [ContractClass(typeof(IItemContextContract))]
+    public interface IItemContext
     {
         #region Properties
-        IMaterialFactory MaterialFactory { get; set; }
-        #endregion
+        IEnchantmentCalculator EnchantmentCalculator { get; }
 
-        #region Exposed Members
-        IItemBuilder WithMaterialFactory(IMaterialFactory factory);
-
-        IItem Build(
-            IItemContext context,
-            ProjectXyz.Data.Interface.Items.IItem itemData);
+        IEnchantmentContext EnchantmentContext { get; }
         #endregion
     }
 }

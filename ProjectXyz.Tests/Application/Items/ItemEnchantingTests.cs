@@ -3,12 +3,13 @@
 using Moq;
 using Xunit;
 
+using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Items.Materials;
+using ProjectXyz.Application.Interface.Items;
 
 namespace ProjectXyz.Tests.Application.Items
 {
@@ -17,10 +18,14 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void EnchantItemMaximumDurability()
         {
-            var item = Item.Builder
+            var context = new Mock<IItemContext>();
+            context
+                .Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+            var item = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(EnchantmentCalculator.Create(), ProjectXyz.Data.Core.Items.Item.Create());
+                .Build(context.Object, ProjectXyz.Data.Core.Items.Item.Create());
             var baseDurability = Durability.Create(
                 item.Durability.Maximum, 
                 item.Durability.Current);

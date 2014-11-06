@@ -13,6 +13,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     [ContractClassFor(typeof(IItemBuilder))]
     public abstract class IItemBuilderContract : IItemBuilder
     {
+        #region Properties
         public IMaterialFactory MaterialFactory
         {
             get
@@ -26,7 +27,9 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
                 Contract.Requires<ArgumentNullException>(value != null);
             }
         }
+        #endregion
 
+        #region Exposed Members
         public IItemBuilder WithMaterialFactory(IMaterialFactory factory)
         {
             Contract.Requires<ArgumentNullException>(factory != null);
@@ -34,12 +37,13 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             return default(IItemBuilder);
         }
 
-        public IItem Build(IEnchantmentCalculator enchantmentCalculator, Data.Interface.Items.IItem itemData)
+        public IItem Build(IItemContext context, Data.Interface.Items.IItem itemData)
         {
-            Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
+            Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(itemData != null);
             Contract.Ensures(Contract.Result<IItem>() != null);
             return default(IItem);
         }
+        #endregion
     }
 }

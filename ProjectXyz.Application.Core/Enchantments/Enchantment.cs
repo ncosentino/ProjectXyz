@@ -10,15 +10,20 @@ using ProjectXyz.Application.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
-    public class Enchantment : IEnchantment
+    public sealed class Enchantment : IEnchantment
     {
         #region Fields
+        private readonly IEnchantmentContext _context;
         private readonly ProjectXyz.Data.Interface.Enchantments.IEnchantment _enchantment;
         #endregion
 
         #region Constructors
-        protected Enchantment(ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
+        private Enchantment(IEnchantmentContext context, ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
         {
+            Contract.Requires<ArgumentNullException>(context != null);
+            Contract.Requires<ArgumentNullException>(enchantment != null);
+
+            _context = context;
             _enchantment = enchantment;
         }
         #endregion
@@ -46,25 +51,12 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantment CreateFrom(ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
+        public static IEnchantment Create(IEnchantmentContext context, ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
         {
+            Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(enchantment != null);
             Contract.Ensures(Contract.Result<IEnchantment>() != null);
-            return new Enchantment(enchantment);
-        }
-
-        public static IEnchantment CopyFrom(IEnchantment enchantment)
-        {
-            Contract.Requires<ArgumentNullException>(enchantment != null);
-            Contract.Ensures(Contract.Result<IEnchantment>() != null);
-            
-            var newEnchantment = ProjectXyz.Data.Core.Enchantments.Enchantment.Create();
-            newEnchantment.StatId = enchantment.StatId;
-            newEnchantment.Value = enchantment.Value;
-            newEnchantment.CalculationId = enchantment.CalculationId;
-            newEnchantment.RemainingDuration = enchantment.RemainingDuration;
-
-            return new Enchantment(newEnchantment);
+            return new Enchantment(context, enchantment);
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)

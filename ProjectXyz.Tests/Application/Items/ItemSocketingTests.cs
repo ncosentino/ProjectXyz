@@ -18,6 +18,11 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void AddToOpenSocketSumsWeight()
         {
+            var context = new Mock<IItemContext>();
+            context
+                .Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
             var socketCandidate = new Mock<IItem>();
             socketCandidate
                 .Setup(x => x.RequiredSockets)
@@ -32,10 +37,10 @@ namespace ProjectXyz.Tests.Application.Items
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             socketableItemData.Stats.Set(Stat.Create(ItemStats.Weight, 50));
-            var socketableItem = Item.Builder
+            var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(EnchantmentCalculator.Create(), socketableItemData);
+                .Build(context.Object, socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate.Object),
@@ -50,6 +55,11 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void AddToOpenSocketAppliesEnchantments()
         {
+            var context = new Mock<IItemContext>();
+            context
+                .Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
             var socketCandidateEnchantment = new Mock<IEnchantment>();
             socketCandidateEnchantment
                 .Setup(x => x.StatId)
@@ -74,10 +84,10 @@ namespace ProjectXyz.Tests.Application.Items
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
-            var socketableItem = Item.Builder
+            var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(EnchantmentCalculator.Create(), socketableItemData);
+                .Build(context.Object, socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate.Object),
@@ -90,6 +100,11 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void SocketBadSocketCandidate()
         {
+            var context = new Mock<IItemContext>();
+            context
+                .Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
             var socketCandidate = new Mock<IItem>();
             socketCandidate
                 .Setup(x => x.RequiredSockets)
@@ -100,10 +115,10 @@ namespace ProjectXyz.Tests.Application.Items
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
-            var socketableItem = Item.Builder
+            var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(EnchantmentCalculator.Create(), socketableItemData);
+                .Build(context.Object, socketableItemData);
 
             Assert.False(
                 socketableItem.Socket(socketCandidate.Object),
@@ -114,6 +129,11 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void AddNoOpenSockets()
         {
+            var context = new Mock<IItemContext>();
+            context
+                .Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
             var socketCandidate = new Mock<IItem>();
             socketCandidate
                 .Setup(x => x.RequiredSockets)
@@ -124,10 +144,10 @@ namespace ProjectXyz.Tests.Application.Items
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
-            var socketableItem = Item.Builder
+            var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(EnchantmentCalculator.Create(), socketableItemData);
+                .Build(context.Object, socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate.Object),
@@ -141,6 +161,11 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void SocketEnchantmentsCanExpire()
         {
+            var context = new Mock<IItemContext>();
+            context
+                .Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
             var socketCandidateEnchantment = new Mock<IEnchantment>();
             socketCandidateEnchantment
                 .Setup(x => x.StatId)
@@ -169,10 +194,10 @@ namespace ProjectXyz.Tests.Application.Items
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
-            var socketableItem = Item.Builder
+            var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(EnchantmentCalculator.Create(), socketableItemData);
+                .Build(context.Object, socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate.Object),
