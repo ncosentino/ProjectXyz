@@ -84,6 +84,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\IActorContext.cs" />
+    <Compile Include="Actors\IActor.cs" />
+    <Compile Include="Actors\IActorBuilder.cs" />
     <Compile Include="Enchantments\IEnchantmentContext.cs" />
     <Compile Include="Items\Contracts\IItemContextContract.cs" />
     <Compile Include="Items\Contracts\IMutableRequirementsContract.cs" />

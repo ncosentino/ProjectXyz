@@ -90,10 +90,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Actors\ActorTests.cs" />
     <Compile Include="Application\Enchantments\EnchantmentBlockTests.cs" />
+    <Compile Include="Application\Enchantments\Mocks\MockEnchantmentBuilder.cs" />
     <Compile Include="Application\Items\ItemEnchantingTests.cs" />
     <Compile Include="Application\Items\ItemSocketingTests.cs" />
     <Compile Include="Application\Items\ItemTests.cs" />
+    <Compile Include="Application\Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

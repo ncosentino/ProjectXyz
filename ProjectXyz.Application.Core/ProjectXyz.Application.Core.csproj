@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\Actor.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
