@@ -44,6 +44,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
+        public IEnumerable<string> EquippableSlots
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IEnumerable<string>>() != null);
+                return default(IEnumerable<string>);
+            }
+        }
+
         public IMaterial Material
         {
             get

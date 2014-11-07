@@ -8,8 +8,10 @@ using Xunit;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Tests.Application.Items.Mocks;
@@ -110,6 +112,9 @@ namespace ProjectXyz.Tests.Application.Actors
                 Assert.True(
                     actor.Equip(item),
                     "Expecting to equip " + item  + ".");
+                Assert.True(
+                    actor.HasItemEquipped(item),
+                    "Expecting item to be equipped in one of [" + string.Join(", ", item.EquippableSlots) + "] slots.");
             }
 
             validationCallback.Invoke();

@@ -44,6 +44,13 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             Contract.Requires<ArgumentNullException>(enchantment != null);
             item.Disenchant(new IEnchantment[] { enchantment });
         }
+
+        public static bool IsEquipped(this IItem item, IEquipment equipment)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(equipment != null);
+            return equipment.HasItemEquipped(item);
+        }
         #endregion
     }
 }

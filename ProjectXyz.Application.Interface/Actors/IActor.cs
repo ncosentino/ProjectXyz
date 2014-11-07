@@ -14,6 +14,8 @@ namespace ProjectXyz.Application.Interface.Actors
         double MaximumLife { get; }
 
         double CurrentLife { get; }
+
+        IEquipment Equipment { get; }
         #endregion
 
         #region Methods

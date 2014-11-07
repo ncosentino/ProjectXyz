@@ -40,6 +40,11 @@ namespace ProjectXyz.Application.Core.Actors
         {
             get { throw new NotImplementedException(); }
         }
+        
+        public IEquipment Equipment
+        {
+            get { throw new NotImplementedException(); }
+        }
         #endregion
 
         #region Methods

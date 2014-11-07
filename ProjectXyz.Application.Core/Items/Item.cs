@@ -141,6 +141,11 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        public IEnumerable<string> EquippableSlots
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public IDurability Durability
         {
             get

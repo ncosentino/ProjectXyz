@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
     <Compile Include="Actors\IActorContext.cs" />
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\IActorBuilder.cs" />
@@ -93,6 +94,9 @@
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
     <Compile Include="Items\Contracts\IItemBuilderContract.cs" />
     <Compile Include="Items\Contracts\ISocketableContract.cs" />
+    <Compile Include="Items\IMutableEquipment.cs" />
+    <Compile Include="Items\ExtensionMethods\IEquipmentExtensionMethods.cs" />
+    <Compile Include="Items\IEquipment.cs" />
     <Compile Include="Items\IItemContext.cs" />
     <Compile Include="Items\IMutableRequirements.cs" />
     <Compile Include="Items\ISocketable.cs" />

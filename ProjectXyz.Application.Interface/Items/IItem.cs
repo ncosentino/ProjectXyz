@@ -27,6 +27,8 @@ namespace ProjectXyz.Application.Interface.Items
 
         double Value { get; }
 
+        IEnumerable<string> EquippableSlots { get; }
+
         IDurability Durability { get; }
 
         IEnchantmentCollection Enchantments { get; }
