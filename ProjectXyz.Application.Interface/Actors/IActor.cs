@@ -8,7 +8,7 @@ using ProjectXyz.Application.Interface.Items;
 
 namespace ProjectXyz.Application.Interface.Actors
 {
-    public interface IActor
+    public interface IActor : IUpdateElapsedTime
     {
         #region Properties
         double MaximumLife { get; }

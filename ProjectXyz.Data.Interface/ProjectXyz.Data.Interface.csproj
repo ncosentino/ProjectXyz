@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\IActor.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentExtensionMethods.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />

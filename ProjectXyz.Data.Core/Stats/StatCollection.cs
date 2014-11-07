@@ -9,19 +9,19 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Core.Stats
 {
-    public class MutableStatCollection<TStat> : IMutableStatCollection<TStat> where TStat : IStat
+    public class StatCollection<TStat> : IMutableStatCollection<TStat> where TStat : IStat
     {
         #region Fields
         private readonly Dictionary<string, TStat> _stats;
         #endregion
 
         #region Constructors
-        protected MutableStatCollection()
+        protected StatCollection()
             : this(new TStat[0])
         {
         }
 
-        protected MutableStatCollection(IEnumerable<TStat> stats)
+        protected StatCollection(IEnumerable<TStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
 
@@ -72,14 +72,14 @@ namespace ProjectXyz.Data.Core.Stats
         public static IMutableStatCollection<TStat> Create()
         {
             Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
-            return new MutableStatCollection<TStat>();
+            return new StatCollection<TStat>();
         }
 
         public static IMutableStatCollection<TStat> Create(IEnumerable<TStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
-            return new MutableStatCollection<TStat>(stats);
+            return new StatCollection<TStat>(stats);
         }
 
         public void Set(TStat stat)

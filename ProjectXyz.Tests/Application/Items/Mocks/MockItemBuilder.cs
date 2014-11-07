@@ -28,15 +28,43 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
         #endregion
 
         #region Methods
-        public MockItemBuilder WithEnchantment(IEnchantment enchantment)
+        public MockItemBuilder WithEnchantments(params IEnchantment[] enchantments)
         {
-            _enchantments.Add(enchantment);
-            return this;
+            return WithEnchantments((IEnumerable<IEnchantment>)enchantments);
         }
 
         public MockItemBuilder WithEnchantments(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);
+            return this;
+        }
+
+        public MockItemBuilder WithDurability(int maximum, int current)
+        {
+            var durability = new Mock<IDurability>();
+            durability
+                .Setup(x => x.Maximum)
+                .Returns(maximum);
+            durability
+                .Setup(x => x.Current)
+                .Returns(current);            
+
+            _item
+                .Setup(x => x.Durability)
+                .Returns(durability.Object);
+            return this;
+        }
+
+        public MockItemBuilder WithEquippableSlots(params string[] slots)
+        {
+            return WithEquippableSlots((IEnumerable<string>)slots);
+        }
+
+        public MockItemBuilder WithEquippableSlots(IEnumerable<string> slots)
+        {
+            _item
+                .Setup(x => x.EquippableSlots)
+                .Returns(slots);
             return this;
         }
 

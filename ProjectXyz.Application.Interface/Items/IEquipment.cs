@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IEquipment : IItemCollection
+    public interface IEquipment : IItemCollection, IUpdateElapsedTime
     {
         #region Properties
         IItem this[string slot] { get; }

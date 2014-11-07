@@ -28,7 +28,7 @@ namespace ProjectXyz.Data.Core.Items
         {
             _id = Guid.NewGuid();
             
-            _stats = MutableStatCollection<IMutableStat>.Create();
+            _stats = StatCollection<IMutableStat>.Create();
             _stats.Set(Stat.Create(ItemStats.CurrentDurability, 0));
             _stats.Set(Stat.Create(ItemStats.MaximumDurability, 0));
             _stats.Set(Stat.Create(ItemStats.Value, 0));

@@ -16,12 +16,13 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Tests.Application.Items.Mocks;
 using ProjectXyz.Tests.Application.Enchantments.Mocks;
+using ProjectXyz.Tests.Data.Actors.Mocks;
 
 namespace ProjectXyz.Tests.Application.Actors
 {
     public class ActorTests
     {
-        [Fact(Skip="Not implemented yet")]
+        [Fact]
         public void EquipLifeEnchantedItem()
         {
             const double BASE_LIFE = 100;
@@ -34,17 +35,25 @@ namespace ProjectXyz.Tests.Application.Actors
                 .Build();
 
             var enchantedItem = new MockItemBuilder()
-                .WithEnchantment(enchantment)
+                .WithEnchantments(enchantment)
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
                 .Build();
 
             var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
+                .Build();
             var context = new Mock<IActorContext>();
-            var data = new Mock<ProjectXyz.Data.Interface.Actors.IActor>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
                 builder.Object,
                 context.Object,
-                data.Object);
+                data);
 
             AssertEquipItem(
                 actor,
@@ -56,11 +65,11 @@ namespace ProjectXyz.Tests.Application.Actors
                 });
         }
 
-        [Fact(Skip = "Not implemented yet")]
+        [Fact]
         public void EquipHealItem()
         {
             const double MAX_LIFE = 100;
-            ////const double BASE_LIFE = 50;
+            const double BASE_LIFE = 50;
             const double HEAL_AMOUNT = 1000;
 
             var enchantment = new MockEnchantmentBuilder()
@@ -70,17 +79,25 @@ namespace ProjectXyz.Tests.Application.Actors
                 .Build();
 
             var enchantedItem = new MockItemBuilder()
-                .WithEnchantment(enchantment)
+                .WithEnchantments(enchantment)
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
                 .Build();
 
             var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, MAX_LIFE))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
+                .Build();
             var context = new Mock<IActorContext>();
-            var data = new Mock<ProjectXyz.Data.Interface.Actors.IActor>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
                 builder.Object,
                 context.Object,
-                data.Object);
+                data);
 
             AssertEquipItem(
                 actor,
@@ -90,6 +107,45 @@ namespace ProjectXyz.Tests.Application.Actors
                     Assert.Equal(MAX_LIFE, actor.CurrentLife);
                     Assert.Equal(MAX_LIFE, actor.MaximumLife);
                 });
+        }
+
+        [Fact]
+        public void EquipBrokenItem()
+        {
+            var item = new MockItemBuilder()
+                .WithEquippableSlots("Some slot")
+                .WithDurability(100, 0)
+                .Build();
+
+            var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder().Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                builder.Object,
+                context.Object,
+                data);
+
+            AssertCannotEquipItem(actor, item);
+        }
+
+        public void AssertCannotEquipItem(IActor actor, IItem item)
+        {
+            Assert.NotNull(actor);
+            Assert.NotNull(item);
+
+            Assert.False(
+                actor.HasItemEquipped(item),
+                "The actor already has '" + item + "' equipped.");
+            Assert.False(
+                actor.Equip(item),
+                "Expecting to fail to equip '" + item + "'.");
+            Assert.False(
+                actor.HasItemEquipped(item),
+                "The actor should not have '" + item + "' equipped.");
         }
 
         public void AssertEquipItem(IActor actor, IItem item, Action validationCallback)
@@ -111,7 +167,7 @@ namespace ProjectXyz.Tests.Application.Actors
                 Assert.NotNull(item);
                 Assert.True(
                     actor.Equip(item),
-                    "Expecting to equip " + item  + ".");
+                    "Expecting to equip '" + item  + "'.");
                 Assert.True(
                     actor.HasItemEquipped(item),
                     "Expecting item to be equipped in one of [" + string.Join(", ", item.EquippableSlots) + "] slots.");

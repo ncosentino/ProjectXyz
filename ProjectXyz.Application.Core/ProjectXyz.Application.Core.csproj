@@ -89,6 +89,7 @@
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
+    <Compile Include="Items\Equipment.cs" />
     <Compile Include="Items\Requirements.cs" />
     <Compile Include="Items\ItemBuilder.cs" />
     <Compile Include="Items\ItemCollection.cs" />

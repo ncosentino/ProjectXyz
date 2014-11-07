@@ -28,14 +28,21 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
         {
             Contract.Requires<ArgumentNullException>(items != null);
             Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
+            return items.SelectMany(x => x.Enchantments);
+        }
 
-            foreach (var item in items)
-            {
-                foreach (var enchantment in item.Enchantments)
-                {
-                    yield return enchantment;
-                }
-            }
+        public static IEnumerable<IItem> AllUnbrokenItems(this IEnumerable<IItem> items)
+        {
+            Contract.Requires<ArgumentNullException>(items != null);
+            Contract.Ensures(Contract.Result<IEnumerable<IItem>>() != null);
+            return items.Where(x => !x.IsBroken());
+        }
+
+        public static IEnumerable<IItem> AllBrokenItems(this IEnumerable<IItem> items)
+        {
+            Contract.Requires<ArgumentNullException>(items != null);
+            Contract.Ensures(Contract.Result<IEnumerable<IItem>>() != null);
+            return items.Where(x => x.IsBroken());
         }
         #endregion
     }

@@ -48,7 +48,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             IEnumerable<IEnchantment> enchantments) 
             where TStat : IStat
         {
-            var newStats = MutableStatCollection<IStat>.Create();
+            var newStats = StatCollection<IStat>.Create();
             foreach (var stat in stats)
             {
                 if (stat == null)

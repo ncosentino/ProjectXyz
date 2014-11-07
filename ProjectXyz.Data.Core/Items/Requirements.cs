@@ -21,7 +21,7 @@ namespace ProjectXyz.Data.Core.Items
         #region Constructors
         private Requirements()
         {
-            _stats = MutableStatCollection<IStat>.Create();
+            _stats = StatCollection<IStat>.Create();
         }
         #endregion
         

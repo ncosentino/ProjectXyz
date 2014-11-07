@@ -97,6 +97,7 @@
     <Compile Include="Application\Items\ItemSocketingTests.cs" />
     <Compile Include="Application\Items\ItemTests.cs" />
     <Compile Include="Application\Items\Mocks\MockItemBuilder.cs" />
+    <Compile Include="Data\Actors\Mocks\MockActorBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

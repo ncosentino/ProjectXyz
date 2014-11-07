@@ -24,6 +24,21 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             slot = item.EquippableSlots.FirstOrDefault(s => equipment[s] == item);
             return !string.IsNullOrEmpty(slot);
         }
+
+        public static bool TryGetFirstOpenSlot(this IEquipment equipment, IItem item, out string slot)
+        {
+            Contract.Requires<ArgumentNullException>(equipment != null);
+            Contract.Requires<ArgumentNullException>(item != null);
+            return TryGetFirstOpenSlot(equipment, item.EquippableSlots, out slot);
+        }
+
+        public static bool TryGetFirstOpenSlot(this IEquipment equipment, IEnumerable<string> slots, out string slot)
+        {
+            Contract.Requires<ArgumentNullException>(equipment != null);
+            Contract.Requires<ArgumentNullException>(slots != null);
+            slot = slots.FirstOrDefault(s => equipment[s] == null);
+            return !string.IsNullOrEmpty(slot);
+        }
         #endregion
     }
 }
