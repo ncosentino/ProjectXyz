@@ -8,6 +8,7 @@ using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Tests.Xunit.Categories;
+using ProjectXyz.Tests.Application.Items.Mocks;
 
 namespace ProjectXyz.Tests.Application.Items
 {
@@ -18,15 +19,13 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void Defaults()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
-
             var item = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, ProjectXyz.Data.Core.Items.Item.Create());
+                .Build(
+                    new MockItemContextBuilder().Build(), 
+                    new Tests.Data.Items.Mocks.MockItemBuilder().Build());
+
             Assert.NotNull(item.Id);
             Assert.NotEqual(Guid.Empty, item.Id);
             Assert.Equal(0, item.Durability.Maximum);

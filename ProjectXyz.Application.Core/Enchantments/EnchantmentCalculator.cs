@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
@@ -79,12 +80,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
             foreach (var enchantment in enchantments)
             {
-                if (!newStats.Contains(enchantment.StatId))
-                {
-                    continue;
-                }
-
-                var oldValue = newStats[enchantment.StatId].Value;
+                var oldValue = newStats.GetValueOrDefault(enchantment.StatId, 0);
                 var newValue = _calculationMappings[enchantment.CalculationId](
                     oldValue,
                     enchantment.Value);

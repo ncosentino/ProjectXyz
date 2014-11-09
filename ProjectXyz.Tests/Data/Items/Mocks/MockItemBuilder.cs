@@ -27,13 +27,7 @@ namespace ProjectXyz.Tests.Data.Items.Mocks
         public MockItemBuilder()
         {
             _item = new Mock<IItem>();
-
             _stats = new List<IMutableStat>();
-            _stats.Add(Stat.Create(ItemStats.CurrentDurability, 0));
-            _stats.Add(Stat.Create(ItemStats.MaximumDurability, 0));
-            _stats.Add(Stat.Create(ItemStats.Value, 0));
-            _stats.Add(Stat.Create(ItemStats.Weight, 0));
-            _stats.Add(Stat.Create(ItemStats.TotalSockets, 0));
         }
         #endregion
 
@@ -89,7 +83,22 @@ namespace ProjectXyz.Tests.Data.Items.Mocks
                 .Returns(ItemCollection.Create());
             _item
                 .Setup(x => x.Requirements)
-                .Returns(new Mock<IRequirements>().Object);
+                .Returns(new MockRequirementsBuilder().Build());
+            _item
+                .Setup(x => x.Id)
+                .Returns(Guid.NewGuid());
+            _item
+                .Setup(x => x.Name)
+                .Returns("Default");
+            _item
+                .Setup(x => x.MagicType)
+                .Returns("Default");
+            _item
+                .Setup(x => x.MaterialType)
+                .Returns("Default");
+            _item
+                .Setup(x => x.ItemType)
+                .Returns("Default");
 
             return _item.Object;
         }

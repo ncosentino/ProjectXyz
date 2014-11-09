@@ -30,12 +30,6 @@ namespace ProjectXyz.Data.Core.Items
             _id = Guid.NewGuid();
             
             _stats = StatCollection<IMutableStat>.Create();
-            _stats.Set(Stat.Create(ItemStats.CurrentDurability, 0));
-            _stats.Set(Stat.Create(ItemStats.MaximumDurability, 0));
-            _stats.Set(Stat.Create(ItemStats.Value, 0));
-            _stats.Set(Stat.Create(ItemStats.Weight, 0));
-            _stats.Set(Stat.Create(ItemStats.TotalSockets, 0));
-
             _enchantments = EnchantmentCollection.Create();
             _requirements = Items.Requirements.Create();
             _socketedItems = ItemCollection.Create();

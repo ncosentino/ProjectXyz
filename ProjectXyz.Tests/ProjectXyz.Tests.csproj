@@ -99,6 +99,8 @@
     <Compile Include="Application\Items\Mocks\MockItemContextBuilder.cs" />
     <Compile Include="Application\Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Data\Actors\Mocks\MockActorBuilder.cs" />
+    <Compile Include="Data\Items\ItemTests.cs" />
+    <Compile Include="Data\Items\Mocks\MockRequirementsBuilder.cs" />
     <Compile Include="Data\Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xunit\Categories\CategoryAttribute.cs" />

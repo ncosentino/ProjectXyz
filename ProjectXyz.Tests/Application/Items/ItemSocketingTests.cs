@@ -11,6 +11,7 @@ using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Tests.Xunit.Categories;
+using ProjectXyz.Tests.Application.Items.Mocks;
 
 namespace ProjectXyz.Tests.Application.Items
 {
@@ -164,11 +165,6 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void SocketEnchantmentsCanExpire()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
-
             var socketCandidateEnchantment = new Mock<IEnchantment>();
             socketCandidateEnchantment
                 .Setup(x => x.StatId)
@@ -184,26 +180,22 @@ namespace ProjectXyz.Tests.Application.Items
                 .Returns(TimeSpan.FromSeconds(5))
                 .Returns(TimeSpan.Zero);
 
-            var socketCandidate = new Mock<IItem>();
-            socketCandidate
-                .Setup(x => x.RequiredSockets)
-                .Returns(1);
-            socketCandidate
-                .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create(new IEnchantment[]
-                { 
-                    socketCandidateEnchantment.Object 
-                }));
+            var socketCandidate = new MockItemBuilder()
+                .WithEnchantments(socketCandidateEnchantment.Object)
+                .WithRequiredSockets(1)
+                .Build();
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
             socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, socketableItemData);
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    socketableItemData);
 
             Assert.True(
-                socketableItem.Socket(socketCandidate.Object),
+                socketableItem.Socket(socketCandidate),
                 "Expecting the socket operation to be successful.");
             Assert.Equal(socketCandidateEnchantment.Object.Value, socketableItem.Value);
 

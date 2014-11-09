@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using Moq;
 
@@ -30,17 +31,25 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
         #region Methods
         public MockItemBuilder WithEnchantments(params IEnchantment[] enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
             return WithEnchantments((IEnumerable<IEnchantment>)enchantments);
         }
 
         public MockItemBuilder WithEnchantments(IEnumerable<IEnchantment> enchantments)
         {
+            Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
             _enchantments.AddRange(enchantments);
             return this;
         }
 
         public MockItemBuilder WithDurability(int maximum, int current)
         {
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
             var durability = new Mock<IDurability>();
             durability
                 .Setup(x => x.Maximum)
@@ -57,19 +66,37 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
 
         public MockItemBuilder WithEquippableSlots(params string[] slots)
         {
+            Contract.Requires<ArgumentNullException>(slots != null);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
             return WithEquippableSlots((IEnumerable<string>)slots);
         }
 
         public MockItemBuilder WithEquippableSlots(IEnumerable<string> slots)
         {
+            Contract.Requires<ArgumentNullException>(slots != null);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
             _item
                 .Setup(x => x.EquippableSlots)
                 .Returns(slots);
             return this;
         }
 
+        public MockItemBuilder WithRequiredSockets(int sockets)
+        {
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
+            _item
+                .Setup(x => x.RequiredSockets)
+                .Returns(sockets);
+            return this;
+        }
+
         public IItem Build()
         {
+            Contract.Ensures(Contract.Result<IItem>() != null);
+
             _item
                 .Setup(x => x.Enchantments)
                 .Returns(EnchantmentCollection.Create(_enchantments));
