@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Materials;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
 {
@@ -45,6 +46,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
                 Contract.Ensures(Contract.Result<string>() != null);
                 Contract.Ensures(Contract.Result<string>() != string.Empty);
                 return default(string);
+            }
+        }
+
+        public IStatCollection Stats
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IStatCollection>() != null);
+                return default(IStatCollection);
             }
         }
 

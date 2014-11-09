@@ -123,7 +123,7 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
-        public abstract Guid Id { get; }
+        public abstract Guid Id { get; set; }
         #endregion
     }
 }

@@ -21,7 +21,8 @@ namespace ProjectXyz.Data.Core.Items
         private readonly IRequirements _requirements;
         private readonly IMutableItemCollection _socketedItems;
         private readonly List<string> _equippableSlots;
-        private readonly Guid _id;
+        
+        private Guid _id;
         #endregion
 
         #region Constructors
@@ -95,6 +96,8 @@ namespace ProjectXyz.Data.Core.Items
         public Guid Id
         {
             get { return _id; }
+
+            set { _id = value; }
         }
         #endregion
 

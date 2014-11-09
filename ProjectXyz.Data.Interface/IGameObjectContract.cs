@@ -11,7 +11,7 @@ namespace ProjectXyz.Data.Interface
     public abstract class IGameObjectContract : IGameObject
     {
         #region Properties
-        public abstract Guid Id { get; }
+        public abstract Guid Id { get; set; }
         #endregion
     }
 }

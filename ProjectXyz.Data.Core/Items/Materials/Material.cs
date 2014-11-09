@@ -38,7 +38,7 @@ namespace ProjectXyz.Data.Core.Items.Materials
         }
         #endregion
 
-        #region Exposed Members
+        #region Methods
         public static IMaterial Create(string materialType, string name)
         {
             Contract.Requires<ArgumentNullException>(materialType != null);

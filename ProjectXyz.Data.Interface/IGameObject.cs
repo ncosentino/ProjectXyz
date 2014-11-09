@@ -11,7 +11,7 @@ namespace ProjectXyz.Data.Interface
     public interface IGameObject
     {
         #region Properties
-        Guid Id { get; }
+        Guid Id { get; set; }
         #endregion
     }
 }

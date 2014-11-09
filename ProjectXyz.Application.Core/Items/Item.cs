@@ -90,7 +90,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             get
             {
-                EnsureEnchantmentsCalculated();
+                EnsureStatsCalculated();
                 return _stats.GetValueOrDefault(ItemStats.Weight, 0);
             }
         }
@@ -99,7 +99,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             get
             {
-                EnsureEnchantmentsCalculated();
+                EnsureStatsCalculated();
                 return _stats.GetValueOrDefault(ItemStats.Value, 0);
             }
         }
@@ -108,7 +108,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             get
             {
-                EnsureEnchantmentsCalculated();
+                EnsureStatsCalculated();
                 return (int)_stats.GetValueOrDefault(ItemStats.RequiredSockets, 0);
             }
         }
@@ -117,7 +117,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             get
             {
-                EnsureEnchantmentsCalculated();
+                EnsureStatsCalculated();
                 return (int)_stats.GetValueOrDefault(ItemStats.TotalSockets, 0);
             }
         }
@@ -132,6 +132,15 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        public IStatCollection Stats
+        {
+            get
+            {
+                EnsureStatsCalculated();
+                return _stats;
+            }
+        }
+
         public IEnumerable<string> EquippableSlots
         {
             get { return _item.EquippableSlots; }
@@ -141,7 +150,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             get
             {
-                EnsureEnchantmentsCalculated();
+                EnsureStatsCalculated();
                 return CalculateDurability(_stats);
             }
         }
@@ -174,7 +183,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public double GetStat(string statId)
         {
-            EnsureEnchantmentsCalculated();
+            EnsureStatsCalculated();
             return _stats.GetValueOrDefault(statId, 0);
         }
 
@@ -209,7 +218,7 @@ namespace ProjectXyz.Application.Core.Items
             _statsDirty |= enchantmentCount != _enchantments.Count;
         }
 
-        protected void EnsureEnchantmentsCalculated()
+        protected void EnsureStatsCalculated()
         {
             if (!_statsDirty)
             {
@@ -252,7 +261,7 @@ namespace ProjectXyz.Application.Core.Items
         private void RecalculateStats()
         {
             _statsDirty = true;
-            EnsureEnchantmentsCalculated();
+            EnsureStatsCalculated();
         }
 
         private void EnsureDurabilityInRange(IMutableStatCollection stats)

@@ -18,7 +18,7 @@ namespace ProjectXyz.Application.Interface.Items
         IMaterialFactory MaterialFactory { get; set; }
         #endregion
 
-        #region Exposed Members
+        #region Methods
         IItemBuilder WithMaterialFactory(IMaterialFactory factory);
 
         IItem Build(

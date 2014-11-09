@@ -29,7 +29,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         }
         #endregion
 
-        #region Exposed Members
+        #region Methods
         public IItemBuilder WithMaterialFactory(IMaterialFactory factory)
         {
             Contract.Requires<ArgumentNullException>(factory != null);

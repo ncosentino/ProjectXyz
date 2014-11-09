@@ -27,7 +27,7 @@ namespace ProjectXyz.Application.Core.Items
         }
         #endregion
 
-        #region Exposed Members
+        #region Methods
         public static IItemBuilder Create()
         {
             Contract.Ensures(Contract.Result<IItemBuilder>() != null);
