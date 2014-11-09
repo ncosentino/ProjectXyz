@@ -7,9 +7,12 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Tests.Application.Items
 {
+    [ApplicationLayer]
+    [Items]
     public class ItemTests
     {
         [Fact]

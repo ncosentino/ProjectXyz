@@ -10,9 +10,12 @@ using Moq;
 
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Tests.Application.Items
 {
+    [ApplicationLayer]
+    [Enchantments]
     public class EnchantmentBlockTests
     {
         [Fact]

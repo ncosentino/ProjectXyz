@@ -17,9 +17,12 @@ using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Tests.Application.Items.Mocks;
 using ProjectXyz.Tests.Application.Enchantments.Mocks;
 using ProjectXyz.Tests.Data.Actors.Mocks;
+using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Tests.Application.Actors
 {
+    [ApplicationLayer]
+    [Actors]
     public class ActorTests
     {
         [Fact]

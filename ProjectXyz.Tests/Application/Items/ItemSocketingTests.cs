@@ -10,9 +10,12 @@ using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Materials;
+using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Tests.Application.Items
 {
+    [ApplicationLayer]
+    [Items]
     public class ItemSocketingTests
     {
         [Fact]

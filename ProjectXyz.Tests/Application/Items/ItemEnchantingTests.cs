@@ -10,9 +10,12 @@ using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Tests.Application.Items
 {
+    [ApplicationLayer]
+    [Items]
     public class ItemEnchantingTests
     {
         [Fact]
