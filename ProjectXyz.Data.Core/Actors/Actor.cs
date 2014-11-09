@@ -21,8 +21,6 @@ namespace ProjectXyz.Data.Core.Actors
         private Actor()
         {
             _stats = StatCollection.Create();
-            _stats.Set(Stat.Create(ActorStats.MaximumLife, 0));
-            _stats.Set(Stat.Create(ActorStats.CurrentLife, 0));
         }
         #endregion
 

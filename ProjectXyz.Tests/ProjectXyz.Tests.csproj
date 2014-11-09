@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Actors\ActorEquipmentTests.cs" />
     <Compile Include="Application\Actors\ActorTests.cs" />
     <Compile Include="Application\Enchantments\EnchantmentBlockTests.cs" />
     <Compile Include="Application\Enchantments\Mocks\MockEnchantmentBuilder.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Application\Items\ItemTests.cs" />
     <Compile Include="Application\Items\Mocks\MockItemContextBuilder.cs" />
     <Compile Include="Application\Items\Mocks\MockItemBuilder.cs" />
+    <Compile Include="Data\Actors\ActorTests.cs" />
     <Compile Include="Data\Actors\Mocks\MockActorBuilder.cs" />
     <Compile Include="Data\Items\ItemTests.cs" />
     <Compile Include="Data\Items\Mocks\MockRequirementsBuilder.cs" />

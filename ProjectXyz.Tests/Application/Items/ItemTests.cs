@@ -9,6 +9,7 @@ using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Tests.Application.Items.Mocks;
+using ProjectXyz.Data.Core.Stats;
 
 namespace ProjectXyz.Tests.Application.Items
 {

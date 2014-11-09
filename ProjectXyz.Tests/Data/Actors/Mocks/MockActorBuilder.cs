@@ -24,9 +24,6 @@ namespace ProjectXyz.Tests.Data.Actors.Mocks
         {
             _actor = new Mock<IActor>();
             _stats = new List<IStat>();
-
-            _stats.Add(Stat.Create(ActorStats.MaximumLife, 0));
-            _stats.Add(Stat.Create(ActorStats.CurrentLife, 0));
         }
         #endregion
 

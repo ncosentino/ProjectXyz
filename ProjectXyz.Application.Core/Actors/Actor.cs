@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 using System.Collections.Specialized;
 
 using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Items;
@@ -54,7 +55,7 @@ namespace ProjectXyz.Application.Core.Actors
             get
             {
                 EnsureEnchantmentsCalculated();
-                return _stats[ActorStats.MaximumLife].Value;
+                return _stats.GetValueOrDefault(ActorStats.MaximumLife, 0);
             }
         }
 
@@ -63,7 +64,7 @@ namespace ProjectXyz.Application.Core.Actors
             get
             {
                 EnsureEnchantmentsCalculated();
-                return _stats[ActorStats.CurrentLife].Value;
+                return _stats.GetValueOrDefault(ActorStats.CurrentLife, 0);
             }
         }
         
@@ -125,8 +126,8 @@ namespace ProjectXyz.Application.Core.Actors
             return Math.Max(
                 0,
                 Math.Min(
-                    _stats[ActorStats.CurrentLife].Value,
-                    _stats[ActorStats.MaximumLife].Value));
+                    _stats.GetValueOrDefault(ActorStats.CurrentLife, 0),
+                    _stats.GetValueOrDefault(ActorStats.MaximumLife, 0)));
         }
 
         private void OnItemEquipped(IItem item)
