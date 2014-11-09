@@ -9,13 +9,13 @@ using ProjectXyz.Data.Interface.Stats.Contracts;
 
 namespace ProjectXyz.Data.Interface.Stats
 {
-    [ContractClass(typeof(IStatCollectionContract<>))]
-    public interface IStatCollection<TStat> : IEnumerable<TStat> where TStat : IStat
+    [ContractClass(typeof(IStatCollectionContract))]
+    public interface IStatCollection : IEnumerable<IStat>
     {
         #region Properties
         int Count { get; }
 
-        TStat this[string id] { get; }
+        IStat this[string id] { get; }
         #endregion
 
         #region Methods

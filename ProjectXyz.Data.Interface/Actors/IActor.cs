@@ -11,7 +11,7 @@ namespace ProjectXyz.Data.Interface.Actors
     public interface IActor
     {
         #region Properties
-        IMutableStatCollection<IStat> Stats { get; }
+        IMutableStatCollection Stats { get; }
         #endregion
     }
 }

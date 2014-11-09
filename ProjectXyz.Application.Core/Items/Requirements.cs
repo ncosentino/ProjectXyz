@@ -45,12 +45,12 @@ namespace ProjectXyz.Application.Core.Items
             set { _requirementsData.Class = value; }
         }
 
-        IStatCollection<IStat> IRequirements.Stats
+        IStatCollection IRequirements.Stats
         {
             get { return _requirementsData.Stats; }
         }
 
-        IMutableStatCollection<IStat> IMutableRequirements.Stats
+        IMutableStatCollection IMutableRequirements.Stats
         {
             get { return _requirementsData.Stats; }
         }

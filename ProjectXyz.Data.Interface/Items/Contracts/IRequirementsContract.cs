@@ -61,12 +61,12 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
-        public IMutableStatCollection<IStat> Stats
+        public IMutableStatCollection Stats
         {
             get
             {
-                Contract.Ensures(Contract.Result<IMutableStatCollection<IStat>>() != null);
-                return default(IMutableStatCollection<IStat>);
+                Contract.Ensures(Contract.Result<IMutableStatCollection>() != null);
+                return default(IMutableStatCollection);
             }
         }
         #endregion

@@ -7,22 +7,22 @@ using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Data.Interface.Stats.Contracts
 {
-    [ContractClassFor(typeof(IMutableStatCollection<>))]
-    public abstract class IMutableStatCollectionContract<TStat> : IMutableStatCollection<TStat> where TStat : IStat
+    [ContractClassFor(typeof(IMutableStatCollection))]
+    public abstract class IMutableStatCollectionContract : IMutableStatCollection
     {
         #region Properties
         public abstract int Count { get; }
 
-        public abstract TStat this[string statId] { get; }
+        public abstract IStat this[string statId] { get; }
 
-        TStat IMutableStatCollection<TStat>.this[string id]
+        IStat IMutableStatCollection.this[string id]
         {
             get
             {
                 Contract.Requires<ArgumentNullException>(id != null);
                 Contract.Requires<ArgumentNullException>(id != string.Empty);
-                Contract.Ensures(Contract.Result<TStat>() != null);
-                return default(TStat);
+                Contract.Ensures(Contract.Result<IStat>() != null);
+                return default(IStat);
             }
 
             set
@@ -33,17 +33,17 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         #endregion
 
         #region Methods
-        public void Set(TStat stat)
+        public void Set(IStat stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
 
-        public void Add(TStat stat)
+        public void Add(IStat stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
 
-        public void AddRange(IEnumerable<TStat> stat)
+        public void AddRange(IEnumerable<IStat> stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
@@ -53,12 +53,12 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
             Contract.Requires<ArgumentNullException>(statId != null);
         }
 
-        public void Remove(TStat stat)
+        public void Remove(IStat stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
 
-        public void RemoveRange(IEnumerable<TStat> stat)
+        public void RemoveRange(IEnumerable<IStat> stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
@@ -70,7 +70,7 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         
         public abstract bool Contains(string id);
 
-        public abstract IEnumerator<TStat> GetEnumerator();
+        public abstract IEnumerator<IStat> GetEnumerator();
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {

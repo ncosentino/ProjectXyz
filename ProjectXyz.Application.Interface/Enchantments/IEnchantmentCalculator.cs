@@ -14,10 +14,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantmentCalculator
     {
         #region Methods
-        IStatCollection<IStat> Calculate<TStat>(
-            IStatCollection<TStat> stats,
-            IEnumerable<IEnchantment> enchantments)
-            where TStat : IStat;
+        IStatCollection Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments);
         #endregion
     }
 }

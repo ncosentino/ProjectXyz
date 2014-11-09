@@ -14,20 +14,20 @@ namespace ProjectXyz.Data.Core.Actors
     public class Actor : IActor
     {
         #region Fields
-        private IMutableStatCollection<IStat> _stats;
+        private IMutableStatCollection _stats;
         #endregion
 
         #region Constructors
         private Actor()
         {
-            _stats = StatCollection<IStat>.Create();
+            _stats = StatCollection.Create();
             _stats.Set(Stat.Create(ActorStats.MaximumLife, 0));
             _stats.Set(Stat.Create(ActorStats.CurrentLife, 0));
         }
         #endregion
 
         #region Properties
-        public IMutableStatCollection<IStat> Stats
+        public IMutableStatCollection Stats
         {
             get { return _stats; }
         }

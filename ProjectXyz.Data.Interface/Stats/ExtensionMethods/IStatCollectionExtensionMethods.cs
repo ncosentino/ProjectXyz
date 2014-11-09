@@ -10,7 +10,7 @@ namespace ProjectXyz.Data.Interface.Stats.ExtensionMethods
     public static class IStatCollectionExtensionMethods
     {
         #region Methods
-        public static double GetValueOrDefault<TStat>(this IStatCollection<TStat> stats, string statId, Func<double> defaultValueCallback) where TStat : IStat
+        public static double GetValueOrDefault(this IStatCollection stats, string statId, Func<double> defaultValueCallback)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Requires<ArgumentNullException>(statId != null);
@@ -22,7 +22,7 @@ namespace ProjectXyz.Data.Interface.Stats.ExtensionMethods
                 : defaultValueCallback.Invoke();
         }
 
-        public static double GetValueOrDefault<TStat>(this IStatCollection<TStat> stats, string statId, double defaultValue) where TStat : IStat
+        public static double GetValueOrDefault(this IStatCollection stats, string statId, double defaultValue)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Requires<ArgumentNullException>(statId != null);

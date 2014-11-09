@@ -24,7 +24,7 @@ namespace ProjectXyz.Application.Core.Actors
         private readonly IMutableEquipment _equipment;
         private readonly IEnchantmentBlock _enchantments;
         
-        private IMutableStatCollection<IStat> _stats;
+        private IMutableStatCollection _stats;
         private bool _statsDirty;
         #endregion
 
@@ -38,7 +38,7 @@ namespace ProjectXyz.Application.Core.Actors
             _context = context;
             _actor = actor;
 
-            _stats = StatCollection<IStat>.Create();
+            _stats = StatCollection.Create();
 
             _equipment = Items.Equipment.Create();
             _equipment.CollectionChanged += Equipment_CollectionChanged;
@@ -109,7 +109,7 @@ namespace ProjectXyz.Application.Core.Actors
 
             _statsDirty = false;
 
-            _stats = StatCollection<IStat>.Create(_context.EnchantmentCalculator.Calculate(
+            _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
                 _actor.Stats,
                 _enchantments));
             _stats.Set(Stat.Create(
@@ -117,7 +117,7 @@ namespace ProjectXyz.Application.Core.Actors
                 CalculateCurrentLife(_stats)));
         }
 
-        private double CalculateCurrentLife(IMutableStatCollection<IStat> stats)
+        private double CalculateCurrentLife(IMutableStatCollection stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<double>() >= 0);

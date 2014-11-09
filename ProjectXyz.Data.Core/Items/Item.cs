@@ -16,7 +16,7 @@ namespace ProjectXyz.Data.Core.Items
     public class Item : IItem
     {
         #region Fields
-        private readonly IMutableStatCollection<IMutableStat> _stats;
+        private readonly IMutableStatCollection _stats;
         private readonly IMutableEnchantmentCollection _enchantments;
         private readonly IRequirements _requirements;
         private readonly IMutableItemCollection _socketedItems;
@@ -29,7 +29,7 @@ namespace ProjectXyz.Data.Core.Items
         {
             _id = Guid.NewGuid();
             
-            _stats = StatCollection<IMutableStat>.Create();
+            _stats = StatCollection.Create();
             _enchantments = EnchantmentCollection.Create();
             _requirements = Items.Requirements.Create();
             _socketedItems = ItemCollection.Create();
@@ -67,7 +67,7 @@ namespace ProjectXyz.Data.Core.Items
             set;
         }
 
-        public IMutableStatCollection<IMutableStat> Stats
+        public IMutableStatCollection Stats
         {
             get { return _stats; }
         }

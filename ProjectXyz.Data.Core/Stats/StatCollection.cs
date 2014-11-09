@@ -9,23 +9,23 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Core.Stats
 {
-    public class StatCollection<TStat> : IMutableStatCollection<TStat> where TStat : IStat
+    public class StatCollection : IMutableStatCollection
     {
         #region Fields
-        private readonly Dictionary<string, TStat> _stats;
+        private readonly Dictionary<string, IStat> _stats;
         #endregion
 
         #region Constructors
         protected StatCollection()
-            : this(new TStat[0])
+            : this(new IStat[0])
         {
         }
 
-        protected StatCollection(IEnumerable<TStat> stats)
+        protected StatCollection(IEnumerable<IStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
 
-            _stats = new Dictionary<string, TStat>();
+            _stats = new Dictionary<string, IStat>();
             foreach (var stat in stats)
             {
                 if (stat == null)
@@ -44,7 +44,7 @@ namespace ProjectXyz.Data.Core.Stats
             get { return _stats.Count; }
         }
 
-        TStat IStatCollection<TStat>.this[string id]
+        IStat IStatCollection.this[string id]
         {
             get
             {
@@ -53,7 +53,7 @@ namespace ProjectXyz.Data.Core.Stats
             }
         }
 
-        TStat IMutableStatCollection<TStat>.this[string id]
+        IStat IMutableStatCollection.this[string id]
         {
             get 
             {
@@ -69,30 +69,30 @@ namespace ProjectXyz.Data.Core.Stats
         #endregion
 
         #region Methods
-        public static IMutableStatCollection<TStat> Create()
+        public static IMutableStatCollection Create()
         {
-            Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
-            return new StatCollection<TStat>();
+            Contract.Ensures(Contract.Result<IMutableStatCollection>() != null);
+            return new StatCollection();
         }
 
-        public static IMutableStatCollection<TStat> Create(IEnumerable<TStat> stats)
+        public static IMutableStatCollection Create(IEnumerable<IStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
-            Contract.Ensures(Contract.Result<IMutableStatCollection<TStat>>() != null);
-            return new StatCollection<TStat>(stats);
+            Contract.Ensures(Contract.Result<IMutableStatCollection>() != null);
+            return new StatCollection(stats);
         }
 
-        public void Set(TStat stat)
+        public void Set(IStat stat)
         {
             _stats[stat.Id] = stat;
         }
 
-        public void Add(TStat stat)
+        public void Add(IStat stat)
         {
             _stats.Add(stat.Id, stat);
         }
 
-        public void AddRange(IEnumerable<TStat> stats)
+        public void AddRange(IEnumerable<IStat> stats)
         {
             foreach (var stat in stats)
             {
@@ -110,7 +110,7 @@ namespace ProjectXyz.Data.Core.Stats
             _stats.Remove(id);
         }
 
-        public void Remove(TStat stat)
+        public void Remove(IStat stat)
         {
             Remove(stat.Id);
         }
@@ -123,7 +123,7 @@ namespace ProjectXyz.Data.Core.Stats
             }
         }
 
-        public void RemoveRange(IEnumerable<TStat> stats)
+        public void RemoveRange(IEnumerable<IStat> stats)
         {
             foreach (var stat in stats)
             {
@@ -136,7 +136,7 @@ namespace ProjectXyz.Data.Core.Stats
             return _stats.ContainsKey(id);
         }
 
-        public IEnumerator<TStat> GetEnumerator()
+        public IEnumerator<IStat> GetEnumerator()
         {
             return _stats.Values.GetEnumerator();
         }

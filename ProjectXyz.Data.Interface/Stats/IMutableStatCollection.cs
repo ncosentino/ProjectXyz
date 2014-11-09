@@ -9,25 +9,25 @@ using ProjectXyz.Data.Interface.Stats.Contracts;
 
 namespace ProjectXyz.Data.Interface.Stats
 {
-    [ContractClass(typeof(IMutableStatCollectionContract<>))]
-    public interface IMutableStatCollection<TStat> : IStatCollection<TStat> where TStat : IStat
+    [ContractClass(typeof(IMutableStatCollectionContract))]
+    public interface IMutableStatCollection : IStatCollection
     {
         #region Methods
-        new TStat this[string id] { get; set; }
+        new IStat this[string id] { get; set; }
 
-        void Set(TStat stat);
+        void Set(IStat stat);
         
-        void Add(TStat stat);
+        void Add(IStat stat);
 
-        void AddRange(IEnumerable<TStat> stats);
+        void AddRange(IEnumerable<IStat> stats);
 
         void Remove(string id);
 
-        void Remove(TStat stat);
+        void Remove(IStat stat);
 
         void RemoveRange(IEnumerable<string> ids);
 
-        void RemoveRange(IEnumerable<TStat> stats);
+        void RemoveRange(IEnumerable<IStat> stats);
         #endregion
     }
 }

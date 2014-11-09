@@ -20,7 +20,7 @@ namespace ProjectXyz.Application.Interface.Items
 
         string Class { get; }
 
-        IStatCollection<IStat> Stats { get; }
+        IStatCollection Stats { get; }
         #endregion
     }
 }

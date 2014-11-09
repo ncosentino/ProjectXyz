@@ -44,12 +44,9 @@ namespace ProjectXyz.Application.Core.Enchantments
             return new EnchantmentCalculator();
         }
 
-        public IStatCollection<IStat> Calculate<TStat>(
-            IStatCollection<TStat> stats, 
-            IEnumerable<IEnchantment> enchantments) 
-            where TStat : IStat
+        public IStatCollection Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments) 
         {
-            var newStats = StatCollection<IStat>.Create();
+            var newStats = StatCollection.Create();
             foreach (var stat in stats)
             {
                 if (stat == null)
@@ -71,10 +68,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             return newStats;
         }
 
-        private void PerEnchantment<TStat>(
-            IStatCollection<TStat> stats,
-            IMutableStatCollection<IStat> newStats, 
-            IEnumerable<IEnchantment> enchantments) where TStat : IStat
+        private void PerEnchantment(IStatCollection stats, IMutableStatCollection newStats, IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
 

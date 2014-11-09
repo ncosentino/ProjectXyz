@@ -27,7 +27,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IMutableRequirements _requirements;
 
         private bool _statsDirty;
-        private IMutableStatCollection<IStat> _stats;
+        private IMutableStatCollection _stats;
         #endregion
 
         #region Constructors
@@ -220,7 +220,7 @@ namespace ProjectXyz.Application.Core.Items
 
             bool wasBroken = _stats != null && this.IsBroken();
 
-            _stats = StatCollection<IStat>.Create(_context.EnchantmentCalculator.Calculate(
+            _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
                 _item.Stats,
                 _enchantments));
             _stats.Set(Stat.Create(
@@ -255,7 +255,7 @@ namespace ProjectXyz.Application.Core.Items
             EnsureEnchantmentsCalculated();
         }
 
-        private void EnsureDurabilityInRange(IMutableStatCollection<IStat> stats)
+        private void EnsureDurabilityInRange(IMutableStatCollection stats)
         {
             stats.Set(Stat.Create(
                 ItemStats.MaximumDurability,
@@ -268,7 +268,7 @@ namespace ProjectXyz.Application.Core.Items
                         _stats.GetValueOrDefault(ItemStats.MaximumDurability, 0)))));
         }
 
-        private IDurability CalculateDurability(IStatCollection<IStat> stats)
+        private IDurability CalculateDurability(IStatCollection stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<IDurability>() != null);
@@ -277,20 +277,20 @@ namespace ProjectXyz.Application.Core.Items
                 (int)_stats.GetValueOrDefault(ItemStats.CurrentDurability, 0));
         }
 
-        private double CalculateWeight(IStatCollection<IStat> stats, IEnumerable<IItem> socketedItems)
+        private double CalculateWeight(IStatCollection stats, IEnumerable<IItem> socketedItems)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
             return _stats.GetValueOrDefault(ItemStats.Weight, 0) + socketedItems.TotalWeight();
         }
 
-        private double CalculateValue(IStatCollection<IStat> stats)
+        private double CalculateValue(IStatCollection stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             return _stats.GetValueOrDefault(ItemStats.Value, 0);
         }
 
-        private int CalculateTotalSockets(IStatCollection<IStat> stats)
+        private int CalculateTotalSockets(IStatCollection stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<int>() >= 0);

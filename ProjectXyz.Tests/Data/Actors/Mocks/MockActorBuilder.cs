@@ -46,7 +46,7 @@ namespace ProjectXyz.Tests.Data.Actors.Mocks
         {
             _actor
                 .Setup(x => x.Stats)
-                .Returns(StatCollection<IStat>.Create(_stats));
+                .Returns(StatCollection.Create(_stats));
 
             return _actor.Object;
         }

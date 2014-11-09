@@ -15,13 +15,13 @@ namespace ProjectXyz.Data.Core.Items
     public sealed class Requirements : IRequirements
     {
         #region Fields
-        private readonly IMutableStatCollection<IStat> _stats;
+        private readonly IMutableStatCollection _stats;
         #endregion
 
         #region Constructors
         private Requirements()
         {
-            _stats = StatCollection<IStat>.Create();
+            _stats = StatCollection.Create();
         }
         #endregion
         
@@ -44,7 +44,7 @@ namespace ProjectXyz.Data.Core.Items
             set;
         }
 
-        public IMutableStatCollection<IStat> Stats
+        public IMutableStatCollection Stats
         {
             get { return _stats; }
         }

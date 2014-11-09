@@ -13,15 +13,12 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
     public abstract class IEnchantmentCalculatorContract : IEnchantmentCalculator
     {
         #region Methods
-        public IStatCollection<IStat> Calculate<TStat>(
-            IStatCollection<TStat> stats,
-            IEnumerable<IEnchantment> enchantments)
-            where TStat : IStat
+        public IStatCollection Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Requires<ArgumentNullException>(enchantments != null);
-            Contract.Ensures(Contract.Result<IStatCollection<IStat>>() != null);
-            return default(IStatCollection<IStat>);
+            Contract.Ensures(Contract.Result<IStatCollection>() != null);
+            return default(IStatCollection);
         }
         #endregion
     }

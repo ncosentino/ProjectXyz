@@ -74,7 +74,7 @@ namespace ProjectXyz.Tests.Data.Items.Mocks
 
             _item
                 .Setup(x => x.Stats)
-                .Returns(StatCollection<IMutableStat>.Create(_stats));
+                .Returns(StatCollection.Create(_stats));
             _item
                 .Setup(x => x.Enchantments)
                 .Returns(EnchantmentCollection.Create());

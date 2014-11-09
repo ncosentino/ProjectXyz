@@ -56,7 +56,7 @@ namespace ProjectXyz.Tests.Data.Items.Mocks
 
             _requirements
                 .Setup(x => x.Stats)
-                .Returns(StatCollection<IStat>.Create(_stats));
+                .Returns(StatCollection.Create(_stats));
 
             return _requirements.Object;
         }

@@ -23,7 +23,7 @@ namespace ProjectXyz.Data.Interface.Items
 
         string MaterialType { get; set; }
 
-        IMutableStatCollection<IMutableStat> Stats { get; }
+        IMutableStatCollection Stats { get; }
 
         IMutableEnchantmentCollection Enchantments { get; }
 

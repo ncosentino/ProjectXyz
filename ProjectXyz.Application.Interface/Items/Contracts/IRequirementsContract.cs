@@ -44,12 +44,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IStatCollection<IStat> Stats
+        public IStatCollection Stats
         {
             get
             {
-                Contract.Ensures(Contract.Result<IStatCollection<IStat>>() != null);
-                return default(IStatCollection<IStat>);
+                Contract.Ensures(Contract.Result<IStatCollection>() != null);
+                return default(IStatCollection);
             }
         }
         #endregion

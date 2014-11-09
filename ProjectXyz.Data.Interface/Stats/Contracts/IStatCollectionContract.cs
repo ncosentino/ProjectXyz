@@ -7,20 +7,20 @@ using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Data.Interface.Stats.Contracts
 {
-    [ContractClassFor(typeof(IStatCollection<>))]
-    public abstract class IStatCollectionContract<TStat> : IStatCollection<TStat> where TStat : IStat
+    [ContractClassFor(typeof(IStatCollection))]
+    public abstract class IStatCollectionContract : IStatCollection
     {
         #region Properties
         public abstract int Count { get; }
 
-        public TStat this[string statId]
+        public IStat this[string statId]
         {
             get
             {
                 Contract.Requires<ArgumentNullException>(statId != null);
                 Contract.Requires<ArgumentException>(statId != string.Empty);
-                Contract.Ensures(Contract.Result<TStat>() != null);
-                return default(TStat);
+                Contract.Ensures(Contract.Result<IStat>() != null);
+                return default(IStat);
             }
         }
         #endregion
@@ -33,9 +33,9 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
             return default(bool);
         }
 
-        public IEnumerator<TStat> GetEnumerator()
+        public IEnumerator<IStat> GetEnumerator()
         {
-            return default(IEnumerator<TStat>);
+            return default(IEnumerator<IStat>);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()

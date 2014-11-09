@@ -21,7 +21,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
 
         public abstract string Class { get; }
 
-        public abstract IStatCollection<IStat> Stats { get; }
+        public abstract IStatCollection Stats { get; }
 
         int IMutableRequirements.Level
         {
@@ -69,12 +69,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        IMutableStatCollection<IStat> IMutableRequirements.Stats
+        IMutableStatCollection IMutableRequirements.Stats
         {
             get
             {
-                Contract.Ensures(Contract.Result<IMutableStatCollection<IStat>>() != null);
-                return default(IMutableStatCollection<IStat>);
+                Contract.Ensures(Contract.Result<IMutableStatCollection>() != null);
+                return default(IMutableStatCollection);
             }
         }
         #endregion
