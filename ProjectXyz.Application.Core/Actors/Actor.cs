@@ -24,6 +24,7 @@ namespace ProjectXyz.Application.Core.Actors
         private readonly ProjectXyz.Data.Interface.Actors.IActor _actor;
         private readonly IMutableEquipment _equipment;
         private readonly IEnchantmentBlock _enchantments;
+        private readonly IMutableInventory _inventory;
         
         private IMutableStatCollection _stats;
         private bool _statsDirty;
@@ -43,6 +44,8 @@ namespace ProjectXyz.Application.Core.Actors
 
             _equipment = Items.Equipment.Create();
             _equipment.CollectionChanged += Equipment_CollectionChanged;
+
+            _inventory = Items.Inventory.Create();
 
             _enchantments = EnchantmentBlock.Create();
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
@@ -72,6 +75,11 @@ namespace ProjectXyz.Application.Core.Actors
         {
             get { return _equipment; }
         }
+
+        public IInventory Inventory
+        {
+            get { return _inventory; }
+        }
         #endregion
 
         #region Methods
@@ -89,6 +97,11 @@ namespace ProjectXyz.Application.Core.Actors
             return 
                 !item.IsBroken() && 
                 _equipment.EquipToFirstOpenSlot(item);
+        }
+
+        public bool Unequip(string slot, IMutableInventory destination)
+        {
+            return Unequip(slot, destination, false);
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)
@@ -116,6 +129,25 @@ namespace ProjectXyz.Application.Core.Actors
             _stats.Set(Stat.Create(
                 ActorStats.CurrentLife,
                 CalculateCurrentLife(_stats)));
+        }
+
+        private bool Unequip(string slot, IMutableInventory destination, bool skipCapacityCheck)
+        {
+            var item = _equipment[slot];
+            if (item == null)
+            {
+                return false;
+            }
+
+            if (!skipCapacityCheck && (destination.Items.Count >= destination.ItemCapacity ||
+                destination.CurrentWeight + item.Weight > destination.WeightCapacity))
+            {
+                return false;
+            }
+
+            _equipment.Unequip(slot);
+            destination.AddItem(item);
+            return true;
         }
 
         private double CalculateCurrentLife(IMutableStatCollection stats)
@@ -162,7 +194,8 @@ namespace ProjectXyz.Application.Core.Actors
         #region Event Handlers
         private void EquippedItem_Broken(object sender, EventArgs e)
         {
-            OnItemUnequipped((IItem)sender);
+            var slot = _equipment.GetEquippedSlot((IItem)sender);
+            Unequip(slot, _inventory, true);
         }
 
         private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -184,7 +217,7 @@ namespace ProjectXyz.Application.Core.Actors
             {
                 foreach (IItem item in e.OldItems)
                 {
-                    OnItemEquipped(item);
+                    OnItemUnequipped(item);
                 }
             }
         }

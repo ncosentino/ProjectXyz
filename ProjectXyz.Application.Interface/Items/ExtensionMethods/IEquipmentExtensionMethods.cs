@@ -25,6 +25,20 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             return !string.IsNullOrEmpty(slot);
         }
 
+        public static string GetEquippedSlot(this IEquipment equipment, IItem item)
+        {
+            Contract.Requires<ArgumentNullException>(equipment != null);
+            Contract.Requires<ArgumentNullException>(item != null);
+
+            string slot;
+            if (!TryGetEquippedSlot(equipment, item, out slot))
+            {
+                throw new ArgumentException("The item was not contained within the equipment.", "item");
+            }
+
+            return slot;
+        }
+
         public static bool TryGetFirstOpenSlot(this IEquipment equipment, IItem item, out string slot)
         {
             Contract.Requires<ArgumentNullException>(equipment != null);

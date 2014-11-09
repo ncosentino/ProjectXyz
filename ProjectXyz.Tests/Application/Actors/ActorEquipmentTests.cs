@@ -184,6 +184,47 @@ namespace ProjectXyz.Tests.Application.Actors
             Assert.Equal(0, actor.MaximumLife);
         }
 
+        [Fact]
+        public void BreakingEquipmentUnequipsItem()
+        {
+            var durabilityEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ItemStats.CurrentDurability)
+                .WithValue(-100)
+                .Build();
+
+            var item = ProjectXyz.Application.Core.Items.ItemBuilder.Create()
+                .WithMaterialFactory(new Mock<ProjectXyz.Data.Interface.Items.Materials.IMaterialFactory>().Object)
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    new Data.Items.Mocks.MockItemBuilder()
+                    .WithStats(
+                        Stat.Create(ItemStats.CurrentDurability, 50),
+                        Stat.Create(ItemStats.MaximumDurability, 50))
+                    .WithEquippableSlots("Some Slot")
+                    .Build());
+
+            var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder().Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                builder.Object,
+                context.Object,
+                data);
+
+            AssertEquipItem(actor, item);
+            item.Enchant(durabilityEnchantment);
+
+            Assert.False(
+                actor.Equipment.HasItemEquipped(item),
+                "Expecting the item to be unequipped.");
+            Assert.Equal(item, new List<IItem>(actor.Inventory.Items)[0]);
+        }
+
         public void AssertCannotEquipItem(IActor actor, IItem item)
         {
             Contract.Requires<ArgumentNullException>(actor != null);

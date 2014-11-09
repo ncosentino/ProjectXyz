@@ -8,16 +8,18 @@ using ProjectXyz.Application.Interface.Items;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IInventory : IUpdateElapsedTime
+    public interface IMutableInventory : IInventory
     {
         #region Properties
-        double CurrentWeight { get; }
+        new double WeightCapacity { get; set; }
 
-        double WeightCapacity { get; }
+        new int ItemCapacity { get; set; }
+        #endregion
 
-        int ItemCapacity { get; }
+        #region Methods
+        void AddItem(IItem item);
 
-        IItemCollection Items { get; }
+        void RemoveItem(IItem item);
         #endregion
     }
 }

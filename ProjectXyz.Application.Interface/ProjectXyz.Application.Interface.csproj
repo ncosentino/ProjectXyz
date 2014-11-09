@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\Contracts\IActorContract.cs" />
     <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
     <Compile Include="Actors\IActorContext.cs" />
     <Compile Include="Actors\IActor.cs" />
@@ -95,6 +96,8 @@
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
     <Compile Include="Items\Contracts\IItemBuilderContract.cs" />
     <Compile Include="Items\Contracts\ISocketableContract.cs" />
+    <Compile Include="Items\ExtensionMethods\IInventoryExtensionMethods.cs" />
+    <Compile Include="Items\IMutableInventory.cs" />
     <Compile Include="Items\ExtensionMethods\IMutableEquipmentExtensionMethods.cs" />
     <Compile Include="Items\IItemSaver.cs" />
     <Compile Include="Items\IMutableEquipment.cs" />
@@ -142,6 +145,7 @@
       <Name>ProjectXyz.Data.Interface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

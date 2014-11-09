@@ -20,6 +20,12 @@ namespace ProjectXyz.Application.Interface.Actors.ExtensionMethods
             Contract.Requires<ArgumentNullException>(item != null);
             return actor.Equipment.HasItemEquipped(item);
         }
+
+        public static bool IsOverburderned(this IActor actor)
+        {
+            Contract.Requires<ArgumentNullException>(actor != null);
+            return actor.Inventory.IsOverburderned();
+        }
         #endregion
     }
 }
