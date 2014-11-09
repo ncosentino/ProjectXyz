@@ -36,6 +36,10 @@ namespace ProjectXyz.Application.Interface.Items
         IRequirements Requirements { get; }
         #endregion
 
+        #region Events
+        event EventHandler<EventArgs> Broken;
+        #endregion
+
         #region Methods
         double GetStat(string statId);
 

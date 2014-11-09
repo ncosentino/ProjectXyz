@@ -54,6 +54,10 @@ namespace ProjectXyz.Application.Core.Items
         }
         #endregion
 
+        #region Events
+        public event EventHandler<EventArgs> Broken;
+        #endregion
+
         #region Properties
         public Guid Id
         {
@@ -129,7 +133,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public IEnumerable<string> EquippableSlots
         {
-            get { throw new NotImplementedException(); }
+            get { return _item.EquippableSlots; }
         }
 
         public IDurability Durability
@@ -215,6 +219,8 @@ namespace ProjectXyz.Application.Core.Items
 
             _statsDirty = false;
 
+            bool wasBroken = _stats != null && this.IsBroken();
+
             _stats = StatCollection<IStat>.Create(_context.EnchantmentCalculator.Calculate(
                 _item.Stats,
                 _enchantments));
@@ -227,11 +233,40 @@ namespace ProjectXyz.Application.Core.Items
             _stats.Set(Stat.Create(
                 ItemStats.TotalSockets, 
                 CalculateTotalSockets(_stats)));
+            EnsureDurabilityInRange(_stats);
+
+            if (!wasBroken && this.IsBroken())
+            {
+                OnBroken();
+            }
         }
 
-        private void FlagStatsAsDirty()
+        private void OnBroken()
+        {
+            var handler = Broken;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        private void RecalculateStats()
         {
             _statsDirty = true;
+            EnsureEnchantmentsCalculated();
+        }
+
+        private void EnsureDurabilityInRange(IMutableStatCollection<IStat> stats)
+        {
+            stats.Set(Stat.Create(
+                ItemStats.MaximumDurability,
+                Math.Max(0, stats[ItemStats.MaximumDurability].Value)));
+            stats.Set(Stat.Create(
+                ItemStats.CurrentDurability,
+                Math.Max(0,
+                    Math.Min(
+                        stats[ItemStats.CurrentDurability].Value,
+                        stats[ItemStats.MaximumDurability].Value))));
         }
 
         private IDurability CalculateDurability(IStatCollection<IStat> stats)
@@ -275,7 +310,7 @@ namespace ProjectXyz.Application.Core.Items
         #region Event Handlers
         private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            FlagStatsAsDirty();
+            RecalculateStats();
         }
         #endregion
     }

@@ -114,6 +114,15 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
+        public IList<string> EquippableSlots
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IList<string>>() != null);
+                return default(IList<string>);
+            }
+        }
+
         public abstract Guid Id { get; }
         #endregion
     }

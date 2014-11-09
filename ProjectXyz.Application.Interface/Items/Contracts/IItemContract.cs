@@ -13,6 +13,10 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     [ContractClassFor(typeof(IItem))]
     public abstract class IItemContract : IItem
     {
+        #region Events
+        public abstract event EventHandler<EventArgs> Broken;
+        #endregion
+
         #region Properties
         public string Name
         {

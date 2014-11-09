@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 using Moq;
 using Xunit;
@@ -135,10 +136,58 @@ namespace ProjectXyz.Tests.Application.Actors
             AssertCannotEquipItem(actor, item);
         }
 
+        [Fact]
+        public void BreakingEquipmentRemovesEnchantment()
+        {
+            var durabilityEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ItemStats.CurrentDurability)
+                .WithValue(-100)
+                .Build();
+
+            var lifeEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(100)
+                .Build();
+
+            var enchantedItem = ProjectXyz.Application.Core.Items.ItemBuilder.Create()
+                .WithMaterialFactory(new Mock<ProjectXyz.Data.Interface.Items.Materials.IMaterialFactory>().Object)
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    new Data.Items.Mocks.MockItemBuilder()
+                    .WithStats(
+                        Stat.Create(ItemStats.CurrentDurability, 50), 
+                        Stat.Create(ItemStats.MaximumDurability, 50))
+                    .WithEquippableSlots("Some Slot")
+                    .Build());
+            enchantedItem.Enchant(lifeEnchantment);
+
+            var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder().Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                builder.Object,
+                context.Object,
+                data);
+
+            AssertEquipItem(
+                actor, 
+                enchantedItem,
+                () => Assert.Equal(lifeEnchantment.Value, actor.MaximumLife));
+            enchantedItem.Enchant(durabilityEnchantment);
+
+            Assert.Equal(0, actor.MaximumLife);
+        }
+
         public void AssertCannotEquipItem(IActor actor, IItem item)
         {
-            Assert.NotNull(actor);
-            Assert.NotNull(item);
+            Contract.Requires<ArgumentNullException>(actor != null);
+            Contract.Requires<ArgumentNullException>(item != null);
 
             Assert.False(
                 actor.HasItemEquipped(item),
@@ -151,7 +200,7 @@ namespace ProjectXyz.Tests.Application.Actors
                 "The actor should not have '" + item + "' equipped.");
         }
 
-        public void AssertEquipItem(IActor actor, IItem item, Action validationCallback)
+        public void AssertEquipItem(IActor actor, IItem item, Action validationCallback = null)
         {
             AssertEquipItems(
                 actor,
@@ -159,11 +208,10 @@ namespace ProjectXyz.Tests.Application.Actors
                 validationCallback);
         }
 
-        public void AssertEquipItems(IActor actor, IEnumerable<IItem> items, Action validationCallback)
+        public void AssertEquipItems(IActor actor, IEnumerable<IItem> items, Action validationCallback = null)
         {
-            Assert.NotNull(actor);
-            Assert.NotNull(items);
-            Assert.NotNull(validationCallback);
+            Contract.Requires<ArgumentNullException>(actor != null);
+            Contract.Requires<ArgumentNullException>(items != null);
 
             foreach (var item in items)
             {
@@ -176,7 +224,10 @@ namespace ProjectXyz.Tests.Application.Actors
                     "Expecting item to be equipped in one of [" + string.Join(", ", item.EquippableSlots) + "] slots.");
             }
 
-            validationCallback.Invoke();
+            if (validationCallback != null)
+            {
+                validationCallback.Invoke();
+            }
         }
     }
 }

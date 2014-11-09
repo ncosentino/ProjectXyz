@@ -133,6 +133,8 @@ namespace ProjectXyz.Application.Core.Actors
         {
             Contract.Requires<ArgumentNullException>(item != null);
 
+            item.Broken += EquippedItem_Broken;
+
             foreach (var enchantment in item.Enchantments)
             {
                 _enchantments.Add(enchantment);
@@ -145,6 +147,8 @@ namespace ProjectXyz.Application.Core.Actors
         {
             Contract.Requires<ArgumentNullException>(item != null);
 
+            item.Broken -= EquippedItem_Broken;
+
             foreach (var enchantment in item.Enchantments)
             {
                 _enchantments.Remove(enchantment);
@@ -155,6 +159,11 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Event Handlers
+        private void EquippedItem_Broken(object sender, EventArgs e)
+        {
+            OnItemUnequipped((IItem)sender);
+        }
+
         private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             FlagStatsAsDirty();

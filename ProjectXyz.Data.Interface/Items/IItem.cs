@@ -30,6 +30,8 @@ namespace ProjectXyz.Data.Interface.Items
         IRequirements Requirements { get; }
 
         IMutableItemCollection SocketedItems { get; }
+
+        IList<string> EquippableSlots { get; }
         #endregion
     }
 }

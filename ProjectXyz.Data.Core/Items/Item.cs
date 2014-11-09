@@ -20,6 +20,7 @@ namespace ProjectXyz.Data.Core.Items
         private readonly IMutableEnchantmentCollection _enchantments;
         private readonly IRequirements _requirements;
         private readonly IMutableItemCollection _socketedItems;
+        private readonly List<string> _equippableSlots;
         private readonly Guid _id;
         #endregion
 
@@ -38,6 +39,7 @@ namespace ProjectXyz.Data.Core.Items
             _enchantments = EnchantmentCollection.Create();
             _requirements = Items.Requirements.Create();
             _socketedItems = ItemCollection.Create();
+            _equippableSlots = new List<string>();
 
             this.MaterialType =
             this.Name =
@@ -89,6 +91,11 @@ namespace ProjectXyz.Data.Core.Items
         public IMutableItemCollection SocketedItems
         {
             get { return _socketedItems; }
+        }
+
+        public IList<string> EquippableSlots
+        {
+            get { return _equippableSlots; }
         }
 
         public Guid Id

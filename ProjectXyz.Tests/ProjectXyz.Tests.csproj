@@ -96,8 +96,10 @@
     <Compile Include="Application\Items\ItemEnchantingTests.cs" />
     <Compile Include="Application\Items\ItemSocketingTests.cs" />
     <Compile Include="Application\Items\ItemTests.cs" />
+    <Compile Include="Application\Items\Mocks\MockItemContextBuilder.cs" />
     <Compile Include="Application\Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Data\Actors\Mocks\MockActorBuilder.cs" />
+    <Compile Include="Data\Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xunit\Categories\CategoryAttribute.cs" />
     <Compile Include="Xunit\Categories\ApplicationLayerAttribute.cs" />
