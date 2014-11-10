@@ -243,6 +243,9 @@ namespace ProjectXyz.Tests.Application.Actors
 
         public void AssertEquipItem(IActor actor, IItem item, Action validationCallback = null)
         {
+            Contract.Requires<ArgumentNullException>(actor != null);
+            Contract.Requires<ArgumentNullException>(item != null);
+
             AssertEquipItems(
                 actor,
                 new IItem[] { item },

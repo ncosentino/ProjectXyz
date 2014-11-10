@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using Moq;
 
@@ -33,30 +34,44 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
         #region Methods
         public MockEnchantmentBuilder WithRemainingTime(TimeSpan remaining)
         {
+            Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
+
             _remaining = remaining;
             return this;
         }
 
         public MockEnchantmentBuilder WithStatId(string statId)
         {
+            Contract.Requires<ArgumentNullException>(statId != null);
+            Contract.Requires<ArgumentException>(statId != string.Empty);
+            Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
+
             _statId = statId;
             return this;
         }
 
         public MockEnchantmentBuilder WithCalculationId(string calculationId)
         {
+            Contract.Requires<ArgumentNullException>(calculationId != null);
+            Contract.Requires<ArgumentException>(calculationId != string.Empty);
+            Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
+
             _calculationId = calculationId;
             return this;
         }
 
         public MockEnchantmentBuilder WithValue(double value)
         {
+            Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
+
             _value = value;
             return this;
         }
 
         public IEnchantment Build()
         {
+            Contract.Ensures(Contract.Result<IEnchantment>() != null);
+
             _enchantment
                 .Setup(x => x.StatId)
                 .Returns(_statId);

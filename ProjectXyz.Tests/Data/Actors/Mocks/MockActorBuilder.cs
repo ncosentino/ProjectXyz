@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
 
 using Moq;
 
@@ -30,17 +31,25 @@ namespace ProjectXyz.Tests.Data.Actors.Mocks
         #region Methods
         public MockActorBuilder WithStats(params IStat[] stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<MockActorBuilder>() != null);
+
             return WithStats((IEnumerable<IStat>)stats);
         }
 
         public MockActorBuilder WithStats(IEnumerable<IStat> stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<MockActorBuilder>() != null);
+
             _stats.AddRange(stats);
             return this;
         }
 
         public IActor Build()
         {
+            Contract.Ensures(Contract.Result<IActor>() != null);
+
             _actor
                 .Setup(x => x.Stats)
                 .Returns(StatCollection.Create(_stats));

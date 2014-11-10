@@ -266,6 +266,8 @@ namespace ProjectXyz.Application.Core.Items
 
         private void EnsureDurabilityInRange(IMutableStatCollection stats)
         {
+            Contract.Requires<ArgumentNullException>(stats != null);
+
             stats.Set(Stat.Create(
                 ItemStats.MaximumDurability,
                 Math.Max(0, _stats.GetValueOrDefault(ItemStats.MaximumDurability, 0))));

@@ -194,6 +194,9 @@ namespace ProjectXyz.Application.Core.Actors
         #region Event Handlers
         private void EquippedItem_Broken(object sender, EventArgs e)
         {
+            Contract.Requires<ArgumentNullException>(sender != null);
+            Contract.Requires<ArgumentNullException>(e != null);
+
             var slot = _equipment.GetEquippedSlot((IItem)sender);
             Unequip(slot, _inventory, true);
         }
