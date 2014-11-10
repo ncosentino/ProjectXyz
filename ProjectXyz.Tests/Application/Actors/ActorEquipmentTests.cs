@@ -15,6 +15,7 @@ using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Actors;
+using ProjectXyz.Application.Core.Actors.ExtensionMethods;
 using ProjectXyz.Tests.Application.Items.Mocks;
 using ProjectXyz.Tests.Application.Enchantments.Mocks;
 using ProjectXyz.Tests.Data.Actors.Mocks;
@@ -64,8 +65,8 @@ namespace ProjectXyz.Tests.Application.Actors
                 enchantedItem,
                 () =>
                 {
-                    Assert.Equal(BASE_LIFE, actor.CurrentLife);
-                    Assert.Equal(BASE_LIFE + ADDITIONAL_LIFE, actor.MaximumLife);
+                    Assert.Equal(BASE_LIFE, actor.GetCurrentLife());
+                    Assert.Equal(BASE_LIFE + ADDITIONAL_LIFE, actor.GetMaximumLife());
                 });
         }
 
@@ -108,8 +109,8 @@ namespace ProjectXyz.Tests.Application.Actors
                 enchantedItem,
                 () =>
                 {
-                    Assert.Equal(MAX_LIFE, actor.CurrentLife);
-                    Assert.Equal(MAX_LIFE, actor.MaximumLife);
+                    Assert.Equal(MAX_LIFE, actor.GetCurrentLife());
+                    Assert.Equal(MAX_LIFE, actor.GetMaximumLife());
                 });
         }
 
@@ -178,10 +179,10 @@ namespace ProjectXyz.Tests.Application.Actors
             AssertEquipItem(
                 actor, 
                 enchantedItem,
-                () => Assert.Equal(lifeEnchantment.Value, actor.MaximumLife));
+                () => Assert.Equal(lifeEnchantment.Value, actor.GetMaximumLife()));
             enchantedItem.Enchant(durabilityEnchantment);
 
-            Assert.Equal(0, actor.MaximumLife);
+            Assert.Equal(0, actor.GetMaximumLife());
         }
 
         [Fact]

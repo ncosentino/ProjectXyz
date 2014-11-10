@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Actors.Contracts;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Actors
 {
@@ -14,13 +15,11 @@ namespace ProjectXyz.Application.Interface.Actors
     public interface IActor : IUpdateElapsedTime
     {
         #region Properties
-        double MaximumLife { get; }
-
-        double CurrentLife { get; }
-
         IEquipment Equipment { get; }
 
         IInventory Inventory { get; }
+
+        IStatCollection Stats { get; }
         #endregion
 
         #region Methods

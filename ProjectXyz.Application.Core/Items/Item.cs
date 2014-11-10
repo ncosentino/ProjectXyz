@@ -181,12 +181,6 @@ namespace ProjectXyz.Application.Core.Items
             return new Item(builder, context, item);
         }
 
-        public double GetStat(string statId)
-        {
-            EnsureStatsCalculated();
-            return _stats.GetValueOrDefault(statId, 0);
-        }
-
         public void Enchant(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);

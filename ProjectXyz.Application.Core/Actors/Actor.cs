@@ -53,21 +53,12 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Properties
-        public double MaximumLife
+        public IStatCollection Stats
         {
             get
             {
-                EnsureEnchantmentsCalculated();
-                return _stats.GetValueOrDefault(ActorStats.MaximumLife, 0);
-            }
-        }
-
-        public double CurrentLife
-        {
-            get
-            {
-                EnsureEnchantmentsCalculated();
-                return _stats.GetValueOrDefault(ActorStats.CurrentLife, 0);
+                EnsureStatsCalculated();
+                return _stats;
             }
         }
         
@@ -114,7 +105,7 @@ namespace ProjectXyz.Application.Core.Actors
             _statsDirty = true;
         }
 
-        protected void EnsureEnchantmentsCalculated()
+        protected void EnsureStatsCalculated()
         {
             if (!_statsDirty)
             {

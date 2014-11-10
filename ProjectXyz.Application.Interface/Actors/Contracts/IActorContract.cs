@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Actors.Contracts
 {
@@ -12,26 +13,6 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
     public abstract class IActorContract : IActor
     {
         #region Properties
-        public double MaximumLife
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<double>() >= 0);
-                Contract.Ensures(Contract.Result<double>() >= CurrentLife);
-                return default(double);
-            }
-        }
-
-        public double CurrentLife
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<double>() >= 0);
-                Contract.Ensures(Contract.Result<double>() <= MaximumLife);
-                return default(double);
-            }
-        }
-
         public IEquipment Equipment
         {
             get
@@ -47,6 +28,15 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
             {
                 Contract.Ensures(Contract.Result<IInventory>() != null);
                 return default(IInventory);
+            }
+        }
+
+        public IStatCollection Stats
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IStatCollection>() != null);
+                return default(IStatCollection);
             }
         }
         #endregion

@@ -29,8 +29,7 @@ namespace ProjectXyz.Tests.Application.Actors
                 context.Object,
                 data);
 
-            Assert.Equal(0, actor.CurrentLife);
-            Assert.Equal(0, actor.MaximumLife);
+            Assert.Empty(actor.Stats);
             Assert.Empty(actor.Equipment);
         }
     }
