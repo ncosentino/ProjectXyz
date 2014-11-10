@@ -90,6 +90,7 @@
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
+    <Compile Include="Enchantments\EnchantmentSaver.cs" />
     <Compile Include="Items\Inventory.cs" />
     <Compile Include="Items\ItemSaver.cs" />
     <Compile Include="Items\Equipment.cs" />

@@ -90,6 +90,7 @@
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\IActorBuilder.cs" />
     <Compile Include="Enchantments\IEnchantmentContext.cs" />
+    <Compile Include="Enchantments\IEnchantmentSaver.cs" />
     <Compile Include="ISave.cs" />
     <Compile Include="Items\Contracts\IMutableInventoryContract.cs" />
     <Compile Include="Items\Contracts\IInventoryContract.cs" />

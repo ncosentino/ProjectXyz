@@ -28,6 +28,8 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
         public MockEnchantmentBuilder()
         {
             _enchantment = new Mock<IEnchantment>();
+            _statId = "Default";
+            _calculationId = "Default";
         }
         #endregion
 

@@ -9,17 +9,25 @@ namespace ProjectXyz.Application.Core.Items
 {
     public class ItemSaver : IItemSaver
     {
+        #region Fields
+        private readonly IEnchantmentSaver _enchantmentSaver;
+        #endregion
+
         #region Constructors
-        private ItemSaver()
+        private ItemSaver(IEnchantmentSaver enchantmentSaver)
         {
+            Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
+            _enchantmentSaver = enchantmentSaver;
         }
         #endregion
 
         #region Methods
-        public static IItemSaver Create()
+        public static IItemSaver Create(IEnchantmentSaver enchantmentSaver)
         {
+            Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
             Contract.Ensures(Contract.Result<IItemSaver>() != null);
-            return new ItemSaver();
+
+            return new ItemSaver(enchantmentSaver);
         }
 
         public ProjectXyz.Data.Interface.Items.IItem Save(IItem source)
@@ -40,6 +48,16 @@ namespace ProjectXyz.Application.Core.Items
             foreach (var stat in source.Stats)
             {
                 destination.Stats.Add(stat);
+            }
+
+            foreach (var enchantment in source.Enchantments)
+            {
+                destination.Enchantments.Add(_enchantmentSaver.Save(enchantment));
+            }
+
+            foreach (var item in source.SocketedItems)
+            {
+                destination.SocketedItems.Add(Save(item));
             }
 
             return destination;
