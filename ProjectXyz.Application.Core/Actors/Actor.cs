@@ -27,7 +27,6 @@ namespace ProjectXyz.Application.Core.Actors
         private readonly IMutableInventory _inventory;
         
         private IMutableStatCollection _stats;
-        private bool _statsDirty;
         #endregion
 
         #region Constructors
@@ -92,7 +91,7 @@ namespace ProjectXyz.Application.Core.Actors
 
         public bool Unequip(string slot, IMutableInventory destination)
         {
-            return Unequip(slot, destination, false);
+            return Unequip(_equipment, slot, destination, false);
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)
@@ -102,17 +101,16 @@ namespace ProjectXyz.Application.Core.Actors
 
         private void FlagStatsAsDirty()
         {
-            _statsDirty = true;
+            _stats = null;
         }
 
         protected void EnsureStatsCalculated()
         {
-            if (!_statsDirty)
+            Contract.Ensures(_stats != null);
+            if (_stats != null)
             {
                 return;
             }
-
-            _statsDirty = false;
 
             _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
                 _actor.Stats,
@@ -122,9 +120,14 @@ namespace ProjectXyz.Application.Core.Actors
                 CalculateCurrentLife(_stats)));
         }
 
-        private bool Unequip(string slot, IMutableInventory destination, bool skipCapacityCheck)
+        private bool Unequip(IMutableEquipment equipment, string slot, IMutableInventory destination, bool skipCapacityCheck)
         {
-            var item = _equipment[slot];
+            Contract.Requires<ArgumentNullException>(equipment != null);
+            Contract.Requires<ArgumentNullException>(slot != null);
+            Contract.Requires<ArgumentException>(slot != string.Empty);
+            Contract.Requires<ArgumentNullException>(destination != null);
+
+            var item = equipment[slot];
             if (item == null)
             {
                 return false;
@@ -136,7 +139,7 @@ namespace ProjectXyz.Application.Core.Actors
                 return false;
             }
 
-            _equipment.Unequip(slot);
+            equipment.Unequip(slot);
             destination.AddItem(item);
             return true;
         }
@@ -149,8 +152,8 @@ namespace ProjectXyz.Application.Core.Actors
             return Math.Max(
                 0,
                 Math.Min(
-                    _stats.GetValueOrDefault(ActorStats.CurrentLife, 0),
-                    _stats.GetValueOrDefault(ActorStats.MaximumLife, 0)));
+                    stats.GetValueOrDefault(ActorStats.CurrentLife, 0),
+                    stats.GetValueOrDefault(ActorStats.MaximumLife, 0)));
         }
 
         private void OnItemEquipped(IItem item)
@@ -180,16 +183,26 @@ namespace ProjectXyz.Application.Core.Actors
 
             FlagStatsAsDirty();
         }
+
+        private void OnEquippedItemBroken(IItem item, IMutableEquipment equipment, IMutableInventory destination)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(equipment != null);
+            Contract.Requires<ArgumentNullException>(destination != null);
+
+            var slot = equipment.GetEquippedSlot(item);
+            Unequip(equipment, slot, destination, true);
+        }
         #endregion
 
         #region Event Handlers
         private void EquippedItem_Broken(object sender, EventArgs e)
         {
             Contract.Requires<ArgumentNullException>(sender != null);
-            Contract.Requires<ArgumentNullException>(e != null);
+            Contract.Requires<ArgumentNullException>(_equipment != null);
+            Contract.Requires<ArgumentNullException>(_inventory != null);
 
-            var slot = _equipment.GetEquippedSlot((IItem)sender);
-            Unequip(slot, _inventory, true);
+            OnEquippedItemBroken((IItem)sender, _equipment, _inventory);
         }
 
         private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

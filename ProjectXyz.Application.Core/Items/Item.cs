@@ -26,7 +26,6 @@ namespace ProjectXyz.Application.Core.Items
         private readonly ProjectXyz.Data.Interface.Items.IItem _item;
         private readonly IMutableRequirements _requirements;
 
-        private bool _statsDirty;
         private IMutableStatCollection _stats;
         #endregion
 
@@ -50,8 +49,6 @@ namespace ProjectXyz.Application.Core.Items
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
 
             _requirements = Items.Requirements.Create(_item.Requirements);
-
-            _statsDirty = true;
         }
         #endregion
 
@@ -201,28 +198,23 @@ namespace ProjectXyz.Application.Core.Items
 
             _socketedItems.Add(item);
             Enchant(item.Enchantments);
-            _statsDirty = true;
+            _stats = null;
             return true;
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
-            var enchantmentCount = _enchantments.Count;
             _enchantments.UpdateElapsedTime(elapsedTime);
-            _statsDirty |= enchantmentCount != _enchantments.Count;
         }
 
         protected void EnsureStatsCalculated()
         {
-            if (!_statsDirty)
+            Contract.Ensures(_stats != null);
+            if (_stats != null)
             {
                 return;
             }
-
-            _statsDirty = false;
-
-            bool wasBroken = _stats != null && this.IsBroken();
-
+            
             _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
                 _item.Stats,
                 _enchantments));
@@ -237,8 +229,12 @@ namespace ProjectXyz.Application.Core.Items
                 CalculateTotalSockets(_stats)));
             EnsureDurabilityInRange(_stats);
 
-            if (!wasBroken && this.IsBroken())
+            if (this.IsBroken() && 
+                _stats.GetValueOrDefault(ItemStats.Broken, 0) < 1)
             {
+                var brokenStat = Stat.Create(ItemStats.Broken, 1);
+                _stats.Set(brokenStat);
+                _item.Stats.Set(brokenStat);
                 OnBroken();
             }
         }
@@ -254,7 +250,7 @@ namespace ProjectXyz.Application.Core.Items
 
         private void RecalculateStats()
         {
-            _statsDirty = true;
+            _stats = null;
             EnsureStatsCalculated();
         }
 
@@ -264,13 +260,13 @@ namespace ProjectXyz.Application.Core.Items
 
             stats.Set(Stat.Create(
                 ItemStats.MaximumDurability,
-                Math.Max(0, _stats.GetValueOrDefault(ItemStats.MaximumDurability, 0))));
+                Math.Max(0, stats.GetValueOrDefault(ItemStats.MaximumDurability, 0))));
             stats.Set(Stat.Create(
                 ItemStats.CurrentDurability,
                 Math.Max(0,
                     Math.Min(
-                        _stats.GetValueOrDefault(ItemStats.CurrentDurability, 0),
-                        _stats.GetValueOrDefault(ItemStats.MaximumDurability, 0)))));
+                        stats.GetValueOrDefault(ItemStats.CurrentDurability, 0),
+                        stats.GetValueOrDefault(ItemStats.MaximumDurability, 0)))));
         }
 
         private IDurability CalculateDurability(IStatCollection stats)
@@ -278,28 +274,28 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<IDurability>() != null);
             return Items.Durability.Create(
-                (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0),
-                (int)_stats.GetValueOrDefault(ItemStats.CurrentDurability, 0));
+                (int)stats.GetValueOrDefault(ItemStats.MaximumDurability, 0),
+                (int)stats.GetValueOrDefault(ItemStats.CurrentDurability, 0));
         }
 
         private double CalculateWeight(IStatCollection stats, IEnumerable<IItem> socketedItems)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
-            return _stats.GetValueOrDefault(ItemStats.Weight, 0) + socketedItems.TotalWeight();
+            return stats.GetValueOrDefault(ItemStats.Weight, 0) + socketedItems.TotalWeight();
         }
 
         private double CalculateValue(IStatCollection stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
-            return _stats.GetValueOrDefault(ItemStats.Value, 0);
+            return stats.GetValueOrDefault(ItemStats.Value, 0);
         }
 
         private int CalculateTotalSockets(IStatCollection stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<int>() >= 0);
-            return (int)_stats.GetValueOrDefault(ItemStats.TotalSockets, 0);
+            return (int)stats.GetValueOrDefault(ItemStats.TotalSockets, 0);
         }
 
         private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems)

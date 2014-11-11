@@ -19,5 +19,7 @@ namespace ProjectXyz.Data.Core.Stats
         public const string TotalSockets = "ItemTotalSockets";
 
         public const string RequiredSockets = "RequiredSockets";
+
+        public const string Broken = "ItemBroken";
     }
 }

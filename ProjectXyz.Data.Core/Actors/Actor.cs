@@ -14,7 +14,7 @@ namespace ProjectXyz.Data.Core.Actors
     public class Actor : IActor
     {
         #region Fields
-        private IMutableStatCollection _stats;
+        private readonly IMutableStatCollection _stats;
         #endregion
 
         #region Constructors

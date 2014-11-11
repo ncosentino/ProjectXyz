@@ -11,6 +11,8 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Tests.Xunit.Categories;
+using ProjectXyz.Tests.Application.Items.Mocks;
+using ProjectXyz.Tests.Application.Enchantments.Mocks;
 
 namespace ProjectXyz.Tests.Application.Items
 {
@@ -47,6 +49,74 @@ namespace ProjectXyz.Tests.Application.Items
 
             Assert.Equal(baseDurability.Current, item.Durability.Current);
             Assert.Equal(baseDurability.Maximum + 100, item.Durability.Maximum);
+        }
+
+        [Fact]
+        public void EnchantItemToBreak()
+        {
+            var itemData = new Data.Items.Mocks.MockItemBuilder()
+                .WithStats(
+                    Stat.Create(ItemStats.CurrentDurability, 50),
+                    Stat.Create(ItemStats.MaximumDurability, 50))
+                .Build();
+
+            var context = new MockItemContextBuilder().Build();
+            var item = ItemBuilder
+                .Create()
+                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
+                .Build(context, itemData);
+            var baseDurability = Durability.Create(
+                item.Durability.Maximum,
+                item.Durability.Current);
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId("Value")
+                .WithStatId(ItemStats.CurrentDurability)
+                .WithValue(-100)
+                .Build();
+
+            bool gotEvent = false;
+            item.Broken += (_, __) => gotEvent = true;
+            item.Enchant(enchantment);
+
+            Assert.True(
+                gotEvent,
+                "Expecting to get broken event.");
+            Assert.Equal(0, item.Durability.Current);
+            Assert.Equal(baseDurability.Maximum, item.Durability.Maximum);
+        }
+
+        [Fact]
+        public void BrokenItemsDontBreak()
+        {
+            var itemData = new Data.Items.Mocks.MockItemBuilder()
+                .WithStats(
+                    Stat.Create(ItemStats.CurrentDurability, 50),
+                    Stat.Create(ItemStats.MaximumDurability, 50))
+                .Build();
+
+            var context = new MockItemContextBuilder().Build();
+            var item = ItemBuilder
+                .Create()
+                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
+                .Build(context, itemData);
+            var baseDurability = Durability.Create(
+                item.Durability.Maximum,
+                item.Durability.Current);
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId("Value")
+                .WithStatId(ItemStats.CurrentDurability)
+                .WithValue(-100)
+                .Build();
+
+            item.Enchant(enchantment);
+            
+            bool gotEvent = false;
+            item.Broken += (_, __) => gotEvent = true;
+
+            item.Enchant(enchantment);
+            Assert.False(
+                gotEvent,
+                "Not expecting to get broken event on an already broken item.");
         }
     }
 }
