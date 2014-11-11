@@ -12,6 +12,7 @@ using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Tests.Application.Items.Mocks;
 using ProjectXyz.Tests.Application.Enchantments.Mocks;
+using ProjectXyz.Tests.Xunit.Assertions.Stats;
 
 namespace ProjectXyz.Tests.Application.Items
 {
@@ -141,6 +142,27 @@ namespace ProjectXyz.Tests.Application.Items
             
             var actualSocketedItem = new List<ProjectXyz.Data.Interface.Items.IItem>(savedData.SocketedItems)[0];
             Assert.Equal(socketCandidate.Id, actualSocketedItem.Id);
+        }
+
+        [Fact]
+        public void SaveRequirements()
+        {
+            var sourceData = new Tests.Data.Items.Mocks.MockItemBuilder()
+                .Build();
+            var item = ItemBuilder
+                .Create()
+                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    sourceData);
+            
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+            var savedData = itemSaver.Save(item);
+
+            Assert.Equal(sourceData.Requirements.Class, savedData.Requirements.Class);
+            Assert.Equal(sourceData.Requirements.Level, savedData.Requirements.Level);
+            Assert.Equal(sourceData.Requirements.Race, savedData.Requirements.Race);
+            AssertStats.Equal(sourceData.Requirements.Stats, savedData.Requirements.Stats);
         }
     }
 }

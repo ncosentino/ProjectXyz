@@ -7,14 +7,14 @@ using System.Diagnostics.Contracts;
 
 using Moq;
 
-using ProjectXyz.Data.Interface.Items;
-using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Stats;
-using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Core.Items;
+using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Items;
 
-namespace ProjectXyz.Tests.Data.Items.Mocks
+namespace ProjectXyz.Tests.Application.Items.Mocks
 {
     public class MockRequirementsBuilder
     {

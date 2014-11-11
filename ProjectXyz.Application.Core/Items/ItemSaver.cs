@@ -60,6 +60,10 @@ namespace ProjectXyz.Application.Core.Items
                 destination.SocketedItems.Add(Save(item));
             }
 
+            destination.Requirements.Class = source.Requirements.Class;
+            destination.Requirements.Level = source.Requirements.Level;
+            destination.Requirements.Race = source.Requirements.Race;
+
             return destination;
         }
         #endregion

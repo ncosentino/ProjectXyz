@@ -10,6 +10,7 @@ using Moq;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Tests.Application.Items.Mocks;
 
 namespace ProjectXyz.Tests.Application.Items.Mocks
 {
@@ -100,6 +101,9 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
             _item
                 .Setup(x => x.Enchantments)
                 .Returns(EnchantmentCollection.Create(_enchantments));
+            _item
+                .Setup(x => x.Requirements)
+                .Returns(new MockRequirementsBuilder().Build());
 
             return _item.Object;
         }
