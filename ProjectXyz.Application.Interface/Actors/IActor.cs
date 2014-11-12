@@ -26,6 +26,8 @@ namespace ProjectXyz.Application.Interface.Actors
         bool Equip(IItem item);
 
         bool Unequip(string slot, IMutableInventory destination);
+
+        bool TakeItem(IItem item);
         #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public static class IEnchantmentCollectionExtensionMethods
     {
         #region Methods
-        public static IEnumerable<IEnchantment> EnchantmentsCalculatedBy(this IEnchantmentCollection enchantments, string calculationId)
+        public static IEnumerable<IEnchantment> CalculatedBy(this IEnchantmentCollection enchantments, string calculationId)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Requires<ArgumentNullException>(calculationId != null);

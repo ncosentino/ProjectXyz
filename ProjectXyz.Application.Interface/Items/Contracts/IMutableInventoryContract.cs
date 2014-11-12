@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,10 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     [ContractClassFor(typeof(IMutableInventory))]
     public abstract class IMutableInventoryContract : IMutableInventory
     {
+        #region Events
+        public abstract event NotifyCollectionChangedEventHandler CollectionChanged;
+        #endregion
+
         #region Properties
         public abstract double CurrentWeight { get; }
 
@@ -51,14 +56,14 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #region Methods
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
 
-        public void AddItem(IItem item)
+        public void AddItems(IEnumerable<IItem> items)
         {
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(items != null);
         }
 
-        public void RemoveItem(IItem item)
+        public void RemoveItems(IEnumerable<IItem> items)
         {
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(items != null);
         }
         #endregion
     }

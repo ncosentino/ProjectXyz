@@ -25,6 +25,10 @@ namespace ProjectXyz.Application.Core.Items
         }
         #endregion
 
+        #region Events
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        #endregion
+
         #region Properties
         public double CurrentWeight
         {
@@ -64,14 +68,37 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
-        public void AddItem(IItem item)
+        public void AddItems(IEnumerable<IItem> items)
         {
-            _items.Add(item);
+            var changedItems = new List<IItem>(items);
+            _items.AddRange(items);
+            OnCollectionChanged(NotifyCollectionChangedAction.Add, changedItems);
         }
 
-        public void RemoveItem(IItem item)
+        public void RemoveItems(IEnumerable<IItem> items)
         {
-            _items.Remove(item);
+            var changedItems = new List<IItem>();
+            foreach (var item in items)
+            {
+                _items.Remove(item);
+                changedItems.Add(item);
+            }
+
+            OnCollectionChanged(NotifyCollectionChangedAction.Remove, changedItems);
+        }
+
+        private void OnCollectionChanged(NotifyCollectionChangedAction action, IList items)
+        {
+            Contract.Requires<ArgumentNullException>(items != null);
+
+            var handler = CollectionChanged;
+            if (handler != null)
+            {
+                var args = new NotifyCollectionChangedEventArgs(
+                    action,
+                    items);
+                handler.Invoke(this, args);
+            }
         }
         #endregion
     }

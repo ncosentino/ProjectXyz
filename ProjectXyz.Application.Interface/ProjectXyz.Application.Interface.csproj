@@ -99,6 +99,7 @@
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
     <Compile Include="Items\Contracts\IItemBuilderContract.cs" />
     <Compile Include="Items\Contracts\ISocketableContract.cs" />
+    <Compile Include="Items\ExtensionMethods\IMutableInventoryExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IInventoryExtensionMethods.cs" />
     <Compile Include="Items\IMutableInventory.cs" />
     <Compile Include="Items\ExtensionMethods\IMutableEquipmentExtensionMethods.cs" />

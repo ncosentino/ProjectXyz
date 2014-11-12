@@ -19,6 +19,8 @@ namespace ProjectXyz.Application.Interface.Enchantments
 
         string CalculationId { get; }
 
+        string Trigger { get; }
+
         TimeSpan RemainingDuration { get; }
         #endregion
     }

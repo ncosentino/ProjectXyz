@@ -44,6 +44,11 @@ namespace ProjectXyz.Application.Core.Enchantments
             get { return _enchantment.CalculationId; }
         }
 
+        public string Trigger
+        {
+            get { return _enchantment.Trigger; }
+        }
+
         public TimeSpan RemainingDuration
         {
             get { return _enchantment.RemainingDuration; }

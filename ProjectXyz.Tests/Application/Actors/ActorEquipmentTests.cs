@@ -37,6 +37,7 @@ namespace ProjectXyz.Tests.Application.Actors
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(ADDITIONAL_LIFE)
+                .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
             var enchantedItem = new MockItemBuilder()
@@ -71,6 +72,91 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
+        public void EquipHoldTriggersNothing()
+        {
+            const double BASE_LIFE = 100;
+            const double ADDITIONAL_LIFE = 50;
+
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(ADDITIONAL_LIFE)
+                .WithTrigger(EnchantmentTriggers.Hold)
+                .Build();
+
+            var enchantedItem = new MockItemBuilder()
+                .WithEnchantments(enchantment)
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
+                .Build();
+
+            var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
+                .Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                builder.Object,
+                context.Object,
+                data);
+
+            AssertEquipItem(
+                actor,
+                enchantedItem,
+                () =>
+                {
+                    Assert.Equal(BASE_LIFE, actor.GetCurrentLife());
+                    Assert.Equal(BASE_LIFE, actor.GetMaximumLife());
+                });
+        }
+
+        [Fact]
+        public void HoldTriggerLifeEnchantedItem()
+        {
+            const double BASE_LIFE = 100;
+            const double ADDITIONAL_LIFE = 50;
+
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(ADDITIONAL_LIFE)
+                .WithTrigger(EnchantmentTriggers.Hold)
+                .Build();
+
+            var enchantedItem = new MockItemBuilder()
+                .WithEnchantments(enchantment)
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
+                .Build();
+
+            var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
+                .Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                builder.Object,
+                context.Object,
+                data);
+
+            Assert.True(
+                actor.TakeItem(enchantedItem),
+                "Expecting the actor to take the item");
+            Assert.Equal(BASE_LIFE, actor.GetCurrentLife());
+            Assert.Equal(BASE_LIFE + ADDITIONAL_LIFE, actor.GetMaximumLife());
+        }
+
+        [Fact]
         public void EquipHealItem()
         {
             const double MAX_LIFE = 100;
@@ -81,6 +167,7 @@ namespace ProjectXyz.Tests.Application.Actors
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ActorStats.CurrentLife)
                 .WithValue(HEAL_AMOUNT)
+                .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
             var enchantedItem = new MockItemBuilder()
@@ -144,12 +231,14 @@ namespace ProjectXyz.Tests.Application.Actors
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
+                .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
             var lifeEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(100)
+                .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
             var enchantedItem = ProjectXyz.Application.Core.Items.ItemBuilder.Create()
@@ -192,6 +281,7 @@ namespace ProjectXyz.Tests.Application.Actors
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
+                .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
             var item = ProjectXyz.Application.Core.Items.ItemBuilder.Create()

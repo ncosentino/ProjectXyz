@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IMutableInventoryContract))]
-    public interface IMutableInventory : IInventory
+    public interface IMutableInventory : IInventory, INotifyCollectionChanged
     {
         #region Properties
         new double WeightCapacity { get; set; }
@@ -20,9 +21,9 @@ namespace ProjectXyz.Application.Interface.Items
         #endregion
 
         #region Methods
-        void AddItem(IItem item);
+        void AddItems(IEnumerable<IItem> items);
 
-        void RemoveItem(IItem item);
+        void RemoveItems(IEnumerable<IItem> items);
         #endregion
     }
 }

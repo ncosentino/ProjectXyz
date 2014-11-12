@@ -37,6 +37,12 @@ namespace ProjectXyz.Data.Core.Enchantments
             set;
         }
 
+        public string Trigger
+        {
+            get;
+            set;
+        }
+
         public TimeSpan RemainingDuration
         {
             get;

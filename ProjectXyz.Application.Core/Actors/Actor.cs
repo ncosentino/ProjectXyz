@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
@@ -45,6 +46,7 @@ namespace ProjectXyz.Application.Core.Actors
             _equipment.CollectionChanged += Equipment_CollectionChanged;
 
             _inventory = Items.Inventory.Create();
+            _inventory.CollectionChanged += Inventory_CollectionChanged;
 
             _enchantments = EnchantmentBlock.Create();
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
@@ -92,6 +94,12 @@ namespace ProjectXyz.Application.Core.Actors
         public bool Unequip(string slot, IMutableInventory destination)
         {
             return Unequip(_equipment, slot, destination, false);
+        }
+
+        public bool TakeItem(IItem item)
+        {
+            _inventory.AddItem(item);
+            return true;
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)
@@ -162,10 +170,8 @@ namespace ProjectXyz.Application.Core.Actors
 
             item.Broken += EquippedItem_Broken;
 
-            foreach (var enchantment in item.Enchantments)
-            {
-                _enchantments.Add(enchantment);
-            }
+            var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
+            _enchantments.AddRange(enchantments);
             
             FlagStatsAsDirty();
         }
@@ -176,10 +182,8 @@ namespace ProjectXyz.Application.Core.Actors
 
             item.Broken -= EquippedItem_Broken;
 
-            foreach (var enchantment in item.Enchantments)
-            {
-                _enchantments.Remove(enchantment);
-            }
+            var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
+            _enchantments.RemoveRange(enchantments);
 
             FlagStatsAsDirty();
         }
@@ -192,6 +196,26 @@ namespace ProjectXyz.Application.Core.Actors
 
             var slot = equipment.GetEquippedSlot(item);
             Unequip(equipment, slot, destination, true);
+        }
+
+        private void OnItemAcquired(IItem item)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+
+            var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
+            _enchantments.AddRange(enchantments);
+
+            FlagStatsAsDirty();
+        }
+
+        private void OnItemLost(IItem item)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+
+            var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
+            _enchantments.RemoveRange(enchantments);
+
+            FlagStatsAsDirty();
         }
         #endregion
 
@@ -225,6 +249,25 @@ namespace ProjectXyz.Application.Core.Actors
                 foreach (IItem item in e.OldItems)
                 {
                     OnItemUnequipped(item);
+                }
+            }
+        }
+
+        private void Inventory_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (IItem item in e.NewItems)
+                {
+                    OnItemAcquired(item);
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (IItem item in e.OldItems)
+                {
+                    OnItemLost(item);
                 }
             }
         }

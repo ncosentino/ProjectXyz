@@ -62,7 +62,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                 PerEnchantment(
                     stats,
                     newStats,
-                    enchantments.EnchantmentsCalculatedBy(calculationType));
+                    enchantments.CalculatedBy(calculationType));
             }
 
             return newStats;

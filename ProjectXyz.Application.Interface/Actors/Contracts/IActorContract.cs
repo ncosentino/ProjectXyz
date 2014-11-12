@@ -56,6 +56,12 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
             return default(bool);
         }
 
+        public bool TakeItem(IItem item)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+            return default(bool);
+        }
+
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
         #endregion
     }
