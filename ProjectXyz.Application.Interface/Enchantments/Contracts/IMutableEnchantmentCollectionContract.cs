@@ -10,24 +10,15 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
     [ContractClassFor(typeof(IMutableEnchantmentCollection))]
     public abstract class IMutableEnchantmentCollectionContract : IMutableEnchantmentCollection
     {
-        public void Add(IEnchantment enchantment)
-        {
-            Contract.Requires<ArgumentNullException>(enchantment != null);
-        }
-
-        public void AddRange(IEnumerable<IEnchantment> enchantments)
+        public void Add(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
         }
 
-        public void Remove(IEnchantment enchantment)
-        {
-            Contract.Requires<ArgumentNullException>(enchantment != null);
-        }
-
-        public void RemoveRange(IEnumerable<IEnchantment> enchantments)
+        public bool Remove(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            return default(bool);
         }
 
         public void Clear()

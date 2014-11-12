@@ -17,17 +17,11 @@ namespace ProjectXyz.Data.Interface.Stats
 
         void Set(IStat stat);
         
-        void Add(IStat stat);
+        void Add(IEnumerable<IStat> stats);
 
-        void AddRange(IEnumerable<IStat> stats);
+        bool Remove(IEnumerable<string> ids);
 
-        void Remove(string id);
-
-        void Remove(IStat stat);
-
-        void RemoveRange(IEnumerable<string> ids);
-
-        void RemoveRange(IEnumerable<IStat> stats);
+        bool Remove(IEnumerable<IStat> stats);
         #endregion
     }
 }

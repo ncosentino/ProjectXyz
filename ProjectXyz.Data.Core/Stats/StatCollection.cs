@@ -86,13 +86,8 @@ namespace ProjectXyz.Data.Core.Stats
         {
             _stats[stat.Id] = stat;
         }
-
-        public void Add(IStat stat)
-        {
-            _stats.Add(stat.Id, stat);
-        }
-
-        public void AddRange(IEnumerable<IStat> stats)
+        
+        public void Add(IEnumerable<IStat> stats)
         {
             foreach (var stat in stats)
             {
@@ -101,34 +96,24 @@ namespace ProjectXyz.Data.Core.Stats
                     throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
                 }
 
-                Add(stat);
+                _stats.Add(stat.Id, stat);
             }
         }
 
-        public void Remove(string id)
+        public bool Remove(IEnumerable<string> ids)
         {
-            _stats.Remove(id);
-        }
-
-        public void Remove(IStat stat)
-        {
-            Remove(stat.Id);
-        }
-
-        public void RemoveRange(IEnumerable<string> ids)
-        {
+            bool removedAny = false;
             foreach (var id in ids)
             {
-                Remove(id);
+                removedAny |= _stats.Remove(id);
             }
+
+            return removedAny;
         }
 
-        public void RemoveRange(IEnumerable<IStat> stats)
+        public bool Remove(IEnumerable<IStat> stats)
         {
-            foreach (var stat in stats)
-            {
-                Remove(stat.Id);
-            }
+            return Remove(stats.Select(x => x.Id));
         }
 
         public bool Contains(string id)

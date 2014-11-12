@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
@@ -10,10 +12,6 @@ namespace ProjectXyz.Application.Core.Enchantments
 {
     public class EnchantmentBlock : EnchantmentCollection, IEnchantmentBlock
     {
-        #region Fields
-        private bool _deferCollectionModifiedEvent;
-        #endregion
-
         #region Constructors
         protected EnchantmentBlock()
             : this(new IEnchantment[0])
@@ -54,49 +52,42 @@ namespace ProjectXyz.Application.Core.Enchantments
                 enchantment.UpdateElapsedTime(elapsedTime);
                 if (enchantment.IsExpired())
                 {
-                    Remove(enchantment);
+                    this.Remove(enchantment);
                     i--;
                 }
             }
         }
 
-        public override void Add(IEnchantment enchantment)
+        public override void Add(IEnumerable<IEnchantment> enchantments)
         {
-            base.Add(enchantment);
-            OnCollectionChanged(NotifyCollectionChangedAction.Add, enchantment);
+            base.Add(enchantments);
+            OnCollectionChanged(
+                NotifyCollectionChangedAction.Add, 
+                enchantments.ToArray());
         }
-
-        public override void AddRange(IEnumerable<IEnchantment> enchantments)
+        
+        public override bool Remove(IEnumerable<IEnchantment> enchantments)
         {
-            DeferCollectionModifiedEvent(() => base.AddRange(enchantments));
-            OnCollectionReset();
-        }
+            bool removedAny = base.Remove(enchantments);
 
-        public override void Remove(IEnchantment enchantment)
-        {
-            base.Remove(enchantment);
-            OnCollectionChanged(NotifyCollectionChangedAction.Remove, enchantment);
-        }
+            if (removedAny)
+            {
+                OnCollectionChanged(
+                    NotifyCollectionChangedAction.Remove,
+                    enchantments.ToArray());
+            }
 
-        public override void RemoveRange(IEnumerable<IEnchantment> enchantments)
-        {
-            DeferCollectionModifiedEvent(() => base.RemoveRange(enchantments));
-            OnCollectionReset();
+            return removedAny;
         }
 
         public override void Clear()
         {
-            DeferCollectionModifiedEvent(() => base.Clear());
+            base.Clear();
             OnCollectionReset();
         }
 
         private void OnCollectionReset()
         {
-            if (_deferCollectionModifiedEvent)
-            {
-                return;
-            }
-
             var handler = CollectionChanged;
             if (handler != null)
             {
@@ -105,36 +96,15 @@ namespace ProjectXyz.Application.Core.Enchantments
             }
         }
 
-        private void OnCollectionChanged(NotifyCollectionChangedAction action, IEnchantment enchantment)
+        private void OnCollectionChanged(NotifyCollectionChangedAction action, IList enchantments)
         {
-            if (_deferCollectionModifiedEvent)
-            {
-                return;
-            }
-
             var handler = CollectionChanged;
             if (handler != null)
             {
                 var args = new NotifyCollectionChangedEventArgs(
                     action,
-                    enchantment);
+                    enchantments);
                 handler.Invoke(this, args);
-            }
-        }
-
-        private void DeferCollectionModifiedEvent(Action action)
-        {
-            Contract.Requires<ArgumentNullException>(action != null);
-
-            bool saveDefer = _deferCollectionModifiedEvent;
-            _deferCollectionModifiedEvent = true;
-            try
-            {
-                action();
-            }
-            finally
-            {
-                _deferCollectionModifiedEvent = saveDefer;
             }
         }
         #endregion

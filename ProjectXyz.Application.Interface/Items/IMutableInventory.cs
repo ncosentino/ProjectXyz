@@ -21,9 +21,9 @@ namespace ProjectXyz.Application.Interface.Items
         #endregion
 
         #region Methods
-        void AddItems(IEnumerable<IItem> items);
+        void Add(IEnumerable<IItem> items);
 
-        void RemoveItems(IEnumerable<IItem> items);
+        bool Remove(IEnumerable<IItem> items);
         #endregion
     }
 }

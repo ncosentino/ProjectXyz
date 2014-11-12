@@ -180,12 +180,12 @@ namespace ProjectXyz.Application.Core.Items
 
         public void Enchant(IEnumerable<IEnchantment> enchantments)
         {
-            _enchantments.AddRange(enchantments);
+            _enchantments.Add(enchantments);
         }
 
         public void Disenchant(IEnumerable<IEnchantment> enchantments)
         {
-            _enchantments.RemoveRange(enchantments);
+            _enchantments.Remove(enchantments);
         }
 
         public bool Socket(IItem item)

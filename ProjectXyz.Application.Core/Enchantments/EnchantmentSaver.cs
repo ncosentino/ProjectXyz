@@ -28,6 +28,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             destination.RemainingDuration = source.RemainingDuration;
             destination.StatId = source.StatId;
             destination.Value = source.Value;
+            destination.Trigger = source.Trigger;
 
             return destination;
         }

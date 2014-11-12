@@ -89,6 +89,7 @@
     <Compile Include="Actors\IActorContext.cs" />
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\IActorBuilder.cs" />
+    <Compile Include="Enchantments\ExtensionMethods\IMutableEnchantmentCollectionExtensionMethods.cs" />
     <Compile Include="Enchantments\IEnchantmentContext.cs" />
     <Compile Include="Enchantments\IEnchantmentSaver.cs" />
     <Compile Include="ISave.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Items\Contracts\ISocketableContract.cs" />
     <Compile Include="Items\ExtensionMethods\IMutableInventoryExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IInventoryExtensionMethods.cs" />
+    <Compile Include="Items\ExtensionMethods\IMutableItemCollectionExtensionMethods.cs" />
     <Compile Include="Items\IMutableInventory.cs" />
     <Compile Include="Items\ExtensionMethods\IMutableEquipmentExtensionMethods.cs" />
     <Compile Include="Items\IItemSaver.cs" />

@@ -13,13 +13,9 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IMutableEnchantmentCollection : IEnchantmentCollection
     {
         #region Methods
-        void Add(IEnchantment enchantment);
+        void Add(IEnumerable<IEnchantment> enchantments);
 
-        void AddRange(IEnumerable<IEnchantment> enchantments);
-
-        void Remove(IEnchantment enchantment);
-
-        void RemoveRange(IEnumerable<IEnchantment> enchantments);
+        bool Remove(IEnumerable<IEnchantment> enchantments);
 
         void Clear();
         #endregion

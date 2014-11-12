@@ -98,7 +98,7 @@ namespace ProjectXyz.Application.Core.Actors
 
         public bool TakeItem(IItem item)
         {
-            _inventory.AddItem(item);
+            _inventory.Add(item);
             return true;
         }
 
@@ -148,7 +148,7 @@ namespace ProjectXyz.Application.Core.Actors
             }
 
             equipment.Unequip(slot);
-            destination.AddItem(item);
+            destination.Add(item);
             return true;
         }
 
@@ -171,7 +171,7 @@ namespace ProjectXyz.Application.Core.Actors
             item.Broken += EquippedItem_Broken;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
-            _enchantments.AddRange(enchantments);
+            _enchantments.Add(enchantments);
             
             FlagStatsAsDirty();
         }
@@ -183,7 +183,7 @@ namespace ProjectXyz.Application.Core.Actors
             item.Broken -= EquippedItem_Broken;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
-            _enchantments.RemoveRange(enchantments);
+            _enchantments.Remove(enchantments);
 
             FlagStatsAsDirty();
         }
@@ -203,7 +203,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
-            _enchantments.AddRange(enchantments);
+            _enchantments.Add(enchantments);
 
             FlagStatsAsDirty();
         }
@@ -213,7 +213,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
-            _enchantments.RemoveRange(enchantments);
+            _enchantments.Remove(enchantments);
 
             FlagStatsAsDirty();
         }

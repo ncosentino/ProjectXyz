@@ -68,23 +68,34 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
-        public void AddItems(IEnumerable<IItem> items)
+        public void Add(IEnumerable<IItem> items)
         {
-            var changedItems = new List<IItem>(items);
-            _items.AddRange(items);
-            OnCollectionChanged(NotifyCollectionChangedAction.Add, changedItems);
+            _items.Add(items);
+            OnCollectionChanged(
+                NotifyCollectionChangedAction.Add, 
+                items.ToArray());
         }
 
-        public void RemoveItems(IEnumerable<IItem> items)
+        public bool Remove(IEnumerable<IItem> items)
         {
             var changedItems = new List<IItem>();
             foreach (var item in items)
             {
-                _items.Remove(item);
-                changedItems.Add(item);
+                if (_items.Remove(item))
+                {
+                    changedItems.Add(item);
+                }
             }
 
-            OnCollectionChanged(NotifyCollectionChangedAction.Remove, changedItems);
+            var removedAny = changedItems.Count > 0;
+            if (removedAny)
+            {
+                OnCollectionChanged(
+                    NotifyCollectionChangedAction.Remove,
+                    changedItems);
+            }
+
+            return removedAny;
         }
 
         private void OnCollectionChanged(NotifyCollectionChangedAction action, IList items)

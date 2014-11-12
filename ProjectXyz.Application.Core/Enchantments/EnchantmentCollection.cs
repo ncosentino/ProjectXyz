@@ -56,27 +56,20 @@ namespace ProjectXyz.Application.Core.Enchantments
             return new EnchantmentCollection(enchantments);
         }
 
-        public virtual void Add(IEnchantment enchantment)
-        {
-            _enchantments.Add(enchantment);
-        }
-
-        public virtual void AddRange(IEnumerable<IEnchantment> enchantments)
+        public virtual void Add(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);
         }
 
-        public virtual void Remove(IEnchantment enchantment)
+        public virtual bool Remove(IEnumerable<IEnchantment> enchantments)
         {
-            _enchantments.Remove(enchantment);
-        }
-
-        public virtual void RemoveRange(IEnumerable<IEnchantment> enchantments)
-        {
+            bool removedAny = false;
             foreach (var enchantment in enchantments)
             {
-                Remove(enchantment);
+                removedAny |= _enchantments.Remove(enchantment);
             }
+
+            return removedAny;
         }
 
         public virtual void Clear()

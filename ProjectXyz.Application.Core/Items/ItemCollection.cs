@@ -52,27 +52,20 @@ namespace ProjectXyz.Application.Core.Items
             return new ItemCollection(items);
         }
 
-        public void Add(IItem item)
-        {
-            _items.Add(item);
-        }
-
-        public void AddRange(IEnumerable<IItem> items)
+        public void Add(IEnumerable<IItem> items)
         {
             _items.AddRange(items);
         }
-
-        public void Remove(IItem item)
+        
+        public bool Remove(IEnumerable<IItem> items)
         {
-            _items.Remove(item);
-        }
-
-        public void RemoveRange(IEnumerable<IItem> items)
-        {
+            bool removedAny = false;
             foreach (var item in items)
             {
-                Remove(item);
+                removedAny |= _items.Remove(item);
             }
+
+            return removedAny;
         }
 
         public void Clear()

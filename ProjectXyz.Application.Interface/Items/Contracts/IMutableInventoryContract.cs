@@ -56,14 +56,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #region Methods
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
 
-        public void AddItems(IEnumerable<IItem> items)
+        public void Add(IEnumerable<IItem> items)
         {
             Contract.Requires<ArgumentNullException>(items != null);
         }
 
-        public void RemoveItems(IEnumerable<IItem> items)
+        public bool Remove(IEnumerable<IItem> items)
         {
             Contract.Requires<ArgumentNullException>(items != null);
+            return default(bool);
         }
         #endregion
     }

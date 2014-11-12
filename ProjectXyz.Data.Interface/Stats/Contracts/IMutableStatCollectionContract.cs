@@ -37,35 +37,22 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
-
-        public void Add(IStat stat)
+        
+        public void Add(IEnumerable<IStat> stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
         }
 
-        public void AddRange(IEnumerable<IStat> stat)
+        public bool Remove(IEnumerable<IStat> stat)
         {
             Contract.Requires<ArgumentNullException>(stat != null);
+            return default(bool);
         }
 
-        public void Remove(string statId)
-        {
-            Contract.Requires<ArgumentNullException>(statId != null);
-        }
-
-        public void Remove(IStat stat)
-        {
-            Contract.Requires<ArgumentNullException>(stat != null);
-        }
-
-        public void RemoveRange(IEnumerable<IStat> stat)
-        {
-            Contract.Requires<ArgumentNullException>(stat != null);
-        }
-
-        public void RemoveRange(IEnumerable<string> statIds)
+        public bool Remove(IEnumerable<string> statIds)
         {
             Contract.Requires<ArgumentNullException>(statIds != null);
+            return default(bool);
         }
         
         public abstract bool Contains(string id);

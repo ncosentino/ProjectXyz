@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Materials;
+using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -45,20 +47,11 @@ namespace ProjectXyz.Application.Core.Items
                 destination.EquippableSlots.Add(slot);
             }
 
-            foreach (var stat in source.Stats)
-            {
-                destination.Stats.Add(stat);
-            }
+            destination.Stats.Add(source.Stats);
 
-            foreach (var enchantment in source.Enchantments)
-            {
-                destination.Enchantments.Add(_enchantmentSaver.Save(enchantment));
-            }
+            destination.Enchantments.Add(source.Enchantments.Select(x => _enchantmentSaver.Save(x)));
 
-            foreach (var item in source.SocketedItems)
-            {
-                destination.SocketedItems.Add(Save(item));
-            }
+            destination.SocketedItems.Add(source.SocketedItems.Select(x => Save(x)));
 
             destination.Requirements.Class = source.Requirements.Class;
             destination.Requirements.Level = source.Requirements.Level;

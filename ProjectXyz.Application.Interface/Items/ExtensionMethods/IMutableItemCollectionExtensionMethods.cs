@@ -9,23 +9,23 @@ using ProjectXyz.Application.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
 {
-    public static class IMutableInventoryExtensionMethods
+    public static class IMutableItemCollectionExtensionMethods
     {
         #region Methods
-        public static void Add(this IMutableInventory inventory, IItem item)
+        public static void Add(this IMutableItemCollection items, IItem item)
         {
-            Contract.Requires<ArgumentNullException>(inventory != null);
+            Contract.Requires<ArgumentNullException>(items != null);
             Contract.Requires<ArgumentNullException>(item != null);
 
-            inventory.Add(new IItem[] { item });
+            items.Add(new IItem[] { item });
         }
 
-        public static bool Remove(this IMutableInventory inventory, IItem item)
+        public static bool Remove(this IMutableItemCollection items, IItem item)
         {
-            Contract.Requires<ArgumentNullException>(inventory != null);
+            Contract.Requires<ArgumentNullException>(items != null);
             Contract.Requires<ArgumentNullException>(item != null);
 
-            return inventory.Remove(new IItem[] { item });
+            return items.Remove(new IItem[] { item });
         }
         #endregion
     }

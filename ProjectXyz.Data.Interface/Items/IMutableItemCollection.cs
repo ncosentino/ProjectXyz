@@ -9,13 +9,9 @@ namespace ProjectXyz.Data.Interface.Items
     public interface IMutableItemCollection : IItemCollection
     {
         #region Methods
-        void Add(IItem item);
+        void Add(IEnumerable<IItem> items);
         
-        void AddRange(IEnumerable<IItem> items);
-        
-        void Remove(IItem item);
-        
-        void RemoveRange(IEnumerable<IItem> item);
+        bool Remove(IEnumerable<IItem> item);
         
         void Clear();
         #endregion
