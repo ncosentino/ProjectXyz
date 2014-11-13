@@ -20,6 +20,87 @@ namespace ProjectXyz.Tests.Application.Enchantments
     public class EnchantmentBlockTests
     {
         [Fact]
+        public void Add()
+        {
+            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantmentBlock = EnchantmentBlock.Create();
+
+            enchantmentBlock.Add(enchantment);
+
+            Assert.Equal(1, enchantmentBlock.Count);
+            Assert.Contains(enchantment, enchantmentBlock);
+        }
+
+        [Fact]
+        public void AddMultiple()
+        {
+            var enchantmentBlock = EnchantmentBlock.Create();
+
+            var enchantmentsToAdd = new IEnchantment[]
+            {
+                new MockEnchantmentBuilder().Build(),
+                new MockEnchantmentBuilder().Build(),
+                new MockEnchantmentBuilder().Build(),
+            };
+
+            enchantmentBlock.Add(enchantmentsToAdd);
+
+            Assert.Equal(enchantmentsToAdd.Length, enchantmentBlock.Count);
+
+            for (int i = 0; i < enchantmentsToAdd.Length; ++i)
+            {
+                Assert.True(
+                    enchantmentBlock.Contains(enchantmentsToAdd[i]),
+                    "Expected enchantment " + i + " would be contained in collection");
+            }
+        }
+
+        [Fact]
+        public void Remove()
+        {
+            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantmentBlock = EnchantmentBlock.Create();
+            enchantmentBlock.Add(enchantment);
+
+            Assert.True(
+                enchantmentBlock.Remove(enchantment),
+                "Expected to remove enchantment.");
+            Assert.Empty(enchantmentBlock);
+        }
+
+        [Fact]
+        public void RemoveNonexistent()
+        {
+            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantmentBlock = EnchantmentBlock.Create();
+
+            Assert.False(
+                enchantmentBlock.Remove(enchantment),
+                "Expected to NOT remove enchantment.");
+            Assert.Empty(enchantmentBlock);
+        }
+
+        [Fact]
+        public void RemovedMultiple()
+        {
+            var enchantmentBlock = EnchantmentBlock.Create();
+
+            var enchantmentsToRemove = new IEnchantment[]
+            {
+                new MockEnchantmentBuilder().Build(),
+                new MockEnchantmentBuilder().Build(),
+                new MockEnchantmentBuilder().Build(),
+            };
+
+            enchantmentBlock.Add(enchantmentsToRemove);
+
+            Assert.True(
+                enchantmentBlock.Remove(enchantmentsToRemove),
+                "Expected to remove enchantments.");
+            Assert.Empty(enchantmentBlock);
+        }
+
+        [Fact]
         public void AddTriggersModified()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
