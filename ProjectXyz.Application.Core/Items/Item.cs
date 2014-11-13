@@ -23,8 +23,13 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IMutableItemCollection _socketedItems;
         private readonly IEnchantmentBlock _enchantments;
         private readonly IItemContext _context;
-        private readonly ProjectXyz.Data.Interface.Items.IItem _item;
         private readonly IMutableRequirements _requirements;
+        private readonly Guid _id;
+        private readonly string _name;
+        private readonly string _magicType;
+        private readonly string _itemType;
+        private readonly List<string> _equippableSlots;
+        private readonly IMutableStatCollection _baseStats;
 
         private IMutableStatCollection _stats;
         #endregion
@@ -37,18 +42,25 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(item != null);
 
             _context = context;
-            _item = item;
+            _id = item.Id;
+            _name = item.Name;
+            _magicType = item.MagicType;
+            _itemType = item.ItemType;
+            _equippableSlots = new List<string>(item.EquippableSlots);
+            
+            _baseStats = StatCollection.Create();
+            _baseStats.Add(item.Stats);
 
-            this.Material = builder.MaterialFactory.Load(_item.MaterialType);
+            this.Material = builder.MaterialFactory.Load(item.MaterialType);
 
-            var socketedItems = _item.SocketedItems.Select(x => Item.Create(builder, _context, x));
+            var socketedItems = item.SocketedItems.Select(x => Item.Create(builder, _context, x));
             _socketedItems = ItemCollection.Create(socketedItems);
 
-            var enchantments = _item.Enchantments.Select(x => Enchantment.Create(context.EnchantmentContext, x));
+            var enchantments = item.Enchantments.Select(x => Enchantment.Create(context.EnchantmentContext, x));
             _enchantments = EnchantmentBlock.Create(enchantments);
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
 
-            _requirements = Items.Requirements.Create(_item.Requirements);
+            _requirements = Items.Requirements.Create(item.Requirements);
         }
         #endregion
 
@@ -59,17 +71,17 @@ namespace ProjectXyz.Application.Core.Items
         #region Properties
         public Guid Id
         {
-            get { return _item.Id; }
+            get { return _id; }
         }
 
         public string Name
         {
-            get { return _item.Name; }
+            get { return _name; }
         }
 
         public string MagicType
         {
-            get { return _item.MagicType; }
+            get { return _magicType; }
         }
 
         public IMaterial Material
@@ -80,7 +92,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public string ItemType
         {
-            get { return _item.ItemType; }
+            get { return _itemType; }
         }
 
         public double Weight
@@ -140,7 +152,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public IEnumerable<string> EquippableSlots
         {
-            get { return _item.EquippableSlots; }
+            get { return _equippableSlots; }
         }
 
         public IDurability Durability
@@ -216,7 +228,7 @@ namespace ProjectXyz.Application.Core.Items
             }
             
             _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
-                _item.Stats,
+                _baseStats,
                 _enchantments));
             _stats.Set(Stat.Create(
                 ItemStats.Weight, 
@@ -234,7 +246,7 @@ namespace ProjectXyz.Application.Core.Items
             {
                 var brokenStat = Stat.Create(ItemStats.Broken, 1);
                 _stats.Set(brokenStat);
-                _item.Stats.Set(brokenStat);
+                _baseStats.Set(brokenStat);
                 OnBroken();
             }
         }
