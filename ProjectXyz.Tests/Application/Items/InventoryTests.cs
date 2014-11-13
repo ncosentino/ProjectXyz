@@ -21,6 +21,87 @@ namespace ProjectXyz.Tests.Application.Items
     public class InventoryTests
     {
         [Fact]
+        public void Add()
+        {
+            var item = new MockItemBuilder().Build();
+            var inventory = Inventory.Create();
+
+            inventory.Add(item);
+
+            Assert.Equal(1, inventory.Items.Count);
+            Assert.Contains(item, inventory.Items);
+        }
+
+        [Fact]
+        public void AddMultiple()
+        {
+            var inventory = Inventory.Create();
+
+            var itemsToAdd = new IItem[]
+            {
+                new MockItemBuilder().Build(),
+                new MockItemBuilder().Build(),
+                new MockItemBuilder().Build(),
+            };
+
+            inventory.Add(itemsToAdd);
+
+            Assert.Equal(itemsToAdd.Length, inventory.Items.Count);
+
+            for (int i = 0; i < itemsToAdd.Length; ++i)
+            {
+                Assert.True(
+                    inventory.Items.Contains(itemsToAdd[i]),
+                    "Expected item " + i + " would be contained in collection");
+            }
+        }
+
+        [Fact]
+        public void Remove()
+        {
+            var item = new MockItemBuilder().Build();
+            var inventory = Inventory.Create();
+            inventory.Add(item);
+
+            Assert.True(
+                inventory.Remove(item),
+                "Expected to remove item.");
+            Assert.Empty(inventory.Items);
+        }
+
+        [Fact]
+        public void RemoveNonexistent()
+        {
+            var item = new MockItemBuilder().Build();
+            var inventory = Inventory.Create();
+
+            Assert.False(
+                inventory.Remove(item),
+                "Expected to NOT remove item.");
+            Assert.Empty(inventory.Items);
+        }
+
+        [Fact]
+        public void RemovedMultiple()
+        {
+            var inventory = Inventory.Create();
+
+            var itemsToRemove = new IItem[]
+            {
+                new MockItemBuilder().Build(),
+                new MockItemBuilder().Build(),
+                new MockItemBuilder().Build(),
+            };
+
+            inventory.Add(itemsToRemove);
+
+            Assert.True(
+                inventory.Remove(itemsToRemove),
+                "Expected to remove items.");
+            Assert.Empty(inventory.Items);
+        }
+
+        [Fact]
         public void AddTriggersModified()
         {
             var item = new MockItemBuilder().Build();
