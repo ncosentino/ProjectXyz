@@ -112,12 +112,15 @@
     <Compile Include="Data\Items\ItemTests.cs" />
     <Compile Include="Data\Items\Mocks\MockRequirementsBuilder.cs" />
     <Compile Include="Data\Items\Mocks\MockItemBuilder.cs" />
+    <Compile Include="Data\Stats\Mocks\MockStatBuilder.cs" />
+    <Compile Include="Data\Stats\StatCollectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xunit\Assertions\Enchantments\AssertEnchantments.cs" />
     <Compile Include="Xunit\Assertions\Stats\AssertStats.cs" />
     <Compile Include="Xunit\Categories\CategoryAttribute.cs" />
     <Compile Include="Xunit\Categories\ApplicationLayerAttribute.cs" />
     <Compile Include="Xunit\Categories\ActorsAttribute.cs" />
+    <Compile Include="Xunit\Categories\StatsAttribute.cs" />
     <Compile Include="Xunit\Categories\EnchantmentsAttribute.cs" />
     <Compile Include="Xunit\Categories\ItemsAttribute.cs" />
     <Compile Include="Xunit\Categories\DataLayerAttribute.cs" />
