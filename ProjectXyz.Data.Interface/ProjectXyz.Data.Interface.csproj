@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\IActor.cs" />
+    <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentExtensionMethods.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />
@@ -92,7 +93,9 @@
     <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\IEnchantmentCollection.cs" />
     <Compile Include="Enchantments\IEnchantment.cs" />
+    <Compile Include="Enchantments\IEnchantmentRepository.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
+    <Compile Include="IDataStore.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />

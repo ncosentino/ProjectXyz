@@ -109,6 +109,7 @@
     <Compile Include="Application\Items\Mocks\MockRequirementsBuilder.cs" />
     <Compile Include="Data\Actors\ActorTests.cs" />
     <Compile Include="Data\Actors\Mocks\MockActorBuilder.cs" />
+    <Compile Include="Data\Enchantments\EnchantmentRepositoryTests.cs" />
     <Compile Include="Data\Items\ItemTests.cs" />
     <Compile Include="Data\Items\Mocks\MockRequirementsBuilder.cs" />
     <Compile Include="Data\Items\Mocks\MockItemBuilder.cs" />
@@ -145,6 +146,10 @@
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
       <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
       <Name>ProjectXyz.Data.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Sql\ProjectXyz.Data.Sql.csproj">
+      <Project>{e424c78a-da58-47d2-b003-dbb902cb92e7}</Project>
+      <Name>ProjectXyz.Data.Sql</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

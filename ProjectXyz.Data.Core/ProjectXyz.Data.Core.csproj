@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Enchantments\EnchantmentFactory.cs" />
     <Compile Include="Enchantments\EnchantmentStatuses.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentCalculationTypes.cs" />
@@ -103,7 +104,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
       <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
-      <Name>ProjectXyz.Interface</Name>
+      <Name>ProjectXyz.Data.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
