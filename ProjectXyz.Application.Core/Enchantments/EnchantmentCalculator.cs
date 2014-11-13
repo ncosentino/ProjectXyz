@@ -22,6 +22,12 @@ namespace ProjectXyz.Application.Core.Enchantments
             EnchantmentCalculationTypes.Value,
             EnchantmentCalculationTypes.Percent,
         };
+
+        private static readonly Dictionary<string, string> STATUS_NEGATIONS = new Dictionary<string,string>()
+        {
+            { ActorStats.Bless, EnchantmentStatuses.Curse },
+            { ActorStats.Cure, EnchantmentStatuses.Disease },
+        };
         #endregion
 
         #region Fields
@@ -49,13 +55,18 @@ namespace ProjectXyz.Application.Core.Enchantments
             var newStats = StatCollection.Create();
             newStats.Add(stats);
 
-            bool blessed = enchantments.Any(x => x.StatId == ActorStats.Bless);
+            var activeNegations = new Dictionary<string, bool>();
+            foreach (var kvp in STATUS_NEGATIONS)
+            {
+                activeNegations[kvp.Value] = enchantments.Any(x => x.StatId == kvp.Key);
+            }
 
             foreach (var calculationType in CALCULATION_ORDER)
             {
                 foreach (var enchantment in enchantments.CalculatedBy(calculationType))
                 {
-                    if (blessed && enchantment.StatusType == EnchantmentStatuses.Curse)
+                    if (activeNegations.ContainsKey(enchantment.StatusType) &&
+                        activeNegations[enchantment.StatusType])
                     {
                         continue;
                     }

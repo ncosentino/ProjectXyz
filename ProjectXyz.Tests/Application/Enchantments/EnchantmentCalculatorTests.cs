@@ -96,5 +96,35 @@ namespace ProjectXyz.Tests.Application.Enchantments
                 stats.Contains(curseEnchantment.StatId),
                 "Expecting the stat to be removed.");
         }
+
+        [Fact]
+        public void CureRemovesDisease()
+        {
+            var diseaseEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(-10)
+                .WithStatusType(EnchantmentStatuses.Disease)
+                .Build();
+
+            var cureEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.Cure)
+                .WithValue(0)
+                .Build();
+
+            var enchantments = new IEnchantment[]
+            {
+                diseaseEnchantment,
+                cureEnchantment,
+            };
+
+            var calculator = EnchantmentCalculator.Create();
+            var stats = calculator.Calculate(StatCollection.Create(), enchantments);
+
+            Assert.False(
+                stats.Contains(diseaseEnchantment.StatId),
+                "Expecting the stat to be removed.");
+        }
     }
 }
