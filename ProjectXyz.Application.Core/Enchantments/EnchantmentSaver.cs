@@ -29,6 +29,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             destination.StatId = source.StatId;
             destination.Value = source.Value;
             destination.Trigger = source.Trigger;
+            destination.StatusType = source.StatusType;
 
             return destination;
         }

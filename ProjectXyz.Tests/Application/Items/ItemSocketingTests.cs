@@ -12,6 +12,7 @@ using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Tests.Application.Items.Mocks;
+using ProjectXyz.Tests.Application.Enchantments.Mocks;
 
 namespace ProjectXyz.Tests.Application.Items
 {
@@ -64,16 +65,11 @@ namespace ProjectXyz.Tests.Application.Items
                 .Setup(x => x.EnchantmentCalculator)
                 .Returns(EnchantmentCalculator.Create());
 
-            var socketCandidateEnchantment = new Mock<IEnchantment>();
-            socketCandidateEnchantment
-                .Setup(x => x.StatId)
-                .Returns(ItemStats.Value);
-            socketCandidateEnchantment
-                .Setup(x => x.Value)
-                .Returns(123456);
-            socketCandidateEnchantment
-                .Setup(x => x.CalculationId)
-                .Returns(EnchantmentCalculationTypes.Value);
+            var socketCandidateEnchantment = new MockEnchantmentBuilder()
+                .WithStatId(ItemStats.Value)
+                .WithValue(123456)
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .Build();
 
             var socketCandidate = new Mock<IItem>();
             socketCandidate
@@ -83,7 +79,7 @@ namespace ProjectXyz.Tests.Application.Items
                 .Setup(x => x.Enchantments)
                 .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create(new IEnchantment[]
                 { 
-                    socketCandidateEnchantment.Object 
+                    socketCandidateEnchantment 
                 }));
 
             var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
@@ -97,8 +93,8 @@ namespace ProjectXyz.Tests.Application.Items
                 socketableItem.Socket(socketCandidate.Object),
                 "Expecting the socket operation to be successful.");
             Assert.Contains(socketCandidate.Object, socketableItem.SocketedItems);
-            Assert.Contains(socketCandidateEnchantment.Object, socketableItem.Enchantments);
-            Assert.Equal(socketCandidateEnchantment.Object.Value, socketableItem.Value);
+            Assert.Contains(socketCandidateEnchantment, socketableItem.Enchantments);
+            Assert.Equal(socketCandidateEnchantment.Value, socketableItem.Value);
         }
 
         [Fact]
@@ -165,23 +161,15 @@ namespace ProjectXyz.Tests.Application.Items
         [Fact]
         public void SocketEnchantmentsCanExpire()
         {
-            var socketCandidateEnchantment = new Mock<IEnchantment>();
-            socketCandidateEnchantment
-                .Setup(x => x.StatId)
-                .Returns(ItemStats.Value);
-            socketCandidateEnchantment
-                .Setup(x => x.Value)
-                .Returns(123456);
-            socketCandidateEnchantment
-                .Setup(x => x.CalculationId)
-                .Returns(EnchantmentCalculationTypes.Value);
-            socketCandidateEnchantment
-                .SetupSequence(x => x.RemainingDuration)
-                .Returns(TimeSpan.FromSeconds(5))
-                .Returns(TimeSpan.Zero);
+            var socketCandidateEnchantment = new MockEnchantmentBuilder()
+                .WithStatId(ItemStats.Value)
+                .WithValue(123456)
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithRemainingTime(TimeSpan.FromSeconds(5), TimeSpan.Zero)
+                .Build();
 
             var socketCandidate = new MockItemBuilder()
-                .WithEnchantments(socketCandidateEnchantment.Object)
+                .WithEnchantments(socketCandidateEnchantment)
                 .WithRequiredSockets(1)
                 .Build();
 
@@ -197,10 +185,10 @@ namespace ProjectXyz.Tests.Application.Items
             Assert.True(
                 socketableItem.Socket(socketCandidate),
                 "Expecting the socket operation to be successful.");
-            Assert.Equal(socketCandidateEnchantment.Object.Value, socketableItem.Value);
+            Assert.Equal(socketCandidateEnchantment.Value, socketableItem.Value);
 
-            socketableItem.UpdateElapsedTime(socketCandidateEnchantment.Object.RemainingDuration);
-            Assert.DoesNotContain(socketCandidateEnchantment.Object, socketableItem.Enchantments);
+            socketableItem.UpdateElapsedTime(socketCandidateEnchantment.RemainingDuration);
+            Assert.DoesNotContain(socketCandidateEnchantment, socketableItem.Enchantments);
             Assert.Equal(0, socketableItem.Value);
         }
     }

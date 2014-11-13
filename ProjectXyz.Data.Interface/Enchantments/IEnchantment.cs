@@ -21,6 +21,8 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         string Trigger { get; set; }
 
+        string StatusType { get; set; }
+
         TimeSpan RemainingDuration { get; set; }
         #endregion
     }

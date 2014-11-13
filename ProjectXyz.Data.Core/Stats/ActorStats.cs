@@ -11,5 +11,9 @@ namespace ProjectXyz.Data.Core.Stats
         public const string MaximumLife = "ActorMaximumLife";
 
         public const string CurrentLife = "ActorCurrentLife";
+
+        public const string Bless = "ActorBless";
+
+        public const string Cure = "ActorCure";
     }
 }

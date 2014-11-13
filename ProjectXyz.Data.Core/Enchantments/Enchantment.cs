@@ -43,6 +43,12 @@ namespace ProjectXyz.Data.Core.Enchantments
             set;
         }
 
+        public string StatusType
+        {
+            get;
+            set;
+        }
+
         public TimeSpan RemainingDuration
         {
             get;

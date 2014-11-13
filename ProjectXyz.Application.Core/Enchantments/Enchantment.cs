@@ -49,6 +49,11 @@ namespace ProjectXyz.Application.Core.Enchantments
             get { return _enchantment.Trigger; }
         }
 
+        public string StatusType
+        {
+            get { return _enchantment.StatusType; }
+        }
+
         public TimeSpan RemainingDuration
         {
             get { return _enchantment.RemainingDuration; }

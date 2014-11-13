@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Enchantments\EnchantmentStatuses.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentCalculationTypes.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />

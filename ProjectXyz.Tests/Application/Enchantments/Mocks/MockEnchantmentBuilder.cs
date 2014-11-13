@@ -18,11 +18,12 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
         #region Fields
         private readonly Mock<IEnchantment> _enchantment;
 
-        private TimeSpan _remaining;
+        private List<TimeSpan> _remaining;
         private string _statId;
         private string _calculationId;
         private double _value;
         private string _trigger;
+        private string _statusType;
         #endregion
 
         #region Constructors
@@ -32,15 +33,27 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
             _statId = "Default";
             _calculationId = "Default";
             _trigger = "Default";
+            _statusType = "Default";
+            _remaining = new List<TimeSpan>(new[] { TimeSpan.Zero });
         }
         #endregion
-
+        
         #region Methods
-        public MockEnchantmentBuilder WithRemainingTime(TimeSpan remaining)
+        public MockEnchantmentBuilder WithRemainingTime(params TimeSpan[] remainingTimes)
         {
+            Contract.Requires<ArgumentNullException>(remainingTimes != null);
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
 
-            _remaining = remaining;
+            return WithRemainingTime((IEnumerable<TimeSpan>)remainingTimes);
+        }
+
+        public MockEnchantmentBuilder WithRemainingTime(IEnumerable<TimeSpan> remainingTimes)
+        {
+            Contract.Requires<ArgumentNullException>(remainingTimes != null);
+            Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
+
+            _remaining.Clear();
+            _remaining.AddRange(remainingTimes);
             return this;
         }
 
@@ -63,7 +76,7 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
             _calculationId = calculationId;
             return this;
         }
-
+        
         public MockEnchantmentBuilder WithValue(double value)
         {
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
@@ -79,6 +92,16 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
 
             _trigger = trigger;
+            return this;
+        }
+
+        public MockEnchantmentBuilder WithStatusType(string statusType)
+        {
+            Contract.Requires<ArgumentNullException>(statusType != null);
+            Contract.Requires<ArgumentException>(statusType != string.Empty);
+            Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
+
+            _statusType = statusType;
             return this;
         }
 
@@ -98,9 +121,25 @@ namespace ProjectXyz.Tests.Application.Enchantments.Mocks
             _enchantment
                 .Setup(x => x.Value)
                 .Returns(_value);
+
+            if (_remaining.Count == 1)
+            {
+                _enchantment
+                    .Setup(x => x.RemainingDuration)
+                    .Returns(_remaining[0]);
+            }
+            else
+            {
+                var sequence = _enchantment.SetupSequence(x => x.RemainingDuration);
+                foreach (var remainingTime in _remaining)
+                {
+                    sequence = sequence.Returns(remainingTime);
+                }
+            }
+
             _enchantment
-                .Setup(x => x.RemainingDuration)
-                .Returns(_remaining);
+                .Setup(x => x.StatusType)
+                .Returns(_statusType);
 
             return _enchantment.Object;
         }

@@ -316,6 +316,62 @@ namespace ProjectXyz.Tests.Application.Actors
             Assert.Equal(item, new List<IItem>(actor.Inventory.Items)[0]);
         }
 
+        [Fact]
+        public void BlessToRemoveCurse()
+        {
+            var curseEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(-10)
+                .WithTrigger(EnchantmentTriggers.Equip)
+                .WithStatusType(EnchantmentStatuses.Curse)
+                .Build();
+
+            var cursedItem = new MockItemBuilder()
+                .WithEnchantments(curseEnchantment)
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
+                .Build();
+
+            var blessEnchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.Bless)
+                .WithValue(0)
+                .WithTrigger(EnchantmentTriggers.Equip)
+                .Build();
+
+            var blessItem = new MockItemBuilder()
+                .WithEnchantments(blessEnchantment)
+                .WithEquippableSlots("Magical Potion Drinking Slot")
+                .WithDurability(1, 1)
+                .Build();
+
+            var builder = new Mock<IActorBuilder>();
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, 100))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, 100))
+                .Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                builder.Object,
+                context.Object,
+                data);
+
+            AssertEquipItem(
+                actor,
+                cursedItem,
+                () => Assert.Equal(90, actor.GetMaximumLife()));
+
+            AssertEquipItem(
+                actor,
+                blessItem,
+                () => Assert.Equal(100, actor.GetMaximumLife()));
+        }
+
         public void AssertCannotEquipItem(IActor actor, IItem item)
         {
             Contract.Requires<ArgumentNullException>(actor != null);

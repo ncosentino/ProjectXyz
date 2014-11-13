@@ -47,43 +47,32 @@ namespace ProjectXyz.Application.Core.Enchantments
         public IStatCollection Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments) 
         {
             var newStats = StatCollection.Create();
-            foreach (var stat in stats)
-            {
-                if (stat == null)
-                {
-                    throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
-                }
+            newStats.Add(stats);
 
-                newStats.Add(stat);
-            }
+            bool blessed = enchantments.Any(x => x.StatId == ActorStats.Bless);
 
             foreach (var calculationType in CALCULATION_ORDER)
             {
-                PerEnchantment(
-                    stats,
-                    newStats,
-                    enchantments.CalculatedBy(calculationType));
+                foreach (var enchantment in enchantments.CalculatedBy(calculationType))
+                {
+                    if (blessed && enchantment.StatusType == EnchantmentStatuses.Curse)
+                    {
+                        continue;
+                    }
+
+                    var oldValue = newStats.GetValueOrDefault(enchantment.StatId, 0);
+                    var newValue = _calculationMappings[enchantment.CalculationId](
+                        oldValue,
+                        enchantment.Value);
+                    newStats.Set(Stat.Create(
+                        enchantment.StatId, 
+                        newValue));
+                }
             }
 
             return newStats;
         }
-
-        private void PerEnchantment(IStatCollection stats, IMutableStatCollection newStats, IEnumerable<IEnchantment> enchantments)
-        {
-            Contract.Requires<ArgumentNullException>(enchantments != null);
-
-            foreach (var enchantment in enchantments)
-            {
-                var oldValue = newStats.GetValueOrDefault(enchantment.StatId, 0);
-                var newValue = _calculationMappings[enchantment.CalculationId](
-                    oldValue,
-                    enchantment.Value);
-                newStats.Set(Stat.Create(
-                    enchantment.StatId, 
-                    newValue));
-            }
-        }
-
+        
         private double CalculateValue(double statValue, double enchantmentValue)
         {
             return statValue + enchantmentValue;

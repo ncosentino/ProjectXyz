@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Application\Actors\ActorEquipmentTests.cs" />
     <Compile Include="Application\Actors\ActorTests.cs" />
+    <Compile Include="Application\Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Application\Enchantments\EnchantmentBlockTests.cs" />
     <Compile Include="Application\Enchantments\EnchantmentSaverTests.cs" />
     <Compile Include="Application\Enchantments\Mocks\MockEnchantmentSaverBuilder.cs" />

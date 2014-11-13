@@ -34,18 +34,13 @@ namespace ProjectXyz.Tests.Application.Items
             var baseDurability = Durability.Create(
                 item.Durability.Maximum, 
                 item.Durability.Current);
-            var enchantment = new Mock<IEnchantment>();
-            enchantment
-                .Setup(x => x.CalculationId)
-                .Returns("Value");
-            enchantment
-                .Setup(x => x.StatId)
-                .Returns(ItemStats.MaximumDurability);
-            enchantment
-                .Setup(x => x.Value)
-                .Returns(100);
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId("Value")
+                .WithStatId(ItemStats.MaximumDurability)
+                .WithValue(100)
+                .Build();
 
-            item.Enchant(enchantment.Object);
+            item.Enchant(enchantment);
 
             Assert.Equal(baseDurability.Current, item.Durability.Current);
             Assert.Equal(baseDurability.Maximum + 100, item.Durability.Maximum);

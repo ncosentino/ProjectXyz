@@ -67,6 +67,22 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             }
         }
 
+        public string StatusType
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
+                return default(string);
+            }
+
+            set
+            {
+                Contract.Requires<ArgumentNullException>(value != null);
+                Contract.Requires<ArgumentException>(value != string.Empty);
+            }
+        }
+
         public TimeSpan RemainingDuration
         {
             get
