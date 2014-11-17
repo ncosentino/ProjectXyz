@@ -16,7 +16,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
     public class EnchantmentCalculatorTests
     {
         [Fact]
-        public void EnchantSingleStatValue()
+        public void EnchantmentCalculator_CalculateSingleEnchantment_BoostsStat()
         {
             var enchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
@@ -40,7 +40,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void MultiEnchantSingleStatValue()
+        public void EnchantmentCalculator_CalculateMultipleEnchantmentsSameStat_BoostsStat()
         {
             var enchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
@@ -68,7 +68,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void BlessRemovesCurse()
+        public void EnchantmentCalculator_CalculateBlessEnchantment_RemovesCurse()
         {
             var curseEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
@@ -98,7 +98,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void CureRemovesDisease()
+        public void EnchantmentCalculator_CalculateCureEnchantment_RemovesDisease()
         {
             var diseaseEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)

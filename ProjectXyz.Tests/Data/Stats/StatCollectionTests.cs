@@ -21,7 +21,7 @@ namespace ProjectXyz.Tests.Data.Stats
     public class StatCollectionTests
     {
         [Fact]
-        public void Add()
+        public void StatCollection_AddSingle_HasItem()
         {
             var stat = new MockStatBuilder().Build();
             var stats = StatCollection.Create();
@@ -33,7 +33,7 @@ namespace ProjectXyz.Tests.Data.Stats
         }
 
         [Fact]
-        public void AddMultiple()
+        public void StatCollection_AddMultipleUnique_HasItems()
         {
             var stats = StatCollection.Create();
 
@@ -57,7 +57,7 @@ namespace ProjectXyz.Tests.Data.Stats
         }
 
         [Fact]
-        public void AddMultipleDupeStatId()
+        public void StatCollection_AddMultipleDuplicates_Throws()
         {
             var stats = StatCollection.Create();
 
@@ -71,7 +71,7 @@ namespace ProjectXyz.Tests.Data.Stats
         }
 
         [Fact]
-        public void Remove()
+        public void StatCollection_RemoveExistingSingle_Successful()
         {
             var stat = new MockStatBuilder().Build();
             var stats = StatCollection.Create();
@@ -84,7 +84,7 @@ namespace ProjectXyz.Tests.Data.Stats
         }
 
         [Fact]
-        public void RemoveNonexistent()
+        public void StatCollection_RemoveNonexistentSingle_Fails()
         {
             var stat = new MockStatBuilder().Build();
             var stats = StatCollection.Create();
@@ -96,7 +96,7 @@ namespace ProjectXyz.Tests.Data.Stats
         }
 
         [Fact]
-        public void RemovedMultiple()
+        public void StatCollection_RemoveMultiple_Successful()
         {
             var stats = StatCollection.Create();
 

@@ -15,7 +15,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
     public class EnchantmentSaverTests
     {
         [Fact]
-        public void SaveMetadata()
+        public void EnchantmentSaver_SaveEnchantment_GeneratesValidData()
         {
             var enchantment = new MockEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)

@@ -10,7 +10,7 @@ namespace ProjectXyz.Tests.Data.Actors
     public class ActorTests
     {
         [Fact]
-        public void Defaults()
+        public void Actor_CreateInstance_DefaultValues()
         {
             var actor = Actor.Create();
 

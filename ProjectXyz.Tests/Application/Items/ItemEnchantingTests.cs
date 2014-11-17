@@ -1,15 +1,10 @@
-﻿using System;
-
-using Moq;
+﻿using Moq;
 using Xunit;
 
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Materials;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
-using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
-using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Tests.Application.Items.Mocks;
 using ProjectXyz.Tests.Application.Enchantments.Mocks;
@@ -21,16 +16,14 @@ namespace ProjectXyz.Tests.Application.Items
     public class ItemEnchantingTests
     {
         [Fact]
-        public void EnchantItemMaximumDurability()
+        public void Item_EnchantMaximumDurability_BoostsStat()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
             var item = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, ProjectXyz.Data.Core.Items.Item.Create());
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    ProjectXyz.Data.Core.Items.Item.Create());
             var baseDurability = Durability.Create(
                 item.Durability.Maximum, 
                 item.Durability.Current);
@@ -47,7 +40,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void EnchantItemToBreak()
+        public void Item_EnchantNegativeCurrentDurability_BreaksItem()
         {
             var itemData = new Data.Items.Mocks.MockItemBuilder()
                 .WithStats(
@@ -55,11 +48,12 @@ namespace ProjectXyz.Tests.Application.Items
                     Stat.Create(ItemStats.MaximumDurability, 50))
                 .Build();
 
-            var context = new MockItemContextBuilder().Build();
             var item = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context, itemData);
+                .Build(
+                    new MockItemContextBuilder().Build(), 
+                    itemData);
             var baseDurability = Durability.Create(
                 item.Durability.Maximum,
                 item.Durability.Current);
@@ -81,7 +75,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void BrokenItemsDontBreak()
+        public void Item_EnchantNegativeDurabilityBrokenItem_DoesNotBreak()
         {
             var itemData = new Data.Items.Mocks.MockItemBuilder()
                 .WithStats(
@@ -89,11 +83,12 @@ namespace ProjectXyz.Tests.Application.Items
                     Stat.Create(ItemStats.MaximumDurability, 50))
                 .Build();
 
-            var context = new MockItemContextBuilder().Build();
             var item = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context, itemData);
+                .Build(
+                    new MockItemContextBuilder().Build(), 
+                    itemData);
             var baseDurability = Durability.Create(
                 item.Durability.Maximum,
                 item.Durability.Current);

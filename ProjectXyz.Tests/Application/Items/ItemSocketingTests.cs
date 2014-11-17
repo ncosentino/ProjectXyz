@@ -21,145 +21,119 @@ namespace ProjectXyz.Tests.Application.Items
     public class ItemSocketingTests
     {
         [Fact]
-        public void AddToOpenSocketSumsWeight()
+        public void Item_AddToOpenSocket_SumsWeight()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+            var socketCandidate = new MockItemBuilder()
+                .WithRequiredSockets(1)
+                .WithWeight(100)
+                .Build();
 
-            var socketCandidate = new Mock<IItem>();
-            socketCandidate
-                .Setup(x => x.RequiredSockets)
-                .Returns(1);
-            socketCandidate
-                .Setup(x => x.Weight)
-                .Returns(100);
-            socketCandidate
-                .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create());
+            var socketableItemData = new ProjectXyz.Tests.Data.Items.Mocks.MockItemBuilder()
+                .WithStats(
+                    Stat.Create(ItemStats.TotalSockets, 1),
+                    Stat.Create(ItemStats.Weight, 50))
+                .Build();
 
-            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
-            socketableItemData.Stats.Set(Stat.Create(ItemStats.Weight, 50));
             var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, socketableItemData);
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    socketableItemData);
 
             Assert.True(
-                socketableItem.Socket(socketCandidate.Object),
+                socketableItem.Socket(socketCandidate),
                 "Expecting the socket operation to be successful.");
-            Assert.Contains(socketCandidate.Object, socketableItem.SocketedItems);
+            Assert.Contains(socketCandidate, socketableItem.SocketedItems);
             Assert.Equal(
-                socketableItem.TotalSockets - socketCandidate.Object.RequiredSockets,
+                socketableItem.TotalSockets - socketCandidate.RequiredSockets,
                 socketableItem.OpenSockets);
             Assert.Equal(150, socketableItem.Weight);
         }
 
         [Fact]
-        public void AddToOpenSocketAppliesEnchantments()
+        public void Item_AddToOpenSocket_AppliesEnchantments()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
-
             var socketCandidateEnchantment = new MockEnchantmentBuilder()
                 .WithStatId(ItemStats.Value)
                 .WithValue(123456)
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .Build();
 
-            var socketCandidate = new Mock<IItem>();
-            socketCandidate
-                .Setup(x => x.RequiredSockets)
-                .Returns(1);
-            socketCandidate
-                .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create(new IEnchantment[]
-                { 
-                    socketCandidateEnchantment 
-                }));
+            var socketCandidate = new MockItemBuilder()
+                .WithRequiredSockets(1)
+                .WithEnchantments(socketCandidateEnchantment)
+                .Build();
 
-            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
+            var socketableItemData = new ProjectXyz.Tests.Data.Items.Mocks.MockItemBuilder()
+                .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
+                .Build();
+
             var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, socketableItemData);
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    socketableItemData);
 
             Assert.True(
-                socketableItem.Socket(socketCandidate.Object),
+                socketableItem.Socket(socketCandidate),
                 "Expecting the socket operation to be successful.");
-            Assert.Contains(socketCandidate.Object, socketableItem.SocketedItems);
+            Assert.Contains(socketCandidate, socketableItem.SocketedItems);
             Assert.Contains(socketCandidateEnchantment, socketableItem.Enchantments);
             Assert.Equal(socketCandidateEnchantment.Value, socketableItem.Value);
         }
 
         [Fact]
-        public void SocketBadSocketCandidate()
+        public void Item_AddNoSocketsRequiredCandidateToOpenSocket_FailsToSocket()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+            var socketCandidate = new MockItemBuilder()
+                .WithRequiredSockets(0)
+                .Build();
 
-            var socketCandidate = new Mock<IItem>();
-            socketCandidate
-                .Setup(x => x.RequiredSockets)
-                .Returns(0);
-            socketCandidate
-                .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create());
+            var socketableItemData = new ProjectXyz.Tests.Data.Items.Mocks.MockItemBuilder()
+                .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
+                .Build();
 
-            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, socketableItemData);
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    socketableItemData);
 
             Assert.False(
-                socketableItem.Socket(socketCandidate.Object),
+                socketableItem.Socket(socketCandidate),
                 "Expecting the socket operation to be successful.");
-            Assert.DoesNotContain(socketCandidate.Object, socketableItem.SocketedItems);
+            Assert.DoesNotContain(socketCandidate, socketableItem.SocketedItems);
         }
 
         [Fact]
-        public void AddNoOpenSockets()
+        public void Item_TrySocketWithNoOpenSockets_FailsToSocket()
         {
-            var context = new Mock<IItemContext>();
-            context
-                .Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+            var socketCandidate = new MockItemBuilder()
+                .WithRequiredSockets(1)
+                .Build();
 
-            var socketCandidate = new Mock<IItem>();
-            socketCandidate
-                .Setup(x => x.RequiredSockets)
-                .Returns(1);
-            socketCandidate
-                .Setup(x => x.Enchantments)
-                .Returns(ProjectXyz.Application.Core.Enchantments.EnchantmentCollection.Create());
+            var socketableItemData = new ProjectXyz.Tests.Data.Items.Mocks.MockItemBuilder()
+                .WithStats(Stat.Create(ItemStats.TotalSockets, 0))
+                .Build();
 
-            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
             var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(context.Object, socketableItemData);
+                .Build(
+                    new MockItemContextBuilder().Build(),
+                    socketableItemData);
 
-            Assert.True(
-                socketableItem.Socket(socketCandidate.Object),
-                "Expecting the socket operation to be successful.");
             Assert.Equal(0, socketableItem.OpenSockets);
             Assert.False(
-                socketableItem.Socket(socketCandidate.Object),
+                socketableItem.Socket(socketCandidate),
                 "Expecting the second socket operation to fail.");
         }
 
         [Fact]
-        public void SocketEnchantmentsCanExpire()
+        public void Item_SocketedItemEnchantments_CanExpire()
         {
             var socketCandidateEnchantment = new MockEnchantmentBuilder()
                 .WithStatId(ItemStats.Value)
@@ -173,8 +147,9 @@ namespace ProjectXyz.Tests.Application.Items
                 .WithRequiredSockets(1)
                 .Build();
 
-            var socketableItemData = ProjectXyz.Data.Core.Items.Item.Create();
-            socketableItemData.Stats.Set(Stat.Create(ItemStats.TotalSockets, 1));
+            var socketableItemData = new ProjectXyz.Tests.Data.Items.Mocks.MockItemBuilder()
+                .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
+                .Build();
             var socketableItem = ItemBuilder
                 .Create()
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)

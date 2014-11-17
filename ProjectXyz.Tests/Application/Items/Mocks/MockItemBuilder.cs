@@ -7,6 +7,8 @@ using System.Diagnostics.Contracts;
 
 using Moq;
 
+using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
@@ -19,6 +21,7 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
         #region Fields
         private readonly Mock<IItem> _item;
         private readonly List<IEnchantment> _enchantments;
+        private readonly List<IMutableStat> _stats;
         #endregion
 
         #region Constructors
@@ -26,10 +29,28 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
         {
             _item = new Mock<IItem>();
             _enchantments = new List<IEnchantment>();
+            _stats = new List<IMutableStat>();
         }
         #endregion
 
         #region Methods
+        public MockItemBuilder WithStats(params IMutableStat[] stats)
+        {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
+            return WithStats((IEnumerable<IMutableStat>)stats);
+        }
+
+        public MockItemBuilder WithStats(IEnumerable<IMutableStat> stats)
+        {
+            Contract.Requires<ArgumentNullException>(stats != null);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
+            _stats.AddRange(stats);
+            return this;
+        }
+
         public MockItemBuilder WithEnchantments(params IEnchantment[] enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
@@ -94,6 +115,17 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
             return this;
         }
 
+        public MockItemBuilder WithWeight(double weight)
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(weight >= 0);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
+            _item
+                .Setup(x => x.Weight)
+                .Returns(weight);
+            return this;
+        }
+
         public IItem Build()
         {
             Contract.Ensures(Contract.Result<IItem>() != null);
@@ -104,6 +136,9 @@ namespace ProjectXyz.Tests.Application.Items.Mocks
             _item
                 .Setup(x => x.Requirements)
                 .Returns(new MockRequirementsBuilder().Build());
+            _item
+                .Setup(x => x.Stats)
+                .Returns(StatCollection.Create(_stats));
 
             return _item.Object;
         }

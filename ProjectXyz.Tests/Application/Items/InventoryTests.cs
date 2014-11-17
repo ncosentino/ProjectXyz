@@ -21,7 +21,7 @@ namespace ProjectXyz.Tests.Application.Items
     public class InventoryTests
     {
         [Fact]
-        public void Add()
+        public void Inventory_AddSingle_HasItem()
         {
             var item = new MockItemBuilder().Build();
             var inventory = Inventory.Create();
@@ -33,7 +33,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void AddMultiple()
+        public void Inventory_AddMultiple_HasItems()
         {
             var inventory = Inventory.Create();
 
@@ -57,7 +57,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void Remove()
+        public void Inventory_RemoveExistingSingle_Successful()
         {
             var item = new MockItemBuilder().Build();
             var inventory = Inventory.Create();
@@ -70,7 +70,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void RemoveNonexistent()
+        public void Inventory_RemoveNonexistentSingle_Fails()
         {
             var item = new MockItemBuilder().Build();
             var inventory = Inventory.Create();
@@ -82,7 +82,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void RemovedMultiple()
+        public void Inventory_RemoveMultiple_Successful()
         {
             var inventory = Inventory.Create();
 
@@ -102,7 +102,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void AddTriggersModified()
+        public void Inventory_AddSingle_TriggersModifiedEvent()
         {
             var item = new MockItemBuilder().Build();
             var inventory = Inventory.Create();
@@ -123,7 +123,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void AddMultipleTriggersModified()
+        public void Inventory_AddMultiple_TriggersModifiedEvent()
         {
             var inventory = Inventory.Create();
 
@@ -155,7 +155,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void RemoveTriggersModified()
+        public void Inventory_RemoveExistingSingle_TriggersModifiedEvent()
         {
             var item = new MockItemBuilder().Build();
             var inventory = Inventory.Create();
@@ -177,7 +177,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void RemoveNonexistentNotModified()
+        public void Inventory_RemoveNonexistentSingle_NoModifiedEvent()
         {
             var item = new MockItemBuilder().Build();
             var inventory = Inventory.Create();
@@ -192,7 +192,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void RemovedMultipleTriggersModified()
+        public void Inventory_RemoveMultiple_TriggersModifiedEvent()
         {
             var inventory = Inventory.Create();
 

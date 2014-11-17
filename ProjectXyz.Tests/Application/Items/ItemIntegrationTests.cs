@@ -21,7 +21,7 @@ namespace ProjectXyz.Tests.Application.Items
     public class ItemIntegrationTests
     {
         [Fact]
-        public void SaveAndLoad()
+        public void Item_SaveAndLoad_CreatesEquivalentItem()
         {
             var sourceData = new Tests.Data.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.Value, 1234567))

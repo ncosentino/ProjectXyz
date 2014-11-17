@@ -21,7 +21,7 @@ namespace ProjectXyz.Tests.Application.Items
     public class ItemSaverTests
     {
         [Fact]
-        public void SaveMetadata()
+        public void ItemSaver_Save_MetadataMatches()
         {
             var sourceData = new Tests.Data.Items.Mocks.MockItemBuilder().Build();
             var item = ItemBuilder
@@ -42,7 +42,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void SaveEquippableSlots()
+        public void ItemSaver_Save_EquippableSlotsMatch()
         {
             var sourceData = new Tests.Data.Items.Mocks.MockItemBuilder()
                 .WithEquippableSlots("Slot 1", "Slot 2")
@@ -62,7 +62,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void SaveStats()
+        public void ItemSaver_Save_StatsMatch()
         {
             var sourceData = new Tests.Data.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.Value, 1234567))
@@ -82,7 +82,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void SaveEnchantments()
+        public void ItemSaver_Save_EnchantmentsMatch()
         {
             var enchantment = new MockEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
@@ -110,7 +110,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void SaveSocketedItems()
+        public void ItemSaver_Save_SocketedItemsMatch()
         {
             var socketCandidateData = new Tests.Data.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.RequiredSockets, 1))
@@ -145,7 +145,7 @@ namespace ProjectXyz.Tests.Application.Items
         }
 
         [Fact]
-        public void SaveRequirements()
+        public void ItemSaver_Save_RequirementsMatch()
         {
             var sourceData = new Tests.Data.Items.Mocks.MockItemBuilder()
                 .Build();

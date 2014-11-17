@@ -15,7 +15,7 @@ namespace ProjectXyz.Tests.Application.Actors
     public class ActorTests
     {
         [Fact]
-        public void Defaults()
+        public void Actor_CreateInstance_DefaultValues()
         {
             var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder().Build();

@@ -15,7 +15,7 @@ namespace ProjectXyz.Tests.Data.Items
     public class ItemTests
     {
         [Fact]
-        public void Defaults()
+        public void Item_CreateInstance_DefaultValues()
         {
             var item = Item.Create();
 

@@ -20,7 +20,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
     public class EnchantmentBlockTests
     {
         [Fact]
-        public void Add()
+        public void EnchantmentBlock_AddSingle_HasItem()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
             var enchantmentBlock = EnchantmentBlock.Create();
@@ -32,7 +32,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void AddMultiple()
+        public void EnchantmentBlock_AddMultiple_HasItems()
         {
             var enchantmentBlock = EnchantmentBlock.Create();
 
@@ -56,7 +56,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void Remove()
+        public void EnchantmentBlock_RemoveExistingSingle_Successful()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
             var enchantmentBlock = EnchantmentBlock.Create();
@@ -69,7 +69,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void RemoveNonexistent()
+        public void EnchantmentBlock_RemoveNonexistingSingle_Fails()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
             var enchantmentBlock = EnchantmentBlock.Create();
@@ -81,7 +81,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void RemovedMultiple()
+        public void EnchantmentBlock_RemoveMultiple_Successful()
         {
             var enchantmentBlock = EnchantmentBlock.Create();
 
@@ -101,7 +101,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void AddTriggersModified()
+        public void EnchantmentBlock_AddSingle_TriggersModifiedEvent()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
             var enchantBlock = EnchantmentBlock.Create();
@@ -122,7 +122,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void AddMultipleTriggersModified()
+        public void EnchantmentBlock_AddMultiple_TriggersModifiedEvent()
         {
             var enchantBlock = EnchantmentBlock.Create();
 
@@ -154,7 +154,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void RemoveTriggersModified()
+        public void EnchantmentBlock_RemoveExistingSingle_TriggersModifiedEvent()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
             var enchantBlock = EnchantmentBlock.Create();
@@ -177,7 +177,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void RemoveNonexistentNotModified()
+        public void EnchantmentBlock_RemoveNonexistentSingle_NoModifiedEvent()
         {
             var enchantment = new MockEnchantmentBuilder().Build();
             var enchantBlock = EnchantmentBlock.Create();
@@ -192,7 +192,7 @@ namespace ProjectXyz.Tests.Application.Enchantments
         }
 
         [Fact]
-        public void RemoveMultipleTriggersModified()
+        public void EnchantmentBlock_RemoveMultiple_TriggersModifiedEvent()
         {
             var enchantBlock = EnchantmentBlock.Create();
 

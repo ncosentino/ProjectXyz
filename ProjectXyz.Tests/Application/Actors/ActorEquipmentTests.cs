@@ -28,7 +28,7 @@ namespace ProjectXyz.Tests.Application.Actors
     public class ActorEquipmentTests
     {
         [Fact]
-        public void EquipLifeEnchantedItem()
+        public void Actor_EquipEnchantedItem_BoostsStat()
         {
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
@@ -72,7 +72,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void EquipHoldTriggersNothing()
+        public void Actor_EquipHoldTrigger_TriggersNothing()
         {
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
@@ -116,7 +116,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void HoldTriggerLifeEnchantedItem()
+        public void Actor_HoldHoldTrigger_BoostsStat()
         {
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
@@ -157,7 +157,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void EquipHealItem()
+        public void Actor_EquipHealItem_CappedAtMaxLife()
         {
             const double MAX_LIFE = 100;
             const double BASE_LIFE = 50;
@@ -202,7 +202,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void EquipBrokenItem()
+        public void Actor_EquipBrokenItem_Fails()
         {
             var item = new MockItemBuilder()
                 .WithEquippableSlots("Some slot")
@@ -225,7 +225,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void BreakingEquipmentRemovesEnchantment()
+        public void Actor_BreakingEquipment_RemovesEnchantment()
         {
             var durabilityEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
@@ -275,7 +275,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void BreakingEquipmentUnequipsItem()
+        public void Actor_BreakingEquipment_UnequipsItem()
         {
             var durabilityEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
@@ -317,7 +317,7 @@ namespace ProjectXyz.Tests.Application.Actors
         }
 
         [Fact]
-        public void BlessToRemoveCurse()
+        public void Actor_BlessEnchantment_RemovesCurse()
         {
             var curseEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
