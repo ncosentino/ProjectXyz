@@ -145,7 +145,7 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
         }
 
         [Fact]
-        public void EnchantmentRepository_GenerateRandomSingleNoAvailable_ThrowsException()
+        public void EnchantmentRepository_GenerateFromIdNotAvailable_Throws()
         {
             var reader = new Mock<IDataReader>();
             reader
@@ -174,6 +174,41 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 database.Object,
                 factory.Object);
             var guid = new Guid("9a760e46-4a52-416f-8c54-e39b0583610f");
+            var rnd = new Random(123);
+
+            var exception = Assert.Throws<InvalidOperationException>(() => repository.Generate(guid, rnd));
+            Assert.Equal("Could not spawn enchantment with Id = '" + guid + "'.", exception.Message);
+        }
+
+        [Fact]
+        public void EnchantmentRepository_GenerateRandomSingleNoAvailable_Throws()
+        {
+            var reader = new Mock<IDataReader>();
+            reader
+                .Setup(x => x.Read())
+                .Returns(false);
+
+            var command = new Mock<IDbCommand>();
+            command
+                .Setup(x => x.ExecuteReader())
+                .Returns(reader.Object);
+
+            var database = new Mock<IDatabase>();
+            database
+                .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
+                .Returns(command.Object);
+
+            var enchantment = new Mock<IEnchantment>();
+            enchantment.SetupAllProperties();
+
+            var factory = new Mock<IEnchantmentFactory>();
+            factory
+                .Setup(x => x.CreateEnchantment())
+                .Returns(enchantment.Object);
+
+            var repository = EnchantmentRepository.Create(
+                database.Object,
+                factory.Object);
             var rnd = new Random(123);
 
             var exception = Assert.Throws<InvalidOperationException>(() => repository.GenerateRandom(1, 1, 1, rnd).First());
@@ -265,7 +300,6 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             var repository = EnchantmentRepository.Create(
                 database.Object,
                 factory.Object);
-            var guid = new Guid("9a760e46-4a52-416f-8c54-e39b0583610f");
             var rnd = new Random(123);
 
             var result = new List<IEnchantment>(repository.GenerateRandom(1, 1, 1, rnd));
@@ -364,7 +398,6 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             var repository = EnchantmentRepository.Create(
                 database.Object,
                 factory.Object);
-            var guid = new Guid("9a760e46-4a52-416f-8c54-e39b0583610f");
             var rnd = new Random(123);
 
             var result = new List<IEnchantment>(repository.GenerateRandom(3, 3, 1, rnd));

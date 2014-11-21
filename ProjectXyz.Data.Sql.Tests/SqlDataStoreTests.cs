@@ -47,6 +47,65 @@ namespace ProjectXyz.Data.Sql.Tests
         }
 
         [Fact]
+        public void SqlDataStore_OpenDatabaseNoRead_Throws()
+        {
+            var userVersionReader = new Mock<IDataReader>();
+            userVersionReader
+                .Setup(x => x.Read())
+                .Returns(false);
+
+            var command = new Mock<IDbCommand>();
+            command
+                .Setup(x => x.ExecuteReader())
+                .Returns(userVersionReader.Object);
+
+            var database = new Mock<IDatabase>();
+            database
+                .Setup(x => x.Query("PRAGMA user_version"))
+                .Returns(userVersionReader.Object);
+
+            var upgrader = new Mock<IDatabaseUpgrader>();
+            upgrader
+                .Setup(x => x.CurrentSchemaVersion)
+                .Returns(1);
+
+            var exception = Assert.Throws<InvalidOperationException>(() => SqlDataStore.Create(
+                database.Object,
+                upgrader.Object));
+            Assert.Equal(
+                "Could not read the current schema version.",
+                exception.Message);
+        }
+
+        [Fact]
+        public void SqlDataStore_OpenDatabaseFutureVersion_Throws()
+        {
+            var userVersionReader = MockUserVersionReader.ForVersion(1);
+
+            var command = new Mock<IDbCommand>();
+            command
+                .Setup(x => x.ExecuteReader())
+                .Returns(userVersionReader.Object);
+
+            var database = new Mock<IDatabase>();
+            database
+                .Setup(x => x.Query("PRAGMA user_version"))
+                .Returns(userVersionReader.Object);
+
+            var upgrader = new Mock<IDatabaseUpgrader>();
+            upgrader
+                .Setup(x => x.CurrentSchemaVersion)
+                .Returns(0);
+
+            var exception = Assert.Throws<InvalidOperationException>(() => SqlDataStore.Create(
+                database.Object,
+                upgrader.Object));
+            Assert.Equal(
+                "The schema version of the database (1) is later than the expected current version (0).",
+                exception.Message);
+        }
+
+        [Fact]
         public void SqlDataStore_OpenDatabase_SetsDatabasePragmas()
         {
             var userVersionReader = MockUserVersionReader.ForVersion(0);

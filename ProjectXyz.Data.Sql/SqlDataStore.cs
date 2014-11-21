@@ -3,6 +3,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Sql.Properties;
 
 namespace ProjectXyz.Data.Sql
@@ -12,6 +13,7 @@ namespace ProjectXyz.Data.Sql
         #region Fields
         private readonly IDatabase _database;
         private readonly IDatabaseUpgrader _upgrader;
+        private readonly IEnchantmentRepository _enchantmentRepository;
         #endregion
 
         #region Constructors
@@ -23,6 +25,10 @@ namespace ProjectXyz.Data.Sql
             _database = database;
             _upgrader = upgrader;
 
+            _enchantmentRepository = Enchantments.EnchantmentRepository.Create(
+                _database,
+                EnchantmentFactory.Create());            
+
             CreateOrUpgrade();
         }
         #endregion
@@ -30,7 +36,7 @@ namespace ProjectXyz.Data.Sql
         #region Properties
         public IEnchantmentRepository EnchantmentRepository
         {
-            get { throw new NotImplementedException(); }
+            get { return _enchantmentRepository; }
         }
         #endregion
 
@@ -68,12 +74,6 @@ namespace ProjectXyz.Data.Sql
             }
         }
 
-        private void CreateDatabase(int currentSchemaVersion)
-        {
-            _database.Execute(GetCreationString(currentSchemaVersion));
-            _database.Execute(string.Format("PRAGMA user_version={0}", currentSchemaVersion));
-        }
-
         private int GetCurrentSchemaVersion()
         {
             using (var reader = _database.Query("PRAGMA user_version"))
@@ -85,14 +85,6 @@ namespace ProjectXyz.Data.Sql
 
                 return reader.GetInt32(reader.GetOrdinal("user_version"));
             }
-        }
-
-        private string GetCreationString(int schemaVersion)
-        {
-            var resourceName = string.Format(
-                "create_schema_{0}", 
-                schemaVersion);
-            return Resources.ResourceManager.GetString(resourceName);
         }
         #endregion
     }
