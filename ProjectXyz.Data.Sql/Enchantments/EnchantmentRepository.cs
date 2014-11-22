@@ -50,7 +50,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     TriggerId,
                     StatusTypeId 
                     MinimumValue, 
-                    MaximumValue
+                    MaximumValue,
                     MinimumDuration, 
                     MaximumDuration
                 FROM
@@ -88,7 +88,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     TriggerId, 
                     StatusTypeId, 
                     MinimumValue, 
-                    MaximumValue
+                    MaximumValue,
                     MinimumDuration, 
                     MaximumDuration
                 FROM
