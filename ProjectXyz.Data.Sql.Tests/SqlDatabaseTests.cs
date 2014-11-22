@@ -273,6 +273,7 @@ namespace ProjectXyz.Data.Sql.Tests
 
         private static void SetupMultiParameter(out Mock<IDataParameterCollection> parameters, out Mock<IDbDataParameter> parameter1, out Mock<IDbDataParameter> parameter2, out Mock<IDbCommand> command, out Mock<IDbConnection> connection)
         {
+            var reader = new Mock<IDataReader>();
             parameters = new Mock<IDataParameterCollection>();
             parameter1 = new Mock<IDbDataParameter>();
             parameter2 = new Mock<IDbDataParameter>();
@@ -285,6 +286,9 @@ namespace ProjectXyz.Data.Sql.Tests
                 .SetupSequence(x => x.CreateParameter())
                 .Returns(parameter1.Object)
                 .Returns(parameter2.Object);
+            command
+                .Setup(x => x.ExecuteReader())
+                .Returns(reader.Object);
 
             connection = new Mock<IDbConnection>();
             connection
@@ -294,6 +298,7 @@ namespace ProjectXyz.Data.Sql.Tests
 
         private static void SetupSingleParameter(out Mock<IDataParameterCollection> parameters, out Mock<IDbDataParameter> parameter, out Mock<IDbCommand> command, out Mock<IDbConnection> connection)
         {
+            var reader = new Mock<IDataReader>();
             parameters = new Mock<IDataParameterCollection>();
             parameter = new Mock<IDbDataParameter>();
 
@@ -304,6 +309,9 @@ namespace ProjectXyz.Data.Sql.Tests
             command
                 .Setup(x => x.CreateParameter())
                 .Returns(parameter.Object);
+            command
+                .Setup(x => x.ExecuteReader())
+                .Returns(reader.Object);
 
             connection = new Mock<IDbConnection>();
             connection
@@ -313,7 +321,12 @@ namespace ProjectXyz.Data.Sql.Tests
 
         private static void SetupNoParameters(out Mock<IDbCommand> command, out Mock<IDbConnection> connection)
         {
+            var reader = new Mock<IDataReader>();
+
             command = new Mock<IDbCommand>();
+            command
+                .Setup(x => x.ExecuteReader())
+                .Returns(reader.Object);
 
             connection = new Mock<IDbConnection>();
             connection

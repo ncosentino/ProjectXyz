@@ -17,8 +17,8 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
     {
         #region Fields
         private readonly Mock<IEnchantment> _enchantment;
+        private readonly List<TimeSpan> _remaining;
 
-        private List<TimeSpan> _remaining;
         private string _statId;
         private string _calculationId;
         private double _value;

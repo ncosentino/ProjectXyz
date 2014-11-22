@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\IActor.cs" />
+    <Compile Include="Contracts\IDataStore.cs" />
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentExtensionMethods.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />

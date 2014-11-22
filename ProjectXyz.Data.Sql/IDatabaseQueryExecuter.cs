@@ -4,9 +4,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
+
+using ProjectXyz.Data.Sql.Contracts;
 
 namespace ProjectXyz.Data.Sql
 {
+    [ContractClass(typeof(IDatabaseQueryExecutorContract))]
     public interface IDatabaseQueryExecutor
     {
         #region Methods

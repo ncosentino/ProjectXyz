@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Contracts;
+
+using ProjectXyz.Data.Sql.Contracts;
 
 namespace ProjectXyz.Data.Sql
 {
+    [ContractClass(typeof(IDatabaseUpgraderContract))]
     public interface IDatabaseUpgrader
     {
         #region Properties

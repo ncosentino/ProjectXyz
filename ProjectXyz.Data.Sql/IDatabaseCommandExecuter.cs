@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ProjectXyz.Data.Sql.Contracts;
+
 namespace ProjectXyz.Data.Sql
 {
+    [ContractClass(typeof(IDatabaseCommandExecuterContract))]
     public interface IDatabaseCommandExecuter
     {
         #region Methods
