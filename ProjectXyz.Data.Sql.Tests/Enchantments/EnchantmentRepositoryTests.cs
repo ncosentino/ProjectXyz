@@ -72,8 +72,8 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_TRIGGER_ID))
                 .Returns(COLUMN_INDEX_TRIGGER_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_TRIGGER_ID))
-                .Returns("Some Trigger");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_TRIGGER_ID))
+                .Returns(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STATUS_TYPE_ID))
@@ -138,7 +138,7 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             
             Assert.Equal("Some Stat", result.StatId);
             Assert.Equal("Some Calculation", result.CalculationId);
-            Assert.Equal("Some Trigger", result.Trigger);
+            Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), result.TriggerId);
             Assert.Equal("Some Status Type", result.StatusType);
             Assert.Equal(TimeSpan.FromSeconds(100), result.RemainingDuration);
             Assert.Equal(100000, result.Value);
@@ -162,13 +162,7 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var enchantment = new Mock<IEnchantment>();
-            enchantment.SetupAllProperties();
-
             var factory = new Mock<IEnchantmentFactory>();
-            factory
-                .Setup(x => x.CreateEnchantment())
-                .Returns(enchantment.Object);
 
             var repository = EnchantmentRepository.Create(
                 database.Object,
@@ -198,13 +192,7 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var enchantment = new Mock<IEnchantment>();
-            enchantment.SetupAllProperties();
-
             var factory = new Mock<IEnchantmentFactory>();
-            factory
-                .Setup(x => x.CreateEnchantment())
-                .Returns(enchantment.Object);
 
             var repository = EnchantmentRepository.Create(
                 database.Object,
@@ -241,8 +229,8 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_TRIGGER_ID))
                 .Returns(COLUMN_INDEX_TRIGGER_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_TRIGGER_ID))
-                .Returns("Some Trigger");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_TRIGGER_ID))
+                .Returns(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STATUS_TYPE_ID))
@@ -307,7 +295,7 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
 
             Assert.Equal("Some Stat", result[0].StatId);
             Assert.Equal("Some Calculation", result[0].CalculationId);
-            Assert.Equal("Some Trigger", result[0].Trigger);
+            Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), result[0].TriggerId);
             Assert.Equal("Some Status Type", result[0].StatusType);
             Assert.Equal(TimeSpan.FromSeconds(100), result[0].RemainingDuration);
             Assert.Equal(100000, result[0].Value);
@@ -339,8 +327,8 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_TRIGGER_ID))
                 .Returns(COLUMN_INDEX_TRIGGER_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_TRIGGER_ID))
-                .Returns("Some Trigger");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_TRIGGER_ID))
+                .Returns(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STATUS_TYPE_ID))
@@ -407,7 +395,7 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             {
                 Assert.Equal("Some Stat", entry.StatId);
                 Assert.Equal("Some Calculation", entry.CalculationId);
-                Assert.Equal("Some Trigger", entry.Trigger);
+                Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), entry.TriggerId);
                 Assert.Equal("Some Status Type", entry.StatusType);
                 Assert.Equal(TimeSpan.FromSeconds(100), entry.RemainingDuration);
                 Assert.Equal(100000, entry.Value);

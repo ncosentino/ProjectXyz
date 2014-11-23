@@ -20,14 +20,13 @@ namespace ProjectXyz.Application.Interface.Enchantments
             return enchantments.Where(x => x.CalculationId == calculationId);
         }
 
-        public static IEnumerable<IEnchantment> TriggeredBy(this IEnumerable<IEnchantment> enchantments, string trigger)
+        public static IEnumerable<IEnchantment> TriggeredBy(this IEnumerable<IEnchantment> enchantments, Guid triggerId)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
-            Contract.Requires<ArgumentNullException>(trigger != null);
-            Contract.Requires<ArgumentException>(trigger != string.Empty);
+            Contract.Requires<ArgumentNullException>(triggerId != null);
             Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
 
-            return enchantments.Where(x => x.Trigger == trigger);
+            return enchantments.Where(x => x.TriggerId == triggerId);
         }
         #endregion
     }

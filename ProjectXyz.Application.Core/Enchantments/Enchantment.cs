@@ -17,7 +17,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         private readonly string _statId;
         private readonly double _value; 
         private readonly string _calculationId; 
-        private readonly string _trigger; 
+        private readonly Guid _triggerId; 
         private readonly string _statusType;
         
         private TimeSpan _remainingDuration;
@@ -33,7 +33,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             _statId = enchantment.StatId;
             _value = enchantment.Value;
             _calculationId = enchantment.CalculationId;
-            _trigger = enchantment.Trigger;
+            _triggerId = enchantment.TriggerId;
             _statusType = enchantment.StatusType;
             _remainingDuration = enchantment.RemainingDuration;
         }
@@ -55,9 +55,9 @@ namespace ProjectXyz.Application.Core.Enchantments
             get { return _calculationId; }
         }
 
-        public string Trigger
+        public Guid TriggerId
         {
-            get { return _trigger; }
+            get { return _triggerId; }
         }
 
         public string StatusType

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments.Contracts;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
@@ -19,7 +20,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
 
         string CalculationId { get; }
 
-        string Trigger { get; }
+        Guid TriggerId { get; }
 
         string StatusType { get; }
 

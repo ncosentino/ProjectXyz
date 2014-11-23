@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enchantments\EnchantmentTriggerRepositoryTests.cs" />
     <Compile Include="SqlDatabaseUpgraderTests.cs" />
     <Compile Include="Enchantments\EnchantmentRepositoryTests.cs" />
     <Compile Include="SqlDataStoreTests.cs" />

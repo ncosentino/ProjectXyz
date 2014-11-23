@@ -38,7 +38,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 { "Id", enchantmentId },
                 { "StatId", "Some Stat" },
                 { "CalculationId", "Some Calculation" },
-                { "TriggerId", "Some Trigger" },
+                { "TriggerId", "d5cfc545-2d99-472a-81ce-9ac62d583a9e" },
                 { "StatusTypeId", "Some Status Type" },
                 { "SpawnLevel", 0 },
                 { "MinimumValue", 100000 },
@@ -85,7 +85,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
             
             Assert.Equal("Some Stat", result.StatId);
             Assert.Equal("Some Calculation", result.CalculationId);
-            Assert.Equal("Some Trigger", result.Trigger);
+            Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), result.TriggerId);
             Assert.Equal("Some Status Type", result.StatusType);
             Assert.Equal(TimeSpan.FromSeconds(100), result.RemainingDuration);
             Assert.Equal(100000, result.Value);

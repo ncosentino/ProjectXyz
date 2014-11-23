@@ -22,7 +22,7 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
         private string _statId;
         private string _calculationId;
         private double _value;
-        private string _trigger;
+        private Guid _trigger;
         private string _statusType;
         #endregion
 
@@ -32,7 +32,6 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             _enchantment = new Mock<IEnchantment>();
             _statId = "Default";
             _calculationId = "Default";
-            _trigger = "Default";
             _statusType = "Default";
             _remaining = new List<TimeSpan>(new[] { TimeSpan.Zero });
         }
@@ -85,13 +84,11 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             return this;
         }
 
-        public MockEnchantmentBuilder WithTrigger(string trigger)
+        public MockEnchantmentBuilder WithTrigger(Guid triggerId)
         {
-            Contract.Requires<ArgumentNullException>(trigger != null);
-            Contract.Requires<ArgumentException>(trigger != string.Empty);
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
 
-            _trigger = trigger;
+            _trigger = triggerId;
             return this;
         }
 
@@ -116,7 +113,7 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
                 .Setup(x => x.CalculationId)
                 .Returns(_calculationId);
             _enchantment
-                .Setup(x => x.Trigger)
+                .Setup(x => x.TriggerId)
                 .Returns(_trigger);
             _enchantment
                 .Setup(x => x.Value)

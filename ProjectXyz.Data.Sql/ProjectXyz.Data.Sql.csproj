@@ -93,6 +93,7 @@
     <Compile Include="Contracts\IDatabaseContract.cs" />
     <Compile Include="Contracts\IDatabaseQueryExecuterContract.cs" />
     <Compile Include="Contracts\IDatabaseUpgraderContract.cs" />
+    <Compile Include="Enchantments\EnchantmentTriggerRepository.cs" />
     <Compile Include="SqlDatabaseUpgrader.cs" />
     <Compile Include="IDatabaseQueryExecuter.cs" />
     <Compile Include="IDatabaseCommandExecuter.cs" />

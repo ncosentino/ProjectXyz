@@ -9,11 +9,11 @@ using ProjectXyz.Data.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
-    [ContractClass(typeof(IEnchantmentFactoryContract))]
-    public interface IEnchantmentFactory
+    [ContractClass(typeof(IEnchantmentTriggerRepositoryContract))]
+    public interface IEnchantmentTriggerRepository
     {
         #region Methods
-        IEnchantment CreateEnchantment();
+        IEnchantmentTrigger GetById(Guid id);
         #endregion
     }
 }

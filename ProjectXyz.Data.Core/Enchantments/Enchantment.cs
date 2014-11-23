@@ -37,7 +37,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             set;
         }
 
-        public string Trigger
+        public Guid TriggerId
         {
             get;
             set;

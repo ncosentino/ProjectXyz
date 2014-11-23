@@ -118,7 +118,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             var enchantment = _factory.CreateEnchantment();
             enchantment.StatId = reader.GetString(reader.GetOrdinal("StatId"));
             enchantment.CalculationId = reader.GetString(reader.GetOrdinal("CalculationId"));
-            enchantment.Trigger = reader.GetString(reader.GetOrdinal("TriggerId"));
+            enchantment.TriggerId = reader.GetGuid(reader.GetOrdinal("TriggerId"));
             enchantment.StatusType = reader.GetString(reader.GetOrdinal("StatusTypeId"));
 
             var minimumDurationMs = reader.GetDouble(reader.GetOrdinal("MinimumDuration"));

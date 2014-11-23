@@ -19,7 +19,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         string CalculationId { get; set; }
 
-        string Trigger { get; set; }
+        Guid TriggerId { get; set; }
 
         string StatusType { get; set; }
 

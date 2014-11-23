@@ -51,19 +51,15 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
         }
 
 
-        public string Trigger
+        public Guid TriggerId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                return default(Guid);
             }
 
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
-                Contract.Requires<ArgumentException>(value != string.Empty);
             }
         }
 
