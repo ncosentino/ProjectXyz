@@ -36,10 +36,10 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
             var parameters = new Dictionary<string, object>()
             {
                 { "Id", enchantmentId },
-                { "StatId", "Some Stat" },
-                { "CalculationId", "Some Calculation" },
+                { "StatId", "99b946a3-c281-4fcc-8ac6-08d29a4c6c29" },
+                { "CalculationId", "de12642d-1b33-4b8b-82e8-7d0f48cd72b1" },
                 { "TriggerId", "d5cfc545-2d99-472a-81ce-9ac62d583a9e" },
-                { "StatusTypeId", "Some Status Type" },
+                { "StatusTypeId", "9fc7d925-8b34-4da1-a73a-a45f8203d19c" },
                 { "SpawnLevel", 0 },
                 { "MinimumValue", 100000 },
                 { "MaximumValue", 100000 },
@@ -82,11 +82,11 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
 
             var rnd = new Random(123);
             var result = repository.Generate(enchantmentId, rnd);
-            
-            Assert.Equal("Some Stat", result.StatId);
-            Assert.Equal("Some Calculation", result.CalculationId);
+
+            Assert.Equal(new Guid("99b946a3-c281-4fcc-8ac6-08d29a4c6c29"), result.StatId);
+            Assert.Equal(new Guid("de12642d-1b33-4b8b-82e8-7d0f48cd72b1"), result.CalculationId);
             Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), result.TriggerId);
-            Assert.Equal("Some Status Type", result.StatusType);
+            Assert.Equal(new Guid("9fc7d925-8b34-4da1-a73a-a45f8203d19c"), result.StatusTypeId);
             Assert.Equal(TimeSpan.FromSeconds(100), result.RemainingDuration);
             Assert.Equal(100000, result.Value);
         }

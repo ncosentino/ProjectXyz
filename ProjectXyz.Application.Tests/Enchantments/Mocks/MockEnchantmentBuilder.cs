@@ -19,20 +19,17 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
         private readonly Mock<IEnchantment> _enchantment;
         private readonly List<TimeSpan> _remaining;
 
-        private string _statId;
-        private string _calculationId;
+        private Guid _statId;
+        private Guid _calculationId;
         private double _value;
         private Guid _trigger;
-        private string _statusType;
+        private Guid _statusTypeId;
         #endregion
 
         #region Constructors
         public MockEnchantmentBuilder()
         {
             _enchantment = new Mock<IEnchantment>();
-            _statId = "Default";
-            _calculationId = "Default";
-            _statusType = "Default";
             _remaining = new List<TimeSpan>(new[] { TimeSpan.Zero });
         }
         #endregion
@@ -56,20 +53,16 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             return this;
         }
 
-        public MockEnchantmentBuilder WithStatId(string statId)
+        public MockEnchantmentBuilder WithStatId(Guid statId)
         {
-            Contract.Requires<ArgumentNullException>(statId != null);
-            Contract.Requires<ArgumentException>(statId != string.Empty);
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
 
             _statId = statId;
             return this;
         }
 
-        public MockEnchantmentBuilder WithCalculationId(string calculationId)
+        public MockEnchantmentBuilder WithCalculationId(Guid calculationId)
         {
-            Contract.Requires<ArgumentNullException>(calculationId != null);
-            Contract.Requires<ArgumentException>(calculationId != string.Empty);
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
 
             _calculationId = calculationId;
@@ -92,13 +85,11 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             return this;
         }
 
-        public MockEnchantmentBuilder WithStatusType(string statusType)
+        public MockEnchantmentBuilder WithStatusType(Guid statusTypeId)
         {
-            Contract.Requires<ArgumentNullException>(statusType != null);
-            Contract.Requires<ArgumentException>(statusType != string.Empty);
             Contract.Ensures(Contract.Result<MockEnchantmentBuilder>() != null);
 
-            _statusType = statusType;
+            _statusTypeId = statusTypeId;
             return this;
         }
 
@@ -135,8 +126,8 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             }
 
             _enchantment
-                .Setup(x => x.StatusType)
-                .Returns(_statusType);
+                .Setup(x => x.StatusTypeId)
+                .Returns(_statusTypeId);
 
             return _enchantment.Object;
         }

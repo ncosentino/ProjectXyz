@@ -19,7 +19,7 @@ namespace ProjectXyz.Data.Core.Enchantments
         #endregion
 
         #region Properties
-        public string StatId
+        public Guid StatId
         {
             get;
             set;
@@ -31,7 +31,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             set;
         }
 
-        public string CalculationId
+        public Guid CalculationId
         {
             get;
             set;
@@ -43,7 +43,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             set;
         }
 
-        public string StatusType
+        public Guid StatusTypeId
         {
             get;
             set;

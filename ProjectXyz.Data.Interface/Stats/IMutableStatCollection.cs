@@ -13,13 +13,13 @@ namespace ProjectXyz.Data.Interface.Stats
     public interface IMutableStatCollection : IStatCollection
     {
         #region Methods
-        new IStat this[string id] { get; set; }
+        new IStat this[Guid id] { get; set; }
 
         void Set(IStat stat);
         
         void Add(IEnumerable<IStat> stats);
 
-        bool Remove(IEnumerable<string> ids);
+        bool Remove(IEnumerable<Guid> ids);
 
         bool Remove(IEnumerable<IStat> stats);
         #endregion

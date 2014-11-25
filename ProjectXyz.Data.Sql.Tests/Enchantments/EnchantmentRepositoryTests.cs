@@ -58,15 +58,15 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STAT_ID))
                 .Returns(COLUMN_INDEX_STAT_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_STAT_ID))
-                .Returns("Some Stat");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_STAT_ID))
+                .Returns(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_CALCULATION_ID))
                 .Returns(COLUMN_INDEX_CALCULATION_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_CALCULATION_ID))
-                .Returns("Some Calculation");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_CALCULATION_ID))
+                .Returns(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_TRIGGER_ID))
@@ -79,8 +79,8 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STATUS_TYPE_ID))
                 .Returns(COLUMN_INDEX_STATUS_TYPE_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_STATUS_TYPE_ID))
-                .Returns("Some Status Type");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_STATUS_TYPE_ID))
+                .Returns(new Guid("5693e7e2-6b11-430c-9f33-80a9389909b4"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_MAXIMUM_DURATION))
@@ -135,11 +135,11 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             var rnd = new Random(123);
             
             var result = repository.Generate(guid, rnd);
-            
-            Assert.Equal("Some Stat", result.StatId);
-            Assert.Equal("Some Calculation", result.CalculationId);
+
+            Assert.Equal(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"), result.StatId);
+            Assert.Equal(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"), result.CalculationId);
             Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), result.TriggerId);
-            Assert.Equal("Some Status Type", result.StatusType);
+            Assert.Equal(new Guid("5693e7e2-6b11-430c-9f33-80a9389909b4"), result.StatusTypeId);
             Assert.Equal(TimeSpan.FromSeconds(100), result.RemainingDuration);
             Assert.Equal(100000, result.Value);
         }
@@ -215,15 +215,15 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STAT_ID))
                 .Returns(COLUMN_INDEX_STAT_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_STAT_ID))
-                .Returns("Some Stat");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_STAT_ID))
+                .Returns(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_CALCULATION_ID))
                 .Returns(COLUMN_INDEX_CALCULATION_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_CALCULATION_ID))
-                .Returns("Some Calculation");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_CALCULATION_ID))
+                .Returns(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_TRIGGER_ID))
@@ -236,8 +236,8 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STATUS_TYPE_ID))
                 .Returns(COLUMN_INDEX_STATUS_TYPE_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_STATUS_TYPE_ID))
-                .Returns("Some Status Type");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_STATUS_TYPE_ID))
+                .Returns(new Guid("5693e7e2-6b11-430c-9f33-80a9389909b4"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_MAXIMUM_DURATION))
@@ -293,10 +293,10 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             var result = new List<IEnchantment>(repository.GenerateRandom(1, 1, 1, rnd));
             Assert.Equal(1, result.Count);
 
-            Assert.Equal("Some Stat", result[0].StatId);
-            Assert.Equal("Some Calculation", result[0].CalculationId);
+            Assert.Equal(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"), result[0].StatId);
+            Assert.Equal(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"), result[0].CalculationId);
             Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), result[0].TriggerId);
-            Assert.Equal("Some Status Type", result[0].StatusType);
+            Assert.Equal(new Guid("5693e7e2-6b11-430c-9f33-80a9389909b4"), result[0].StatusTypeId);
             Assert.Equal(TimeSpan.FromSeconds(100), result[0].RemainingDuration);
             Assert.Equal(100000, result[0].Value);
         }
@@ -313,15 +313,15 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STAT_ID))
                 .Returns(COLUMN_INDEX_STAT_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_STAT_ID))
-                .Returns("Some Stat");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_STAT_ID))
+                .Returns(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_CALCULATION_ID))
                 .Returns(COLUMN_INDEX_CALCULATION_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_CALCULATION_ID))
-                .Returns("Some Calculation");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_CALCULATION_ID))
+                .Returns(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_TRIGGER_ID))
@@ -334,8 +334,8 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_STATUS_TYPE_ID))
                 .Returns(COLUMN_INDEX_STATUS_TYPE_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_STATUS_TYPE_ID))
-                .Returns("Some Status Type");
+                .Setup(x => x.GetGuid(COLUMN_INDEX_STATUS_TYPE_ID))
+                .Returns(new Guid("5693e7e2-6b11-430c-9f33-80a9389909b4"));
 
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_MAXIMUM_DURATION))
@@ -393,10 +393,10 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
 
             foreach (var entry in result)
             {
-                Assert.Equal("Some Stat", entry.StatId);
-                Assert.Equal("Some Calculation", entry.CalculationId);
+                Assert.Equal(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"), entry.StatId);
+                Assert.Equal(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"), entry.CalculationId);
                 Assert.Equal(new Guid("d5cfc545-2d99-472a-81ce-9ac62d583a9e"), entry.TriggerId);
-                Assert.Equal("Some Status Type", entry.StatusType);
+                Assert.Equal(new Guid("5693e7e2-6b11-430c-9f33-80a9389909b4"), entry.StatusTypeId);
                 Assert.Equal(TimeSpan.FromSeconds(100), entry.RemainingDuration);
                 Assert.Equal(100000, entry.Value);
             }

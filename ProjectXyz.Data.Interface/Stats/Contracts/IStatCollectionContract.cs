@@ -13,12 +13,10 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         #region Properties
         public abstract int Count { get; }
 
-        public IStat this[string statId]
+        public IStat this[Guid statId]
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(statId != null);
-                Contract.Requires<ArgumentException>(statId != string.Empty);
                 Contract.Ensures(Contract.Result<IStat>() != null);
                 return default(IStat);
             }
@@ -26,10 +24,8 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         #endregion
 
         #region Methods
-        public bool Contains(string id)
+        public bool Contains(Guid id)
         {
-            Contract.Requires<ArgumentNullException>(id != null);
-            Contract.Requires<ArgumentException>(id != string.Empty);
             return default(bool);
         }
 

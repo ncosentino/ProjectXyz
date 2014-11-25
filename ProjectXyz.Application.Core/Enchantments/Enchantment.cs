@@ -14,11 +14,11 @@ namespace ProjectXyz.Application.Core.Enchantments
     {
         #region Fields
         private readonly IEnchantmentContext _context;
-        private readonly string _statId;
+        private readonly Guid _statId;
         private readonly double _value; 
-        private readonly string _calculationId; 
+        private readonly Guid _calculationId; 
         private readonly Guid _triggerId; 
-        private readonly string _statusType;
+        private readonly Guid _statusTypeId;
         
         private TimeSpan _remainingDuration;
         #endregion
@@ -34,13 +34,13 @@ namespace ProjectXyz.Application.Core.Enchantments
             _value = enchantment.Value;
             _calculationId = enchantment.CalculationId;
             _triggerId = enchantment.TriggerId;
-            _statusType = enchantment.StatusType;
+            _statusTypeId = enchantment.StatusTypeId;
             _remainingDuration = enchantment.RemainingDuration;
         }
         #endregion
 
         #region Properties
-        public string StatId
+        public Guid StatId
         {
             get { return _statId; }
         }
@@ -50,7 +50,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             get { return _value; }
         }
 
-        public string CalculationId
+        public Guid CalculationId
         {
             get { return _calculationId; }
         }
@@ -60,9 +60,9 @@ namespace ProjectXyz.Application.Core.Enchantments
             get { return _triggerId; }
         }
 
-        public string StatusType
+        public Guid StatusTypeId
         {
-            get { return _statusType; }
+            get { return _statusTypeId; }
         }
 
         public TimeSpan RemainingDuration

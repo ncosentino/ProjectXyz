@@ -13,17 +13,17 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IEnchantment
     {
         #region Properties
-        string StatId { get; set; }
+        Guid StatId { get; set; }
 
-        double Value { get; set; }
-
-        string CalculationId { get; set; }
+        Guid CalculationId { get; set; }
 
         Guid TriggerId { get; set; }
 
-        string StatusType { get; set; }
+        Guid StatusTypeId { get; set; }
 
         TimeSpan RemainingDuration { get; set; }
+
+        double Value { get; set; }
         #endregion
     }
 }

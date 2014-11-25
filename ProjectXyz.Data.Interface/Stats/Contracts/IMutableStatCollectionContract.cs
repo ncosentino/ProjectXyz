@@ -13,14 +13,12 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
         #region Properties
         public abstract int Count { get; }
 
-        public abstract IStat this[string statId] { get; }
+        public abstract IStat this[Guid statId] { get; }
 
-        IStat IMutableStatCollection.this[string id]
+        IStat IMutableStatCollection.this[Guid id]
         {
             get
             {
-                Contract.Requires<ArgumentNullException>(id != null);
-                Contract.Requires<ArgumentNullException>(id != string.Empty);
                 Contract.Ensures(Contract.Result<IStat>() != null);
                 return default(IStat);
             }
@@ -49,13 +47,13 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
             return default(bool);
         }
 
-        public bool Remove(IEnumerable<string> statIds)
+        public bool Remove(IEnumerable<Guid> statIds)
         {
             Contract.Requires<ArgumentNullException>(statIds != null);
             return default(bool);
         }
         
-        public abstract bool Contains(string id);
+        public abstract bool Contains(Guid id);
 
         public abstract IEnumerator<IStat> GetEnumerator();
 

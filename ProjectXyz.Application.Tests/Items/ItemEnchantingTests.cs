@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System;
+
+using Moq;
 using Xunit;
 
 using ProjectXyz.Data.Core.Stats;
@@ -8,6 +10,7 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
+using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Application.Tests.Items
 {
@@ -28,7 +31,7 @@ namespace ProjectXyz.Application.Tests.Items
                 item.Durability.Maximum, 
                 item.Durability.Current);
             var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId("Value")
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.MaximumDurability)
                 .WithValue(100)
                 .Build();
@@ -58,7 +61,7 @@ namespace ProjectXyz.Application.Tests.Items
                 item.Durability.Maximum,
                 item.Durability.Current);
             var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId("Value")
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
                 .Build();
@@ -93,7 +96,7 @@ namespace ProjectXyz.Application.Tests.Items
                 item.Durability.Maximum,
                 item.Durability.Current);
             var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId("Value")
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
                 .Build();

@@ -12,25 +12,20 @@ namespace ProjectXyz.Data.Core.Stats
     public sealed class Stat : IMutableStat
     {
         #region Constructors
-        private Stat(string id)
+        private Stat(Guid id)
             : this(id, 0)
         {
-            Contract.Requires<ArgumentNullException>(id != null);
-            Contract.Requires<ArgumentException>(id != string.Empty);
         }
 
-        private Stat(string id, double value)
+        private Stat(Guid id, double value)
         {
-            Contract.Requires<ArgumentNullException>(id != null);
-            Contract.Requires<ArgumentException>(id != string.Empty);
-
             this.Id = id;
             this.Value = value;
         }
         #endregion
 
         #region Properties
-        public string Id
+        public Guid Id
         {
             get;
             set;
@@ -44,18 +39,14 @@ namespace ProjectXyz.Data.Core.Stats
         #endregion
 
         #region Methods
-        public static IMutableStat Create(string id)
+        public static IMutableStat Create(Guid id)
         {
-            Contract.Requires<ArgumentNullException>(id != null);
-            Contract.Requires<ArgumentException>(id != string.Empty);
             Contract.Ensures(Contract.Result<IMutableStat>() != null);
             return new Stat(id);
         }
 
-        public static IMutableStat Create(string id, double value)
+        public static IMutableStat Create(Guid id, double value)
         {
-            Contract.Requires<ArgumentNullException>(id != null);
-            Contract.Requires<ArgumentException>(id != string.Empty);
             Contract.Ensures(Contract.Result<IMutableStat>() != null);
             return new Stat(id, value);
         }

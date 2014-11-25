@@ -11,19 +11,15 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     public abstract class IEnchantmentContract : IEnchantment
     {
         #region Properties
-        public string StatId
+        public Guid StatId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                return default(Guid);
             }
 
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
-                Contract.Requires<ArgumentException>(value != string.Empty);
             }
         }
 
@@ -34,19 +30,15 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             set { }
         }
 
-        public string CalculationId
+        public Guid CalculationId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                return default(Guid);
             }
 
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
-                Contract.Requires<ArgumentException>(value != string.Empty);
             }
         }
 
@@ -62,19 +54,15 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             }
         }
 
-        public string StatusType
+        public Guid StatusTypeId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                return default(Guid);
             }
 
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
-                Contract.Requires<ArgumentException>(value != string.Empty);
             }
         }
 

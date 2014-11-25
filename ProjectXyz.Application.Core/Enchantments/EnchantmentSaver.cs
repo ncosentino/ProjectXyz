@@ -29,7 +29,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             destination.StatId = source.StatId;
             destination.Value = source.Value;
             destination.TriggerId = source.TriggerId;
-            destination.StatusType = source.StatusType;
+            destination.StatusTypeId = source.StatusTypeId;
 
             return destination;
         }

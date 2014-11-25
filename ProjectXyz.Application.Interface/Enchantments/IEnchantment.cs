@@ -14,17 +14,17 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantment : IUpdateElapsedTime
     {
         #region Properties
-        string StatId { get; }
+        Guid StatId { get; }
 
-        double Value { get; }
-
-        string CalculationId { get; }
+        Guid CalculationId { get; }
 
         Guid TriggerId { get; }
 
-        string StatusType { get; }
+        Guid StatusTypeId { get; }
 
         TimeSpan RemainingDuration { get; }
+
+        double Value { get; }
         #endregion
     }
 }

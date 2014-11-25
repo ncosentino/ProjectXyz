@@ -12,7 +12,7 @@ namespace ProjectXyz.Data.Core.Stats
     public class StatCollection : IMutableStatCollection
     {
         #region Fields
-        private readonly Dictionary<string, IStat> _stats;
+        private readonly Dictionary<Guid, IStat> _stats;
         #endregion
 
         #region Constructors
@@ -25,7 +25,7 @@ namespace ProjectXyz.Data.Core.Stats
         {
             Contract.Requires<ArgumentNullException>(stats != null);
 
-            _stats = new Dictionary<string, IStat>();
+            _stats = new Dictionary<Guid, IStat>();
             foreach (var stat in stats)
             {
                 if (stat == null)
@@ -44,7 +44,7 @@ namespace ProjectXyz.Data.Core.Stats
             get { return _stats.Count; }
         }
 
-        IStat IStatCollection.this[string id]
+        IStat IStatCollection.this[Guid id]
         {
             get
             {
@@ -53,7 +53,7 @@ namespace ProjectXyz.Data.Core.Stats
             }
         }
 
-        IStat IMutableStatCollection.this[string id]
+        IStat IMutableStatCollection.this[Guid id]
         {
             get 
             {
@@ -100,7 +100,7 @@ namespace ProjectXyz.Data.Core.Stats
             }
         }
 
-        public bool Remove(IEnumerable<string> ids)
+        public bool Remove(IEnumerable<Guid> ids)
         {
             bool removedAny = false;
             foreach (var id in ids)
@@ -116,7 +116,7 @@ namespace ProjectXyz.Data.Core.Stats
             return Remove(stats.Select(x => x.Id));
         }
 
-        public bool Contains(string id)
+        public bool Contains(Guid id)
         {
             return _stats.ContainsKey(id);
         }

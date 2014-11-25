@@ -15,11 +15,11 @@ namespace ProjectXyz.Data.Interface.Stats
         #region Properties
         int Count { get; }
 
-        IStat this[string id] { get; }
+        IStat this[Guid id] { get; }
         #endregion
 
         #region Methods
-        bool Contains(string id);
+        bool Contains(Guid id);
         #endregion
     }
 }

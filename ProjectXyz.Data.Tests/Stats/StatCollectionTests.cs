@@ -39,9 +39,9 @@ namespace ProjectXyz.Data.Tests.Stats
 
             var statsToAdd = new IStat[]
             {
-                new MockStatBuilder().WithStatId("A").Build(),
-                new MockStatBuilder().WithStatId("B").Build(),
-                new MockStatBuilder().WithStatId("C").Build(),
+                new MockStatBuilder().WithStatId(new Guid("b0a7f872-07ef-48f9-a29f-126738f1d26f")).Build(),
+                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
+                new MockStatBuilder().WithStatId(new Guid("31a039fe-bf9f-462b-b5a3-3e176c98a42f")).Build(),
             };
 
             stats.Add(statsToAdd);
@@ -63,8 +63,8 @@ namespace ProjectXyz.Data.Tests.Stats
 
             var statsToAdd = new IStat[]
             {
-                new MockStatBuilder().WithStatId("A").Build(),
-                new MockStatBuilder().WithStatId("A").Build(),
+                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
+                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
             };
 
             Assert.Throws<ArgumentException>(() => stats.Add(statsToAdd));
@@ -102,9 +102,9 @@ namespace ProjectXyz.Data.Tests.Stats
 
             var statsToRemove = new IStat[]
             {
-                new MockStatBuilder().WithStatId("A").Build(),
-                new MockStatBuilder().WithStatId("B").Build(),
-                new MockStatBuilder().WithStatId("C").Build(),
+                new MockStatBuilder().WithStatId(new Guid("b0a7f872-07ef-48f9-a29f-126738f1d26f")).Build(),
+                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
+                new MockStatBuilder().WithStatId(new Guid("31a039fe-bf9f-462b-b5a3-3e176c98a42f")).Build(),
             };
 
             stats.Add(statsToRemove);

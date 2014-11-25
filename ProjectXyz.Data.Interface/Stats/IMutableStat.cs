@@ -9,7 +9,7 @@ namespace ProjectXyz.Data.Interface.Stats
     public interface IMutableStat : IStat
     {
         #region Properties
-        new string Id { get; set; }
+        new Guid Id { get; set; }
 
         new double Value { get; set; }
         #endregion

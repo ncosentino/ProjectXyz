@@ -16,7 +16,7 @@ namespace ProjectXyz.Data.Tests.Stats.Mocks
         #region Fields
         private readonly Mock<IStat> _mock;
 
-        private string _statId;
+        private Guid _statId;
         private double _value;
         #endregion
 
@@ -25,16 +25,13 @@ namespace ProjectXyz.Data.Tests.Stats.Mocks
         {
             _mock = new Mock<IStat>();
 
-            _statId = "Default";
             _value = 0;
         }
         #endregion
 
         #region Methods
-        public MockStatBuilder WithStatId(string statId)
+        public MockStatBuilder WithStatId(Guid statId)
         {
-            Contract.Requires<ArgumentNullException>(statId != null);
-            Contract.Requires<ArgumentException>(statId != string.Empty);
             Contract.Ensures(Contract.Result<MockStatBuilder>() != null);
 
             _statId = statId;

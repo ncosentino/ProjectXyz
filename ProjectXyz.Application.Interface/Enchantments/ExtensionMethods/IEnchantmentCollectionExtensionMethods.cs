@@ -10,11 +10,9 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public static class IEnchantmentCollectionExtensionMethods
     {
         #region Methods
-        public static IEnumerable<IEnchantment> CalculatedBy(this IEnumerable<IEnchantment> enchantments, string calculationId)
+        public static IEnumerable<IEnchantment> CalculatedBy(this IEnumerable<IEnchantment> enchantments, Guid calculationId)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
-            Contract.Requires<ArgumentNullException>(calculationId != null);
-            Contract.Requires<ArgumentException>(calculationId != string.Empty);
             Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
 
             return enchantments.Where(x => x.CalculationId == calculationId);

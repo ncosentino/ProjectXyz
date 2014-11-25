@@ -17,13 +17,13 @@ namespace ProjectXyz.Application.Core.Enchantments
     public class EnchantmentCalculator : IEnchantmentCalculator
     {
         #region Constants
-        private static readonly IEnumerable<string> CALCULATION_ORDER = new[]
+        private static readonly IEnumerable<Guid> CALCULATION_ORDER = new[]
         {
             EnchantmentCalculationTypes.Value,
             EnchantmentCalculationTypes.Percent,
         };
 
-        private static readonly Dictionary<string, string> STATUS_NEGATIONS = new Dictionary<string,string>()
+        private static readonly Dictionary<Guid, Guid> STATUS_NEGATIONS = new Dictionary<Guid, Guid>()
         {
             { ActorStats.Bless, EnchantmentStatuses.Curse },
             { ActorStats.Cure, EnchantmentStatuses.Disease },
@@ -31,13 +31,13 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Fields
-        private readonly Dictionary<string, Func<double, double, double>> _calculationMappings;
+        private readonly Dictionary<Guid, Func<double, double, double>> _calculationMappings;
         #endregion
 
         #region Constructors
         private EnchantmentCalculator()
         {
-            _calculationMappings = new Dictionary<string, Func<double, double, double>>();
+            _calculationMappings = new Dictionary<Guid, Func<double, double, double>>();
             _calculationMappings[EnchantmentCalculationTypes.Value] = CalculateValue;
             _calculationMappings[EnchantmentCalculationTypes.Percent] = CalculatePercent;
         }
@@ -55,7 +55,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             var newStats = StatCollection.Create();
             newStats.Add(stats);
 
-            var activeNegations = new Dictionary<string, bool>();
+            var activeNegations = new Dictionary<Guid, bool>();
             foreach (var kvp in STATUS_NEGATIONS)
             {
                 activeNegations[kvp.Value] = enchantments.Any(x => x.StatId == kvp.Key);
@@ -65,8 +65,8 @@ namespace ProjectXyz.Application.Core.Enchantments
             {
                 foreach (var enchantment in enchantments.CalculatedBy(calculationType))
                 {
-                    if (activeNegations.ContainsKey(enchantment.StatusType) &&
-                        activeNegations[enchantment.StatusType])
+                    if (activeNegations.ContainsKey(enchantment.StatusTypeId) &&
+                        activeNegations[enchantment.StatusTypeId])
                     {
                         continue;
                     }

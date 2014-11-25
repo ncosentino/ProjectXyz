@@ -116,10 +116,10 @@ namespace ProjectXyz.Data.Sql.Enchantments
         private IEnchantment EnchantmentFromReader(IDataReader reader, Random randomizer)
         {
             var enchantment = _factory.CreateEnchantment();
-            enchantment.StatId = reader.GetString(reader.GetOrdinal("StatId"));
-            enchantment.CalculationId = reader.GetString(reader.GetOrdinal("CalculationId"));
+            enchantment.StatId = reader.GetGuid(reader.GetOrdinal("StatId"));
+            enchantment.CalculationId = reader.GetGuid(reader.GetOrdinal("CalculationId"));
             enchantment.TriggerId = reader.GetGuid(reader.GetOrdinal("TriggerId"));
-            enchantment.StatusType = reader.GetString(reader.GetOrdinal("StatusTypeId"));
+            enchantment.StatusTypeId = reader.GetGuid(reader.GetOrdinal("StatusTypeId"));
 
             var minimumDurationMs = reader.GetDouble(reader.GetOrdinal("MinimumDuration"));
             var maximumDurationMs = reader.GetDouble(reader.GetOrdinal("MaximumDuration"));
