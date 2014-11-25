@@ -23,8 +23,8 @@ namespace ProjectXyz.Data.Tests.Items
             Assert.NotEqual(Guid.Empty, item.Id);
             Assert.Equal("Default", item.Name);
             Assert.Equal("Default", item.MaterialType);
-            Assert.Equal("Default", item.MagicType);
             Assert.Equal("Default", item.ItemType);
+            Assert.Equal(Guid.Empty, item.MagicTypeId);
             Assert.Empty(item.EquippableSlots);
             Assert.Empty(item.Enchantments);
             Assert.Empty(item.SocketedItems);

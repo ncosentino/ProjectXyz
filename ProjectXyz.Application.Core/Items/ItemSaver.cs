@@ -38,7 +38,7 @@ namespace ProjectXyz.Application.Core.Items
 
             destination.Id = source.Id;
             destination.Name = source.ItemType;
-            destination.MagicType = source.MagicType;
+            destination.MagicTypeId = source.MagicTypeId;
             ////destination.MaterialType = source.Material.MaterialType;
             destination.Name = source.Name;
 

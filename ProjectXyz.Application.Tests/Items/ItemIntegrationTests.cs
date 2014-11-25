@@ -51,7 +51,7 @@ namespace ProjectXyz.Application.Tests.Items
             // metadata
             Assert.Equal(item.Id, rebuiltItem.Id);
             Assert.Equal(item.ItemType, rebuiltItem.ItemType);
-            Assert.Equal(item.MagicType, rebuiltItem.MagicType);
+            Assert.Equal(item.MagicTypeId, rebuiltItem.MagicTypeId);
             ////Assert.Equal(item.Material.MaterialType, rebuiltItem.Material.MaterialType);
             ////Assert.Equal(item.Material.Name, rebuiltItem.Material.Name);
             Assert.Equal(item.Name, rebuiltItem.Name);

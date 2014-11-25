@@ -91,8 +91,8 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
                 .Setup(x => x.Name)
                 .Returns("Default");
             _item
-                .Setup(x => x.MagicType)
-                .Returns("Default");
+                .Setup(x => x.MagicTypeId)
+                .Returns(Guid.Empty);
             _item
                 .Setup(x => x.MaterialType)
                 .Returns("Default");

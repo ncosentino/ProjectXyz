@@ -13,6 +13,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
         public static IEnumerable<IEnchantment> CalculatedBy(this IEnchantmentCollection enchantments, Guid calculationId)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
 
             return enchantments.Where(x => x.CalculationId == calculationId);
         }

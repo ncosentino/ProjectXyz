@@ -26,7 +26,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IMutableRequirements _requirements;
         private readonly Guid _id;
         private readonly string _name;
-        private readonly string _magicType;
+        private readonly Guid _magicTypeId;
         private readonly string _itemType;
         private readonly List<string> _equippableSlots;
         private readonly IMutableStatCollection _baseStats;
@@ -44,7 +44,7 @@ namespace ProjectXyz.Application.Core.Items
             _context = context;
             _id = item.Id;
             _name = item.Name;
-            _magicType = item.MagicType;
+            _magicTypeId = item.MagicTypeId;
             _itemType = item.ItemType;
             _equippableSlots = new List<string>(item.EquippableSlots);
             
@@ -79,9 +79,9 @@ namespace ProjectXyz.Application.Core.Items
             get { return _name; }
         }
 
-        public string MagicType
+        public Guid MagicTypeId
         {
-            get { return _magicType; }
+            get { return _magicTypeId; }
         }
 
         public IMaterial Material

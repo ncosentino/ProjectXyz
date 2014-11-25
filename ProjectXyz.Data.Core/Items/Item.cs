@@ -38,8 +38,7 @@ namespace ProjectXyz.Data.Core.Items
 
             this.MaterialType =
             this.Name =
-            this.ItemType =
-            this.MagicType = "Default";
+            this.ItemType = "Default";
         }
         #endregion
 
@@ -50,7 +49,7 @@ namespace ProjectXyz.Data.Core.Items
             set;
         }
 
-        public string MagicType
+        public Guid MagicTypeId
         {
             get;
             set;

@@ -21,7 +21,6 @@ namespace ProjectXyz.Application.Interface.Enchantments
         public static IEnumerable<IEnchantment> TriggeredBy(this IEnumerable<IEnchantment> enchantments, Guid triggerId)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
-            Contract.Requires<ArgumentNullException>(triggerId != null);
             Contract.Ensures(Contract.Result<IEnumerable<IEnchantment>>() != null);
 
             return enchantments.Where(x => x.TriggerId == triggerId);

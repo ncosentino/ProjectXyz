@@ -91,6 +91,11 @@
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
+    <Compile Include="Enchantments\IAffixMagicTypes.cs" />
+    <Compile Include="Enchantments\IAffixMagicTypesRepository.cs" />
+    <Compile Include="Enchantments\IAffixEnchantments.cs" />
+    <Compile Include="Enchantments\IAffixEnchantmentsRepository.cs" />
+    <Compile Include="Enchantments\IItemAffixRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTrigger.cs" />
@@ -103,6 +108,8 @@
     <Compile Include="Enchantments\IEnchantmentCollection.cs" />
     <Compile Include="Enchantments\IEnchantment.cs" />
     <Compile Include="Enchantments\IEnchantmentRepository.cs" />
+    <Compile Include="Enchantments\IItemAffix.cs" />
+    <Compile Include="Enchantments\IItemEnchantmentGenerator.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="IGameObject.cs" />

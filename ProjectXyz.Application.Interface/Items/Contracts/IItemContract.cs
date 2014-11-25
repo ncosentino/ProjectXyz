@@ -29,13 +29,11 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public string MagicType
+        public Guid MagicTypeId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                return default(Guid);
             }
         }
 

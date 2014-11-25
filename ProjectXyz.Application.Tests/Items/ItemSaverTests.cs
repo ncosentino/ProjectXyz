@@ -36,7 +36,7 @@ namespace ProjectXyz.Application.Tests.Items
 
             Assert.Equal(sourceData.Id, savedData.Id);
             Assert.Equal(sourceData.ItemType, savedData.ItemType);
-            Assert.Equal(sourceData.MagicType, savedData.MagicType);
+            Assert.Equal(sourceData.MagicTypeId, savedData.MagicTypeId);
             Assert.Equal(sourceData.MaterialType, savedData.MaterialType);
             Assert.Equal(sourceData.Name, savedData.Name);
         }

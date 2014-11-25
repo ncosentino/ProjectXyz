@@ -91,7 +91,7 @@
   <ItemGroup>
     <Compile Include="Actors\ActorTests.cs" />
     <Compile Include="Actors\Mocks\MockActorBuilder.cs" />
-    <Compile Include="Enchantments\EnchantmentRepositoryTests.cs" />
+    <Compile Include="Enchantments\ItemEnchantmentGeneratorTests.cs" />
     <Compile Include="Items\ItemTests.cs" />
     <Compile Include="Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Items\Mocks\MockRequirementsBuilder.cs" />

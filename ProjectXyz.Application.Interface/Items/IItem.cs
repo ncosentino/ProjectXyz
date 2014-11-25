@@ -18,7 +18,7 @@ namespace ProjectXyz.Application.Interface.Items
         #region Properties
         string Name { get; }
 
-        string MagicType { get; }
+        Guid MagicTypeId { get; }
 
         string ItemType { get; }
 
