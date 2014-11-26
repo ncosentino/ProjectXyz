@@ -72,6 +72,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
                         yield return EnchantmentFromReader(
                             reader, 
+                            _factory,
                             randomizer);
                     }
                 }
@@ -108,14 +109,20 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
                     return EnchantmentFromReader(
                         reader, 
+                        _factory,
                         randomizer);
                 }
             }
         }
         
-        private IEnchantment EnchantmentFromReader(IDataReader reader, Random randomizer)
+        private IEnchantment EnchantmentFromReader(IDataReader reader, IEnchantmentFactory factory, Random randomizer)
         {
-            var enchantment = _factory.CreateEnchantment();
+            Contract.Requires<ArgumentNullException>(reader != null);
+            Contract.Requires<ArgumentNullException>(factory != null);
+            Contract.Requires<ArgumentNullException>(randomizer != null);
+            Contract.Ensures(Contract.Result<IEnchantment>() != null);
+
+            var enchantment = factory.CreateEnchantment();
             enchantment.StatId = reader.GetGuid(reader.GetOrdinal("StatId"));
             enchantment.CalculationId = reader.GetGuid(reader.GetOrdinal("CalculationId"));
             enchantment.TriggerId = reader.GetGuid(reader.GetOrdinal("TriggerId"));

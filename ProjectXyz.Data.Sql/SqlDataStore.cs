@@ -29,7 +29,7 @@ namespace ProjectXyz.Data.Sql
                 _database,
                 EnchantmentFactory.Create());            
 
-            CreateOrUpgrade();
+            CreateOrUpgrade(_database, _upgrader);
         }
         #endregion
 
@@ -50,33 +50,38 @@ namespace ProjectXyz.Data.Sql
             return new SqlDataStore(database, upgrader);
         }
 
-        private void CreateOrUpgrade()
+        private void CreateOrUpgrade(IDatabase database, IDatabaseUpgrader upgrader)
         {
-            _database.Execute("PRAGMA foreign_keys=1");
-            _database.Execute("PRAGMA journal_mode=WAL");
+            Contract.Requires<ArgumentNullException>(database != null);
+            Contract.Requires<ArgumentNullException>(upgrader != null);
 
-            int version = GetCurrentSchemaVersion();
+            database.Execute("PRAGMA foreign_keys=1");
+            database.Execute("PRAGMA journal_mode=WAL");
 
-            if (version > _upgrader.CurrentSchemaVersion)
+            int version = GetCurrentSchemaVersion(database);
+
+            if (version > upgrader.CurrentSchemaVersion)
             {
                 throw new InvalidOperationException(string.Format(
                     "The schema version of the database ({0}) is later than the expected current version ({1}).",
                     version,
-                    _upgrader.CurrentSchemaVersion));
+                    upgrader.CurrentSchemaVersion));
             }
 
-            if (version < _upgrader.CurrentSchemaVersion)
+            if (version < upgrader.CurrentSchemaVersion)
             {
-                _upgrader.UpgradeDatabase(
-                    _database, 
+                upgrader.UpgradeDatabase(
+                    database, 
                     version, 
-                    _upgrader.CurrentSchemaVersion);
+                    upgrader.CurrentSchemaVersion);
             }
         }
 
-        private int GetCurrentSchemaVersion()
+        private int GetCurrentSchemaVersion(IDatabase database)
         {
-            using (var reader = _database.Query("PRAGMA user_version"))
+            Contract.Requires<ArgumentNullException>(database != null);
+
+            using (var reader = database.Query("PRAGMA user_version"))
             {
                 if (!reader.Read())
                 {

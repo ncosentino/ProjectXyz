@@ -79,7 +79,7 @@ namespace ProjectXyz.Data.Tests.Enchantments
 
             Assert.Equal(2, result.Count);
             Assert.Equal(enchantment1.Object, result[0]);
-            Assert.Equal(enchantment2.Object, result[1]);
+            Assert.Equal(enchantment2.Object, result[result.Count - 1]);
 
             affixEnchantmentsRepository.Verify(x => x.GetForId(AFFIX_ENCHANTMENTS_ID), Times.Once);
             

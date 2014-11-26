@@ -60,16 +60,20 @@ namespace ProjectXyz.Data.Sql.Enchantments
                         throw new InvalidOperationException("Could not spawn enchantment trigger with Id = '" + id + "'.");
                     }
 
-                    return EnchantmentTriggerFromReader(reader);
+                    return EnchantmentTriggerFromReader(reader, _factory);
                 }
             }
         }
 
-        private IEnchantmentTrigger EnchantmentTriggerFromReader(IDataReader reader)
+        private IEnchantmentTrigger EnchantmentTriggerFromReader(IDataReader reader, IEnchantmentTriggerFactory factory)
         {
+            Contract.Requires<ArgumentNullException>(reader != null);
+            Contract.Requires<ArgumentNullException>(factory != null);
+            Contract.Ensures(Contract.Result<IEnchantmentTrigger>() != null);
+
             var id = reader.GetGuid(reader.GetOrdinal("Id"));
             var name = reader.GetString(reader.GetOrdinal("Name"));
-            return _factory.CreateEnchantmentTrigger(id, name);
+            return factory.CreateEnchantmentTrigger(id, name);
         }
         #endregion
     }
