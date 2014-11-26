@@ -38,47 +38,6 @@ namespace ProjectXyz.Data.Sql.Enchantments
             return new EnchantmentRepository(database, factory);
         }
 
-        public IEnumerable<IEnchantment> GenerateRandom(int minimum, int maximum, int level, Random randomizer)
-        {
-            var total = randomizer.Next(minimum, maximum + 1);
-
-            using (var command = _database.CreateCommand(
-                @"
-                SELECT 
-                    StatId, 
-                    CalculationId, 
-                    TriggerId,
-                    StatusTypeId 
-                    MinimumValue, 
-                    MaximumValue,
-                    MinimumDuration, 
-                    MaximumDuration
-                FROM
-                    Enchantments
-                WHERE
-                    SpawnLevel <= @spawn_level",
-                "spawn_level", 
-                level))
-            {
-                using (var reader = command.ExecuteReader())
-                {
-                    int count = 0;
-                    while (count++ < total)
-                    {
-                        if (!reader.Read())
-                        {
-                            throw new InvalidOperationException("Could not spawn enchantment.");
-                        }
-
-                        yield return EnchantmentFromReader(
-                            reader, 
-                            _factory,
-                            randomizer);
-                    }
-                }
-            }
-        }
-
         public IEnchantment Generate(Guid id, Random randomizer)
         {
             using (var command = _database.CreateCommand(

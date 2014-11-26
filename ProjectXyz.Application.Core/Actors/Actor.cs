@@ -167,6 +167,7 @@ namespace ProjectXyz.Application.Core.Actors
         private void OnItemEquipped(IItem item)
         {
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             item.Broken += EquippedItem_Broken;
 
@@ -179,6 +180,7 @@ namespace ProjectXyz.Application.Core.Actors
         private void OnItemUnequipped(IItem item)
         {
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             item.Broken -= EquippedItem_Broken;
 
@@ -201,6 +203,7 @@ namespace ProjectXyz.Application.Core.Actors
         private void OnItemAcquired(IItem item)
         {
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Add(enchantments);
@@ -211,6 +214,7 @@ namespace ProjectXyz.Application.Core.Actors
         private void OnItemLost(IItem item)
         {
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Remove(enchantments);

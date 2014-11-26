@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+
+using ProjectXyz.Data.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
+    [ContractClass(typeof(IItemEnchantmentGeneratorContract))]
     public interface IItemEnchantmentGenerator
     {
         #region Methods
