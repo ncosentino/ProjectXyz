@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
-    [ContractClass(typeof(IEnchantmentRepositoryContract))]
-    public interface IEnchantmentRepository
+    [ContractClass(typeof(INamedItemAffixGeneratorContract))]
+    public interface INamedItemAffixGenerator
     {
         #region Methods
-        IEnchantment Generate(Guid id, IRandom randomizer);
+        IEnumerable<IEnchantment> GenerateRandomNamed(Guid magicTypeId, int level, IRandom randomizer, out string prefix, out string suffix);
         #endregion
     }
 }

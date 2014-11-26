@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Data.Sql.Enchantments
 {
@@ -38,7 +39,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             return new EnchantmentRepository(database, factory);
         }
 
-        public IEnchantment Generate(Guid id, Random randomizer)
+        public IEnchantment Generate(Guid id, IRandom randomizer)
         {
             using (var command = _database.CreateCommand(
                 @"
@@ -74,7 +75,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             }
         }
         
-        private IEnchantment EnchantmentFromReader(IDataReader reader, IEnchantmentFactory factory, Random randomizer)
+        private IEnchantment EnchantmentFromReader(IDataReader reader, IEnchantmentFactory factory, IRandom randomizer)
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);

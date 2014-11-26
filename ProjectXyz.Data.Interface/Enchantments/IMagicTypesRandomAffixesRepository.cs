@@ -9,11 +9,11 @@ using ProjectXyz.Data.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
-    [ContractClass(typeof(IEnchantmentRepositoryContract))]
-    public interface IEnchantmentRepository
+    [ContractClass(typeof(IMagicTypesRandomAffixesRepositoryContract))]
+    public interface IMagicTypesRandomAffixesRepository
     {
         #region Methods
-        IEnchantment Generate(Guid id, IRandom randomizer);
+        IMagicTypesRandomAffixes GetForMagicTypeId(Guid id);
         #endregion
     }
 }

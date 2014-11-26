@@ -10,11 +10,11 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IItemAffixRepository
     {
         #region Methods
-        IEnumerable<IItemAffix> GenerateRandom(int minimum, int maximum, Guid magicTypeId, int level, Random randomizer);
+        IEnumerable<IItemAffix> GenerateRandom(int minimum, int maximum, Guid magicTypeId, int level, IRandom randomizer);
 
-        IItemAffix GenerateRandom(bool prefix, Guid magicTypeId, int level, Random randomizer);
+        IItemAffix GenerateRandom(bool prefix, Guid magicTypeId, int level, IRandom randomizer);
 
-        IItemAffix Generate(Guid id, Random randomizer);
+        IItemAffix Generate(Guid id, IRandom randomizer);
         #endregion
     }
 }

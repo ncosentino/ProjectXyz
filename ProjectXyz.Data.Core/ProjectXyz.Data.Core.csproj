@@ -86,13 +86,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Enchantments\MagicTypesRandomAffixesFactory.cs" />
+    <Compile Include="Enchantments\MagicTypesRandomAffixes.cs" />
+    <Compile Include="Enchantments\ItemAffixGenerator.cs" />
+    <Compile Include="Enchantments\NamedItemAffixGenerator.cs" />
     <Compile Include="Enchantments\EnchantmentFactory.cs" />
     <Compile Include="Enchantments\EnchantmentStatuses.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentCalculationTypes.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\EnchantmentTriggers.cs" />
-    <Compile Include="Enchantments\IItemEnchantmentGenerator.cs" />
+    <Compile Include="Enchantments\RandomItemAffixGenerator.cs" />
     <Compile Include="Items\Requirements.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemCollection.cs" />

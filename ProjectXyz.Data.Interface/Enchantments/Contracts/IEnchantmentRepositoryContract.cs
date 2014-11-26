@@ -11,7 +11,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     public abstract class IEnchantmentRepositoryContract : IEnchantmentRepository
     {
         #region Methods
-        public IEnumerable<IEnchantment> GenerateRandom(int minimum, int maximum, int level, Random randomizer)
+        public IEnumerable<IEnchantment> GenerateRandom(int minimum, int maximum, int level, IRandom randomizer)
         {
             Contract.Requires<ArgumentOutOfRangeException>(minimum >= 0);
             Contract.Requires<ArgumentOutOfRangeException>(minimum <= maximum);
@@ -22,7 +22,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             return default(IEnumerable<IEnchantment>);
         }
 
-        public IEnchantment Generate(Guid id, Random randomizer)
+        public IEnchantment Generate(Guid id, IRandom randomizer)
         {
             Contract.Requires<ArgumentNullException>(randomizer != null);
             Contract.Ensures(Contract.Result<IEnchantment>() != null);

@@ -13,6 +13,7 @@ using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
 {
@@ -77,8 +78,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 database,
                 EnchantmentFactory.Create());
 
-            var rnd = new Random(123);
-            var result = repository.Generate(enchantmentId, rnd);
+            var rnd = new Mock<IRandom>();
+            var result = repository.Generate(enchantmentId, rnd.Object);
 
             Assert.Equal(new Guid("99b946a3-c281-4fcc-8ac6-08d29a4c6c29"), result.StatId);
             Assert.Equal(new Guid("de12642d-1b33-4b8b-82e8-7d0f48cd72b1"), result.CalculationId);

@@ -87,12 +87,19 @@
   <ItemGroup>
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Contracts\IDataStore.cs" />
+    <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
+    <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
+    <Compile Include="Enchantments\Contracts\INamedItemAffixGeneratorContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
-    <Compile Include="Enchantments\Contracts\IItemEnchantmentGeneratorContract.cs" />
+    <Compile Include="Enchantments\Contracts\IRandomItemAffixGeneratorContract.cs" />
+    <Compile Include="Enchantments\IMagicTypesRandomAffixesRepository.cs" />
+    <Compile Include="Enchantments\IMagicTypesRandomAffixesFactory.cs" />
+    <Compile Include="Enchantments\IMagicTypesRandomAffixes.cs" />
+    <Compile Include="Enchantments\INamedItemAffixGenerator.cs" />
     <Compile Include="Enchantments\IAffixMagicTypes.cs" />
     <Compile Include="Enchantments\IAffixMagicTypesRepository.cs" />
     <Compile Include="Enchantments\IAffixEnchantments.cs" />
@@ -111,11 +118,12 @@
     <Compile Include="Enchantments\IEnchantment.cs" />
     <Compile Include="Enchantments\IEnchantmentRepository.cs" />
     <Compile Include="Enchantments\IItemAffix.cs" />
-    <Compile Include="Enchantments\IItemEnchantmentGenerator.cs" />
+    <Compile Include="Enchantments\IRandomItemAffixGenerator.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
+    <Compile Include="IRandom.cs" />
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
     <Compile Include="Items\IMutableItemCollection.cs" />
     <Compile Include="Items\Contracts\IItemContract.cs" />

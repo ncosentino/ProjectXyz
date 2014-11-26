@@ -12,6 +12,7 @@ using Moq;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Data.Sql.Tests.Enchantments
 {
@@ -132,9 +133,9 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 database.Object, 
                 factory.Object);
             var guid = new Guid("9a760e46-4a52-416f-8c54-e39b0583610f");
-            var rnd = new Random(123);
-            
-            var result = repository.Generate(guid, rnd);
+            var rnd = new Mock<IRandom>();
+
+            var result = repository.Generate(guid, rnd.Object);
 
             Assert.Equal(new Guid("c7b34f9c-4bdd-4e1b-ac74-b79d102b9a44"), result.StatId);
             Assert.Equal(new Guid("6e497274-bc02-4268-83dc-24ee0123b7ba"), result.CalculationId);
@@ -168,9 +169,9 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
                 database.Object,
                 factory.Object);
             var guid = new Guid("9a760e46-4a52-416f-8c54-e39b0583610f");
-            var rnd = new Random(123);
+            var rnd = new Mock<IRandom>();
 
-            var exception = Assert.Throws<InvalidOperationException>(() => repository.Generate(guid, rnd));
+            var exception = Assert.Throws<InvalidOperationException>(() => repository.Generate(guid, rnd.Object));
             Assert.Equal("Could not spawn enchantment with Id = '" + guid + "'.", exception.Message);
         }
         #endregion
