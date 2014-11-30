@@ -13,12 +13,12 @@ namespace ProjectXyz.Data.Interface.Contracts
     public abstract class IDataStoreContract : IDataStore
     {
         #region Properties
-        public IEnchantmentRepository EnchantmentRepository
+        public IEnchantmentStoreRepository EnchantmentRepository
         {
             get
             {
-                Contract.Ensures(Contract.Result<IEnchantmentRepository>() != null);
-                return default(IEnchantmentRepository);
+                Contract.Ensures(Contract.Result<IEnchantmentStoreRepository>() != null);
+                return default(IEnchantmentStoreRepository);
             }
         }
         #endregion

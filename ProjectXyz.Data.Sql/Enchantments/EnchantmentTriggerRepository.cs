@@ -57,7 +57,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 {
                     if (!reader.Read())
                     {
-                        throw new InvalidOperationException("Could not spawn enchantment trigger with Id = '" + id + "'.");
+                        throw new InvalidOperationException("No enchantment trigger with Id '" + id + "' was found.");
                     }
 
                     return EnchantmentTriggerFromReader(reader, _factory);

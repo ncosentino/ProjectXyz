@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IItemSaver : ISave<IItem, ProjectXyz.Data.Interface.Items.IItem>
+    public interface IItemSaver : ISave<IItem, ProjectXyz.Data.Interface.Items.IItemStore>
     {
     }
 }

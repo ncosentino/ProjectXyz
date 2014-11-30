@@ -104,7 +104,16 @@ namespace ProjectXyz.Data.Sql.Tests.Enchantments
             var guid = new Guid("9a760e46-4a52-416f-8c54-e39b0583610f");
 
             var exception = Assert.Throws<InvalidOperationException>(() => repository.GetById(guid));
-            Assert.Equal("Could not spawn enchantment trigger with Id = '" + guid + "'.", exception.Message);
+            Assert.Equal("No enchantment trigger with Id '" + guid + "' was found.", exception.Message);
+
+            factory.Verify(x => x.CreateEnchantmentTrigger(
+                It.IsAny<Guid>(),
+                It.IsAny<string>()),
+                Times.Never);
+
+            database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
+
+            command.Verify(x => x.ExecuteReader(), Times.Once);
         }
         #endregion
     }

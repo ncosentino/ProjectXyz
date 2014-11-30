@@ -89,46 +89,44 @@
     <Compile Include="Contracts\IDataStore.cs" />
     <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
-    <Compile Include="Enchantments\Contracts\INamedItemAffixGeneratorContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerFactoryContract.cs" />
-    <Compile Include="Enchantments\Contracts\IEnchantmentFactoryContract.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStoreFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
-    <Compile Include="Enchantments\Contracts\IEnchantmentRepositoryContract.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
-    <Compile Include="Enchantments\Contracts\IRandomItemAffixGeneratorContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinition.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionRepository.cs" />
     <Compile Include="Enchantments\IMagicTypesRandomAffixesRepository.cs" />
     <Compile Include="Enchantments\IMagicTypesRandomAffixesFactory.cs" />
     <Compile Include="Enchantments\IMagicTypesRandomAffixes.cs" />
-    <Compile Include="Enchantments\INamedItemAffixGenerator.cs" />
     <Compile Include="Enchantments\IAffixMagicTypes.cs" />
     <Compile Include="Enchantments\IAffixMagicTypesRepository.cs" />
     <Compile Include="Enchantments\IAffixEnchantments.cs" />
     <Compile Include="Enchantments\IAffixEnchantmentsRepository.cs" />
-    <Compile Include="Enchantments\IItemAffixRepository.cs" />
+    <Compile Include="Items\IItemAffixDefinitionRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTrigger.cs" />
-    <Compile Include="Enchantments\IEnchantmentFactory.cs" />
-    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentExtensionMethods.cs" />
-    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />
-    <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentStoreFactory.cs" />
+    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentStoreExtensionMethods.cs" />
+    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentStoreCollectionExtensionMethods.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStoreContract.cs" />
     <Compile Include="Enchantments\Contracts\IMutableEnchantmentCollectionContract.cs" />
-    <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
-    <Compile Include="Enchantments\IEnchantmentCollection.cs" />
-    <Compile Include="Enchantments\IEnchantment.cs" />
-    <Compile Include="Enchantments\IEnchantmentRepository.cs" />
-    <Compile Include="Enchantments\IItemAffix.cs" />
-    <Compile Include="Enchantments\IRandomItemAffixGenerator.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStoreCollectionContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentStoreCollection.cs" />
+    <Compile Include="Enchantments\IEnchantmentStore.cs" />
+    <Compile Include="Enchantments\IEnchantmentStoreRepository.cs" />
+    <Compile Include="Items\IItemAffixDefinition.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
-    <Compile Include="IRandom.cs" />
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
-    <Compile Include="Items\IMutableItemCollection.cs" />
-    <Compile Include="Items\Contracts\IItemContract.cs" />
-    <Compile Include="Items\IItemCollection.cs" />
-    <Compile Include="Items\IItem.cs" />
+    <Compile Include="Items\IMutableItemStoreCollection.cs" />
+    <Compile Include="Items\Contracts\IItemStoreContract.cs" />
+    <Compile Include="Items\IItemStoreCollection.cs" />
+    <Compile Include="Items\IItemStore.cs" />
     <Compile Include="Items\IRequirements.cs" />
     <Compile Include="Items\Materials\IMaterial.cs" />
     <Compile Include="Items\Materials\IMaterialFactory.cs" />
@@ -142,9 +140,7 @@
     <Compile Include="Stats\IStat.cs" />
     <Compile Include="Stats\IStatCollection.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Items\ExtensionMethods\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

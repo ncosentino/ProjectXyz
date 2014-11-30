@@ -14,7 +14,7 @@ namespace ProjectXyz.Data.Interface
     public interface IDataStore
     {
         #region Properties
-        IEnchantmentRepository EnchantmentRepository { get; }
+        IEnchantmentStoreRepository EnchantmentRepository { get; }
         #endregion
     }
 }

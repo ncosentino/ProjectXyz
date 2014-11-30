@@ -93,6 +93,7 @@
     <Compile Include="Contracts\IDatabaseContract.cs" />
     <Compile Include="Contracts\IDatabaseQueryExecuterContract.cs" />
     <Compile Include="Contracts\IDatabaseUpgraderContract.cs" />
+    <Compile Include="Enchantments\EnchantmentDefinitionRepository.cs" />
     <Compile Include="Enchantments\EnchantmentTriggerRepository.cs" />
     <Compile Include="SqlDatabaseUpgrader.cs" />
     <Compile Include="IDatabaseQueryExecuter.cs" />
@@ -107,7 +108,7 @@
     </Compile>
     <Compile Include="SqlDataStore.cs" />
     <Compile Include="SqlDatabase.cs" />
-    <Compile Include="Enchantments\EnchantmentRepository.cs" />
+    <Compile Include="Enchantments\EnchantmentStoreRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

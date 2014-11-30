@@ -5,7 +5,7 @@ using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Data.Tests.Actors
 {
-    [ApplicationLayer]
+    [DataLayer]
     [Actors]
     public class ActorTests
     {

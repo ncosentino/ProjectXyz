@@ -10,7 +10,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IAffixMagicTypesRepository
     {
         #region Methods
-        IAffixMagicTypes GetForId(Guid id);
+        IAffixMagicTypes GetById(Guid id);
         #endregion
     }
 }

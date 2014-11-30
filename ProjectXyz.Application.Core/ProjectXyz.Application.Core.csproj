@@ -87,11 +87,18 @@
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
+    <Compile Include="Enchantments\EnchantmentFactory.cs" />
+    <Compile Include="Enchantments\EnchantmentGenerator.cs" />
+    <Compile Include="Items\NamedItemAffixes.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\EnchantmentSaver.cs" />
+    <Compile Include="Items\NamedItemAffix.cs" />
+    <Compile Include="Items\ItemAffixGenerator.cs" />
+    <Compile Include="Items\NamedItemAffixGenerator.cs" />
+    <Compile Include="Items\RandomItemAffixGenerator.cs" />
     <Compile Include="Items\Inventory.cs" />
     <Compile Include="Items\ItemSaver.cs" />
     <Compile Include="Items\Equipment.cs" />

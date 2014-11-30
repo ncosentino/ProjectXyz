@@ -42,7 +42,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public IItem Build(
             IItemContext context,
-            ProjectXyz.Data.Interface.Items.IItem itemData)
+            ProjectXyz.Data.Interface.Items.IItemStore itemData)
         {
             if (_materialFactory == null)
             {

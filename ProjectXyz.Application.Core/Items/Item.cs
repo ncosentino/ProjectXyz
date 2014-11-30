@@ -14,6 +14,7 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Data.Interface.Items;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -35,7 +36,7 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Constructors
-        protected Item(IItemBuilder builder, IItemContext context, ProjectXyz.Data.Interface.Items.IItem item)
+        protected Item(IItemBuilder builder, IItemContext context, IItemStore item)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
@@ -169,7 +170,7 @@ namespace ProjectXyz.Application.Core.Items
             get { return _enchantments; }
         }
 
-        public IRequirements Requirements
+        public ProjectXyz.Application.Interface.Items.IRequirements Requirements
         {
             get { return _requirements; }
         }
@@ -181,7 +182,7 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static IItem Create(IItemBuilder builder, IItemContext context, ProjectXyz.Data.Interface.Items.IItem item)
+        public static IItem Create(IItemBuilder builder, IItemContext context, ProjectXyz.Data.Interface.Items.IItemStore item)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);

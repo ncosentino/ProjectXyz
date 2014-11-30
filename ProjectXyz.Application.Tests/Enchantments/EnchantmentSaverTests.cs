@@ -24,7 +24,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 .WithValue(1234567)
                 .Build();
 
-            var enchantmentSaver = EnchantmentSaver.Create();
+            var enchantmentSaver = EnchantmentSaver.Create(EnchantmentStoreFactory.Create());
             var savedData = enchantmentSaver.Save(enchantment);
 
             Assert.Equal(enchantment.CalculationId, savedData.CalculationId);

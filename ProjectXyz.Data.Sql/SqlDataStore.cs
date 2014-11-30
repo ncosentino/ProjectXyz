@@ -13,7 +13,7 @@ namespace ProjectXyz.Data.Sql
         #region Fields
         private readonly IDatabase _database;
         private readonly IDatabaseUpgrader _upgrader;
-        private readonly IEnchantmentRepository _enchantmentRepository;
+        private readonly IEnchantmentStoreRepository _enchantmentRepository;
         #endregion
 
         #region Constructors
@@ -25,16 +25,16 @@ namespace ProjectXyz.Data.Sql
             _database = database;
             _upgrader = upgrader;
 
-            _enchantmentRepository = Enchantments.EnchantmentRepository.Create(
+            _enchantmentRepository = Enchantments.EnchantmentStoreRepository.Create(
                 _database,
-                EnchantmentFactory.Create());            
+                EnchantmentStoreFactory.Create());            
 
             CreateOrUpgrade(_database, _upgrader);
         }
         #endregion
 
         #region Properties
-        public IEnchantmentRepository EnchantmentRepository
+        public IEnchantmentStoreRepository EnchantmentRepository
         {
             get { return _enchantmentRepository; }
         }

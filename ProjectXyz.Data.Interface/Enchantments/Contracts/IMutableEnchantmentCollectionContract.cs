@@ -10,12 +10,12 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     [ContractClassFor(typeof(IMutableEnchantmentCollection))]
     public abstract class IMutableEnchantmentCollectionContract : IMutableEnchantmentCollection
     {
-        public void Add(IEnumerable<IEnchantment> enchantments)
+        public void Add(IEnumerable<IEnchantmentStore> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
         }
 
-        public bool Remove(IEnumerable<IEnchantment> enchantments)
+        public bool Remove(IEnumerable<IEnchantmentStore> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
             return default(bool);
@@ -27,11 +27,11 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         
         public abstract int Count { get; }
 
-        public abstract IEnchantment this[int index] { get; }
+        public abstract IEnchantmentStore this[int index] { get; }
 
-        public abstract bool Contains(IEnchantment enchantment);
+        public abstract bool Contains(IEnchantmentStore enchantment);
 
-        public abstract IEnumerator<IEnchantment> GetEnumerator();
+        public abstract IEnumerator<IEnchantmentStore> GetEnumerator();
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {

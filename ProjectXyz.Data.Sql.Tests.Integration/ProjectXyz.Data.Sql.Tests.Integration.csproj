@@ -92,7 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\EnchantmentRepositoryTests.cs" />
+    <Compile Include="Enchantments\EnchantmentDefinitionRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

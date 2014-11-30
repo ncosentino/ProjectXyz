@@ -7,6 +7,7 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
@@ -24,18 +25,25 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Constructors
-        private Enchantment(IEnchantmentContext context, ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
+        private Enchantment(
+            IEnchantmentContext context,
+            Guid statId,
+            Guid statusTypeId,
+            Guid triggerId,
+            Guid calculationId,
+            double value,
+            TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentNullException>(enchantment != null);
+            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
 
             _context = context;
-            _statId = enchantment.StatId;
-            _value = enchantment.Value;
-            _calculationId = enchantment.CalculationId;
-            _triggerId = enchantment.TriggerId;
-            _statusTypeId = enchantment.StatusTypeId;
-            _remainingDuration = enchantment.RemainingDuration;
+            _statId = statId;
+            _value = value;
+            _calculationId = calculationId;
+            _triggerId = triggerId;
+            _statusTypeId = statusTypeId;
+            _remainingDuration = remainingDuration;
         }
         #endregion
 
@@ -72,12 +80,43 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantment Create(IEnchantmentContext context, ProjectXyz.Data.Interface.Enchantments.IEnchantment enchantment)
+        public static IEnchantment Create(IEnchantmentContext context, IEnchantmentStore enchantment)
         {
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(enchantment != null);
             Contract.Ensures(Contract.Result<IEnchantment>() != null);
-            return new Enchantment(context, enchantment);
+            
+            return Create(
+                context, 
+                enchantment.StatId,
+                enchantment.StatusTypeId,
+                enchantment.TriggerId,
+                enchantment.CalculationId,
+                enchantment.Value,
+                enchantment.RemainingDuration);
+        }
+
+        public static IEnchantment Create(
+            IEnchantmentContext context, 
+            Guid statId, 
+            Guid statusTypeId, 
+            Guid triggerId, 
+            Guid calculationId, 
+            double value,
+            TimeSpan remainingDuration)
+        {
+            Contract.Requires<ArgumentNullException>(context != null);
+            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
+            Contract.Ensures(Contract.Result<IEnchantment>() != null);
+
+            return new Enchantment(
+                context, 
+                statId,
+                statusTypeId,
+                triggerId,
+                calculationId,
+                value,
+                remainingDuration);
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)

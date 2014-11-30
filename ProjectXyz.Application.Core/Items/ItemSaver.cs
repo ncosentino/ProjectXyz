@@ -32,9 +32,9 @@ namespace ProjectXyz.Application.Core.Items
             return new ItemSaver(enchantmentSaver);
         }
 
-        public ProjectXyz.Data.Interface.Items.IItem Save(IItem source)
+        public ProjectXyz.Data.Interface.Items.IItemStore Save(IItem source)
         {
-            var destination = ProjectXyz.Data.Core.Items.Item.Create();
+            var destination = ProjectXyz.Data.Core.Items.ItemStore.Create();
 
             destination.Id = source.Id;
             destination.Name = source.ItemType;

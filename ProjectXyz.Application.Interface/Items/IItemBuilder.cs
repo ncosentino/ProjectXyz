@@ -23,7 +23,7 @@ namespace ProjectXyz.Application.Interface.Items
 
         IItem Build(
             IItemContext context,
-            ProjectXyz.Data.Interface.Items.IItem itemData);
+            ProjectXyz.Data.Interface.Items.IItemStore itemData);
         #endregion
     }
 }

@@ -12,6 +12,7 @@ using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
+using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Application.Tests.Items
 {
@@ -38,7 +39,7 @@ namespace ProjectXyz.Application.Tests.Items
                 .Build();
             item.Enchant(enchantment);
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
             var savedData = itemSaver.Save(item);
 
             var rebuiltItem = ItemBuilder

@@ -26,7 +26,7 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
                 .Build(
                     new MockItemContextBuilder().Build(),
-                    ProjectXyz.Data.Core.Items.Item.Create());
+                    ProjectXyz.Data.Core.Items.ItemStore.Create());
             var baseDurability = Durability.Create(
                 item.Durability.Maximum, 
                 item.Durability.Current);

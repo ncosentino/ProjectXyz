@@ -37,7 +37,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             return default(IItemBuilder);
         }
 
-        public IItem Build(IItemContext context, Data.Interface.Items.IItem itemData)
+        public IItem Build(IItemContext context, Data.Interface.Items.IItemStore itemData)
         {
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(itemData != null);

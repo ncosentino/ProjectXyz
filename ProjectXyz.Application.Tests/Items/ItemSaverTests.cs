@@ -13,6 +13,7 @@ using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
+using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Application.Tests.Items
 {
@@ -99,7 +100,7 @@ namespace ProjectXyz.Application.Tests.Items
                     sourceData);
             item.Enchant(enchantment);
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
             var savedData = itemSaver.Save(item);
 
             Assert.Equal(1, savedData.Enchantments.Count);
@@ -135,12 +136,12 @@ namespace ProjectXyz.Application.Tests.Items
                 item.Socket(socketCandidate),
                 "Expecting to socket the item.");
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
             var savedData = itemSaver.Save(item);
             
             Assert.Equal(1, savedData.SocketedItems.Count);
             
-            var actualSocketedItem = new List<ProjectXyz.Data.Interface.Items.IItem>(savedData.SocketedItems)[0];
+            var actualSocketedItem = new List<ProjectXyz.Data.Interface.Items.IItemStore>(savedData.SocketedItems)[0];
             Assert.Equal(socketCandidate.Id, actualSocketedItem.Id);
         }
 
@@ -155,8 +156,8 @@ namespace ProjectXyz.Application.Tests.Items
                 .Build(
                     new MockItemContextBuilder().Build(),
                     sourceData);
-            
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
             var savedData = itemSaver.Save(item);
 
             Assert.Equal(sourceData.Requirements.Class, savedData.Requirements.Class);

@@ -94,9 +94,11 @@
     <Compile Include="Enchantments\EnchantmentBlockTests.cs" />
     <Compile Include="Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Enchantments\EnchantmentSaverTests.cs" />
+    <Compile Include="Enchantments\EnchantmentGeneratorTests.cs" />
     <Compile Include="Enchantments\Mocks\MockEnchantmentBuilder.cs" />
     <Compile Include="Enchantments\Mocks\MockEnchantmentContextBuilder.cs" />
     <Compile Include="Enchantments\Mocks\MockEnchantmentSaverBuilder.cs" />
+    <Compile Include="Items\ItemAffixGeneratorTests.cs" />
     <Compile Include="Items\InventoryTests.cs" />
     <Compile Include="Items\ItemEnchantingTests.cs" />
     <Compile Include="Items\ItemIntegrationTests.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Items\Mocks\MockItemContextBuilder.cs" />
     <Compile Include="Items\Mocks\MockRequirementsBuilder.cs" />
+    <Compile Include="Items\NamedRandomItemAffixGeneratorTests.cs" />
+    <Compile Include="Items\RandomItemAffixGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xunit\Assertions\Enchantments\AssertEnchantments.cs" />
     <Compile Include="Xunit\Assertions\Stats\AssertStats.cs" />

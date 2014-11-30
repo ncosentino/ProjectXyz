@@ -10,12 +10,12 @@ using ProjectXyz.Data.Interface.Enchantments.Contracts;
 namespace ProjectXyz.Data.Interface.Enchantments
 {
     [ContractClass(typeof(IMutableEnchantmentCollectionContract))]
-    public interface IMutableEnchantmentCollection : IEnchantmentCollection
+    public interface IMutableEnchantmentCollection : IEnchantmentStoreCollection
     {
         #region Methods
-        void Add(IEnumerable<IEnchantment> enchantments);
+        void Add(IEnumerable<IEnchantmentStore> enchantments);
 
-        bool Remove(IEnumerable<IEnchantment> enchantments);
+        bool Remove(IEnumerable<IEnchantmentStore> enchantments);
 
         void Clear();
         #endregion

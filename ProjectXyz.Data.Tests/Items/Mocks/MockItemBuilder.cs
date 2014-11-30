@@ -19,7 +19,7 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
     public class MockItemBuilder
     {
         #region Fields
-        private readonly Mock<IItem> _item;
+        private readonly Mock<IItemStore> _item;
         private readonly List<IMutableStat> _stats;
         private readonly List<string> _equippableSlots;
         #endregion
@@ -27,7 +27,7 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
         #region Constructors
         public MockItemBuilder()
         {
-            _item = new Mock<IItem>();
+            _item = new Mock<IItemStore>();
             _stats = new List<IMutableStat>();
             _equippableSlots = new List<string>();
         }
@@ -68,9 +68,9 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
             return this;
         }
         
-        public IItem Build()
+        public IItemStore Build()
         {
-            Contract.Ensures(Contract.Result<IItem>() != null);
+            Contract.Ensures(Contract.Result<IItemStore>() != null);
 
             _item
                 .Setup(x => x.Stats)
@@ -80,7 +80,7 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
                 .Returns(EnchantmentCollection.Create());
             _item
                 .Setup(x => x.SocketedItems)
-                .Returns(ItemCollection.Create());
+                .Returns(ItemStoreCollection.Create());
             _item
                 .Setup(x => x.Requirements)
                 .Returns(new MockRequirementsBuilder().Build());

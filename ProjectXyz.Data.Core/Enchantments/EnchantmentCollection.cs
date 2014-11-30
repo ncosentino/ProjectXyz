@@ -12,20 +12,20 @@ namespace ProjectXyz.Data.Core.Enchantments
     public class EnchantmentCollection : IMutableEnchantmentCollection
     {
         #region Fields
-        private readonly List<IEnchantment> _enchantments;
+        private readonly List<IEnchantmentStore> _enchantments;
         #endregion
 
         #region Constructors
         protected EnchantmentCollection()
-            : this(new IEnchantment[0])
+            : this(new IEnchantmentStore[0])
         {
         }
 
-        protected EnchantmentCollection(IEnumerable<IEnchantment> enchantments)
+        protected EnchantmentCollection(IEnumerable<IEnchantmentStore> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
 
-            _enchantments = new List<IEnchantment>();
+            _enchantments = new List<IEnchantmentStore>();
             _enchantments.AddRange(enchantments);
         }
         #endregion
@@ -36,7 +36,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             get { return _enchantments.Count; }
         }
 
-        public IEnchantment this[int index]
+        public IEnchantmentStore this[int index]
         {
             get { return _enchantments[index]; }
         }
@@ -49,19 +49,19 @@ namespace ProjectXyz.Data.Core.Enchantments
             return new EnchantmentCollection();
         }
 
-        public static IMutableEnchantmentCollection Create(IEnumerable<IEnchantment> enchantments)
+        public static IMutableEnchantmentCollection Create(IEnumerable<IEnchantmentStore> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Ensures(Contract.Result<IMutableEnchantmentCollection>() != null);
             return new EnchantmentCollection(enchantments);
         }
 
-        public void Add(IEnumerable<IEnchantment> enchantments)
+        public void Add(IEnumerable<IEnchantmentStore> enchantments)
         {
             _enchantments.AddRange(enchantments);
         }
 
-        public virtual bool Remove(IEnumerable<IEnchantment> enchantments)
+        public virtual bool Remove(IEnumerable<IEnchantmentStore> enchantments)
         {
             bool removedAny = false;
             foreach (var enchantment in enchantments)
@@ -77,12 +77,12 @@ namespace ProjectXyz.Data.Core.Enchantments
             _enchantments.Clear();
         }
 
-        public bool Contains(IEnchantment enchantment)
+        public bool Contains(IEnchantmentStore enchantment)
         {
             return _enchantments.Contains(enchantment);
         }
 
-        public IEnumerator<IEnchantment> GetEnumerator()
+        public IEnumerator<IEnchantmentStore> GetEnumerator()
         {
             return _enchantments.GetEnumerator();
         }
