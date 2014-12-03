@@ -20,7 +20,7 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
     {
         #region Fields
         private readonly Mock<IItemStore> _item;
-        private readonly List<IMutableStat> _stats;
+        private readonly List<IStat> _stats;
         private readonly List<string> _equippableSlots;
         #endregion
 
@@ -28,21 +28,21 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
         public MockItemBuilder()
         {
             _item = new Mock<IItemStore>();
-            _stats = new List<IMutableStat>();
+            _stats = new List<IStat>();
             _equippableSlots = new List<string>();
         }
         #endregion
 
         #region Methods
-        public MockItemBuilder WithStats(params IMutableStat[] stats)
+        public MockItemBuilder WithStats(params IStat[] stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
-            
-            return WithStats((IEnumerable<IMutableStat>)stats);
+
+            return WithStats((IEnumerable<IStat>)stats);
         }
 
-        public MockItemBuilder WithStats(IEnumerable<IMutableStat> stats)
+        public MockItemBuilder WithStats(IEnumerable<IStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<MockItemBuilder>() != null);

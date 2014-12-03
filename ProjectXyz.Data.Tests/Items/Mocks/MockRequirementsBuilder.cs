@@ -37,8 +37,8 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<MockRequirementsBuilder>() != null);
-            
-            return WithStats((IEnumerable<IMutableStat>)stats);
+
+            return WithStats((IEnumerable<IStat>)stats);
         }
 
         public MockRequirementsBuilder WithStats(IEnumerable<IStat> stats)

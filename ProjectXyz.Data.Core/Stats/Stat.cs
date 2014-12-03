@@ -9,7 +9,7 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Core.Stats
 {
-    public sealed class Stat : IMutableStat
+    public sealed class Stat : IStat
     {
         #region Constructors
         private Stat(Guid id)
@@ -28,26 +28,20 @@ namespace ProjectXyz.Data.Core.Stats
         public Guid Id
         {
             get;
-            set;
+            private set;
         }
 
         public double Value
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
         #region Methods
-        public static IMutableStat Create(Guid id)
+        public static IStat Create(Guid id, double value)
         {
-            Contract.Ensures(Contract.Result<IMutableStat>() != null);
-            return new Stat(id);
-        }
-
-        public static IMutableStat Create(Guid id, double value)
-        {
-            Contract.Ensures(Contract.Result<IMutableStat>() != null);
+            Contract.Ensures(Contract.Result<IStat>() != null);
             return new Stat(id, value);
         }
         #endregion

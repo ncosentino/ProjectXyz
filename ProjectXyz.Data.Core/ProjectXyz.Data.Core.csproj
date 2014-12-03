@@ -105,6 +105,7 @@
     <Compile Include="Stats\Stat.cs" />
     <Compile Include="Stats\ItemStats.cs" />
     <Compile Include="Stats\StatCollection.cs" />
+    <Compile Include="Stats\StatFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
