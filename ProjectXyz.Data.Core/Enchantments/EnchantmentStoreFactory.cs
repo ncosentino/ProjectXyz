@@ -25,9 +25,17 @@ namespace ProjectXyz.Data.Core.Enchantments
             return new EnchantmentStoreFactory();
         }
 
-        public IEnchantmentStore CreateEnchantmentStore(Guid statId, Guid calculationId, Guid triggerId, Guid statusTypeId, TimeSpan remainingDuration, double value)
+        public IEnchantmentStore CreateEnchantmentStore(
+            Guid id,
+            Guid statId, 
+            Guid calculationId, 
+            Guid triggerId, 
+            Guid statusTypeId, 
+            TimeSpan remainingDuration, 
+            double value)
         {
             return EnchantmentStore.Create(
+                id,
                 statId,
                 calculationId,
                 triggerId,

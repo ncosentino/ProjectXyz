@@ -33,6 +33,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         public IEnchantmentStore Save(IEnchantment source)
         {
             return _enchantmentStoreFactory.CreateEnchantmentStore(
+                source.Id,
                 source.StatId,
                 source.CalculationId,
                 source.TriggerId,

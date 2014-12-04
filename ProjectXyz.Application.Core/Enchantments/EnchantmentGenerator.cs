@@ -57,6 +57,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                 randomizer.NextDouble() * (definition.MaximumDuration.TotalMilliseconds - definition.MinimumDuration.TotalMilliseconds));
 
             return _enchantmentFactory.Create(
+                Guid.NewGuid(),
                 definition.StatId,
                 definition.StatusTypeId,
                 definition.TriggerId,

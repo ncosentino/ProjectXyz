@@ -12,6 +12,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     {
         #region Methods
         public IEnchantmentStore CreateEnchantmentStore(
+            Guid id, 
             Guid statId, 
             Guid calculationId,
             Guid triggerId,
@@ -19,6 +20,11 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             TimeSpan remainingDuration,
             double value)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
 

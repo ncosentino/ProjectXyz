@@ -14,6 +14,7 @@ namespace ProjectXyz.Data.Core.Enchantments
     {
         #region Constructors
         private EnchantmentStore(
+            Guid id,
             Guid statId, 
             Guid calculationId, 
             Guid triggerId, 
@@ -21,8 +22,14 @@ namespace ProjectXyz.Data.Core.Enchantments
             TimeSpan remainingDuration,
             double value)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
 
+            this.Id = id;
             this.StatId = statId;
             this.CalculationId = calculationId;
             this.TriggerId = triggerId;
@@ -33,6 +40,12 @@ namespace ProjectXyz.Data.Core.Enchantments
         #endregion
 
         #region Properties
+        public Guid Id
+        {
+            get;
+            private set;
+        }
+
         public Guid StatId
         {
             get;
@@ -72,6 +85,7 @@ namespace ProjectXyz.Data.Core.Enchantments
 
         #region Methods
         public static IEnchantmentStore Create(
+            Guid id,
             Guid statId, 
             Guid calculationId, 
             Guid triggerId, 
@@ -79,10 +93,16 @@ namespace ProjectXyz.Data.Core.Enchantments
             TimeSpan remainingDuration,
             double value)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
 
             return new EnchantmentStore(
+                id,
                 statId,
                 calculationId,
                 triggerId,

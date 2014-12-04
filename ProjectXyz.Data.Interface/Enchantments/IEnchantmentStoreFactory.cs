@@ -14,6 +14,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
     {
         #region Methods
         IEnchantmentStore CreateEnchantmentStore(
+            Guid id,
             Guid statId, 
             Guid calculationId,
             Guid triggerId,

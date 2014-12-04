@@ -11,6 +11,16 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     public abstract class IEnchantmentStoreContract : IEnchantmentStore
     {
         #region Properties
+        public Guid Id
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+
+                return default(Guid);
+            }
+        }
+        
         public Guid StatId
         {
             get

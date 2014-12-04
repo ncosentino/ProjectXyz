@@ -41,6 +41,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         }
 
         public IEnchantment Create(
+            Guid id,
             Guid statId, 
             Guid statusTypeId, 
             Guid triggerId, 
@@ -50,6 +51,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         {
             return Enchantment.Create(
                 _enchantmentContext,
+                id,
                 statId,
                 statusTypeId,
                 triggerId,

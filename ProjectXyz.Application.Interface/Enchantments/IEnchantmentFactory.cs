@@ -14,6 +14,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
         IEnchantment Create(IEnchantmentStore enchantmentStore);
 
         IEnchantment Create(
+            Guid id,
             Guid statId, 
             Guid statusTypeId, 
             Guid triggerId, 

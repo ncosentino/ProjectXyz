@@ -14,6 +14,8 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantment : IUpdateElapsedTime
     {
         #region Properties
+        Guid Id { get; }
+
         Guid StatId { get; }
 
         Guid CalculationId { get; }

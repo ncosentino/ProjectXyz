@@ -11,23 +11,25 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
     public abstract class IEnchantmentContract : IEnchantment
     {
         #region Properties
+        public Guid Id
+        {
+            get
+            {
+                return default(Guid);
+            }
+        }
+
         public Guid StatId
         {
             get
             {
                 return default(Guid);
             }
-
-            set
-            {
-            }
         }
 
         public double Value
         {
             get { return default(double); }
-
-            set { }
         }
 
         public Guid CalculationId
@@ -35,10 +37,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             get
             {
                 return default(Guid);
-            }
-
-            set
-            {
             }
         }
         
@@ -48,10 +46,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             {
                 return default(Guid);
             }
-
-            set
-            {
-            }
         }
 
         public Guid StatusTypeId
@@ -59,10 +53,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             get
             {
                 return default(Guid);
-            }
-
-            set
-            {
             }
         }
 
@@ -74,13 +64,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
                     RemainingDuration >= TimeSpan.Zero ||
                     RemainingDuration == TimeSpan.MinValue);
                 return default(TimeSpan);
-            }
-
-            set
-            {
-                Contract.Requires(
-                    value >= TimeSpan.Zero ||
-                    value == TimeSpan.MinValue);
             }
         }
         #endregion

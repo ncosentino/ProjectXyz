@@ -15,6 +15,7 @@ namespace ProjectXyz.Application.Core.Enchantments
     {
         #region Fields
         private readonly IEnchantmentContext _context;
+        private readonly Guid _id;
         private readonly Guid _statId;
         private readonly double _value; 
         private readonly Guid _calculationId; 
@@ -27,6 +28,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         #region Constructors
         private Enchantment(
             IEnchantmentContext context,
+            Guid id,
             Guid statId,
             Guid statusTypeId,
             Guid triggerId,
@@ -35,9 +37,15 @@ namespace ProjectXyz.Application.Core.Enchantments
             TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentNullException>(context != null);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
 
             _context = context;
+            _id = id;
             _statId = statId;
             _value = value;
             _calculationId = calculationId;
@@ -48,6 +56,11 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Properties
+        public Guid Id
+        {
+            get { return _id; }
+        }
+
         public Guid StatId
         {
             get { return _statId; }
@@ -88,6 +101,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             
             return Create(
                 context, 
+                enchantment.Id,
                 enchantment.StatId,
                 enchantment.StatusTypeId,
                 enchantment.TriggerId,
@@ -98,6 +112,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         public static IEnchantment Create(
             IEnchantmentContext context, 
+            Guid id,
             Guid statId, 
             Guid statusTypeId, 
             Guid triggerId, 
@@ -106,11 +121,17 @@ namespace ProjectXyz.Application.Core.Enchantments
             TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentNullException>(context != null);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IEnchantment>() != null);
 
             return new Enchantment(
                 context, 
+                id,
                 statId,
                 statusTypeId,
                 triggerId,

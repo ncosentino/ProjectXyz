@@ -75,7 +75,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             var enchantmentFactory = new Mock<IEnchantmentFactory>();
             enchantmentFactory
-                .Setup(x => x.Create(STAT_ID, STATUS_TYPE_ID, TRIGGER_ID, CALCULATION_ID, 50, TimeSpan.FromSeconds(1)))
+                .Setup(x => x.Create(It.IsAny<Guid>(), STAT_ID, STATUS_TYPE_ID, TRIGGER_ID, CALCULATION_ID, 50, TimeSpan.FromSeconds(1)))
                 .Returns(enchantment.Object);
 
             var enchantmentGenerator = EnchantmentGenerator.Create(
@@ -88,7 +88,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             enchantmentDefinitionRepository.Verify(x => x.GetById(ENCHANTMENT_ID), Times.Once);
 
-            enchantmentFactory.Verify(x => x.Create(STAT_ID, STATUS_TYPE_ID, TRIGGER_ID, CALCULATION_ID, 50, TimeSpan.FromSeconds(1)), Times.Once);
+            enchantmentFactory.Verify(x => x.Create(It.IsAny<Guid>(), STAT_ID, STATUS_TYPE_ID, TRIGGER_ID, CALCULATION_ID, 50, TimeSpan.FromSeconds(1)), Times.Once);
         }
         #endregion
     }

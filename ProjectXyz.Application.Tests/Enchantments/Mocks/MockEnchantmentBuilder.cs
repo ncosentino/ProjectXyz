@@ -18,6 +18,7 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
         #region Fields
         private readonly Mock<IEnchantment> _enchantment;
         private readonly List<TimeSpan> _remaining;
+        private readonly Guid _id;
 
         private Guid _statId;
         private Guid _calculationId;
@@ -29,6 +30,12 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
         #region Constructors
         public MockEnchantmentBuilder()
         {
+            _id = Guid.NewGuid();
+            _statId = Guid.NewGuid();
+            _calculationId = Guid.NewGuid();
+            _trigger = Guid.NewGuid();
+            _statusTypeId = Guid.NewGuid();
+            
             _enchantment = new Mock<IEnchantment>();
             _remaining = new List<TimeSpan>(new[] { TimeSpan.Zero });
         }
@@ -96,7 +103,10 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
         public IEnchantment Build()
         {
             Contract.Ensures(Contract.Result<IEnchantment>() != null);
-
+            
+            _enchantment
+                .Setup(x => x.Id)
+                .Returns(_id);
             _enchantment
                 .Setup(x => x.StatId)
                 .Returns(_statId);

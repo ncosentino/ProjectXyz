@@ -30,6 +30,7 @@ namespace ProjectXyz.Data.Tests.Enchantments
             const double DURATION_MILLISECONDS = 1234;
 
             var result = factory.CreateEnchantmentStore(
+                ID,
                 STAT_ID,
                 CALCULATION_ID,
                 TRIGGER_ID,
@@ -37,6 +38,7 @@ namespace ProjectXyz.Data.Tests.Enchantments
                 TimeSpan.FromMilliseconds(DURATION_MILLISECONDS),
                 VALUE);
 
+            Assert.Equal(ID, result.Id);
             Assert.Equal(STAT_ID, result.StatId);
             Assert.Equal(CALCULATION_ID, result.CalculationId);
             Assert.Equal(TRIGGER_ID, result.TriggerId);
