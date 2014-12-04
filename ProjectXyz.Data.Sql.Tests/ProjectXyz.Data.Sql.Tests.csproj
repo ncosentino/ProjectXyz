@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enchantments\EnchantmentStoreRepositoryTests.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionRepositoryTests.cs" />
     <Compile Include="Enchantments\EnchantmentTriggerRepositoryTests.cs" />
     <Compile Include="SqlDatabaseUpgraderTests.cs" />

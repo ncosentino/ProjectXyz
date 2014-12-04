@@ -41,12 +41,61 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
         public void Add(IEnchantmentStore enchantmentStore)
         {
-            throw new NotImplementedException("Implement this functionality.");
+            var namedParameters = new Dictionary<string, object>()
+            {
+                { "Id", enchantmentStore.Id },
+                { "StatId", enchantmentStore.StatId },
+                { "CalculationId", enchantmentStore.CalculationId },
+                { "TriggerId", enchantmentStore.TriggerId },
+                { "StatusTypeId", enchantmentStore.StatusTypeId },
+                { "RemainingDuration", enchantmentStore.RemainingDuration.TotalMilliseconds },
+                { "Value", enchantmentStore.Value },
+            };
+
+            using (var command = _database.CreateCommand(
+                @"
+                INSERT INTO
+                    Enchantments
+                (
+                    Id,
+                    StatId,
+                    CalculationId,
+                    TriggerId,
+                    StatusTypeId,
+                    RemainingDuration,
+                    Value
+                )
+                VALUES
+                (
+                    @Id,
+                    @StatId,
+                    @CalculationId,
+                    @TriggerId,
+                    @StatusTypeId,
+                    @RemainingDuration,
+                    @Value
+                )
+                ;",
+                namedParameters))
+            {
+                command.ExecuteNonQuery();
+            }
         }
 
         public void RemoveById(Guid id)
         {
-            throw new NotImplementedException("Implement this functionality.");
+            using (var command = _database.CreateCommand(
+                @"
+                DELETE FROM
+                    Enchantments
+                WHERE
+                    Id = @id
+                ;",
+                "@id",
+                id))
+            {
+                command.ExecuteNonQuery();
+            }
         }
 
         public IEnchantmentStore GetById(Guid id)
@@ -59,8 +108,9 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     Enchantments
                 WHERE
                     Id = @id
-                LIMIT 1",
-                "id",
+                LIMIT 1
+                ;",
+                "@id",
                 id))
             {
                 using (var reader = command.ExecuteReader())
@@ -81,7 +131,14 @@ namespace ProjectXyz.Data.Sql.Enchantments
             Contract.Requires<ArgumentNullException>(factory != null);
             Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
 
-            throw new NotImplementedException("Implement this functionality.");
+            return factory.CreateEnchantmentStore(
+                reader.GetGuid(reader.GetOrdinal("Id")),
+                reader.GetGuid(reader.GetOrdinal("StatId")),
+                reader.GetGuid(reader.GetOrdinal("CalculationId")),
+                reader.GetGuid(reader.GetOrdinal("TriggerId")),
+                reader.GetGuid(reader.GetOrdinal("StatusTypeId")),
+                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))),
+                reader.GetDouble(reader.GetOrdinal("Value")));
         }
         #endregion
     }
