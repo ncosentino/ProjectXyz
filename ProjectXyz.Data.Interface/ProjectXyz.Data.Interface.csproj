@@ -87,6 +87,18 @@
   <ItemGroup>
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Contracts\IDataStore.cs" />
+    <Compile Include="Diseases\IDiseaseStatesEnchantmentsFactory.cs" />
+    <Compile Include="Diseases\IDiseaseStateDefinitionFactory.cs" />
+    <Compile Include="Diseases\IDiseaseSpreadTypeFactory.cs" />
+    <Compile Include="Diseases\IDiseaseDefinitionFactory.cs" />
+    <Compile Include="Diseases\IDiseaseStatesEnchantmentsRepository.cs" />
+    <Compile Include="Diseases\IDiseaseStateDefinitionRepository.cs" />
+    <Compile Include="Diseases\IDiseaseSpreadTypeRepository.cs" />
+    <Compile Include="Diseases\IDiseaseDefinitionRepository.cs" />
+    <Compile Include="Diseases\IDiseaseSpreadType.cs" />
+    <Compile Include="Diseases\IDiseaseStatesEnchantments.cs" />
+    <Compile Include="Diseases\IDiseaseStateDefinition.cs" />
+    <Compile Include="Diseases\IDiseaseDefinition.cs" />
     <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerFactoryContract.cs" />

@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectXyz.Data.Interface.Enchantments
+namespace ProjectXyz.Data.Interface.Diseases
 {
-    public interface IAffixEnchantments
+    public interface IDiseaseSpreadType
     {
         #region Properties
         Guid Id { get; }
 
-        Guid AffixId { get; }
-
-        IEnumerable<Guid> EnchantmentIds { get; }
+        string Name { get; }
         #endregion
     }
 }

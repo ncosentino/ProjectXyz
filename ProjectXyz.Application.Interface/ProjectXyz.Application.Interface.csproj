@@ -90,6 +90,12 @@
     <Compile Include="Actors\IActorContext.cs" />
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Actors\IActorBuilder.cs" />
+    <Compile Include="Diseases\IDiseaseStateFactory.cs" />
+    <Compile Include="Diseases\IDiseaseStateGenerator.cs" />
+    <Compile Include="Diseases\IDiseaseFactory.cs" />
+    <Compile Include="Diseases\IDiseaseGenerator.cs" />
+    <Compile Include="Diseases\IDiseaseState.cs" />
+    <Compile Include="Diseases\IDisease.cs" />
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentGenerator.cs" />
     <Compile Include="Items\IItemAffixFactory.cs" />

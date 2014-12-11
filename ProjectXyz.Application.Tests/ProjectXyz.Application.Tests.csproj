@@ -91,6 +91,8 @@
   <ItemGroup>
     <Compile Include="Actors\ActorEquipmentTests.cs" />
     <Compile Include="Actors\ActorTests.cs" />
+    <Compile Include="Diseases\Unit\DiseaseStateGeneratorTests.cs" />
+    <Compile Include="Diseases\Unit\DiseaseGeneratorTests.cs" />
     <Compile Include="Enchantments\EnchantmentBlockTests.cs" />
     <Compile Include="Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Enchantments\EnchantmentSaverTests.cs" />
@@ -143,6 +145,7 @@
       <Name>ProjectXyz.Tests</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

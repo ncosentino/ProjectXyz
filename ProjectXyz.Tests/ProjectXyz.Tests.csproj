@@ -95,6 +95,7 @@
     <Compile Include="Xunit\Categories\CategoryAttribute.cs" />
     <Compile Include="Xunit\Categories\ApplicationLayerAttribute.cs" />
     <Compile Include="Xunit\Categories\ActorsAttribute.cs" />
+    <Compile Include="Xunit\Categories\DiseasesAttribute.cs" />
     <Compile Include="Xunit\Categories\StatsAttribute.cs" />
     <Compile Include="Xunit\Categories\EnchantmentsAttribute.cs" />
     <Compile Include="Xunit\Categories\ItemsAttribute.cs" />
