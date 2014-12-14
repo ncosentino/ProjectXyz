@@ -86,6 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Diseases\DiseaseSpreadTypeFactory.cs" />
+    <Compile Include="Diseases\DiseaseSpreadType.cs" />
     <Compile Include="Diseases\DiseaseDefinitionFactory.cs" />
     <Compile Include="Diseases\DiseaseDefinition.cs" />
     <Compile Include="Enchantments\EnchantmentDefinition.cs" />
