@@ -21,13 +21,8 @@ namespace ProjectXyz.Data.Tests.Stats
         {
             var factory = StatFactory.Create();
 
-            var ID = Guid.NewGuid();
             var STAT_ID = Guid.NewGuid();
-            var CALCULATION_ID = Guid.NewGuid();
-            var TRIGGER_ID = Guid.NewGuid();
-            var STATUS_TYPE_ID = Guid.NewGuid();
             const double VALUE = 123;
-            const double DURATION_MILLISECONDS = 1234;
 
             var result = factory.CreateStat(
                 STAT_ID,

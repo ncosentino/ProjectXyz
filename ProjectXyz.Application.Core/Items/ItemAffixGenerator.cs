@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Enchantments;
 
@@ -80,28 +79,32 @@ namespace ProjectXyz.Application.Core.Items
                 true,
                 true));
 
-            var merp = new List<IItemAffix>();
             for (int i = 0; i < numberOfEnchantments; i++)
             {
                 var candidateIndex = (int)(randomizer.NextDouble() * (candidateIds.Count - 1));
                 var selectedAffixId = candidateIds[candidateIndex];
 
-                ////yield return GenerateAffix(randomizer, selectedAffixId);
-                merp.Add(GenerateAffix(randomizer, selectedAffixId));
+                yield return GenerateAffix(randomizer, selectedAffixId);
                 candidateIds.RemoveAt(candidateIndex);
             }
-
-            return merp;
         }
 
         public INamedItemAffix GeneratePrefix(IRandom randomizer, int level, Guid magicTypeId)
         {
-            throw new NotImplementedException();
+            return GenerateNamedAffix(
+                randomizer,
+                level,
+                magicTypeId,
+                true);
         }
 
         public INamedItemAffix GenerateSuffix(IRandom randomizer, int level, Guid magicTypeId)
         {
-            throw new NotImplementedException();
+            return GenerateNamedAffix(
+                randomizer,
+                level,
+                magicTypeId,
+                false);
         }
 
         private IItemAffix GenerateAffix(IRandom randomizer, Guid affixId)
@@ -111,25 +114,29 @@ namespace ProjectXyz.Application.Core.Items
             return _itemAffixFactory.CreateItemAffix(enchantments);
         }
 
-        private INamedItemAffix GenerateNamedAffix(IRandom randomizer, Guid affixId)
+        private INamedItemAffix GenerateNamedAffix(IRandom randomizer, int level, Guid magicTypeId, bool prefix)
         {
-            var affixDefinition = _itemAffixDefinitionRepository.GetById(affixId);
-            var enchantments = GetEnchantments(randomizer, affixDefinition.AffixEnchantmentsId);
-            return _itemAffixFactory.CreateNamedItemAffix(enchantments, affixDefinition.Name);
-        }
+            var candidateIds = new List<Guid>(_itemAffixDefinitionRepository.GetIdsForFilter(
+                level,
+                int.MaxValue,
+                magicTypeId,
+                prefix,
+                !prefix));
 
+                var candidateIndex = (int)(randomizer.NextDouble() * (candidateIds.Count - 1));
+                var selectedAffixId = candidateIds[candidateIndex];
+
+                var affixDefinition = _itemAffixDefinitionRepository.GetById(selectedAffixId);
+                var enchantments = GetEnchantments(randomizer, affixDefinition.AffixEnchantmentsId);
+                return _itemAffixFactory.CreateNamedItemAffix(enchantments, affixDefinition.Name);
+        }
+        
         private IEnumerable<IEnchantment> GetEnchantments(IRandom randomizer, Guid affixEnchantmentsId)
         {
             var affixEnchantments = _affixEnchantmentsRepository.GetById(affixEnchantmentsId);
-
-            var merp = new List<IEnchantment>();
-            foreach (var enchantmentId in affixEnchantments.EnchantmentIds)
-            {
-                ////yield return _enchantmentGenerator.Generate(randomizer, enchantmentId);
-                merp.Add(_enchantmentGenerator.Generate(randomizer, enchantmentId));
-            }
-
-            return merp;
+            
+            return affixEnchantments.EnchantmentIds.Select(
+                enchantmentId => _enchantmentGenerator.Generate(randomizer, enchantmentId));
         }
         #endregion
     }

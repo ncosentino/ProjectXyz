@@ -51,6 +51,7 @@ namespace ProjectXyz.Application.Core.Diseases
             Contract.Requires<ArgumentNullException>(enchantmentGenerator != null);
             Contract.Requires<ArgumentNullException>(diseaseStateDefinitionRepository != null);
             Contract.Requires<ArgumentNullException>(diseaseStateEnchantmentsRepository != null);
+            Contract.Ensures(Contract.Result<IDiseaseStateGenerator>() != null);
 
             return new DiseaseStateGenerator(
                 diseaseStateFactory,

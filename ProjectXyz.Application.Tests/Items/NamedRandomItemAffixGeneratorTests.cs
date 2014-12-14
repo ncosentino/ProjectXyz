@@ -70,14 +70,18 @@ namespace ProjectXyz.Application.Tests.Enchantments
             var result = affixGenerator.GenerateRandomNamedAffixes(randomizer.Object, LEVEL, MAGIC_TYPE_ID);
 
             Assert.NotNull(result.Prefix);
-            Assert.Equal(1, result.Prefix.Enchantments.Count());
-            Assert.Equal(enchantment1.Object, result.Prefix.Enchantments.First());
             Assert.Equal(itemPrefix.Object.Name, result.Prefix.Name);
 
+            var enchantments = new List<IEnchantment>(result.Prefix.Enchantments);
+            Assert.Equal(1, enchantments.Count);
+            Assert.Equal(enchantment1.Object, enchantments[0]);
+
             Assert.NotNull(result.Suffix);
-            Assert.Equal(1, result.Suffix.Enchantments.Count());
-            Assert.Equal(enchantment2.Object, result.Suffix.Enchantments.First());
             Assert.Equal(itemSuffix.Object.Name, result.Suffix.Name);
+
+            enchantments = new List<IEnchantment>(result.Suffix.Enchantments);
+            Assert.Equal(1, enchantments.Count);
+            Assert.Equal(enchantment2.Object, enchantments[0]);
 
             itemAffixGenerator.Verify(x => x.GeneratePrefix(randomizer.Object, LEVEL, MAGIC_TYPE_ID), Times.Once);
             itemAffixGenerator.Verify(x => x.GenerateSuffix(randomizer.Object, LEVEL, MAGIC_TYPE_ID), Times.Once);

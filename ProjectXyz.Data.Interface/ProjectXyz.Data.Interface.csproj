@@ -87,6 +87,9 @@
   <ItemGroup>
     <Compile Include="Actors\IActor.cs" />
     <Compile Include="Contracts\IDataStore.cs" />
+    <Compile Include="Diseases\Contracts\IDiseaseDefinitionRepositoryContract.cs" />
+    <Compile Include="Diseases\Contracts\IDiseaseDefinitionFactoryContract.cs" />
+    <Compile Include="Diseases\Contracts\IDiseaseDefinitionContract.cs" />
     <Compile Include="Diseases\IDiseaseStatesEnchantmentsFactory.cs" />
     <Compile Include="Diseases\IDiseaseStateDefinitionFactory.cs" />
     <Compile Include="Diseases\IDiseaseSpreadTypeFactory.cs" />
