@@ -4,7 +4,6 @@ using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using ProjectXyz.Data.Sql.Contracts;
 

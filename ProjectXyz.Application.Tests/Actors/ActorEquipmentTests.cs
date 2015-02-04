@@ -412,7 +412,7 @@ namespace ProjectXyz.Application.Tests.Actors
                     "Expecting to equip '" + item  + "'.");
                 Assert.True(
                     actor.HasItemEquipped(item),
-                    "Expecting item to be equipped in one of [" + string.Join(", ", item.EquippableSlots) + "] slots.");
+                    "Expecting item to be equipped in one of [" + string.Join(", ", item.EquippableSlots.ToArray()) + "] slots.");
             }
 
             if (validationCallback != null)
