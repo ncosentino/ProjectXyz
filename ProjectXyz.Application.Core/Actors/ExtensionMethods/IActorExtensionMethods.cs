@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Data.Core.Stats;

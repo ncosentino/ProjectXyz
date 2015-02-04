@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface.Stats;
