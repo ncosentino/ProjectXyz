@@ -149,6 +149,9 @@
     <Compile Include="Items\IRequirements.cs" />
     <Compile Include="Items\Materials\IMaterial.cs" />
     <Compile Include="Items\Materials\IMaterialFactory.cs" />
+    <Compile Include="System\Collections\Specialized\INotifyCollectionChanged.cs" />
+    <Compile Include="System\Collections\Specialized\NotifyCollectionChangedAction.cs" />
+    <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Contracts\IStatFactoryContract.cs" />
     <Compile Include="Stats\Contracts\IStatCollectionContract.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Stats\IStat.cs" />
     <Compile Include="Stats\IStatCollection.cs" />
     <Compile Include="Stats\IStatFactory.cs" />
+    <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
