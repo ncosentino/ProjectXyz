@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using ProjectXyz.Data.Interface.Stats;
-
 namespace ProjectXyz.Data.Interface.Actors
 {
-    public interface IActor
+    public interface IActorStoreFactory
     {
-        #region Properties
-        IMutableStatCollection Stats { get; }
+        #region Methods
+        IActorStore CreateActorStore();
         #endregion
     }
 }

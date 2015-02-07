@@ -12,6 +12,21 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
     public abstract class IActorContract : IActor
     {
         #region Properties
+        public abstract float X { get; }
+
+        public abstract float Y { get; }
+
+        public string AnimationResource
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
+
+                return default(string);
+            }
+        }
+
         public IEquipment Equipment
         {
             get

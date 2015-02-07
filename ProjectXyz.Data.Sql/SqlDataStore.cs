@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
-
+using ProjectXyz.Data.Core.Actors;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Data.Sql.Properties;
+using ProjectXyz.Data.Core.Maps;
+using ProjectXyz.Data.Interface.Actors;
+using ProjectXyz.Data.Interface.Diseases;
+using ProjectXyz.Data.Interface.Maps;
+using ProjectXyz.Data.Sql.Actors;
+using ProjectXyz.Data.Sql.Enchantments;
+using ProjectXyz.Data.Sql.Maps;
 
 namespace ProjectXyz.Data.Sql
 {
     public sealed class SqlDataStore : IDataStore
     {
         #region Fields
-        private readonly IDatabase _database;
-        private readonly IDatabaseUpgrader _upgrader;
         private readonly IEnchantmentStoreRepository _enchantmentRepository;
+        private readonly IActorStoreRepository _actorStoreRepository;
+        private readonly IMapStoreRepository _mapStoreRepository;
+        private readonly IDiseaseSpreadTypeRepository _diseaseSpreadTypeRepository;
+        private readonly IDiseaseStatesEnchantmentsRepository _diseaseStatesEnchantmentsRepository;
         #endregion
 
         #region Constructors
@@ -21,22 +29,47 @@ namespace ProjectXyz.Data.Sql
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(upgrader != null);
-            
-            _database = database;
-            _upgrader = upgrader;
 
-            _enchantmentRepository = Enchantments.EnchantmentStoreRepository.Create(
-                _database,
-                EnchantmentStoreFactory.Create());            
+            _enchantmentRepository = EnchantmentStoreRepository.Create(
+                database,
+                EnchantmentStoreFactory.Create());
 
-            CreateOrUpgrade(_database, _upgrader);
+            _actorStoreRepository = ActorStoreRepository.Create(
+                database,
+                ActorStoreFactory.Create());
+
+            _mapStoreRepository = MapStoreRepository.Create(
+                database,
+                MapStoreFactory.Create());
+
+            CreateOrUpgrade(database, upgrader);
         }
         #endregion
 
         #region Properties
-        public IEnchantmentStoreRepository EnchantmentRepository
+        public IEnchantmentStoreRepository Enchantments
         {
             get { return _enchantmentRepository; }
+        }
+
+        public IActorStoreRepository Actors
+        {
+            get { return _actorStoreRepository; }
+        }
+
+        public IMapStoreRepository Maps
+        {
+            get { return _mapStoreRepository; }
+        }
+
+        public IDiseaseSpreadTypeRepository DiseaseSpreadType
+        {
+            get { return _diseaseSpreadTypeRepository; }
+        }
+
+        public IDiseaseStatesEnchantmentsRepository DiseaseStatesEnchantments
+        {
+            get { return _diseaseStatesEnchantmentsRepository; }
         }
         #endregion
 

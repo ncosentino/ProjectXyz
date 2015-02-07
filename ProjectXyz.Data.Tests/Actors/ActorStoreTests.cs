@@ -7,12 +7,12 @@ namespace ProjectXyz.Data.Tests.Actors
 {
     [DataLayer]
     [Actors]
-    public class ActorTests
+    public class ActorStoreTests
     {
         [Fact]
         public void Actor_CreateInstance_DefaultValues()
         {
-            var actor = Actor.Create();
+            var actor = ActorStore.Create();
 
             Assert.Empty(actor.Stats);
         }

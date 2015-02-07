@@ -6,7 +6,6 @@ using System.Data;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Data.Sql.Enchantments
 {

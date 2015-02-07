@@ -10,14 +10,14 @@ using ProjectXyz.Data.Core.Stats;
 
 namespace ProjectXyz.Data.Core.Actors
 {
-    public class Actor : IActor
+    public class ActorStore : IActorStore
     {
         #region Fields
         private readonly IMutableStatCollection _stats;
         #endregion
 
         #region Constructors
-        private Actor()
+        private ActorStore()
         {
             _stats = StatCollection.Create();
         }
@@ -31,10 +31,10 @@ namespace ProjectXyz.Data.Core.Actors
         #endregion
 
         #region Methods
-        public static IActor Create()
+        public static IActorStore Create()
         {
-            Contract.Ensures(Contract.Result<IActor>() != null);
-            return new Actor();
+            Contract.Ensures(Contract.Result<IActorStore>() != null);
+            return new ActorStore();
         }
         #endregion
     }

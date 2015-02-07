@@ -15,14 +15,14 @@ namespace ProjectXyz.Data.Tests.Actors.Mocks
     public class MockActorBuilder
     {
         #region Fields
-        private readonly Mock<IActor> _actor;
+        private readonly Mock<IActorStore> _actor;
         private readonly List<IStat> _stats;
         #endregion
 
         #region Constructors
         public MockActorBuilder()
         {
-            _actor = new Mock<IActor>();
+            _actor = new Mock<IActorStore>();
             _stats = new List<IStat>();
         }
         #endregion
@@ -45,9 +45,9 @@ namespace ProjectXyz.Data.Tests.Actors.Mocks
             return this;
         }
 
-        public IActor Build()
+        public IActorStore Build()
         {
-            Contract.Ensures(Contract.Result<IActor>() != null);
+            Contract.Ensures(Contract.Result<IActorStore>() != null);
 
             _actor
                 .Setup(x => x.Stats)

@@ -14,14 +14,15 @@ using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Data.Interface.Actors;
 
 namespace ProjectXyz.Application.Core.Actors
 {
-    public class Actor : IActor
+    public sealed class Actor : IActor
     {
         #region Fields
         private readonly IActorContext _context;
-        private readonly ProjectXyz.Data.Interface.Actors.IActor _actor;
+        private readonly IActorStore _actor;
         private readonly IMutableEquipment _equipment;
         private readonly IEnchantmentBlock _enchantments;
         private readonly IMutableInventory _inventory;
@@ -30,14 +31,14 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Constructors
-        protected Actor(IActorBuilder builder, IActorContext context, ProjectXyz.Data.Interface.Actors.IActor actor)
+        private Actor(IActorBuilder builder, IActorContext context, IActorStore actorStore)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentNullException>(actor != null);
+            Contract.Requires<ArgumentNullException>(actorStore != null);
 
             _context = context;
-            _actor = actor;
+            _actor = actorStore;
 
             _stats = StatCollection.Create();
 
@@ -53,6 +54,21 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Properties
+        public float X
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public float Y
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string AnimationResource
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public IStatCollection Stats
         {
             get
@@ -74,13 +90,13 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Methods
-        public static IActor Create(IActorBuilder builder, IActorContext context, ProjectXyz.Data.Interface.Actors.IActor actor)
+        public static IActor Create(IActorBuilder builder, IActorContext context, IActorStore actorStore)
         {
             Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentNullException>(actor != null);
+            Contract.Requires<ArgumentNullException>(actorStore != null);
             Contract.Ensures(Contract.Result<IActor>() != null);
-            return new Actor(builder, context, actor);
+            return new Actor(builder, context, actorStore);
         }
 
         public bool Equip(IItem item)
@@ -111,7 +127,7 @@ namespace ProjectXyz.Application.Core.Actors
             _stats = null;
         }
 
-        protected void EnsureStatsCalculated()
+        private void EnsureStatsCalculated()
         {
             Contract.Ensures(_stats != null);
             if (_stats != null)
