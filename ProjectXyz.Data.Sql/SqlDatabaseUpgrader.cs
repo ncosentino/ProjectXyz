@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics.Contracts;
-using System.Data;
-using System.Data.SQLite;
-using System.Reflection;
-using System.IO;
 
-using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Sql.Properties;
 
 namespace ProjectXyz.Data.Sql
