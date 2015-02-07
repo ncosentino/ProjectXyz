@@ -130,7 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
-    <Compile Include="Actors\ActorBuilder.cs" />
     <Compile Include="Actors\ActorManager.cs" />
     <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
     <Compile Include="Diseases\DiseaseStateGenerator.cs" />
@@ -156,8 +155,8 @@
     <Compile Include="Items\Durability.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Manager.cs" />
-    <Compile Include="Maps\MapBuilder.cs" />
     <Compile Include="Maps\Map.cs" />
+    <Compile Include="Maps\MapContext.cs" />
     <Compile Include="Maps\MapManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,7 +17,6 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_CreateInstance_DefaultValues()
         {
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder().Build();
             var context = new Mock<IActorContext>();
             context.
@@ -25,7 +24,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 

@@ -133,7 +133,6 @@
     <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
     <Compile Include="Actors\IActorContext.cs" />
     <Compile Include="Actors\IActor.cs" />
-    <Compile Include="Actors\IActorBuilder.cs" />
     <Compile Include="Actors\IActorManager.cs" />
     <Compile Include="Diseases\IDiseaseStateFactory.cs" />
     <Compile Include="Diseases\IDiseaseStateGenerator.cs" />
@@ -208,7 +207,6 @@
     <Compile Include="Items\IRequirements.cs" />
     <Compile Include="Items\ISocketCandidate.cs" />
     <Compile Include="IUpdateElapsedTime.cs" />
-    <Compile Include="Maps\IMapBuilder.cs" />
     <Compile Include="Maps\IMap.cs" />
     <Compile Include="Maps\IMapContext.cs" />
     <Compile Include="Maps\IMapManager.cs" />

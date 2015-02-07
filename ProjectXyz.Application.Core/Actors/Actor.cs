@@ -31,9 +31,8 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Constructors
-        private Actor(IActorBuilder builder, IActorContext context, IActorStore actorStore)
+        private Actor(IActorContext context, IActorStore actorStore)
         {
-            Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(actorStore != null);
 
@@ -90,13 +89,12 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Methods
-        public static IActor Create(IActorBuilder builder, IActorContext context, IActorStore actorStore)
+        public static IActor Create(IActorContext context, IActorStore actorStore)
         {
-            Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(actorStore != null);
             Contract.Ensures(Contract.Result<IActor>() != null);
-            return new Actor(builder, context, actorStore);
+            return new Actor(context, actorStore);
         }
 
         public bool Equip(IItem item)

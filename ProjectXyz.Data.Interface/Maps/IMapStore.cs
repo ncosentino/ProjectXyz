@@ -7,5 +7,8 @@ namespace ProjectXyz.Data.Interface.Maps
 {
     public interface IMapStore
     {
+        #region Properties
+        Guid Id { get; }
+        #endregion
     }
 }

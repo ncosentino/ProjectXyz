@@ -12,31 +12,25 @@ namespace ProjectXyz.Application.Core.Maps
     public sealed class MapManager : IMapManager
     {
         #region Fields
-        private readonly IMapBuilder _mapBuilder;
         private readonly IMapStoreRepository _mapStoreRepository;
         #endregion
 
         #region Constructors
-        private MapManager(IMapBuilder mapBuilder, IMapStoreRepository mapStoreRepository)
+        private MapManager(IMapStoreRepository mapStoreRepository)
         {
-            Contract.Requires<ArgumentNullException>(mapBuilder != null, "mapBuilder");
             Contract.Requires<ArgumentNullException>(mapStoreRepository != null, "mapStoreRepository");
 
-            _mapBuilder = mapBuilder;
             _mapStoreRepository = mapStoreRepository;
         }
         #endregion
 
         #region Methods
-        public static IMapManager Create(IMapBuilder mapBuilder, IMapStoreRepository mapStoreRepository)
+        public static IMapManager Create(IMapStoreRepository mapStoreRepository)
         {
-            Contract.Requires<ArgumentNullException>(mapBuilder != null, "mapBuilder");
             Contract.Requires<ArgumentNullException>(mapStoreRepository != null, "mapStoreRepository");
             Contract.Ensures(Contract.Result<IMapManager>() != null);
 
-            return new MapManager(
-                mapBuilder,
-                mapStoreRepository);
+            return new MapManager(mapStoreRepository);
         }
 
         public IMap GetMapById(Guid mapId, IMapContext mapContext)
@@ -44,7 +38,6 @@ namespace ProjectXyz.Application.Core.Maps
             var mapStore = _mapStoreRepository.GetMapStoreById(mapId);
 
             return Map.Create(
-                _mapBuilder,
                 mapContext,
                 mapStore);
         }

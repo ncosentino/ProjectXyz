@@ -12,31 +12,25 @@ namespace ProjectXyz.Application.Core.Actors
     public sealed class ActorManager : IActorManager
     {
         #region Fields
-        private readonly IActorBuilder _actorBuilder;
         private readonly IActorStoreRepository _actorStoreRepository;
         #endregion
 
         #region Constructors
-        private ActorManager(IActorBuilder actorBuilder, IActorStoreRepository actorStoreRepository)
+        private ActorManager(IActorStoreRepository actorStoreRepository)
         {
-            Contract.Requires<ArgumentNullException>(actorBuilder != null, "actorBuilder");
             Contract.Requires<ArgumentNullException>(actorStoreRepository != null, "actorStoreRepository");
 
-            _actorBuilder = actorBuilder;
             _actorStoreRepository = actorStoreRepository;
         }
         #endregion
 
         #region Methods
-        public static IActorManager Create(IActorBuilder actorBuilder, IActorStoreRepository actorStoreRepository)
+        public static IActorManager Create(IActorStoreRepository actorStoreRepository)
         {
-            Contract.Requires<ArgumentNullException>(actorBuilder != null, "actorBuilder");
             Contract.Requires<ArgumentNullException>(actorStoreRepository != null, "actorStoreRepository");
             Contract.Ensures(Contract.Result<IActorManager>() != null);
 
-            return new ActorManager(
-                actorBuilder,
-                actorStoreRepository);
+            return new ActorManager(actorStoreRepository);
         }
 
         public IActor GetActorById(Guid actorId, IActorContext actorContext)
@@ -44,7 +38,6 @@ namespace ProjectXyz.Application.Core.Actors
             var actorStore = _actorStoreRepository.GetById(actorId);
 
             return Actor.Create(
-                _actorBuilder,
                 actorContext,
                 actorStore);
         }

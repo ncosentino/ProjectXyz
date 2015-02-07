@@ -46,7 +46,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(1, 1)
                 .Build();
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder()
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
@@ -57,7 +56,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -90,7 +88,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(1, 1)
                 .Build();
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder()
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
@@ -101,7 +98,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -134,7 +130,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(1, 1)
                 .Build();
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder()
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
@@ -145,7 +140,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -176,7 +170,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(1, 1)
                 .Build();
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder()
                 .WithStats(Stat.Create(ActorStats.MaximumLife, MAX_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
@@ -187,7 +180,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -209,7 +201,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(100, 0)
                 .Build();
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder().Build();
             var context = new Mock<IActorContext>();
             context.
@@ -217,7 +208,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -253,7 +243,6 @@ namespace ProjectXyz.Application.Tests.Actors
                     .Build());
             enchantedItem.Enchant(lifeEnchantment);
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder().Build();
             var context = new Mock<IActorContext>();
             context.
@@ -261,7 +250,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -295,7 +283,6 @@ namespace ProjectXyz.Application.Tests.Actors
                     .WithEquippableSlots("Some Slot")
                     .Build());
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder().Build();
             var context = new Mock<IActorContext>();
             context.
@@ -303,7 +290,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 
@@ -346,7 +332,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(1, 1)
                 .Build();
 
-            var builder = new Mock<IActorBuilder>();
             var data = new MockActorBuilder()
                 .WithStats(Stat.Create(ActorStats.MaximumLife, 100))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, 100))
@@ -357,7 +342,6 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create());
 
             var actor = Actor.Create(
-                builder.Object,
                 context.Object,
                 data);
 

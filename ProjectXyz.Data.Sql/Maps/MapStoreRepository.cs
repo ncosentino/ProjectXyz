@@ -38,7 +38,8 @@ namespace ProjectXyz.Data.Sql.Maps
 
         public IMapStore GetMapStoreById(Guid mapId)
         {
-            throw new NotImplementedException();
+            // TODO: implement reading from the database
+            return _factory.CreateMapStore(mapId);
         }
         #endregion
     }

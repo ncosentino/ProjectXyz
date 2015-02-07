@@ -8,7 +8,7 @@ namespace ProjectXyz.Data.Interface.Maps
     public interface IMapStoreFactory
     {
         #region Methods
-        IMapStore CreateMapStore();
+        IMapStore CreateMapStore(Guid mapId);
         #endregion
     }
 }

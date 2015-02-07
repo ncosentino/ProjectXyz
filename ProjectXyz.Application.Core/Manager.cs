@@ -28,11 +28,8 @@ namespace ProjectXyz.Application.Core
         {
             Contract.Requires<ArgumentNullException>(dataStore != null, "dataStore");
 
-            var actorBuilder = ActorBuilder.Create();
-            _actorManager = ActorManager.Create(actorBuilder, dataStore.Actors);
-
-            var mapBuilder = MapBuilder.Create();
-            _mapManager = MapManager.Create(mapBuilder, dataStore.Maps);
+            _actorManager = ActorManager.Create(dataStore.Actors);
+            _mapManager = MapManager.Create(dataStore.Maps);
         }
         #endregion
 

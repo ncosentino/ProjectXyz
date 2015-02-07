@@ -24,9 +24,9 @@ namespace ProjectXyz.Data.Core.Maps
             return new MapStoreFactory();
         }
 
-        public IMapStore CreateMapStore()
+        public IMapStore CreateMapStore(Guid mapId)
         {
-            return MapStore.Create();
+            return MapStore.Create(mapId);
         }
         #endregion
     }
