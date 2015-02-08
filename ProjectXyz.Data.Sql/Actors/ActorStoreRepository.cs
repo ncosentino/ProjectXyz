@@ -38,7 +38,7 @@ namespace ProjectXyz.Data.Sql.Actors
 
         public IActorStore GetById(Guid actorId)
         {
-            throw new NotImplementedException();
+            return _factory.CreateActorStore();
         }
         #endregion
     }

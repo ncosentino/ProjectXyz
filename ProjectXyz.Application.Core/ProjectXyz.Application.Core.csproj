@@ -132,6 +132,7 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\ActorManager.cs" />
     <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
+    <Compile Include="Actors\ActorContext.cs" />
     <Compile Include="Diseases\DiseaseStateGenerator.cs" />
     <Compile Include="Diseases\DiseaseGenerator.cs" />
     <Compile Include="Enchantments\EnchantmentFactory.cs" />
