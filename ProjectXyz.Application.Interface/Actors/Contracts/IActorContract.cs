@@ -76,6 +76,8 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
             return default(bool);
         }
 
+        public abstract void UpdatePosition(float x, float y);
+
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
         #endregion
     }

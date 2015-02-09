@@ -55,12 +55,14 @@ namespace ProjectXyz.Application.Core.Actors
         #region Properties
         public float X
         {
-            get { throw new NotImplementedException(); }
+            get;
+            private set;
         }
 
         public float Y
         {
-            get { throw new NotImplementedException(); }
+            get;
+            private set;
         }
 
         public string AnimationResource
@@ -95,6 +97,12 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(actorStore != null);
             Contract.Ensures(Contract.Result<IActor>() != null);
             return new Actor(context, actorStore);
+        }
+
+        public void UpdatePosition(float x, float y)
+        {
+            X = x;
+            Y = y;
         }
 
         public bool Equip(IItem item)

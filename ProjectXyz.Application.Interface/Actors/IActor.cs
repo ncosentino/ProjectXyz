@@ -42,6 +42,8 @@ namespace ProjectXyz.Application.Interface.Actors
         bool Unequip(string slot, IMutableInventory destination);
 
         bool TakeItem(IItem item);
+
+        void UpdatePosition(float x, float y);
         #endregion
     }
 }
