@@ -6,12 +6,7 @@ using System.Text;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IMutableEquipment : IEquipment, INotifyCollectionChanged
+    public interface IMutableEquipment : IEquipment, INotifyCollectionChanged, ICanEquip, ICanUnequip
     {
-        #region Methods
-        bool Equip(IItem item, string slot);
-
-        IItem Unequip(string slot);
-        #endregion
     }
 }

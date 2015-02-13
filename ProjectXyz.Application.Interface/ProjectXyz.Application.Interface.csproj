@@ -143,6 +143,9 @@
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentGenerator.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Items\ICanEquip.cs" />
+    <Compile Include="Items\ICanUnequip.cs" />
+    <Compile Include="Items\IItemManager.cs" />
     <Compile Include="Items\IItemAffixFactory.cs" />
     <Compile Include="Items\IItemAffix.cs" />
     <Compile Include="Items\Contracts\INamedItemAffixGeneratorContract.cs" />
@@ -162,7 +165,6 @@
     <Compile Include="Items\Contracts\IItemContextContract.cs" />
     <Compile Include="Items\Contracts\IMutableRequirementsContract.cs" />
     <Compile Include="Items\Contracts\IRequirementsContract.cs" />
-    <Compile Include="Items\Contracts\IItemBuilderContract.cs" />
     <Compile Include="Items\Contracts\ISocketableContract.cs" />
     <Compile Include="Items\ExtensionMethods\IMutableInventoryExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IInventoryExtensionMethods.cs" />
@@ -176,7 +178,6 @@
     <Compile Include="Items\IItemContext.cs" />
     <Compile Include="Items\IMutableRequirements.cs" />
     <Compile Include="Items\ISocketable.cs" />
-    <Compile Include="Items\IItemBuilder.cs" />
     <Compile Include="IUpdateElapsedTimeContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentContract.cs" />

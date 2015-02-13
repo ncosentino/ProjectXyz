@@ -34,12 +34,9 @@ namespace ProjectXyz.Application.Tests.Items
                     Stat.Create(ItemStats.Weight, 50))
                 .Build();
 
-            var socketableItem = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    socketableItemData);
+            var socketableItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate),
@@ -69,12 +66,9 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
                 .Build();
 
-            var socketableItem = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    socketableItemData);
+            var socketableItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate),
@@ -95,12 +89,9 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
                 .Build();
 
-            var socketableItem = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    socketableItemData);
+            var socketableItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                socketableItemData);
 
             Assert.False(
                 socketableItem.Socket(socketCandidate),
@@ -119,12 +110,9 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithStats(Stat.Create(ItemStats.TotalSockets, 0))
                 .Build();
 
-            var socketableItem = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    socketableItemData);
+            var socketableItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                socketableItemData);
 
             Assert.Equal(0, socketableItem.OpenSockets);
             Assert.False(
@@ -150,12 +138,9 @@ namespace ProjectXyz.Application.Tests.Items
             var socketableItemData = new ProjectXyz.Data.Tests.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
                 .Build();
-            var socketableItem = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    socketableItemData);
+            var socketableItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                socketableItemData);
 
             Assert.True(
                 socketableItem.Socket(socketCandidate),

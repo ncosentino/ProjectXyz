@@ -15,6 +15,9 @@ namespace ProjectXyz.Application.Core.Items
     {
         #region Fields
         private readonly IMutableItemCollection _items;
+
+        private int _itemCapacity;
+        private double _weightCapacity;
         #endregion
 
         #region Constructors
@@ -25,6 +28,8 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Events
+        public event EventHandler<EventArgs> CapacityChanged;
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
 
@@ -36,14 +41,40 @@ namespace ProjectXyz.Application.Core.Items
 
         public double WeightCapacity
         {
-            get;
-            set;
+            get
+            {
+                return _weightCapacity;
+            }
+
+            set
+            {
+                if (_weightCapacity == value)
+                {
+                    return;
+                }
+
+                _weightCapacity = value;
+                OnCapacityChanged();
+            }
         }
 
         public int ItemCapacity
         {
-            get;
-            set;
+            get
+            {
+                return _itemCapacity;
+            }
+
+            set
+            {
+                if (_itemCapacity == value)
+                {
+                    return;
+                }
+
+                _itemCapacity = value;
+                OnCapacityChanged();
+            }
         }
 
         public IItemCollection Items
@@ -95,6 +126,15 @@ namespace ProjectXyz.Application.Core.Items
             }
 
             return removedAny;
+        }
+
+        private void OnCapacityChanged()
+        {
+            var handler = CapacityChanged;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void OnCollectionChanged(NotifyCollectionChangedAction action, IList items)

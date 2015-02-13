@@ -25,12 +25,9 @@ namespace ProjectXyz.Application.Tests.Items
         public void ItemSaver_Save_MetadataMatches()
         {
             var sourceData = new Data.Tests.Items.Mocks.MockItemBuilder().Build();
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
 
             var itemSaver = ItemSaver.Create(new MockEnchantmentSaverBuilder().Build());
             var savedData = itemSaver.Save(item);
@@ -38,7 +35,7 @@ namespace ProjectXyz.Application.Tests.Items
             Assert.Equal(sourceData.Id, savedData.Id);
             Assert.Equal(sourceData.ItemType, savedData.ItemType);
             Assert.Equal(sourceData.MagicTypeId, savedData.MagicTypeId);
-            Assert.Equal(sourceData.MaterialType, savedData.MaterialType);
+            Assert.Equal(sourceData.MaterialTypeId, savedData.MaterialTypeId);
             Assert.Equal(sourceData.Name, savedData.Name);
         }
 
@@ -49,12 +46,9 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithEquippableSlots("Slot 1", "Slot 2")
                 .Build();
 
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
 
             var itemSaver = ItemSaver.Create(new MockEnchantmentSaverBuilder().Build());
             var savedData = itemSaver.Save(item);
@@ -69,12 +63,9 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithStats(Stat.Create(ItemStats.Value, 1234567))
                 .Build();
 
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
 
             var itemSaver = ItemSaver.Create(new MockEnchantmentSaverBuilder().Build());
             var savedData = itemSaver.Save(item);
@@ -92,12 +83,9 @@ namespace ProjectXyz.Application.Tests.Items
 
             var sourceData = new Data.Tests.Items.Mocks.MockItemBuilder()
                 .Build();
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
             item.Enchant(enchantment);
 
             var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
@@ -116,22 +104,16 @@ namespace ProjectXyz.Application.Tests.Items
             var socketCandidateData = new Data.Tests.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.RequiredSockets, 1))
                 .Build();
-            var socketCandidate = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    socketCandidateData);
+            var socketCandidate = Item.Create(
+                new MockItemContextBuilder().Build(),
+                socketCandidateData);
 
             var sourceData = new Data.Tests.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.TotalSockets, 1))
                 .Build();
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
             Assert.True(
                 item.Socket(socketCandidate),
                 "Expecting to socket the item.");
@@ -150,12 +132,9 @@ namespace ProjectXyz.Application.Tests.Items
         {
             var sourceData = new Data.Tests.Items.Mocks.MockItemBuilder()
                 .Build();
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
 
             var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
             var savedData = itemSaver.Save(item);

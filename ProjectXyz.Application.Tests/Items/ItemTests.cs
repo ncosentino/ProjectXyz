@@ -17,12 +17,9 @@ namespace ProjectXyz.Application.Tests.Items
         [Fact]
         public void Item_CreateInstance_DefaultValues()
         {
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(), 
-                    new Data.Tests.Items.Mocks.MockItemBuilder().Build());
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(), 
+                new Data.Tests.Items.Mocks.MockItemBuilder().Build());
 
             Assert.NotNull(item.Id);
             Assert.NotEqual(Guid.Empty, item.Id);

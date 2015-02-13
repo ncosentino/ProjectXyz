@@ -20,7 +20,7 @@ namespace ProjectXyz.Data.Interface.Items
 
         string ItemType { get; set; }
 
-        string MaterialType { get; set; }
+        Guid MaterialTypeId { get; set; }
 
         IMutableStatCollection Stats { get; }
 

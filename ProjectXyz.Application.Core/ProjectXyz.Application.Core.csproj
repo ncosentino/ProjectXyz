@@ -135,8 +135,11 @@
     <Compile Include="Actors\ActorContext.cs" />
     <Compile Include="Diseases\DiseaseStateGenerator.cs" />
     <Compile Include="Diseases\DiseaseGenerator.cs" />
+    <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Enchantments\EnchantmentFactory.cs" />
     <Compile Include="Enchantments\EnchantmentGenerator.cs" />
+    <Compile Include="Items\ItemContext.cs" />
+    <Compile Include="Items\ItemManager.cs" />
     <Compile Include="Items\NamedItemAffixes.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
@@ -151,7 +154,6 @@
     <Compile Include="Items\ItemSaver.cs" />
     <Compile Include="Items\Equipment.cs" />
     <Compile Include="Items\Requirements.cs" />
-    <Compile Include="Items\ItemBuilder.cs" />
     <Compile Include="Items\ItemCollection.cs" />
     <Compile Include="Items\Durability.cs" />
     <Compile Include="Items\Item.cs" />

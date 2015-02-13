@@ -4,8 +4,8 @@ using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Data.Interface.Items.Materials;
-using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
+using ProjectXyz.Data.Core.Items;
+using ProjectXyz.Data.Interface.Items;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -32,14 +32,14 @@ namespace ProjectXyz.Application.Core.Items
             return new ItemSaver(enchantmentSaver);
         }
 
-        public ProjectXyz.Data.Interface.Items.IItemStore Save(IItem source)
+        public IItemStore Save(IItem source)
         {
-            var destination = ProjectXyz.Data.Core.Items.ItemStore.Create();
+            var destination = ItemStore.Create();
 
             destination.Id = source.Id;
             destination.Name = source.ItemType;
             destination.MagicTypeId = source.MagicTypeId;
-            ////destination.MaterialType = source.Material.MaterialType;
+            destination.MaterialTypeId = source.MaterialTypeId;
             destination.Name = source.Name;
 
             foreach (var slot in source.EquippableSlots)
@@ -51,7 +51,7 @@ namespace ProjectXyz.Application.Core.Items
 
             destination.Enchantments.Add(source.Enchantments.Select(x => _enchantmentSaver.Save(x)));
 
-            destination.SocketedItems.Add(source.SocketedItems.Select(x => Save(x)));
+            destination.SocketedItems.Add(source.SocketedItems.Select(Save));
 
             destination.Requirements.Class = source.Requirements.Class;
             destination.Requirements.Level = source.Requirements.Level;

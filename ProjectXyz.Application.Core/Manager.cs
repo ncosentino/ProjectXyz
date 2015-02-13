@@ -4,9 +4,11 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using ProjectXyz.Application.Core.Actors;
+using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Maps;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Maps;
 using ProjectXyz.Data.Interface;
 
@@ -17,6 +19,7 @@ namespace ProjectXyz.Application.Core
         #region Fields
         private readonly IActorManager _actorManager;
         private readonly IMapManager _mapManager;
+        private readonly IItemManager _itemManager;
         #endregion
 
         #region Constructors
@@ -30,6 +33,7 @@ namespace ProjectXyz.Application.Core
 
             _actorManager = ActorManager.Create(dataStore.Actors);
             _mapManager = MapManager.Create(dataStore.Maps);
+            _itemManager = ItemManager.Create();
         }
         #endregion
 
@@ -42,6 +46,11 @@ namespace ProjectXyz.Application.Core
         public IMapManager Maps
         {
             get { return _mapManager; }
+        }
+
+        public IItemManager Items
+        {
+            get { return _itemManager; }
         }
         #endregion
 

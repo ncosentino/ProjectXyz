@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
@@ -9,6 +9,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     [ContractClassFor(typeof(IInventory))]
     public abstract class IInventoryContract : IInventory
     {
+        #region Events
+        public abstract event EventHandler<EventArgs> CapacityChanged;
+
+        public abstract event NotifyCollectionChangedEventHandler CollectionChanged;
+        #endregion
+
         #region Properties
         public double CurrentWeight
         {

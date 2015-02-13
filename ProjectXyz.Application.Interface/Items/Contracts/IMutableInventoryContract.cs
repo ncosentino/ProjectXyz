@@ -11,6 +11,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     public abstract class IMutableInventoryContract : IMutableInventory
     {
         #region Events
+        public abstract event EventHandler<EventArgs> CapacityChanged;
+
         public abstract event NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -61,31 +62,37 @@ namespace ProjectXyz.Application.Core.Items
             return _items.Values.GetEnumerator();
         }
 
-        public bool Equip(IItem item, string slot)
+        public bool CanEquip(IItem item, string slot)
         {
-            if (_items.ContainsKey(slot))
-            {
-                return false;
-            }
+            return !item.IsBroken() && !_items.ContainsKey(slot);
+        }
 
+        public void Equip(IItem item, string slot)
+        {
             _items[slot] = item;
             OnCollectionChanged(
                 NotifyCollectionChangedAction.Add,
                 item);
+        }
 
-            return true;
+        public bool CanUnequip(string slot)
+        {
+            return _items.ContainsKey(slot);
         }
 
         public IItem Unequip(string slot)
         {
             if (!_items.ContainsKey(slot))
             {
-                return default(IItem);
+                throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slot));
             }
 
             var item = _items[slot];
-            
-            _items.Remove(slot);
+            if (!_items.Remove(slot) || item == null)
+            {
+                throw new InvalidOperationException(string.Format("No item was removed from slot {0}.", slot));
+            }
+
             OnCollectionChanged(
                 NotifyCollectionChangedAction.Remove, 
                 item);

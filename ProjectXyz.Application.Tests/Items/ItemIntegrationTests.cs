@@ -27,12 +27,9 @@ namespace ProjectXyz.Application.Tests.Items
                 .WithStats(Stat.Create(ItemStats.Value, 1234567))
                 .WithEquippableSlots("Slot 1", "Slot 2")
                 .Build();
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    sourceData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                sourceData);
             var enchantment = new MockEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(1234567)
@@ -42,19 +39,14 @@ namespace ProjectXyz.Application.Tests.Items
             var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
             var savedData = itemSaver.Save(item);
 
-            var rebuiltItem = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    savedData);
+            var rebuiltItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                savedData);
 
             // metadata
             Assert.Equal(item.Id, rebuiltItem.Id);
             Assert.Equal(item.ItemType, rebuiltItem.ItemType);
             Assert.Equal(item.MagicTypeId, rebuiltItem.MagicTypeId);
-            ////Assert.Equal(item.Material.MaterialType, rebuiltItem.Material.MaterialType);
-            ////Assert.Equal(item.Material.Name, rebuiltItem.Material.Name);
             Assert.Equal(item.Name, rebuiltItem.Name);
 
             // slots

@@ -11,7 +11,7 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IMutableInventoryContract))]
-    public interface IMutableInventory : IInventory, INotifyCollectionChanged
+    public interface IMutableInventory : IInventory
     {
         #region Properties
         new double WeightCapacity { get; set; }

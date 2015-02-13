@@ -10,12 +10,12 @@ using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
-using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Application.Core.Actors.ExtensionMethods;
+using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Tests.Actors.Mocks;
@@ -211,7 +211,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 context.Object,
                 data);
 
-            AssertCannotEquipItem(actor, item);
+            AssertCannotEquipItem(actor, item, item.EquippableSlots.First());
         }
 
         [Fact]
@@ -231,11 +231,9 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
-            var enchantedItem = ProjectXyz.Application.Core.Items.ItemBuilder.Create()
-                .WithMaterialFactory(new Mock<ProjectXyz.Data.Interface.Items.Materials.IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    new Data.Tests.Items.Mocks.MockItemBuilder()
+            var enchantedItem = Item.Create(
+                new MockItemContextBuilder().Build(),
+                new Data.Tests.Items.Mocks.MockItemBuilder()
                     .WithStats(
                         Stat.Create(ItemStats.CurrentDurability, 50), 
                         Stat.Create(ItemStats.MaximumDurability, 50))
@@ -272,11 +270,9 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
-            var item = ProjectXyz.Application.Core.Items.ItemBuilder.Create()
-                .WithMaterialFactory(new Mock<ProjectXyz.Data.Interface.Items.Materials.IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    new Data.Tests.Items.Mocks.MockItemBuilder()
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                new Data.Tests.Items.Mocks.MockItemBuilder()
                     .WithStats(
                         Stat.Create(ItemStats.CurrentDurability, 50),
                         Stat.Create(ItemStats.MaximumDurability, 50))
@@ -356,7 +352,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 () => Assert.Equal(100, actor.GetMaximumLife()));
         }
 
-        public void AssertCannotEquipItem(IActor actor, IItem item)
+        public void AssertCannotEquipItem(IActor actor, IItem item, string slot)
         {
             Contract.Requires<ArgumentNullException>(actor != null);
             Contract.Requires<ArgumentNullException>(item != null);
@@ -365,8 +361,8 @@ namespace ProjectXyz.Application.Tests.Actors
                 actor.HasItemEquipped(item),
                 "The actor already has '" + item + "' equipped.");
             Assert.False(
-                actor.Equip(item),
-                "Expecting to fail to equip '" + item + "'.");
+                actor.CanEquip(item, slot),
+                "Expecting to fail to equip '" + item + "' to '" + slot + "'.");
             Assert.False(
                 actor.HasItemEquipped(item),
                 "The actor should not have '" + item + "' equipped.");
@@ -390,10 +386,12 @@ namespace ProjectXyz.Application.Tests.Actors
 
             foreach (var item in items)
             {
+                var slot = item.EquippableSlots.First();
                 Assert.NotNull(item);
                 Assert.True(
-                    actor.Equip(item),
-                    "Expecting to equip '" + item  + "'.");
+                    actor.CanEquip(item, slot),
+                    "Expecting to equip '" + item  + "' to '" + slot + "'.");
+                actor.Equip(item, slot);
                 Assert.True(
                     actor.HasItemEquipped(item),
                     "Expecting item to be equipped in one of [" + string.Join(", ", item.EquippableSlots.ToArray()) + "] slots.");

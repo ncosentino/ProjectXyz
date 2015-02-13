@@ -5,7 +5,6 @@ using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
@@ -64,12 +63,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IMaterial Material
+        public Guid MaterialTypeId
         {
             get
             {
-                Contract.Ensures(Contract.Result<IMaterial>() != null);
-                return default(IMaterial);
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
             }
         }
 

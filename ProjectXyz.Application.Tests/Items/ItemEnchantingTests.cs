@@ -11,6 +11,7 @@ using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Data.Core.Items;
 
 namespace ProjectXyz.Application.Tests.Items
 {
@@ -21,12 +22,9 @@ namespace ProjectXyz.Application.Tests.Items
         [Fact]
         public void Item_EnchantMaximumDurability_BoostsStat()
         {
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(),
-                    ProjectXyz.Data.Core.Items.ItemStore.Create());
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(),
+                ItemStore.Create());
             var baseDurability = Durability.Create(
                 item.Durability.Maximum, 
                 item.Durability.Current);
@@ -51,12 +49,9 @@ namespace ProjectXyz.Application.Tests.Items
                     Stat.Create(ItemStats.MaximumDurability, 50))
                 .Build();
 
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(), 
-                    itemData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(), 
+                itemData);
             var baseDurability = Durability.Create(
                 item.Durability.Maximum,
                 item.Durability.Current);
@@ -86,12 +81,9 @@ namespace ProjectXyz.Application.Tests.Items
                     Stat.Create(ItemStats.MaximumDurability, 50))
                 .Build();
 
-            var item = ItemBuilder
-                .Create()
-                .WithMaterialFactory(new Mock<IMaterialFactory>().Object)
-                .Build(
-                    new MockItemContextBuilder().Build(), 
-                    itemData);
+            var item = Item.Create(
+                new MockItemContextBuilder().Build(), 
+                itemData);
             var baseDurability = Durability.Create(
                 item.Durability.Maximum,
                 item.Durability.Current);

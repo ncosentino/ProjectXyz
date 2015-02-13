@@ -35,7 +35,7 @@ namespace ProjectXyz.Data.Core.Items
             _socketedItems = ItemStoreCollection.Create();
             _equippableSlots = new List<string>();
 
-            this.MaterialType =
+            this.MaterialTypeId = Guid.NewGuid();
             this.Name =
             this.ItemType = "Default";
         }
@@ -60,7 +60,7 @@ namespace ProjectXyz.Data.Core.Items
             set;
         }
 
-        public string MaterialType
+        public Guid MaterialTypeId
         {
             get;
             set;

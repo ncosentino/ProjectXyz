@@ -56,20 +56,39 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
         #endregion
 
         #region Methods
-        public bool Equip(IItem item)
+        public bool CanEquip(IItem item, string slot)
         {
             Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(slot != null);
+            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            
             return default(bool);
         }
 
-        public bool Unequip(string slot, IMutableInventory destination)
+        public void Equip(IItem item, string slot)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentNullException>(slot != null);
+            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+        }
+
+        public IItem Unequip(string slot)
         {
             Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot != string.Empty);
-            Contract.Requires<ArgumentNullException>(destination != null);
-            return default(bool);
+            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            Contract.Ensures(Contract.Result<IItem>() != null);
+
+            return default(IItem);
         }
 
+        public bool CanUnequip(string slot)
+        {
+            Contract.Requires<ArgumentNullException>(slot != null);
+            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+
+            return default(bool);
+        }
+        
         public bool TakeItem(IItem item)
         {
             Contract.Requires<ArgumentNullException>(item != null);

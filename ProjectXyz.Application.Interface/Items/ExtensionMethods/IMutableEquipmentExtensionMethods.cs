@@ -20,7 +20,13 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
                 return false;
             }
 
-            return equipment.Equip(item, slot);
+            if (!equipment.CanEquip(item, slot))
+            {
+                return false;
+            }
+
+            equipment.Equip(item, slot);
+            return true;
         }
         #endregion
     }

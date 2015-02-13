@@ -11,7 +11,7 @@ using ProjectXyz.Data.Interface.Stats;
 namespace ProjectXyz.Application.Interface.Actors
 {
     [ContractClass(typeof(IActorContract))]
-    public interface IActor : IUpdateElapsedTime
+    public interface IActor : IUpdateElapsedTime, ICanEquip, ICanUnequip
     {
         #region Properties
         /// <summary>
@@ -37,10 +37,6 @@ namespace ProjectXyz.Application.Interface.Actors
         #endregion
 
         #region Methods
-        bool Equip(IItem item);
-
-        bool Unequip(string slot, IMutableInventory destination);
-
         bool TakeItem(IItem item);
 
         void UpdatePosition(float x, float y);

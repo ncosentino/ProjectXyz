@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Maps;
 
 namespace ProjectXyz.Application.Interface
@@ -14,6 +15,8 @@ namespace ProjectXyz.Application.Interface
         IActorManager Actors { get; }
 
         IMapManager Maps { get; }
+
+        IItemManager Items { get; }
         #endregion
     }
 }

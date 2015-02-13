@@ -5,7 +5,6 @@ using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
-using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.Contracts;
 
@@ -21,7 +20,7 @@ namespace ProjectXyz.Application.Interface.Items
 
         string ItemType { get; }
 
-        IMaterial Material { get; }
+        Guid MaterialTypeId { get; }
 
         double Weight { get; }
 

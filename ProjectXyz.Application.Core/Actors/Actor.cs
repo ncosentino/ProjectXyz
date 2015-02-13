@@ -105,16 +105,26 @@ namespace ProjectXyz.Application.Core.Actors
             Y = y;
         }
 
-        public bool Equip(IItem item)
+        public bool CanEquip(IItem item, string slot)
         {
-            return 
-                !item.IsBroken() && 
-                _equipment.EquipToFirstOpenSlot(item);
+            // TODO: check requirements
+
+            return _equipment.CanEquip(item, slot);
         }
 
-        public bool Unequip(string slot, IMutableInventory destination)
+        public void Equip(IItem item, string slot)
         {
-            return Unequip(_equipment, slot, destination, false);
+            _equipment.Equip(item, slot);
+        }
+
+        public bool CanUnequip(string slot)
+        {
+            return _equipment.CanUnequip(slot);
+        }
+
+        public IItem Unequip(string slot)
+        {
+            return Unequip(_equipment, slot);
         }
 
         public bool TakeItem(IItem item)
@@ -149,28 +159,20 @@ namespace ProjectXyz.Application.Core.Actors
                 CalculateCurrentLife(_stats)));
         }
 
-        private bool Unequip(IMutableEquipment equipment, string slot, IMutableInventory destination, bool skipCapacityCheck)
+        private IItem Unequip(IMutableEquipment equipment, string slot)
         {
             Contract.Requires<ArgumentNullException>(equipment != null);
             Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot != string.Empty);
-            Contract.Requires<ArgumentNullException>(destination != null);
+            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
 
             var item = equipment[slot];
             if (item == null)
             {
-                return false;
+                throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slot));
             }
 
-            if (!skipCapacityCheck && (destination.Items.Count >= destination.ItemCapacity ||
-                destination.CurrentWeight + item.Weight > destination.WeightCapacity))
-            {
-                return false;
-            }
-
-            equipment.Unequip(slot);
-            destination.Add(item);
-            return true;
+            _inventory.Add(item);
+            return equipment.Unequip(slot);
         }
 
         private double CalculateCurrentLife(IMutableStatCollection stats)
@@ -218,7 +220,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(destination != null);
 
             var slot = equipment.GetEquippedSlot(item);
-            Unequip(equipment, slot, destination, true);
+            Unequip(equipment, slot);
         }
 
         private void OnItemAcquired(IItem item)

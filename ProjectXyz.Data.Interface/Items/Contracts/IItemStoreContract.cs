@@ -57,19 +57,17 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
-        public string MaterialType
+        public Guid MaterialTypeId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
             }
 
             set
             {
-                Contract.Requires<ArgumentNullException>(value != null);
-                Contract.Requires<ArgumentException>(value != string.Empty);
+                Contract.Requires<ArgumentException>(value != Guid.Empty);
             }
         }
 

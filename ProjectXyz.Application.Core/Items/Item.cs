@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
@@ -28,6 +27,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly string _name;
         private readonly Guid _magicTypeId;
         private readonly string _itemType;
+        private readonly Guid _materialTypeId;
         private readonly List<string> _equippableSlots;
         private readonly IMutableStatCollection _baseStats;
 
@@ -35,9 +35,8 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Constructors
-        protected Item(IItemBuilder builder, IItemContext context, IItemStore item)
+        protected Item(IItemContext context, IItemStore item)
         {
-            Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(item != null);
 
@@ -46,14 +45,13 @@ namespace ProjectXyz.Application.Core.Items
             _name = item.Name;
             _magicTypeId = item.MagicTypeId;
             _itemType = item.ItemType;
+            _materialTypeId = item.MaterialTypeId;
             _equippableSlots = new List<string>(item.EquippableSlots);
             
             _baseStats = StatCollection.Create();
             _baseStats.Add(item.Stats);
 
-            this.Material = builder.MaterialFactory.Load(item.MaterialType);
-
-            var socketedItems = item.SocketedItems.Select(x => Item.Create(builder, _context, x));
+            var socketedItems = item.SocketedItems.Select(x => Item.Create(_context, x));
             _socketedItems = ItemCollection.Create(socketedItems);
 
             var enchantments = item.Enchantments.Select(x => Enchantment.Create(context.EnchantmentContext, x));
@@ -84,10 +82,9 @@ namespace ProjectXyz.Application.Core.Items
             get { return _magicTypeId; }
         }
 
-        public IMaterial Material
+        public Guid MaterialTypeId
         {
-            get;
-            private set;
+            get { return _materialTypeId; }
         }
 
         public string ItemType
@@ -169,7 +166,7 @@ namespace ProjectXyz.Application.Core.Items
             get { return _enchantments; }
         }
 
-        public ProjectXyz.Application.Interface.Items.IRequirements Requirements
+        public Interface.Items.IRequirements Requirements
         {
             get { return _requirements; }
         }
@@ -181,13 +178,12 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static IItem Create(IItemBuilder builder, IItemContext context, ProjectXyz.Data.Interface.Items.IItemStore item)
+        public static IItem Create(IItemContext context, IItemStore item)
         {
-            Contract.Requires<ArgumentNullException>(builder != null);
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Ensures(Contract.Result<IItem>() != null);
-            return new Item(builder, context, item);
+            return new Item(context, item);
         }
 
         public void Enchant(IEnumerable<IEnchantment> enchantments)
@@ -217,6 +213,11 @@ namespace ProjectXyz.Application.Core.Items
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
             _enchantments.UpdateElapsedTime(elapsedTime);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Id: {0}, Name: {1}", Id, Name);
         }
 
         protected void EnsureStatsCalculated()
@@ -316,6 +317,17 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(socketedItems != null);
             Contract.Ensures(Contract.Result<int>() >= 0);
             return Math.Max(0, totalSockets - socketedItems.TotalRequiredSockets());
+        }
+
+        [ContractInvariantMethod]
+        private void InvariantMethod()
+        {
+            Contract.Invariant(_socketedItems != null);
+            Contract.Invariant(_enchantments != null);
+            Contract.Invariant(_context != null);
+            Contract.Invariant(_requirements != null);
+            Contract.Invariant(_equippableSlots != null);
+            Contract.Invariant(_baseStats != null);
         }
         #endregion
 
