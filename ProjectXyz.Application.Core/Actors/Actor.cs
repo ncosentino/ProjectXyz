@@ -124,7 +124,7 @@ namespace ProjectXyz.Application.Core.Actors
 
         public IItem Unequip(string slot)
         {
-            return Unequip(_equipment, slot);
+            return _equipment.Unequip(slot);
         }
 
         public bool TakeItem(IItem item)
@@ -159,20 +159,20 @@ namespace ProjectXyz.Application.Core.Actors
                 CalculateCurrentLife(_stats)));
         }
 
-        private IItem Unequip(IMutableEquipment equipment, string slot)
+        private void UnequipToInventory(IMutableEquipment equipment, string slot, IMutableItemCollection items)
         {
             Contract.Requires<ArgumentNullException>(equipment != null);
             Contract.Requires<ArgumentNullException>(slot != null);
             Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            Contract.Requires<ArgumentNullException>(items != null);
 
-            var item = equipment[slot];
+            var item = equipment.Unequip(slot);
             if (item == null)
             {
                 throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slot));
             }
 
-            _inventory.Add(item);
-            return equipment.Unequip(slot);
+            items.Add(item);
         }
 
         private double CalculateCurrentLife(IMutableStatCollection stats)
@@ -220,7 +220,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(destination != null);
 
             var slot = equipment.GetEquippedSlot(item);
-            Unequip(equipment, slot);
+            UnequipToInventory(equipment, slot, _inventory);
         }
 
         private void OnItemAcquired(IItem item)
