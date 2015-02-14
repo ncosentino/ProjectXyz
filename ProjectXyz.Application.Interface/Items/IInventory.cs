@@ -16,6 +16,8 @@ namespace ProjectXyz.Application.Interface.Items
         #endregion
 
         #region Properties
+        IEnumerable<int> UsedSlots { get; }
+        
         IItem this[int slot] { get; }
 
         double CurrentWeight { get; }

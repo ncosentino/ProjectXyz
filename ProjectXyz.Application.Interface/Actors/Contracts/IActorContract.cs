@@ -36,12 +36,12 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
             }
         }
 
-        public IInventory Inventory
+        public IMutableInventory Inventory
         {
             get
             {
-                Contract.Ensures(Contract.Result<IInventory>() != null);
-                return default(IInventory);
+                Contract.Ensures(Contract.Result<IMutableInventory>() != null);
+                return default(IMutableInventory);
             }
         }
 
@@ -86,12 +86,6 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
             Contract.Requires<ArgumentNullException>(slot != null);
             Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
 
-            return default(bool);
-        }
-        
-        public bool TakeItem(IItem item)
-        {
-            Contract.Requires<ArgumentNullException>(item != null);
             return default(bool);
         }
 

@@ -57,6 +57,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         public abstract IItemCollection Items { get; }
 
         public abstract IItem this[int slot] { get; }
+
+        public abstract IEnumerable<int> UsedSlots { get; }
         #endregion       
 
         #region Methods

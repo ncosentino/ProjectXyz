@@ -84,7 +84,7 @@ namespace ProjectXyz.Application.Core.Actors
             get { return _equipment; }
         }
 
-        public IInventory Inventory
+        public IMutableInventory Inventory
         {
             get { return _inventory; }
         }
@@ -125,12 +125,6 @@ namespace ProjectXyz.Application.Core.Actors
         public IItem Unequip(string slot)
         {
             return _equipment.Unequip(slot);
-        }
-
-        public bool TakeItem(IItem item)
-        {
-            _inventory.Add(item);
-            return true;
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)

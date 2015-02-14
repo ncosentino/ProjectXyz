@@ -31,14 +31,12 @@ namespace ProjectXyz.Application.Interface.Actors
 
         IEquipment Equipment { get; }
 
-        IInventory Inventory { get; }
+        IMutableInventory Inventory { get; }
 
         IStatCollection Stats { get; }
         #endregion
 
         #region Methods
-        bool TakeItem(IItem item);
-
         void UpdatePosition(float x, float y);
         #endregion
     }

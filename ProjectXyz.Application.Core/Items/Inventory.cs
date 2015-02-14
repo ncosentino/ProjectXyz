@@ -33,6 +33,11 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Properties
+        public IEnumerable<int> UsedSlots
+        {
+            get { return _items.Keys; }
+        }
+
         public IItem this[int slot]
         {
             get

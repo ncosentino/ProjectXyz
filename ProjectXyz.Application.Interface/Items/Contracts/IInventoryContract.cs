@@ -70,6 +70,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
                 return default(IItemCollection);
             }
         }
+
+        public IEnumerable<int> UsedSlots
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IEnumerable<int>>() != null);
+                return default(IEnumerable<int>);
+            }
+        }
         #endregion       
 
         #region Methods

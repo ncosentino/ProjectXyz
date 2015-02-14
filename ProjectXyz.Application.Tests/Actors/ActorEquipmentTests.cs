@@ -143,9 +143,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 context.Object,
                 data);
 
-            Assert.True(
-                actor.TakeItem(enchantedItem),
-                "Expecting the actor to take the item");
+            actor.Inventory.Add(enchantedItem, 0);
             Assert.Equal(BASE_LIFE, actor.GetCurrentLife());
             Assert.Equal(BASE_LIFE + ADDITIONAL_LIFE, actor.GetMaximumLife());
         }

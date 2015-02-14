@@ -26,6 +26,38 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
                 inventory.CurrentWeight >= inventory.WeightCapacity ||
                 inventory.Count >= inventory.ItemCapacity;
         }
+
+        public static bool TryGetFirstUsedSlot(this IInventory inventory, out int slot)
+        {
+            Contract.Requires<ArgumentNullException>(inventory != null);
+
+            var slots = new List<int>(inventory.UsedSlots);
+            if (slots.Count < 1)
+            {
+                slot = -1;
+                return false;
+            }
+
+            slots.Sort();
+            slot = slots[0];
+            return true;
+        }
+
+        public static bool TryGetLastUsedSlot(this IInventory inventory, out int slot)
+        {
+            Contract.Requires<ArgumentNullException>(inventory != null);
+
+            var slots = new List<int>(inventory.UsedSlots);
+            if (slots.Count < 1)
+            {
+                slot = -1;
+                return false;
+            }
+
+            slots.Sort();
+            slot = slots[slots.Count - 1];
+            return true;
+        }
         #endregion
     }
 }
