@@ -29,6 +29,16 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
+        public string InventoryGraphicResource
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>() != string.Empty);
+                return default(string);
+            }
+        }
+
         public Guid MagicTypeId
         {
             get

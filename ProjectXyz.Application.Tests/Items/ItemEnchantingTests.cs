@@ -24,7 +24,12 @@ namespace ProjectXyz.Application.Tests.Items
         {
             var item = Item.Create(
                 new MockItemContextBuilder().Build(),
-                ItemStore.Create());
+                ItemStore.Create(
+                    Guid.NewGuid(),
+                    "Item",
+                    "Resource",
+                    "Type",
+                    Guid.NewGuid()));
             var baseDurability = Durability.Create(
                 item.Durability.Maximum, 
                 item.Durability.Current);

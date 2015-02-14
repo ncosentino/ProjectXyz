@@ -22,7 +22,17 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             get
             {
                 Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
+                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
+                return default(string);
+            }
+        }
+
+        public string InventoryGraphicResource
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<string>() != null);
+                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
                 return default(string);
             }
         }
@@ -40,7 +50,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             get
             {
                 Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
+                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
                 return default(string);
             }
         }

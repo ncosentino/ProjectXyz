@@ -8,7 +8,6 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments;
 using ProjectXyz.Application.Tests.Xunit.Assertions.Stats;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;

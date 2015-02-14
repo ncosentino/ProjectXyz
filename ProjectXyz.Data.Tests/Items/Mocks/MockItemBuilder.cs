@@ -90,6 +90,9 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
                 .Setup(x => x.Name)
                 .Returns("Default");
             _item
+                .Setup(x => x.InventoryGraphicResource)
+                .Returns("Default");
+            _item
                 .Setup(x => x.MagicTypeId)
                 .Returns(Guid.Empty);
             _item

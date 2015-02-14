@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
@@ -12,7 +11,7 @@ using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Data.Core.Items
 {
-    public class ItemStore : IItemStore
+    public sealed class ItemStore : IItemStore
     {
         #region Fields
         private readonly IMutableStatCollection _stats;
@@ -25,46 +24,41 @@ namespace ProjectXyz.Data.Core.Items
         #endregion
 
         #region Constructors
-        protected ItemStore()
+        private ItemStore(Guid id, string name, string inventoryGraphicResource, string itemType, Guid materialTypeId)
         {
-            _id = Guid.NewGuid();
-            
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentNullException>(name != null);
+            Contract.Requires<ArgumentException>(name.Trim().Length > 0);
+            Contract.Requires<ArgumentNullException>(inventoryGraphicResource != null);
+            Contract.Requires<ArgumentException>(inventoryGraphicResource.Trim().Length > 0);
+            Contract.Requires<ArgumentNullException>(itemType != null);
+            Contract.Requires<ArgumentException>(itemType.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(materialTypeId != Guid.Empty);
+
             _stats = StatCollection.Create();
             _enchantments = EnchantmentCollection.Create();
             _requirements = Items.Requirements.Create();
             _socketedItems = ItemStoreCollection.Create();
             _equippableSlots = new List<string>();
 
-            this.MaterialTypeId = Guid.NewGuid();
-            this.Name =
-            this.ItemType = "Default";
+            _id = id;
+            Name = name;
+            InventoryGraphicResource = inventoryGraphicResource;
+            MaterialTypeId = materialTypeId;
+            ItemType = itemType;
         }
         #endregion
 
         #region Properties
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; private set; }
 
-        public Guid MagicTypeId
-        {
-            get;
-            set;
-        }
+        public string InventoryGraphicResource { get; private set; }
 
-        public string ItemType
-        {
-            get;
-            set;
-        }
+        public Guid MagicTypeId { get; private set; }
 
-        public Guid MaterialTypeId
-        {
-            get;
-            set;
-        }
+        public string ItemType { get; private set; }
+
+        public Guid MaterialTypeId { get; private set; }
 
         public IMutableStatCollection Stats
         {
@@ -94,16 +88,22 @@ namespace ProjectXyz.Data.Core.Items
         public Guid Id
         {
             get { return _id; }
-
-            set { _id = value; }
         }
         #endregion
 
         #region Methods
-        public static IItemStore Create()
+        public static IItemStore Create(Guid id, string name, string inventoryGraphicResource, string itemType, Guid materialTypeId)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentNullException>(name != null);
+            Contract.Requires<ArgumentException>(name.Trim().Length > 0);
+            Contract.Requires<ArgumentNullException>(inventoryGraphicResource != null);
+            Contract.Requires<ArgumentException>(inventoryGraphicResource.Trim().Length > 0);
+            Contract.Requires<ArgumentNullException>(itemType != null);
+            Contract.Requires<ArgumentException>(itemType.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(materialTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<IItemStore>() != null);
-            return new ItemStore();
+            return new ItemStore(id, name, inventoryGraphicResource, itemType, materialTypeId);
         }
         #endregion
     }

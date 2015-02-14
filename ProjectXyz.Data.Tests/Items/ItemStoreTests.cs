@@ -6,7 +6,6 @@ using Xunit;
 
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Data.Core.Items;
-using ProjectXyz.Data.Core.Stats;
 
 namespace ProjectXyz.Data.Tests.Items
 {
@@ -15,15 +14,23 @@ namespace ProjectXyz.Data.Tests.Items
     public class ItemStoreTests
     {
         [Fact]
-        public void ItemStore_CreateInstance_DefaultValues()
+        public void ItemStore_CreateInstance_ExpectedValues()
         {
-            var item = ItemStore.Create();
+            var id = Guid.NewGuid();
+            var materialTypeId = Guid.NewGuid();
 
-            Assert.NotNull(item.Id);
-            Assert.NotEqual(Guid.Empty, item.Id);
-            Assert.Equal("Default", item.Name);
-            Assert.NotEqual(Guid.Empty, item.MaterialTypeId);
-            Assert.Equal("Default", item.ItemType);
+            var item = ItemStore.Create(
+                id,
+                "Item",
+                "Resource",
+                "Type",
+                materialTypeId);
+
+            Assert.Equal(id, item.Id);
+            Assert.Equal("Item", item.Name);
+            Assert.Equal("Resource", item.InventoryGraphicResource);
+            Assert.Equal(materialTypeId, item.MaterialTypeId);
+            Assert.Equal("Type", item.ItemType);
             Assert.Equal(Guid.Empty, item.MagicTypeId);
             Assert.Empty(item.EquippableSlots);
             Assert.Empty(item.Enchantments);

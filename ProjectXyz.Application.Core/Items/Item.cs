@@ -25,6 +25,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IMutableRequirements _requirements;
         private readonly Guid _id;
         private readonly string _name;
+        private readonly string _inventoryGraphicResource;
         private readonly Guid _magicTypeId;
         private readonly string _itemType;
         private readonly Guid _materialTypeId;
@@ -43,6 +44,7 @@ namespace ProjectXyz.Application.Core.Items
             _context = context;
             _id = item.Id;
             _name = item.Name;
+            _inventoryGraphicResource = item.InventoryGraphicResource;
             _magicTypeId = item.MagicTypeId;
             _itemType = item.ItemType;
             _materialTypeId = item.MaterialTypeId;
@@ -75,6 +77,11 @@ namespace ProjectXyz.Application.Core.Items
         public string Name
         {
             get { return _name; }
+        }
+
+        public string InventoryGraphicResource
+        {
+            get { return _inventoryGraphicResource; }
         }
 
         public Guid MagicTypeId

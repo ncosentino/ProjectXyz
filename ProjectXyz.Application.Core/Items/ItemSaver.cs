@@ -34,13 +34,12 @@ namespace ProjectXyz.Application.Core.Items
 
         public IItemStore Save(IItem source)
         {
-            var destination = ItemStore.Create();
-
-            destination.Id = source.Id;
-            destination.Name = source.ItemType;
-            destination.MagicTypeId = source.MagicTypeId;
-            destination.MaterialTypeId = source.MaterialTypeId;
-            destination.Name = source.Name;
+            var destination = ItemStore.Create(
+                source.Id,
+                source.Name, 
+                source.InventoryGraphicResource, 
+                source.ItemType, 
+                source.MaterialTypeId);
 
             foreach (var slot in source.EquippableSlots)
             {

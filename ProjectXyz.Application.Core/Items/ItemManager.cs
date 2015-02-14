@@ -30,7 +30,14 @@ namespace ProjectXyz.Application.Core.Items
 
         public IItem GetItemById(Guid itemId, IItemContext itemContext)
         {
-            return Item.Create(itemContext, ItemStore.Create());
+            var item = ItemStore.Create(
+                Guid.NewGuid(),
+                "Awesome Item",
+                "Graphics/Items/Gloves/Leather Gloves",
+                "Gloves",
+                Guid.NewGuid());
+
+            return Item.Create(itemContext, item);
         }
         #endregion
     }

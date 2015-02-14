@@ -16,6 +16,8 @@ namespace ProjectXyz.Application.Interface.Items
         #region Properties
         string Name { get; }
 
+        string InventoryGraphicResource { get; }
+
         Guid MagicTypeId { get; }
 
         string ItemType { get; }

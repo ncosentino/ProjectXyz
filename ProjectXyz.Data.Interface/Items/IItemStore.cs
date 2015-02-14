@@ -14,13 +14,15 @@ namespace ProjectXyz.Data.Interface.Items
     public interface IItemStore : IGameObject
     {
         #region Properties
-        string Name { get; set; }
+        string Name { get; }
 
-        Guid MagicTypeId { get; set; }
+        string InventoryGraphicResource { get; }
 
-        string ItemType { get; set; }
+        Guid MagicTypeId { get; }
 
-        Guid MaterialTypeId { get; set; }
+        string ItemType { get; }
+
+        Guid MaterialTypeId { get; }
 
         IMutableStatCollection Stats { get; }
 
