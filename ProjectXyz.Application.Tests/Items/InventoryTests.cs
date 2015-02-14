@@ -27,8 +27,8 @@ namespace ProjectXyz.Application.Tests.Items
 
             inventory.Add(item);
 
-            Assert.Equal(1, inventory.Items.Count);
-            Assert.Contains(item, inventory.Items);
+            Assert.Equal(1, inventory.Count);
+            Assert.Contains(item, inventory);
         }
 
         [Fact]
@@ -45,12 +45,12 @@ namespace ProjectXyz.Application.Tests.Items
 
             inventory.Add(itemsToAdd);
 
-            Assert.Equal(itemsToAdd.Length, inventory.Items.Count);
+            Assert.Equal(itemsToAdd.Length, inventory.Count);
 
             for (int i = 0; i < itemsToAdd.Length; ++i)
             {
                 Assert.True(
-                    inventory.Items.Contains(itemsToAdd[i]),
+                    inventory.Contains(itemsToAdd[i]),
                     "Expected item " + i + " would be contained in collection");
             }
         }
@@ -65,7 +65,7 @@ namespace ProjectXyz.Application.Tests.Items
             Assert.True(
                 inventory.Remove(item),
                 "Expected to remove item.");
-            Assert.Empty(inventory.Items);
+            Assert.Empty(inventory);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace ProjectXyz.Application.Tests.Items
             Assert.False(
                 inventory.Remove(item),
                 "Expected to NOT remove item.");
-            Assert.Empty(inventory.Items);
+            Assert.Empty(inventory);
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace ProjectXyz.Application.Tests.Items
             Assert.True(
                 inventory.Remove(itemsToRemove),
                 "Expected to remove items.");
-            Assert.Empty(inventory.Items);
+            Assert.Empty(inventory);
         }
 
         [Fact]

@@ -16,7 +16,7 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             Contract.Requires<ArgumentNullException>(inventory != null);
             return
                 inventory.CurrentWeight > inventory.WeightCapacity ||
-                inventory.Items.Count > inventory.ItemCapacity;
+                inventory.Count > inventory.ItemCapacity;
         }
 
         public static bool IsFull(this IInventory inventory)
@@ -24,7 +24,7 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             Contract.Requires<ArgumentNullException>(inventory != null);
             return
                 inventory.CurrentWeight >= inventory.WeightCapacity ||
-                inventory.Items.Count >= inventory.ItemCapacity;
+                inventory.Count >= inventory.ItemCapacity;
         }
         #endregion
     }

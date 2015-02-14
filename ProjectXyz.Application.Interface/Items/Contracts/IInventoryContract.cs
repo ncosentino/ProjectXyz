@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -16,6 +17,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #endregion
 
         #region Properties
+        public IItem this[int slot]
+        {
+            get
+            {
+                Contract.Requires<ArgumentOutOfRangeException>(slot >= 0);
+                return default(IItem);
+            }
+        }
+
         public double CurrentWeight
         {
             get
@@ -31,6 +41,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             {
                 Contract.Ensures(Contract.Result<double>() >= 0);
                 return default(double);
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<int>() >= 0);
+                return default(int);
             }
         }
 
@@ -54,6 +73,20 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #endregion       
 
         #region Methods
+        public IEnumerator<IItem> GetEnumerator()
+        {
+            Contract.Ensures(Contract.Result<IEnumerator<IItem>>() != null);
+
+            return default(IEnumerator<IItem>);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            Contract.Ensures(Contract.Result<IEnumerator>() != null);
+
+            return default(IEnumerator);
+        }
+
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
         #endregion
     }

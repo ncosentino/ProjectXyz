@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -17,8 +18,6 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #endregion
 
         #region Properties
-        public abstract double CurrentWeight { get; }
-
         double IMutableInventory.WeightCapacity
         {
             get
@@ -47,16 +46,20 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
+        public abstract int Count { get; }
+
+        public abstract double CurrentWeight { get; }
+
         public abstract double WeightCapacity { get; }
 
         public abstract int ItemCapacity { get; }
 
         public abstract IItemCollection Items { get; }
+
+        public abstract IItem this[int slot] { get; }
         #endregion       
 
         #region Methods
-        public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
-
         public void Add(IEnumerable<IItem> items)
         {
             Contract.Requires<ArgumentNullException>(items != null);
@@ -66,6 +69,30 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             Contract.Requires<ArgumentNullException>(items != null);
             return default(bool);
+        }
+
+        public bool SlotOccupied(int slot)
+        {
+            Contract.Requires<ArgumentOutOfRangeException>(slot >= 0);
+
+            return default(bool);
+        }
+
+        public void Add(IItem item, int slot)
+        {
+            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentOutOfRangeException>(slot >= 0);
+        }
+
+        public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
+
+        public abstract void Clear();
+
+        public abstract IEnumerator<IItem> GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return default(IEnumerator);
         }
         #endregion
     }

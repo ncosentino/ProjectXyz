@@ -9,20 +9,20 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IInventoryContract))]
-    public interface IInventory : IUpdateElapsedTime, INotifyCollectionChanged
+    public interface IInventory : IUpdateElapsedTime, INotifyCollectionChanged, IItemCollection
     {
         #region Events
         event EventHandler<EventArgs> CapacityChanged;
         #endregion
 
         #region Properties
+        IItem this[int slot] { get; }
+
         double CurrentWeight { get; }
 
         double WeightCapacity { get; }
 
         int ItemCapacity { get; }
-
-        IItemCollection Items { get; }
         #endregion
     }
 }

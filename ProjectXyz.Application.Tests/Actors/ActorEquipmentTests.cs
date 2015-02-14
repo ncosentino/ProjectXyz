@@ -295,7 +295,7 @@ namespace ProjectXyz.Application.Tests.Actors
             Assert.False(
                 actor.Equipment.HasItemEquipped(item),
                 "Expecting the item to be unequipped.");
-            Assert.Equal(item, new List<IItem>(actor.Inventory.Items)[0]);
+            Assert.Equal(item, new List<IItem>(actor.Inventory)[0]);
         }
 
         [Fact]
