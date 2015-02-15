@@ -64,7 +64,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public bool CanEquip(IItem item, string slot)
         {
-            return !item.IsBroken() && !_items.ContainsKey(slot);
+            return !item.IsBroken() && !_items.ContainsKey(slot) && item.EquippableSlots.Contains(slot);
         }
 
         public void Equip(IItem item, string slot)

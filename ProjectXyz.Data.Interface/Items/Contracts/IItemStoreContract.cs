@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Enchantments;
@@ -117,12 +116,12 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
-        public IList<string> EquippableSlots
+        public IEnumerable<string> EquippableSlots
         {
             get
             {
-                Contract.Ensures(Contract.Result<IList<string>>() != null);
-                return default(IList<string>);
+                Contract.Ensures(Contract.Result<IEnumerable<string>>() != null);
+                return default(IEnumerable<string>);
             }
         }
 

@@ -39,12 +39,8 @@ namespace ProjectXyz.Application.Core.Items
                 source.Name, 
                 source.InventoryGraphicResource, 
                 source.ItemType, 
-                source.MaterialTypeId);
-
-            foreach (var slot in source.EquippableSlots)
-            {
-                destination.EquippableSlots.Add(slot);
-            }
+                source.MaterialTypeId,
+                source.EquippableSlots);
 
             destination.Stats.Add(source.Stats);
 

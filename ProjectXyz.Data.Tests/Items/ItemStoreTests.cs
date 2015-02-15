@@ -24,7 +24,8 @@ namespace ProjectXyz.Data.Tests.Items
                 "Item",
                 "Resource",
                 "Type",
-                materialTypeId);
+                materialTypeId,
+                new[] { "A", "B", "C" });
 
             Assert.Equal(id, item.Id);
             Assert.Equal("Item", item.Name);
@@ -32,7 +33,7 @@ namespace ProjectXyz.Data.Tests.Items
             Assert.Equal(materialTypeId, item.MaterialTypeId);
             Assert.Equal("Type", item.ItemType);
             Assert.Equal(Guid.Empty, item.MagicTypeId);
-            Assert.Empty(item.EquippableSlots);
+            Assert.Equal<string>(new[] { "A", "B", "C" }, item.EquippableSlots);
             Assert.Empty(item.Enchantments);
             Assert.Empty(item.SocketedItems);
             Assert.Empty(item.Requirements.Stats);

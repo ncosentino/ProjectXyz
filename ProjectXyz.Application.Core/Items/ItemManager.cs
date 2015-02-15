@@ -35,7 +35,8 @@ namespace ProjectXyz.Application.Core.Items
                 "Awesome Item",
                 "Graphics/Items/Gloves/Leather Gloves",
                 "Gloves",
-                Guid.NewGuid());
+                Guid.NewGuid(),
+                new[] { "Gloves" });
 
             return Item.Create(itemContext, item);
         }
