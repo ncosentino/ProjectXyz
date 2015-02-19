@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-
-using ProjectXyz.Application.Interface.Actors.Contracts;
 using ProjectXyz.Application.Interface.Items.Contracts;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    [ContractClass(typeof(ICanUnequipItemContract))]
-    public interface ICanUnequip
+    [ContractClass(typeof(IcanUseItemContract))]
+    public interface ICanUseItem
     {
         #region Methods
-        IItem Unequip(string slot);
+        bool CanUseItem(IItem item);
 
-        bool CanUnequip(string slot);
+        void UseItem(IItem item);
         #endregion
     }
 }

@@ -78,8 +78,8 @@ namespace ProjectXyz.Application.Core.Actors
                 return _stats;
             }
         }
-        
-        public IEquipment Equipment
+
+        public IObservableEquipment Equipment
         {
             get { return _equipment; }
         }
@@ -103,6 +103,39 @@ namespace ProjectXyz.Application.Core.Actors
         {
             X = x;
             Y = y;
+        }
+
+        public bool CanUseItem(IItem item)
+        {
+            // TODO: check requirements
+
+            var slots = item.EquippableSlots.ToArray();
+            foreach (var slot in slots)
+            {
+                if (CanEquip(item, slot))
+                {
+                    return true;
+                }
+            }
+
+            // TODO: handle potions and consumables?
+            throw new NotImplementedException("Cannot check if '" + item + "' can be used because there is no implementation yet!");
+        }
+
+        public void UseItem(IItem item)
+        {
+            var slots = item.EquippableSlots.ToArray();
+            foreach (var slot in slots)
+            {
+                if (CanEquip(item, slot))
+                {
+                    Equip(item, slot);
+                    return;
+                }
+            }
+
+            // TODO: handle potions and consumables?
+            throw new NotImplementedException("Cannot use '" + item + "' because there is no implementation yet!");
         }
 
         public bool CanEquip(IItem item, string slot)

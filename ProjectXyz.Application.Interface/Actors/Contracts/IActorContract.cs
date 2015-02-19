@@ -9,7 +9,7 @@ using ProjectXyz.Data.Interface.Stats;
 namespace ProjectXyz.Application.Interface.Actors.Contracts
 {
     [ContractClassFor(typeof(IActor))]
-    public abstract class IActorContract : IActor
+    internal abstract class IActorContract : IActor
     {
         #region Properties
         public abstract float X { get; }
@@ -27,12 +27,12 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
             }
         }
 
-        public IEquipment Equipment
+        public IObservableEquipment Equipment
         {
             get
             {
                 Contract.Ensures(Contract.Result<IEquipment>() != null);
-                return default(IEquipment);
+                return default(IObservableEquipment);
             }
         }
 
@@ -56,38 +56,17 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
         #endregion
 
         #region Methods
-        public bool CanEquip(IItem item, string slot)
-        {
-            Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
-            
-            return default(bool);
-        }
+        public abstract bool CanUseItem(IItem item);
 
-        public void Equip(IItem item, string slot)
-        {
-            Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
-        }
+        public abstract void UseItem(IItem item);
 
-        public IItem Unequip(string slot)
-        {
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
-            Contract.Ensures(Contract.Result<IItem>() != null);
+        public abstract bool CanEquip(IItem item, string slot);
 
-            return default(IItem);
-        }
+        public abstract void Equip(IItem item, string slot);
 
-        public bool CanUnequip(string slot)
-        {
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+        public abstract IItem Unequip(string slot);
 
-            return default(bool);
-        }
+        public abstract bool CanUnequip(string slot);
 
         public abstract void UpdatePosition(float x, float y);
 

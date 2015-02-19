@@ -26,6 +26,8 @@ namespace ProjectXyz.Application.Core.Items
 
         #region Events
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public event EventHandler<EquipmentChangedEventArgs> EquipmentChanged;
         #endregion
 
         #region Properties
@@ -73,6 +75,7 @@ namespace ProjectXyz.Application.Core.Items
             OnCollectionChanged(
                 NotifyCollectionChangedAction.Add,
                 item);
+            OnEquipmentChanged(slot);
         }
 
         public bool CanUnequip(string slot)
@@ -96,6 +99,7 @@ namespace ProjectXyz.Application.Core.Items
             OnCollectionChanged(
                 NotifyCollectionChangedAction.Remove, 
                 item);
+            OnEquipmentChanged(slot);
             
             return item;
         }
@@ -116,6 +120,16 @@ namespace ProjectXyz.Application.Core.Items
                 var args = new NotifyCollectionChangedEventArgs(
                     action,
                     item);
+                handler.Invoke(this, args);
+            }
+        }
+
+        private void OnEquipmentChanged(string slot)
+        {
+            var handler = EquipmentChanged;
+            if (handler != null)
+            {
+                var args = new EquipmentChangedEventArgs(slot);
                 handler.Invoke(this, args);
             }
         }

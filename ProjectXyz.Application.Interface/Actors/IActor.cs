@@ -11,7 +11,7 @@ using ProjectXyz.Data.Interface.Stats;
 namespace ProjectXyz.Application.Interface.Actors
 {
     [ContractClass(typeof(IActorContract))]
-    public interface IActor : IUpdateElapsedTime, ICanEquip, ICanUnequip
+    public interface IActor : IUpdateElapsedTime, ICanEquip, ICanUnequip, ICanUseItem
     {
         #region Properties
         /// <summary>
@@ -29,7 +29,7 @@ namespace ProjectXyz.Application.Interface.Actors
         /// </summary>
         string AnimationResource { get; }
 
-        IEquipment Equipment { get; }
+        IObservableEquipment Equipment { get; }
 
         IMutableInventory Inventory { get; }
 

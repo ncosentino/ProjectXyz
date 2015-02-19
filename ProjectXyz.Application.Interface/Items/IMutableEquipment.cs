@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IMutableEquipment : IEquipment, INotifyCollectionChanged, ICanEquip, ICanUnequip
+    public interface IMutableEquipment : IObservableEquipment, INotifyCollectionChanged, ICanEquip, ICanUnequip
     {
     }
 }

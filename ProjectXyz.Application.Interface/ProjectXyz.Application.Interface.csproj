@@ -143,8 +143,13 @@
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentGenerator.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Items\Contracts\ICanUseItemContract.cs" />
+    <Compile Include="Items\Contracts\ICanUnequipItemContract.cs" />
+    <Compile Include="Items\Contracts\ICanEquipItemContract.cs" />
+    <Compile Include="Items\EquipmentChangedEventArgs.cs" />
     <Compile Include="Items\ICanEquip.cs" />
     <Compile Include="Items\ICanUnequip.cs" />
+    <Compile Include="Items\ICanUseItem.cs" />
     <Compile Include="Items\IItemManager.cs" />
     <Compile Include="Items\IItemAffixFactory.cs" />
     <Compile Include="Items\IItemAffix.cs" />
@@ -157,6 +162,7 @@
     <Compile Include="Items\INamedItemAffixes.cs" />
     <Compile Include="Items\IItemAffixGenerator.cs" />
     <Compile Include="Items\INamedItemAffixGenerator.cs" />
+    <Compile Include="Items\IObservableEquipment.cs" />
     <Compile Include="Items\IRandomItemAffixGenerator.cs" />
     <Compile Include="IRandom.cs" />
     <Compile Include="ISave.cs" />
