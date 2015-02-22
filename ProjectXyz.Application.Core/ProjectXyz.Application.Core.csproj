@@ -155,7 +155,6 @@
     <Compile Include="Items\Equipment.cs" />
     <Compile Include="Items\Requirements.cs" />
     <Compile Include="Items\ItemCollection.cs" />
-    <Compile Include="Items\Durability.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Maps\Map.cs" />

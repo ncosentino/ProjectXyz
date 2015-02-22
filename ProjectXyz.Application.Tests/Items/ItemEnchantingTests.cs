@@ -6,6 +6,7 @@ using Xunit;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Application.Tests.Items.Mocks;
@@ -31,9 +32,8 @@ namespace ProjectXyz.Application.Tests.Items
                     "Type",
                     Guid.NewGuid(),
                     new[] { "" }));
-            var baseDurability = Durability.Create(
-                item.Durability.Maximum, 
-                item.Durability.Current);
+            var baseCurrentDurability = item.CurrentDurability;
+            var baseMaximumDurability = item.MaximumDurability;
             var enchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.MaximumDurability)
@@ -42,8 +42,8 @@ namespace ProjectXyz.Application.Tests.Items
 
             item.Enchant(enchantment);
 
-            Assert.Equal(baseDurability.Current, item.Durability.Current);
-            Assert.Equal(baseDurability.Maximum + 100, item.Durability.Maximum);
+            Assert.Equal(baseCurrentDurability, item.CurrentDurability);
+            Assert.Equal(baseMaximumDurability + 100, item.MaximumDurability);
         }
 
         [Fact]
@@ -58,9 +58,7 @@ namespace ProjectXyz.Application.Tests.Items
             var item = Item.Create(
                 new MockItemContextBuilder().Build(), 
                 itemData);
-            var baseDurability = Durability.Create(
-                item.Durability.Maximum,
-                item.Durability.Current);
+            var baseMaximumDurability = item.MaximumDurability;
             var enchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.CurrentDurability)
@@ -68,14 +66,20 @@ namespace ProjectXyz.Application.Tests.Items
                 .Build();
 
             bool gotEvent = false;
-            item.Broken += (_, __) => gotEvent = true;
+            item.DurabilityChanged += (sender, __) =>
+            {
+                if (((IItem)sender).CurrentDurability <= 0)
+                {
+                    gotEvent = true;
+                }
+            };
             item.Enchant(enchantment);
 
             Assert.True(
                 gotEvent,
                 "Expecting to get broken event.");
-            Assert.Equal(0, item.Durability.Current);
-            Assert.Equal(baseDurability.Maximum, item.Durability.Maximum);
+            Assert.Equal(0, item.CurrentDurability);
+            Assert.Equal(baseMaximumDurability, item.MaximumDurability);
         }
 
         [Fact]
@@ -90,9 +94,6 @@ namespace ProjectXyz.Application.Tests.Items
             var item = Item.Create(
                 new MockItemContextBuilder().Build(), 
                 itemData);
-            var baseDurability = Durability.Create(
-                item.Durability.Maximum,
-                item.Durability.Current);
             var enchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ItemStats.CurrentDurability)
@@ -102,7 +103,13 @@ namespace ProjectXyz.Application.Tests.Items
             item.Enchant(enchantment);
             
             bool gotEvent = false;
-            item.Broken += (_, __) => gotEvent = true;
+            item.DurabilityChanged += (sender, __) =>
+            {
+                if (((IItem)sender).CurrentDurability <= 0)
+                {
+                    gotEvent = true;
+                }
+            };
 
             item.Enchant(enchantment);
             Assert.False(

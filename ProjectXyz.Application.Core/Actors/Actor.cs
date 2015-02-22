@@ -219,7 +219,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
-            item.Broken += EquippedItem_Broken;
+            item.DurabilityChanged += EquippedItem_DurabilityChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
             _enchantments.Add(enchantments);
@@ -232,7 +232,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
-            item.Broken -= EquippedItem_Broken;
+            item.DurabilityChanged -= EquippedItem_DurabilityChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
             _enchantments.Remove(enchantments);
@@ -274,13 +274,17 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Event Handlers
-        private void EquippedItem_Broken(object sender, EventArgs e)
+        private void EquippedItem_DurabilityChanged(object sender, EventArgs e)
         {
             Contract.Requires<ArgumentNullException>(sender != null);
             Contract.Requires<ArgumentNullException>(_equipment != null);
             Contract.Requires<ArgumentNullException>(_inventory != null);
 
-            OnEquippedItemBroken((IItem)sender, _equipment, _inventory);
+            var item = (IItem)sender;
+            if (item.IsBroken())
+            {
+                OnEquippedItemBroken(item, _equipment, _inventory);   
+            }
         }
 
         private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -11,7 +11,7 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IItemContract))]
-    public interface IItem : IGameObject, ISocketCandidate, ISocketable
+    public interface IItem : IGameObject, ISocketCandidate, ISocketable, IObservableDurability
     {
         #region Properties
         string Name { get; }
@@ -32,17 +32,11 @@ namespace ProjectXyz.Application.Interface.Items
 
         IEnumerable<string> EquippableSlots { get; }
 
-        IDurability Durability { get; }
-
         IEnchantmentCollection Enchantments { get; }
 
         IRequirements Requirements { get; }
         #endregion
-
-        #region Events
-        event EventHandler<EventArgs> Broken;
-        #endregion
-
+        
         #region Methods
         void Enchant(IEnumerable<IEnchantment> enchantments);
 

@@ -143,9 +143,11 @@
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentGenerator.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Items\Contracts\IObservableDurabilityContract.cs" />
     <Compile Include="Items\Contracts\ICanUseItemContract.cs" />
     <Compile Include="Items\Contracts\ICanUnequipItemContract.cs" />
     <Compile Include="Items\Contracts\ICanEquipItemContract.cs" />
+    <Compile Include="Items\IObservableDurability.cs" />
     <Compile Include="Items\EquipmentChangedEventArgs.cs" />
     <Compile Include="Items\ICanEquip.cs" />
     <Compile Include="Items\ICanUnequip.cs" />
@@ -203,8 +205,8 @@
     <Compile Include="Items\ExtensionMethods\ISocketCandidateExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IDurabilityExtensionMethods.cs" />
     <Compile Include="Items\ExtensionMethods\IItemCollectionExtensionMethods.cs" />
-    <Compile Include="Items\IDurability.cs" />
-    <Compile Include="Items\Contracts\IDurabilityContract.cs" />
+    <Compile Include="Items\IDurable.cs" />
+    <Compile Include="Items\Contracts\IDurableContract.cs" />
     <Compile Include="Items\IInventory.cs" />
     <Compile Include="Items\IItem.cs" />
     <Compile Include="Items\ExtensionMethods\IItemExtensionMethods.cs" />

@@ -8,13 +8,13 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    [ContractClass(typeof(IDurabilityContract))]
-    public interface IDurability
+    [ContractClass(typeof(IDurableContract))]
+    public interface IDurable
     {
         #region Properties
-        int Maximum { get; }
+        int MaximumDurability { get; }
         
-        int Current { get; }
+        int CurrentDurability { get; }
         #endregion
     }
 }

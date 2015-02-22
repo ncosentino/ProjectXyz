@@ -33,6 +33,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IMutableStatCollection _baseStats;
 
         private IMutableStatCollection _stats;
+        private bool _statsDirty;
         #endregion
 
         #region Constructors
@@ -52,6 +53,7 @@ namespace ProjectXyz.Application.Core.Items
             
             _baseStats = StatCollection.Create();
             _baseStats.Add(item.Stats);
+            _statsDirty = true;
 
             var socketedItems = item.SocketedItems.Select(x => Item.Create(_context, x));
             _socketedItems = ItemCollection.Create(socketedItems);
@@ -65,7 +67,7 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Events
-        public event EventHandler<EventArgs> Broken;
+        public event EventHandler<EventArgs> DurabilityChanged;
         #endregion
 
         #region Properties
@@ -135,6 +137,24 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        public int CurrentDurability
+        {
+            get
+            {
+                EnsureStatsCalculated();
+                return (int)_stats.GetValueOrDefault(ItemStats.CurrentDurability, 0);
+            }
+        }
+
+        public int MaximumDurability
+        {
+            get
+            {
+                EnsureStatsCalculated();
+                return (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0);
+            }
+        }
+
         public int OpenSockets
         {
             get
@@ -158,16 +178,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             get { return _equippableSlots; }
         }
-
-        public IDurability Durability
-        {
-            get
-            {
-                EnsureStatsCalculated();
-                return CalculateDurability(_stats);
-            }
-        }
-
+        
         public IEnchantmentCollection Enchantments
         {
             get { return _enchantments; }
@@ -213,7 +224,7 @@ namespace ProjectXyz.Application.Core.Items
 
             _socketedItems.Add(item);
             Enchant(item.Enchantments);
-            _stats = null;
+            _statsDirty = true;
             return true;
         }
 
@@ -230,10 +241,18 @@ namespace ProjectXyz.Application.Core.Items
         protected void EnsureStatsCalculated()
         {
             Contract.Ensures(_stats != null);
-            if (_stats != null)
+            Contract.Ensures(!_statsDirty);
+            if (!_statsDirty)
             {
                 return;
             }
+
+            var currentDurability = _stats == null 
+                ? 0 
+                : (int)_stats.GetValueOrDefault(ItemStats.CurrentDurability, 0);
+            var maximumDurability = _stats == null 
+                ? 0 
+                : (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0);
             
             _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
                 _baseStats,
@@ -249,28 +268,18 @@ namespace ProjectXyz.Application.Core.Items
                 CalculateTotalSockets(_stats)));
             EnsureDurabilityInRange(_stats);
 
-            if (this.IsBroken() && 
-                _stats.GetValueOrDefault(ItemStats.Broken, 0) < 1)
+            if (currentDurability != (int)_stats.GetValueOrDefault(ItemStats.CurrentDurability, 0) ||
+                maximumDurability != (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0))
             {
-                var brokenStat = Stat.Create(ItemStats.Broken, 1);
-                _stats.Set(brokenStat);
-                _baseStats.Set(brokenStat);
-                OnBroken();
+                OnDurabilityChanged();
             }
-        }
 
-        private void OnBroken()
-        {
-            var handler = Broken;
-            if (handler != null)
-            {
-                handler.Invoke(this, EventArgs.Empty);
-            }
+            _statsDirty = false;
         }
-
+        
         private void RecalculateStats()
         {
-            _stats = null;
+            _statsDirty = true;
             EnsureStatsCalculated();
         }
 
@@ -288,16 +297,7 @@ namespace ProjectXyz.Application.Core.Items
                         stats.GetValueOrDefault(ItemStats.CurrentDurability, 0),
                         stats.GetValueOrDefault(ItemStats.MaximumDurability, 0)))));
         }
-
-        private IDurability CalculateDurability(IStatCollection stats)
-        {
-            Contract.Requires<ArgumentNullException>(stats != null);
-            Contract.Ensures(Contract.Result<IDurability>() != null);
-            return Items.Durability.Create(
-                (int)stats.GetValueOrDefault(ItemStats.MaximumDurability, 0),
-                (int)stats.GetValueOrDefault(ItemStats.CurrentDurability, 0));
-        }
-
+        
         private double CalculateWeight(IStatCollection stats, IEnumerable<IItem> socketedItems)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
@@ -324,6 +324,15 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(socketedItems != null);
             Contract.Ensures(Contract.Result<int>() >= 0);
             return Math.Max(0, totalSockets - socketedItems.TotalRequiredSockets());
+        }
+
+        private void OnDurabilityChanged()
+        {
+            var handler = DurabilityChanged;
+            if (handler != null)
+            {
+                handler.Invoke(this, EventArgs.Empty);
+            }
         }
 
         [ContractInvariantMethod]

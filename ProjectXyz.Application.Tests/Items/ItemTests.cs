@@ -23,8 +23,8 @@ namespace ProjectXyz.Application.Tests.Items
 
             Assert.NotNull(item.Id);
             Assert.NotEqual(Guid.Empty, item.Id);
-            Assert.Equal(0, item.Durability.Maximum);
-            Assert.Equal(0, item.Durability.Current);
+            Assert.Equal(0, item.MaximumDurability);
+            Assert.Equal(0, item.CurrentDurability);
             Assert.Equal(0, item.Weight);
             Assert.Equal(0, item.Value);
             Assert.Equal("Default", item.Name);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ProjectXyz.Data.Core.Stats
 {
@@ -18,7 +17,5 @@ namespace ProjectXyz.Data.Core.Stats
         public static readonly Guid TotalSockets = new Guid("7154c7ac-071e-4cf4-9a2c-4f446f4d9422");
 
         public static readonly Guid RequiredSockets = new Guid("feaf003c-d368-4c43-b2ee-354ad853c541");
-
-        public static readonly Guid Broken = new Guid("e1dde58a-9ebe-4806-b093-f22793523740");
     }
 }

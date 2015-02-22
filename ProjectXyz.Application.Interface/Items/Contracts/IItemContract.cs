@@ -13,7 +13,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     public abstract class IItemContract : IItem
     {
         #region Events
-        public abstract event EventHandler<EventArgs> Broken;
+        public abstract event EventHandler<EventArgs> DurabilityChanged;
         #endregion
 
         #region Properties
@@ -82,15 +82,6 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IDurability Durability
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<IDurability>() != null);
-                return default(IDurability);
-            }
-        }
-
         public double Weight
         {
             get
@@ -126,6 +117,10 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
                 return default(IRequirements);
             }
         }
+
+        public abstract int MaximumDurability { get; }
+
+        public abstract int CurrentDurability { get; }
 
         public abstract int TotalSockets { get; }
 

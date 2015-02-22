@@ -71,17 +71,12 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
         {
             Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
 
-            var durability = new Mock<IDurability>();
-            durability
-                .Setup(x => x.Maximum)
-                .Returns(maximum);
-            durability
-                .Setup(x => x.Current)
-                .Returns(current);            
-
             _item
-                .Setup(x => x.Durability)
-                .Returns(durability.Object);
+                .Setup(x => x.CurrentDurability)
+                .Returns(current);
+            _item
+                .Setup(x => x.MaximumDurability)
+                .Returns(maximum);
             return this;
         }
 

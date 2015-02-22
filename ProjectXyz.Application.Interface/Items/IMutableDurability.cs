@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IMutableDurability : IDurability
+    public interface IMutableDurability : IObservableDurability
     {
         #region Properties
-        new int Maximum { get; set; }
+        new int MaximumDurability { get; set; }
 
-        new int Current { get; set; }
+        new int CurrentDurability { get; set; }
         #endregion
     }
 }
