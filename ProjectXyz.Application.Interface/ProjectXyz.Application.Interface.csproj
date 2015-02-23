@@ -220,6 +220,15 @@
     <Compile Include="Maps\IMapContext.cs" />
     <Compile Include="Maps\IMapManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shading\IMutableShade.cs" />
+    <Compile Include="Shading\IObservableShade.cs" />
+    <Compile Include="Shading\IShade.cs" />
+    <Compile Include="Time\IMutableCalendar.cs" />
+    <Compile Include="Time\IObservableCalendar.cs" />
+    <Compile Include="Time\ICalendar.cs" />
+    <Compile Include="Time\IDate.cs" />
+    <Compile Include="Time\IDateTime.cs" />
+    <Compile Include="Time\ITime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">

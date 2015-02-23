@@ -161,6 +161,9 @@
     <Compile Include="Maps\MapContext.cs" />
     <Compile Include="Maps\MapManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shading\Shade.cs" />
+    <Compile Include="Time\Calendar.cs" />
+    <Compile Include="Time\DateTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
