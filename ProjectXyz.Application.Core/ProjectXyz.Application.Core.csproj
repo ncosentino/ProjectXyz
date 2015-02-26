@@ -138,6 +138,14 @@
     <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Enchantments\EnchantmentFactory.cs" />
     <Compile Include="Enchantments\EnchantmentGenerator.cs" />
+    <Compile Include="GameObjects\Doors\Door.cs" />
+    <Compile Include="GameObjects\Doors\ICloseable.cs" />
+    <Compile Include="GameObjects\Doors\IDoor.cs" />
+    <Compile Include="GameObjects\Doors\IMutableDoor.cs" />
+    <Compile Include="GameObjects\Doors\IObservableDoor.cs" />
+    <Compile Include="GameObjects\Doors\IOpenable.cs" />
+    <Compile Include="Interactions\CloseDoorInteraction.cs" />
+    <Compile Include="Interactions\OpenDoorInteraction.cs" />
     <Compile Include="Items\ItemContext.cs" />
     <Compile Include="Items\ItemManager.cs" />
     <Compile Include="Items\NamedItemAffixes.cs" />

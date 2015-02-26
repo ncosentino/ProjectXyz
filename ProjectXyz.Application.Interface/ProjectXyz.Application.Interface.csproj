@@ -143,6 +143,9 @@
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentGenerator.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Interactions\IInteractable.cs" />
+    <Compile Include="Interactions\IInteraction.cs" />
+    <Compile Include="Interactions\IInteractionContext.cs" />
     <Compile Include="Items\Contracts\IObservableDurabilityContract.cs" />
     <Compile Include="Items\Contracts\ICanUseItemContract.cs" />
     <Compile Include="Items\Contracts\ICanUnequipItemContract.cs" />
