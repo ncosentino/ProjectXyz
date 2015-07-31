@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Core.Interactions;
 using ProjectXyz.Application.Interface.Actors;
@@ -77,6 +78,8 @@ namespace ProjectXyz.Application.Core.GameObjects.Doors
         #region Methods
         public static IMutableDoor Create(string resourcepath, bool opened)
         {
+            Contract.Ensures(Contract.Result<IMutableDoor>() != null);
+
             return new Door(resourcepath, opened);
         }
 

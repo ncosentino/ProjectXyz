@@ -144,6 +144,7 @@
     <Compile Include="GameObjects\Doors\IMutableDoor.cs" />
     <Compile Include="GameObjects\Doors\IObservableDoor.cs" />
     <Compile Include="GameObjects\Doors\IOpenable.cs" />
+    <Compile Include="GameObjects\Loot\LootDrop.cs" />
     <Compile Include="Interactions\CloseDoorInteraction.cs" />
     <Compile Include="Interactions\OpenDoorInteraction.cs" />
     <Compile Include="Items\ItemContext.cs" />
