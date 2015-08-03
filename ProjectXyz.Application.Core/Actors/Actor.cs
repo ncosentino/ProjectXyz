@@ -253,6 +253,8 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
+            item.Enchantments.CollectionChanged += HeldItem_EnchantmentsChanged;
+
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Add(enchantments);
         }
@@ -262,27 +264,39 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
+            item.Enchantments.CollectionChanged -= HeldItem_EnchantmentsChanged;
+
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Remove(enchantments);
         }
-        #endregion
 
-        #region Event Handlers
-        private void EquippedItem_EnchantmentsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void HandleItemEnchantmentsChanged(NotifyCollectionChangedEventArgs e, Guid enchantmentTriggerId)
         {
             if (e.NewItems != null)
             {
                 _enchantments.Add(e.NewItems
                     .Cast<IEnchantment>()
-                    .TriggeredBy(EnchantmentTriggers.Equip));
+                    .TriggeredBy(enchantmentTriggerId));
             }
 
             if (e.OldItems != null)
             {
                 _enchantments.Remove(e.NewItems
                     .Cast<IEnchantment>()
-                    .TriggeredBy(EnchantmentTriggers.Equip));
+                    .TriggeredBy(enchantmentTriggerId));
             }
+        }
+        #endregion
+
+        #region Event Handlers
+        private void HeldItem_EnchantmentsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            HandleItemEnchantmentsChanged(e, EnchantmentTriggers.Hold);
+        }
+
+        private void EquippedItem_EnchantmentsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            HandleItemEnchantmentsChanged(e, EnchantmentTriggers.Equip);
         }
 
         private void EquippedItem_DurabilityChanged(object sender, EventArgs e)

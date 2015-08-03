@@ -149,6 +149,48 @@ namespace ProjectXyz.Application.Tests.Actors
         }
 
         [Fact]
+        public void Actor_HeldItemEnchantmentsChanged_StatsAreRecalculated()
+        {
+            // Setup
+            const double BASE_LIFE = 100;
+            const double ADDITIONAL_LIFE = 50;
+
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(ADDITIONAL_LIFE)
+                .WithTrigger(EnchantmentTriggers.Hold)
+                .Build();
+
+            var itemToBeEnchanted = new MockItemBuilder()
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
+                .Build();
+
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
+                .Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                context.Object,
+                data);
+
+            actor.Inventory.Add(itemToBeEnchanted, 0);
+
+            // Execute
+            itemToBeEnchanted.Enchant(enchantment);
+
+            // Assert
+            Assert.Equal(BASE_LIFE, actor.GetCurrentLife());
+            Assert.Equal(BASE_LIFE + ADDITIONAL_LIFE, actor.GetMaximumLife());
+        }
+
+        [Fact]
         public void Actor_EquipHealItem_CappedAtMaxLife()
         {
             const double MAX_LIFE = 100;
@@ -194,6 +236,7 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_EquippedItemChangesEnchantments_StatsAreRecalculated()
         {
+            // Setup
             const double LIFE_BUFF = 100;
             const double BASE_LIFE = 50;
 
