@@ -158,6 +158,8 @@
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
+    <Compile Include="Enchantments\IStatusNegationRepository.cs" />
+    <Compile Include="Enchantments\IStatusNegationFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinition.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionRepository.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Enchantments\IAffixMagicTypesRepository.cs" />
     <Compile Include="Enchantments\IAffixEnchantments.cs" />
     <Compile Include="Enchantments\IAffixEnchantmentsRepository.cs" />
+    <Compile Include="Enchantments\IStatusNegation.cs" />
     <Compile Include="Items\IItemAffixDefinitionRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerRepository.cs" />

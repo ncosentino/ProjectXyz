@@ -8,6 +8,7 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Sockets;
 
 namespace ProjectXyz.Application.Tests.Items.Mocks
@@ -26,7 +27,7 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
         public MockItemContextBuilder()
         {
             _itemContext = new Mock<IItemContext>();
-            _enchantmentCalculator = EnchantmentCalculator.Create(StatFactory.Create());
+            _enchantmentCalculator = EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object);
             _enchantmentContext = new MockEnchantmentContextBuilder().Build();
             _statSocketTypeRepository = new Mock<IStatSocketTypeRepository>().Object;
         }

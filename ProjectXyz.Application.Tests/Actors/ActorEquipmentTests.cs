@@ -15,6 +15,7 @@ using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Tests.Actors.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
@@ -51,7 +52,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -93,7 +94,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -135,7 +136,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -172,7 +173,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -215,7 +216,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -257,7 +258,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -289,7 +290,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -329,7 +330,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -367,7 +368,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
 
             var actor = Actor.Create(
                 context.Object,
@@ -383,7 +384,7 @@ namespace ProjectXyz.Application.Tests.Actors
         }
 
         [Fact]
-        public void Actor_BlessEnchantment_RemovesCurse()
+        public void Actor_EnchantmentWithNegation_StatusIsNegated()
         {
             var curseEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
@@ -416,10 +417,19 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, 100))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, 100))
                 .Build();
+
+            var statusNegationRepository = new Mock<IStatusNegationRepository>();
+            statusNegationRepository
+                .Setup(x => x.GetAll())
+                .Returns(new[]
+                {
+                    StatusNegation.Create(ActorStats.Bless, EnchantmentStatuses.Curse)
+                });
+
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), statusNegationRepository.Object));
 
             var actor = Actor.Create(
                 context.Object,

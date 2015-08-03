@@ -137,6 +137,7 @@
     <Compile Include="Diseases\DiseaseDefinition.cs" />
     <Compile Include="Enchantments\EnchantmentDefinition.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionFactory.cs" />
+    <Compile Include="Enchantments\StatusNegation.cs" />
     <Compile Include="Enchantments\MagicTypesRandomAffixesFactory.cs" />
     <Compile Include="Enchantments\MagicTypesRandomAffixes.cs" />
     <Compile Include="Enchantments\EnchantmentStoreFactory.cs" />

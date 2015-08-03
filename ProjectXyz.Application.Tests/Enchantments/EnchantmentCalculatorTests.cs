@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Moq;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -24,7 +26,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 .WithValue(10)
                 .Build();
 
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object);
             var stats = calculator.Calculate(
                 StatCollection.Create(), 
                 new IEnchantment[]
@@ -55,7 +57,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 enchantment
             };
 
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object);
             var stats = calculator.Calculate(
                 StatCollection.Create(),
                 enchantments);
@@ -68,18 +70,22 @@ namespace ProjectXyz.Application.Tests.Enchantments
         }
 
         [Fact]
-        public void EnchantmentCalculator_CalculateBlessEnchantment_RemovesCurse()
+        public void EnchantmentCalculator_CalculateStatusNegation_NegatesExpectedStatus()
         {
+            // Setup
+            var status = EnchantmentStatuses.Curse;
+            var stat = ActorStats.Bless;
+
             var curseEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(-10)
-                .WithStatusType(EnchantmentStatuses.Curse)
+                .WithStatusType(status)
                 .Build();
             
             var blessEnchantment = new MockEnchantmentBuilder()
                 .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithStatId(ActorStats.Bless)
+                .WithStatId(stat)
                 .WithValue(0)
                 .Build();
 
@@ -89,41 +95,22 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 blessEnchantment,
             };
 
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
+            var statusNegationRepository = new Mock<IStatusNegationRepository>();
+            statusNegationRepository
+                .Setup(x => x.GetAll())
+                .Returns(new[]
+                {
+                    StatusNegation.Create(stat, status)
+                });
+
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create(), statusNegationRepository.Object);
+
+            // Execute
             var stats = calculator.Calculate(StatCollection.Create(), enchantments);
 
+            // Assert
             Assert.False(
                 stats.Contains(curseEnchantment.StatId),
-                "Expecting the stat to be removed.");
-        }
-
-        [Fact]
-        public void EnchantmentCalculator_CalculateCureEnchantment_RemovesDisease()
-        {
-            var diseaseEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithStatId(ActorStats.MaximumLife)
-                .WithValue(-10)
-                .WithStatusType(EnchantmentStatuses.Disease)
-                .Build();
-
-            var cureEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithStatId(ActorStats.Cure)
-                .WithValue(0)
-                .Build();
-
-            var enchantments = new IEnchantment[]
-            {
-                diseaseEnchantment,
-                cureEnchantment,
-            };
-
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
-            var stats = calculator.Calculate(StatCollection.Create(), enchantments);
-
-            Assert.False(
-                stats.Contains(diseaseEnchantment.StatId),
                 "Expecting the stat to be removed.");
         }
     }

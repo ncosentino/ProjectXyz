@@ -5,6 +5,7 @@ using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 
@@ -18,24 +19,24 @@ namespace ProjectXyz.Application.Core.Enchantments
             EnchantmentCalculationTypes.Value,
             EnchantmentCalculationTypes.Percent,
         };
-
-        private static readonly Dictionary<Guid, Guid> STATUS_NEGATIONS = new Dictionary<Guid, Guid>()
-        {
-            { ActorStats.Bless, EnchantmentStatuses.Curse },
-            { ActorStats.Cure, EnchantmentStatuses.Disease },
-        };
         #endregion
 
         #region Fields
         private readonly Dictionary<Guid, Func<double, double, double>> _calculationMappings;
         private readonly IStatFactory _statFactory;
+        private readonly IStatusNegationRepository _statusNegationRepository;
         #endregion
 
         #region Constructors
-        private EnchantmentCalculator(IStatFactory statFactory)
+        private EnchantmentCalculator(
+            IStatFactory statFactory,
+            IStatusNegationRepository statusNegationRepository)
         {
             Contract.Requires<ArgumentNullException>(statFactory != null);
+            Contract.Requires<ArgumentNullException>(statusNegationRepository != null);
+            
             _statFactory = statFactory;
+            _statusNegationRepository = statusNegationRepository;
 
             _calculationMappings = new Dictionary<Guid, Func<double, double, double>>();
             _calculationMappings[EnchantmentCalculationTypes.Value] = CalculateValue;
@@ -44,11 +45,16 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantmentCalculator Create(IStatFactory statFactory)
+        public static IEnchantmentCalculator Create(IStatFactory statFactory,
+            IStatusNegationRepository statusNegationRepository)
         {
             Contract.Requires<ArgumentNullException>(statFactory != null);
+            Contract.Requires<ArgumentNullException>(statusNegationRepository != null);
             Contract.Ensures(Contract.Result<IEnchantmentCalculator>() != null);
-            return new EnchantmentCalculator(statFactory);
+
+            return new EnchantmentCalculator(
+                statFactory,
+                statusNegationRepository);
         }
 
         public IStatCollection Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments) 
@@ -57,9 +63,9 @@ namespace ProjectXyz.Application.Core.Enchantments
             newStats.Add(stats);
 
             var activeNegations = new Dictionary<Guid, bool>();
-            foreach (var kvp in STATUS_NEGATIONS)
+            foreach (var statusNegation in _statusNegationRepository.GetAll())
             {
-                activeNegations[kvp.Value] = enchantments.Any(x => x.StatId == kvp.Key);
+                activeNegations[statusNegation.EnchantmentStatusId] = enchantments.Any(x => x.StatId == statusNegation.StatId);
             }
 
             foreach (var calculationType in CALCULATION_ORDER)
