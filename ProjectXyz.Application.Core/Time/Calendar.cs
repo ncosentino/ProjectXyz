@@ -6,7 +6,7 @@ using ProjectXyz.Application.Interface.Time;
 
 namespace ProjectXyz.Application.Core.Time
 {
-    public class Calendar : IMutableCalendar
+    public sealed class Calendar : IMutableCalendar
     {
         #region Constants
         private const int DAYS_PER_YEAR = 365;

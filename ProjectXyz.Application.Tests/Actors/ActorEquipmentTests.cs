@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using Moq;
-using Xunit;
-
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Application.Interface.Items.ExtensionMethods;
-using ProjectXyz.Application.Interface.Actors;
-using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Application.Core.Actors.ExtensionMethods;
+using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
-using ProjectXyz.Application.Tests.Items.Mocks;
+using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
+using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
+using ProjectXyz.Application.Tests.Items.Mocks;
+using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Tests.Actors.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Application.Tests.Actors
 {
@@ -53,7 +51,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -95,7 +93,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -137,7 +135,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -174,7 +172,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -217,7 +215,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -259,7 +257,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -291,7 +289,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -331,7 +329,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -369,7 +367,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,
@@ -421,7 +419,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,

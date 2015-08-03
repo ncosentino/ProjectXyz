@@ -1,12 +1,14 @@
-﻿using Moq;
-using Xunit;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Moq;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Tests.Actors.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Application.Tests.Actors
 {
@@ -21,7 +23,7 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create());
+                .Returns(EnchantmentCalculator.Create(StatFactory.Create()));
 
             var actor = Actor.Create(
                 context.Object,

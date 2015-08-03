@@ -6,7 +6,7 @@ using ProjectXyz.Application.Interface.Time;
 
 namespace ProjectXyz.Application.Core.Time
 {
-    public class DateTime : IDateTime
+    public sealed class DateTime : IDateTime
     {
         #region Constructors
         private DateTime(int year, int day, int hours, int minutes, int seconds, int milliseconds)

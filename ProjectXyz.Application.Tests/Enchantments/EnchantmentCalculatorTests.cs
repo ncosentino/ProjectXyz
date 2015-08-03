@@ -1,13 +1,13 @@
 ﻿using System;
-
-using Xunit;
-
-using ProjectXyz.Application.Interface.Enchantments;
+using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Application.Tests.Enchantments
 {
@@ -24,7 +24,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 .WithValue(10)
                 .Build();
 
-            var calculator = EnchantmentCalculator.Create();
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
             var stats = calculator.Calculate(
                 StatCollection.Create(), 
                 new IEnchantment[]
@@ -55,7 +55,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 enchantment
             };
 
-            var calculator = EnchantmentCalculator.Create();
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
             var stats = calculator.Calculate(
                 StatCollection.Create(),
                 enchantments);
@@ -89,7 +89,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 blessEnchantment,
             };
 
-            var calculator = EnchantmentCalculator.Create();
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
             var stats = calculator.Calculate(StatCollection.Create(), enchantments);
 
             Assert.False(
@@ -119,7 +119,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 cureEnchantment,
             };
 
-            var calculator = EnchantmentCalculator.Create();
+            var calculator = EnchantmentCalculator.Create(StatFactory.Create());
             var stats = calculator.Calculate(StatCollection.Create(), enchantments);
 
             Assert.False(

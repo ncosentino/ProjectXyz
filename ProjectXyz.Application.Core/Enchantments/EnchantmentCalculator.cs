@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Core.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
@@ -31,11 +28,15 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         #region Fields
         private readonly Dictionary<Guid, Func<double, double, double>> _calculationMappings;
+        private readonly IStatFactory _statFactory;
         #endregion
 
         #region Constructors
-        private EnchantmentCalculator()
+        private EnchantmentCalculator(IStatFactory statFactory)
         {
+            Contract.Requires<ArgumentNullException>(statFactory != null);
+            _statFactory = statFactory;
+
             _calculationMappings = new Dictionary<Guid, Func<double, double, double>>();
             _calculationMappings[EnchantmentCalculationTypes.Value] = CalculateValue;
             _calculationMappings[EnchantmentCalculationTypes.Percent] = CalculatePercent;
@@ -43,10 +44,11 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantmentCalculator Create()
+        public static IEnchantmentCalculator Create(IStatFactory statFactory)
         {
+            Contract.Requires<ArgumentNullException>(statFactory != null);
             Contract.Ensures(Contract.Result<IEnchantmentCalculator>() != null);
-            return new EnchantmentCalculator();
+            return new EnchantmentCalculator(statFactory);
         }
 
         public IStatCollection Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments) 
@@ -74,7 +76,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                     var newValue = _calculationMappings[enchantment.CalculationId](
                         oldValue,
                         enchantment.Value);
-                    newStats.Set(Stat.Create(
+                    newStats.Set(_statFactory.CreateStat(
                         enchantment.StatId, 
                         newValue));
                 }
