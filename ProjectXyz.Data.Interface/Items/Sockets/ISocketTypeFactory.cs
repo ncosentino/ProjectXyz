@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace ProjectXyz.Data.Interface.Items.Materials
+namespace ProjectXyz.Data.Interface.Items.Sockets
 {
     public interface ISocketTypeFactory
     {
         #region Methods
-        IMaterial CreateById(Guid materialId);
+        ISocketType CreateById(Guid socketTypeId);
         #endregion
     }
 }

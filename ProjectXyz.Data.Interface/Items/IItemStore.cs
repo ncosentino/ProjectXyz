@@ -23,6 +23,8 @@ namespace ProjectXyz.Data.Interface.Items
 
         Guid MaterialTypeId { get; }
 
+        Guid SocketTypeId { get; }
+
         IMutableStatCollection Stats { get; }
 
         IMutableEnchantmentCollection Enchantments { get; }

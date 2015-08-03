@@ -13,6 +13,7 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Sockets;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -29,6 +30,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly Guid _magicTypeId;
         private readonly string _itemType;
         private readonly Guid _materialTypeId;
+        private readonly Guid _socketTypeId;
         private readonly List<string> _equippableSlots;
         private readonly IMutableStatCollection _baseStats;
 
@@ -49,6 +51,7 @@ namespace ProjectXyz.Application.Core.Items
             _magicTypeId = item.MagicTypeId;
             _itemType = item.ItemType;
             _materialTypeId = item.MaterialTypeId;
+            _socketTypeId = item.SocketTypeId;
             _equippableSlots = new List<string>(item.EquippableSlots);
             
             _baseStats = StatCollection.Create();
@@ -96,6 +99,11 @@ namespace ProjectXyz.Application.Core.Items
             get { return _materialTypeId; }
         }
 
+        public Guid SocketTypeId
+        {
+            get { return _socketTypeId; }
+        }
+
         public string ItemType
         {
             get { return _itemType; }
@@ -128,15 +136,6 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
-        public int TotalSockets
-        {
-            get
-            {
-                EnsureStatsCalculated();
-                return (int)_stats.GetValueOrDefault(ItemStats.TotalSockets, 0);
-            }
-        }
-
         public int CurrentDurability
         {
             get
@@ -152,16 +151,6 @@ namespace ProjectXyz.Application.Core.Items
             {
                 EnsureStatsCalculated();
                 return (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0);
-            }
-        }
-
-        public int OpenSockets
-        {
-            get
-            {
-                return CalculateOpenSockets(
-                    TotalSockets, 
-                    _socketedItems);
             }
         }
 
@@ -217,7 +206,7 @@ namespace ProjectXyz.Application.Core.Items
         public bool Socket(IItem item)
         {
             if (!item.CanBeUsedForSocketing() ||
-                OpenSockets < item.RequiredSockets)
+                GetOpenSocketsForType(item.SocketTypeId) < item.RequiredSockets)
             {
                 return false;
             }
@@ -231,6 +220,21 @@ namespace ProjectXyz.Application.Core.Items
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
             _enchantments.UpdateElapsedTime(elapsedTime);
+        }
+
+        public int GetOpenSocketsForType(Guid socketTypeId)
+        {
+            return CalculateOpenSockets(
+                    GetTotalSocketsForType(socketTypeId),
+                    _socketedItems,
+                    socketTypeId);
+        }
+
+        public int GetTotalSocketsForType(Guid socketTypeId)
+        {
+            EnsureStatsCalculated();
+            var statSocketType = _context.StatSocketTypeRepository.GetBySocketTypeId(socketTypeId);
+            return (int)_stats.GetValueOrDefault(statSocketType.StatId, 0);
         }
 
         public override string ToString()
@@ -263,9 +267,14 @@ namespace ProjectXyz.Application.Core.Items
             _stats.Set(Stat.Create(
                 ItemStats.Value, 
                 CalculateValue(_stats)));
-            _stats.Set(Stat.Create(
-                ItemStats.TotalSockets, 
-                CalculateTotalSockets(_stats)));
+
+            foreach (var statSocketType in _context.StatSocketTypeRepository.GetAll())
+            {
+                _stats.Set(Stat.Create(
+                    statSocketType.StatId,
+                    CalculateTotalSockets(_stats, statSocketType)));                
+            }
+            
             EnsureDurabilityInRange(_stats);
 
             if (currentDurability != (int)_stats.GetValueOrDefault(ItemStats.CurrentDurability, 0) ||
@@ -311,19 +320,20 @@ namespace ProjectXyz.Application.Core.Items
             return stats.GetValueOrDefault(ItemStats.Value, 0);
         }
 
-        private int CalculateTotalSockets(IStatCollection stats)
+        private int CalculateTotalSockets(IStatCollection stats, IStatSocketType statSocketType)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<int>() >= 0);
-            return (int)stats.GetValueOrDefault(ItemStats.TotalSockets, 0);
+            return (int)stats.GetValueOrDefault(statSocketType.StatId, 0);
         }
 
-        private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems)
+        private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems, Guid socketTypeId)
         {
             Contract.Requires<ArgumentOutOfRangeException>(totalSockets >= 0);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<int>() >= 0);
-            return Math.Max(0, totalSockets - socketedItems.TotalRequiredSockets());
+            return Math.Max(0, totalSockets - socketedItems.Where(x => x.SocketTypeId == socketTypeId).TotalRequiredSockets());
         }
 
         private void OnDurabilityChanged()

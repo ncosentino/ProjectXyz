@@ -82,6 +82,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
+        public Guid SocketTypeId
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
+            }
+        }
+
         public double Weight
         {
             get
@@ -122,10 +131,6 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
 
         public abstract int CurrentDurability { get; }
 
-        public abstract int TotalSockets { get; }
-
-        public abstract int OpenSockets { get; }
-
         public abstract IItemCollection SocketedItems { get; }
 
         public abstract Guid Id { get; }
@@ -145,6 +150,10 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         }
 
         public abstract bool Socket(IItem item);
+
+        public abstract int GetOpenSocketsForType(Guid socketTypeId);
+
+        public abstract int GetTotalSocketsForType(Guid socketTypeId);
 
         public abstract void UpdateElapsedTime(TimeSpan elapsedTime);
         #endregion

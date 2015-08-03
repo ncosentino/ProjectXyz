@@ -18,6 +18,7 @@ namespace ProjectXyz.Data.Tests.Items
         {
             var id = Guid.NewGuid();
             var materialTypeId = Guid.NewGuid();
+            var socketTypeId = Guid.NewGuid();
 
             var item = ItemStore.Create(
                 id,
@@ -25,6 +26,7 @@ namespace ProjectXyz.Data.Tests.Items
                 "Resource",
                 "Type",
                 materialTypeId,
+                socketTypeId,
                 new[] { "A", "B", "C" });
 
             Assert.Equal(id, item.Id);

@@ -40,6 +40,7 @@ namespace ProjectXyz.Application.Core.Items
                 source.InventoryGraphicResource, 
                 source.ItemType, 
                 source.MaterialTypeId,
+                source.SocketTypeId,
                 source.EquippableSlots);
 
             destination.Stats.Add(source.Stats);

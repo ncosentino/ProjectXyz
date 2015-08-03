@@ -21,6 +21,8 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
         private readonly Mock<IItem> _item;
         private readonly List<IEnchantment> _enchantments;
         private readonly List<IStat> _stats;
+        
+        private Guid _socketTypeId;
         #endregion
 
         #region Constructors
@@ -120,12 +122,24 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
             return this;
         }
 
+        public MockItemBuilder WithSocketTypeId(Guid socketTypeId)
+        {
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
+            _socketTypeId = socketTypeId;
+            return this;
+        }
+
         public IItem Build()
         {
             Contract.Ensures(Contract.Result<IItem>() != null);
 
             var enchantmentCollection = EnchantmentCollection.Create(_enchantments);
 
+            _item
+                .Setup(x => x.SocketTypeId)
+                .Returns(_socketTypeId);
             _item
                 .Setup(x => x.Enchantments)
                 .Returns(enchantmentCollection);

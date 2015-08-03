@@ -10,26 +10,6 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     public abstract class ISocketableContract : ISocketable
     {
         #region Properties
-        public int TotalSockets
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.Ensures(Contract.Result<int>() >= OpenSockets);
-                return default(int);
-            }
-        }
-
-        public int OpenSockets
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<int>() >= 0);
-                Contract.Ensures(Contract.Result<int>() <= TotalSockets);
-                return default(int);
-            }
-        }
-
         public IItemCollection SocketedItems
         {
             get
@@ -45,6 +25,20 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         {
             Contract.Requires<ArgumentNullException>(item != null);
             return default(bool);
+        }
+
+        public int GetOpenSocketsForType(Guid socketTypeId)
+        {
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
+            Contract.Ensures(Contract.Result<int>() >= 0);
+            return default(int);
+        }
+
+        public int GetTotalSocketsForType(Guid socketTypeId)
+        {
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
+            Contract.Ensures(Contract.Result<int>() >= 0);
+            return default(int);
         }
         #endregion
     }

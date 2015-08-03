@@ -14,7 +14,10 @@ namespace ProjectXyz.Data.Core.Stats
 
         public static readonly Guid Value = new Guid("517d3245-21de-46c8-b33d-f89d8759efff");
 
-        public static readonly Guid TotalSockets = new Guid("7154c7ac-071e-4cf4-9a2c-4f446f4d9422");
+        // Socketing
+        public static readonly Guid TotalSquareSockets = new Guid("7154c7ac-071e-4cf4-9a2c-4f446f4d9422");
+
+        public static readonly Guid TotalTriangularSockets = new Guid("e461383c-f091-423f-9977-3490ff71cd2c");
 
         public static readonly Guid RequiredSockets = new Guid("feaf003c-d368-4c43-b2ee-354ad853c541");
     }

@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using Moq;
-
-using ProjectXyz.Data.Interface.Items;
-using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Core.Items;
+using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Tests.Items.Mocks
 {
@@ -21,6 +17,8 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
         private readonly Mock<IItemStore> _item;
         private readonly List<IStat> _stats;
         private readonly List<string> _equippableSlots;
+
+        private Guid _socketTypeId;
         #endregion
 
         #region Constructors
@@ -29,6 +27,7 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
             _item = new Mock<IItemStore>();
             _stats = new List<IStat>();
             _equippableSlots = new List<string>();
+            _socketTypeId = Guid.NewGuid();
         }
         #endregion
 
@@ -66,6 +65,15 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
             _equippableSlots.AddRange(slots);
             return this;
         }
+
+        public MockItemBuilder WithSocketTypeId(Guid socketTypeId)
+        {
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
+            Contract.Ensures(Contract.Result<MockItemBuilder>() != null);
+
+            _socketTypeId = socketTypeId;
+            return this;
+        }
         
         public IItemStore Build()
         {
@@ -98,6 +106,9 @@ namespace ProjectXyz.Data.Tests.Items.Mocks
             _item
                 .Setup(x => x.MaterialTypeId)
                 .Returns(Guid.NewGuid());
+            _item
+                .Setup(x => x.SocketTypeId)
+                .Returns(_socketTypeId);
             _item
                 .Setup(x => x.ItemType)
                 .Returns("Default");

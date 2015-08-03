@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Stats;
@@ -28,6 +27,8 @@ namespace ProjectXyz.Application.Interface.Items
         string ItemType { get; }
 
         Guid MaterialTypeId { get; }
+
+        Guid SocketTypeId { get; }
 
         double Weight { get; }
 

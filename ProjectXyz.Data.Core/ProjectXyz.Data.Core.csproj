@@ -145,10 +145,12 @@
     <Compile Include="Enchantments\EnchantmentCalculationTypes.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\EnchantmentTriggers.cs" />
+    <Compile Include="Items\Sockets\SocketType.cs" />
     <Compile Include="Items\Requirements.cs" />
     <Compile Include="Items\ItemStore.cs" />
     <Compile Include="Items\ItemStoreCollection.cs" />
     <Compile Include="Items\Materials\Material.cs" />
+    <Compile Include="Items\Sockets\StatSocketType.cs" />
     <Compile Include="Maps\MapStore.cs" />
     <Compile Include="Maps\MapStoreFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

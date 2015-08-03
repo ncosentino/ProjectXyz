@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectXyz.Data.Interface.Items.Materials
+namespace ProjectXyz.Data.Interface.Items.Sockets
 {
-    public interface IMaterial
+    public interface ISocketType
     {
         #region Properties
         Guid Id { get; }

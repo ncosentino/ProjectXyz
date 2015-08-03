@@ -31,6 +31,7 @@ namespace ProjectXyz.Application.Tests.Items
                     "Resource",
                     "Type",
                     Guid.NewGuid(),
+                    Guid.NewGuid(),
                     new[] { "" }));
             var baseCurrentDurability = item.CurrentDurability;
             var baseMaximumDurability = item.MaximumDurability;

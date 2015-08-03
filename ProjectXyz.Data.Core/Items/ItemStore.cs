@@ -24,7 +24,14 @@ namespace ProjectXyz.Data.Core.Items
         #endregion
 
         #region Constructors
-        private ItemStore(Guid id, string name, string inventoryGraphicResource, string itemType, Guid materialTypeId, IEnumerable<string> equippableSlots)
+        private ItemStore(
+            Guid id,
+            string name, 
+            string inventoryGraphicResource, 
+            string itemType, 
+            Guid materialTypeId, 
+            Guid socketTypeId, 
+            IEnumerable<string> equippableSlots)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentNullException>(name != null);
@@ -34,7 +41,9 @@ namespace ProjectXyz.Data.Core.Items
             Contract.Requires<ArgumentNullException>(itemType != null);
             Contract.Requires<ArgumentException>(itemType.Trim().Length > 0);
             Contract.Requires<ArgumentException>(materialTypeId != Guid.Empty);
-
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
+            Contract.Requires<ArgumentNullException>(equippableSlots != null);
+            
             _stats = StatCollection.Create();
             _enchantments = EnchantmentCollection.Create();
             _requirements = Items.Requirements.Create();
@@ -45,6 +54,7 @@ namespace ProjectXyz.Data.Core.Items
             Name = name;
             InventoryGraphicResource = inventoryGraphicResource;
             MaterialTypeId = materialTypeId;
+            SocketTypeId = socketTypeId;
             ItemType = itemType;
         }
         #endregion
@@ -59,6 +69,8 @@ namespace ProjectXyz.Data.Core.Items
         public string ItemType { get; private set; }
 
         public Guid MaterialTypeId { get; private set; }
+
+        public Guid SocketTypeId { get; private set; }
 
         public IMutableStatCollection Stats
         {
@@ -92,7 +104,14 @@ namespace ProjectXyz.Data.Core.Items
         #endregion
 
         #region Methods
-        public static IItemStore Create(Guid id, string name, string inventoryGraphicResource, string itemType, Guid materialTypeId, IEnumerable<string> equippableSlots)
+        public static IItemStore Create(
+            Guid id, 
+            string name, 
+            string inventoryGraphicResource, 
+            string itemType, 
+            Guid materialTypeId,
+            Guid socketTypeId, 
+            IEnumerable<string> equippableSlots)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentNullException>(name != null);
@@ -102,8 +121,10 @@ namespace ProjectXyz.Data.Core.Items
             Contract.Requires<ArgumentNullException>(itemType != null);
             Contract.Requires<ArgumentException>(itemType.Trim().Length > 0);
             Contract.Requires<ArgumentException>(materialTypeId != Guid.Empty);
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
+            Contract.Requires<ArgumentNullException>(equippableSlots != null);
             Contract.Ensures(Contract.Result<IItemStore>() != null);
-            return new ItemStore(id, name, inventoryGraphicResource, itemType, materialTypeId, equippableSlots);
+            return new ItemStore(id, name, inventoryGraphicResource, itemType, materialTypeId, socketTypeId, equippableSlots);
         }
         #endregion
     }

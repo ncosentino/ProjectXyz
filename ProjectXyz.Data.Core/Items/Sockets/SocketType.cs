@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
+using ProjectXyz.Data.Interface.Items.Sockets;
 
-using ProjectXyz.Data.Interface.Items.Materials;
-
-namespace ProjectXyz.Data.Core.Items.Materials
+namespace ProjectXyz.Data.Core.Items.Sockets
 {
-    public sealed class Material : IMaterial
+    public sealed class SocketType : ISocketType
     {
         #region Constructors
-        private Material(Guid materialId, Guid stringResourceId)
+        private SocketType(Guid socketTypeId, Guid stringResourceId)
         {
-            Contract.Requires<ArgumentException>(materialId != Guid.Empty);
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(stringResourceId != Guid.Empty);
 
-            Id = materialId;
+            Id = socketTypeId;
             StringResourceId = stringResourceId;
         }
         #endregion
@@ -36,12 +34,12 @@ namespace ProjectXyz.Data.Core.Items.Materials
         #endregion
 
         #region Methods
-        public static IMaterial Create(Guid materialId, Guid stringResourceId)
+        public static ISocketType Create(Guid socketTypeId, Guid stringResourceId)
         {
-            Contract.Requires<ArgumentException>(materialId != Guid.Empty);
+            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(stringResourceId != Guid.Empty);
-            Contract.Ensures(Contract.Result<IMaterial>() != null);
-            return new Material(materialId, stringResourceId);
+            Contract.Ensures(Contract.Result<ISocketType>() != null);
+            return new SocketType(socketTypeId, stringResourceId);
         }
         #endregion
     }

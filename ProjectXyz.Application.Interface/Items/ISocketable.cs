@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
 
 using ProjectXyz.Application.Interface.Items.Contracts;
 
@@ -12,15 +11,15 @@ namespace ProjectXyz.Application.Interface.Items
     public interface ISocketable
     {
         #region Properties
-        int TotalSockets { get; }
-
-        int OpenSockets { get; }
-
         IItemCollection SocketedItems { get; }
         #endregion
 
         #region Methods
         bool Socket(IItem item);
+
+        int GetOpenSocketsForType(Guid socketTypeId);
+
+        int GetTotalSocketsForType(Guid socketTypeId);
         #endregion
     }
 }

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Application.Interface.Items.Contracts;
+using ProjectXyz.Data.Interface.Items.Sockets;
 
 namespace ProjectXyz.Application.Interface.Items
 {
@@ -14,6 +12,8 @@ namespace ProjectXyz.Application.Interface.Items
     public interface IItemContext
     {
         #region Properties
+        IStatSocketTypeRepository StatSocketTypeRepository { get; }
+
         IEnchantmentCalculator EnchantmentCalculator { get; }
 
         IEnchantmentContext EnchantmentContext { get; }

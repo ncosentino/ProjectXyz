@@ -80,6 +80,20 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
+        public Guid SocketTypeId
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
+            }
+
+            set
+            {
+                Contract.Requires<ArgumentException>(value != Guid.Empty);
+            }
+        }
+
         public IMutableStatCollection Stats
         {
             get
