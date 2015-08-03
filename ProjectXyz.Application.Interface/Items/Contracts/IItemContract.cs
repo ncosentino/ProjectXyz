@@ -100,12 +100,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IEnchantmentCollection Enchantments
+        public IObservableEnchantmentCollection Enchantments
         {
             get
             {
-                Contract.Ensures(Contract.Result<IEnchantmentCollection>() != null);
-                return default(IEnchantmentCollection);
+                Contract.Ensures(Contract.Result<IObservableEnchantmentCollection>() != null);
+                return default(IObservableEnchantmentCollection);
             }
         }
 

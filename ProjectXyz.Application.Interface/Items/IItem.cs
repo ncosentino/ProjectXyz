@@ -11,7 +11,12 @@ using ProjectXyz.Application.Interface.Items.Contracts;
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IItemContract))]
-    public interface IItem : IGameObject, ISocketCandidate, ISocketable, IObservableDurability
+    public interface IItem : 
+        IGameObject, 
+        ISocketCandidate, 
+        ISocketable, 
+        IObservableDurability, 
+        IEnchantable
     {
         #region Properties
         string Name { get; }
@@ -32,15 +37,7 @@ namespace ProjectXyz.Application.Interface.Items
 
         IEnumerable<string> EquippableSlots { get; }
 
-        IEnchantmentCollection Enchantments { get; }
-
         IRequirements Requirements { get; }
-        #endregion
-        
-        #region Methods
-        void Enchant(IEnumerable<IEnchantment> enchantments);
-
-        void Disenchant(IEnumerable<IEnchantment> enchantments);
         #endregion
     }
 }

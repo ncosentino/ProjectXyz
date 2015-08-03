@@ -9,7 +9,7 @@ using ProjectXyz.Application.Interface.Enchantments.Contracts;
 namespace ProjectXyz.Application.Interface.Enchantments
 {
     [ContractClass(typeof(IMutableEnchantmentCollectionContract))]
-    public interface IMutableEnchantmentCollection : IEnchantmentCollection
+    public interface IMutableEnchantmentCollection : IObservableEnchantmentCollection
     {
         #region Methods
         void Add(IEnumerable<IEnchantment> enchantments);

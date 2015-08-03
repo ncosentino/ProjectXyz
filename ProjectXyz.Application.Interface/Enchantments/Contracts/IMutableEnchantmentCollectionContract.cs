@@ -9,6 +9,17 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
     [ContractClassFor(typeof(IMutableEnchantmentCollection))]
     public abstract class IMutableEnchantmentCollectionContract : IMutableEnchantmentCollection
     {
+        #region Events
+        public abstract event System.Collections.Specialized.NotifyCollectionChangedEventHandler CollectionChanged;
+        #endregion
+
+        #region Properties
+        public abstract int Count { get; }
+
+        public abstract IEnchantment this[int index] { get; }
+        #endregion
+
+        #region Methods
         public void Add(IEnumerable<IEnchantment> enchantments)
         {
             Contract.Requires<ArgumentNullException>(enchantments != null);
@@ -23,10 +34,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
         public void Clear()
         {
         }
-        
-        public abstract int Count { get; }
-
-        public abstract IEnchantment this[int index] { get; }
 
         public abstract bool Contains(IEnchantment enchantment);
 
@@ -36,5 +43,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
         {
             return GetEnumerator();
         }
+        #endregion
     }
 }

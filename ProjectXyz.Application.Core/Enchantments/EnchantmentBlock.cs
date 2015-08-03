@@ -24,11 +24,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             Contract.Requires<ArgumentNullException>(enchantments != null);
         }
         #endregion
-
-        #region Events
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-        #endregion
-
+        
         #region Methods
         new public static IEnchantmentBlock Create()
         {
@@ -55,56 +51,6 @@ namespace ProjectXyz.Application.Core.Enchantments
                     this.Remove(enchantment);
                     i--;
                 }
-            }
-        }
-
-        public override void Add(IEnumerable<IEnchantment> enchantments)
-        {
-            base.Add(enchantments);
-            OnCollectionChanged(
-                NotifyCollectionChangedAction.Add, 
-                enchantments.ToArray());
-        }
-        
-        public override bool Remove(IEnumerable<IEnchantment> enchantments)
-        {
-            bool removedAny = base.Remove(enchantments);
-
-            if (removedAny)
-            {
-                OnCollectionChanged(
-                    NotifyCollectionChangedAction.Remove,
-                    enchantments.ToArray());
-            }
-
-            return removedAny;
-        }
-
-        public override void Clear()
-        {
-            base.Clear();
-            OnCollectionReset();
-        }
-
-        private void OnCollectionReset()
-        {
-            var handler = CollectionChanged;
-            if (handler != null)
-            {
-                var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-                handler.Invoke(this, args);
-            }
-        }
-
-        private void OnCollectionChanged(NotifyCollectionChangedAction action, IList enchantments)
-        {
-            var handler = CollectionChanged;
-            if (handler != null)
-            {
-                var args = new NotifyCollectionChangedEventArgs(
-                    action,
-                    enchantments);
-                handler.Invoke(this, args);
             }
         }
         #endregion

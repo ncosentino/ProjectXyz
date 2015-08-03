@@ -5,6 +5,8 @@ using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
+using System.Collections.Specialized;
+using System.Collections;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
@@ -27,6 +29,10 @@ namespace ProjectXyz.Application.Core.Enchantments
             _enchantments = new List<IEnchantment>();
             _enchantments.AddRange(enchantments);
         }
+        #endregion
+
+        #region Events
+        public event System.Collections.Specialized.NotifyCollectionChangedEventHandler CollectionChanged;
         #endregion
 
         #region Properties
@@ -58,6 +64,10 @@ namespace ProjectXyz.Application.Core.Enchantments
         public virtual void Add(IEnumerable<IEnchantment> enchantments)
         {
             _enchantments.AddRange(enchantments);
+
+            OnCollectionChanged(
+                NotifyCollectionChangedAction.Add,
+                enchantments.ToArray());
         }
 
         public virtual bool Remove(IEnumerable<IEnchantment> enchantments)
@@ -68,12 +78,20 @@ namespace ProjectXyz.Application.Core.Enchantments
                 removedAny |= _enchantments.Remove(enchantment);
             }
 
+            if (removedAny)
+            {
+                OnCollectionChanged(
+                    NotifyCollectionChangedAction.Remove,
+                    enchantments.ToArray());
+            }
+
             return removedAny;
         }
 
         public virtual void Clear()
         {
             _enchantments.Clear();
+            OnCollectionReset();
         }
 
         public bool Contains(IEnchantment enchantment)
@@ -89,6 +107,28 @@ namespace ProjectXyz.Application.Core.Enchantments
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _enchantments.GetEnumerator();
+        }
+
+        private void OnCollectionReset()
+        {
+            var handler = CollectionChanged;
+            if (handler != null)
+            {
+                var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+                handler.Invoke(this, args);
+            }
+        }
+
+        private void OnCollectionChanged(NotifyCollectionChangedAction action, IList enchantments)
+        {
+            var handler = CollectionChanged;
+            if (handler != null)
+            {
+                var args = new NotifyCollectionChangedEventArgs(
+                    action,
+                    enchantments);
+                handler.Invoke(this, args);
+            }
         }
         #endregion       
     }

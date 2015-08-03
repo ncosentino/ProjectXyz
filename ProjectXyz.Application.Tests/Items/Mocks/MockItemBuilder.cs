@@ -124,15 +124,29 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
         {
             Contract.Ensures(Contract.Result<IItem>() != null);
 
+            var enchantmentCollection = EnchantmentCollection.Create(_enchantments);
+
             _item
                 .Setup(x => x.Enchantments)
-                .Returns(EnchantmentCollection.Create(_enchantments));
+                .Returns(enchantmentCollection);
             _item
                 .Setup(x => x.Requirements)
                 .Returns(new MockRequirementsBuilder().Build());
             _item
                 .Setup(x => x.Stats)
                 .Returns(StatCollection.Create(_stats));
+            _item
+                .Setup(x => x.Enchant(It.IsAny<IEnumerable<IEnchantment>>()))
+                .Callback<IEnumerable<IEnchantment>>(enchantments =>
+                {
+                    enchantmentCollection.Add(enchantments);
+                });
+            _item
+                .Setup(x => x.Disenchant(It.IsAny<IEnumerable<IEnchantment>>()))
+                .Callback<IEnumerable<IEnchantment>>(enchantments =>
+                {
+                    enchantmentCollection.Remove(enchantments);
+                });
 
             return _item.Object;
         }

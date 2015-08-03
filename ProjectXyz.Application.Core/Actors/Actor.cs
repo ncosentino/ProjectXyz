@@ -220,11 +220,10 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             item.DurabilityChanged += EquippedItem_DurabilityChanged;
+            item.Enchantments.CollectionChanged += EquippedItem_EnchantmentsChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
             _enchantments.Add(enchantments);
-            
-            FlagStatsAsDirty();
         }
 
         private void OnItemUnequipped(IItem item)
@@ -233,11 +232,10 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             item.DurabilityChanged -= EquippedItem_DurabilityChanged;
+            item.Enchantments.CollectionChanged -= EquippedItem_EnchantmentsChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
             _enchantments.Remove(enchantments);
-
-            FlagStatsAsDirty();
         }
 
         private void OnEquippedItemBroken(IItem item, IMutableEquipment equipment, IMutableInventory destination)
@@ -257,8 +255,6 @@ namespace ProjectXyz.Application.Core.Actors
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Add(enchantments);
-
-            FlagStatsAsDirty();
         }
 
         private void OnItemLost(IItem item)
@@ -268,12 +264,27 @@ namespace ProjectXyz.Application.Core.Actors
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Remove(enchantments);
-
-            FlagStatsAsDirty();
         }
         #endregion
 
         #region Event Handlers
+        private void EquippedItem_EnchantmentsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                _enchantments.Add(e.NewItems
+                    .Cast<IEnchantment>()
+                    .TriggeredBy(EnchantmentTriggers.Equip));
+            }
+
+            if (e.OldItems != null)
+            {
+                _enchantments.Remove(e.NewItems
+                    .Cast<IEnchantment>()
+                    .TriggeredBy(EnchantmentTriggers.Equip));
+            }
+        }
+
         private void EquippedItem_DurabilityChanged(object sender, EventArgs e)
         {
             Contract.Requires<ArgumentNullException>(sender != null);

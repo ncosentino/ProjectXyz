@@ -192,6 +192,51 @@ namespace ProjectXyz.Application.Tests.Actors
         }
 
         [Fact]
+        public void Actor_EquippedItemChangesEnchantments_StatsAreRecalculated()
+        {
+            const double LIFE_BUFF = 100;
+            const double BASE_LIFE = 50;
+
+            var enchantment = new MockEnchantmentBuilder()
+                .WithCalculationId(EnchantmentCalculationTypes.Value)
+                .WithStatId(ActorStats.MaximumLife)
+                .WithValue(LIFE_BUFF)
+                .WithTrigger(EnchantmentTriggers.Equip)
+                .Build();
+
+            var itemToBeEnchanted = new MockItemBuilder()
+                .WithEquippableSlots("Some slot")
+                .WithDurability(1, 1)
+                .Build();
+
+            var data = new MockActorBuilder()
+                .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
+                .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
+                .Build();
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(EnchantmentCalculator.Create());
+
+            var actor = Actor.Create(
+                context.Object,
+                data);
+
+            AssertEquipItem(
+                actor,
+                itemToBeEnchanted,
+                () =>
+                {
+                    // Execute
+                    itemToBeEnchanted.Enchant(enchantment);
+
+                    // Assert
+                    Assert.Equal(BASE_LIFE, actor.GetCurrentLife());
+                    Assert.Equal(BASE_LIFE + LIFE_BUFF, actor.GetMaximumLife());
+                });
+        }
+
+        [Fact]
         public void Actor_EquipBrokenItem_Fails()
         {
             var item = new MockItemBuilder()

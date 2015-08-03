@@ -178,8 +178,8 @@ namespace ProjectXyz.Application.Core.Items
         {
             get { return _equippableSlots; }
         }
-        
-        public IEnchantmentCollection Enchantments
+
+        public IObservableEnchantmentCollection Enchantments
         {
             get { return _enchantments; }
         }
