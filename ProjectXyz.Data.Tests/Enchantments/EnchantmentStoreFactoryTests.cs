@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Xunit;
-
-using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Data.Tests.Enchantments
 {
@@ -16,32 +13,35 @@ namespace ProjectXyz.Data.Tests.Enchantments
     {
         #region Methods
         [Fact]
-        public void EnchantmentStoreFactory_CreateEnchantmentStore_ExpectedValues()
+        public void CreateEnchantmentStore_ValidParameters_ExpectedValues()
         {
-            var factory = EnchantmentStoreFactory.Create();
-
-            var ID = Guid.NewGuid();
-            var STAT_ID = Guid.NewGuid();
-            var CALCULATION_ID = Guid.NewGuid();
-            var TRIGGER_ID = Guid.NewGuid();
-            var STATUS_TYPE_ID = Guid.NewGuid();
+            // Setup
+            var id = Guid.NewGuid();
+            var enchantmentTypeId = Guid.NewGuid();
+            var statId = Guid.NewGuid();
+            var triggerId = Guid.NewGuid();
+            var statusTypeId = Guid.NewGuid();
             const double VALUE = 123;
             const double DURATION_MILLISECONDS = 1234;
 
+            var factory = AdditiveEnchantmentStoreFactory.Create();
+
+            // Execute
             var result = factory.CreateEnchantmentStore(
-                ID,
-                STAT_ID,
-                CALCULATION_ID,
-                TRIGGER_ID,
-                STATUS_TYPE_ID,
+                id,
+                enchantmentTypeId,
+                statId,
+                triggerId,
+                statusTypeId,
                 TimeSpan.FromMilliseconds(DURATION_MILLISECONDS),
                 VALUE);
 
-            Assert.Equal(ID, result.Id);
-            Assert.Equal(STAT_ID, result.StatId);
-            Assert.Equal(CALCULATION_ID, result.CalculationId);
-            Assert.Equal(TRIGGER_ID, result.TriggerId);
-            Assert.Equal(STATUS_TYPE_ID, result.StatusTypeId);
+            // Assert
+            Assert.Equal(id, result.Id);
+            Assert.Equal(enchantmentTypeId, result.EnchantmentTypeId);
+            Assert.Equal(statId, result.StatId);
+            Assert.Equal(triggerId, result.TriggerId);
+            Assert.Equal(statusTypeId, result.StatusTypeId);
             Assert.Equal(VALUE, result.Value);
             Assert.Equal(DURATION_MILLISECONDS, result.RemainingDuration.TotalMilliseconds);
         }

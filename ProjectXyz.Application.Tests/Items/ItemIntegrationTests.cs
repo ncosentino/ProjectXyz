@@ -1,17 +1,19 @@
-﻿using Moq;
-
-using Xunit;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Moq;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Application.Tests.Enchantments.Mocks;
+using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments;
 using ProjectXyz.Application.Tests.Xunit.Assertions.Stats;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Application.Tests.Enchantments.Mocks;
-using ProjectXyz.Application.Tests.Items.Mocks;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
-using ProjectXyz.Data.Core.Enchantments;
+using Xunit;
 
 namespace ProjectXyz.Application.Tests.Items
 {
@@ -20,7 +22,7 @@ namespace ProjectXyz.Application.Tests.Items
     public class ItemIntegrationTests
     {
         [Fact]
-        public void Item_SaveAndLoad_CreatesEquivalentItem()
+        public void Item_SaveAndLoadNoEnchantments_CreatesEquivalentItem()
         {
             var sourceData = new Data.Tests.Items.Mocks.MockItemBuilder()
                 .WithStats(Stat.Create(ItemStats.Value, 1234567))
@@ -29,13 +31,9 @@ namespace ProjectXyz.Application.Tests.Items
             var item = Item.Create(
                 new MockItemContextBuilder().Build(),
                 sourceData);
-            var enchantment = new MockEnchantmentBuilder()
-                .WithStatId(ActorStats.MaximumLife)
-                .WithValue(1234567)
-                .Build();
-            item.Enchant(enchantment);
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
+            var enchantmentSaver = EnchantmentSaver.Create();
+            var itemSaver = ItemSaver.Create(enchantmentSaver);
             var savedData = itemSaver.Save(item);
 
             var rebuiltItem = Item.Create(
@@ -55,7 +53,7 @@ namespace ProjectXyz.Application.Tests.Items
             AssertStats.Equal(item.Stats, rebuiltItem.Stats);
 
             // enchantments
-            AssertEnchantments.Equal(item.Enchantments, rebuiltItem.Enchantments);
+            Assert.Empty(item.Enchantments);
         }
     }
 }

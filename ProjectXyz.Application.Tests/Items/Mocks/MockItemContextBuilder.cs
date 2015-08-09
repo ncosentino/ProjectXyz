@@ -4,9 +4,10 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using Moq;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Sockets;
@@ -19,17 +20,19 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
         private readonly Mock<IItemContext> _itemContext;
 
         private IEnchantmentCalculator _enchantmentCalculator;
-        private IEnchantmentContext _enchantmentContext;
         private IStatSocketTypeRepository _statSocketTypeRepository;
+        private IEnchantmentFactory _enchantmentFactory;
         #endregion
 
         #region Constructors
         public MockItemContextBuilder()
         {
             _itemContext = new Mock<IItemContext>();
-            _enchantmentCalculator = EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object);
-            _enchantmentContext = new MockEnchantmentContextBuilder().Build();
+            _enchantmentCalculator = CreateEnchantmentCalculator();
             _statSocketTypeRepository = new Mock<IStatSocketTypeRepository>().Object;
+
+            var enchantmentContext = EnchantmentContext.Create();
+            _enchantmentFactory = EnchantmentFactory.Create(enchantmentContext);
         }
         #endregion
 
@@ -40,18 +43,18 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
             _enchantmentCalculator = enchantmentCalculator;
             return this;
         }
-
-        public MockItemContextBuilder WithEnchantmentContext(IEnchantmentContext enchantmentContext)
-        {
-            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
-            _enchantmentContext = enchantmentContext;
-            return this;
-        }
-
+        
         public MockItemContextBuilder WithStatSocketTypeRepository(IStatSocketTypeRepository statSocketTypeRepository)
         {
             Contract.Requires<ArgumentNullException>(statSocketTypeRepository != null);
             _statSocketTypeRepository = statSocketTypeRepository;
+            return this;
+        }
+
+        public MockItemContextBuilder WithEnchantmentFactory(IEnchantmentFactory enchantmentFactory)
+        {
+            Contract.Requires<ArgumentNullException>(enchantmentFactory != null);
+            _enchantmentFactory = enchantmentFactory;
             return this;
         }
 
@@ -63,13 +66,29 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
                 .Setup(x => x.EnchantmentCalculator)
                 .Returns(_enchantmentCalculator);
             _itemContext
-                .Setup(x => x.EnchantmentContext)
-                .Returns(_enchantmentContext);
+                .Setup(x => x.EnchantmentFactory)
+                .Returns(_enchantmentFactory);
             _itemContext
                 .Setup(x => x.StatSocketTypeRepository)
                 .Returns(_statSocketTypeRepository);
 
             return _itemContext.Object;
+        }
+
+        private IEnchantmentCalculator CreateEnchantmentCalculator()
+        {
+            var statusNegationRepository = new Mock<IStatusNegationRepository>();
+            statusNegationRepository
+                .Setup(x => x.GetAll())
+                .Returns(Enumerable.Empty<IStatusNegation>());
+
+            return EnchantmentCalculator.Create(
+                EnchantmentCalculatorResultFactory.Create(),
+                new[]
+                {
+                    NegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
+                    AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
+                });
         }
         #endregion
     }

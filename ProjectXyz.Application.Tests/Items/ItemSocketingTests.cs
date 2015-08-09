@@ -5,7 +5,6 @@ using Moq;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Application.Tests.Items.Mocks;
-using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Sockets;
@@ -67,10 +66,9 @@ namespace ProjectXyz.Application.Tests.Items
             Guid statIdForSocketing = Guid.NewGuid();
             Guid socketTypeId = Guid.NewGuid();
 
-            var socketCandidateEnchantment = new MockEnchantmentBuilder()
+            var socketCandidateEnchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.Value)
                 .WithValue(123456)
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .Build();
 
             var socketCandidate = new MockItemBuilder()
@@ -181,10 +179,9 @@ namespace ProjectXyz.Application.Tests.Items
             Guid statIdForSocketing = Guid.NewGuid();
             Guid socketTypeId = Guid.NewGuid();
 
-            var socketCandidateEnchantment = new MockEnchantmentBuilder()
+            var socketCandidateEnchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.Value)
                 .WithValue(123456)
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
                 .WithRemainingTime(TimeSpan.FromSeconds(5), TimeSpan.Zero)
                 .Build();
 

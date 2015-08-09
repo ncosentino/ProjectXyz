@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
-using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -18,100 +18,56 @@ namespace ProjectXyz.Application.Tests.Enchantments
     public class EnchantmentCalculatorTests
     {
         [Fact]
-        public void EnchantmentCalculator_CalculateSingleEnchantment_BoostsStat()
+        public void Calculate_SingleEnchantmentSingleCalculator_ReturnsResult()
         {
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            // Setup
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(10)
                 .Build();
 
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object);
-            var stats = calculator.Calculate(
-                StatCollection.Create(), 
-                new IEnchantment[]
+            var stats = StatCollection.Create();
+
+            var enchantmentTypeCalculatorResult = new Mock<IEnchantmentTypeCalculatorResult>(MockBehavior.Strict);
+            enchantmentTypeCalculatorResult
+                .Setup(x => x.ProcessedEnchantments)
+                .Returns(new[] { enchantment });
+            enchantmentTypeCalculatorResult
+                .Setup(x => x.RemovedEnchantments)
+                .Returns(Enumerable.Empty<IEnchantment>());
+            enchantmentTypeCalculatorResult
+                .Setup(x => x.Stats)
+                .Returns(stats);
+
+            var enchantmentTypeCalculator = new Mock<IEnchantmentTypeCalculator>(MockBehavior.Strict);
+            enchantmentTypeCalculator
+                .Setup(x => x.Calculate(stats, new[] { enchantment }))
+                .Returns(enchantmentTypeCalculatorResult.Object);
+
+            var enchantmentCalculatorResult = new Mock<IEnchantmentCalculatorResult>(MockBehavior.Strict);
+
+            var enchantmentCalculatorResultFactory = new Mock<IEnchantmentCalculatorResultFactory>(MockBehavior.Strict);
+            enchantmentCalculatorResultFactory
+                .Setup(x => x.Create(new[] { enchantment }, stats))
+                .Returns(enchantmentCalculatorResult.Object);
+
+            var calculator = EnchantmentCalculator.Create(
+                enchantmentCalculatorResultFactory.Object,
+                new[]
+                {
+                    enchantmentTypeCalculator.Object,
+                });
+
+            // Execute
+            var result = calculator.Calculate(
+                stats, 
+                new[]
                 {
                     enchantment,
                 });
 
-            Assert.Equal(1, stats.Count);
-            Assert.True(
-                stats.Contains(enchantment.StatId),
-                "Expecting to contain " + enchantment.StatId + ".");
-            Assert.Equal(enchantment.Value, stats[enchantment.StatId].Value);
-        }
-
-        [Fact]
-        public void EnchantmentCalculator_CalculateMultipleEnchantmentsSameStat_BoostsStat()
-        {
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithStatId(ActorStats.MaximumLife)
-                .WithValue(10)
-                .Build();
-
-            var enchantments = new IEnchantment[]
-            {
-                enchantment,
-                enchantment,
-                enchantment
-            };
-
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object);
-            var stats = calculator.Calculate(
-                StatCollection.Create(),
-                enchantments);
-
-            Assert.Equal(1, stats.Count);
-            Assert.True(
-                stats.Contains(enchantment.StatId),
-                "Expecting to contain " + enchantment.StatId + ".");
-            Assert.Equal(enchantments.Length * enchantment.Value, stats[enchantment.StatId].Value);
-        }
-
-        [Fact]
-        public void EnchantmentCalculator_CalculateStatusNegation_NegatesExpectedStatus()
-        {
-            // Setup
-            var status = EnchantmentStatuses.Curse;
-            var stat = ActorStats.Bless;
-
-            var curseEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithStatId(ActorStats.MaximumLife)
-                .WithValue(-10)
-                .WithStatusType(status)
-                .Build();
-            
-            var blessEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithStatId(stat)
-                .WithValue(0)
-                .Build();
-
-            var enchantments = new IEnchantment[]
-            {
-                curseEnchantment,
-                blessEnchantment,
-            };
-
-            var statusNegationRepository = new Mock<IStatusNegationRepository>();
-            statusNegationRepository
-                .Setup(x => x.GetAll())
-                .Returns(new[]
-                {
-                    StatusNegation.Create(stat, status)
-                });
-
-            var calculator = EnchantmentCalculator.Create(StatFactory.Create(), statusNegationRepository.Object);
-
-            // Execute
-            var stats = calculator.Calculate(StatCollection.Create(), enchantments);
-
             // Assert
-            Assert.False(
-                stats.Contains(curseEnchantment.StatId),
-                "Expecting the stat to be removed.");
+            Assert.Equal(enchantmentCalculatorResult.Object, result);
         }
     }
 }

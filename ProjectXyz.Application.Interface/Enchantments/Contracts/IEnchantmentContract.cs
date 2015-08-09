@@ -18,27 +18,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             }
         }
 
-        public Guid StatId
-        {
-            get
-            {
-                return default(Guid);
-            }
-        }
-
-        public double Value
-        {
-            get { return default(double); }
-        }
-
-        public Guid CalculationId
-        {
-            get
-            {
-                return default(Guid);
-            }
-        }
-        
         public Guid TriggerId
         {
             get

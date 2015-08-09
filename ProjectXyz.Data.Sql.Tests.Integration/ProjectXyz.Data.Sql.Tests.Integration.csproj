@@ -141,7 +141,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\EnchantmentDefinitionRepositoryTests.cs" />
+    <Compile Include="Enchantments\AdditiveEnchantmentStoreRepositoryTests.cs" />
+    <Compile Include="Enchantments\EnchantmentTypeRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

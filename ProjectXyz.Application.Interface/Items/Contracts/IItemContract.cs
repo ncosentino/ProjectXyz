@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Stats;
 
@@ -14,6 +13,8 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     {
         #region Events
         public abstract event EventHandler<EventArgs> DurabilityChanged;
+
+        public abstract event NotifyCollectionChangedEventHandler EnchantmentsChanged;
         #endregion
 
         #region Properties
@@ -109,12 +110,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IObservableEnchantmentCollection Enchantments
+        public IEnchantmentCollection Enchantments
         {
             get
             {
-                Contract.Ensures(Contract.Result<IObservableEnchantmentCollection>() != null);
-                return default(IObservableEnchantmentCollection);
+                Contract.Ensures(Contract.Result<IEnchantmentCollection>() != null);
+                return default(IEnchantmentCollection);
             }
         }
 

@@ -1,18 +1,15 @@
 ﻿using System;
-
-using Moq;
-using Xunit;
-
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Items.Materials;
+using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
-using ProjectXyz.Tests.Xunit.Categories;
-using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
-using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Data.Core.Items;
+using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Application.Tests.Items
 {
@@ -35,8 +32,7 @@ namespace ProjectXyz.Application.Tests.Items
                     new[] { "" }));
             var baseCurrentDurability = item.CurrentDurability;
             var baseMaximumDurability = item.MaximumDurability;
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.MaximumDurability)
                 .WithValue(100)
                 .Build();
@@ -60,8 +56,7 @@ namespace ProjectXyz.Application.Tests.Items
                 new MockItemContextBuilder().Build(), 
                 itemData);
             var baseMaximumDurability = item.MaximumDurability;
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
                 .Build();
@@ -95,8 +90,7 @@ namespace ProjectXyz.Application.Tests.Items
             var item = Item.Create(
                 new MockItemContextBuilder().Build(), 
                 itemData);
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
                 .Build();

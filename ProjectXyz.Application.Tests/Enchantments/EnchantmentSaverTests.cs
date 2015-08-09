@@ -1,12 +1,12 @@
 ﻿using System;
-
-using Xunit;
-
+using System.Collections.Generic;
+using System.Linq;
+using Moq;
 using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Application.Tests.Enchantments.Mocks;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Application.Tests.Enchantments
 {
@@ -15,22 +15,42 @@ namespace ProjectXyz.Application.Tests.Enchantments
     public class EnchantmentSaverTests
     {
         [Fact]
-        public void EnchantmentSaver_SaveEnchantment_GeneratesValidData()
+        public void SaveEnchantment_RegisteredType_Success()
         {
-            var enchantment = new MockEnchantmentBuilder()
-                .WithStatId(ActorStats.MaximumLife)
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
-                .WithRemainingTime(TimeSpan.FromSeconds(123))
-                .WithValue(1234567)
-                .Build();
+            // Setup
+            var enchantmentStore = new Mock<IEnchantmentStore>();
 
-            var enchantmentSaver = EnchantmentSaver.Create(EnchantmentStoreFactory.Create());
-            var savedData = enchantmentSaver.Save(enchantment);
+            var enchantment = new Mock<IEnchantment>(MockBehavior.Strict);
 
-            Assert.Equal(enchantment.CalculationId, savedData.CalculationId);
-            Assert.Equal(enchantment.RemainingDuration, savedData.RemainingDuration);
-            Assert.Equal(enchantment.StatId, savedData.StatId);
-            Assert.Equal(enchantment.Value, savedData.Value);
+            SaveEnchantmentDelegate callback = x =>
+            {
+                return enchantmentStore.Object;
+            };
+
+            var enchantmentSaver = EnchantmentSaver.Create();
+            enchantmentSaver.RegisterCallbackForType(enchantment.Object.GetType(), callback);
+
+            // Execute
+            var result = enchantmentSaver.Save(enchantment.Object);
+
+            // Assert
+            Assert.Equal(enchantmentStore.Object, result);
+        }
+
+        [Fact]
+        public void SaveEnchantment_TypeNotRegistered_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var enchantment = new Mock<IEnchantment>(MockBehavior.Strict);
+
+            var enchantmentSaver = EnchantmentSaver.Create();
+
+            Assert.ThrowsDelegateWithReturn method = () => enchantmentSaver.Save(enchantment.Object);
+
+            // Execute
+            var result = Assert.Throws<InvalidOperationException>(method);
+
+            // Assert
         }
     }
 }

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments.Contracts
 {
-    [ContractClassFor(typeof(IEnchantmentStoreRepository))]
-    public abstract class IEnchantmentStoreRepositoryContract : IEnchantmentStoreRepository
+    [ContractClassFor(typeof(IEnchantmentStoreRepository<>))]
+    public abstract class IEnchantmentStoreRepositoryContract<TEnchantmentStore> : IEnchantmentStoreRepository<TEnchantmentStore>
+        where TEnchantmentStore : IEnchantmentStore
     {
         #region Methods
-        public IEnchantmentStore GetById(Guid id)
+        public TEnchantmentStore GetById(Guid id)
         {
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<TEnchantmentStore>() != null);
 
-            return default(IEnchantmentStore);
+            return default(TEnchantmentStore);
         }
 
-        public void Add(IEnchantmentStore enchantmentStore)
+        public void Add(TEnchantmentStore enchantmentStore)
         {
             Contract.Requires<ArgumentNullException>(enchantmentStore != null);
         }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 using System.Diagnostics.Contracts;
-
-using ProjectXyz.Data.Interface.Enchantments;
+using System.Linq;
 
 namespace ProjectXyz.Data.Sql
 {

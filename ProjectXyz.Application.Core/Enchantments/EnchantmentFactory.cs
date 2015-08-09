@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
-using ProjectXyz.Data.Interface.Enchantments;
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
@@ -14,6 +11,7 @@ namespace ProjectXyz.Application.Core.Enchantments
     {
         #region Fields
         private readonly IEnchantmentContext _enchantmentContext;
+        private readonly Dictionary<Type, CreateEnchantmentDelegate> _createEnchantmentMapping;
         #endregion
 
         #region Constructors
@@ -22,6 +20,7 @@ namespace ProjectXyz.Application.Core.Enchantments
             Contract.Requires<ArgumentNullException>(enchantmentContext != null);
 
             _enchantmentContext = enchantmentContext;
+            _createEnchantmentMapping = new Dictionary<Type, CreateEnchantmentDelegate>();
         }
         #endregion
 
@@ -34,29 +33,27 @@ namespace ProjectXyz.Application.Core.Enchantments
             return new EnchantmentFactory(enchantmentContext);
         }
 
-        public IEnchantment Create(IEnchantmentStore enchantmentStore)
+        public void RegisterCallbackForType<TSpecificType>(CreateEnchantmentDelegate callbackToRegister)
+            where TSpecificType : IEnchantment
         {
-            return Enchantment.Create(_enchantmentContext, enchantmentStore);
+            RegisterCallbackForType(typeof(TSpecificType), callbackToRegister);
         }
 
-        public IEnchantment Create(
-            Guid id,
-            Guid statId, 
-            Guid statusTypeId, 
-            Guid triggerId, 
-            Guid calculationId, 
-            double value, 
-            TimeSpan duration)
+        public void RegisterCallbackForType(Type type, CreateEnchantmentDelegate callbackToRegister)
         {
-            return Enchantment.Create(
-                _enchantmentContext,
-                id,
-                statId,
-                statusTypeId,
-                triggerId,
-                calculationId,
-                value,
-                duration);
+            _createEnchantmentMapping[type] = callbackToRegister;
+        }
+
+        public IEnchantment Create(IEnchantmentStore enchantmentStore)
+        {
+            var enchantmentType = enchantmentStore.GetType();
+            if (!_createEnchantmentMapping.ContainsKey(enchantmentType))
+            {
+                throw new InvalidOperationException(string.Format("No callback registered for type '{0}'.", enchantmentType));
+            }
+
+            var enchantment = _createEnchantmentMapping[enchantmentType].Invoke(_enchantmentContext, enchantmentStore);
+            return enchantment;
         }
         #endregion
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Data.Interface.Actors;
 using ProjectXyz.Data.Interface.Diseases;
@@ -14,12 +13,12 @@ namespace ProjectXyz.Data.Interface.Contracts
     public abstract class IDataStoreContract : IDataStore
     {
         #region Properties
-        public IEnchantmentStoreRepository Enchantments
+        public IEnchantmentStoreRepository<IAdditiveEnchantmentStore> AdditiveEnchantments
         {
             get
             {
-                Contract.Ensures(Contract.Result<IEnchantmentStoreRepository>() != null);
-                return default(IEnchantmentStoreRepository);
+                Contract.Ensures(Contract.Result<IEnchantmentStoreRepository<IAdditiveEnchantmentStore>>() != null);
+                return default(IEnchantmentStoreRepository<IAdditiveEnchantmentStore>);
             }
         }
 

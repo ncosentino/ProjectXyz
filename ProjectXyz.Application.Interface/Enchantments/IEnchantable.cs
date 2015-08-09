@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
     public interface IEnchantable
     {
+        #region Events
+        event NotifyCollectionChangedEventHandler EnchantmentsChanged;
+        #endregion
+
         #region Properties
-        IObservableEnchantmentCollection Enchantments { get; }
+        IEnchantmentCollection Enchantments { get; }
         #endregion
 
         #region Methods

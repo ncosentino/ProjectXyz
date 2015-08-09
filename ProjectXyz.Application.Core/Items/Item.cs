@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics.Contracts;
 using System.Collections.Specialized;
-
-using ProjectXyz.Data.Interface.Stats;
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
+using System.Diagnostics.Contracts;
+using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
+using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -39,7 +37,9 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Constructors
-        protected Item(IItemContext context, IItemStore item)
+        protected Item(
+            IItemContext context, 
+            IItemStore item)
         {
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(item != null);
@@ -61,7 +61,7 @@ namespace ProjectXyz.Application.Core.Items
             var socketedItems = item.SocketedItems.Select(x => Item.Create(_context, x));
             _socketedItems = ItemCollection.Create(socketedItems);
 
-            var enchantments = item.Enchantments.Select(x => Enchantment.Create(context.EnchantmentContext, x));
+            var enchantments = item.Enchantments.Select(x => context.EnchantmentFactory.Create(x));
             _enchantments = EnchantmentBlock.Create(enchantments);
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
 
@@ -71,6 +71,8 @@ namespace ProjectXyz.Application.Core.Items
 
         #region Events
         public event EventHandler<EventArgs> DurabilityChanged;
+
+        public event NotifyCollectionChangedEventHandler EnchantmentsChanged;
         #endregion
 
         #region Properties
@@ -168,7 +170,7 @@ namespace ProjectXyz.Application.Core.Items
             get { return _equippableSlots; }
         }
 
-        public IObservableEnchantmentCollection Enchantments
+        public IEnchantmentCollection Enchantments
         {
             get { return _enchantments; }
         }
@@ -257,10 +259,38 @@ namespace ProjectXyz.Application.Core.Items
             var maximumDurability = _stats == null 
                 ? 0 
                 : (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0);
-            
-            _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
+
+            var result = _context.EnchantmentCalculator.Calculate(
                 _baseStats,
-                _enchantments));
+                _enchantments);
+
+            // we need to keep the enchantment change event from triggering
+            try
+            {
+                _enchantments.CollectionChanged -= Enchantments_CollectionChanged;
+
+                var newEnchantments = result.Enchantments.ToArray();
+                var addedEnchantments = newEnchantments.Except(_enchantments);
+                var removedEnchantments = _enchantments.Except(newEnchantments);
+                var enchantmentsDiffered = addedEnchantments.Any() || removedEnchantments.Any();
+
+                _enchantments.Clear();
+                _enchantments.Add(result.Enchantments);
+
+                if (enchantmentsDiffered)
+                {
+                    OnEnchantmentsChanged(new NotifyCollectionChangedEventArgs(
+                        NotifyCollectionChangedAction.Reset,
+                        addedEnchantments.ToArray(),
+                        removedEnchantments.ToArray()));
+                }
+            }
+            finally 
+            {
+                _enchantments.CollectionChanged += Enchantments_CollectionChanged;
+            }
+
+            _stats = StatCollection.Create(result.Stats);
             _stats.Set(Stat.Create(
                 ItemStats.Weight, 
                 CalculateWeight(_stats, _socketedItems)));
@@ -345,6 +375,15 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        private void OnEnchantmentsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            var handler = EnchantmentsChanged;
+            if (handler != null)
+            {
+                handler.Invoke(this, e);
+            }
+        }
+
         [ContractInvariantMethod]
         private void InvariantMethod()
         {
@@ -361,6 +400,7 @@ namespace ProjectXyz.Application.Core.Items
         private void Enchantments_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             RecalculateStats();
+            OnEnchantmentsChanged(e);
         }
         #endregion
     }

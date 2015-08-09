@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Data.Interface.Items.Sockets;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
@@ -29,12 +30,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IEnchantmentContext EnchantmentContext
+        public IEnchantmentFactory EnchantmentFactory
         {
             get
             {
-                Contract.Ensures(Contract.Result<IEnchantmentContext>() != null);
-                return default(IEnchantmentContext);
+                Contract.Ensures(Contract.Result<IEnchantmentFactory>() != null);
+                return default(IEnchantmentFactory);
             }
         }
         #endregion

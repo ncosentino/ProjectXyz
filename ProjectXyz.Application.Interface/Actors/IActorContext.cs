@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 
 namespace ProjectXyz.Application.Interface.Actors
 {

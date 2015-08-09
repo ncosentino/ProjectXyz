@@ -154,15 +154,17 @@
     <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerFactoryContract.cs" />
-    <Compile Include="Enchantments\Contracts\IEnchantmentStoreFactoryContract.cs" />
+    <Compile Include="Enchantments\Contracts\IAdditiveEnchantmentStoreFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentTypeDefinitionRepository.cs" />
+    <Compile Include="Enchantments\IEnchantmentStoreRepository.cs" />
     <Compile Include="Enchantments\IStatusNegationRepository.cs" />
     <Compile Include="Enchantments\IStatusNegationFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentDefinition.cs" />
-    <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentDefinitionRepository.cs" />
+    <Compile Include="Enchantments\IAdditiveEnchantmentDefinition.cs" />
+    <Compile Include="Enchantments\IAdditiveEnchantmentDefinitionFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentTypeRepository.cs" />
     <Compile Include="Enchantments\IMagicTypesRandomAffixesRepository.cs" />
     <Compile Include="Enchantments\IMagicTypesRandomAffixesFactory.cs" />
     <Compile Include="Enchantments\IMagicTypesRandomAffixes.cs" />
@@ -175,15 +177,13 @@
     <Compile Include="Enchantments\IEnchantmentTriggerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTrigger.cs" />
-    <Compile Include="Enchantments\IEnchantmentStoreFactory.cs" />
+    <Compile Include="Enchantments\IAdditiveEnchantmentStoreFactory.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentStoreExtensionMethods.cs" />
-    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentStoreCollectionExtensionMethods.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreContract.cs" />
     <Compile Include="Enchantments\Contracts\IMutableEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreCollectionContract.cs" />
     <Compile Include="Enchantments\IEnchantmentStoreCollection.cs" />
     <Compile Include="Enchantments\IEnchantmentStore.cs" />
-    <Compile Include="Enchantments\IEnchantmentStoreRepository.cs" />
     <Compile Include="Items\IItemAffixDefinition.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
     <Compile Include="IDataStore.cs" />
@@ -220,7 +220,12 @@
     <Compile Include="Stats\IStatFactory.cs" />
     <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
+      <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
+      <Name>ProjectXyz.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

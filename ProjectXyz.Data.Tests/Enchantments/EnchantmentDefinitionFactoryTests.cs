@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Xunit;
-
-using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Data.Core.Enchantments;
+using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
 
 namespace ProjectXyz.Data.Tests.Enchantments
 {
     [Enchantments]
     [DataLayer]
-    public class EnchantmentDefinitionFactoryTests
+    public class AdditiveEnchantmentDefinitionFactoryTests
     {
         #region Methods
         [Fact]
         public void EnchantmentDefinitionFactory_CreateEnchantmentDefinition_ExpectedValues()
         {
-            var factory = EnchantmentDefinitionFactory.Create();
-
+            // Setup
             var ID = Guid.NewGuid();
             var STAT_ID = Guid.NewGuid();
-            var CALCULATION_ID = Guid.NewGuid();
             var TRIGGER_ID = Guid.NewGuid();
             var STATUS_TYPE_ID = Guid.NewGuid();
             const double MINIMUM_VALUE = 123;
@@ -30,10 +25,12 @@ namespace ProjectXyz.Data.Tests.Enchantments
             const double MINIMUM_DURATION_MILLISECONDS = 1234;
             const double MAXIMUM_DURATION_MILLISECONDS = 5678;
 
+            var factory = AdditiveEnchantmentDefinitionFactory.Create();
+
+            // Execute
             var result = factory.CreateEnchantmentDefinition(
                 ID,
                 STAT_ID,
-                CALCULATION_ID,
                 TRIGGER_ID,
                 STATUS_TYPE_ID,
                 MINIMUM_VALUE,
@@ -41,9 +38,9 @@ namespace ProjectXyz.Data.Tests.Enchantments
                 TimeSpan.FromMilliseconds(MINIMUM_DURATION_MILLISECONDS),
                 TimeSpan.FromMilliseconds(MAXIMUM_DURATION_MILLISECONDS));
 
+            // Assert
             Assert.Equal(ID, result.Id);
             Assert.Equal(STAT_ID, result.StatId);
-            Assert.Equal(CALCULATION_ID, result.CalculationId);
             Assert.Equal(TRIGGER_ID, result.TriggerId);
             Assert.Equal(STATUS_TYPE_ID, result.StatusTypeId);
             Assert.Equal(MINIMUM_VALUE, result.MinimumValue);

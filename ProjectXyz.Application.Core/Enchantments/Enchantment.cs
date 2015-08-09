@@ -1,23 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
 using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
-    public sealed class Enchantment : IEnchantment
+    public abstract class Enchantment : IEnchantment
     {
         #region Fields
         private readonly IEnchantmentContext _context;
         private readonly Guid _id;
-        private readonly Guid _statId;
-        private readonly double _value; 
-        private readonly Guid _calculationId; 
         private readonly Guid _triggerId; 
         private readonly Guid _statusTypeId;
         
@@ -25,66 +19,47 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Constructors
-        private Enchantment(
+        protected Enchantment(
             IEnchantmentContext context,
             Guid id,
-            Guid statId,
             Guid statusTypeId,
             Guid triggerId,
-            Guid calculationId,
-            double value,
             TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
 
             _context = context;
             _id = id;
-            _statId = statId;
-            _value = value;
-            _calculationId = calculationId;
             _triggerId = triggerId;
             _statusTypeId = statusTypeId;
             _remainingDuration = remainingDuration;
         }
         #endregion
 
-        #region Properties
+        #region Properties        
+        /// <inheritdoc />
         public Guid Id
         {
             get { return _id; }
         }
 
-        public Guid StatId
-        {
-            get { return _statId; }
-        }
-
-        public double Value
-        {
-            get { return _value; }
-        }
-
-        public Guid CalculationId
-        {
-            get { return _calculationId; }
-        }
-
+        /// <inheritdoc />
         public Guid TriggerId
         {
             get { return _triggerId; }
         }
 
+        /// <inheritdoc />
         public Guid StatusTypeId
         {
             get { return _statusTypeId; }
         }
 
+        /// <inheritdoc />
         public TimeSpan RemainingDuration
         {
             get { return _remainingDuration; }
@@ -92,53 +67,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantment Create(IEnchantmentContext context, IEnchantmentStore enchantment)
-        {
-            Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentNullException>(enchantment != null);
-            Contract.Ensures(Contract.Result<IEnchantment>() != null);
-            
-            return Create(
-                context, 
-                enchantment.Id,
-                enchantment.StatId,
-                enchantment.StatusTypeId,
-                enchantment.TriggerId,
-                enchantment.CalculationId,
-                enchantment.Value,
-                enchantment.RemainingDuration);
-        }
-
-        public static IEnchantment Create(
-            IEnchantmentContext context, 
-            Guid id,
-            Guid statId, 
-            Guid statusTypeId, 
-            Guid triggerId, 
-            Guid calculationId, 
-            double value,
-            TimeSpan remainingDuration)
-        {
-            Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(calculationId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
-            Contract.Ensures(Contract.Result<IEnchantment>() != null);
-
-            return new Enchantment(
-                context, 
-                id,
-                statId,
-                statusTypeId,
-                triggerId,
-                calculationId,
-                value,
-                remainingDuration);
-        }
-
+        /// <inheritdoc />
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
             if (this.HasInfiniteDuration())

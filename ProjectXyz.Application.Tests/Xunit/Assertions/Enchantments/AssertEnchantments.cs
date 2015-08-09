@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics.Contracts;
-
+using ProjectXyz.Application.Core.Enchantments;
 using Xunit;
 
 using ProjectXyz.Application.Interface.Enchantments;
@@ -48,11 +48,32 @@ namespace ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments
             }
 
             Assert.True(
-                expected.CalculationId == actual.CalculationId,
-                "Expecting " + enchantmentLabel + " calculation IDs to be equal.\r\nExpected: " + expected.CalculationId + "\r\nActual: " + actual.CalculationId);
+                expected.Id == actual.Id,
+                "Expecting " + enchantmentLabel + " IDs to be equal.\r\nExpected: " + expected.Id + "\r\nActual: " + actual.Id);
             Assert.True(
                 expected.RemainingDuration == actual.RemainingDuration,
                 "Expecting " + enchantmentLabel + " remaining durations to be equal.\r\nExpected: " + expected.RemainingDuration + "\r\nActual: " + actual.RemainingDuration);
+            Assert.True(
+                expected.StatusTypeId == actual.StatusTypeId,
+                "Expecting " + enchantmentLabel + " status type IDs to be equal.\r\nExpected: " + expected.StatusTypeId + "\r\nActual: " + actual.StatusTypeId);
+            Assert.True(
+                expected.TriggerId == actual.TriggerId,
+                "Expecting " + enchantmentLabel + " trigger IDs to be equal.\r\nExpected: " + expected.TriggerId + "\r\nActual: " + actual.TriggerId);
+        }
+
+        private static void Equal(IAdditiveEnchantment expected, IAdditiveEnchantment actual, int index = -1)
+        {
+            Contract.Requires<ArgumentNullException>(expected != null);
+            Contract.Requires<ArgumentNullException>(actual != null);
+
+            Equal((IEnchantment)expected, (IEnchantment)actual, index);
+
+            string enchantmentLabel = "enchantment";
+            if (index >= 0)
+            {
+                enchantmentLabel += " (index " + index + ")";
+            }
+
             Assert.True(
                 expected.StatId == actual.StatId,
                 "Expecting " + enchantmentLabel + " stat IDs to be equal.\r\nExpected: " + expected.StatId + "\r\nActual: " + actual.StatId);

@@ -6,9 +6,11 @@ using Moq;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Application.Core.Actors.ExtensionMethods;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
@@ -32,8 +34,7 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Equip)
@@ -49,10 +50,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
                 .Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -74,8 +72,7 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Hold)
@@ -91,10 +88,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
                 .Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -116,8 +110,7 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Hold)
@@ -136,7 +129,9 @@ namespace ProjectXyz.Application.Tests.Actors
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+                .Returns(EnchantmentCalculator.Create(
+                    EnchantmentCalculatorResultFactory.Create(),
+                    new[] { AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()) }));
 
             var actor = Actor.Create(
                 context.Object,
@@ -154,8 +149,7 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Hold)
@@ -170,10 +164,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
                 .Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -196,8 +187,7 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 50;
             const double HEAL_AMOUNT = 1000;
 
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.CurrentLife)
                 .WithValue(HEAL_AMOUNT)
                 .WithTrigger(EnchantmentTriggers.Equip)
@@ -213,10 +203,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, MAX_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
                 .Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -239,8 +226,7 @@ namespace ProjectXyz.Application.Tests.Actors
             const double LIFE_BUFF = 100;
             const double BASE_LIFE = 50;
 
-            var enchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(LIFE_BUFF)
                 .WithTrigger(EnchantmentTriggers.Equip)
@@ -255,10 +241,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
                 .Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -287,10 +270,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Build();
 
             var data = new MockActorBuilder().Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -302,22 +282,22 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_BreakingEquipment_RemovesEnchantment()
         {
-            var durabilityEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var durabilityEnchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
                 .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
-            var lifeEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var lifeEnchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(100)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
             var enchantedItem = Item.Create(
-                new MockItemContextBuilder().Build(),
+                new MockItemContextBuilder()
+                    .WithEnchantmentCalculator(CreateEnchantmentCalculator())
+                    .Build(),
                 new Data.Tests.Items.Mocks.MockItemBuilder()
                     .WithStats(
                         Stat.Create(ItemStats.CurrentDurability, 50), 
@@ -327,10 +307,7 @@ namespace ProjectXyz.Application.Tests.Actors
             enchantedItem.Enchant(lifeEnchantment);
 
             var data = new MockActorBuilder().Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -348,15 +325,16 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_BreakingEquipment_UnequipsItem()
         {
-            var durabilityEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var durabilityEnchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
                 .WithValue(-100)
                 .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
             var item = Item.Create(
-                new MockItemContextBuilder().Build(),
+                new MockItemContextBuilder()
+                    .WithEnchantmentCalculator(CreateEnchantmentCalculator())
+                    .Build(),
                 new Data.Tests.Items.Mocks.MockItemBuilder()
                     .WithStats(
                         Stat.Create(ItemStats.CurrentDurability, 50),
@@ -365,10 +343,7 @@ namespace ProjectXyz.Application.Tests.Actors
                     .Build());
 
             var data = new MockActorBuilder().Build();
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), new Mock<IStatusNegationRepository>().Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -386,8 +361,7 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_EnchantmentWithNegation_StatusIsNegated()
         {
-            var curseEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var curseEnchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(-10)
                 .WithTrigger(EnchantmentTriggers.Equip)
@@ -400,10 +374,8 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithDurability(1, 1)
                 .Build();
 
-            var blessEnchantment = new MockEnchantmentBuilder()
-                .WithCalculationId(EnchantmentCalculationTypes.Value)
+            var blessEnchantment = new MockNegationEnchantmentBuilder()
                 .WithStatId(ActorStats.Bless)
-                .WithValue(0)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
@@ -418,18 +390,7 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.CurrentLife, 100))
                 .Build();
 
-            var statusNegationRepository = new Mock<IStatusNegationRepository>();
-            statusNegationRepository
-                .Setup(x => x.GetAll())
-                .Returns(new[]
-                {
-                    StatusNegation.Create(ActorStats.Bless, EnchantmentStatuses.Curse)
-                });
-
-            var context = new Mock<IActorContext>();
-            context.
-                Setup(x => x.EnchantmentCalculator)
-                .Returns(EnchantmentCalculator.Create(StatFactory.Create(), statusNegationRepository.Object));
+            var context = CreateMockContext();
 
             var actor = Actor.Create(
                 context.Object,
@@ -495,6 +456,34 @@ namespace ProjectXyz.Application.Tests.Actors
             {
                 validationCallback.Invoke();
             }
+        }
+
+        private IEnchantmentCalculator CreateEnchantmentCalculator()
+        {
+            var statusNegationRepository = new Mock<IStatusNegationRepository>();
+            statusNegationRepository
+                .Setup(x => x.GetAll())
+                .Returns(new[]
+                {
+                    StatusNegation.Create(ActorStats.Bless, EnchantmentStatuses.Curse)
+                });
+
+            return EnchantmentCalculator.Create(
+                EnchantmentCalculatorResultFactory.Create(),
+                new[]
+                {
+                    NegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
+                    AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
+                });
+        }
+
+        private Mock<IActorContext> CreateMockContext()
+        {
+            var context = new Mock<IActorContext>();
+            context.
+                Setup(x => x.EnchantmentCalculator)
+                .Returns(CreateEnchantmentCalculator());
+            return context;
         }
     }
 }

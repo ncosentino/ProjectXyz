@@ -9,28 +9,45 @@ CREATE TABLE [DisplayStrings] (
   [Value] TEXT NOT NULL ON CONFLICT FAIL);
 
 
-CREATE TABLE [EnchantmentCalculations] (
-  [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
-
-
 CREATE TABLE [Stats] (
   [Id] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [UNIQUE_Id] UNIQUE ON CONFLICT FAIL, 
   [Name] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE, 
   [DisplayStringId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_DisplayStringId] REFERENCES [DisplayStrings]([Id]) COLLATE NOCASE);
 
+---------------------------------------------------------------------------------------------------
+-- ENCHANTMENTS
+-- http://agiledata.org/essays/mappingObjects.html#MappingInheritance
+---------------------------------------------------------------------------------------------------
+CREATE TABLE [EnchantmentTypes] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL, 
+  [StoreRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [DefinitionRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
 
 CREATE TABLE [Enchantments] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [CalculationId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_CalculationId] REFERENCES [EnchantmentCalculations]([Id]), 
+  [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
-  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL, 
+  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL,
+  [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
+
+CREATE TABLE [AdditiveEnchantments] (
+  [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
+  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
+  [Value] FLOAT NOT NULL ON CONFLICT FAIL);
+
+CREATE TABLE [EnchantmentDefinitions] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL, 
+  [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
+  [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
+  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
+
+CREATE TABLE [AdditiveEnchantmentDefinitions] (
+  [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
+  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
   [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
   [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
   [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
   [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
-
 
 CREATE TABLE [EnchantmentStatuses] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
@@ -41,6 +58,9 @@ CREATE TABLE [EnchantmentTriggers] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
 
+---------------------------------------------------------------------------------------------------
+-- AFFIXES
+---------------------------------------------------------------------------------------------------
 CREATE TABLE [ItemAffixes] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [Name] VARCHAR(128) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
@@ -68,6 +88,9 @@ CREATE TABLE MagicTypesRandomAffixes (
   [MinimumAffixes] GUID NOT NULL ON CONFLICT FAIL,
   [MaximumAffixes] GUID NOT NULL ON CONFLICT FAIL);
 
+---------------------------------------------------------------------------------------------------
+-- DISEASES
+---------------------------------------------------------------------------------------------------
 CREATE TABLE Diseases (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,

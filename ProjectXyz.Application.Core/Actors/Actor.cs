@@ -14,6 +14,7 @@ using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 using ProjectXyz.Data.Interface.Actors;
 
 namespace ProjectXyz.Application.Core.Actors
@@ -178,9 +179,25 @@ namespace ProjectXyz.Application.Core.Actors
                 return;
             }
 
-            _stats = StatCollection.Create(_context.EnchantmentCalculator.Calculate(
+            var result = _context.EnchantmentCalculator.Calculate(
                 _actor.Stats,
-                _enchantments));
+                _enchantments);
+
+            // keep the enchantments changed event from triggering
+            try
+            {
+                _enchantments.CollectionChanged -= Enchantments_CollectionChanged;
+
+                _enchantments.Clear();
+                _enchantments.Add(result.Enchantments);
+            }
+            finally 
+            {
+
+                _enchantments.CollectionChanged += Enchantments_CollectionChanged;
+            }
+
+            _stats = StatCollection.Create(result.Stats);
             _stats.Set(Stat.Create(
                 ActorStats.CurrentLife,
                 CalculateCurrentLife(_stats)));
@@ -220,7 +237,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             item.DurabilityChanged += EquippedItem_DurabilityChanged;
-            item.Enchantments.CollectionChanged += EquippedItem_EnchantmentsChanged;
+            item.EnchantmentsChanged += EquippedItem_EnchantmentsChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
             _enchantments.Add(enchantments);
@@ -232,7 +249,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
             item.DurabilityChanged -= EquippedItem_DurabilityChanged;
-            item.Enchantments.CollectionChanged -= EquippedItem_EnchantmentsChanged;
+            item.EnchantmentsChanged -= EquippedItem_EnchantmentsChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Equip);
             _enchantments.Remove(enchantments);
@@ -253,7 +270,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
-            item.Enchantments.CollectionChanged += HeldItem_EnchantmentsChanged;
+            item.EnchantmentsChanged += HeldItem_EnchantmentsChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Add(enchantments);
@@ -264,7 +281,7 @@ namespace ProjectXyz.Application.Core.Actors
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<InvalidOperationException>(_enchantments != null);
 
-            item.Enchantments.CollectionChanged -= HeldItem_EnchantmentsChanged;
+            item.EnchantmentsChanged -= HeldItem_EnchantmentsChanged;
 
             var enchantments = item.Enchantments.TriggeredBy(EnchantmentTriggers.Hold);
             _enchantments.Remove(enchantments);

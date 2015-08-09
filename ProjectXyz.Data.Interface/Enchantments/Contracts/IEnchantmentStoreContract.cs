@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Enchantments.Contracts
 {
@@ -32,15 +31,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         {
             get { return default(double); }
         }
-
-        public Guid CalculationId
-        {
-            get
-            {
-                return default(Guid);
-            }
-        }
-
+        
         public Guid TriggerId
         {
             get
@@ -50,6 +41,14 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         }
 
         public Guid StatusTypeId
+        {
+            get
+            {
+                return default(Guid);
+            }
+        }
+
+        public Guid EnchantmentTypeId
         {
             get
             {

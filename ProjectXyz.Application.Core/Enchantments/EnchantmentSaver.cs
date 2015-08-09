@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Application.Interface.Enchantments;
@@ -9,38 +10,54 @@ namespace ProjectXyz.Application.Core.Enchantments
     public sealed class EnchantmentSaver : IEnchantmentSaver
     {
         #region Fields
-        private readonly IEnchantmentStoreFactory _enchantmentStoreFactory;
+        private readonly Dictionary<Type, SaveEnchantmentDelegate> _saveEnchantmentMapping;
         #endregion
 
         #region Constructors
-        private EnchantmentSaver(IEnchantmentStoreFactory enchantmentStoreFactory)
+        /// <summary>
+        /// Prevents a default instance of the <see cref="EnchantmentSaver"/> class from being created.
+        /// </summary>
+        private EnchantmentSaver()
         {
-            Contract.Requires<ArgumentNullException>(enchantmentStoreFactory != null);
-
-            _enchantmentStoreFactory = enchantmentStoreFactory;
+            _saveEnchantmentMapping = new Dictionary<Type, SaveEnchantmentDelegate>();
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentSaver Create(IEnchantmentStoreFactory enchantmentStoreFactory)
+        public static IEnchantmentSaver Create()
         {
-            Contract.Requires<ArgumentNullException>(enchantmentStoreFactory != null);
             Contract.Ensures(Contract.Result<IEnchantmentSaver>() != null);
             
-            return new EnchantmentSaver(enchantmentStoreFactory);
+            return new EnchantmentSaver();
         }
 
+        /// <inheritdoc />
+        public void RegisterCallbackForType<TSpecificType>(SaveEnchantmentDelegate callbackToRegister) 
+            where TSpecificType : IEnchantmentStore
+        {
+            RegisterCallbackForType(typeof(TSpecificType), callbackToRegister);
+        }
+
+        /// <inheritdoc />
+        public void RegisterCallbackForType(Type type, SaveEnchantmentDelegate callbackToRegister)
+        {
+            _saveEnchantmentMapping[type] = callbackToRegister;
+        }
+
+        /// <inheritdoc />
         public IEnchantmentStore Save(IEnchantment source)
         {
-            return _enchantmentStoreFactory.CreateEnchantmentStore(
-                source.Id,
-                source.StatId,
-                source.CalculationId,
-                source.TriggerId,
-                source.StatusTypeId,
-                source.RemainingDuration,
-                source.Value);
+            var enchantmentType = source.GetType();
+            if (!_saveEnchantmentMapping.ContainsKey(enchantmentType))
+            {
+                throw new InvalidOperationException(string.Format("No callback registered for type '{0}'.", enchantmentType));
+            }
+
+            var enchantmentStore = _saveEnchantmentMapping[enchantmentType].Invoke(source);
+            return enchantmentStore;
         }
         #endregion
+
+
     }
 }

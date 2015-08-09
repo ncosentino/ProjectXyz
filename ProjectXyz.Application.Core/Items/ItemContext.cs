@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
 
@@ -13,21 +14,21 @@ namespace ProjectXyz.Application.Core.Items
         #region Fields
         private readonly IStatSocketTypeRepository _statSocketTypeRepository;
         private readonly IEnchantmentCalculator _enchantmentCalculator;
-        private readonly IEnchantmentContext _enchantmentContext;
+        private readonly IEnchantmentFactory _enchantmentFactory;
         #endregion
 
         #region Constructors
         private ItemContext(
-            IEnchantmentCalculator enchantmentCalculator, 
-            IEnchantmentContext enchantmentContext,
+            IEnchantmentCalculator enchantmentCalculator,
+            IEnchantmentFactory enchantmentFactory,
             IStatSocketTypeRepository statSocketTypeRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
-            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
+            Contract.Requires<ArgumentNullException>(enchantmentFactory != null);
             Contract.Requires<ArgumentNullException>(statSocketTypeRepository != null);
 
             _enchantmentCalculator = enchantmentCalculator;
-            _enchantmentContext = enchantmentContext;
+            _enchantmentFactory = enchantmentFactory;
             _statSocketTypeRepository = statSocketTypeRepository;
         }
         #endregion
@@ -43,30 +44,30 @@ namespace ProjectXyz.Application.Core.Items
             get { return _enchantmentCalculator; }
         }
         
-        public IEnchantmentContext EnchantmentContext
+        public IEnchantmentFactory EnchantmentFactory
         {
-            get { return _enchantmentContext; }
+            get { return _enchantmentFactory; }
         }
         #endregion
 
         #region Methods
         public static IItemContext Create(
-            IEnchantmentCalculator enchantmentCalculator, 
-            IEnchantmentContext enchantmentContext,
+            IEnchantmentCalculator enchantmentCalculator,
+            IEnchantmentFactory enchantmentFactory,
             IStatSocketTypeRepository statSocketTypeRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentCalculator != null);
-            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
+            Contract.Requires<ArgumentNullException>(enchantmentFactory != null);
             Contract.Requires<ArgumentNullException>(statSocketTypeRepository != null);
             Contract.Ensures(Contract.Result<IItemContext>() != null);
-            return new ItemContext(enchantmentCalculator, enchantmentContext, statSocketTypeRepository);
+            return new ItemContext(enchantmentCalculator, enchantmentFactory, statSocketTypeRepository);
         }
 
         [ContractInvariantMethod]
         private void InvariantMethod()
         {
             Contract.Invariant(_enchantmentCalculator != null);
-            Contract.Invariant(_enchantmentContext != null);
+            Contract.Invariant(_enchantmentFactory != null);
         }
         #endregion
     }

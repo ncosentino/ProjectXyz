@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Diagnostics.Contracts;
@@ -154,12 +155,14 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
                 .Callback<IEnumerable<IEnchantment>>(enchantments =>
                 {
                     enchantmentCollection.Add(enchantments);
+                    _item.Raise(x => x.EnchantmentsChanged += null, _item.Object, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, enchantments.ToArray()));
                 });
             _item
                 .Setup(x => x.Disenchant(It.IsAny<IEnumerable<IEnchantment>>()))
                 .Callback<IEnumerable<IEnchantment>>(enchantments =>
                 {
                     enchantmentCollection.Remove(enchantments);
+                    _item.Raise(x => x.EnchantmentsChanged += null, _item.Object, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, enchantments.ToArray()));
                 });
 
             return _item.Object;

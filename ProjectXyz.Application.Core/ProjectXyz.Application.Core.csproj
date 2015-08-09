@@ -135,9 +135,17 @@
     <Compile Include="Actors\ActorContext.cs" />
     <Compile Include="Diseases\DiseaseStateGenerator.cs" />
     <Compile Include="Diseases\DiseaseGenerator.cs" />
+    <Compile Include="Enchantments\AdditiveEnchantment.cs" />
+    <Compile Include="Enchantments\Calculations\EnchantmentCalculatorResult.cs" />
+    <Compile Include="Enchantments\Calculations\EnchantmentTypeCalculatorResult.cs" />
+    <Compile Include="Enchantments\Calculations\NegateEnchantmentTypeCalculator.cs" />
+    <Compile Include="Enchantments\Calculations\PercentageEnchantmentTypeCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Enchantments\EnchantmentFactory.cs" />
     <Compile Include="Enchantments\EnchantmentGenerator.cs" />
+    <Compile Include="Enchantments\Calculations\EnchantmentCalculatorResultFactory.cs" />
+    <Compile Include="Enchantments\OneShotNegateEnchantment.cs" />
+    <Compile Include="Enchantments\PercentageEnchantment.cs" />
     <Compile Include="GameObjects\Doors\Door.cs" />
     <Compile Include="GameObjects\Doors\ICloseable.cs" />
     <Compile Include="GameObjects\Doors\IDoor.cs" />
@@ -152,7 +160,7 @@
     <Compile Include="Items\NamedItemAffixes.cs" />
     <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
-    <Compile Include="Enchantments\EnchantmentCalculator.cs" />
+    <Compile Include="Enchantments\Calculations\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\EnchantmentSaver.cs" />
     <Compile Include="Items\NamedItemAffix.cs" />
@@ -186,6 +194,10 @@
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
       <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
       <Name>ProjectXyz.Data.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
+      <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
+      <Name>ProjectXyz.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

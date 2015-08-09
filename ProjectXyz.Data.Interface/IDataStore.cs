@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Data.Interface.Actors;
 using ProjectXyz.Data.Interface.Enchantments;
@@ -15,7 +14,7 @@ namespace ProjectXyz.Data.Interface
     public interface IDataStore
     {
         #region Properties
-        IEnchantmentStoreRepository Enchantments { get; }
+        IEnchantmentStoreRepository<IAdditiveEnchantmentStore> AdditiveEnchantments { get; }
 
         IActorStoreRepository Actors { get; }
 

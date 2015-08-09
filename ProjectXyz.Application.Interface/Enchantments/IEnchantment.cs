@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments.Contracts;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
@@ -15,17 +12,11 @@ namespace ProjectXyz.Application.Interface.Enchantments
         #region Properties
         Guid Id { get; }
 
-        Guid StatId { get; }
-
-        Guid CalculationId { get; }
-
         Guid TriggerId { get; }
 
         Guid StatusTypeId { get; }
 
         TimeSpan RemainingDuration { get; }
-
-        double Value { get; }
         #endregion
     }
 }

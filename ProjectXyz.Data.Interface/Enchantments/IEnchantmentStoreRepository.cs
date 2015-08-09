@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Data.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
-    [ContractClass(typeof(IEnchantmentStoreRepositoryContract))]
-    public interface IEnchantmentStoreRepository
+    [ContractClass(typeof(IEnchantmentStoreRepositoryContract<>))]
+    public interface IEnchantmentStoreRepository<TEnchantmentStore>
+        where TEnchantmentStore : IEnchantmentStore
     {
         #region Methods
-        void Add(IEnchantmentStore enchantmentStore);
+        void Add(TEnchantmentStore enchantmentStore);
 
         void RemoveById(Guid id);
 
-        IEnchantmentStore GetById(Guid id);
+        TEnchantmentStore GetById(Guid id);
         #endregion
     }
 }

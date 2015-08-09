@@ -22,14 +22,14 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
         {
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<ArgumentNullException>(enchantment != null);
-            item.Enchant(new IEnchantment[] { enchantment });
+            item.Enchant(new[] { enchantment });
         }
 
         public static void Disenchant(this IItem item, IEnchantment enchantment)
         {
             Contract.Requires<ArgumentNullException>(item != null);
             Contract.Requires<ArgumentNullException>(enchantment != null);
-            item.Disenchant(new IEnchantment[] { enchantment });
+            item.Disenchant(new[] { enchantment });
         }
 
         public static bool IsEquipped(this IItem item, IEquipment equipment)

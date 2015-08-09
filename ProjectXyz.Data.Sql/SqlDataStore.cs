@@ -17,7 +17,7 @@ namespace ProjectXyz.Data.Sql
     public sealed class SqlDataStore : IDataStore
     {
         #region Fields
-        private readonly IEnchantmentStoreRepository _enchantmentRepository;
+        private readonly IEnchantmentStoreRepository<IAdditiveEnchantmentStore> _additiveEnchantmentRepository;
         private readonly IActorStoreRepository _actorStoreRepository;
         private readonly IMapStoreRepository _mapStoreRepository;
         private readonly IDiseaseSpreadTypeRepository _diseaseSpreadTypeRepository;
@@ -30,9 +30,12 @@ namespace ProjectXyz.Data.Sql
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(upgrader != null);
 
-            _enchantmentRepository = EnchantmentStoreRepository.Create(
+            var enchantmentStoreRepository = EnchantmentStoreRepository.Create(database);
+
+            _additiveEnchantmentRepository = AdditiveEnchantmentStoreRepository.Create(
                 database,
-                EnchantmentStoreFactory.Create());
+                enchantmentStoreRepository,
+                AdditiveEnchantmentStoreFactory.Create());
 
             _actorStoreRepository = ActorStoreRepository.Create(
                 database,
@@ -47,9 +50,9 @@ namespace ProjectXyz.Data.Sql
         #endregion
 
         #region Properties
-        public IEnchantmentStoreRepository Enchantments
+        public IEnchantmentStoreRepository<IAdditiveEnchantmentStore> AdditiveEnchantments
         {
-            get { return _enchantmentRepository; }
+            get { return _additiveEnchantmentRepository; }
         }
 
         public IActorStoreRepository Actors

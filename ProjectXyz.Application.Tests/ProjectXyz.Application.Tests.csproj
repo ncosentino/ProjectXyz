@@ -142,7 +142,8 @@
     <Compile Include="Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Enchantments\EnchantmentSaverTests.cs" />
     <Compile Include="Enchantments\EnchantmentGeneratorTests.cs" />
-    <Compile Include="Enchantments\Mocks\MockEnchantmentBuilder.cs" />
+    <Compile Include="Enchantments\Mocks\MockNegationEnchantmentBuilder.cs" />
+    <Compile Include="Enchantments\Mocks\MockAdditiveEnchantmentBuilder.cs" />
     <Compile Include="Enchantments\Mocks\MockEnchantmentContextBuilder.cs" />
     <Compile Include="Enchantments\Mocks\MockEnchantmentSaverBuilder.cs" />
     <Compile Include="Items\ItemAffixGeneratorTests.cs" />
@@ -184,6 +185,10 @@
     <ProjectReference Include="..\ProjectXyz.Data.Tests\ProjectXyz.Data.Tests.csproj">
       <Project>{df9b53b0-844c-468e-954e-d3ad5904608d}</Project>
       <Name>ProjectXyz.Data.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
+      <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
+      <Name>ProjectXyz.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Tests\ProjectXyz.Tests.csproj">
       <Project>{732b4e6c-92fc-49cd-89a7-97e68d776db0}</Project>

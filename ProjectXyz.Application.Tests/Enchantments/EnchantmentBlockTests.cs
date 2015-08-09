@@ -21,7 +21,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
         [Fact]
         public void EnchantmentBlock_AddSingle_HasItem()
         {
-            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantment = new MockAdditiveEnchantmentBuilder().Build();
             var enchantmentBlock = EnchantmentBlock.Create();
 
             enchantmentBlock.Add(enchantment);
@@ -37,9 +37,9 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             var enchantmentsToAdd = new IEnchantment[]
             {
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
             };
 
             enchantmentBlock.Add(enchantmentsToAdd);
@@ -57,7 +57,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
         [Fact]
         public void EnchantmentBlock_RemoveExistingSingle_Successful()
         {
-            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantment = new MockAdditiveEnchantmentBuilder().Build();
             var enchantmentBlock = EnchantmentBlock.Create();
             enchantmentBlock.Add(enchantment);
 
@@ -70,7 +70,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
         [Fact]
         public void EnchantmentBlock_RemoveNonexistingSingle_Fails()
         {
-            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantment = new MockAdditiveEnchantmentBuilder().Build();
             var enchantmentBlock = EnchantmentBlock.Create();
 
             Assert.False(
@@ -86,9 +86,9 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             var enchantmentsToRemove = new IEnchantment[]
             {
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
             };
 
             enchantmentBlock.Add(enchantmentsToRemove);
@@ -102,7 +102,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
         [Fact]
         public void EnchantmentBlock_AddSingle_TriggersModifiedEvent()
         {
-            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantment = new MockAdditiveEnchantmentBuilder().Build();
             var enchantBlock = EnchantmentBlock.Create();
 
             bool eventTriggered = false;
@@ -127,9 +127,9 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             var enchantmentsToAdd = new IEnchantment[]
             {
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
             };
 
             int eventTriggeredCount = 0;
@@ -155,7 +155,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
         [Fact]
         public void EnchantmentBlock_RemoveExistingSingle_TriggersModifiedEvent()
         {
-            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantment = new MockAdditiveEnchantmentBuilder().Build();
             var enchantBlock = EnchantmentBlock.Create();
 
             enchantBlock.Add(enchantment);
@@ -178,7 +178,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
         [Fact]
         public void EnchantmentBlock_RemoveNonexistentSingle_NoModifiedEvent()
         {
-            var enchantment = new MockEnchantmentBuilder().Build();
+            var enchantment = new MockAdditiveEnchantmentBuilder().Build();
             var enchantBlock = EnchantmentBlock.Create();
 
             bool eventTriggered = false;
@@ -197,9 +197,9 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             var enchantmentsToRemove = new IEnchantment[]
             {
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
-                new MockEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
+                new MockAdditiveEnchantmentBuilder().Build(),
             };
             enchantBlock.Add(enchantmentsToRemove);
 

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Interface;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public interface IEnchantmentSaver : ISave<IEnchantment, ProjectXyz.Data.Interface.Enchantments.IEnchantmentStore>
+    public interface IEnchantmentSaver : 
+        ISave<IEnchantment, IEnchantmentStore>,
+        IRegisterCallbackForType<IEnchantmentStore, SaveEnchantmentDelegate>
     {
     }
 }

@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Interface;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public interface IEnchantmentFactory
+    public interface IEnchantmentFactory : 
+        IRegisterCallbackForType<IEnchantment, CreateEnchantmentDelegate>
     {
         #region Methods
         IEnchantment Create(IEnchantmentStore enchantmentStore);
-
-        IEnchantment Create(
-            Guid id,
-            Guid statId, 
-            Guid statusTypeId, 
-            Guid triggerId, 
-            Guid calculationId, 
-            double value, 
-            TimeSpan duration);
         #endregion
     }
 }

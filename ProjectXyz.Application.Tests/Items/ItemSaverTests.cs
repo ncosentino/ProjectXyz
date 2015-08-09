@@ -7,6 +7,7 @@ using Moq;
 
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Tests.Xunit.Assertions.Stats;
 using ProjectXyz.Data.Core.Stats;
@@ -16,6 +17,7 @@ using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Items.Sockets;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Sockets;
 
 namespace ProjectXyz.Application.Tests.Items
@@ -89,12 +91,15 @@ namespace ProjectXyz.Application.Tests.Items
         }
 
         [Fact]
-        public void ItemSaver_Save_EnchantmentsMatch()
+        public void Save_HasEnchantments_SavesEnchantments()
         {
-            var enchantment = new MockEnchantmentBuilder()
+            // Setup
+            var enchantment = new MockAdditiveEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
                 .WithValue(1234567)
                 .Build();
+
+            var enchantmentStore = new Mock<IEnchantmentStore>(MockBehavior.Strict);
 
             var sourceData = new Data.Tests.Items.Mocks.MockItemBuilder()
                 .Build();
@@ -103,14 +108,19 @@ namespace ProjectXyz.Application.Tests.Items
                 sourceData);
             item.Enchant(enchantment);
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
-            var savedData = itemSaver.Save(item);
+            var enchantmentSaver = new Mock<IEnchantmentSaver>(MockBehavior.Strict);
+            enchantmentSaver
+                .Setup(x => x.Save(enchantment))
+                .Returns(enchantmentStore.Object);
 
-            Assert.Equal(1, savedData.Enchantments.Count);
-            Assert.Equal(enchantment.StatId, savedData.Enchantments[0].StatId);
-            Assert.Equal(enchantment.Value, savedData.Enchantments[0].Value);
-            Assert.Equal(enchantment.CalculationId, savedData.Enchantments[0].CalculationId);
-            Assert.Equal(enchantment.RemainingDuration, savedData.Enchantments[0].RemainingDuration);
+            var itemSaver = ItemSaver.Create(enchantmentSaver.Object);
+
+            // Execute
+            var result = itemSaver.Save(item);
+
+            // Assert
+            Assert.Equal(1, result.Enchantments.Count);
+            Assert.Equal(enchantmentStore.Object, result.Enchantments[0]);
         }
 
         [Fact]
@@ -143,7 +153,7 @@ namespace ProjectXyz.Application.Tests.Items
                 item.Socket(socketCandidate),
                 "Expecting to socket the item.");
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
 
             // Execute
             var savedData = itemSaver.Save(item);
@@ -164,7 +174,7 @@ namespace ProjectXyz.Application.Tests.Items
                 new MockItemContextBuilder().Build(),
                 sourceData);
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create(EnchantmentStoreFactory.Create()));
+            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
             var savedData = itemSaver.Save(item);
 
             Assert.Equal(sourceData.Requirements.Class, savedData.Requirements.Class);
