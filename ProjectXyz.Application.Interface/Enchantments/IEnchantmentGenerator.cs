@@ -6,10 +6,12 @@ using ProjectXyz.Interface;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public interface IEnchantmentGenerator : IRegisterCallbackForType<IAdditiveEnchantmentDefinition, GenerateEnchantmentDelegate>
+    public interface IEnchantmentGenerator : IRegisterCallbackForType<IEnchantmentDefinition, GenerateEnchantmentDelegate>
     {
         #region Methods
-        IEnchantment Generate(IRandom randomizer, Guid enchantmentId);
+        IEnchantment Generate(
+            IRandom randomizer,
+            Guid enchantmentId);
         #endregion
     }
 }

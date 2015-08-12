@@ -141,7 +141,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\AdditiveEnchantmentStoreRepositoryTests.cs" />
     <Compile Include="Enchantments\EnchantmentTypeRepositoryTests.cs" />
     <Compile Include="Enchantments\EnchantmentTriggerRepositoryTests.cs" />
     <Compile Include="SqlDatabaseUpgraderTests.cs" />

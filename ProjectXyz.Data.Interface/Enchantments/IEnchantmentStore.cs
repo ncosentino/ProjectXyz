@@ -21,29 +21,4 @@ namespace ProjectXyz.Data.Interface.Enchantments
         TimeSpan RemainingDuration { get; }
         #endregion
     }
-
-    public interface IAdditiveEnchantmentStore : IEnchantmentStore
-    {
-        #region Properties
-        Guid StatId { get; }
-
-        double Value { get; }
-        #endregion
-    }
-
-    public interface IPercentageEnchantmentStore : IEnchantmentStore
-    {
-        #region Properties
-        Guid StatId { get; }
-
-        double Value { get; }
-        #endregion
-    }
-
-    public interface IOneShotNegateEnchantmentStore : IEnchantmentStore
-    {
-        #region Properties
-        Guid StatId { get; }
-        #endregion
-    }
 }

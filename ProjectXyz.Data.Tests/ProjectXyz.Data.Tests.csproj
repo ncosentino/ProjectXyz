@@ -136,8 +136,6 @@
   <ItemGroup>
     <Compile Include="Actors\ActorStoreTests.cs" />
     <Compile Include="Actors\Mocks\MockActorBuilder.cs" />
-    <Compile Include="Enchantments\EnchantmentStoreFactoryTests.cs" />
-    <Compile Include="Enchantments\EnchantmentDefinitionFactoryTests.cs" />
     <Compile Include="Items\ItemStoreTests.cs" />
     <Compile Include="Items\Mocks\MockItemBuilder.cs" />
     <Compile Include="Items\Mocks\MockRequirementsBuilder.cs" />

@@ -5,7 +5,5 @@ using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public delegate IEnchantment CreateEnchantmentDelegate(
-        IEnchantmentContext enchantmentContext, 
-        IEnchantmentStore enchantmentStore);
+    public delegate IEnchantment CreateEnchantmentDelegate(IEnchantmentStore enchantmentStore);
 }

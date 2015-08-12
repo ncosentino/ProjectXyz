@@ -10,27 +10,22 @@ namespace ProjectXyz.Application.Core.Enchantments
     public sealed class EnchantmentFactory : IEnchantmentFactory
     {
         #region Fields
-        private readonly IEnchantmentContext _enchantmentContext;
         private readonly Dictionary<Type, CreateEnchantmentDelegate> _createEnchantmentMapping;
         #endregion
 
         #region Constructors
-        private EnchantmentFactory(IEnchantmentContext enchantmentContext)
+        private EnchantmentFactory()
         {
-            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
-
-            _enchantmentContext = enchantmentContext;
             _createEnchantmentMapping = new Dictionary<Type, CreateEnchantmentDelegate>();
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentFactory Create(IEnchantmentContext enchantmentContext)
+        public static IEnchantmentFactory Create()
         {
-            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
             Contract.Ensures(Contract.Result<IEnchantmentFactory>() != null);
 
-            return new EnchantmentFactory(enchantmentContext);
+            return new EnchantmentFactory();
         }
 
         public void RegisterCallbackForType<TSpecificType>(CreateEnchantmentDelegate callbackToRegister)
@@ -52,7 +47,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                 throw new InvalidOperationException(string.Format("No callback registered for type '{0}'.", enchantmentType));
             }
 
-            var enchantment = _createEnchantmentMapping[enchantmentType].Invoke(_enchantmentContext, enchantmentStore);
+            var enchantment = _createEnchantmentMapping[enchantmentType].Invoke(enchantmentStore);
             return enchantment;
         }
         #endregion

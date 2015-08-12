@@ -135,16 +135,11 @@
     <Compile Include="Diseases\DiseaseSpreadType.cs" />
     <Compile Include="Diseases\DiseaseDefinitionFactory.cs" />
     <Compile Include="Diseases\DiseaseDefinition.cs" />
-    <Compile Include="Enchantments\AdditiveEnchantmentStore.cs" />
-    <Compile Include="Enchantments\AdditiveEnchantmentDefinition.cs" />
-    <Compile Include="Enchantments\AdditiveEnchantmentDefinitionFactory.cs" />
     <Compile Include="Enchantments\StatusNegation.cs" />
     <Compile Include="Enchantments\MagicTypesRandomAffixesFactory.cs" />
     <Compile Include="Enchantments\MagicTypesRandomAffixes.cs" />
-    <Compile Include="Enchantments\AdditiveEnchantmentStoreFactory.cs" />
     <Compile Include="Enchantments\EnchantmentStatuses.cs" />
     <Compile Include="Enchantments\EnchantmentStore.cs" />
-    <Compile Include="Enchantments\EnchantmentCalculationTypes.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\EnchantmentTriggers.cs" />
     <Compile Include="Items\Sockets\SocketType.cs" />

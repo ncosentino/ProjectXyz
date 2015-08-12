@@ -7,6 +7,7 @@ using ProjectXyz.Application.Core.Enchantments;
 using Xunit;
 
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Plugins.Enchantments.Additive;
 
 namespace ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments
 {

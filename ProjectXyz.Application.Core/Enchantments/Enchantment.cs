@@ -10,7 +10,6 @@ namespace ProjectXyz.Application.Core.Enchantments
     public abstract class Enchantment : IEnchantment
     {
         #region Fields
-        private readonly IEnchantmentContext _context;
         private readonly Guid _id;
         private readonly Guid _triggerId; 
         private readonly Guid _statusTypeId;
@@ -20,19 +19,16 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         #region Constructors
         protected Enchantment(
-            IEnchantmentContext context,
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
             TimeSpan remainingDuration)
         {
-            Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
 
-            _context = context;
             _id = id;
             _triggerId = triggerId;
             _statusTypeId = statusTypeId;

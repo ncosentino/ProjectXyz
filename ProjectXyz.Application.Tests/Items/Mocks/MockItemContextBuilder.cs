@@ -11,6 +11,8 @@ using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Sockets;
+using ProjectXyz.Plugins.Enchantments.Additive;
+using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 
 namespace ProjectXyz.Application.Tests.Items.Mocks
 {
@@ -31,8 +33,7 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
             _enchantmentCalculator = CreateEnchantmentCalculator();
             _statSocketTypeRepository = new Mock<IStatSocketTypeRepository>().Object;
 
-            var enchantmentContext = EnchantmentContext.Create();
-            _enchantmentFactory = EnchantmentFactory.Create(enchantmentContext);
+            _enchantmentFactory = EnchantmentFactory.Create();
         }
         #endregion
 
@@ -86,7 +87,7 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
                 EnchantmentCalculatorResultFactory.Create(),
                 new[]
                 {
-                    NegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
+                    OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
                     AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
                 });
         }

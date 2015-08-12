@@ -4,5 +4,7 @@ using System.Linq;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public delegate IEnchantment GenerateEnchantmentDelegate(IRandom randomizer, Guid enchantmentDefinitionId);
+    public delegate IEnchantment GenerateEnchantmentDelegate(
+    IRandom randomizer,
+    Guid enchantmentDefinitionId);
 }

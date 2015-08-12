@@ -141,10 +141,8 @@
     <Compile Include="Enchantments\EnchantmentBlockTests.cs" />
     <Compile Include="Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Enchantments\EnchantmentSaverTests.cs" />
-    <Compile Include="Enchantments\EnchantmentGeneratorTests.cs" />
     <Compile Include="Enchantments\Mocks\MockNegationEnchantmentBuilder.cs" />
     <Compile Include="Enchantments\Mocks\MockAdditiveEnchantmentBuilder.cs" />
-    <Compile Include="Enchantments\Mocks\MockEnchantmentContextBuilder.cs" />
     <Compile Include="Enchantments\Mocks\MockEnchantmentSaverBuilder.cs" />
     <Compile Include="Items\ItemAffixGeneratorTests.cs" />
     <Compile Include="Items\InventoryTests.cs" />
@@ -189,6 +187,18 @@
     <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
       <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
       <Name>ProjectXyz.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Additive\ProjectXyz.Plugins.Enchantments.Additive.csproj">
+      <Project>{b5aaf78d-6583-47c7-9eef-efefca828473}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.Additive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.OneShotNegate\ProjectXyz.Plugins.Enchantments.OneShotNegate.csproj">
+      <Project>{400aa358-8128-4e01-9a44-9de06ededad2}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.OneShotNegate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Percentage\ProjectXyz.Plugins.Enchantments.Percentage.csproj">
+      <Project>{0a22be3d-8529-4758-871a-aee6c1fcb4ad}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.Percentage</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Tests\ProjectXyz.Tests.csproj">
       <Project>{732b4e6c-92fc-49cd-89a7-97e68d776db0}</Project>

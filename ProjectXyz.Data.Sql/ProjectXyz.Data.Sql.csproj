@@ -136,7 +136,7 @@
     <Compile Include="Contracts\IDatabaseUpgraderContract.cs" />
     <Compile Include="Diseases\DiseaseSpreadTypeRepository.cs" />
     <Compile Include="Diseases\DiseaseDefinitionRepository.cs" />
-    <Compile Include="Enchantments\AdditiveEnchantmentStoreRepository.cs" />
+    <Compile Include="Enchantments\StatusNegationRepository.cs" />
     <Compile Include="Enchantments\EnchantmentTypeRepository.cs" />
     <Compile Include="Enchantments\EnchantmentTriggerRepository.cs" />
     <Compile Include="Maps\MapStoreRepository.cs" />

@@ -140,7 +140,6 @@
     <Compile Include="Diseases\IDiseaseGenerator.cs" />
     <Compile Include="Diseases\IDiseaseState.cs" />
     <Compile Include="Diseases\IDisease.cs" />
-    <Compile Include="Enchantments\IAdditiveEnchantment.cs" />
     <Compile Include="Enchantments\Calculations\IEnchantmentCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\CreateEnchantmentDelegate.cs" />
     <Compile Include="Enchantments\GenerateEnchantmentDelegate.cs" />
@@ -149,9 +148,8 @@
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentGenerator.cs" />
     <Compile Include="Enchantments\Calculations\IEnchantmentTypeCalculatorResult.cs" />
+    <Compile Include="Enchantments\IEnchantmentTypeCalculator.cs" />
     <Compile Include="Enchantments\IObservableEnchantmentCollection.cs" />
-    <Compile Include="Enchantments\IOneShotNegateEnchantment.cs" />
-    <Compile Include="Enchantments\IPercentageEnchantment.cs" />
     <Compile Include="Enchantments\SaveEnchantmentDelegate.cs" />
     <Compile Include="IManager.cs" />
     <Compile Include="Interactions\IInteractable.cs" />
@@ -173,7 +171,6 @@
     <Compile Include="Items\Contracts\IRandomItemAffixGeneratorContract.cs" />
     <Compile Include="Items\INamedItemAffix.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IMutableEnchantmentCollectionExtensionMethods.cs" />
-    <Compile Include="Enchantments\IEnchantmentContext.cs" />
     <Compile Include="Enchantments\IEnchantmentSaver.cs" />
     <Compile Include="Items\INamedItemAffixes.cs" />
     <Compile Include="Items\IItemAffixGenerator.cs" />

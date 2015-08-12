@@ -5,7 +5,6 @@ using System.Linq;
 using Moq;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Application.Core.Actors.ExtensionMethods;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Actors;
@@ -19,6 +18,8 @@ using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Tests.Actors.Mocks;
+using ProjectXyz.Plugins.Enchantments.Additive;
+using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -465,14 +466,14 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Setup(x => x.GetAll())
                 .Returns(new[]
                 {
-                    StatusNegation.Create(ActorStats.Bless, EnchantmentStatuses.Curse)
+                    StatusNegation.Create(Guid.NewGuid(), ActorStats.Bless, EnchantmentStatuses.Curse)
                 });
 
             return EnchantmentCalculator.Create(
                 EnchantmentCalculatorResultFactory.Create(),
                 new[]
                 {
-                    NegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
+                    OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
                     AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
                 });
         }

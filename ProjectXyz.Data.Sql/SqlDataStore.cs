@@ -2,14 +2,11 @@
 using System.Diagnostics.Contracts;
 using ProjectXyz.Data.Core.Actors;
 using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Maps;
 using ProjectXyz.Data.Interface.Actors;
 using ProjectXyz.Data.Interface.Diseases;
 using ProjectXyz.Data.Interface.Maps;
 using ProjectXyz.Data.Sql.Actors;
-using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Data.Sql.Maps;
 
 namespace ProjectXyz.Data.Sql
@@ -17,7 +14,6 @@ namespace ProjectXyz.Data.Sql
     public sealed class SqlDataStore : IDataStore
     {
         #region Fields
-        private readonly IEnchantmentStoreRepository<IAdditiveEnchantmentStore> _additiveEnchantmentRepository;
         private readonly IActorStoreRepository _actorStoreRepository;
         private readonly IMapStoreRepository _mapStoreRepository;
         private readonly IDiseaseSpreadTypeRepository _diseaseSpreadTypeRepository;
@@ -29,14 +25,7 @@ namespace ProjectXyz.Data.Sql
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(upgrader != null);
-
-            var enchantmentStoreRepository = EnchantmentStoreRepository.Create(database);
-
-            _additiveEnchantmentRepository = AdditiveEnchantmentStoreRepository.Create(
-                database,
-                enchantmentStoreRepository,
-                AdditiveEnchantmentStoreFactory.Create());
-
+            
             _actorStoreRepository = ActorStoreRepository.Create(
                 database,
                 ActorStoreFactory.Create());
@@ -50,11 +39,6 @@ namespace ProjectXyz.Data.Sql
         #endregion
 
         #region Properties
-        public IEnchantmentStoreRepository<IAdditiveEnchantmentStore> AdditiveEnchantments
-        {
-            get { return _additiveEnchantmentRepository; }
-        }
-
         public IActorStoreRepository Actors
         {
             get { return _actorStoreRepository; }

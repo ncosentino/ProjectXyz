@@ -44,7 +44,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         /// <inheritdoc />
         public void RegisterCallbackForType<TSpecificType>(GenerateEnchantmentDelegate callbackToRegister)
-            where TSpecificType : IAdditiveEnchantmentDefinition
+            where TSpecificType : IEnchantmentDefinition
         {
             RegisterCallbackForType(typeof(TSpecificType), callbackToRegister);
         }
@@ -56,7 +56,9 @@ namespace ProjectXyz.Application.Core.Enchantments
         }
 
         /// <inheritdoc />
-        public IEnchantment Generate(IRandom randomizer, Guid enchantmentId)
+        public IEnchantment Generate(
+            IRandom randomizer, 
+            Guid enchantmentId)
         {
             var definitionRepositoryClassName = _enchantmentTypeRepository.GetDefinitionRepositoryClassName(enchantmentId);
             var definitionRepositoryType = _typeLoader.GetType(definitionRepositoryClassName);
@@ -74,23 +76,6 @@ namespace ProjectXyz.Application.Core.Enchantments
                 randomizer,
                 enchantmentId);
             return enchantment;
-
-
-            ////var value = 
-            ////    definition.MinimumValue + 
-            ////    randomizer.NextDouble() * (definition.MaximumValue - definition.MinimumValue);
-            ////var duration = TimeSpan.FromMilliseconds(
-            ////    definition.MinimumDuration.TotalMilliseconds +
-            ////    randomizer.NextDouble() * (definition.MaximumDuration.TotalMilliseconds - definition.MinimumDuration.TotalMilliseconds));
-
-            ////return _enchantmentFactory.Create(
-            ////    Guid.NewGuid(),
-            ////    definition.StatId,
-            ////    definition.StatusTypeId,
-            ////    definition.TriggerId,
-            ////    definition.CalculationId,
-            ////    value,
-            ////    duration);
         }
         #endregion
     }

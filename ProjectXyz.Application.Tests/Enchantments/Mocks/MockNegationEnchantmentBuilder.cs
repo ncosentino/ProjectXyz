@@ -9,6 +9,7 @@ using Moq;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 
 namespace ProjectXyz.Application.Tests.Enchantments.Mocks
 {
