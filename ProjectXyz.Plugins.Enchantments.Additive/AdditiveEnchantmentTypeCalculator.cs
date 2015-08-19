@@ -55,9 +55,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             IEnumerable<IEnchantment> enchantments, 
             IMutableStatCollection stats)
         {
-            foreach (var enchantment in enchantments
-                .Where(x => x is IAdditiveEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
-                .Cast<IAdditiveEnchantment>())
+            foreach (var enchantment in GetActiveAddiitveEnchantments(enchantmentContext, enchantments))
             {
                 var oldValue = stats.GetValueOrDefault(enchantment.StatId, 0);
                 var newValue = oldValue + enchantment.Value;
@@ -66,6 +64,15 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
 
                 yield return enchantment;
             }
+        }
+
+        private IEnumerable<IAdditiveEnchantment> GetActiveAddiitveEnchantments(
+            IEnchantmentContext enchantmentContext,
+            IEnumerable<IEnchantment> enchantments)
+        {
+            return enchantments
+                .Where(x => x is IAdditiveEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
+                .Cast<IAdditiveEnchantment>();
         }
         #endregion
     }

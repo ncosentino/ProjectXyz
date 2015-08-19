@@ -58,7 +58,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
             stats.Verify(x => x.GetEnumerator(), Times.Once);
 
-            enchantments.Verify(x => x.GetEnumerator(), Times.Exactly(2));
+            enchantments.Verify(x => x.GetEnumerator(), Times.Once);
         }
 
         [Fact]
@@ -96,7 +96,15 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.WeatherIds)
                 .Returns(Enumerable.Empty<Guid>());
 
-            var enchantments = new[] { modifierEnchantment.Object, untouchedEnchantment.Object, negationEnchantment.Object };
+            var enchantments = new Mock<IEnumerable<IEnchantment>>(MockBehavior.Strict);
+            enchantments
+                .Setup(x => x.GetEnumerator())
+                .Returns(new List<IEnchantment>()
+                {
+                    modifierEnchantment.Object, 
+                    untouchedEnchantment.Object,
+                    negationEnchantment.Object
+                }.GetEnumerator());
 
             var statusNegation = new Mock<IStatusNegation>(MockBehavior.Strict);
             statusNegation
@@ -116,7 +124,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object);
 
             // Execute
-            var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments);
+            var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments.Object);
 
             // Assert
             Assert.NotNull(result);
@@ -132,12 +140,83 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
             stats.Verify(x => x.GetEnumerator(), Times.Once);
 
-            modifierEnchantment.Verify(x => x.StatusTypeId, Times.Exactly(3));
+            modifierEnchantment.Verify(x => x.StatusTypeId, Times.Exactly(2));
 
             untouchedEnchantment.Verify(x => x.StatusTypeId, Times.Once);
 
             negationEnchantment.Verify(x => x.StatId, Times.Once);
             negationEnchantment.Verify(x => x.WeatherIds, Times.Once);
+
+            enchantments.Verify(x => x.GetEnumerator(), Times.Once);
+
+            statusNegation.Verify(x => x.EnchantmentStatusId, Times.Once);
+            statusNegation.Verify(x => x.StatId, Times.Once);
+
+            statusNegationRepository.Verify(x => x.GetAll(), Times.Once);
+        }
+
+        [Fact]
+        public void Calculate_OneNegationWithNothingToNegate_OneShotStillApplies()
+        {
+            // Setup
+            var statId = Guid.NewGuid();
+            var statusTypeId = Guid.NewGuid();
+
+            var stats = new Mock<IStatCollection>(MockBehavior.Strict);
+            stats
+                .Setup(x => x.GetEnumerator())
+                .Returns(new List<IStat>().GetEnumerator());
+
+            var negationEnchantment = new Mock<IOneShotNegateEnchantment>(MockBehavior.Strict);
+            negationEnchantment
+                .Setup(x => x.StatId)
+                .Returns(statId);
+            negationEnchantment
+                .Setup(x => x.WeatherIds)
+                .Returns(Enumerable.Empty<Guid>());
+
+            var enchantments = new Mock<IEnumerable<IEnchantment>>(MockBehavior.Strict);
+            enchantments
+                .Setup(x => x.GetEnumerator())
+                .Returns(new List<IEnchantment>()
+                {
+                    negationEnchantment.Object
+                }.GetEnumerator());
+
+            var statusNegation = new Mock<IStatusNegation>(MockBehavior.Strict);
+            statusNegation
+                .Setup(x => x.EnchantmentStatusId)
+                .Returns(statusTypeId);
+            statusNegation
+                .Setup(x => x.StatId)
+                .Returns(statId);
+
+            var statusNegationRepository = new Mock<IStatusNegationRepository>(MockBehavior.Strict);
+            statusNegationRepository
+                .Setup(x => x.GetAll())
+                .Returns(new[] { statusNegation.Object });
+
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
+
+            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object);
+
+            // Execute
+            var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments.Object);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(1, result.ProcessedEnchantments.Count());
+            Assert.Contains(negationEnchantment.Object, result.ProcessedEnchantments);
+            Assert.Equal(1, result.RemovedEnchantments.Count());
+            Assert.Contains(negationEnchantment.Object, result.RemovedEnchantments);
+            Assert.Empty(result.Stats);
+
+            stats.Verify(x => x.GetEnumerator(), Times.Once);
+
+            negationEnchantment.Verify(x => x.StatId, Times.Once);
+            negationEnchantment.Verify(x => x.WeatherIds, Times.Once);
+
+            enchantments.Verify(x => x.GetEnumerator(), Times.Once);
 
             statusNegation.Verify(x => x.EnchantmentStatusId, Times.Once);
             statusNegation.Verify(x => x.StatId, Times.Once);

@@ -52,9 +52,11 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             IEnumerable<IEnchantment> enchantments,
             IList<IEnchantment> removedEnchantments)
         {
-            var negationEnchantments = enchantments
-                .Where(x => x is IOneShotNegateEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
-                .Cast<IOneShotNegateEnchantment>()
+            IEnumerable<IEnchantment> allEnchantments = enchantments as IEnchantment[] ?? enchantments.ToArray();
+
+            var negationEnchantments = GetActiveOneShotNegateEnchantments(
+                enchantmentContext, 
+                allEnchantments)
                 .ToArray();
 
             var activeNegations = new Dictionary<Guid, HashSet<IOneShotNegateEnchantment>>();
@@ -67,22 +69,29 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 }
             }
 
-            foreach (var enchantment in enchantments
+            foreach (var enchantment in allEnchantments
                 .Except(negationEnchantments)
                 .Where(x => activeNegations.ContainsKey(x.StatusTypeId)))
             {
                 removedEnchantments.Add(enchantment);
-
-                foreach (var enchantmentToRemove in activeNegations[enchantment.StatusTypeId]
-                    .Where(enchantmentToRemove => !removedEnchantments.Contains(enchantmentToRemove)))
-                {
-                    removedEnchantments.Add(enchantmentToRemove);
-                }
-
                 activeNegations.Remove(enchantment.StatusTypeId);
             }
 
+            foreach (var negationEnchantment in negationEnchantments)
+            {
+                removedEnchantments.Add(negationEnchantment);
+            }
+
             return negationEnchantments;
+        }
+
+        private IEnumerable<IOneShotNegateEnchantment> GetActiveOneShotNegateEnchantments(
+             IEnchantmentContext enchantmentContext,
+             IEnumerable<IEnchantment> enchantments)
+        {
+            return enchantments
+                .Where(x => x is IOneShotNegateEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
+                .Cast<IOneShotNegateEnchantment>();
         }
         #endregion
     }
