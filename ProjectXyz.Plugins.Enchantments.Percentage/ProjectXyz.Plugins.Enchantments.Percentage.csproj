@@ -126,24 +126,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PercentageEnchantmentFactory.cs" />
-    <Compile Include="PercentageEnchantmentGenerator.cs" />
-    <Compile Include="IPercentageEnchantmentFactory.cs" />
-    <Compile Include="IPercentageEnchantmentGenerator.cs" />
+    <Compile Include="PercentageEnchantment.cs" />
     <Compile Include="PercentageEnchantmentDefinition.cs" />
     <Compile Include="PercentageEnchantmentDefinitionFactory.cs" />
+    <Compile Include="PercentageEnchantmentFactory.cs" />
+    <Compile Include="PercentageEnchantmentGenerator.cs" />
     <Compile Include="PercentageEnchantmentStore.cs" />
     <Compile Include="PercentageEnchantmentStoreFactory.cs" />
+    <Compile Include="PercentageEnchantmentTypeCalculator.cs" />
+    <Compile Include="Contracts\IPercentageEnchantmentDefinitionRepositoryContract.cs" />
     <Compile Include="Contracts\IPercentageEnchantmentStoreFactoryContract.cs" />
+    <Compile Include="Contracts\IPercentageEnchantmentStoreRepositoryContract.cs" />
+    <Compile Include="IPercentageEnchantment.cs" />
     <Compile Include="IPercentageEnchantmentDefinition.cs" />
     <Compile Include="IPercentageEnchantmentDefinitionFactory.cs" />
-    <Compile Include="IPercentageEnchantmentStoreFactory.cs" />
-    <Compile Include="IPercentageEnchantment.cs" />
+    <Compile Include="IPercentageEnchantmentDefinitionRepository.cs" />
+    <Compile Include="IPercentageEnchantmentFactory.cs" />
+    <Compile Include="IPercentageEnchantmentGenerator.cs" />
     <Compile Include="IPercentageEnchantmentStore.cs" />
-    <Compile Include="PercentageEnchantment.cs" />
-    <Compile Include="PercentageEnchantmentTypeCalculator.cs" />
+    <Compile Include="IPercentageEnchantmentStoreFactory.cs" />
+    <Compile Include="IPercentageEnchantmentStoreRepository.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql\PercentageEnchantmentDefinitionRepository.cs" />
     <Compile Include="Sql\PercentageEnchantmentStoreRepository.cs" />
   </ItemGroup>
   <ItemGroup>

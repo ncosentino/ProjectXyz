@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
@@ -10,7 +11,8 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Methods
         IOneShotNegateEnchantment Generate(
             IRandom randomizer,
-            IOneShotNegateEnchantmentDefinition definition);
+            IEnchantmentDefinition enchantmentDefinition,
+            IOneShotNegateEnchantmentDefinition oneShotNegateEnchantmentDefinition);
         #endregion
     }
 }

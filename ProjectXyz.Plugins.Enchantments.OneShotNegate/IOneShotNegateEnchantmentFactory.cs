@@ -11,7 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            TimeSpan remainingDuration,
+            IEnumerable<Guid> weatherIds,
             Guid statId);
         #endregion
     }

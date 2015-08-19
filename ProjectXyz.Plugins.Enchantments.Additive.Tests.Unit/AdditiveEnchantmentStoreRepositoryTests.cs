@@ -120,17 +120,11 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
                 .Setup(x => x.CreateEnchantmentStore(
                     STORE_ID, 
                     STAT_ID,
-                    TRIGGER_ID,
-                    STATUS_TYPE_ID,
-                    TimeSpan.FromMilliseconds(1000),
                     0))
                 .Returns(enchantmentStore.Object);
 
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-
             var repository = AdditiveEnchantmentStoreRepository.Create(
-                database.Object, 
-                enchantmentStoreRepository.Object,
+                database.Object,
                 factory.Object);
            
             // Execute
@@ -142,9 +136,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             factory.Verify(x => x.CreateEnchantmentStore(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
-                    It.IsAny<TimeSpan>(),
                     It.IsAny<double>()),
                     Times.Once);
 
@@ -174,12 +165,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
                 .Returns(command.Object);
 
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>();
-
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-
+        
             var repository = AdditiveEnchantmentStoreRepository.Create(
                 database.Object,
-                enchantmentStoreRepository.Object,
                 factory.Object);
 
             var exception = Assert.Throws<InvalidOperationException>(() => repository.GetById(STORE_ID));
@@ -188,9 +176,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             factory.Verify(x => x.CreateEnchantmentStore(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
-                    It.IsAny<TimeSpan>(),
                     It.IsAny<double>()),
                     Times.Never);
 
@@ -213,14 +198,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
                 .Returns(command.Object);
 
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>();
-
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-            enchantmentStoreRepository
-                .Setup(x => x.RemoveById(enchantmentStoreId));
-
+            
             var repository = AdditiveEnchantmentStoreRepository.Create(
                 database.Object,
-                enchantmentStoreRepository.Object,
                 factory.Object);
 
             // Execute
@@ -230,8 +210,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
 
             command.Verify(x => x.ExecuteNonQuery(), Times.Once);
-
-            enchantmentStoreRepository.Verify(x => x.RemoveById(It.IsAny<Guid>()));
         }
 
         [Fact]
@@ -260,14 +238,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
                 .Returns(456);
 
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>();
-
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-            enchantmentStoreRepository
-                .Setup(x => x.Add(enchantmentStore.Object));
-
+            
             var repository = AdditiveEnchantmentStoreRepository.Create(
                 database.Object,
-                enchantmentStoreRepository.Object,
                 factory.Object);
             
             // Execute
@@ -281,8 +254,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             enchantmentStore.Verify(x => x.Id, Times.Once);
             enchantmentStore.Verify(x => x.StatId, Times.Once);
             enchantmentStore.Verify(x => x.Value, Times.Once);
-
-            enchantmentStoreRepository.Verify(x => x.Add(It.IsAny<IEnchantmentStore>()), Times.Once);
         }
         #endregion
     }

@@ -11,6 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            IEnumerable<Guid> weatherIds,
             TimeSpan remainingDuration,
             Guid statId,
             double value);

@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using Moq;
-
-using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 
 namespace ProjectXyz.Application.Tests.Enchantments.Mocks

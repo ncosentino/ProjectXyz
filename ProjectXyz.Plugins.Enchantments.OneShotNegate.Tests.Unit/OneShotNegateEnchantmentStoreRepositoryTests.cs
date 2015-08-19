@@ -30,6 +30,12 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
         private const string COLUMN_NAME_STATUS_TYPE_ID = "StatusTypeId";
         private const int COLUMN_INDEX_STATUS_TYPE_ID = COLUMN_INDEX_TRIGGER_ID + 1;
+
+        private const string COLUMN_NAME_VALUE = "Value";
+        private const int COLUMN_INDEX_VALUE = COLUMN_INDEX_STATUS_TYPE_ID + 1;
+
+        private const string COLUMN_NAME_REMAINING_DURATION = "RemainingDuration";
+        private const int COLUMN_INDEX_REMAINING_DURATION = COLUMN_INDEX_VALUE + 1;
         #endregion
 
         #region Methods
@@ -83,6 +89,20 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.GetGuid(COLUMN_INDEX_STATUS_TYPE_ID))
                 .Returns(STATUS_TYPE_ID);
 
+            reader
+                .Setup(x => x.GetOrdinal(COLUMN_NAME_VALUE))
+                .Returns(COLUMN_INDEX_VALUE);
+            reader
+                .Setup(x => x.GetDouble(COLUMN_INDEX_VALUE))
+                .Returns(0);
+            
+            reader
+                .Setup(x => x.GetOrdinal(COLUMN_NAME_REMAINING_DURATION))
+                .Returns(COLUMN_INDEX_REMAINING_DURATION);
+            reader
+                .Setup(x => x.GetDouble(COLUMN_INDEX_REMAINING_DURATION))
+                .Returns(1000);
+                        
             var command = new Mock<IDbCommand>();
             command
                 .Setup(x => x.ExecuteReader())
@@ -99,16 +119,11 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             factory
                 .Setup(x => x.CreateEnchantmentStore(
                     STORE_ID, 
-                    STAT_ID,
-                    TRIGGER_ID,
-                    STATUS_TYPE_ID))
+                    STAT_ID))
                 .Returns(enchantmentStore.Object);
 
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-
             var repository = OneShotNegateEnchantmentStoreRepository.Create(
-                database.Object, 
-                enchantmentStoreRepository.Object,
+                database.Object,
                 factory.Object);
            
             // Execute
@@ -118,8 +133,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             Assert.Equal(enchantmentStore.Object, result);
 
             factory.Verify(x => x.CreateEnchantmentStore(
-                    It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>()),
                     Times.Once);
@@ -150,20 +163,15 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Returns(command.Object);
 
             var factory = new Mock<IOneShotNegateEnchantmentStoreFactory>();
-
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-
+        
             var repository = OneShotNegateEnchantmentStoreRepository.Create(
                 database.Object,
-                enchantmentStoreRepository.Object,
                 factory.Object);
 
             var exception = Assert.Throws<InvalidOperationException>(() => repository.GetById(STORE_ID));
             Assert.Equal("No enchantment with Id '" + STORE_ID + "' was found.", exception.Message);
 
             factory.Verify(x => x.CreateEnchantmentStore(
-                    It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>()),
                     Times.Never);
@@ -187,14 +195,9 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Returns(command.Object);
 
             var factory = new Mock<IOneShotNegateEnchantmentStoreFactory>();
-
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-            enchantmentStoreRepository
-                .Setup(x => x.RemoveById(enchantmentStoreId));
-
+            
             var repository = OneShotNegateEnchantmentStoreRepository.Create(
                 database.Object,
-                enchantmentStoreRepository.Object,
                 factory.Object);
 
             // Execute
@@ -204,8 +207,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
 
             command.Verify(x => x.ExecuteNonQuery(), Times.Once);
-
-            enchantmentStoreRepository.Verify(x => x.RemoveById(It.IsAny<Guid>()));
         }
 
         [Fact]
@@ -231,14 +232,9 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Returns(STAT_ID);
 
             var factory = new Mock<IOneShotNegateEnchantmentStoreFactory>();
-
-            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository<IEnchantmentStore>>(MockBehavior.Strict);
-            enchantmentStoreRepository
-                .Setup(x => x.Add(enchantmentStore.Object));
-
+            
             var repository = OneShotNegateEnchantmentStoreRepository.Create(
                 database.Object,
-                enchantmentStoreRepository.Object,
                 factory.Object);
             
             // Execute
@@ -251,8 +247,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
             enchantmentStore.Verify(x => x.Id, Times.Once);
             enchantmentStore.Verify(x => x.StatId, Times.Once);
-
-            enchantmentStoreRepository.Verify(x => x.Add(It.IsAny<IEnchantmentStore>()), Times.Once);
         }
         #endregion
     }

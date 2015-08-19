@@ -16,27 +16,18 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
         {
             // Setup
             var id = Guid.NewGuid();
-            var enchantmentTypeId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            var triggerId = Guid.NewGuid();
-            var statusTypeId = Guid.NewGuid();
 
-            var factory = OneShotNegateEnchantmentStoreFactory.Create(enchantmentTypeId);
+            var factory = OneShotNegateEnchantmentStoreFactory.Create();
 
             // Execute
             var result = factory.CreateEnchantmentStore(
                 id,
-                statId,
-                triggerId,
-                statusTypeId);
+                statId);
 
             // Assert
             Assert.Equal(id, result.Id);
-            Assert.Equal(enchantmentTypeId, result.EnchantmentTypeId);
             Assert.Equal(statId, result.StatId);
-            Assert.Equal(triggerId, result.TriggerId);
-            Assert.Equal(statusTypeId, result.StatusTypeId);
-            Assert.Equal(0, result.RemainingDuration.TotalMilliseconds);
         }
         #endregion
     }

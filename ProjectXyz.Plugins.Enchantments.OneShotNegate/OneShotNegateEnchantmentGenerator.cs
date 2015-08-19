@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
@@ -9,36 +10,43 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
     {
         #region Fields
         private readonly IOneShotNegateEnchantmentFactory _oneShotNegateEnchantmentFactory;
+        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
         #endregion
 
         #region Constructors
-        private OneShotNegateEnchantmentGenerator(IOneShotNegateEnchantmentFactory oneShotNegateEnchantmentFactory)
+        private OneShotNegateEnchantmentGenerator(
+            IOneShotNegateEnchantmentFactory oneShotNegateEnchantmentFactory,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
             _oneShotNegateEnchantmentFactory = oneShotNegateEnchantmentFactory;
+            _enchantmentWeatherRepository = enchantmentWeatherRepository;
         }
         #endregion
 
         #region Methods
-        public static IOneShotNegateEnchantmentGenerator Create(IOneShotNegateEnchantmentFactory oneShotNegateEnchantmentFactory)
+        public static IOneShotNegateEnchantmentGenerator Create(
+            IOneShotNegateEnchantmentFactory oneShotNegateEnchantmentFactory,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
-            var generator = new OneShotNegateEnchantmentGenerator(oneShotNegateEnchantmentFactory);
+            var generator = new OneShotNegateEnchantmentGenerator(
+                oneShotNegateEnchantmentFactory,
+                enchantmentWeatherRepository);
             return generator;
         }
 
         public IOneShotNegateEnchantment Generate(
             IRandom randomizer, 
-            IOneShotNegateEnchantmentDefinition definition)
+            IEnchantmentDefinition enchantmentDefinition,
+            IOneShotNegateEnchantmentDefinition oneShotNegateEnchantmentDefinition)
         {
-            var duration = TimeSpan.FromMilliseconds(
-                definition.MinimumDuration.TotalMilliseconds +
-                randomizer.NextDouble() * (definition.MaximumDuration.TotalMilliseconds - definition.MinimumDuration.TotalMilliseconds));
+            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentDefinition.EnchantmentWeatherId);
 
             return _oneShotNegateEnchantmentFactory.Create(
                 Guid.NewGuid(),
-                definition.StatusTypeId,
-                definition.TriggerId,
-                duration,
-                definition.StatId);
+                enchantmentDefinition.StatusTypeId,
+                enchantmentDefinition.TriggerId,
+                enchantmentWeather.WeatherIds,
+                oneShotNegateEnchantmentDefinition.StatId);
         }
         #endregion
     }

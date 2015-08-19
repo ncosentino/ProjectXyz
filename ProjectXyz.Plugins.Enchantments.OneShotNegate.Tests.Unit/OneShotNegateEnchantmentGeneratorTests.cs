@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -16,66 +17,86 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
         [Fact]
         public void Generate_ValidArguments_Success()
         {
-            // SETUP
-            Guid STAT_ID = Guid.NewGuid();
-            Guid STATUS_TYPE_ID = Guid.NewGuid();
-            Guid TRIGGER_ID = Guid.NewGuid();
+            // Setup
+            var statId = Guid.NewGuid();
+            var statusTypeId = Guid.NewGuid();
+            var triggerId = Guid.NewGuid();
+            var enchantmentWeatherId = Guid.NewGuid();
 
-            var randomizer = new Mock<IRandom>();
-            randomizer
-                .SetupSequence(x => x.NextDouble())
-                .Returns(0.5);
+            var randomizer = new Mock<IRandom>(MockBehavior.Strict);
 
-            var enchantment = new Mock<IOneShotNegateEnchantment>();
+            var enchantment = new Mock<IOneShotNegateEnchantment>(MockBehavior.Strict);
 
-            var enchantmentDefinition = new Mock<IOneShotNegateEnchantmentDefinition>();
+            var oneShotNegateEnchantmentDefinition = new Mock<IOneShotNegateEnchantmentDefinition>(MockBehavior.Strict);
+            oneShotNegateEnchantmentDefinition
+                .Setup(x => x.StatId)
+                .Returns(statId);
+
+            var enchantmentDefinition = new Mock<IEnchantmentDefinition>(MockBehavior.Strict);
             enchantmentDefinition
                 .Setup(x => x.StatusTypeId)
-                .Returns(STATUS_TYPE_ID);
-            enchantmentDefinition
-                .Setup(x => x.StatId)
-                .Returns(STAT_ID);
+                .Returns(statusTypeId);
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
-                .Returns(TRIGGER_ID);
+                .Returns(triggerId);
             enchantmentDefinition
                 .Setup(x => x.MinimumDuration)
                 .Returns(TimeSpan.FromSeconds(0));
             enchantmentDefinition
                 .Setup(x => x.MaximumDuration)
-                .Returns(TimeSpan.FromSeconds(0));
-            
-            var OneShotEnchantmentFactory = new Mock<IOneShotNegateEnchantmentFactory>();
-            OneShotEnchantmentFactory
-                .Setup(x => x.Create(It.IsAny<Guid>(), STATUS_TYPE_ID, TRIGGER_ID, TimeSpan.FromSeconds(0), STAT_ID))
+                .Returns(TimeSpan.FromSeconds(2));
+            enchantmentDefinition
+                .Setup(x => x.EnchantmentWeatherId)
+                .Returns(enchantmentWeatherId);
+
+            var oneShotNegateEnchantmentFactory = new Mock<IOneShotNegateEnchantmentFactory>(MockBehavior.Strict);
+            oneShotNegateEnchantmentFactory
+                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, Enumerable.Empty<Guid>(), statId))
                 .Returns(enchantment.Object);
 
-            var enchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(OneShotEnchantmentFactory.Object);
+            var enchantmentWeather = new Mock<IEnchantmentWeather>(MockBehavior.Strict);
+            enchantmentWeather
+                .Setup(x => x.WeatherIds)
+                .Returns(Enumerable.Empty<Guid>());
+
+            var enchantmentWeatherRepository = new Mock<IEnchantmentWeatherRepository>(MockBehavior.Strict);
+            enchantmentWeatherRepository
+                .Setup(x => x.GetById(enchantmentWeatherId))
+                .Returns(enchantmentWeather.Object);
+
+            var enchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(
+                oneShotNegateEnchantmentFactory.Object,
+                enchantmentWeatherRepository.Object);
 
             // Execute
             var result = enchantmentGenerator.Generate(
                 randomizer.Object,
-                enchantmentDefinition.Object);
+                enchantmentDefinition.Object,
+                oneShotNegateEnchantmentDefinition.Object);
 
             // Assert
             Assert.Equal(enchantment.Object, result);
-
-            randomizer.Verify(x => x.NextDouble(), Times.Once);
-
-            enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);
-            enchantmentDefinition.Verify(x => x.StatId, Times.Once);
-            enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            enchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
-            enchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
             
-            OneShotEnchantmentFactory.Verify(
+            oneShotNegateEnchantmentDefinition.Verify(x => x.StatId, Times.Once);
+
+            enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);            
+            enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
+            enchantmentDefinition.Verify(x => x.MinimumDuration, Times.Never);
+            enchantmentDefinition.Verify(x => x.MaximumDuration, Times.Never);
+            enchantmentDefinition.Verify(x => x.EnchantmentWeatherId, Times.Once);
+            
+            oneShotNegateEnchantmentFactory.Verify(
                 x => x.Create(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<TimeSpan>(),
+                    It.IsAny<IEnumerable<Guid>>(),
                     It.IsAny<Guid>()),
                 Times.Once);
+
+            enchantmentWeather.Verify(x => x.WeatherIds, Times.Once);
+
+            enchantmentWeatherRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Once);
         }
         #endregion
     }

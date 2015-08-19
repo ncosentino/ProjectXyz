@@ -16,8 +16,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #endregion
 
         #region Constructors
-        private OneShotNegateEnchantmentTypeCalculator(
-            IStatusNegationRepository statusNegationRepository)
+        private OneShotNegateEnchantmentTypeCalculator(IStatusNegationRepository statusNegationRepository)
         {
             _statusNegationRepository = statusNegationRepository;
         }
@@ -29,10 +28,14 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             return new OneShotNegateEnchantmentTypeCalculator(statusNegationRepository);
         }
 
-        public IEnchantmentTypeCalculatorResult Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments)
+        public IEnchantmentTypeCalculatorResult Calculate(
+            IEnchantmentContext enchantmentContext,
+            IStatCollection stats, 
+            IEnumerable<IEnchantment> enchantments)
         {
             var removedEnchantments = new List<IEnchantment>();
             var processedEnchantments = new List<IEnchantment>(ProcessEnchantments(
+                enchantmentContext,
                 enchantments,
                 removedEnchantments));
 
@@ -45,27 +48,38 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         }
 
         private IEnumerable<IEnchantment> ProcessEnchantments(
+            IEnchantmentContext enchantmentContext,
             IEnumerable<IEnchantment> enchantments,
             IList<IEnchantment> removedEnchantments)
         {
             var negationEnchantments = enchantments
-                .Where(x => x is IOneShotNegateEnchantment)
+                .Where(x => x is IOneShotNegateEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
                 .Cast<IOneShotNegateEnchantment>()
                 .ToArray();
 
-            var activeNegations = new Dictionary<Guid, bool>();
+            var activeNegations = new Dictionary<Guid, HashSet<IOneShotNegateEnchantment>>();
             foreach (var statusNegation in _statusNegationRepository.GetAll())
             {
-                activeNegations[statusNegation.EnchantmentStatusId] = negationEnchantments.Any(x => x.StatId == statusNegation.StatId);
+                var negatingEnchantments = new HashSet<IOneShotNegateEnchantment>(negationEnchantments.Where(x => x.StatId == statusNegation.StatId));
+                if (negationEnchantments.Any())
+                {
+                    activeNegations[statusNegation.EnchantmentStatusId] = negatingEnchantments;
+                }
             }
 
             foreach (var enchantment in enchantments
                 .Except(negationEnchantments)
-                .Where(x =>
-                    activeNegations.ContainsKey(x.StatusTypeId) &&
-                    activeNegations[x.StatusTypeId]))
+                .Where(x => activeNegations.ContainsKey(x.StatusTypeId)))
             {
                 removedEnchantments.Add(enchantment);
+
+                foreach (var enchantmentToRemove in activeNegations[enchantment.StatusTypeId]
+                    .Where(enchantmentToRemove => !removedEnchantments.Contains(enchantmentToRemove)))
+                {
+                    removedEnchantments.Add(enchantmentToRemove);
+                }
+
+                activeNegations.Remove(enchantment.StatusTypeId);
             }
 
             return negationEnchantments;

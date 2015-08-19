@@ -8,6 +8,7 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Tests.Enchantments.Mocks;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -39,9 +40,11 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 .Setup(x => x.Stats)
                 .Returns(stats);
 
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
+
             var enchantmentTypeCalculator = new Mock<IEnchantmentTypeCalculator>(MockBehavior.Strict);
             enchantmentTypeCalculator
-                .Setup(x => x.Calculate(stats, new[] { enchantment }))
+                .Setup(x => x.Calculate(enchantmentContext.Object, stats, new[] { enchantment }))
                 .Returns(enchantmentTypeCalculatorResult.Object);
 
             var enchantmentCalculatorResult = new Mock<IEnchantmentCalculatorResult>(MockBehavior.Strict);
@@ -52,6 +55,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                 .Returns(enchantmentCalculatorResult.Object);
 
             var calculator = EnchantmentCalculator.Create(
+                enchantmentContext.Object,
                 enchantmentCalculatorResultFactory.Object,
                 new[]
                 {
@@ -68,6 +72,14 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             // Assert
             Assert.Equal(enchantmentCalculatorResult.Object, result);
+
+            enchantmentTypeCalculatorResult.Verify(x => x.ProcessedEnchantments, Times.Once);
+            enchantmentTypeCalculatorResult.Verify(x => x.RemovedEnchantments, Times.Exactly(2));
+            enchantmentTypeCalculatorResult.Verify(x => x.Stats, Times.Once);
+
+            enchantmentTypeCalculator.Verify(x => x.Calculate(It.IsAny<IEnchantmentContext>(), It.IsAny<IStatCollection>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
+
+            enchantmentCalculatorResultFactory.Verify(x => x.Create(It.IsAny<IEnumerable<IEnchantment>>(), It.IsAny<IStatCollection>()));
         }
     }
 }

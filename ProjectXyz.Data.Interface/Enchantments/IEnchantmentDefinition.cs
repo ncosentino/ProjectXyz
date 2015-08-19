@@ -13,6 +13,8 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         Guid StatusTypeId { get; set; }
 
+        Guid EnchantmentWeatherId { get; set; }
+
         TimeSpan MinimumDuration { get; set; }
         
         TimeSpan MaximumDuration { get; set; }

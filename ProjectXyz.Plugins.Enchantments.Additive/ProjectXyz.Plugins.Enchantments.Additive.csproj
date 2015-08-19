@@ -135,6 +135,8 @@
     <Compile Include="AdditiveEnchantmentTypeCalculator.cs" />
     <Compile Include="Contracts\IAdditiveEnchantmentStoreFactoryContract.cs" />
     <Compile Include="AdditiveEnchantmentFactory.cs" />
+    <Compile Include="Contracts\IAdditiveEnchantmentDefinitionRepositoryContract.cs" />
+    <Compile Include="Contracts\IAdditiveEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="IAdditiveEnchantmentGenerator.cs" />
     <Compile Include="IAdditiveEnchantment.cs" />
     <Compile Include="IAdditiveEnchantmentDefinition.cs" />
@@ -142,9 +144,12 @@
     <Compile Include="IAdditiveEnchantmentFactory.cs" />
     <Compile Include="IAdditiveEnchantmentStore.cs" />
     <Compile Include="IAdditiveEnchantmentStoreFactory.cs" />
+    <Compile Include="IAdditiveEnchantmentDefinitionRepository.cs" />
+    <Compile Include="IAdditiveEnchantmentStoreRepository.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sql\AdditiveEnchantmentStoreRepository.cs" />
+    <Compile Include="Sql\AdditiveEnchantmentDefinitionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">

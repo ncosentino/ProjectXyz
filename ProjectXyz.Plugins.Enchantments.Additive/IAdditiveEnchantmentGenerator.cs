@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive
 {
@@ -10,7 +11,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         #region Methods
         IAdditiveEnchantment Generate(
             IRandom randomizer,
-            IAdditiveEnchantmentDefinition definition);
+            IEnchantmentDefinition enchantmentDefinition,
+            IAdditiveEnchantmentDefinition additiveEnchantmentDefinition);
         #endregion
     }
 }

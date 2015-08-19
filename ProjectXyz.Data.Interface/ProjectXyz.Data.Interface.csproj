@@ -158,8 +158,12 @@
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
-    <Compile Include="Enchantments\IEnchantmentDefinitionRepository.cs" />
+    <Compile Include="Enchantments\IEnchantmentWeatherFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentWeather.cs" />
+    <Compile Include="Enchantments\IEnchantmentWeatherRepository.cs" />
+    <Compile Include="Enchantments\IEnchantmentStoreFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinition.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentStoreRepository.cs" />
     <Compile Include="Enchantments\IStatusNegationRepository.cs" />
     <Compile Include="Enchantments\IStatusNegationFactory.cs" />
@@ -223,6 +227,9 @@
       <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
       <Name>ProjectXyz.Interface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Weather\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

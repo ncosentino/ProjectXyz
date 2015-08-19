@@ -23,6 +23,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            IEnumerable<Guid> weatherIds,
             TimeSpan remainingDuration,
             Guid statId,
             double value)
@@ -31,6 +32,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
                 id,
                 statusTypeId,
                 triggerId,
+                weatherIds,
                 remainingDuration,
                 statId,
                 value);

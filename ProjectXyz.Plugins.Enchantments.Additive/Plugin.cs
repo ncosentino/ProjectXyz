@@ -13,8 +13,10 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
     public sealed class Plugin : IEnchantmentPlugin
     {
         #region Fields
-        private readonly IEnchantmentStoreRepository<IAdditiveEnchantmentStore> _enchantmentStoreRepository;
-        private readonly IEnchantmentDefinitionRepository<IAdditiveEnchantmentDefinition> _enchantmentDefinitioneRepository;
+        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
+        private readonly IAdditiveEnchantmentStoreRepository _additiveEnchantmentStoreRepository;
+        private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
+        private readonly IAdditiveEnchantmentDefinitionRepository _additiveEnchantmentDefinitioneRepository;
         private readonly IEnchantmentTypeCalculator _enchantmentTypeCalculator;
         private readonly IAdditiveEnchantmentGenerator _additiveEnchantmentGenerator;
         private readonly IAdditiveEnchantmentStoreFactory _additiveEnchantmentStoreFactory;
@@ -24,24 +26,31 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         #region Constructors
         public Plugin(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository)
+            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
+
+            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
+            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+
             var statFactory = StatFactory.Create();
             _enchantmentTypeCalculator = AdditiveEnchantmentTypeCalculator.Create(statFactory);
 
             var enchantmentFactory = AdditiveEnchantmentFactory.Create();
-            _additiveEnchantmentGenerator = AdditiveEnchantmentGenerator.Create(enchantmentFactory);
+            _additiveEnchantmentGenerator = AdditiveEnchantmentGenerator.Create(
+                enchantmentFactory,
+                enchantmentWeatherRepository);
 
-            // FIXME: this should be a constant value defined somewhere
-            var enchantmentTypeId = Guid.NewGuid();
-            _additiveEnchantmentStoreFactory = AdditiveEnchantmentStoreFactory.Create(enchantmentTypeId);
+            _additiveEnchantmentStoreFactory = AdditiveEnchantmentStoreFactory.Create();
 
-            _enchantmentStoreRepository = AdditiveEnchantmentStoreRepository.Create(
+            _additiveEnchantmentStoreRepository = AdditiveEnchantmentStoreRepository.Create(
                 database,
-                enchantmentStoreRepository,
                 _additiveEnchantmentStoreFactory);
 
             _additiveEnchantmentFactory = AdditiveEnchantmentFactory.Create();
+
+            var additiveEnchantmentDefinitionFactory = AdditiveEnchantmentDefinitionFactory.Create();
+            _additiveEnchantmentDefinitioneRepository = AdditiveEnchantmentDefinitionRepository.Create(database, additiveEnchantmentDefinitionFactory);
         }
         #endregion
 
@@ -87,14 +96,16 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             IRandom randomizer, 
             Guid enchantmentDefinitionId)
         {
-            var definition = _enchantmentDefinitioneRepository.GetById(enchantmentDefinitionId);
+            var enchantmentDefinition = _enchantmentDefinitionRepository.GetById(enchantmentDefinitionId);
+            var additiveEnchantmentDefinition = _additiveEnchantmentDefinitioneRepository.GetById(enchantmentDefinitionId);
             var enchantment = _additiveEnchantmentGenerator.Generate(
                 randomizer,
-                definition);
+                enchantmentDefinition,
+                additiveEnchantmentDefinition);
             return enchantment;
         }
 
-        private IEnchantmentStore SaveEnchantment(IEnchantment enchantment)
+        private void SaveEnchantment(IEnchantment enchantment)
         {
             if (!(enchantment is IAdditiveEnchantment))
             {
@@ -108,32 +119,36 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             var enchantmentStore = _additiveEnchantmentStoreFactory.CreateEnchantmentStore(
                 additiveEnchantment.Id,
                 additiveEnchantment.StatId,
-                additiveEnchantment.TriggerId,
-                additiveEnchantment.StatusTypeId,
-                additiveEnchantment.RemainingDuration,
                 additiveEnchantment.Value);
             
             // FIXME: we need add or update?
-            _enchantmentStoreRepository.Add(enchantmentStore);
-
-            return enchantmentStore;
+            _additiveEnchantmentStoreRepository.Add(enchantmentStore);
         }
 
         private IEnchantment CreateEnchantment(IEnchantmentStore enchantmentStore)
         {
-            if (!(enchantmentStore is IAdditiveEnchantmentStore))
+            var additiveEnchantmentStore = _additiveEnchantmentStoreRepository.GetById(enchantmentStore.Id);
+            if (additiveEnchantmentStore == null)
             {
                 throw new InvalidOperationException(string.Format(
-                    "Cannot create additive enchantment from '{0}'.",
-                    enchantmentStore.GetType()));
+                    "Cannot create additive enchantment for enchantment store with id '{0}'.",
+                    enchantmentStore.Id));
             }
 
-            var additiveEnchantmentStore = (IAdditiveEnchantmentStore)enchantmentStore;
+            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentStore.EnchantmentWeatherId);
+            if (enchantmentWeather == null)
+            {
+                throw new InvalidOperationException(string.Format(
+                    "Could not find enchantment weather for id '{0}'.",
+                    enchantmentStore.EnchantmentWeatherId));
+            }
+
             var additiveEnchantment = _additiveEnchantmentFactory.Create(
-                additiveEnchantmentStore.Id,
-                additiveEnchantmentStore.StatusTypeId,
-                additiveEnchantmentStore.TriggerId,
-                additiveEnchantmentStore.RemainingDuration,
+                enchantmentStore.Id,
+                enchantmentStore.StatusTypeId,
+                enchantmentStore.TriggerId,
+                enchantmentWeather.WeatherIds,
+                enchantmentStore.RemainingDuration,
                 additiveEnchantmentStore.StatId,
                 additiveEnchantmentStore.Value);
             

@@ -12,7 +12,6 @@ using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Plugins.Enchantments.Additive;
-using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 
 namespace ProjectXyz.Application.Tests.Items.Mocks
 {
@@ -83,11 +82,15 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
                 .Setup(x => x.GetAll())
                 .Returns(Enumerable.Empty<IStatusNegation>());
 
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
+
             return EnchantmentCalculator.Create(
+                enchantmentContext.Object,
                 EnchantmentCalculatorResultFactory.Create(),
                 new[]
                 {
-                    OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
+                    // FIXME: put this back
+                    //OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
                     AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
                 });
         }

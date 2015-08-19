@@ -33,6 +33,23 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
                 return default(Guid);
             }
         }
+        
+        public Guid EnchantmentTypeId
+        {
+            get
+            {
+                return default(Guid);
+            }
+        }
+
+        public IEnumerable<Guid> WeatherIds
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IEnumerable<Guid>>() != null);
+                return default(IEnumerable<Guid>);
+            }
+        }
 
         public TimeSpan RemainingDuration
         {

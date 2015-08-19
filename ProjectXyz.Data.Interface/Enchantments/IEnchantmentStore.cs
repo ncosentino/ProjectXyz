@@ -18,6 +18,8 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         Guid EnchantmentTypeId { get; }
 
+        Guid EnchantmentWeatherId { get; }
+
         TimeSpan RemainingDuration { get; }
         #endregion
     }

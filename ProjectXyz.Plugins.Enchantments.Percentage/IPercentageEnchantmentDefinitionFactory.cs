@@ -8,15 +8,11 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
     public interface IPercentageEnchantmentDefinitionFactory
     {
         #region Methods
-        IEnchantmentDefinition CreateEnchantmentDefinition(
+        IPercentageEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id,
             Guid statId,
-            Guid triggerId,
-            Guid statusTypeId,
             double minimumValue,
-            double maximumValue,
-            TimeSpan minimumDuration,
-            TimeSpan maximumDuration);
+            double maximumValue);
         #endregion
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Sql;
 using ProjectXyz.Data.Sql.Enchantments;
@@ -14,8 +13,10 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
     public sealed class Plugin : IEnchantmentPlugin
     {
         #region Fields
-        private readonly IEnchantmentStoreRepository<IOneShotNegateEnchantmentStore> _enchantmentStoreRepository;
-        private readonly IEnchantmentDefinitionRepository<IOneShotNegateEnchantmentDefinition> _enchantmentDefinitioneRepository;
+        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
+        private readonly IOneShotNegateEnchantmentStoreRepository _oneShotNegateEnchantmentStoreRepository;
+        private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
+        private readonly IOneShotNegateEnchantmentDefinitionRepository _oneShotNegateEnchantmentDefinitioneRepository;
         private readonly IEnchantmentTypeCalculator _enchantmentTypeCalculator;
         private readonly IOneShotNegateEnchantmentGenerator _oneShotNegateEnchantmentGenerator;
         private readonly IOneShotNegateEnchantmentStoreFactory _oneShotNegateEnchantmentStoreFactory;
@@ -25,24 +26,32 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Constructors
         public Plugin(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository)
+            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
+
+            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
+            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+
             var statusNegationRepository = StatusNegationRepository.Create(database);
+
             _enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository);
 
             var enchantmentFactory = OneShotNegateEnchantmentFactory.Create();
-            _oneShotNegateEnchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(enchantmentFactory);
+            _oneShotNegateEnchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(
+                enchantmentFactory,
+                enchantmentWeatherRepository);
 
-            // FIXME: this should be a constant value defined somewhere
-            var enchantmentTypeId = Guid.NewGuid();
-            _oneShotNegateEnchantmentStoreFactory = OneShotNegateEnchantmentStoreFactory.Create(enchantmentTypeId);
+            _oneShotNegateEnchantmentStoreFactory = OneShotNegateEnchantmentStoreFactory.Create();
 
-            _enchantmentStoreRepository = OneShotNegateEnchantmentStoreRepository.Create(
+            _oneShotNegateEnchantmentStoreRepository = OneShotNegateEnchantmentStoreRepository.Create(
                 database,
-                enchantmentStoreRepository,
                 _oneShotNegateEnchantmentStoreFactory);
 
             _oneShotNegateEnchantmentFactory = OneShotNegateEnchantmentFactory.Create();
+
+            var oneShotNegateEnchantmentDefinitionFactory = OneShotNegateEnchantmentDefinitionFactory.Create();
+            _oneShotNegateEnchantmentDefinitioneRepository = OneShotNegateEnchantmentDefinitionRepository.Create(database, oneShotNegateEnchantmentDefinitionFactory);
         }
         #endregion
 
@@ -88,14 +97,16 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             IRandom randomizer, 
             Guid enchantmentDefinitionId)
         {
-            var definition = _enchantmentDefinitioneRepository.GetById(enchantmentDefinitionId);
+            var enchantmentDefinition = _enchantmentDefinitionRepository.GetById(enchantmentDefinitionId);
+            var oneShotNegateEnchantmentDefinition = _oneShotNegateEnchantmentDefinitioneRepository.GetById(enchantmentDefinitionId);
             var enchantment = _oneShotNegateEnchantmentGenerator.Generate(
                 randomizer,
-                definition);
+                enchantmentDefinition,
+                oneShotNegateEnchantmentDefinition);
             return enchantment;
         }
 
-        private IEnchantmentStore SaveEnchantment(IEnchantment enchantment)
+        private void SaveEnchantment(IEnchantment enchantment)
         {
             if (!(enchantment is IOneShotNegateEnchantment))
             {
@@ -108,31 +119,35 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 
             var enchantmentStore = _oneShotNegateEnchantmentStoreFactory.CreateEnchantmentStore(
                 oneShotNegateEnchantment.Id,
-                oneShotNegateEnchantment.StatId,
-                oneShotNegateEnchantment.TriggerId,
-                oneShotNegateEnchantment.StatusTypeId);
+                oneShotNegateEnchantment.StatId);
             
             // FIXME: we need add or update?
-            _enchantmentStoreRepository.Add(enchantmentStore);
-
-            return enchantmentStore;
+            _oneShotNegateEnchantmentStoreRepository.Add(enchantmentStore);
         }
 
         private IEnchantment CreateEnchantment(IEnchantmentStore enchantmentStore)
         {
-            if (!(enchantmentStore is IOneShotNegateEnchantmentStore))
+            var oneShotNegateEnchantmentStore = _oneShotNegateEnchantmentStoreRepository.GetById(enchantmentStore.Id);
+            if (oneShotNegateEnchantmentStore == null)
             {
                 throw new InvalidOperationException(string.Format(
-                    "Cannot create oneShotNegate enchantment from '{0}'.",
-                    enchantmentStore.GetType()));
+                    "Cannot create oneShotNegate enchantment for enchantment store with id '{0}'.",
+                    enchantmentStore.Id));
             }
 
-            var oneShotNegateEnchantmentStore = (IOneShotNegateEnchantmentStore)enchantmentStore;
+            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentStore.EnchantmentWeatherId);
+            if (enchantmentWeather == null)
+            {
+                throw new InvalidOperationException(string.Format(
+                    "Could not find enchantment weather for id '{0}'.",
+                    enchantmentStore.EnchantmentWeatherId));
+            }
+
             var oneShotNegateEnchantment = _oneShotNegateEnchantmentFactory.Create(
-                oneShotNegateEnchantmentStore.Id,
-                oneShotNegateEnchantmentStore.StatusTypeId,
-                oneShotNegateEnchantmentStore.TriggerId,
-                oneShotNegateEnchantmentStore.RemainingDuration,
+                enchantmentStore.Id,
+                enchantmentStore.StatusTypeId,
+                enchantmentStore.TriggerId,
+                enchantmentWeather.WeatherIds,
                 oneShotNegateEnchantmentStore.StatId);
             
             return oneShotNegateEnchantment;

@@ -22,25 +22,17 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             return new PercentageEnchantmentDefinitionFactory();
         }
 
-        public IEnchantmentDefinition CreateEnchantmentDefinition(
+        public IPercentageEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id, 
             Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId, 
             double minimumValue, 
-            double maximumValue, 
-            TimeSpan minimumDuration, 
-            TimeSpan maximumDuration)
+            double maximumValue)
         {
             return PercentageEnchantmentDefinition.Create(
                 id,
                 statId,
-                triggerId,
-                statusTypeId,
                 minimumValue,
-                maximumValue,
-                minimumDuration,
-                maximumDuration);
+                maximumValue);
         }
         #endregion
     }

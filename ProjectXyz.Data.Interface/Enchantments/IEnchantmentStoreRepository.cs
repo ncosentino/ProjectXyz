@@ -6,16 +6,15 @@ using ProjectXyz.Data.Interface.Enchantments.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
-    [ContractClass(typeof(IEnchantmentStoreRepositoryContract<>))]
-    public interface IEnchantmentStoreRepository<TEnchantmentStore>
-        where TEnchantmentStore : IEnchantmentStore
+    [ContractClass(typeof(IEnchantmentStoreRepositoryContract))]
+    public interface IEnchantmentStoreRepository
     {
         #region Methods
-        void Add(TEnchantmentStore enchantmentStore);
+        void Add(IEnchantmentStore enchantmentStore);
 
         void RemoveById(Guid id);
 
-        TEnchantmentStore GetById(Guid id);
+        IEnchantmentStore GetById(Guid id);
         #endregion
     }
 }

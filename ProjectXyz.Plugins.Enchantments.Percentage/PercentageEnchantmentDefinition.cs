@@ -12,24 +12,17 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         private PercentageEnchantmentDefinition(
             Guid id,
             Guid statId,
-            Guid triggerId,
-            Guid statusTypeId,
             double minimumValue,
-            double maximumValue,
-            TimeSpan minimumDuration,
-            TimeSpan maximumDuration)
+            double maximumValue)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(minimumValue <= maximumValue);
-            Contract.Requires<ArgumentOutOfRangeException>(minimumDuration <= maximumDuration);
 
             this.Id = id;
             this.StatId = statId;
-            this.TriggerId = triggerId;
-            this.StatusTypeId = statusTypeId;
             this.MinimumValue = minimumValue;
             this.MaximumValue = maximumValue;
-            this.MinimumDuration = minimumDuration;
-            this.MaximumDuration = maximumDuration;
         }
         #endregion
 
@@ -46,30 +39,6 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             set;
         }
         
-        public Guid TriggerId
-        {
-            get;
-            set;
-        }
-
-        public Guid StatusTypeId
-        {
-            get;
-            set;
-        }
-
-        public TimeSpan MinimumDuration
-        {
-            get;
-            set;
-        }
-
-        public TimeSpan MaximumDuration
-        {
-            get;
-            set;
-        }
-
         public double MinimumValue
         {
             get;
@@ -84,29 +53,23 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         #endregion
 
         #region Methods
-        public static IEnchantmentDefinition Create(
+        public static IPercentageEnchantmentDefinition Create(
             Guid id,
             Guid statId,
-            Guid triggerId,
-            Guid statusTypeId,
             double minimumValue,
-            double maximumValue,
-            TimeSpan minimumDuration,
-            TimeSpan maximumDuration)
+            double maximumValue)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(minimumValue <= maximumValue);
-            Contract.Requires<ArgumentOutOfRangeException>(minimumDuration <= maximumDuration);
-            Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
+            Contract.Ensures(Contract.Result<IPercentageEnchantmentDefinition>() != null);
 
-            return new PercentageEnchantmentDefinition(
+            var enchantmentDefinition = new PercentageEnchantmentDefinition(
                 id,
                 statId,
-                triggerId,
-                statusTypeId,
                 minimumValue,
-                maximumValue,
-                minimumDuration,
-                maximumDuration);
+                maximumValue);
+            return enchantmentDefinition;
         }
         #endregion
     }

@@ -50,6 +50,7 @@
     <Compile Include="AdditiveEnchantmentStoreFactoryTests.cs" />
     <Compile Include="AdditiveEnchantmentStoreRepositoryTests.cs" />
     <Compile Include="AdditiveEnchantmentGeneratorTests.cs" />
+    <Compile Include="AdditiveEnchantmentTypeCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

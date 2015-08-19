@@ -8,51 +8,42 @@ using ProjectXyz.Data.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
 {
-    public sealed class AdditiveEnchantmentStoreRepository : IEnchantmentStoreRepository<IAdditiveEnchantmentStore>
+    public sealed class AdditiveEnchantmentStoreRepository : IAdditiveEnchantmentStoreRepository
     {
         #region Fields
         private readonly IDatabase _database;
-        private readonly IEnchantmentStoreRepository<IEnchantmentStore> _enchantmentStoreRepository;
         private readonly IAdditiveEnchantmentStoreFactory _factory;
         #endregion
 
         #region Constructors
         private AdditiveEnchantmentStoreRepository(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository,
             IAdditiveEnchantmentStoreFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Requires<ArgumentNullException>(enchantmentStoreRepository != null);
             Contract.Requires<ArgumentNullException>(factory != null);
 
             _database = database;
-            _enchantmentStoreRepository = enchantmentStoreRepository;
             _factory = factory;
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentStoreRepository<IAdditiveEnchantmentStore> Create(
+        public static IAdditiveEnchantmentStoreRepository Create(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository,
             IAdditiveEnchantmentStoreFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Requires<ArgumentNullException>(enchantmentStoreRepository != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStoreRepository<IAdditiveEnchantmentStore>>() != null);
+            Contract.Ensures(Contract.Result<IAdditiveEnchantmentStoreRepository>() != null);
 
             return new AdditiveEnchantmentStoreRepository(
                 database,
-                enchantmentStoreRepository,
                 factory);
         }
 
         public void Add(IAdditiveEnchantmentStore enchantmentStore)
         {
-            _enchantmentStoreRepository.Add(enchantmentStore);
-
             var namedParameters = new Dictionary<string, object>()
             {
                 { "EnchantmentId", enchantmentStore.Id },
@@ -84,8 +75,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
 
         public void RemoveById(Guid id)
         {
-            _enchantmentStoreRepository.RemoveById(id);
-
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
@@ -108,15 +97,11 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
                     *
                 FROM
                     AdditiveEnchantments
-                LEFT OUTER JOIN
-                    Enchantments
-                ON
-                    Enchantments.Id=AdditiveEnchantments.EnchantmentId
                 WHERE
-                    Id = @id
+                    EnchantmentId = @EnchantmentId
                 LIMIT 1
                 ;",
-                "@id",
+                "@EnchantmentId",
                 id))
             {
                 using (var reader = command.ExecuteReader())
@@ -135,14 +120,11 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IAdditiveEnchantmentStore>() != null);
 
             return factory.CreateEnchantmentStore(
-                reader.GetGuid(reader.GetOrdinal("Id")),
+                reader.GetGuid(reader.GetOrdinal("EnchantmentId")),
                 reader.GetGuid(reader.GetOrdinal("StatId")),
-                reader.GetGuid(reader.GetOrdinal("TriggerId")),
-                reader.GetGuid(reader.GetOrdinal("StatusTypeId")),
-                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))),
                 reader.GetDouble(reader.GetOrdinal("Value")));
         }
         #endregion

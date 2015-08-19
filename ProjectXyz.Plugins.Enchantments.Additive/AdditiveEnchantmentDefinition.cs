@@ -12,24 +12,17 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         private AdditiveEnchantmentDefinition(
             Guid id,
             Guid statId,
-            Guid triggerId,
-            Guid statusTypeId,
             double minimumValue,
-            double maximumValue,
-            TimeSpan minimumDuration,
-            TimeSpan maximumDuration)
+            double maximumValue)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(minimumValue <= maximumValue);
-            Contract.Requires<ArgumentOutOfRangeException>(minimumDuration <= maximumDuration);
 
             this.Id = id;
             this.StatId = statId;
-            this.TriggerId = triggerId;
-            this.StatusTypeId = statusTypeId;
             this.MinimumValue = minimumValue;
             this.MaximumValue = maximumValue;
-            this.MinimumDuration = minimumDuration;
-            this.MaximumDuration = maximumDuration;
         }
         #endregion
 
@@ -46,30 +39,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             set;
         }
         
-        public Guid TriggerId
-        {
-            get;
-            set;
-        }
-
-        public Guid StatusTypeId
-        {
-            get;
-            set;
-        }
-
-        public TimeSpan MinimumDuration
-        {
-            get;
-            set;
-        }
-
-        public TimeSpan MaximumDuration
-        {
-            get;
-            set;
-        }
-
         public double MinimumValue
         {
             get;
@@ -84,29 +53,23 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         #endregion
 
         #region Methods
-        public static IEnchantmentDefinition Create(
+        public static IAdditiveEnchantmentDefinition Create(
             Guid id,
             Guid statId,
-            Guid triggerId,
-            Guid statusTypeId,
             double minimumValue,
-            double maximumValue,
-            TimeSpan minimumDuration,
-            TimeSpan maximumDuration)
+            double maximumValue)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(minimumValue <= maximumValue);
-            Contract.Requires<ArgumentOutOfRangeException>(minimumDuration <= maximumDuration);
-            Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
+            Contract.Ensures(Contract.Result<IAdditiveEnchantmentDefinition>() != null);
 
-            return new AdditiveEnchantmentDefinition(
+            var enchantmentDefinition = new AdditiveEnchantmentDefinition(
                 id,
                 statId,
-                triggerId,
-                statusTypeId,
                 minimumValue,
-                maximumValue,
-                minimumDuration,
-                maximumDuration);
+                maximumValue);
+            return enchantmentDefinition;
         }
         #endregion
     }

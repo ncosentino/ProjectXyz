@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
@@ -11,45 +10,43 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Constructors
         private OneShotNegateEnchantmentDefinition(
             Guid id,
-            Guid statId,
-            Guid triggerId,
-            Guid statusTypeId)
+            Guid statId)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+
             this.Id = id;
             this.StatId = statId;
-            this.TriggerId = triggerId;
-            this.StatusTypeId = statusTypeId;
         }
         #endregion
 
         #region Properties
-        public Guid Id { get; set; }
+        public Guid Id
+        {
+            get;
+            set;
+        }
 
-        public Guid StatId { get; set; }
-
-        public Guid TriggerId { get; set; }
-
-        public Guid StatusTypeId { get; set; }
-
-        public TimeSpan MinimumDuration { get; set; }
-
-        public TimeSpan MaximumDuration { get; set; }
+        public Guid StatId
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
-        public static IEnchantmentDefinition Create(
+        public static IOneShotNegateEnchantmentDefinition Create(
             Guid id,
-            Guid statId,
-            Guid triggerId,
-            Guid statusTypeId)
+            Guid statId)
         {
-            Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Ensures(Contract.Result<IOneShotNegateEnchantmentDefinition>() != null);
 
-            return new OneShotNegateEnchantmentDefinition(
+            var enchantmentDefinition = new OneShotNegateEnchantmentDefinition(
                 id,
-                statId,
-                triggerId,
-                statusTypeId);
+                statId);
+            return enchantmentDefinition;
         }
         #endregion
     }

@@ -12,9 +12,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Methods
         IOneShotNegateEnchantmentStore CreateEnchantmentStore(
             Guid id,
-            Guid statId, 
-            Guid triggerId,
-            Guid statusTypeId);
+            Guid statId);
         #endregion
     }
 }

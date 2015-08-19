@@ -26,16 +26,19 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         #region Methods
         public static IEnchantmentTypeCalculator Create(IStatFactory statFactory)
         {
-            var enchantmentTypeCalculator = new PercentageEnchantmentTypeCalculator(statFactory);
-            return enchantmentTypeCalculator;
+            return new PercentageEnchantmentTypeCalculator(statFactory);
         }
 
-        public IEnchantmentTypeCalculatorResult Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments)
+        public IEnchantmentTypeCalculatorResult Calculate(
+            IEnchantmentContext enchantmentContext,
+            IStatCollection stats,
+            IEnumerable<IEnchantment> enchantments)
         {
             var newStats = StatCollection.Create();
             newStats.Add(stats);
 
             var processedEnchantments = new List<IEnchantment>(ProcessEnchantments(
+                enchantmentContext,
                 enchantments,
                 newStats));
 
@@ -47,16 +50,19 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             return result;
         }
 
-        private IEnumerable<IEnchantment> ProcessEnchantments(IEnumerable<IEnchantment> enchantments, IMutableStatCollection stats)
+        private IEnumerable<IEnchantment> ProcessEnchantments(
+            IEnchantmentContext enchantmentContext, 
+            IEnumerable<IEnchantment> enchantments, 
+            IMutableStatCollection stats)
         {
-            foreach (var enchantment in enchantments.Where(x => x is IPercentageEnchantment))
+            foreach (var enchantment in enchantments
+                .Where(x => x is IPercentageEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
+                .Cast<IPercentageEnchantment>())
             {
-                var additiveEnchantment = (IPercentageEnchantment)enchantment;
-
-                var oldValue = stats.GetValueOrDefault(additiveEnchantment.StatId, 0);
-                var newValue = oldValue * (1 + additiveEnchantment.Value);
-                var newStat = _statFactory.CreateStat(additiveEnchantment.StatId, newValue);
-                stats[additiveEnchantment.StatId] = newStat;
+                var oldValue = stats.GetValueOrDefault(enchantment.StatId, 0);
+                var newValue = oldValue * enchantment.Value;
+                var newStat = _statFactory.CreateStat(enchantment.StatId, newValue);
+                stats[enchantment.StatId] = newStat;
 
                 yield return enchantment;
             }

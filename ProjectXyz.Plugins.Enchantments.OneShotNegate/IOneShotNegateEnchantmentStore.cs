@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
-    public interface IOneShotNegateEnchantmentStore : IEnchantmentStore
+    public interface IOneShotNegateEnchantmentStore
     {
         #region Properties
+        Guid Id { get; }
+        
         Guid StatId { get; }
         #endregion
     }

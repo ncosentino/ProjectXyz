@@ -153,7 +153,9 @@ namespace ProjectXyz.Application.Tests.Items
                 item.Socket(socketCandidate),
                 "Expecting to socket the item.");
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+            var enchantmentSaver = new Mock<IEnchantmentSaver>(MockBehavior.Strict);
+
+            var itemSaver = ItemSaver.Create(enchantmentSaver.Object);
 
             // Execute
             var savedData = itemSaver.Save(item);
@@ -174,7 +176,10 @@ namespace ProjectXyz.Application.Tests.Items
                 new MockItemContextBuilder().Build(),
                 sourceData);
 
-            var itemSaver = ItemSaver.Create(EnchantmentSaver.Create());
+            var enchantmentSaver = new Mock<IEnchantmentSaver>(MockBehavior.Strict);
+
+            var itemSaver = ItemSaver.Create(enchantmentSaver.Object);
+
             var savedData = itemSaver.Save(item);
 
             Assert.Equal(sourceData.Requirements.Class, savedData.Requirements.Class);

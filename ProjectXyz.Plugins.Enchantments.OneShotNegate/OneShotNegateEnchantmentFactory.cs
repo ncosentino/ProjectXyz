@@ -23,14 +23,14 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            TimeSpan remainingDuration,
+            IEnumerable<Guid> weatherIds,
             Guid statId)
         {
             var enchantment = OneShotNegateEnchantment.Create(
                 id,
                 statusTypeId,
                 triggerId,
-                remainingDuration,
+                weatherIds,
                 statId);
             return enchantment;
         }

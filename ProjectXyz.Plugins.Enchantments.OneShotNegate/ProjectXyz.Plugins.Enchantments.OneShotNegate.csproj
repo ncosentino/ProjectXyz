@@ -126,24 +126,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OneShotNegateEnchantmentFactory.cs" />
-    <Compile Include="OneShotNegateEnchantmentGenerator.cs" />
-    <Compile Include="IOneShotNegateEnchantmentGenerator.cs" />
-    <Compile Include="IOneShotNegateEnchantmentFactory.cs" />
     <Compile Include="OneShotNegateEnchantment.cs" />
     <Compile Include="OneShotNegateEnchantmentDefinition.cs" />
     <Compile Include="OneShotNegateEnchantmentDefinitionFactory.cs" />
+    <Compile Include="OneShotNegateEnchantmentFactory.cs" />
+    <Compile Include="OneShotNegateEnchantmentGenerator.cs" />
     <Compile Include="OneShotNegateEnchantmentStore.cs" />
     <Compile Include="OneShotNegateEnchantmentStoreFactory.cs" />
     <Compile Include="OneShotNegateEnchantmentTypeCalculator.cs" />
+    <Compile Include="Contracts\IOneShotNegateEnchantmentDefinitionRepositoryContract.cs" />
     <Compile Include="Contracts\IOneShotNegateEnchantmentStoreFactoryContract.cs" />
+    <Compile Include="Contracts\IOneShotNegateEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="IOneShotNegateEnchantment.cs" />
     <Compile Include="IOneShotNegateEnchantmentDefinition.cs" />
     <Compile Include="IOneShotNegateEnchantmentDefinitionFactory.cs" />
+    <Compile Include="IOneShotNegateEnchantmentDefinitionRepository.cs" />
+    <Compile Include="IOneShotNegateEnchantmentFactory.cs" />
+    <Compile Include="IOneShotNegateEnchantmentGenerator.cs" />
     <Compile Include="IOneShotNegateEnchantmentStore.cs" />
     <Compile Include="IOneShotNegateEnchantmentStoreFactory.cs" />
+    <Compile Include="IOneShotNegateEnchantmentStoreRepository.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql\OneShotNegateEnchantmentDefinitionRepository.cs" />
     <Compile Include="Sql\OneShotNegateEnchantmentStoreRepository.cs" />
   </ItemGroup>
   <ItemGroup>

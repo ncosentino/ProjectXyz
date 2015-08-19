@@ -16,6 +16,10 @@ namespace ProjectXyz.Application.Interface.Enchantments
 
         Guid StatusTypeId { get; }
 
+        Guid EnchantmentTypeId { get; }
+
+        IEnumerable<Guid> WeatherIds { get; }
+
         TimeSpan RemainingDuration { get; }
         #endregion
     }

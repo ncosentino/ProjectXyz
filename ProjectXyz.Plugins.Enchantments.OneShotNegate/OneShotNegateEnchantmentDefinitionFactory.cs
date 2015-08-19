@@ -22,17 +22,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             return new OneShotNegateEnchantmentDefinitionFactory();
         }
 
-        public IEnchantmentDefinition CreateEnchantmentDefinition(
+        public IOneShotNegateEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id, 
-            Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId)
+            Guid statId)
         {
             return OneShotNegateEnchantmentDefinition.Create(
                 id,
-                statId,
-                triggerId,
-                statusTypeId);
+                statId);
         }
         #endregion
     }

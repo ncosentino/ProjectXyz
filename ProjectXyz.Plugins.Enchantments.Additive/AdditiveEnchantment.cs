@@ -10,6 +10,11 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         Enchantment,
         IAdditiveEnchantment
     {
+        #region Constants
+        // FIXME: this should be a constant value defined somewhere
+        private static readonly Guid ENCHANTMENT_TYPE_ID = Guid.NewGuid();
+        #endregion
+
         #region Fields
         private readonly Guid _statId;
         private readonly double _value;
@@ -20,6 +25,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            IEnumerable<Guid> weatherIds,
             TimeSpan remainingDuration,
             Guid statId,
             double value)
@@ -27,12 +33,15 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
                 id,
                 statusTypeId,
                 triggerId,
+                ENCHANTMENT_TYPE_ID,
+                weatherIds,
                 remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
+            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
 
             _statId = statId;
@@ -53,6 +62,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            IEnumerable<Guid> weatherIds,
             TimeSpan remainingDuration,
             Guid statId,
             double value)
@@ -60,7 +70,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
+            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Ensures(Contract.Result<IAdditiveEnchantment>() != null);
 
@@ -68,6 +79,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
                 id,
                 statusTypeId,
                 triggerId,
+                weatherIds,
                 remainingDuration,
                 statId,
                 value);

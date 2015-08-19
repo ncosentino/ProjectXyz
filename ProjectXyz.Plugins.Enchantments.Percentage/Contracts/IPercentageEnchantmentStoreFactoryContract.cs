@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage.Contracts
 {
@@ -12,18 +11,12 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Contracts
         #region Methods
         public IPercentageEnchantmentStore CreateEnchantmentStore(
             Guid id,
-            Guid statId, 
-            Guid triggerId,
-            Guid statusTypeId,
-            TimeSpan remainingDuration,
+            Guid statId,
             double value)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IPercentageEnchantmentStore>() != null);
 
             return default(IPercentageEnchantmentStore);
         }

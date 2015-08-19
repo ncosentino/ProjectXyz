@@ -10,6 +10,11 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         Enchantment,
         IOneShotNegateEnchantment
     {
+        #region Constants
+        // FIXME: this should be a constant value defined somewhere
+        private static readonly Guid ENCHANTMENT_TYPE_ID = Guid.NewGuid();
+        #endregion
+
         #region Fields
         private readonly Guid _statId;
         #endregion
@@ -19,18 +24,20 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            TimeSpan remainingDuration,
+            IEnumerable<Guid> weatherIds,
             Guid statId)
             : base(
                 id,
                 statusTypeId,
                 triggerId,
-                remainingDuration)
+                ENCHANTMENT_TYPE_ID,
+                weatherIds,
+                TimeSpan.Zero)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
+            Contract.Requires<ArgumentNullException>(weatherIds != null);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
 
             _statId = statId;
@@ -47,13 +54,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            TimeSpan remainingDuration,
+            IEnumerable<Guid> weatherIds,
             Guid statId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(remainingDuration >= TimeSpan.Zero);
+            Contract.Requires<ArgumentNullException>(weatherIds != null);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Ensures(Contract.Result<IOneShotNegateEnchantment>() != null);
 
@@ -61,7 +68,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 id,
                 statusTypeId,
                 triggerId,
-                remainingDuration,
+                weatherIds,
                 statId);
             return enchantment;
         }

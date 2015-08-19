@@ -9,7 +9,10 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantmentTypeCalculator
     {
         #region Methods
-        IEnchantmentTypeCalculatorResult Calculate(IStatCollection stats, IEnumerable<IEnchantment> enchantments);
+        IEnchantmentTypeCalculatorResult Calculate(
+            IEnchantmentContext enchantmentContext,
+            IStatCollection stats,
+            IEnumerable<IEnchantment> enchantments);
         #endregion
     }
 }

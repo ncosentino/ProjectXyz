@@ -1,33 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Data.Sql.Enchantments
 {
-    public sealed class EnchantmentStoreRepository : IEnchantmentStoreRepository<IEnchantmentStore>
+    public sealed class EnchantmentStoreRepository : IEnchantmentStoreRepository
     {
         #region Fields
         private readonly IDatabase _database;
+        private readonly IEnchantmentStoreFactory _enchantmentStoreFactory;
         #endregion
 
         #region Constructors
-        private EnchantmentStoreRepository(IDatabase database)
+        private EnchantmentStoreRepository(
+            IDatabase database,
+            IEnchantmentStoreFactory enchantmentStoreFactory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
+            Contract.Requires<ArgumentNullException>(enchantmentStoreFactory != null);
 
             _database = database;
+            _enchantmentStoreFactory = enchantmentStoreFactory;
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentStoreRepository<IEnchantmentStore> Create(IDatabase database)
+        public static IEnchantmentStoreRepository Create(
+                        IDatabase database,
+            IEnchantmentStoreFactory enchantmentStoreFactory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStoreRepository<IEnchantmentStore>>() != null);
+            Contract.Requires<ArgumentNullException>(enchantmentStoreFactory != null);
+            Contract.Ensures(Contract.Result<IEnchantmentStoreRepository>() != null);
 
-            return new EnchantmentStoreRepository(database);
+            return new EnchantmentStoreRepository(
+                database,
+                enchantmentStoreFactory);
         }
 
         public void Add(IEnchantmentStore enchantmentStore)
@@ -38,6 +49,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 { "EnchantmentTypeId", enchantmentStore.EnchantmentTypeId },
                 { "TriggerId", enchantmentStore.TriggerId },
                 { "StatusTypeId", enchantmentStore.StatusTypeId },
+                { "EnchantmentWeatherId", enchantmentStore.StatusTypeId },
                 { "RemainingDuration", enchantmentStore.RemainingDuration.TotalMilliseconds },
             };
 
@@ -50,6 +62,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     EnchantmentTypeId,
                     TriggerId,
                     StatusTypeId,
+                    EnchantmentWeatherId,
                     RemainingDuration,
                 )
                 VALUES
@@ -58,6 +71,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     @EnchantmentTypeId,
                     @TriggerId,
                     @StatusTypeId,
+                    @EnchantmentWeatherId,
                     @RemainingDuration,
                 )
                 ;",
@@ -85,7 +99,47 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
         public IEnchantmentStore GetById(Guid id)
         {
-            throw new NotSupportedException("Cannot get base enchantments using this repository.");
+            using (var command = _database.CreateCommand(
+                @"
+                SELECT 
+                    *
+                FROM
+                    Enchantments
+                WHERE
+                    Id = @id
+                LIMIT 1
+                ;",
+                "@id",
+                id))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    if (!reader.Read())
+                    {
+                        throw new InvalidOperationException("No enchantment with Id '" + id + "' was found.");
+                    }
+
+                    var enchantmentStore = EnchantmentFromReader(
+                        reader,
+                        _enchantmentStoreFactory);
+                    return enchantmentStore;
+                }
+            }
+        }
+
+        private IEnchantmentStore EnchantmentFromReader(IDataReader reader, IEnchantmentStoreFactory factory)
+        {
+            Contract.Requires<ArgumentNullException>(reader != null);
+            Contract.Requires<ArgumentNullException>(factory != null);
+            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+
+            return factory.Create(
+                reader.GetGuid(reader.GetOrdinal("Id")),
+                reader.GetGuid(reader.GetOrdinal("TriggerId")),
+                reader.GetGuid(reader.GetOrdinal("StatusTypeId")),
+                reader.GetGuid(reader.GetOrdinal("EnchantmentTypeId")),
+                reader.GetGuid(reader.GetOrdinal("EnchantmentWeatherId")),
+                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))));
         }
         #endregion
     }

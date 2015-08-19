@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Plugins.Enchantments.Additive.Contracts;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive
@@ -12,10 +13,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         #region Methods
         IAdditiveEnchantmentStore CreateEnchantmentStore(
             Guid id,
-            Guid statId, 
-            Guid triggerId,
-            Guid statusTypeId,
-            TimeSpan remainingDuration,
+            Guid statId,
             double value);
         #endregion
     }

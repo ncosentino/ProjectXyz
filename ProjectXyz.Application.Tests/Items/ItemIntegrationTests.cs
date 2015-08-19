@@ -32,7 +32,20 @@ namespace ProjectXyz.Application.Tests.Items
                 new MockItemContextBuilder().Build(),
                 sourceData);
 
-            var enchantmentSaver = EnchantmentSaver.Create();
+            var enchantmentStoreFactory = new Mock<IEnchantmentStoreFactory>(MockBehavior.Strict);
+
+            var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository>(MockBehavior.Strict);
+
+            var enchantmentWeatherFactory = new Mock<IEnchantmentWeatherFactory>(MockBehavior.Strict);
+
+            var enchantmentWeatherRepository = new Mock<IEnchantmentWeatherRepository>(MockBehavior.Strict);
+
+            var enchantmentSaver = EnchantmentSaver.Create(
+                enchantmentStoreFactory.Object,
+                enchantmentStoreRepository.Object,
+                enchantmentWeatherFactory.Object,
+                enchantmentWeatherRepository.Object);
+
             var itemSaver = ItemSaver.Create(enchantmentSaver);
             var savedData = itemSaver.Save(item);
 

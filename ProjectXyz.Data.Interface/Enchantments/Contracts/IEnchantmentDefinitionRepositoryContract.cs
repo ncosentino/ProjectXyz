@@ -5,19 +5,18 @@ using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Data.Interface.Enchantments.Contracts
 {
-    [ContractClassFor(typeof(IEnchantmentDefinitionRepository<>))]
-    public abstract class IEnchantmentDefinitionRepositoryContract<TEnchantmentDefinition> : IEnchantmentDefinitionRepository<TEnchantmentDefinition>
-        where TEnchantmentDefinition : IEnchantmentDefinition
+    [ContractClassFor(typeof(IEnchantmentDefinitionRepository))]
+    public abstract class IEnchantmentDefinitionRepositoryContract : IEnchantmentDefinitionRepository
     {
         #region Methods
-        public TEnchantmentDefinition GetById(Guid id)
+        public IEnchantmentDefinition GetById(Guid id)
         {
-            Contract.Ensures(Contract.Result<TEnchantmentDefinition>() != null);
+            Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
 
-            return default(TEnchantmentDefinition);
+            return default(IEnchantmentDefinition);
         }
 
-        public void Add(TEnchantmentDefinition enchantmentDefinition)
+        public void Add(IEnchantmentDefinition enchantmentDefinition)
         {
             Contract.Requires<ArgumentNullException>(enchantmentDefinition != null);
         }

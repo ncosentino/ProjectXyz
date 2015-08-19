@@ -12,18 +12,12 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Contracts
         #region Methods
         public IAdditiveEnchantmentStore CreateEnchantmentStore(
             Guid id,
-            Guid statId, 
-            Guid triggerId,
-            Guid statusTypeId,
-            TimeSpan remainingDuration,
+            Guid statId,
             double value)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IAdditiveEnchantmentStore>() != null);
 
             return default(IAdditiveEnchantmentStore);
         }

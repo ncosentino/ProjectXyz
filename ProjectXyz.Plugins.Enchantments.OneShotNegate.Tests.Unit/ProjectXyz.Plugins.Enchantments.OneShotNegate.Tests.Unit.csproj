@@ -47,10 +47,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OneShotNegateEnchantmentGeneratorTests.cs" />
     <Compile Include="OneShotNegateEnchantmentDefinitionFactoryTests.cs" />
+    <Compile Include="OneShotNegateEnchantmentGeneratorTests.cs" />
     <Compile Include="OneShotNegateEnchantmentStoreFactoryTests.cs" />
     <Compile Include="OneShotNegateEnchantmentStoreRepositoryTests.cs" />
+    <Compile Include="OneShotNegateEnchantmentTypeCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

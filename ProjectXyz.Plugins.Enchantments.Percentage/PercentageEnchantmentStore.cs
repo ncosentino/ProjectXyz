@@ -7,28 +7,18 @@ using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
-    public sealed class PercentageEnchantmentStore : 
-        EnchantmentStore,
-        IPercentageEnchantmentStore
+    public sealed class PercentageEnchantmentStore : IPercentageEnchantmentStore
     {
         #region Constructors
         private PercentageEnchantmentStore(
             Guid id,
-            Guid enchantmentTypeId,
-            Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId, 
-            TimeSpan remainingDuration,
+            Guid statId,
             double value)
-            : base(id, enchantmentTypeId, triggerId, statusTypeId, remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
 
+            this.Id = id;
             this.StatId = statId;
             this.Value = value;
         }
@@ -48,33 +38,28 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             get;
             private set;
         }
+
+        /// <inheritdoc />
+        public Guid Id
+        {
+            get;
+            private set;
+        }
         #endregion
 
         #region Methods
         public static IPercentageEnchantmentStore Create(
             Guid id,
-            Guid enchantmentTypeId,
-            Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId, 
-            TimeSpan remainingDuration,
+            Guid statId,
             double value)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IPercentageEnchantmentStore>() != null);
 
             return new PercentageEnchantmentStore(
                 id,
-                enchantmentTypeId,
                 statId,
-                triggerId,
-                statusTypeId,
-                remainingDuration,
                 value);
         }
         #endregion

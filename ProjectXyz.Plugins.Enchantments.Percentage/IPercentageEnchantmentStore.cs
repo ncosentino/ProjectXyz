@@ -5,9 +5,11 @@ using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
-    public interface IPercentageEnchantmentStore : IEnchantmentStore
+    public interface IPercentageEnchantmentStore
     {
         #region Properties
+        Guid Id { get; }
+        
         Guid StatId { get; }
 
         double Value { get; }

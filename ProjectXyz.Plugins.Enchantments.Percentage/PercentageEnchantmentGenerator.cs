@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
@@ -9,39 +10,51 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
     {
         #region Fields
         private readonly IPercentageEnchantmentFactory _percentageEnchantmentFactory;
+        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
         #endregion
 
         #region Constructors
-        private PercentageEnchantmentGenerator(IPercentageEnchantmentFactory percentageEnchantmentFactory)
+        private PercentageEnchantmentGenerator(
+            IPercentageEnchantmentFactory percentageEnchantmentFactory,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
             _percentageEnchantmentFactory = percentageEnchantmentFactory;
+            _enchantmentWeatherRepository = enchantmentWeatherRepository;
         }
         #endregion
 
         #region Methods
-        public static IPercentageEnchantmentGenerator Create(IPercentageEnchantmentFactory percentageEnchantmentFactory)
+        public static IPercentageEnchantmentGenerator Create(
+            IPercentageEnchantmentFactory percentageEnchantmentFactory,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
-            var generator = new PercentageEnchantmentGenerator(percentageEnchantmentFactory);
+            var generator = new PercentageEnchantmentGenerator(
+                percentageEnchantmentFactory,
+                enchantmentWeatherRepository);
             return generator;
         }
 
         public IPercentageEnchantment Generate(
             IRandom randomizer, 
-            IPercentageEnchantmentDefinition definition)
+            IEnchantmentDefinition enchantmentDefinition,
+            IPercentageEnchantmentDefinition percentageEnchantmentDefinition)
         {
-            var value = 
-                definition.MinimumValue + 
-                randomizer.NextDouble() * (definition.MaximumValue - definition.MinimumValue);
+            var value =
+                percentageEnchantmentDefinition.MinimumValue +
+                randomizer.NextDouble() * (percentageEnchantmentDefinition.MaximumValue - percentageEnchantmentDefinition.MinimumValue);
             var duration = TimeSpan.FromMilliseconds(
-                definition.MinimumDuration.TotalMilliseconds +
-                randomizer.NextDouble() * (definition.MaximumDuration.TotalMilliseconds - definition.MinimumDuration.TotalMilliseconds));
+                enchantmentDefinition.MinimumDuration.TotalMilliseconds +
+                randomizer.NextDouble() * (enchantmentDefinition.MaximumDuration.TotalMilliseconds - enchantmentDefinition.MinimumDuration.TotalMilliseconds));
+
+            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentDefinition.EnchantmentWeatherId);
 
             return _percentageEnchantmentFactory.Create(
                 Guid.NewGuid(),
-                definition.StatusTypeId,
-                definition.TriggerId,
+                enchantmentDefinition.StatusTypeId,
+                enchantmentDefinition.TriggerId,
+                enchantmentWeather.WeatherIds,
                 duration,
-                definition.StatId,
+                percentageEnchantmentDefinition.StatId,
                 value);
         }
         #endregion

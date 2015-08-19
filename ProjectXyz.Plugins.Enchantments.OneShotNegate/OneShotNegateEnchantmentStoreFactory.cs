@@ -2,45 +2,33 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
     public class OneShotNegateEnchantmentStoreFactory : IOneShotNegateEnchantmentStoreFactory
     {
-        #region Fields
-        private readonly Guid _enchantmentTypeId;
-        #endregion
-
         #region Constructors
-        private OneShotNegateEnchantmentStoreFactory(Guid enchantmentTypeId)
+        private OneShotNegateEnchantmentStoreFactory()
         {
-            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
-
-            _enchantmentTypeId = enchantmentTypeId;
         }
         #endregion
 
         #region Methods
-        public static IOneShotNegateEnchantmentStoreFactory Create(Guid enchantmentTypeId)
+        public static IOneShotNegateEnchantmentStoreFactory Create()
         {
-            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<IOneShotNegateEnchantmentStoreFactory>() != null);
 
-            return new OneShotNegateEnchantmentStoreFactory(enchantmentTypeId);
+            return new OneShotNegateEnchantmentStoreFactory();
         }
 
         public IOneShotNegateEnchantmentStore CreateEnchantmentStore(
-            Guid id,
-            Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId)
+            Guid id, 
+            Guid statId)
         {
             return OneShotNegateEnchantmentStore.Create(
                 id,
-                _enchantmentTypeId,
-                statId,
-                triggerId,
-                statusTypeId);
+                statId);
         }
         #endregion
     }

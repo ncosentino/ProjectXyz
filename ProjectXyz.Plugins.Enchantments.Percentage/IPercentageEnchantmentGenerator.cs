@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
@@ -10,7 +11,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         #region Methods
         IPercentageEnchantment Generate(
             IRandom randomizer,
-            IPercentageEnchantmentDefinition definition);
+            IEnchantmentDefinition enchantmentDefinition,
+            IPercentageEnchantmentDefinition percentageEnchantmentDefinition);
         #endregion
     }
 }

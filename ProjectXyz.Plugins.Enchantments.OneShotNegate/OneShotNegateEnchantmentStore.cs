@@ -2,30 +2,20 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
-    public sealed class OneShotNegateEnchantmentStore : 
-        EnchantmentStore,
-        IOneShotNegateEnchantmentStore
+    public sealed class OneShotNegateEnchantmentStore : IOneShotNegateEnchantmentStore
     {
         #region Constructors
         private OneShotNegateEnchantmentStore(
             Guid id,
-            Guid enchantmentTypeId,
-            Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId)
-            : base(id, enchantmentTypeId, triggerId, statusTypeId, TimeSpan.Zero)
+            Guid statId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
 
+            this.Id = id;
             this.StatId = statId;
         }
         #endregion
@@ -37,29 +27,27 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             get;
             private set;
         }
+
+        /// <inheritdoc />
+        public Guid Id
+        {
+            get;
+            private set;
+        }
         #endregion
 
         #region Methods
         public static IOneShotNegateEnchantmentStore Create(
             Guid id,
-            Guid enchantmentTypeId,
-            Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId)
+            Guid statId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
-            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IOneShotNegateEnchantmentStore>() != null);
 
             return new OneShotNegateEnchantmentStore(
                 id,
-                enchantmentTypeId,
-                statId,
-                triggerId,
-                statusTypeId);
+                statId);
         }
         #endregion
     }

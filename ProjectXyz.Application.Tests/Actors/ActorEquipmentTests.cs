@@ -9,6 +9,7 @@ using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
+using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
@@ -127,10 +128,13 @@ namespace ProjectXyz.Application.Tests.Actors
                 .WithStats(Stat.Create(ActorStats.MaximumLife, BASE_LIFE))
                 .WithStats(Stat.Create(ActorStats.CurrentLife, BASE_LIFE))
                 .Build();
+
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
                 .Returns(EnchantmentCalculator.Create(
+                    enchantmentContext.Object,
                     EnchantmentCalculatorResultFactory.Create(),
                     new[] { AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()) }));
 
@@ -469,7 +473,10 @@ namespace ProjectXyz.Application.Tests.Actors
                     StatusNegation.Create(Guid.NewGuid(), ActorStats.Bless, EnchantmentStatuses.Curse)
                 });
 
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
+
             return EnchantmentCalculator.Create(
+                enchantmentContext.Object,
                 EnchantmentCalculatorResultFactory.Create(),
                 new[]
                 {

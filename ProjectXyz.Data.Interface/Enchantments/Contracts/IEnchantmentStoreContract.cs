@@ -56,6 +56,14 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             }
         }
 
+        public Guid EnchantmentWeatherId
+        {
+            get
+            {
+                return default(Guid);
+            }
+        }
+
         public TimeSpan RemainingDuration
         {
             get

@@ -3,56 +3,46 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Sql
 {
-    public sealed class OneShotNegateEnchantmentStoreRepository : IEnchantmentStoreRepository<IOneShotNegateEnchantmentStore>
+    public sealed class OneShotNegateEnchantmentStoreRepository : IOneShotNegateEnchantmentStoreRepository
     {
         #region Fields
         private readonly IDatabase _database;
-        private readonly IEnchantmentStoreRepository<IEnchantmentStore> _enchantmentStoreRepository;
         private readonly IOneShotNegateEnchantmentStoreFactory _factory;
         #endregion
 
         #region Constructors
         private OneShotNegateEnchantmentStoreRepository(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository,
             IOneShotNegateEnchantmentStoreFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Requires<ArgumentNullException>(enchantmentStoreRepository != null);
             Contract.Requires<ArgumentNullException>(factory != null);
 
             _database = database;
-            _enchantmentStoreRepository = enchantmentStoreRepository;
             _factory = factory;
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentStoreRepository<IOneShotNegateEnchantmentStore> Create(
+        public static IOneShotNegateEnchantmentStoreRepository Create(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository,
             IOneShotNegateEnchantmentStoreFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Requires<ArgumentNullException>(enchantmentStoreRepository != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStoreRepository<IOneShotNegateEnchantmentStore>>() != null);
+            Contract.Ensures(Contract.Result<IOneShotNegateEnchantmentStoreRepository>() != null);
 
             return new OneShotNegateEnchantmentStoreRepository(
                 database,
-                enchantmentStoreRepository,
                 factory);
         }
 
         public void Add(IOneShotNegateEnchantmentStore enchantmentStore)
         {
-            _enchantmentStoreRepository.Add(enchantmentStore);
-
             var namedParameters = new Dictionary<string, object>()
             {
                 { "EnchantmentId", enchantmentStore.Id },
@@ -81,8 +71,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Sql
 
         public void RemoveById(Guid id)
         {
-            _enchantmentStoreRepository.RemoveById(id);
-
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
@@ -105,15 +93,11 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Sql
                     *
                 FROM
                     OneShotNegateEnchantments
-                LEFT OUTER JOIN
-                    Enchantments
-                ON
-                    Enchantments.Id=OneShotNegateEnchantments.EnchantmentId
                 WHERE
-                    Id = @id
+                    EnchantmentId = @EnchantmentId
                 LIMIT 1
                 ;",
-                "@id",
+                "@EnchantmentId",
                 id))
             {
                 using (var reader = command.ExecuteReader())
@@ -132,13 +116,11 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Sql
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IOneShotNegateEnchantmentStore>() != null);
 
             return factory.CreateEnchantmentStore(
-                reader.GetGuid(reader.GetOrdinal("Id")),
-                reader.GetGuid(reader.GetOrdinal("StatId")),
-                reader.GetGuid(reader.GetOrdinal("TriggerId")),
-                reader.GetGuid(reader.GetOrdinal("StatusTypeId")));
+                reader.GetGuid(reader.GetOrdinal("EnchantmentId")),
+                reader.GetGuid(reader.GetOrdinal("StatId")));
         }
         #endregion
     }

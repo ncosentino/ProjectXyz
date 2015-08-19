@@ -6,25 +6,28 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Stats;
-using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Enchantments.Calculations
 {
     public sealed class EnchantmentCalculator : IEnchantmentCalculator
     {
         #region Fields
+        private readonly IEnchantmentContext _enchantmentContext;
         private readonly IEnchantmentCalculatorResultFactory _enchantmentCalculatorResultFactory;
         private readonly List<IEnchantmentTypeCalculator> _enchantmentTypeCalculators;
         #endregion
 
         #region Constructors
         private EnchantmentCalculator(
+            IEnchantmentContext enchantmentContext,
             IEnchantmentCalculatorResultFactory enchantmentCalculatorResultFactory,
             IEnumerable<IEnchantmentTypeCalculator> enchantmentTypeCalculators)
         {
+            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculatorResultFactory != null);
             Contract.Requires<ArgumentNullException>(enchantmentTypeCalculators != null);
 
+            _enchantmentContext = enchantmentContext;
             _enchantmentCalculatorResultFactory = enchantmentCalculatorResultFactory;
             _enchantmentTypeCalculators = new List<IEnchantmentTypeCalculator>(enchantmentTypeCalculators);
         }
@@ -32,14 +35,17 @@ namespace ProjectXyz.Application.Core.Enchantments.Calculations
 
         #region Methods
         public static IEnchantmentCalculator Create(
+            IEnchantmentContext enchantmentContext,
             IEnchantmentCalculatorResultFactory enchantmentCalculatorResultFactory,
             IEnumerable<IEnchantmentTypeCalculator> enchantmentTypeCalculators)
         {
+            Contract.Requires<ArgumentNullException>(enchantmentContext != null);
             Contract.Requires<ArgumentNullException>(enchantmentCalculatorResultFactory != null);
             Contract.Requires<ArgumentNullException>(enchantmentTypeCalculators != null);
             Contract.Ensures(Contract.Result<IEnchantmentCalculator>() != null);
 
             return new EnchantmentCalculator(
+                enchantmentContext,
                 enchantmentCalculatorResultFactory, 
                 enchantmentTypeCalculators);
         }
@@ -56,6 +62,7 @@ namespace ProjectXyz.Application.Core.Enchantments.Calculations
             foreach (var enchantmentTypeCalculator in _enchantmentTypeCalculators)
             {
                 var result = enchantmentTypeCalculator.Calculate(
+                    _enchantmentContext,
                     newStats, 
                     activeEnchantments);
 

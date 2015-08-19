@@ -8,51 +8,42 @@ using ProjectXyz.Data.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
 {
-    public sealed class PercentageEnchantmentStoreRepository : IEnchantmentStoreRepository<IPercentageEnchantmentStore>
+    public sealed class PercentageEnchantmentStoreRepository : IPercentageEnchantmentStoreRepository
     {
         #region Fields
         private readonly IDatabase _database;
-        private readonly IEnchantmentStoreRepository<IEnchantmentStore> _enchantmentStoreRepository;
         private readonly IPercentageEnchantmentStoreFactory _factory;
         #endregion
 
         #region Constructors
         private PercentageEnchantmentStoreRepository(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository,
             IPercentageEnchantmentStoreFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Requires<ArgumentNullException>(enchantmentStoreRepository != null);
             Contract.Requires<ArgumentNullException>(factory != null);
 
             _database = database;
-            _enchantmentStoreRepository = enchantmentStoreRepository;
             _factory = factory;
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentStoreRepository<IPercentageEnchantmentStore> Create(
+        public static IPercentageEnchantmentStoreRepository Create(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository,
             IPercentageEnchantmentStoreFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
-            Contract.Requires<ArgumentNullException>(enchantmentStoreRepository != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStoreRepository<IPercentageEnchantmentStore>>() != null);
+            Contract.Ensures(Contract.Result<IPercentageEnchantmentStoreRepository>() != null);
 
             return new PercentageEnchantmentStoreRepository(
                 database,
-                enchantmentStoreRepository,
                 factory);
         }
 
         public void Add(IPercentageEnchantmentStore enchantmentStore)
         {
-            _enchantmentStoreRepository.Add(enchantmentStore);
-
             var namedParameters = new Dictionary<string, object>()
             {
                 { "EnchantmentId", enchantmentStore.Id },
@@ -84,8 +75,6 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
 
         public void RemoveById(Guid id)
         {
-            _enchantmentStoreRepository.RemoveById(id);
-
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
@@ -108,15 +97,11 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
                     *
                 FROM
                     PercentageEnchantments
-                LEFT OUTER JOIN
-                    Enchantments
-                ON
-                    Enchantments.Id=PercentageEnchantments.EnchantmentId
                 WHERE
-                    Id = @id
+                    EnchantmentId = @EnchantmentId
                 LIMIT 1
                 ;",
-                "@id",
+                "@EnchantmentId",
                 id))
             {
                 using (var reader = command.ExecuteReader())
@@ -135,14 +120,11 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
+            Contract.Ensures(Contract.Result<IPercentageEnchantmentStore>() != null);
 
             return factory.CreateEnchantmentStore(
-                reader.GetGuid(reader.GetOrdinal("Id")),
+                reader.GetGuid(reader.GetOrdinal("EnchantmentId")),
                 reader.GetGuid(reader.GetOrdinal("StatId")),
-                reader.GetGuid(reader.GetOrdinal("TriggerId")),
-                reader.GetGuid(reader.GetOrdinal("StatusTypeId")),
-                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))),
                 reader.GetDouble(reader.GetOrdinal("Value")));
         }
         #endregion

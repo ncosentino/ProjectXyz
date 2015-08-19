@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using ProjectXyz.Application.Core.Actors;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Enchantments;
@@ -26,10 +25,13 @@ namespace ProjectXyz.Application.Tests.Actors
 
             var enchantmentCalculatorResultFactory = new Mock<IEnchantmentCalculatorResultFactory>(MockBehavior.Strict);
 
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
+
             var context = new Mock<IActorContext>();
             context.
                 Setup(x => x.EnchantmentCalculator)
                 .Returns(EnchantmentCalculator.Create(
+                    enchantmentContext.Object,
                     enchantmentCalculatorResultFactory.Object,
                     Enumerable.Empty<IEnchantmentTypeCalculator>()));
 

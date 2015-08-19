@@ -13,8 +13,10 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
     public sealed class Plugin : IEnchantmentPlugin
     {
         #region Fields
-        private readonly IEnchantmentStoreRepository<IPercentageEnchantmentStore> _enchantmentStoreRepository;
-        private readonly IEnchantmentDefinitionRepository<IPercentageEnchantmentDefinition> _enchantmentDefinitioneRepository;
+        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
+        private readonly IPercentageEnchantmentStoreRepository _percentageEnchantmentStoreRepository;
+        private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
+        private readonly IPercentageEnchantmentDefinitionRepository _percentageEnchantmentDefinitioneRepository;
         private readonly IEnchantmentTypeCalculator _enchantmentTypeCalculator;
         private readonly IPercentageEnchantmentGenerator _percentageEnchantmentGenerator;
         private readonly IPercentageEnchantmentStoreFactory _percentageEnchantmentStoreFactory;
@@ -24,24 +26,31 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         #region Constructors
         public Plugin(
             IDatabase database,
-            IEnchantmentStoreRepository<IEnchantmentStore> enchantmentStoreRepository)
+            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
+            IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
+
+            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
+            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+
             var statFactory = StatFactory.Create();
             _enchantmentTypeCalculator = PercentageEnchantmentTypeCalculator.Create(statFactory);
 
             var enchantmentFactory = PercentageEnchantmentFactory.Create();
-            _percentageEnchantmentGenerator = PercentageEnchantmentGenerator.Create(enchantmentFactory);
+            _percentageEnchantmentGenerator = PercentageEnchantmentGenerator.Create(
+                enchantmentFactory,
+                enchantmentWeatherRepository);
 
-            // FIXME: this should be a constant value defined somewhere
-            var enchantmentTypeId = Guid.NewGuid();
-            _percentageEnchantmentStoreFactory = PercentageEnchantmentStoreFactory.Create(enchantmentTypeId);
+            _percentageEnchantmentStoreFactory = PercentageEnchantmentStoreFactory.Create();
 
-            _enchantmentStoreRepository = PercentageEnchantmentStoreRepository.Create(
+            _percentageEnchantmentStoreRepository = PercentageEnchantmentStoreRepository.Create(
                 database,
-                enchantmentStoreRepository,
                 _percentageEnchantmentStoreFactory);
 
             _percentageEnchantmentFactory = PercentageEnchantmentFactory.Create();
+
+            var percentageEnchantmentDefinitionFactory = PercentageEnchantmentDefinitionFactory.Create();
+            _percentageEnchantmentDefinitioneRepository = PercentageEnchantmentDefinitionRepository.Create(database, percentageEnchantmentDefinitionFactory);
         }
         #endregion
 
@@ -87,14 +96,16 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             IRandom randomizer, 
             Guid enchantmentDefinitionId)
         {
-            var definition = _enchantmentDefinitioneRepository.GetById(enchantmentDefinitionId);
+            var enchantmentDefinition = _enchantmentDefinitionRepository.GetById(enchantmentDefinitionId);
+            var percentageEnchantmentDefinition = _percentageEnchantmentDefinitioneRepository.GetById(enchantmentDefinitionId);
             var enchantment = _percentageEnchantmentGenerator.Generate(
                 randomizer,
-                definition);
+                enchantmentDefinition,
+                percentageEnchantmentDefinition);
             return enchantment;
         }
 
-        private IEnchantmentStore SaveEnchantment(IEnchantment enchantment)
+        private void SaveEnchantment(IEnchantment enchantment)
         {
             if (!(enchantment is IPercentageEnchantment))
             {
@@ -108,32 +119,36 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             var enchantmentStore = _percentageEnchantmentStoreFactory.CreateEnchantmentStore(
                 percentageEnchantment.Id,
                 percentageEnchantment.StatId,
-                percentageEnchantment.TriggerId,
-                percentageEnchantment.StatusTypeId,
-                percentageEnchantment.RemainingDuration,
                 percentageEnchantment.Value);
             
             // FIXME: we need add or update?
-            _enchantmentStoreRepository.Add(enchantmentStore);
-
-            return enchantmentStore;
+            _percentageEnchantmentStoreRepository.Add(enchantmentStore);
         }
 
         private IEnchantment CreateEnchantment(IEnchantmentStore enchantmentStore)
         {
-            if (!(enchantmentStore is IPercentageEnchantmentStore))
+            var percentageEnchantmentStore = _percentageEnchantmentStoreRepository.GetById(enchantmentStore.Id);
+            if (percentageEnchantmentStore == null)
             {
                 throw new InvalidOperationException(string.Format(
-                    "Cannot create percentage enchantment from '{0}'.",
-                    enchantmentStore.GetType()));
+                    "Cannot create percentage enchantment for enchantment store with id '{0}'.",
+                    enchantmentStore.Id));
             }
 
-            var percentageEnchantmentStore = (IPercentageEnchantmentStore)enchantmentStore;
+            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentStore.EnchantmentWeatherId);
+            if (enchantmentWeather == null)
+            {
+                throw new InvalidOperationException(string.Format(
+                    "Could not find enchantment weather for id '{0}'.",
+                    enchantmentStore.EnchantmentWeatherId));
+            }
+
             var percentageEnchantment = _percentageEnchantmentFactory.Create(
-                percentageEnchantmentStore.Id,
-                percentageEnchantmentStore.StatusTypeId,
-                percentageEnchantmentStore.TriggerId,
-                percentageEnchantmentStore.RemainingDuration,
+                enchantmentStore.Id,
+                enchantmentStore.StatusTypeId,
+                enchantmentStore.TriggerId,
+                enchantmentWeather.WeatherIds,
+                enchantmentStore.RemainingDuration,
                 percentageEnchantmentStore.StatId,
                 percentageEnchantmentStore.Value);
             

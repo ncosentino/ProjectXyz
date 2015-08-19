@@ -8,15 +8,11 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
     public interface IAdditiveEnchantmentDefinitionFactory
     {
         #region Methods
-        IEnchantmentDefinition CreateEnchantmentDefinition(
+        IAdditiveEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id,
             Guid statId,
-            Guid triggerId,
-            Guid statusTypeId,
             double minimumValue,
-            double maximumValue,
-            TimeSpan minimumDuration,
-            TimeSpan maximumDuration);
+            double maximumValue);
         #endregion
     }
 }

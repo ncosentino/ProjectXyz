@@ -47,8 +47,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PercentageEnchantmentGeneratorTests.cs" />
+    <Compile Include="PercentageEnchantmentTypeCalculatorTests.cs" />
     <Compile Include="PercentageEnchantmentDefinitionFactoryTests.cs" />
+    <Compile Include="PercentageEnchantmentGeneratorTests.cs" />
     <Compile Include="PercentageEnchantmentStoreFactoryTests.cs" />
     <Compile Include="PercentageEnchantmentStoreRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,9 +5,11 @@ using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
-    public interface IPercentageEnchantmentDefinition : IEnchantmentDefinition
+    public interface IPercentageEnchantmentDefinition
     {
         #region Properties
+        Guid Id { get; set; }
+        
         Guid StatId { get; set; }
 
         double MinimumValue { get; set; }

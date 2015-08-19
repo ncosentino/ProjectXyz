@@ -22,25 +22,17 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             return new AdditiveEnchantmentDefinitionFactory();
         }
 
-        public IEnchantmentDefinition CreateEnchantmentDefinition(
+        public IAdditiveEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id, 
             Guid statId, 
-            Guid triggerId, 
-            Guid statusTypeId, 
             double minimumValue, 
-            double maximumValue, 
-            TimeSpan minimumDuration, 
-            TimeSpan maximumDuration)
+            double maximumValue)
         {
             return AdditiveEnchantmentDefinition.Create(
                 id,
                 statId,
-                triggerId,
-                statusTypeId,
                 minimumValue,
-                maximumValue,
-                minimumDuration,
-                maximumDuration);
+                maximumValue);
         }
         #endregion
     }
