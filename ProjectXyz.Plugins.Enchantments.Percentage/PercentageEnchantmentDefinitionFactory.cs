@@ -26,13 +26,17 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             Guid id, 
             Guid statId, 
             double minimumValue, 
-            double maximumValue)
+            double maximumValue,
+            TimeSpan minimumDuration,
+            TimeSpan maximumDuration)
         {
             return PercentageEnchantmentDefinition.Create(
                 id,
                 statId,
                 minimumValue,
-                maximumValue);
+                maximumValue,
+                minimumDuration,
+                maximumDuration);
         }
         #endregion
     }

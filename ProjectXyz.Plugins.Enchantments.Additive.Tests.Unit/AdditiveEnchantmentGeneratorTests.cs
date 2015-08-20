@@ -41,6 +41,12 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             additiveEnchantmentDefinition
                 .Setup(x => x.MaximumValue)
                 .Returns(100);
+            additiveEnchantmentDefinition
+                .Setup(x => x.MinimumDuration)
+                .Returns(TimeSpan.FromSeconds(0));
+            additiveEnchantmentDefinition
+                .Setup(x => x.MaximumDuration)
+                .Returns(TimeSpan.FromSeconds(2));
 
             var enchantmentDefinition = new Mock<IEnchantmentDefinition>(MockBehavior.Strict);
             enchantmentDefinition
@@ -49,12 +55,6 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
-            enchantmentDefinition
-                .Setup(x => x.MinimumDuration)
-                .Returns(TimeSpan.FromSeconds(0));
-            enchantmentDefinition
-                .Setup(x => x.MaximumDuration)
-                .Returns(TimeSpan.FromSeconds(2));
             enchantmentDefinition
                 .Setup(x => x.EnchantmentWeatherId)
                 .Returns(enchantmentWeatherId);
@@ -92,11 +92,11 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             additiveEnchantmentDefinition.Verify(x => x.StatId, Times.Once);
             additiveEnchantmentDefinition.Verify(x => x.MinimumValue, Times.Exactly(2));
             additiveEnchantmentDefinition.Verify(x => x.MaximumValue, Times.Once);
+            additiveEnchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
+            additiveEnchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
 
             enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);
             enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            enchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
-            enchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
             enchantmentDefinition.Verify(x => x.EnchantmentWeatherId, Times.Once);
 
             additiveEnchantmentFactory.Verify(

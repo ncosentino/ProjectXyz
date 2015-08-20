@@ -43,8 +43,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
                 additiveEnchantmentDefinition.MinimumValue +
                 randomizer.NextDouble() * (additiveEnchantmentDefinition.MaximumValue - additiveEnchantmentDefinition.MinimumValue);
             var duration = TimeSpan.FromMilliseconds(
-                enchantmentDefinition.MinimumDuration.TotalMilliseconds +
-                randomizer.NextDouble() * (enchantmentDefinition.MaximumDuration.TotalMilliseconds - enchantmentDefinition.MinimumDuration.TotalMilliseconds));
+                additiveEnchantmentDefinition.MinimumDuration.TotalMilliseconds +
+                randomizer.NextDouble() * (additiveEnchantmentDefinition.MaximumDuration.TotalMilliseconds - additiveEnchantmentDefinition.MinimumDuration.TotalMilliseconds));
 
             var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentDefinition.EnchantmentWeatherId);
 

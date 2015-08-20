@@ -31,8 +31,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 statusTypeId,
                 triggerId,
                 ENCHANTMENT_TYPE_ID,
-                weatherIds,
-                TimeSpan.Zero)
+                weatherIds)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);

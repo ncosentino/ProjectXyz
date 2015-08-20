@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
@@ -13,6 +12,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         Guid StatId { get; }
 
         double Value { get; }
+
+        TimeSpan RemainingDuration { get; }
         #endregion
     }
 }

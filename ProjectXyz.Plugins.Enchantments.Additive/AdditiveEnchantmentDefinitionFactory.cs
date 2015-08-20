@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive
 {
@@ -23,16 +22,20 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         }
 
         public IAdditiveEnchantmentDefinition CreateEnchantmentDefinition(
-            Guid id, 
-            Guid statId, 
-            double minimumValue, 
-            double maximumValue)
+            Guid id,
+            Guid statId,
+            double minimumValue,
+            double maximumValue,
+            TimeSpan minimumDuration,
+            TimeSpan maximumDuration)
         {
             return AdditiveEnchantmentDefinition.Create(
                 id,
                 statId,
                 minimumValue,
-                maximumValue);
+                maximumValue,
+                minimumDuration,
+                maximumDuration);
         }
         #endregion
     }

@@ -18,6 +18,7 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
             var id = Guid.NewGuid();
             var statId = Guid.NewGuid();
             const double VALUE = 123;
+            var remainingDuration = TimeSpan.FromSeconds(123);
 
             var factory = PercentageEnchantmentStoreFactory.Create();
 
@@ -25,12 +26,14 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
             var result = factory.CreateEnchantmentStore(
                 id,
                 statId,
-                VALUE);
+                VALUE,
+                remainingDuration);
 
             // Assert
             Assert.Equal(id, result.Id);
             Assert.Equal(statId, result.StatId);
             Assert.Equal(VALUE, result.Value);
+            Assert.Equal(remainingDuration.TotalMilliseconds, result.RemainingDuration.TotalMilliseconds);
         }
         #endregion
     }

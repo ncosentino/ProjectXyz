@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Plugins.Enchantments.Percentage.Contracts;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
@@ -14,7 +13,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         IPercentageEnchantmentStore CreateEnchantmentStore(
             Guid id,
             Guid statId,
-            double value);
+            double value,
+            TimeSpan remainingDuration);
         #endregion
     }
 }

@@ -180,7 +180,6 @@
     <Compile Include="Enchantments\IEnchantmentTriggerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTriggerRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTrigger.cs" />
-    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentStoreExtensionMethods.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreContract.cs" />
     <Compile Include="Enchantments\Contracts\IMutableEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreCollectionContract.cs" />

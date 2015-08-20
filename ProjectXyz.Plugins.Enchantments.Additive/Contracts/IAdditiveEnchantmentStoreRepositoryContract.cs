@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics.Contracts;
-using ProjectXyz.Plugins.Enchantments.Additive;
+using System.Linq;
 
-namespace ProjectXyz.Data.Interface.Enchantments.Contracts
+namespace ProjectXyz.Plugins.Enchantments.Additive.Contracts
 {
     [ContractClassFor(typeof(IAdditiveEnchantmentStoreRepository))]
     public abstract class IAdditiveEnchantmentStoreRepositoryContract : IAdditiveEnchantmentStoreRepository

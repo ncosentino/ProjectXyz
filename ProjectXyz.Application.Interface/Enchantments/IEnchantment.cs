@@ -9,6 +9,10 @@ namespace ProjectXyz.Application.Interface.Enchantments
     [ContractClass(typeof(IEnchantmentContract))]
     public interface IEnchantment : IUpdateElapsedTime
     {
+        #region Events
+        event EventHandler<EventArgs> Expired;
+        #endregion
+
         #region Properties
         Guid Id { get; }
 
@@ -19,8 +23,6 @@ namespace ProjectXyz.Application.Interface.Enchantments
         Guid EnchantmentTypeId { get; }
 
         IEnumerable<Guid> WeatherIds { get; }
-
-        TimeSpan RemainingDuration { get; }
         #endregion
     }
 }

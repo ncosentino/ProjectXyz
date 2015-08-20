@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
@@ -49,6 +48,7 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
                 { "EnchantmentId", enchantmentStore.Id },
                 { "StatId", enchantmentStore.StatId },
                 { "Value", enchantmentStore.Value },
+                { "RemainingDuration", enchantmentStore.RemainingDuration },
             };
 
             using (var command = _database.CreateCommand(
@@ -58,13 +58,15 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
                 (
                     EnchantmentId,
                     StatId,
-                    Value
+                    Value,
+                    RemainingDuration
                 )
                 VALUES
                 (
                     @EnchantmentId,
                     @StatId,
-                    @Value
+                    @Value,
+                    @RemainingDuration
                 )
                 ;",
                 namedParameters))
@@ -125,7 +127,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Sql
             return factory.CreateEnchantmentStore(
                 reader.GetGuid(reader.GetOrdinal("EnchantmentId")),
                 reader.GetGuid(reader.GetOrdinal("StatId")),
-                reader.GetDouble(reader.GetOrdinal("Value")));
+                reader.GetDouble(reader.GetOrdinal("Value")),
+                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))));
         }
         #endregion
     }

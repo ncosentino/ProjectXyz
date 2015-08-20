@@ -15,6 +15,10 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         double MinimumValue { get; set; }
 
         double MaximumValue { get; set; }
+
+        TimeSpan MinimumDuration { get; set; }
+
+        TimeSpan MaximumDuration { get; set; }
         #endregion
     }
 }

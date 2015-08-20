@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Plugins.Enchantments.Additive.Contracts;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive
 {
+    [ContractClass(typeof(IAdditiveEnchantmentDefinitionFactoryContract))]
     public interface IAdditiveEnchantmentDefinitionFactory
     {
         #region Methods
@@ -12,7 +14,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             Guid id,
             Guid statId,
             double minimumValue,
-            double maximumValue);
+            double maximumValue,
+            TimeSpan minimumDuration,
+            TimeSpan maximumDuration);
         #endregion
     }
 }

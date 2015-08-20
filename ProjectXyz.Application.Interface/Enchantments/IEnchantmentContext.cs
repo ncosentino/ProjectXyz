@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using ProjectXyz.Application.Interface.Time;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
@@ -9,6 +9,8 @@ namespace ProjectXyz.Application.Interface.Enchantments
     {
         #region Properties
         Guid ActiveWeatherId { get; }
+
+        ICalendar Calendar { get; }
         #endregion
     }
 }

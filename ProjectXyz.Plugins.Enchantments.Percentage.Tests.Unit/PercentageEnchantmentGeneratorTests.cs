@@ -41,6 +41,12 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
             percentageEnchantmentDefinition
                 .Setup(x => x.MaximumValue)
                 .Returns(100);
+            percentageEnchantmentDefinition
+                .Setup(x => x.MinimumDuration)
+                .Returns(TimeSpan.FromSeconds(0));
+            percentageEnchantmentDefinition
+                .Setup(x => x.MaximumDuration)
+                .Returns(TimeSpan.FromSeconds(2));
 
             var enchantmentDefinition = new Mock<IEnchantmentDefinition>(MockBehavior.Strict);
             enchantmentDefinition
@@ -49,12 +55,6 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
-            enchantmentDefinition
-                .Setup(x => x.MinimumDuration)
-                .Returns(TimeSpan.FromSeconds(0));
-            enchantmentDefinition
-                .Setup(x => x.MaximumDuration)
-                .Returns(TimeSpan.FromSeconds(2));
             enchantmentDefinition
                 .Setup(x => x.EnchantmentWeatherId)
                 .Returns(enchantmentWeatherId);
@@ -92,11 +92,11 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
             percentageEnchantmentDefinition.Verify(x => x.StatId, Times.Once);
             percentageEnchantmentDefinition.Verify(x => x.MinimumValue, Times.Exactly(2));
             percentageEnchantmentDefinition.Verify(x => x.MaximumValue, Times.Once);
+            percentageEnchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
+            percentageEnchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
 
             enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);            
             enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            enchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
-            enchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
             enchantmentDefinition.Verify(x => x.EnchantmentWeatherId, Times.Once);
             
             percentageEnchantmentFactory.Verify(

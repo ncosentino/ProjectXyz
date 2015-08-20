@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments.Contracts;
+using ProjectXyz.Plugins.Enchantments.Additive.Contracts;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive
 {

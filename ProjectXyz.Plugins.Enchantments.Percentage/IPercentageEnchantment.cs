@@ -11,6 +11,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         Guid StatId { get; }
 
         double Value { get; }
+
+        TimeSpan RemainingDuration { get; }
         #endregion
     }
 }

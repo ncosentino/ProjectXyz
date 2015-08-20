@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Application.Interface.Enchantments.Contracts
@@ -9,6 +8,10 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
     [ContractClassFor(typeof(IEnchantment))]
     public abstract class IEnchantmentContract : IEnchantment
     {
+        #region Events
+        public abstract event EventHandler<EventArgs> Expired;
+        #endregion
+
         #region Properties
         public Guid Id
         {
@@ -48,17 +51,6 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             {
                 Contract.Ensures(Contract.Result<IEnumerable<Guid>>() != null);
                 return default(IEnumerable<Guid>);
-            }
-        }
-
-        public TimeSpan RemainingDuration
-        {
-            get
-            {
-                Contract.Requires(
-                    RemainingDuration >= TimeSpan.Zero ||
-                    RemainingDuration == TimeSpan.MinValue);
-                return default(TimeSpan);
             }
         }
         #endregion

@@ -50,7 +50,6 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 { "TriggerId", enchantmentStore.TriggerId },
                 { "StatusTypeId", enchantmentStore.StatusTypeId },
                 { "EnchantmentWeatherId", enchantmentStore.StatusTypeId },
-                { "RemainingDuration", enchantmentStore.RemainingDuration.TotalMilliseconds },
             };
 
             using (var command = _database.CreateCommand(
@@ -62,8 +61,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     EnchantmentTypeId,
                     TriggerId,
                     StatusTypeId,
-                    EnchantmentWeatherId,
-                    RemainingDuration,
+                    EnchantmentWeatherId
                 )
                 VALUES
                 (
@@ -71,8 +69,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     @EnchantmentTypeId,
                     @TriggerId,
                     @StatusTypeId,
-                    @EnchantmentWeatherId,
-                    @RemainingDuration,
+                    @EnchantmentWeatherId
                 )
                 ;",
                 namedParameters))
@@ -138,8 +135,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 reader.GetGuid(reader.GetOrdinal("TriggerId")),
                 reader.GetGuid(reader.GetOrdinal("StatusTypeId")),
                 reader.GetGuid(reader.GetOrdinal("EnchantmentTypeId")),
-                reader.GetGuid(reader.GetOrdinal("EnchantmentWeatherId")),
-                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))));
+                reader.GetGuid(reader.GetOrdinal("EnchantmentWeatherId")));
         }
         #endregion
     }

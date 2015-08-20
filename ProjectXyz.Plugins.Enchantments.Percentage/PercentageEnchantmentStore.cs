@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
@@ -13,14 +11,17 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
         private PercentageEnchantmentStore(
             Guid id,
             Guid statId,
-            double value)
+            double value,
+            TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
 
             this.Id = id;
             this.StatId = statId;
             this.Value = value;
+            this.RemainingDuration = remainingDuration;
         }
         #endregion
 
@@ -45,22 +46,32 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             get;
             private set;
         }
+
+        /// <inheritdoc />
+        public TimeSpan RemainingDuration
+        {
+            get; 
+            private set;
+        }
         #endregion
 
         #region Methods
         public static IPercentageEnchantmentStore Create(
             Guid id,
             Guid statId,
-            double value)
+            double value,
+            TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IPercentageEnchantmentStore>() != null);
 
             return new PercentageEnchantmentStore(
                 id,
                 statId,
-                value);
+                value,
+                remainingDuration);
         }
         #endregion
     }

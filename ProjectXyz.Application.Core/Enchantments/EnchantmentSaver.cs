@@ -100,8 +100,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                 source.TriggerId,
                 source.StatusTypeId,
                 source.EnchantmentTypeId,
-                enchantmentWeather.Id,
-                source.RemainingDuration);
+                enchantmentWeather.Id);
 
             // TODO: save/update?
             _enchantmentStoreRepository.Add(enchantmentStore);

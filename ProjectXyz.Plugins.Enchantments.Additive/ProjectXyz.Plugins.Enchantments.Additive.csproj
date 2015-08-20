@@ -133,6 +133,7 @@
     <Compile Include="AdditiveEnchantmentStore.cs" />
     <Compile Include="AdditiveEnchantmentStoreFactory.cs" />
     <Compile Include="AdditiveEnchantmentTypeCalculator.cs" />
+    <Compile Include="Contracts\IAdditiveEnchantmentDefinitionFactoryContract.cs" />
     <Compile Include="Contracts\IAdditiveEnchantmentStoreFactoryContract.cs" />
     <Compile Include="AdditiveEnchantmentFactory.cs" />
     <Compile Include="Contracts\IAdditiveEnchantmentDefinitionRepositoryContract.cs" />

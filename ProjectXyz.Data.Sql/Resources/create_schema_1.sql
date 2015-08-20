@@ -27,18 +27,19 @@ CREATE TABLE [Enchantments] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
-  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL,
-  [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
+  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [AdditiveEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [Value] FLOAT NOT NULL ON CONFLICT FAIL);
+  [Value] FLOAT NOT NULL ON CONFLICT FAIL,
+  [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [PercentageEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [Value] FLOAT NOT NULL ON CONFLICT FAIL);
+  [Value] FLOAT NOT NULL ON CONFLICT FAIL,
+  [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [OneShotNegateEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
@@ -48,21 +49,23 @@ CREATE TABLE [EnchantmentDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
-  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL,
-  [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
+  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [AdditiveEnchantmentDefinitions] (
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
   [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL);
+  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
+  [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
+  [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [PercentageEnchantmentDefinitions] (
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
   [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL);
+  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
+  [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
+  [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [OneShotNegateEnchantmentDefinitions] (
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 

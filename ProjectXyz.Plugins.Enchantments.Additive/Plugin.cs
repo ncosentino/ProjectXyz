@@ -119,7 +119,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
             var enchantmentStore = _additiveEnchantmentStoreFactory.CreateEnchantmentStore(
                 additiveEnchantment.Id,
                 additiveEnchantment.StatId,
-                additiveEnchantment.Value);
+                additiveEnchantment.Value,
+                additiveEnchantment.RemainingDuration);
             
             // FIXME: we need add or update?
             _additiveEnchantmentStoreRepository.Add(enchantmentStore);
@@ -148,7 +149,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
                 enchantmentStore.StatusTypeId,
                 enchantmentStore.TriggerId,
                 enchantmentWeather.WeatherIds,
-                enchantmentStore.RemainingDuration,
+                additiveEnchantmentStore.RemainingDuration,
                 additiveEnchantmentStore.StatId,
                 additiveEnchantmentStore.Value);
             

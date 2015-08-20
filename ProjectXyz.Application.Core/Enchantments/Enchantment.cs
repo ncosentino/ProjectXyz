@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics.Contracts;
-using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 
 namespace ProjectXyz.Application.Core.Enchantments
@@ -25,23 +24,25 @@ namespace ProjectXyz.Application.Core.Enchantments
             Guid statusTypeId,
             Guid triggerId,
             Guid enchantmentTypeId,
-            IEnumerable<Guid> weatherIds,
-            TimeSpan remainingDuration)
+            IEnumerable<Guid> weatherIds)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(weatherIds != null);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
 
             _id = id;
             _triggerId = triggerId;
             _statusTypeId = statusTypeId;
             _enchantmentTypeId = enchantmentTypeId;
             _weatherIds = new List<Guid>(weatherIds);
-            _remainingDuration = remainingDuration;
         }
+        #endregion
+
+        #region Events
+        /// <inheritdoc />
+        public event EventHandler<EventArgs> Expired;
         #endregion
 
         #region Properties        
@@ -74,19 +75,13 @@ namespace ProjectXyz.Application.Core.Enchantments
         {
             get { return _weatherIds; }
         }
-
-        /// <inheritdoc />
-        public TimeSpan RemainingDuration
-        {
-            get { return _remainingDuration; }
-        }
         #endregion
 
         #region Methods
         /// <inheritdoc />
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
-            if (this.HasInfiniteDuration())
+            if (_remainingDuration == TimeSpan.Zero)
             {
                 return;
             }
@@ -94,6 +89,15 @@ namespace ProjectXyz.Application.Core.Enchantments
             _remainingDuration = TimeSpan.FromMilliseconds(Math.Max(
                 (_remainingDuration - elapsedTime).TotalMilliseconds,
                 0));
+
+            if (_remainingDuration == TimeSpan.Zero)
+            {
+                var handler = Expired;
+                if (handler != null)
+                {
+                    handler.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
         #endregion
     }

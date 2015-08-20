@@ -18,6 +18,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         #region Fields
         private readonly Guid _statId;
         private readonly double _value;
+        private readonly TimeSpan _remainingDuration;
         #endregion
 
         #region Constructors
@@ -34,8 +35,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
                 statusTypeId,
                 triggerId,
                 ENCHANTMENT_TYPE_ID,
-                weatherIds,
-                remainingDuration)
+                weatherIds)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
@@ -46,6 +46,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
 
             _statId = statId;
             _value = value;
+            _remainingDuration = remainingDuration;
         }
         #endregion
 
@@ -55,6 +56,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
 
         /// <inheritdoc />
         public double Value { get { return _value; } }
+
+        /// <inheritdoc />
+        public TimeSpan RemainingDuration { get { return _remainingDuration; } }
         #endregion
 
         #region Methods

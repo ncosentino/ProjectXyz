@@ -116,8 +116,6 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 { "@EnchantmentTypeId", enchantmentTypeId },
                 { "@TriggerId", Guid.NewGuid().ToString() },
                 { "@StatusTypeId", Guid.NewGuid().ToString() },
-                { "@MinimumDuration", 0 },
-                { "@MaximumDuration", 0 },
             };
 
             _database.Execute(@"
@@ -127,18 +125,14 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                     [Id],
                     [EnchantmentTypeId],
                     [TriggerId],
-                    [StatusTypeId],
-                    [MinimumDuration],
-                    [MaximumDuration]
+                    [StatusTypeId]
                 )
                 VALUES
                 (
                     @Id,
                     @EnchantmentTypeId,
                     @TriggerId,
-                    @StatusTypeId,
-                    @MinimumDuration,
-                    @MaximumDuration
+                    @StatusTypeId
                 )
                 ;",
                 namedParameters);

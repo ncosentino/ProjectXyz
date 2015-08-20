@@ -52,9 +52,6 @@ namespace ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments
                 expected.Id == actual.Id,
                 "Expecting " + enchantmentLabel + " IDs to be equal.\r\nExpected: " + expected.Id + "\r\nActual: " + actual.Id);
             Assert.True(
-                expected.RemainingDuration == actual.RemainingDuration,
-                "Expecting " + enchantmentLabel + " remaining durations to be equal.\r\nExpected: " + expected.RemainingDuration + "\r\nActual: " + actual.RemainingDuration);
-            Assert.True(
                 expected.StatusTypeId == actual.StatusTypeId,
                 "Expecting " + enchantmentLabel + " status type IDs to be equal.\r\nExpected: " + expected.StatusTypeId + "\r\nActual: " + actual.StatusTypeId);
             Assert.True(

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Additive.Contracts
 {
@@ -13,10 +12,12 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Contracts
         public IAdditiveEnchantmentStore CreateEnchantmentStore(
             Guid id,
             Guid statId,
-            double value)
+            double value,
+            TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IAdditiveEnchantmentStore>() != null);
 
             return default(IAdditiveEnchantmentStore);

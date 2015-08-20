@@ -119,7 +119,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             var enchantmentStore = _percentageEnchantmentStoreFactory.CreateEnchantmentStore(
                 percentageEnchantment.Id,
                 percentageEnchantment.StatId,
-                percentageEnchantment.Value);
+                percentageEnchantment.Value,
+                percentageEnchantment.RemainingDuration);
             
             // FIXME: we need add or update?
             _percentageEnchantmentStoreRepository.Add(enchantmentStore);
@@ -148,7 +149,7 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
                 enchantmentStore.StatusTypeId,
                 enchantmentStore.TriggerId,
                 enchantmentWeather.WeatherIds,
-                enchantmentStore.RemainingDuration,
+                percentageEnchantmentStore.RemainingDuration,
                 percentageEnchantmentStore.StatId,
                 percentageEnchantmentStore.Value);
             

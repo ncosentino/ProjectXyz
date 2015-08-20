@@ -25,12 +25,14 @@ namespace ProjectXyz.Plugins.Enchantments.Additive
         public IAdditiveEnchantmentStore CreateEnchantmentStore(
             Guid id, 
             Guid statId, 
-            double value)
+            double value,
+            TimeSpan remainingDuration)
         {
             return AdditiveEnchantmentStore.Create(
                 id,
                 statId,
-                value);
+                value,
+                remainingDuration);
         }
         #endregion
     }

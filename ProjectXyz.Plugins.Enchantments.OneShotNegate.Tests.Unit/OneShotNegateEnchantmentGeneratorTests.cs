@@ -40,12 +40,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
             enchantmentDefinition
-                .Setup(x => x.MinimumDuration)
-                .Returns(TimeSpan.FromSeconds(0));
-            enchantmentDefinition
-                .Setup(x => x.MaximumDuration)
-                .Returns(TimeSpan.FromSeconds(2));
-            enchantmentDefinition
                 .Setup(x => x.EnchantmentWeatherId)
                 .Returns(enchantmentWeatherId);
 
@@ -81,8 +75,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
             enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);            
             enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            enchantmentDefinition.Verify(x => x.MinimumDuration, Times.Never);
-            enchantmentDefinition.Verify(x => x.MaximumDuration, Times.Never);
             enchantmentDefinition.Verify(x => x.EnchantmentWeatherId, Times.Once);
             
             oneShotNegateEnchantmentFactory.Verify(

@@ -39,6 +39,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
             var enchantmentStoreId = Guid.NewGuid();
             var statId = Guid.NewGuid();
             const double VALUE = 12345;
+            var remainingDuration = TimeSpan.FromSeconds(123);
             
             var enchantmentStore = new Mock<IAdditiveEnchantmentStore>(MockBehavior.Strict);
             enchantmentStore
@@ -50,6 +51,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
             enchantmentStore
                 .Setup(x => x.Value)
                 .Returns(VALUE);
+            enchantmentStore
+                .Setup(x => x.RemainingDuration)
+                .Returns(remainingDuration);
 
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>(MockBehavior.Strict);
             
@@ -70,6 +74,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
             enchantmentStore.Verify(x => x.Id, Times.Once);
             enchantmentStore.Verify(x => x.StatId, Times.Once);
             enchantmentStore.Verify(x => x.Value, Times.Once);
+            enchantmentStore.Verify(x => x.RemainingDuration, Times.Once);
         }
 
         [Fact]
@@ -79,6 +84,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
             var enchantmentStoreId = Guid.NewGuid();
             var statId = Guid.NewGuid();
             const double VALUE = 12345;
+            var remainingDuration = TimeSpan.FromSeconds(123);
             
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>(MockBehavior.Strict);
             
@@ -91,6 +97,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
                 { "EnchantmentId", enchantmentStoreId },
                 { "StatId", statId },
                 { "Value", VALUE },
+                { "RemainingDuration", remainingDuration },
             };
 
             using (var command = _database.CreateCommand(
@@ -100,13 +107,15 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
                 (
                     EnchantmentId,
                     StatId,
-                    Value
+                    Value,
+                    RemainingDuration
                 )
                 VALUES
                 (
                     @EnchantmentId,
                     @StatId,
-                    @Value
+                    @Value,
+                    @RemainingDuration
                 )
                 ;",
                 namedParameters))
@@ -132,12 +141,13 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
             var enchantmentStoreId = Guid.NewGuid();
             var statId = Guid.NewGuid();
             const double VALUE = 12345;
+            var remainingDuration = TimeSpan.FromSeconds(123);
 
             var enchantmentStore = new Mock<IAdditiveEnchantmentStore>(MockBehavior.Strict);
 
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.CreateEnchantmentStore(enchantmentStoreId, statId, VALUE))
+                .Setup(x => x.CreateEnchantmentStore(enchantmentStoreId, statId, VALUE, remainingDuration))
                 .Returns(enchantmentStore.Object);
             
             var repository = AdditiveEnchantmentStoreRepository.Create(
@@ -149,6 +159,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
                 { "EnchantmentId", enchantmentStoreId },
                 { "StatId", statId },
                 { "Value", VALUE },
+                { "RemainingDuration", remainingDuration.TotalMilliseconds },
             };
 
             using (var command = _database.CreateCommand(
@@ -158,13 +169,15 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
                 (
                     EnchantmentId,
                     StatId,
-                    Value
+                    Value,
+                    RemainingDuration
                 )
                 VALUES
                 (
                     @EnchantmentId,
                     @StatId,
-                    @Value
+                    @Value,
+                    @RemainingDuration
                 )
                 ;",
                 namedParameters))
@@ -182,7 +195,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Integration
                 x => x.CreateEnchantmentStore(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<double>()), 
+                    It.IsAny<double>(),
+                    It.IsAny<TimeSpan>()), 
                 Times.Once);
         }
         #endregion

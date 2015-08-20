@@ -12,7 +12,6 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
     {
         #region Fields
         private readonly Mock<IOneShotNegateEnchantment> _enchantment;
-        private readonly List<TimeSpan> _remaining;
         private readonly Guid _id;
 
         private Guid _statId;
@@ -29,29 +28,10 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             _statusTypeId = Guid.NewGuid();
 
             _enchantment = new Mock<IOneShotNegateEnchantment>();
-            _remaining = new List<TimeSpan>(new[] { TimeSpan.Zero });
         }
         #endregion
         
         #region Methods
-        public MockNegationEnchantmentBuilder WithRemainingTime(params TimeSpan[] remainingTimes)
-        {
-            Contract.Requires<ArgumentNullException>(remainingTimes != null);
-            Contract.Ensures(Contract.Result<MockNegationEnchantmentBuilder>() != null);
-
-            return WithRemainingTime((IEnumerable<TimeSpan>)remainingTimes);
-        }
-
-        public MockNegationEnchantmentBuilder WithRemainingTime(IEnumerable<TimeSpan> remainingTimes)
-        {
-            Contract.Requires<ArgumentNullException>(remainingTimes != null);
-            Contract.Ensures(Contract.Result<MockNegationEnchantmentBuilder>() != null);
-
-            _remaining.Clear();
-            _remaining.AddRange(remainingTimes);
-            return this;
-        }
-
         public MockNegationEnchantmentBuilder WithStatId(Guid statId)
         {
             Contract.Ensures(Contract.Result<MockNegationEnchantmentBuilder>() != null);
@@ -89,22 +69,6 @@ namespace ProjectXyz.Application.Tests.Enchantments.Mocks
             _enchantment
                 .Setup(x => x.TriggerId)
                 .Returns(_trigger);
-
-            if (_remaining.Count == 1)
-            {
-                _enchantment
-                    .Setup(x => x.RemainingDuration)
-                    .Returns(_remaining[0]);
-            }
-            else
-            {
-                var sequence = _enchantment.SetupSequence(x => x.RemainingDuration);
-                foreach (var remainingTime in _remaining)
-                {
-                    sequence = sequence.Returns(remainingTime);
-                }
-            }
-
             _enchantment
                 .Setup(x => x.StatusTypeId)
                 .Returns(_statusTypeId);

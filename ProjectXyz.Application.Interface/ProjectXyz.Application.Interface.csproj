@@ -205,7 +205,6 @@
     <Compile Include="Enchantments\Calculations\Contracts\IEnchantmentCalculatorContract.cs" />
     <Compile Include="Enchantments\Contracts\IMutableEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\ExtensionMethods\IEnchantmentCollectionExtensionMethods.cs" />
-    <Compile Include="Enchantments\ExtensionMethods\IEnchantmentExtensionMethods.cs" />
     <Compile Include="Enchantments\IEnchantment.cs" />
     <Compile Include="Enchantments\IEnchantmentBlock.cs" />
     <Compile Include="Enchantments\Calculations\IEnchantmentCalculator.cs" />

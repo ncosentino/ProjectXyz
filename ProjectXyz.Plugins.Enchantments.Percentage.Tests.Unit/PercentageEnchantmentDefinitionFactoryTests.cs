@@ -19,6 +19,8 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
             var STAT_ID = Guid.NewGuid();
             const double MINIMUM_VALUE = 123;
             const double MAXIMUM_VALUE = 456;
+            var minimumDuration = TimeSpan.FromSeconds(123);
+            var maximumDuration = TimeSpan.FromSeconds(456);
 
             var factory = PercentageEnchantmentDefinitionFactory.Create();
 
@@ -27,13 +29,17 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage.Tests.Unit
                 ID,
                 STAT_ID,
                 MINIMUM_VALUE,
-                MAXIMUM_VALUE);
+                MAXIMUM_VALUE,
+                minimumDuration,
+                maximumDuration);
 
             // Assert
             Assert.Equal(ID, result.Id);
-            Assert.Equal(STAT_ID, ((IPercentageEnchantmentDefinition)result).StatId);;
-            Assert.Equal(MINIMUM_VALUE, ((IPercentageEnchantmentDefinition)result).MinimumValue);
-            Assert.Equal(MAXIMUM_VALUE, ((IPercentageEnchantmentDefinition)result).MaximumValue);
+            Assert.Equal(STAT_ID, result.StatId); ;
+            Assert.Equal(MINIMUM_VALUE, result.MinimumValue);
+            Assert.Equal(MAXIMUM_VALUE, result.MaximumValue);
+            Assert.Equal(minimumDuration, result.MinimumDuration);
+            Assert.Equal(maximumDuration, result.MaximumDuration);
         }
         #endregion
     }

@@ -48,7 +48,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             Guid STAT_ID = Guid.NewGuid();
             Guid TRIGGER_ID = Guid.NewGuid();
             Guid STATUS_TYPE_ID = Guid.NewGuid();
-            
+            var remainingDuration = TimeSpan.FromSeconds(123);
+
             var reader = new Mock<IDataReader>();
             reader
                 .Setup(x => x.Read())
@@ -101,7 +102,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
                 .Returns(COLUMN_INDEX_REMAINING_DURATION);
             reader
                 .Setup(x => x.GetDouble(COLUMN_INDEX_REMAINING_DURATION))
-                .Returns(1000);
+                .Returns(remainingDuration.TotalMilliseconds);
                         
             var command = new Mock<IDbCommand>();
             command
@@ -120,7 +121,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
                 .Setup(x => x.CreateEnchantmentStore(
                     STORE_ID, 
                     STAT_ID,
-                    0))
+                    0,
+                    remainingDuration))
                 .Returns(enchantmentStore.Object);
 
             var repository = AdditiveEnchantmentStoreRepository.Create(
@@ -136,7 +138,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             factory.Verify(x => x.CreateEnchantmentStore(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<double>()),
+                    It.IsAny<double>(),
+                    It.IsAny<TimeSpan>()),
                     Times.Once);
 
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
@@ -147,41 +150,47 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
         [Fact]
         public void GetById_NotAvailable_Throws()
         {
+            // Setup
             Guid STORE_ID = new Guid();
 
-            var reader = new Mock<IDataReader>();
+            var reader = new Mock<IDataReader>(MockBehavior.Strict);
             reader
                 .Setup(x => x.Read())
                 .Returns(false);
+            reader
+                .Setup(x => x.Dispose());
 
-            var command = new Mock<IDbCommand>();
+            var command = new Mock<IDbCommand>(MockBehavior.Strict);
             command
                 .Setup(x => x.ExecuteReader())
                 .Returns(reader.Object);
+            command
+                .Setup(x => x.Dispose());
 
-            var database = new Mock<IDatabase>();
+            var database = new Mock<IDatabase>(MockBehavior.Strict);
             database
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var factory = new Mock<IAdditiveEnchantmentStoreFactory>();
-        
+            var factory = new Mock<IAdditiveEnchantmentStoreFactory>(MockBehavior.Strict);
+
             var repository = AdditiveEnchantmentStoreRepository.Create(
                 database.Object,
                 factory.Object);
 
+            // Execute
             var exception = Assert.Throws<InvalidOperationException>(() => repository.GetById(STORE_ID));
+
+            // Assert
             Assert.Equal("No enchantment with Id '" + STORE_ID + "' was found.", exception.Message);
 
-            factory.Verify(x => x.CreateEnchantmentStore(
-                    It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
-                    It.IsAny<double>()),
-                    Times.Never);
+            reader.Verify(x => x.Read(), Times.Once);
+            reader.Verify(x => x.Dispose(), Times.Once);
 
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
 
             command.Verify(x => x.ExecuteReader(), Times.Once);
+            command.Verify(x => x.Dispose(), Times.Once);
         }
 
         [Fact]
@@ -218,6 +227,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             // Setup
             Guid STORE_ID = new Guid();
             Guid STAT_ID = new Guid();
+            var remainingDuration = TimeSpan.FromSeconds(123);
 
             var command = new Mock<IDbCommand>();
 
@@ -236,6 +246,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             enchantmentStore
                 .Setup(x => x.Value)
                 .Returns(456);
+            enchantmentStore
+                .Setup(x => x.RemainingDuration)
+                .Returns(remainingDuration);
 
             var factory = new Mock<IAdditiveEnchantmentStoreFactory>();
             
@@ -254,6 +267,7 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Tests.Unit
             enchantmentStore.Verify(x => x.Id, Times.Once);
             enchantmentStore.Verify(x => x.StatId, Times.Once);
             enchantmentStore.Verify(x => x.Value, Times.Once);
+            enchantmentStore.Verify(x => x.RemainingDuration, Times.Once);
         }
         #endregion
     }

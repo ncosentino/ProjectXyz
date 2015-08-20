@@ -8,6 +8,7 @@ using ProjectXyz.Application.Tests.Items.Mocks;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Sockets;
+using ProjectXyz.Plugins.Enchantments.Additive;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -178,15 +179,28 @@ namespace ProjectXyz.Application.Tests.Items
             // Setup
             Guid statIdForSocketing = Guid.NewGuid();
             Guid socketTypeId = Guid.NewGuid();
+            const double ENCHANTMENT_VALUE = 123456;
+            var remainingDuration = TimeSpan.FromSeconds(5);
 
-            var socketCandidateEnchantment = new MockAdditiveEnchantmentBuilder()
-                .WithStatId(ItemStats.Value)
-                .WithValue(123456)
-                .WithRemainingTime(TimeSpan.FromSeconds(5), TimeSpan.Zero)
-                .Build();
+            var socketCandidateEnchantment = new Mock<IAdditiveEnchantment>(MockBehavior.Strict);
+            socketCandidateEnchantment
+                .Setup(x => x.StatId)
+                .Returns(ItemStats.Value);
+            socketCandidateEnchantment
+                .Setup(x => x.Value)
+                .Returns(ENCHANTMENT_VALUE);
+            socketCandidateEnchantment
+                .Setup(x => x.WeatherIds)
+                .Returns(Enumerable.Empty<Guid>());
+            socketCandidateEnchantment
+                .Setup(x => x.UpdateElapsedTime(remainingDuration))
+                .Callback(() =>
+                {
+                    socketCandidateEnchantment.Raise(x => x.Expired += null, EventArgs.Empty);
+                });
 
             var socketCandidate = new MockItemBuilder()
-                .WithEnchantments(socketCandidateEnchantment)
+                .WithEnchantments(socketCandidateEnchantment.Object)
                 .WithRequiredSockets(1)
                 .WithSocketTypeId(socketTypeId)
                 .Build();
@@ -206,14 +220,19 @@ namespace ProjectXyz.Application.Tests.Items
             Assert.True(
                 socketableItem.Socket(socketCandidate),
                 "Expecting the socket operation to be successful.");
-            Assert.Equal(socketCandidateEnchantment.Value, socketableItem.Value);
+            Assert.Equal(ENCHANTMENT_VALUE, socketableItem.Value);
 
             // Execute
-            socketableItem.UpdateElapsedTime(socketCandidateEnchantment.RemainingDuration);
+            socketableItem.UpdateElapsedTime(remainingDuration);
 
             // Assert
-            Assert.DoesNotContain(socketCandidateEnchantment, socketableItem.Enchantments);
+            Assert.DoesNotContain(socketCandidateEnchantment.Object, socketableItem.Enchantments);
             Assert.Equal(0, socketableItem.Value);
+
+            socketCandidateEnchantment.Verify(x => x.StatId, Times.Exactly(6));
+            socketCandidateEnchantment.Verify(x => x.Value, Times.Exactly(2));
+            socketCandidateEnchantment.Verify(x => x.WeatherIds, Times.Exactly(2));
+            socketCandidateEnchantment.Verify(x => x.UpdateElapsedTime(It.IsAny<TimeSpan>()), Times.Once());
         }
     }
 }

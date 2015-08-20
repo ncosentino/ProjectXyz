@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
@@ -38,18 +34,27 @@ namespace ProjectXyz.Application.Core.Enchantments
             Contract.Ensures(Contract.Result<IEnchantmentBlock>() != null);
             return new EnchantmentBlock(enchantments);
         }
-
+        
         public void UpdateElapsedTime(TimeSpan elapsedTime)
         {
             for (int i = 0; i < this.Count; i++)
             {
                 var enchantment = this[i];
 
-                enchantment.UpdateElapsedTime(elapsedTime);
-                if (enchantment.IsExpired())
+                EventHandler<EventArgs> expiredHandler = (s, e) =>
                 {
-                    this.Remove(enchantment);
                     i--;
+                    this.Remove((IEnchantment)s);
+                };
+
+                enchantment.Expired += expiredHandler;
+                try
+                {
+                    enchantment.UpdateElapsedTime(elapsedTime);
+                }
+                finally
+                {
+                    enchantment.Expired -= expiredHandler;
                 }
             }
         }

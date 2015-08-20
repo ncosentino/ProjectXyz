@@ -45,9 +45,6 @@ namespace ProjectXyz.Application.Tests.Enchantments
             enchantment
                 .Setup(x => x.EnchantmentTypeId)
                 .Returns(enchantmentTypeId);
-            enchantment
-                .Setup(x => x.RemainingDuration)
-                .Returns(remainingDuration);
             
             int saveEnchantmentDelegateCount = 0;
             SaveEnchantmentDelegate callback = x =>
@@ -60,7 +57,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
 
             var enchantmentStoreFactory = new Mock<IEnchantmentStoreFactory>(MockBehavior.Strict);
             enchantmentStoreFactory
-                .Setup(x => x.Create(enchantmentId, enchantmentTriggerId, statusTypeId, enchantmentTypeId, enchantmentWeatherId, remainingDuration))
+                .Setup(x => x.Create(enchantmentId, enchantmentTriggerId, statusTypeId, enchantmentTypeId, enchantmentWeatherId))
                 .Returns(enchantmentStore.Object);
 
             var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository>(MockBehavior.Strict);
@@ -99,7 +96,6 @@ namespace ProjectXyz.Application.Tests.Enchantments
             enchantment.Verify(x => x.TriggerId, Times.Once);
             enchantment.Verify(x => x.StatusTypeId, Times.Once);
             enchantment.Verify(x => x.EnchantmentTypeId, Times.Once);
-            enchantment.Verify(x => x.RemainingDuration, Times.Once);
 
             enchantmentStoreFactory.Verify(
                 x => x.Create(
@@ -107,8 +103,7 @@ namespace ProjectXyz.Application.Tests.Enchantments
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
-                    It.IsAny<TimeSpan>()),
+                    It.IsAny<Guid>()),
                 Times.Once);
 
             enchantmentStoreRepository.Verify(x => x.Add(It.IsAny<IEnchantmentStore>()), Times.Once);

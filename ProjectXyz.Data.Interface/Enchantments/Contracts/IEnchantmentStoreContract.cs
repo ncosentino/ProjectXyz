@@ -63,17 +63,6 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
                 return default(Guid);
             }
         }
-
-        public TimeSpan RemainingDuration
-        {
-            get
-            {
-                Contract.Ensures(
-                    Contract.Result<TimeSpan>() >= TimeSpan.Zero ||
-                    Contract.Result<TimeSpan>() == TimeSpan.MinValue);
-                return default(TimeSpan);
-            }
-        }
         #endregion
     }
 }

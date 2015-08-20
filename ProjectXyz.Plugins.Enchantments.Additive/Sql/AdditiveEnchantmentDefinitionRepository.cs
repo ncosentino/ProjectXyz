@@ -49,6 +49,8 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
                 { "StatId", enchantmentDefinition.Id },
                 { "MinimumValue", enchantmentDefinition.MinimumValue },
                 { "MaximumValue", enchantmentDefinition.MaximumValue },
+                { "MinimumDuration", enchantmentDefinition.MinimumDuration.TotalMilliseconds },
+                { "MaximumDuration", enchantmentDefinition.MaximumDuration.TotalMilliseconds },
             };
 
             using (var command = _database.CreateCommand(
@@ -59,14 +61,18 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
                     EnchantmentDefinitionId,
                     StatId,
                     MinimumValue,
-                    MaximumValue
+                    MaximumValue,
+                    MinimumDuration,
+                    MaximumDuration
                 )
                 VALUES
                 (
                     @EnchantmentDefinitionId,
                     @StatId,
                     @MinimumValue,
-                    @MaximumValue
+                    @MaximumValue,
+                    @MinimumDuration,
+                    @MaximumDuration
                 )
                 ;",
                 namedParameters))
@@ -128,7 +134,9 @@ namespace ProjectXyz.Plugins.Enchantments.Additive.Sql
                 reader.GetGuid(reader.GetOrdinal("EnchantmentDefinitionId")),
                 reader.GetGuid(reader.GetOrdinal("StatId")),
                 reader.GetDouble(reader.GetOrdinal("MinimumValue")),
-                reader.GetDouble(reader.GetOrdinal("MaximumValue")));
+                reader.GetDouble(reader.GetOrdinal("MaximumValue")),
+                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("MinimumDuration"))),
+                TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("MaximumDuration"))));
         }
         #endregion
     }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Plugins.Enchantments.Percentage.Contracts;
 
 namespace ProjectXyz.Plugins.Enchantments.Percentage
 {
+    [ContractClass(typeof(IPercentageEnchantmentDefinitionFactoryContract))]
     public interface IPercentageEnchantmentDefinitionFactory
     {
         #region Methods
@@ -12,7 +14,9 @@ namespace ProjectXyz.Plugins.Enchantments.Percentage
             Guid id,
             Guid statId,
             double minimumValue,
-            double maximumValue);
+            double maximumValue,
+            TimeSpan minimumDuration,
+            TimeSpan maximumDuration);
         #endregion
     }
 }
