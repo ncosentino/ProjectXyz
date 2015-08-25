@@ -22,9 +22,10 @@ namespace ProjectXyz.Application.Tests.Enchantments
         public void Calculate_SingleEnchantmentSingleCalculator_ReturnsResult()
         {
             // Setup
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(10)
+                .WithExpression("Value")
+                .WithValue("Value", 10)
                 .Build();
 
             var stats = StatCollection.Create();

@@ -82,17 +82,13 @@
       <Project>{345a6a69-13f6-4089-bbf3-d6d502e8ec5b}</Project>
       <Name>ProjectXyz.Plugins.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Additive\ProjectXyz.Plugins.Enchantments.Additive.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Expression\ProjectXyz.Plugins.Enchantments.Expression.csproj">
       <Project>{B5AAF78D-6583-47C7-9EEF-EFEFCA828473}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Additive</Name>
+      <Name>ProjectXyz.Plugins.Enchantments.Expression</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.OneShotNegate\ProjectXyz.Plugins.Enchantments.OneShotNegate.csproj">
       <Project>{400AA358-8128-4E01-9A44-9DE06EDEDAD2}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.OneShotNegate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Percentage\ProjectXyz.Plugins.Enchantments.Percentage.csproj">
-      <Project>{0A22BE3D-8529-4758-871A-AEE6C1FCB4AD}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Percentage</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments\ProjectXyz.Plugins.Enchantments.csproj">
       <Project>{a8a53899-95ad-4466-9a3a-8a43dc9c6249}</Project>

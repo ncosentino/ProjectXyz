@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Moq;
@@ -19,7 +20,7 @@ using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Tests.Actors.Mocks;
-using ProjectXyz.Plugins.Enchantments.Additive;
+using ProjectXyz.Plugins.Enchantments.Expression;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
@@ -36,9 +37,11 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(ADDITIONAL_LIFE)
+                .WithExpression("Life + Value")
+                .WithStat("Life", ActorStats.MaximumLife)
+                .WithValue("Value", ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
@@ -74,9 +77,10 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(ADDITIONAL_LIFE)
+                .WithExpression("Value")
+                .WithValue("Value", ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Hold)
                 .Build();
 
@@ -112,9 +116,10 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(ADDITIONAL_LIFE)
+                .WithExpression("Value")
+                .WithValue("Value", ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Hold)
                 .Build();
 
@@ -136,7 +141,16 @@ namespace ProjectXyz.Application.Tests.Actors
                 .Returns(EnchantmentCalculator.Create(
                     enchantmentContext.Object,
                     EnchantmentCalculatorResultFactory.Create(),
-                    new[] { AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()) }));
+                    new[]
+                    {
+                        ExpressionEnchantmentTypeCalculator.Create(
+                            StatFactory.Create(), 
+                            ExpressionEvaluator.Create(x =>
+                            {
+                                Assert.Equal("50", x);
+                                return BASE_LIFE + ADDITIONAL_LIFE;
+                            })), 
+                    }));
 
             var actor = Actor.Create(
                 context.Object,
@@ -154,9 +168,11 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 100;
             const double ADDITIONAL_LIFE = 50;
 
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(ADDITIONAL_LIFE)
+                .WithExpression("Life + Value")
+                .WithStat("Life", ActorStats.MaximumLife)
+                .WithValue("Value", ADDITIONAL_LIFE)
                 .WithTrigger(EnchantmentTriggers.Hold)
                 .Build();
 
@@ -192,9 +208,10 @@ namespace ProjectXyz.Application.Tests.Actors
             const double BASE_LIFE = 50;
             const double HEAL_AMOUNT = 1000;
 
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.CurrentLife)
-                .WithValue(HEAL_AMOUNT)
+                .WithExpression("Value")
+                .WithValue("Value", HEAL_AMOUNT)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
@@ -231,9 +248,11 @@ namespace ProjectXyz.Application.Tests.Actors
             const double LIFE_BUFF = 100;
             const double BASE_LIFE = 50;
 
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(LIFE_BUFF)
+                .WithExpression("Life + Value")
+                .WithStat("Life", ActorStats.MaximumLife)
+                .WithValue("Value", LIFE_BUFF)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
@@ -287,15 +306,17 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_BreakingEquipment_RemovesEnchantment()
         {
-            var durabilityEnchantment = new MockAdditiveEnchantmentBuilder()
+            var durabilityEnchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
-                .WithValue(-100)
+                .WithExpression("Value")
+                .WithValue("Value", -100)
                 .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
-            var lifeEnchantment = new MockAdditiveEnchantmentBuilder()
+            var lifeEnchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(100)
+                .WithExpression("Value")
+                .WithValue("Value", 100)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .Build();
 
@@ -321,7 +342,7 @@ namespace ProjectXyz.Application.Tests.Actors
             AssertEquipItem(
                 actor, 
                 enchantedItem,
-                () => Assert.Equal(lifeEnchantment.Value, actor.GetMaximumLife()));
+                () => Assert.Equal(100, actor.GetMaximumLife()));
             enchantedItem.Enchant(durabilityEnchantment);
 
             Assert.Equal(0, actor.GetMaximumLife());
@@ -330,9 +351,10 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_BreakingEquipment_UnequipsItem()
         {
-            var durabilityEnchantment = new MockAdditiveEnchantmentBuilder()
+            var durabilityEnchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
-                .WithValue(-100)
+                .WithExpression("Value")
+                .WithValue("Value", -100)
                 .WithTrigger(EnchantmentTriggers.Item)
                 .Build();
 
@@ -366,9 +388,11 @@ namespace ProjectXyz.Application.Tests.Actors
         [Fact]
         public void Actor_EnchantmentWithNegation_StatusIsNegated()
         {
-            var curseEnchantment = new MockAdditiveEnchantmentBuilder()
+            var curseEnchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(-10)
+                .WithExpression("Life + Value")
+                .WithStat("Life", ActorStats.MaximumLife)
+                .WithValue("Value", -10)
                 .WithTrigger(EnchantmentTriggers.Equip)
                 .WithStatusType(EnchantmentStatuses.Curse)
                 .Build();
@@ -475,13 +499,16 @@ namespace ProjectXyz.Application.Tests.Actors
 
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
 
+            var stringExpressionEvaluator = DataTableExpressionEvaluator.Create();
+            var expressionEvaluator = ExpressionEvaluator.Create(stringExpressionEvaluator.Evaluate);
+
             return EnchantmentCalculator.Create(
                 enchantmentContext.Object,
                 EnchantmentCalculatorResultFactory.Create(),
                 new[]
                 {
                     OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
-                    AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
+                    ExpressionEnchantmentTypeCalculator.Create(StatFactory.Create(), expressionEvaluator),
                 });
         }
 

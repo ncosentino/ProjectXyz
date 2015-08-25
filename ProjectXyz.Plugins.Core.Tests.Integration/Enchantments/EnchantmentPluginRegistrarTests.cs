@@ -30,17 +30,17 @@ namespace ProjectXyz.Plugins.Core.Tests.Integration.Enchantments
 
             var enchantmentWeatherRepository = new Mock<IEnchantmentWeatherRepository>(MockBehavior.Strict);
 
-            var plugin = new Plugins.Enchantments.Additive.Plugin(
+            var plugin = new Plugins.Enchantments.Expression.Plugin(
                 database.Object,
                 enchantmentDefinitionRepository.Object,
                 enchantmentWeatherRepository.Object);
 
             enchantmentSaver
-                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Additive.IAdditiveEnchantment), plugin.SaveEnchantmentCallback));
+                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantment), plugin.SaveEnchantmentCallback));
             enchantmentGenerator
-                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Additive.IAdditiveEnchantmentDefinition), plugin.GenerateEnchantmentCallback));
+                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantmentDefinition), plugin.GenerateEnchantmentCallback));
             enchantmentFactory
-                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Additive.IAdditiveEnchantmentStore), plugin.CreateEnchantmentCallback));
+                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantmentStore), plugin.CreateEnchantmentCallback));
 
             var plugins = new IEnchantmentPlugin[]
             {

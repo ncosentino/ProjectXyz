@@ -29,17 +29,23 @@ CREATE TABLE [Enchantments] (
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
   [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
 
-CREATE TABLE [AdditiveEnchantments] (
+CREATE TABLE [ExpressionEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [Value] FLOAT NOT NULL ON CONFLICT FAIL,
+  [Expression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
   [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
-CREATE TABLE [PercentageEnchantments] (
-  [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
-  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [Value] FLOAT NOT NULL ON CONFLICT FAIL,
-  [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
+CREATE TABLE [ExpressionEnchantmentValues] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [ExpressionEnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
+  [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [Value] FLOAT NOT NULL ON CONFLICT FAIL);
+
+CREATE TABLE [ExpressionEnchantmentStats] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [ExpressionEnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
+  [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]));
 
 CREATE TABLE [OneShotNegateEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
@@ -51,21 +57,26 @@ CREATE TABLE [EnchantmentDefinitions] (
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
   [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
 
-CREATE TABLE [AdditiveEnchantmentDefinitions] (
+CREATE TABLE [ExpressionEnchantmentDefinitions] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
+  [Expression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
   [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
   [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
-CREATE TABLE [PercentageEnchantmentDefinitions] (
+CREATE TABLE [ExpressionEnchantmentStatDefinitions] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
+  [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
+
+CREATE TABLE [ExpressionEnchantmentValueDefinitions] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
+  [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
   [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
-  [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
+  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [OneShotNegateEnchantmentDefinitions] (
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
@@ -74,7 +85,6 @@ CREATE TABLE [OneShotNegateEnchantmentDefinitions] (
 CREATE TABLE [EnchantmentStatuses] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
-
 
 CREATE TABLE [EnchantmentTriggers] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 

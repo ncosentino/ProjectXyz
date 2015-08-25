@@ -94,9 +94,10 @@ namespace ProjectXyz.Application.Tests.Items
         public void Save_HasEnchantments_SavesEnchantments()
         {
             // Setup
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ActorStats.MaximumLife)
-                .WithValue(1234567)
+                .WithExpression("Value")
+                .WithValue("Value", 1234567)
                 .Build();
 
             var enchantmentStore = new Mock<IEnchantmentStore>(MockBehavior.Strict);

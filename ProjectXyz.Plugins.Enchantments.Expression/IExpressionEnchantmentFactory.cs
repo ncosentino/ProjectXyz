@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ProjectXyz.Plugins.Enchantments.Expression
+{
+    public interface IExpressionEnchantmentFactory
+    {
+        #region Methods
+        IExpressionEnchantment Create(
+            Guid id,
+            Guid statusTypeId,
+            Guid triggerId,
+            IEnumerable<Guid> weatherIds,
+            TimeSpan remainingDuration,
+            Guid statId,
+            string expression,
+            IEnumerable<KeyValuePair<string, Guid>> expressionStatIds,
+            IEnumerable<KeyValuePair<string, double>> expressionValues);
+        #endregion
+    }
+}

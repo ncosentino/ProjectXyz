@@ -7,7 +7,7 @@ using ProjectXyz.Application.Core.Enchantments;
 using Xunit;
 
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Plugins.Enchantments.Additive;
+using ProjectXyz.Plugins.Enchantments.Expression;
 
 namespace ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments
 {
@@ -57,27 +57,6 @@ namespace ProjectXyz.Application.Tests.Xunit.Assertions.Enchantments
             Assert.True(
                 expected.TriggerId == actual.TriggerId,
                 "Expecting " + enchantmentLabel + " trigger IDs to be equal.\r\nExpected: " + expected.TriggerId + "\r\nActual: " + actual.TriggerId);
-        }
-
-        private static void Equal(IAdditiveEnchantment expected, IAdditiveEnchantment actual, int index = -1)
-        {
-            Contract.Requires<ArgumentNullException>(expected != null);
-            Contract.Requires<ArgumentNullException>(actual != null);
-
-            Equal((IEnchantment)expected, (IEnchantment)actual, index);
-
-            string enchantmentLabel = "enchantment";
-            if (index >= 0)
-            {
-                enchantmentLabel += " (index " + index + ")";
-            }
-
-            Assert.True(
-                expected.StatId == actual.StatId,
-                "Expecting " + enchantmentLabel + " stat IDs to be equal.\r\nExpected: " + expected.StatId + "\r\nActual: " + actual.StatId);
-            Assert.True(
-                expected.Value == actual.Value,
-                "Expecting " + enchantmentLabel + " values to be equal.\r\nExpected: " + expected.Value + "\r\nActual: " + actual.Value);
         }
         #endregion
     }

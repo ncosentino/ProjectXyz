@@ -32,9 +32,10 @@ namespace ProjectXyz.Application.Tests.Items
                     new[] { "" }));
             var baseCurrentDurability = item.CurrentDurability;
             var baseMaximumDurability = item.MaximumDurability;
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ItemStats.MaximumDurability)
-                .WithValue(100)
+                .WithExpression("Value")
+                .WithValue("Value", 100)
                 .Build();
 
             item.Enchant(enchantment);
@@ -56,9 +57,10 @@ namespace ProjectXyz.Application.Tests.Items
                 new MockItemContextBuilder().Build(), 
                 itemData);
             var baseMaximumDurability = item.MaximumDurability;
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
-                .WithValue(-100)
+                .WithExpression("Value")
+                .WithValue("Value", -100)
                 .Build();
 
             bool gotEvent = false;
@@ -90,9 +92,10 @@ namespace ProjectXyz.Application.Tests.Items
             var item = Item.Create(
                 new MockItemContextBuilder().Build(), 
                 itemData);
-            var enchantment = new MockAdditiveEnchantmentBuilder()
+            var enchantment = new MockExpressionEnchantmentBuilder()
                 .WithStatId(ItemStats.CurrentDurability)
-                .WithValue(-100)
+                .WithExpression("Value")
+                .WithValue("Value", -100)
                 .Build();
 
             item.Enchant(enchantment);

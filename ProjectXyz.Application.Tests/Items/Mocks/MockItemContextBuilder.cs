@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using Moq;
@@ -11,7 +12,8 @@ using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items.Sockets;
-using ProjectXyz.Plugins.Enchantments.Additive;
+using ProjectXyz.Plugins.Enchantments.Expression;
+using ProjectXyz.Plugins.Enchantments.OneShotNegate;
 
 namespace ProjectXyz.Application.Tests.Items.Mocks
 {
@@ -84,14 +86,18 @@ namespace ProjectXyz.Application.Tests.Items.Mocks
 
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
 
+            var stringExpressionEvaluator = DataTableExpressionEvaluator.Create();
+            var expressionEvaluator = ExpressionEvaluator.Create(stringExpressionEvaluator.Evaluate);
+
             return EnchantmentCalculator.Create(
                 enchantmentContext.Object,
                 EnchantmentCalculatorResultFactory.Create(),
                 new[]
                 {
-                    // FIXME: put this back
-                    //OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
-                    AdditiveEnchantmentTypeCalculator.Create(StatFactory.Create()),
+                    OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object),
+                    ExpressionEnchantmentTypeCalculator.Create(
+                        StatFactory.Create(),
+                        expressionEvaluator),
                 });
         }
         #endregion
