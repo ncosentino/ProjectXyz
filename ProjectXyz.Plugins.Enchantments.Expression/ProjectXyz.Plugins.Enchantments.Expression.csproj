@@ -126,10 +126,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IExpressionDefinitionRepositoryContract.cs" />
     <Compile Include="Contracts\IExpressionEnchantmentStatDefinitionFactoryContract.cs" />
     <Compile Include="Contracts\IExpressionEnchantmentStatDefinitionRepositoryContract.cs" />
     <Compile Include="Contracts\IExpressionEnchantmentValueDefinitionRepositoryContract.cs" />
     <Compile Include="Contracts\IExpressionEnchantmentValueDefinitionFactoryContract.cs" />
+    <Compile Include="IExpressionDefinitionRepository.cs" />
+    <Compile Include="IExpressionDefinitionFactory.cs" />
+    <Compile Include="ExpressionDefinitionFactory.cs" />
+    <Compile Include="ExpressionDefinition.cs" />
+    <Compile Include="IExpressionDefinition.cs" />
     <Compile Include="DataTableExpressionEvaluator.cs" />
     <Compile Include="ExpressionEnchantmentStatDefinition.cs" />
     <Compile Include="ExpressionEnchantmentStatDefinitionFactory.cs" />
@@ -181,6 +187,7 @@
     <Compile Include="IStringExpressionEvaluator.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql\ExpressionDefinitionRepository.cs" />
     <Compile Include="Sql\ExpressionEnchantmentStatDefinitionRepository.cs" />
     <Compile Include="Sql\ExpressionEnchantmentValueDefinitionRepository.cs" />
     <Compile Include="Sql\ExpressionEnchantmentValueRepository.cs" />

@@ -11,17 +11,17 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private ExpressionEnchantmentStore(
             Guid id,
             Guid statId,
-            string expression,
+            Guid expressionId,
             TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
+            Contract.Requires<ArgumentException>(expressionId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
 
             this.Id = id;
             this.StatId = statId;
-            this.Expression = expression;
+            this.ExpressionId = expressionId;
             this.RemainingDuration = remainingDuration;
         }
         #endregion
@@ -42,7 +42,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         }
 
         /// <inheritdoc />
-        public string Expression
+        public Guid ExpressionId
         {
             get;
             private set;
@@ -60,19 +60,19 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public static IExpressionEnchantmentStore Create(
             Guid id,
             Guid statId,
-            string expression,
+            Guid expressionId,
             TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
+            Contract.Requires<ArgumentException>(expressionId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IExpressionEnchantmentStore>() != null);
 
             return new ExpressionEnchantmentStore(
                 id,
                 statId,
-                expression,
+                expressionId,
                 remainingDuration);
         }
         #endregion

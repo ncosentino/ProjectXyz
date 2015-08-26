@@ -81,7 +81,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         {
             return enchantments
                 .Where(x => x is IExpressionEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
-                .Cast<IExpressionEnchantment>();
+                .Cast<IExpressionEnchantment>()
+                .OrderBy(x => x.CalculationPriority);
         }
         #endregion
     }

@@ -12,12 +12,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Contracts
         public IExpressionEnchantmentStore CreateEnchantmentStore(
             Guid id,
             Guid statId,
-            string expression,
+            Guid expressionId,
             TimeSpan remainingDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
+            Contract.Requires<ArgumentException>(expressionId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Ensures(Contract.Result<IExpressionEnchantmentStore>() != null);
 

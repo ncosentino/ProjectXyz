@@ -24,7 +24,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public IExpressionEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id,
             Guid enchantmentDefinitionId,
-            string expression,
+            Guid expressionId,
             Guid statId,
             TimeSpan minimumDuration,
             TimeSpan maximumDuration)
@@ -32,7 +32,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             return ExpressionEnchantmentDefinition.Create(
                 id,
                 enchantmentDefinitionId,
-                expression,
+                expressionId,
                 statId,
                 minimumDuration,
                 maximumDuration);

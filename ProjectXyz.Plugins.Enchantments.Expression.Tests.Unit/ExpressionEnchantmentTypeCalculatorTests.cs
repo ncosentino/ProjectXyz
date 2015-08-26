@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 {
-    [DataLayer]
+    [ApplicationLayer]
     [Enchantments]
     public class ExpressionEnchantmentTypeCalculatorTests
     {
@@ -72,6 +72,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             enchantment1
                 .Setup(x => x.WeatherIds)
                 .Returns(Enumerable.Empty<Guid>());
+            enchantment1
+                .Setup(x => x.CalculationPriority)
+                .Returns(0);
 
             var enchantment2 = new Mock<IExpressionEnchantment>(MockBehavior.Strict);
             enchantment2
@@ -80,6 +83,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             enchantment2
                 .Setup(x => x.WeatherIds)
                 .Returns(Enumerable.Empty<Guid>());
+            enchantment2
+                .Setup(x => x.CalculationPriority)
+                .Returns(0);
 
             var enchantments = new IEnchantment[] { enchantment1.Object, enchantment2.Object };
 
@@ -128,8 +134,11 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             enchantment1.Verify(x => x.StatId, Times.AtLeastOnce);
             enchantment1.Verify(x => x.WeatherIds, Times.Once);
+            enchantment1.Verify(x => x.CalculationPriority, Times.Once);
+
             enchantment2.Verify(x => x.StatId, Times.AtLeastOnce);
             enchantment2.Verify(x => x.WeatherIds, Times.Once);
+            enchantment2.Verify(x => x.CalculationPriority, Times.Once);
 
             stat2.Verify(x => x.Id, Times.Once);
 

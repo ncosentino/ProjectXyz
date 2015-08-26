@@ -15,6 +15,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             TimeSpan remainingDuration,
             Guid statId,
             string expression,
+            int calculationPriority,
             IEnumerable<KeyValuePair<string, Guid>> expressionStatIds,
             IEnumerable<KeyValuePair<string, double>> expressionValues);
         #endregion

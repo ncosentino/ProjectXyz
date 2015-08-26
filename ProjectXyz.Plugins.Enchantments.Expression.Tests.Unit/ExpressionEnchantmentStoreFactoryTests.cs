@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             // Setup
             var id = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var remainingDuration = TimeSpan.FromSeconds(123);
 
             var factory = ExpressionEnchantmentStoreFactory.Create();
@@ -26,13 +26,13 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var result = factory.CreateEnchantmentStore(
                 id,
                 statId,
-                EXPRESSION,
+                expressionId,
                 remainingDuration);
 
             // Assert
             Assert.Equal(id, result.Id);
             Assert.Equal(statId, result.StatId);
-            Assert.Equal(EXPRESSION, result.Expression);
+            Assert.Equal(expressionId, result.ExpressionId);
             Assert.Equal(remainingDuration.TotalMilliseconds, result.RemainingDuration.TotalMilliseconds);
         }
         #endregion

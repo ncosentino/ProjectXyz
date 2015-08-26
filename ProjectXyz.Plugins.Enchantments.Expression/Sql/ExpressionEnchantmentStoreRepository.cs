@@ -47,7 +47,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
             {
                 { "EnchantmentId", enchantmentStore.Id },
                 { "StatId", enchantmentStore.StatId },
-                { "Expression", enchantmentStore.Expression },
+                { "ExpressionId", enchantmentStore.ExpressionId },
                 { "RemainingDuration", enchantmentStore.RemainingDuration },
             };
 
@@ -58,14 +58,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
                 (
                     EnchantmentId,
                     StatId,
-                    Expression,
+                    ExpressionId,
                     RemainingDuration
                 )
                 VALUES
                 (
                     @EnchantmentId,
                     @StatId,
-                    @Expression,
+                    @ExpressionId,
                     @RemainingDuration
                 )
                 ;",
@@ -127,7 +127,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
             return factory.CreateEnchantmentStore(
                 reader.GetGuid(reader.GetOrdinal("EnchantmentId")),
                 reader.GetGuid(reader.GetOrdinal("StatId")),
-                reader.GetString(reader.GetOrdinal("Expression")),
+                reader.GetGuid(reader.GetOrdinal("ExpressionId")),
                 TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("RemainingDuration"))));
         }
 

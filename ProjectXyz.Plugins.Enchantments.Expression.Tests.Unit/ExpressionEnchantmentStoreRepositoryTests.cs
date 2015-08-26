@@ -31,11 +31,11 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
         private const string COLUMN_NAME_STATUS_TYPE_ID = "StatusTypeId";
         private const int COLUMN_INDEX_STATUS_TYPE_ID = COLUMN_INDEX_TRIGGER_ID + 1;
 
-        private const string COLUMN_NAME_EXPRESSION = "Expression";
-        private const int COLUMN_INDEX_EXPRESSION = COLUMN_INDEX_STATUS_TYPE_ID + 1;
+        private const string COLUMN_NAME_EXPRESSION_ID = "ExpressionId";
+        private const int COLUMN_INDEX_EXPRESSION_ID = COLUMN_INDEX_STATUS_TYPE_ID + 1;
 
         private const string COLUMN_NAME_REMAINING_DURATION = "RemainingDuration";
-        private const int COLUMN_INDEX_REMAINING_DURATION = COLUMN_INDEX_EXPRESSION + 1;
+        private const int COLUMN_INDEX_REMAINING_DURATION = COLUMN_INDEX_EXPRESSION_ID + 1;
         #endregion
 
         #region Methods
@@ -49,7 +49,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             Guid TRIGGER_ID = Guid.NewGuid();
             Guid STATUS_TYPE_ID = Guid.NewGuid();
             var remainingDuration = TimeSpan.FromSeconds(123);
-            const string EXPRESSION = "this is the expressionj";
+            var expresionId = Guid.NewGuid();
 
             var reader = new Mock<IDataReader>();
             reader
@@ -92,11 +92,11 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                 .Returns(STATUS_TYPE_ID);
 
             reader
-                .Setup(x => x.GetOrdinal(COLUMN_NAME_EXPRESSION))
-                .Returns(COLUMN_INDEX_EXPRESSION);
+                .Setup(x => x.GetOrdinal(COLUMN_NAME_EXPRESSION_ID))
+                .Returns(COLUMN_INDEX_EXPRESSION_ID);
             reader
-                .Setup(x => x.GetString(COLUMN_INDEX_EXPRESSION))
-                .Returns(EXPRESSION);
+                .Setup(x => x.GetGuid(COLUMN_INDEX_EXPRESSION_ID))
+                .Returns(expresionId);
             
             reader
                 .Setup(x => x.GetOrdinal(COLUMN_NAME_REMAINING_DURATION))
@@ -122,7 +122,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                 .Setup(x => x.CreateEnchantmentStore(
                     STORE_ID, 
                     STAT_ID,
-                    EXPRESSION,
+                    expresionId,
                     remainingDuration))
                 .Returns(enchantmentStore.Object);
 
@@ -139,7 +139,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             factory.Verify(x => x.CreateEnchantmentStore(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<string>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<TimeSpan>()),
                     Times.Once);
 
@@ -229,7 +229,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             Guid STORE_ID = new Guid();
             Guid STAT_ID = new Guid();
             var remainingDuration = TimeSpan.FromSeconds(123);
-            const string EXPRESSION = "this is the expression";
+            var expresionId = Guid.NewGuid();
 
             var command = new Mock<IDbCommand>();
 
@@ -246,8 +246,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                 .Setup(x => x.StatId)
                 .Returns(STAT_ID);
             enchantmentStore
-                .Setup(x => x.Expression)
-                .Returns(EXPRESSION);
+                .Setup(x => x.ExpressionId)
+                .Returns(expresionId);
             enchantmentStore
                 .Setup(x => x.RemainingDuration)
                 .Returns(remainingDuration);
@@ -268,7 +268,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             enchantmentStore.Verify(x => x.Id, Times.Once);
             enchantmentStore.Verify(x => x.StatId, Times.Once);
-            enchantmentStore.Verify(x => x.Expression, Times.Once);
+            enchantmentStore.Verify(x => x.ExpressionId, Times.Once);
             enchantmentStore.Verify(x => x.RemainingDuration, Times.Once);
         }
         #endregion

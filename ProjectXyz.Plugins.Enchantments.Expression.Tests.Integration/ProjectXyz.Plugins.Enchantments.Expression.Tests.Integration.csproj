@@ -54,6 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpressionDefinitionRepositoryTests.cs" />
+    <Compile Include="ExpressionEnchantmentTypeCalculatorTests.cs" />
     <Compile Include="ExpressionEnchantmentValueDefinitionRepositoryTests.cs" />
     <Compile Include="ExpressionEnchantmentStatDefinitionRepositoryTests.cs" />
     <Compile Include="ExpressionEnchantmentDefinitionRepositoryTests.cs" />

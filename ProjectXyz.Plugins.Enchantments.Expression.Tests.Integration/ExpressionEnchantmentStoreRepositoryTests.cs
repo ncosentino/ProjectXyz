@@ -22,7 +22,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             // Setup
             var enchantmentStoreId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var remainingDuration = TimeSpan.FromSeconds(123);
             
             var enchantmentStore = new Mock<IExpressionEnchantmentStore>(MockBehavior.Strict);
@@ -33,8 +33,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 .Setup(x => x.StatId)
                 .Returns(statId);
             enchantmentStore
-                .Setup(x => x.Expression)
-                .Returns(EXPRESSION);
+                .Setup(x => x.ExpressionId)
+                .Returns(expressionId);
             enchantmentStore
                 .Setup(x => x.RemainingDuration)
                 .Returns(remainingDuration);
@@ -57,7 +57,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
 
             enchantmentStore.Verify(x => x.Id, Times.Once);
             enchantmentStore.Verify(x => x.StatId, Times.Once);
-            enchantmentStore.Verify(x => x.Expression, Times.Once);
+            enchantmentStore.Verify(x => x.ExpressionId, Times.Once);
             enchantmentStore.Verify(x => x.RemainingDuration, Times.Once);
         }
 
@@ -67,7 +67,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             // Setup
             var enchantmentStoreId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var remainingDuration = TimeSpan.FromSeconds(123);
             
             var factory = new Mock<IExpressionEnchantmentStoreFactory>(MockBehavior.Strict);
@@ -80,7 +80,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             {
                 { "EnchantmentId", enchantmentStoreId },
                 { "StatId", statId },
-                { "Expression", EXPRESSION },
+                { "ExpressionId", expressionId },
                 { "RemainingDuration", remainingDuration },
             };
 
@@ -91,14 +91,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 (
                     EnchantmentId,
                     StatId,
-                    Expression,
+                    ExpressionId,
                     RemainingDuration
                 )
                 VALUES
                 (
                     @EnchantmentId,
                     @StatId,
-                    @Expression,
+                    @ExpressionId,
                     @RemainingDuration
                 )
                 ;",
@@ -124,14 +124,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             // Setup
             var enchantmentStoreId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var remainingDuration = TimeSpan.FromSeconds(123);
 
             var enchantmentStore = new Mock<IExpressionEnchantmentStore>(MockBehavior.Strict);
 
             var factory = new Mock<IExpressionEnchantmentStoreFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.CreateEnchantmentStore(enchantmentStoreId, statId, EXPRESSION, remainingDuration))
+                .Setup(x => x.CreateEnchantmentStore(enchantmentStoreId, statId, expressionId, remainingDuration))
                 .Returns(enchantmentStore.Object);
             
             var repository = ExpressionEnchantmentStoreRepository.Create(
@@ -142,7 +142,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             {
                 { "EnchantmentId", enchantmentStoreId },
                 { "StatId", statId },
-                { "Expression", EXPRESSION },
+                { "ExpressionId", expressionId },
                 { "RemainingDuration", remainingDuration.TotalMilliseconds },
             };
 
@@ -153,14 +153,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 (
                     EnchantmentId,
                     StatId,
-                    Expression,
+                    ExpressionId,
                     RemainingDuration
                 )
                 VALUES
                 (
                     @EnchantmentId,
                     @StatId,
-                    @Expression,
+                    @ExpressionId,
                     @RemainingDuration
                 )
                 ;",
@@ -179,7 +179,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 x => x.CreateEnchantmentStore(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<string>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<TimeSpan>()), 
                 Times.Once);
         }

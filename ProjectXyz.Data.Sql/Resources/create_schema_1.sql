@@ -32,7 +32,7 @@ CREATE TABLE [Enchantments] (
 CREATE TABLE [ExpressionEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [Expression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [ExpressionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ExpressionId] REFERENCES [ExpressionDefinitions]([Id]),
   [RemainingDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE [ExpressionEnchantmentValues] (
@@ -57,11 +57,16 @@ CREATE TABLE [EnchantmentDefinitions] (
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
   [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
 
+CREATE TABLE [ExpressionDefinitions] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [Expression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [CalculationPriority] INTEGER NOT NULL ON CONFLICT FAIL);
+
 CREATE TABLE [ExpressionEnchantmentDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]), 
-  [Expression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [ExpressionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ExpressionId] REFERENCES [ExpressionDefinitions]([Id]),
   [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
   [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
 

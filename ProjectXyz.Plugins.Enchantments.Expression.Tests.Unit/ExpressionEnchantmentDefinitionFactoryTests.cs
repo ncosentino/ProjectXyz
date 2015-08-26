@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             // Setup
             var id = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var statId = Guid.NewGuid();
             var minimumDuration = TimeSpan.FromSeconds(123);
             var maximumDuration = TimeSpan.FromSeconds(456);
@@ -28,7 +28,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var result = factory.CreateEnchantmentDefinition(
                 id,
                 enchantmentDefinitionId,
-                EXPRESSION,
+                expressionId,
                 statId,
                 minimumDuration,
                 maximumDuration);
@@ -37,7 +37,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             Assert.Equal(id, result.Id);
             Assert.Equal(enchantmentDefinitionId, result.EnchantmentDefinitionId);
             Assert.Equal(statId, result.StatId);;
-            Assert.Equal(EXPRESSION, result.Expression);
+            Assert.Equal(expressionId, result.ExpressionId);
             Assert.Equal(minimumDuration, result.MinimumDuration);
             Assert.Equal(maximumDuration, result.MaximumDuration);
         }

@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         IExpressionEnchantmentDefinition CreateEnchantmentDefinition(
             Guid id,
             Guid enchantmentDefinitionId,
-            string expression,
+            Guid expressionId,
             Guid statId,
             TimeSpan minimumDuration,
             TimeSpan maximumDuration);

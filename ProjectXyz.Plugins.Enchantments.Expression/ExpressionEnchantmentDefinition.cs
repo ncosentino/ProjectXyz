@@ -12,14 +12,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private ExpressionEnchantmentDefinition(
             Guid id,
             Guid enchantmentDefinitionId,
-            string expression,
+            Guid expressionId,
             Guid statId,
             TimeSpan minimumDuration,
             TimeSpan maximumDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentDefinitionId != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
+            Contract.Requires<ArgumentException>(expressionId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(minimumDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentOutOfRangeException>(maximumDuration >= TimeSpan.Zero);
@@ -27,7 +27,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
 
             this.Id = id;
             this.EnchantmentDefinitionId = enchantmentDefinitionId;
-            this.Expression = expression;
+            this.ExpressionId = expressionId;
             this.StatId = statId;
             this.MinimumDuration = minimumDuration;
             this.MaximumDuration = maximumDuration;
@@ -50,7 +50,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         }
 
         /// <inheritdoc />
-        public string Expression
+        public Guid ExpressionId
         {
             get;
             set;
@@ -82,14 +82,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public static IExpressionEnchantmentDefinition Create(
             Guid id,
             Guid enchantmentDefinitionId,
-            string expression,
+            Guid expressionId,
             Guid statId,
             TimeSpan minimumDuration,
             TimeSpan maximumDuration)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentDefinitionId != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
+            Contract.Requires<ArgumentException>(expressionId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(minimumDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentOutOfRangeException>(maximumDuration >= TimeSpan.Zero);
@@ -99,7 +99,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             var enchantmentDefinition = new ExpressionEnchantmentDefinition(
                 id,
                 enchantmentDefinitionId,
-                expression,
+                expressionId,
                 statId,
                 minimumDuration,
                 maximumDuration);

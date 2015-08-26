@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         IExpressionEnchantmentStore CreateEnchantmentStore(
             Guid id,
             Guid statId,
-            string expression,
+            Guid expressionId,
             TimeSpan remainingDuration);
         #endregion
     }

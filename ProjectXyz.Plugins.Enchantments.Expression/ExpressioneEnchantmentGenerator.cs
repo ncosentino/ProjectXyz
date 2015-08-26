@@ -14,6 +14,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private readonly IExpressionEnchantmentValueDefinitionRepository _expressionEnchantmentValueDefinitionRepository;
         private readonly IExpressionEnchantmentStatDefinitionRepository _expressionEnchantmentStatDefinitionRepository;
         private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
+        private readonly IExpressionDefinitionRepository _expressionDefinitionRepository;
         #endregion
 
         #region Constructors
@@ -22,12 +23,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IExpressionEnchantmentDefinitionRepository expressionEnchantmentDefinitionRepository,
             IExpressionEnchantmentValueDefinitionRepository expressionEnchantmentValueDefinitionRepository,
             IExpressionEnchantmentStatDefinitionRepository expressionEnchantmentStatDefinitionRepository,
+            IExpressionDefinitionRepository expressionDefinitionRepository,
             IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
             _expressionEnchantmentFactory = expressionEnchantmentFactory;
             _expressionEnchantmentDefinitionRepository = expressionEnchantmentDefinitionRepository;
             _expressionEnchantmentValueDefinitionRepository = expressionEnchantmentValueDefinitionRepository;
             _expressionEnchantmentStatDefinitionRepository = expressionEnchantmentStatDefinitionRepository;
+            _expressionDefinitionRepository = expressionDefinitionRepository;
             _enchantmentWeatherRepository = enchantmentWeatherRepository;
         }
         #endregion
@@ -38,6 +41,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IExpressionEnchantmentDefinitionRepository expressionEnchantmentDefinitionRepository,
             IExpressionEnchantmentValueDefinitionRepository expressionEnchantmentValueDefinitionRepository,
             IExpressionEnchantmentStatDefinitionRepository expressionEnchantmentStatDefinitionRepository,
+            IExpressionDefinitionRepository expressionDefinitionRepository,
             IEnchantmentWeatherRepository enchantmentWeatherRepository)
         {
             var generator = new ExpressioneEnchantmentGenerator(
@@ -45,6 +49,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 expressionEnchantmentDefinitionRepository,
                 expressionEnchantmentValueDefinitionRepository,
                 expressionEnchantmentStatDefinitionRepository,
+                expressionDefinitionRepository,
                 enchantmentWeatherRepository);
             return generator;
         }
@@ -57,6 +62,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             var expressionEnchantmentValueDefinitions = _expressionEnchantmentValueDefinitionRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
             var expressionEnchantmentStatDefinitions = _expressionEnchantmentStatDefinitionRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
             var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentDefinition.EnchantmentWeatherId);
+            var expressionDefinition = _expressionDefinitionRepository.GetById(expressionEnchantmentDefinition.ExpressionId);
 
             var duration = GenerateDuration(
                 randomizer,
@@ -77,7 +83,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 enchantmentWeather.WeatherIds,
                 duration,
                 expressionEnchantmentDefinition.StatId,
-                expressionEnchantmentDefinition.Expression,
+                expressionDefinition.Expression,
+                expressionDefinition.CalculationPriority,
                 expressionStats,
                 expressionValues);
         }

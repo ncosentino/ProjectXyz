@@ -19,6 +19,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private readonly Guid _statId;
         private readonly TimeSpan _remainingDuration;
         private readonly string _expression;
+        private readonly int _calculationPriority;
         private readonly Dictionary<string, Guid> _expressionStatIds;
         private readonly Dictionary<string, double> _expressionValues;
         #endregion
@@ -32,6 +33,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             TimeSpan remainingDuration,
             Guid statId,
             string expression,
+            int calculationPriority,
             IEnumerable<KeyValuePair<string, Guid>> expressionStatIds,
             IEnumerable<KeyValuePair<string, double>> expressionValues)
             : base(
@@ -54,6 +56,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             _statId = statId;
             _remainingDuration = remainingDuration;
             _expression = expression;
+            _calculationPriority = calculationPriority;
             
             _expressionStatIds = new Dictionary<string, Guid>();
             foreach (var kvp in expressionStatIds)
@@ -80,6 +83,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public string Expression
         {
             get { return _expression; }
+        }
+
+        /// <inheritdoc />
+        public int CalculationPriority
+        {
+            get { return _calculationPriority; }
         }
 
         /// <inheritdoc />
@@ -110,6 +119,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             TimeSpan remainingDuration,
             Guid statId,
             string expression,
+            int calculationPriority,
             IEnumerable<KeyValuePair<string, Guid>> expressionStatIds,
             IEnumerable<KeyValuePair<string, double>> expressionValues)
         {
@@ -132,6 +142,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 remainingDuration,
                 statId,
                 expression,
+                calculationPriority,
                 expressionStatIds,
                 expressionValues);
             return enchantment;

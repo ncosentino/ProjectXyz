@@ -14,7 +14,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         
         Guid StatId { get; set; }
 
-        string Expression { get; set; }
+        Guid ExpressionId { get; set; }
 
         TimeSpan MinimumDuration { get; set; }
 

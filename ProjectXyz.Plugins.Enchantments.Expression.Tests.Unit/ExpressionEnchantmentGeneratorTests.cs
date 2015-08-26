@@ -23,12 +23,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var sourceStatId = Guid.NewGuid();
             var statusTypeId = Guid.NewGuid();
             var triggerId = Guid.NewGuid();
+            var expressionId = Guid.NewGuid();
             var enchantmentWeatherId = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
             const string EXPRESSION_STAT_ID = "ExpressionStatId";
             const string EXPRESSION_VALUE_ID = "ExpressionStatId";
             const string EXPRESSION = EXPRESSION_STAT_ID + " " + EXPRESSION_VALUE_ID;
             const double ENCHANTMENT_VALUE = 50;
+            const int CALCULATION_PRIORITY = 123;
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
             randomizer
@@ -38,13 +40,26 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var enchantment = new Mock<IExpressionEnchantment>(MockBehavior.Strict);
 
+            var expressionDefinition = new Mock<IExpressionDefinition>(MockBehavior.Strict);
+            expressionDefinition
+                .Setup(x => x.Expression)
+                .Returns(EXPRESSION);
+            expressionDefinition
+                .Setup(x => x.CalculationPriority)
+                .Returns(CALCULATION_PRIORITY);
+
+            var expressionDefinitionRepository = new Mock<IExpressionDefinitionRepository>(MockBehavior.Strict);
+            expressionDefinitionRepository
+                .Setup(x => x.GetById(expressionId))
+                .Returns(expressionDefinition.Object);
+
             var expressionEnchantmentDefinition = new Mock<IExpressionEnchantmentDefinition>(MockBehavior.Strict);
             expressionEnchantmentDefinition
                 .Setup(x => x.StatId)
                 .Returns(targetStatId);
             expressionEnchantmentDefinition
-                .Setup(x => x.Expression)
-                .Returns(EXPRESSION);
+                .Setup(x => x.ExpressionId)
+                .Returns(expressionId);
             expressionEnchantmentDefinition
                 .Setup(x => x.MinimumDuration)
                 .Returns(TimeSpan.FromSeconds(0));
@@ -78,7 +93,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var expressionEnchantmentFactory = new Mock<IExpressionEnchantmentFactory>(MockBehavior.Strict);
             expressionEnchantmentFactory
-                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, Enumerable.Empty<Guid>(), TimeSpan.FromSeconds(1), targetStatId, EXPRESSION, expressionStatIds, expressionValues))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, Enumerable.Empty<Guid>(), TimeSpan.FromSeconds(1), targetStatId, EXPRESSION, CALCULATION_PRIORITY, expressionStatIds, expressionValues))
                 .Returns(enchantment.Object);
 
             var expressionEnchantmentDefinitionRepository = new Mock<IExpressionEnchantmentDefinitionRepository>(MockBehavior.Strict);
@@ -130,6 +145,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                 expressionEnchantmentDefinitionRepository.Object,
                 expressionEnchantmentValueDefinitionRepository.Object,
                 expressionEnchantmentStatDefinitionRepository.Object,
+                expressionDefinitionRepository.Object,
                 enchantmentWeatherRepository.Object);
 
             // Execute
@@ -142,8 +158,11 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             randomizer.Verify(x => x.NextDouble(), Times.Exactly(2));
 
+            expressionDefinition.Verify(x => x.Expression, Times.Once);
+            expressionDefinition.Verify(x => x.CalculationPriority, Times.Once);
+
             expressionEnchantmentDefinition.Verify(x => x.StatId, Times.Once);
-            expressionEnchantmentDefinition.Verify(x => x.Expression, Times.Once);
+            expressionEnchantmentDefinition.Verify(x => x.ExpressionId, Times.Once);
             expressionEnchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
             expressionEnchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
 
@@ -161,6 +180,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                     It.IsAny<TimeSpan>(),
                     It.IsAny<Guid>(),
                     It.IsAny<string>(),
+                    It.IsAny<int>(),
                     It.IsAny<IEnumerable<KeyValuePair<string, Guid>>>(),
                     It.IsAny<IEnumerable<KeyValuePair<string, double>>>()),
                 Times.Once);

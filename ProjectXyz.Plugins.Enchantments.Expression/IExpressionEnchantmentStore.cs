@@ -11,7 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
 
         Guid StatId { get; }
 
-        string Expression { get; }
+        Guid ExpressionId { get; }
 
         TimeSpan RemainingDuration { get; }
         #endregion

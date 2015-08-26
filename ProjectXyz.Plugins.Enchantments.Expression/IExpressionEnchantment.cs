@@ -12,6 +12,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
 
         string Expression { get; }
 
+        int CalculationPriority { get; }
+
         IEnumerable<string> StatExpressionIds { get; }
 
         IEnumerable<string> ValueExpressionIds { get; }

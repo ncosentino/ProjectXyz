@@ -47,7 +47,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
             {
                 { "Id", enchantmentDefinition.Id },
                 { "EnchantmentDefinitionId", enchantmentDefinition.EnchantmentDefinitionId },
-                { "Expression", enchantmentDefinition.Expression },
+                { "ExpressionId", enchantmentDefinition.ExpressionId },
                 { "StatId", enchantmentDefinition.StatId },
                 { "MinimumDuration", enchantmentDefinition.MinimumDuration.TotalMilliseconds },
                 { "MaximumDuration", enchantmentDefinition.MaximumDuration.TotalMilliseconds },
@@ -60,7 +60,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
                 (
                     Id,
                     EnchantmentDefinitionId,
-                    Expression,
+                    ExpressionId,
                     StatId,
                     MinimumDuration,
                     MaximumDuration
@@ -69,7 +69,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
                 (
                     @Id,
                     @EnchantmentDefinitionId,
-                    @Expression,
+                    @ExpressionId,
                     @StatId,
                     @MinimumDuration,
                     @MaximumDuration
@@ -176,7 +176,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
             return factory.CreateEnchantmentDefinition(
                 reader.GetGuid(reader.GetOrdinal("Id")),
                 reader.GetGuid(reader.GetOrdinal("EnchantmentDefinitionId")),
-                reader.GetString(reader.GetOrdinal("Expression")),
+                reader.GetGuid(reader.GetOrdinal("ExpressionId")),
                 reader.GetGuid(reader.GetOrdinal("StatId")),
                 TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("MinimumDuration"))),
                 TimeSpan.FromMilliseconds(reader.GetDouble(reader.GetOrdinal("MaximumDuration"))));

@@ -23,7 +23,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             var id = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var minimumDuration = TimeSpan.FromSeconds(123);
             var maximumDuration = TimeSpan.FromSeconds(456);
             
@@ -38,8 +38,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 .Setup(x => x.StatId)
                 .Returns(statId);
             enchantmentDefinition
-                .Setup(x => x.Expression)
-                .Returns(EXPRESSION);
+                .Setup(x => x.ExpressionId)
+                .Returns(expressionId);
             enchantmentDefinition
                 .Setup(x => x.MinimumDuration)
                 .Returns(minimumDuration);
@@ -66,7 +66,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             enchantmentDefinition.Verify(x => x.Id, Times.Once);
             enchantmentDefinition.Verify(x => x.EnchantmentDefinitionId, Times.Once);
             enchantmentDefinition.Verify(x => x.StatId, Times.Once);
-            enchantmentDefinition.Verify(x => x.Expression, Times.Once);
+            enchantmentDefinition.Verify(x => x.ExpressionId, Times.Once);
             enchantmentDefinition.Verify(x => x.MinimumDuration, Times.Once);
             enchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
         }
@@ -78,7 +78,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             var id = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var minimumDuration = TimeSpan.FromSeconds(123);
             var maximumDuration = TimeSpan.FromSeconds(456);
 
@@ -92,7 +92,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             {
                 { "Id", id },
                 { "EnchantmentDefinitionId", enchantmentDefinitionId },
-                { "Expression", EXPRESSION },
+                { "ExpressionId", expressionId },
                 { "StatId", statId },
                 { "MinimumDuration", minimumDuration.TotalMilliseconds },
                 { "MaximumDuration", maximumDuration.TotalMilliseconds },
@@ -105,7 +105,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 (
                     Id,
                     EnchantmentDefinitionId,
-                    Expression,
+                    ExpressionId,
                     StatId,
                     MinimumDuration,
                     MaximumDuration
@@ -114,7 +114,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 (
                     @Id,
                     @EnchantmentDefinitionId,
-                    @Expression,
+                    @ExpressionId,
                     @StatId,
                     @MinimumDuration,
                     @MaximumDuration
@@ -143,7 +143,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             var id = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
             var statId = Guid.NewGuid();
-            const string EXPRESSION = "this is the expression";
+            var expressionId = Guid.NewGuid();
             var minimumDuration = TimeSpan.FromSeconds(123);
             var maximumDuration = TimeSpan.FromSeconds(456);
 
@@ -151,7 +151,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
 
             var factory = new Mock<IExpressionEnchantmentDefinitionFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.CreateEnchantmentDefinition(id, enchantmentDefinitionId, EXPRESSION, statId, minimumDuration, maximumDuration))
+                .Setup(x => x.CreateEnchantmentDefinition(id, enchantmentDefinitionId, expressionId, statId, minimumDuration, maximumDuration))
                 .Returns(enchantmentDefinition.Object);
 
             var repository = ExpressionEnchantmentDefinitionRepository.Create(
@@ -162,7 +162,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             {
                 { "Id", id },
                 { "EnchantmentDefinitionId", enchantmentDefinitionId },
-                { "Expression", EXPRESSION },
+                { "ExpressionId", expressionId },
                 { "StatId", statId },
                 { "MinimumDuration", minimumDuration.TotalMilliseconds },
                 { "MaximumDuration", maximumDuration.TotalMilliseconds },
@@ -175,7 +175,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 (
                     Id,
                     EnchantmentDefinitionId,
-                    Expression,
+                    ExpressionId,
                     StatId,
                     MinimumDuration,
                     MaximumDuration
@@ -184,7 +184,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 (
                     @Id,
                     @EnchantmentDefinitionId,
-                    @Expression,
+                    @ExpressionId,
                     @StatId,
                     @MinimumDuration,
                     @MaximumDuration
@@ -205,7 +205,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 x => x.CreateEnchantmentDefinition(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<string>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<TimeSpan>(),
                     It.IsAny<TimeSpan>()),

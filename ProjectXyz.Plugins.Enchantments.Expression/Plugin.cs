@@ -25,6 +25,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private readonly IExpressionEnchantmentStatFactory _expressionEnchantmentStatFactory;
         private readonly IExpressionEnchantmentValueFactory _expressionEnchantmentValueFactory;
         private readonly IExpressionEnchantmentFactory _expressionEnchantmentFactory;
+        private readonly IExpressionDefinitionFactory _expressionDefinitionFactory;
+        private readonly IExpressionDefinitionRepository _expressionDefinitionRepository;
         #endregion
 
         #region Constructors
@@ -41,6 +43,11 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             var expressionEvaluator = ExpressionEvaluator.Create(stringExpressionEvaluator.Evaluate);
 
             var statFactory = StatFactory.Create();
+
+            _expressionDefinitionFactory = ExpressionDefinitionFactory.Create();
+            _expressionDefinitionRepository = ExpressionDefinitionRepository.Create(
+                database,
+                _expressionDefinitionFactory);
 
             _enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
                 statFactory,
@@ -88,6 +95,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 expressionEnchantmentDefinitioneRepository,
                 expressionEnchantmentValueDefinitionRepository,
                 expressionEnchantmentStatDefinitionRepository,
+                _expressionDefinitionRepository,
                 enchantmentWeatherRepository);
         }
         #endregion
@@ -178,10 +186,16 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 _expressionEnchantmentValueRepository.Add(expressionEnchantmentValue);
             }
 
+            var expressionDefinition = _expressionDefinitionFactory.CreateExpressionDefinition(
+                Guid.NewGuid(), // FIXME: if we want to update... we need the original id??
+                expressionEnchantment.Expression,
+                expressionEnchantment.CalculationPriority);
+            _expressionDefinitionRepository.Add(expressionDefinition);
+
             var enchantmentStore = _expressionEnchantmentStoreFactory.CreateEnchantmentStore(
                 expressionEnchantment.Id,
                 expressionEnchantment.StatId,
-                expressionEnchantment.Expression,
+                expressionDefinition.Id,
                 expressionEnchantment.RemainingDuration);
             
             // FIXME: we need add or update?
@@ -200,6 +214,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 .GetByExpressionEnchantmentId(enchantmentStore.Id)
                 .Select(x => new KeyValuePair<string, double>(x.IdForExpression, x.Value));
 
+            var expressionDefinition = _expressionDefinitionRepository.GetById(expressionEnchantmentStore.ExpressionId);
+
             var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentStore.EnchantmentWeatherId);
             if (enchantmentWeather == null)
             {
@@ -215,7 +231,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 enchantmentWeather.WeatherIds,
                 expressionEnchantmentStore.RemainingDuration,
                 expressionEnchantmentStore.StatId,
-                expressionEnchantmentStore.Expression,
+                expressionDefinition.Expression,
+                expressionDefinition.CalculationPriority,
                 expressionStatIds,
                 expressionValues);
             
