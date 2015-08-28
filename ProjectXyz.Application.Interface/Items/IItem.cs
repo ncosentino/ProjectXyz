@@ -6,39 +6,29 @@ using System.Diagnostics.Contracts;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.Contracts;
+using ProjectXyz.Application.Interface.Items.Requirements;
 
 namespace ProjectXyz.Application.Interface.Items
 {
     [ContractClass(typeof(IItemContract))]
     public interface IItem : 
-        IGameObject, 
+        IGameObject,
+        IItemMetaData,
         ISocketCandidate, 
         ISocketable, 
         IObservableDurability, 
         IEnchantable
     {
         #region Properties
-        string Name { get; }
-
-        string InventoryGraphicResource { get; }
-
-        Guid MagicTypeId { get; }
-
-        string ItemType { get; }
-
-        Guid MaterialTypeId { get; }
-
-        Guid SocketTypeId { get; }
-
         double Weight { get; }
 
         double Value { get; }
 
         IStatCollection Stats { get; }
 
-        IEnumerable<string> EquippableSlots { get; }
+        IEnumerable<Guid> EquippableSlotIds { get; }
 
-        IRequirements Requirements { get; }
+        IItemRequirements Requirements { get; }
         #endregion
     }
 }

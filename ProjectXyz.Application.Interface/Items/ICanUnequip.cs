@@ -12,9 +12,9 @@ namespace ProjectXyz.Application.Interface.Items
     public interface ICanUnequip
     {
         #region Methods
-        IItem Unequip(string slot);
+        IItem Unequip(Guid slotId);
 
-        bool CanUnequip(string slot);
+        bool CanUnequip(Guid slotId);
         #endregion
     }
 }

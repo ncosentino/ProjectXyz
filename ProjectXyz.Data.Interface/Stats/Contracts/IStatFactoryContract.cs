@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
 namespace ProjectXyz.Data.Interface.Stats.Contracts
@@ -10,8 +9,14 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
     public abstract class IStatFactoryContract : IStatFactory
     {
         #region Methods
-        public IStat CreateStat(Guid id, double value)
+        public IStat CreateStat(
+            Guid id,
+            Guid statDefinitionId,
+            double value)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statDefinitionId != Guid.Empty);
+           
             Contract.Ensures(Contract.Result<IStat>() != null);
 
             return default(IStat);

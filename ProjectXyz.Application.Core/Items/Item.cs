@@ -4,9 +4,13 @@ using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Items.Requirements;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
+using ProjectXyz.Application.Interface.Items.Requirements;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
@@ -21,15 +25,10 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IMutableItemCollection _socketedItems;
         private readonly IEnchantmentBlock _enchantments;
         private readonly IItemContext _context;
-        private readonly IMutableRequirements _requirements;
+        private readonly IItemRequirements _requirements;
         private readonly Guid _id;
-        private readonly string _name;
-        private readonly string _inventoryGraphicResource;
-        private readonly Guid _magicTypeId;
-        private readonly string _itemType;
-        private readonly Guid _materialTypeId;
-        private readonly Guid _socketTypeId;
-        private readonly List<string> _equippableSlots;
+        private readonly IItemMetaData _itemMetaData;
+        private readonly List<Guid> _equippableSlots;
         private readonly IMutableStatCollection _baseStats;
 
         private IMutableStatCollection _stats;
@@ -39,33 +38,33 @@ namespace ProjectXyz.Application.Core.Items
         #region Constructors
         protected Item(
             IItemContext context, 
-            IItemStore item)
+            Guid id,
+            IItemMetaData itemMetaData,
+            IItemRequirements itemRequirements,
+            IEnumerable<IStat> stats,
+            IEnumerable<IEnchantment> enchantments,
+            IEnumerable<IItem> socketedItems,
+            IEnumerable<Guid> equippableSlots)
         {
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentException>(id != null);
+            Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(socketedItems != null);
+            Contract.Requires<ArgumentNullException>(equippableSlots != null);
 
             _context = context;
-            _id = item.Id;
-            _name = item.Name;
-            _inventoryGraphicResource = item.InventoryGraphicResource;
-            _magicTypeId = item.MagicTypeId;
-            _itemType = item.ItemType;
-            _materialTypeId = item.MaterialTypeId;
-            _socketTypeId = item.SocketTypeId;
-            _equippableSlots = new List<string>(item.EquippableSlots);
+            _id = id;
+            _itemMetaData = itemMetaData;
+            _requirements = itemRequirements;
+            _equippableSlots = new List<Guid>(equippableSlots);
             
-            _baseStats = StatCollection.Create();
-            _baseStats.Add(item.Stats);
+            _baseStats = StatCollection.Create(stats);
             _statsDirty = true;
 
-            var socketedItems = item.SocketedItems.Select(x => Item.Create(_context, x));
             _socketedItems = ItemCollection.Create(socketedItems);
 
-            var enchantments = item.Enchantments.Select(x => context.EnchantmentFactory.Create(x));
             _enchantments = EnchantmentBlock.Create(enchantments);
             _enchantments.CollectionChanged += Enchantments_CollectionChanged;
-
-            _requirements = Items.Requirements.Create(item.Requirements);
         }
         #endregion
 
@@ -81,34 +80,34 @@ namespace ProjectXyz.Application.Core.Items
             get { return _id; }
         }
 
-        public string Name
+        public Guid NameStringResourceId
         {
-            get { return _name; }
+            get { return _itemMetaData.NameStringResourceId; }
         }
 
-        public string InventoryGraphicResource
+        public Guid InventoryGraphicResourceId
         {
-            get { return _inventoryGraphicResource; }
+            get { return _itemMetaData.InventoryGraphicResourceId; }
         }
 
         public Guid MagicTypeId
         {
-            get { return _magicTypeId; }
+            get { return _itemMetaData.MagicTypeId; }
         }
 
         public Guid MaterialTypeId
         {
-            get { return _materialTypeId; }
+            get { return _itemMetaData.MaterialTypeId; }
         }
 
         public Guid SocketTypeId
         {
-            get { return _socketTypeId; }
+            get { return _itemMetaData.SocketTypeId; }
         }
 
-        public string ItemType
+        public Guid ItemTypeId
         {
-            get { return _itemType; }
+            get { return _itemMetaData.ItemTypeId; }
         }
 
         public double Weight
@@ -165,7 +164,7 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
-        public IEnumerable<string> EquippableSlots
+        public IEnumerable<Guid> EquippableSlotIds
         {
             get { return _equippableSlots; }
         }
@@ -175,7 +174,7 @@ namespace ProjectXyz.Application.Core.Items
             get { return _enchantments; }
         }
 
-        public Interface.Items.IRequirements Requirements
+        public IItemRequirements Requirements
         {
             get { return _requirements; }
         }
@@ -187,12 +186,32 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static IItem Create(IItemContext context, IItemStore item)
+        public static IItem Create(
+            IItemContext context,
+            Guid id,
+            IItemMetaData itemMetaData,
+            IItemRequirements itemRequirements,
+            IEnumerable<IStat> stats,
+            IEnumerable<IEnchantment> enchantments,
+            IEnumerable<IItem> socketedItems,
+            IEnumerable<Guid> equippableSlots)
         {
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentNullException>(item != null);
+            Contract.Requires<ArgumentException>(id != null);
+            Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(socketedItems != null);
+            Contract.Requires<ArgumentNullException>(equippableSlots != null);
             Contract.Ensures(Contract.Result<IItem>() != null);
-            return new Item(context, item);
+            
+            return new Item(
+                context, 
+                id,
+                itemMetaData,
+                itemRequirements,
+                stats,
+                enchantments,
+                socketedItems,
+                equippableSlots);
         }
 
         public void Enchant(IEnumerable<IEnchantment> enchantments)
@@ -236,12 +255,12 @@ namespace ProjectXyz.Application.Core.Items
         {
             EnsureStatsCalculated();
             var statSocketType = _context.StatSocketTypeRepository.GetBySocketTypeId(socketTypeId);
-            return (int)_stats.GetValueOrDefault(statSocketType.StatId, 0);
+            return (int)_stats.GetValueOrDefault(statSocketType.StatDefinitionId, 0);
         }
 
         public override string ToString()
         {
-            return string.Format("Id: {0}, Name: {1}", Id, Name);
+            return string.Format("Id: {0}, NameStringResourceId: {1}", Id, NameStringResourceId);
         }
 
         protected void EnsureStatsCalculated()
@@ -260,9 +279,10 @@ namespace ProjectXyz.Application.Core.Items
                 ? 0 
                 : (int)_stats.GetValueOrDefault(ItemStats.MaximumDurability, 0);
 
+            var itemOnlyEnchantments = _enchantments.TriggeredBy(EnchantmentTriggers.Item).ToArray();
             var result = _context.EnchantmentCalculator.Calculate(
                 _baseStats,
-                _enchantments);
+                itemOnlyEnchantments);
 
             // we need to keep the enchantment change event from triggering
             try
@@ -273,9 +293,11 @@ namespace ProjectXyz.Application.Core.Items
                 var addedEnchantments = newEnchantments.Except(_enchantments);
                 var removedEnchantments = _enchantments.Except(newEnchantments);
                 var enchantmentsDiffered = addedEnchantments.Any() || removedEnchantments.Any();
+                var otherEnchantments = _enchantments.Except(itemOnlyEnchantments).ToArray();
 
                 _enchantments.Clear();
-                _enchantments.Add(result.Enchantments);
+                _enchantments.Add(otherEnchantments);
+                _enchantments.Add(newEnchantments);
 
                 if (enchantmentsDiffered)
                 {
@@ -292,16 +314,19 @@ namespace ProjectXyz.Application.Core.Items
 
             _stats = StatCollection.Create(result.Stats);
             _stats.Set(Stat.Create(
+                Guid.NewGuid(), 
                 ItemStats.Weight, 
                 CalculateWeight(_stats, _socketedItems)));
             _stats.Set(Stat.Create(
+                Guid.NewGuid(), 
                 ItemStats.Value, 
                 CalculateValue(_stats)));
 
             foreach (var statSocketType in _context.StatSocketTypeRepository.GetAll())
             {
                 _stats.Set(Stat.Create(
-                    statSocketType.StatId,
+                    Guid.NewGuid(), 
+                    statSocketType.StatDefinitionId,
                     CalculateTotalSockets(_stats, statSocketType)));                
             }
             
@@ -327,9 +352,11 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(stats != null);
 
             stats.Set(Stat.Create(
+                Guid.NewGuid(), 
                 ItemStats.MaximumDurability,
                 Math.Max(0, stats.GetValueOrDefault(ItemStats.MaximumDurability, 0))));
             stats.Set(Stat.Create(
+                Guid.NewGuid(), 
                 ItemStats.CurrentDurability,
                 Math.Max(0,
                     Math.Min(
@@ -354,7 +381,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             Contract.Requires<ArgumentNullException>(stats != null);
             Contract.Ensures(Contract.Result<int>() >= 0);
-            return (int)stats.GetValueOrDefault(statSocketType.StatId, 0);
+            return (int)stats.GetValueOrDefault(statSocketType.StatDefinitionId, 0);
         }
 
         private int CalculateOpenSockets(int totalSockets, IEnumerable<IItem> socketedItems, Guid socketTypeId)

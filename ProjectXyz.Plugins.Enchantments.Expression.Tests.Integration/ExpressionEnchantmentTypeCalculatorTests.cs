@@ -78,7 +78,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
             Assert.Equal(multiplicativeEnchantment, result.ProcessedEnchantments.Last());
             Assert.Empty(result.RemovedEnchantments);
             Assert.Equal(1, result.Stats.Count());
-            Assert.Equal(statId, result.Stats.First().Id);
+            Assert.Equal(statId, result.Stats.First().StatDefinitionId);
             Assert.Equal(1230, result.Stats.First().Value);
         }
         #endregion

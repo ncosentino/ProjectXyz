@@ -24,13 +24,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         public Guid Id
         {
             get;
-            set;
+            private set;
         }
 
         public Guid StatId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 

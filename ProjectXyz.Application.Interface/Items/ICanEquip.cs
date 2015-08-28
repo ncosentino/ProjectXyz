@@ -12,9 +12,9 @@ namespace ProjectXyz.Application.Interface.Items
     public interface ICanEquip
     {
         #region Methods
-        bool CanEquip(IItem item, string slot);
+        bool CanEquip(IItem item, Guid slotId);
 
-        void Equip(IItem item, string slot);
+        void Equip(IItem item, Guid slotId);
         #endregion
     }
 }

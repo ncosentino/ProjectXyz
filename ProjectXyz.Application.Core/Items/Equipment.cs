@@ -2,10 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 
@@ -14,13 +12,13 @@ namespace ProjectXyz.Application.Core.Items
     public sealed class Equipment : IMutableEquipment
     {
         #region Fields
-        private readonly Dictionary<string, IItem> _items;
+        private readonly Dictionary<Guid, IItem> _items;
         #endregion
 
         #region Constructors
         private Equipment()
         {
-            _items = new Dictionary<string, IItem>();
+            _items = new Dictionary<Guid, IItem>();
         }
         #endregion
 
@@ -36,12 +34,12 @@ namespace ProjectXyz.Application.Core.Items
             get { return _items.Count; }
         }
 
-        public IItem this[string slot]
+        public IItem this[Guid slotId]
         {
             get
             {
-                return _items.ContainsKey(slot)
-                    ? _items[slot]
+                return _items.ContainsKey(slotId)
+                    ? _items[slotId]
                     : default(IItem);
             }
         }
@@ -64,42 +62,42 @@ namespace ProjectXyz.Application.Core.Items
             return _items.Values.GetEnumerator();
         }
 
-        public bool CanEquip(IItem item, string slot)
+        public bool CanEquip(IItem item, Guid slotId)
         {
-            return !item.IsBroken() && !_items.ContainsKey(slot) && item.EquippableSlots.Contains(slot);
+            return !item.IsBroken() && !_items.ContainsKey(slotId) && item.EquippableSlotIds.Contains(slotId);
         }
 
-        public void Equip(IItem item, string slot)
+        public void Equip(IItem item, Guid slotId)
         {
-            _items[slot] = item;
+            _items[slotId] = item;
             OnCollectionChanged(
                 NotifyCollectionChangedAction.Add,
                 item);
-            OnEquipmentChanged(slot);
+            OnEquipmentChanged(slotId);
         }
 
-        public bool CanUnequip(string slot)
+        public bool CanUnequip(Guid slotId)
         {
-            return _items.ContainsKey(slot);
+            return _items.ContainsKey(slotId);
         }
 
-        public IItem Unequip(string slot)
+        public IItem Unequip(Guid slotId)
         {
-            if (!_items.ContainsKey(slot))
+            if (!_items.ContainsKey(slotId))
             {
-                throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slot));
+                throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slotId));
             }
 
-            var item = _items[slot];
-            if (!_items.Remove(slot) || item == null)
+            var item = _items[slotId];
+            if (!_items.Remove(slotId) || item == null)
             {
-                throw new InvalidOperationException(string.Format("No item was removed from slot {0}.", slot));
+                throw new InvalidOperationException(string.Format("No item was removed from slot {0}.", slotId));
             }
 
             OnCollectionChanged(
                 NotifyCollectionChangedAction.Remove, 
                 item);
-            OnEquipmentChanged(slot);
+            OnEquipmentChanged(slotId);
             
             return item;
         }
@@ -124,12 +122,12 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
-        private void OnEquipmentChanged(string slot)
+        private void OnEquipmentChanged(Guid slotId)
         {
             var handler = EquipmentChanged;
             if (handler != null)
             {
-                var args = new EquipmentChangedEventArgs(slot);
+                var args = new EquipmentChangedEventArgs(slotId);
                 handler.Invoke(this, args);
             }
         }

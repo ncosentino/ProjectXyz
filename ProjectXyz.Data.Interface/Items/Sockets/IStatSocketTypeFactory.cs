@@ -7,7 +7,7 @@ namespace ProjectXyz.Data.Interface.Items.Sockets
     public interface IStatSocketTypeFactory
     {
         #region Methods
-        IStatSocketType Create(Guid statId, Guid socketTypeId);
+        IStatSocketType Create(Guid id, Guid statDefinitionId, Guid socketTypeId);
         #endregion
     }
 }

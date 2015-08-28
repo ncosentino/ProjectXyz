@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
@@ -10,24 +9,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
 {
     [DataLayer]
     [Enchantments]
-    public class EnchantmentTypeRepositoryTests
+    public class EnchantmentTypeRepositoryTests : DatabaseTest
     {
-        #region Fields
-        private readonly IDatabase _database;
-        #endregion
-
-        #region Constructors
-        public EnchantmentTypeRepositoryTests()
-        {
-            var connection = new SQLiteConnection("Data Source=:memory:");
-            connection.Open();
-
-            _database = SqlDatabase.Create(connection, true);
-
-            SqlDatabaseUpgrader.Create().UpgradeDatabase(_database, 0, 1);
-        }
-        #endregion
-
         #region Methods
         [Fact]
         public void GetStoreRepositoryClassName_IdExists_ExpectedValues()
@@ -46,7 +29,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 enchantmentDefinitionId, 
                 enchantmentTypeId);
 
-            var repository = EnchantmentTypeRepository.Create(_database);
+            var repository = EnchantmentTypeRepository.Create(Database);
 
             // Execute
             var result = repository.GetStoreRepositoryClassName(enchantmentDefinitionId);
@@ -72,7 +55,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 enchantmentDefinitionId,
                 enchantmentTypeId);
 
-            var repository = EnchantmentTypeRepository.Create(_database);
+            var repository = EnchantmentTypeRepository.Create(Database);
 
             // Execute
             var result = repository.GetDefinitionRepositoryClassName(enchantmentDefinitionId);
@@ -90,7 +73,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 { "@DefinitionRepositoryClassName", definitionRepositoryClassName },
             };
 
-            _database.Execute(@"
+            Database.Execute(@"
                 INSERT INTO
                     [EnchantmentTypes]
                 (
@@ -118,7 +101,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 { "@StatusTypeId", Guid.NewGuid().ToString() },
             };
 
-            _database.Execute(@"
+            Database.Execute(@"
                 INSERT INTO
                     [EnchantmentDefinitions]
                 (

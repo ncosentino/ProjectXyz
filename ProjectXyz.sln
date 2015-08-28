@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Interface",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Sql", "ProjectXyz.Data.Sql\ProjectXyz.Data.Sql.csproj", "{E424C78A-DA58-47D2-B003-DBB902CB92E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Sql.Tests", "ProjectXyz.Data.Sql.Tests\ProjectXyz.Data.Sql.Tests.csproj", "{C64EE6D1-9E39-40FC-AC94-EE6D07E2892B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Sql.Tests.Unit", "ProjectXyz.Data.Sql.Tests\ProjectXyz.Data.Sql.Tests.Unit.csproj", "{C64EE6D1-9E39-40FC-AC94-EE6D07E2892B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Tests", "ProjectXyz.Data.Tests\ProjectXyz.Data.Tests.csproj", "{DF9B53B0-844C-468E-954E-D3AD5904608D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Tests.Integration", "ProjectXyz.Data.Tests.Integration\ProjectXyz.Data.Tests.Integration.csproj", "{DF9B53B0-844C-468E-954E-D3AD5904608D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Tests", "ProjectXyz.Application.Tests\ProjectXyz.Application.Tests.csproj", "{49AEEAAE-D84C-48EF-8C8B-9137AE14262A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Tests.Integration", "ProjectXyz.Application.Tests.Integration\ProjectXyz.Application.Tests.Integration.csproj", "{49AEEAAE-D84C-48EF-8C8B-9137AE14262A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Sql.Tests.Integration", "ProjectXyz.Data.Sql.Tests.Integration\ProjectXyz.Data.Sql.Tests.Integration.csproj", "{7F463D13-0A80-4ABB-9A5E-351E9C648E57}"
 EndProject
@@ -52,6 +52,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Core.Tests.Integration", "ProjectXyz.Plugins.Core.Tests.Integration\ProjectXyz.Plugins.Core.Tests.Integration.csproj", "{06BFFF20-E3D4-4AF9-9E37-8DEE56B8A672}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Tests.Unit", "ProjectXyz.Plugins.Tests.Unit\ProjectXyz.Plugins.Tests.Unit.csproj", "{2B3FD5EF-CB57-4294-BDC7-5AC28BFBA886}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Data.Tests.Unit", "ProjectXyz.Data.Tests.Unit\ProjectXyz.Data.Tests.Unit.csproj", "{E26FFB4B-D421-4690-83EB-8F65D6A7F61D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Tests.Unit", "ProjectXyz.Application.Tests.Unit\ProjectXyz.Application.Tests.Unit.csproj", "{5E640EE3-5AD5-4C85-9437-8DE72A7CF766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,6 +155,14 @@ Global
 		{2B3FD5EF-CB57-4294-BDC7-5AC28BFBA886}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3FD5EF-CB57-4294-BDC7-5AC28BFBA886}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3FD5EF-CB57-4294-BDC7-5AC28BFBA886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E26FFB4B-D421-4690-83EB-8F65D6A7F61D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E26FFB4B-D421-4690-83EB-8F65D6A7F61D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E26FFB4B-D421-4690-83EB-8F65D6A7F61D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E26FFB4B-D421-4690-83EB-8F65D6A7F61D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E640EE3-5AD5-4C85-9437-8DE72A7CF766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E640EE3-5AD5-4C85-9437-8DE72A7CF766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E640EE3-5AD5-4C85-9437-8DE72A7CF766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E640EE3-5AD5-4C85-9437-8DE72A7CF766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,6 +175,8 @@ Global
 		{732B4E6C-92FC-49CD-89A7-97E68D776DB0} = {F4733233-9E8E-4E6D-989A-C0146A017EE1}
 		{06BFFF20-E3D4-4AF9-9E37-8DEE56B8A672} = {F4733233-9E8E-4E6D-989A-C0146A017EE1}
 		{2B3FD5EF-CB57-4294-BDC7-5AC28BFBA886} = {F4733233-9E8E-4E6D-989A-C0146A017EE1}
+		{E26FFB4B-D421-4690-83EB-8F65D6A7F61D} = {F4733233-9E8E-4E6D-989A-C0146A017EE1}
+		{5E640EE3-5AD5-4C85-9437-8DE72A7CF766} = {F4733233-9E8E-4E6D-989A-C0146A017EE1}
 		{B5AAF78D-6583-47C7-9EEF-EFEFCA828473} = {A101DF8A-041A-406D-87E0-D269EAF3ED1B}
 		{36E917CD-A25F-45E5-B0F8-D76E7FF186E8} = {A101DF8A-041A-406D-87E0-D269EAF3ED1B}
 		{400AA358-8128-4E01-9A44-9DE06EDEDAD2} = {A101DF8A-041A-406D-87E0-D269EAF3ED1B}

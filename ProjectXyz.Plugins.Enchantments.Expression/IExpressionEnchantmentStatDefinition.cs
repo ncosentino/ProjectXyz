@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
     public interface IExpressionEnchantmentStatDefinition
     {
         #region Properties
-        Guid Id { get; set; }
+        Guid Id { get; }
         
-        Guid EnchantmentDefinitionId { get; set; }
+        Guid EnchantmentDefinitionId { get; }
         
-        string IdForExpression { get; set; }
+        string IdForExpression { get; }
 
         Guid StatId { get; }
         #endregion

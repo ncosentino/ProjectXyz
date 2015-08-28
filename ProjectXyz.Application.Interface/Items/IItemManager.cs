@@ -8,7 +8,6 @@ namespace ProjectXyz.Application.Interface.Items
     public interface IItemManager
     {
         #region Methods
-        IItem GetItemById(Guid itemId, IItemContext itemContext);
         #endregion
     }
 }

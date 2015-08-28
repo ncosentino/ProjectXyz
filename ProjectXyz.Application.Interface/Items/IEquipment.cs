@@ -8,7 +8,7 @@ namespace ProjectXyz.Application.Interface.Items
     public interface IEquipment : IItemCollection, IUpdateElapsedTime
     {
         #region Properties
-        IItem this[string slot] { get; }
+        IItem this[Guid slotId] { get; }
         #endregion
     }
 }

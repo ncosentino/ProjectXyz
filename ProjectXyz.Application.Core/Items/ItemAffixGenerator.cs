@@ -5,8 +5,8 @@ using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Items.Affixes;
 
 namespace ProjectXyz.Application.Core.Items
 {
@@ -14,8 +14,9 @@ namespace ProjectXyz.Application.Core.Items
     {
         #region Fields
         private readonly IEnchantmentGenerator _enchantmentGenerator;
-        private readonly IAffixEnchantmentsRepository _affixEnchantmentsRepository;
         private readonly IItemAffixDefinitionRepository _itemAffixDefinitionRepository;
+        private readonly IItemAffixDefinitionFilterRepository _itemAffixDefinitionFilterRepository;
+        private readonly IItemAffixEnchantmentRepository _itemAffixEnchantmentRepository;
         private readonly IItemAffixFactory _itemAffixFactory;
         private readonly IMagicTypesRandomAffixesRepository _magicTypesRandomAffixesRepository;
         #endregion
@@ -23,20 +24,23 @@ namespace ProjectXyz.Application.Core.Items
         #region Constructors
         private ItemAffixGenerator(
             IEnchantmentGenerator enchantmentGenerator,
-            IAffixEnchantmentsRepository affixEnchantmentsRepository,
-            IItemAffixDefinitionRepository itemAffixDefinitionRepository, 
+            IItemAffixDefinitionRepository itemAffixDefinitionRepository,
+            IItemAffixDefinitionFilterRepository itemAffixDefinitionFilterRepository,
+            IItemAffixEnchantmentRepository itemAffixEnchantmentRepository,
             IItemAffixFactory itemAffixFactory,
             IMagicTypesRandomAffixesRepository magicTypesRandomAffixesRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentGenerator != null);
-            Contract.Requires<ArgumentNullException>(affixEnchantmentsRepository != null);
             Contract.Requires<ArgumentNullException>(itemAffixDefinitionRepository != null);
+            Contract.Requires<ArgumentNullException>(itemAffixDefinitionFilterRepository != null);
+            Contract.Requires<ArgumentNullException>(itemAffixEnchantmentRepository != null);
             Contract.Requires<ArgumentNullException>(itemAffixFactory != null);
             Contract.Requires<ArgumentNullException>(magicTypesRandomAffixesRepository != null);
 
             _enchantmentGenerator = enchantmentGenerator;
-            _affixEnchantmentsRepository = affixEnchantmentsRepository;
             _itemAffixDefinitionRepository = itemAffixDefinitionRepository;
+            _itemAffixDefinitionFilterRepository = itemAffixDefinitionFilterRepository;
+            _itemAffixEnchantmentRepository = itemAffixEnchantmentRepository;
             _itemAffixFactory = itemAffixFactory;
             _magicTypesRandomAffixesRepository = magicTypesRandomAffixesRepository;
         }
@@ -45,22 +49,25 @@ namespace ProjectXyz.Application.Core.Items
         #region Methods
         public static ItemAffixGenerator Create(
             IEnchantmentGenerator enchantmentGenerator,
-            IAffixEnchantmentsRepository affixEnchantmentsRepository,
             IItemAffixDefinitionRepository itemAffixDefinitionRepository,
+            IItemAffixDefinitionFilterRepository itemAffixDefinitionFilterRepository,
+            IItemAffixEnchantmentRepository itemAffixEnchantmentRepository,
             IItemAffixFactory itemAffixFactory,
             IMagicTypesRandomAffixesRepository magicTypesRandomAffixesRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentGenerator != null);
-            Contract.Requires<ArgumentNullException>(affixEnchantmentsRepository != null);
             Contract.Requires<ArgumentNullException>(itemAffixDefinitionRepository != null);
+            Contract.Requires<ArgumentNullException>(itemAffixDefinitionFilterRepository != null);
+            Contract.Requires<ArgumentNullException>(itemAffixEnchantmentRepository != null);
             Contract.Requires<ArgumentNullException>(itemAffixFactory != null);
             Contract.Requires<ArgumentNullException>(magicTypesRandomAffixesRepository != null);
             Contract.Ensures(Contract.Result<IItemAffixGenerator>() != null);
 
             return new ItemAffixGenerator(
                 enchantmentGenerator,
-                affixEnchantmentsRepository,
                 itemAffixDefinitionRepository,
+                itemAffixDefinitionFilterRepository,
+                itemAffixEnchantmentRepository,
                 itemAffixFactory,
                 magicTypesRandomAffixesRepository);
         }
@@ -68,18 +75,19 @@ namespace ProjectXyz.Application.Core.Items
         public IEnumerable<IItemAffix> GenerateRandom(IRandom randomizer, int level, Guid magicTypeId)
         {
             var magicTypesAffix = _magicTypesRandomAffixesRepository.GetForMagicTypeId(magicTypeId);
-            var numberOfEnchantments = 
-                magicTypesAffix.MinimumAffixes + 
-                (int)(randomizer.NextDouble() * (magicTypesAffix.MaximumAffixes - magicTypesAffix.MinimumAffixes));
+            var minimumAffixes = magicTypesAffix.MinimumAffixes;
+            var numberOfAffixes =
+                minimumAffixes +
+                (int)(randomizer.NextDouble() * (magicTypesAffix.MaximumAffixes - minimumAffixes));
 
-            var candidateIds = new List<Guid>(_itemAffixDefinitionRepository.GetIdsForFilter(
+            var candidateIds = new List<Guid>(_itemAffixDefinitionFilterRepository.GetIdsForFilter(
                 level, 
                 int.MaxValue, 
                 magicTypeId,
                 true,
                 true));
 
-            for (int i = 0; i < numberOfEnchantments; i++)
+            for (int i = 0; i < numberOfAffixes; i++)
             {
                 var candidateIndex = (int)(randomizer.NextDouble() * (candidateIds.Count - 1));
                 var selectedAffixId = candidateIds[candidateIndex];
@@ -110,13 +118,13 @@ namespace ProjectXyz.Application.Core.Items
         private IItemAffix GenerateAffix(IRandom randomizer, Guid affixId)
         {
             var affixDefinition = _itemAffixDefinitionRepository.GetById(affixId);
-            var enchantments = GetEnchantments(randomizer, affixDefinition.AffixEnchantmentsId);
+            var enchantments = GetEnchantments(randomizer, affixDefinition.Id).ToArray(); // TODO: in unit testing, this seems to get enumerated twice... not sure why.
             return _itemAffixFactory.CreateItemAffix(enchantments);
         }
 
         private INamedItemAffix GenerateNamedAffix(IRandom randomizer, int level, Guid magicTypeId, bool prefix)
         {
-            var candidateIds = new List<Guid>(_itemAffixDefinitionRepository.GetIdsForFilter(
+            var candidateIds = new List<Guid>(_itemAffixDefinitionFilterRepository.GetIdsForFilter(
                 level,
                 int.MaxValue,
                 magicTypeId,
@@ -127,16 +135,15 @@ namespace ProjectXyz.Application.Core.Items
                 var selectedAffixId = candidateIds[candidateIndex];
 
                 var affixDefinition = _itemAffixDefinitionRepository.GetById(selectedAffixId);
-                var enchantments = GetEnchantments(randomizer, affixDefinition.AffixEnchantmentsId);
-                return _itemAffixFactory.CreateNamedItemAffix(enchantments, affixDefinition.Name);
+                var enchantments = GetEnchantments(randomizer, affixDefinition.Id);
+                return _itemAffixFactory.CreateNamedItemAffix(enchantments, affixDefinition.NameStringResourceId);
         }
         
-        private IEnumerable<IEnchantment> GetEnchantments(IRandom randomizer, Guid affixEnchantmentsId)
+        private IEnumerable<IEnchantment> GetEnchantments(IRandom randomizer, Guid itemAffixDefinitionId)
         {
-            var affixEnchantments = _affixEnchantmentsRepository.GetById(affixEnchantmentsId);
-            
-            return affixEnchantments.EnchantmentIds.Select(
-                enchantmentId => _enchantmentGenerator.Generate(randomizer, enchantmentId));
+            var affixEnchantments = _itemAffixEnchantmentRepository.GetByItemAffixDefinitionId(itemAffixDefinitionId);
+            return affixEnchantments
+                .Select(x => _enchantmentGenerator.Generate(randomizer, x.EnchantmentId));
         }
         #endregion
     }

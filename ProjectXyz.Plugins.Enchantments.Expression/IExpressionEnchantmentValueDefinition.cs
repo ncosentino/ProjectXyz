@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
     public interface IExpressionEnchantmentValueDefinition
     {
         #region Properties
-        Guid Id { get; set; }
+        Guid Id { get; }
         
-        Guid EnchantmentDefinitionId { get; set; }
+        Guid EnchantmentDefinitionId { get; }
         
-        string IdForExpression { get; set; }
+        string IdForExpression { get; }
 
-        double MinimumValue { get; set; }
+        double MinimumValue { get; }
 
-        double MaximumValue { get; set; }
+        double MaximumValue { get; }
         #endregion
     }
 }

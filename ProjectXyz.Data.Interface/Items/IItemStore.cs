@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics.Contracts;
-
-using ProjectXyz.Data.Interface.Enchantments;
+using System.Linq;
 using ProjectXyz.Data.Interface.Items.Contracts;
-using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Interface.Items
 {
@@ -13,27 +10,17 @@ namespace ProjectXyz.Data.Interface.Items
     public interface IItemStore : IGameObject
     {
         #region Properties
-        string Name { get; }
+        Guid NameStringResourceId { get; }
 
-        string InventoryGraphicResource { get; }
+        Guid InventoryGraphicResourceId { get; }
 
         Guid MagicTypeId { get; }
 
-        string ItemType { get; }
+        Guid ItemTypeId { get; }
 
         Guid MaterialTypeId { get; }
 
         Guid SocketTypeId { get; }
-
-        IMutableStatCollection Stats { get; }
-
-        IMutableEnchantmentCollection Enchantments { get; }
-
-        IRequirements Requirements { get; }
-
-        IMutableItemStoreCollection SocketedItems { get; }
-
-        IEnumerable<string> EquippableSlots { get; }
         #endregion
     }
 }

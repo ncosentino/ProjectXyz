@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Data.Interface.Stats.Contracts;
 
 namespace ProjectXyz.Data.Interface.Stats
@@ -12,7 +10,10 @@ namespace ProjectXyz.Data.Interface.Stats
     public interface IStatFactory
     {
         #region Methods
-        IStat CreateStat(Guid id, double value);
+        IStat CreateStat(
+            Guid id,
+            Guid statDefinitionId,
+            double value);
         #endregion
     }
 }

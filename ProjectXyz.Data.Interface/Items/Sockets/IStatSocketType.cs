@@ -8,7 +8,9 @@ namespace ProjectXyz.Data.Interface.Items.Sockets
     public interface IStatSocketType
     {
         #region Properties
-        Guid StatId { get; }
+        Guid Id { get; }
+
+        Guid StatDefinitionId { get; }
 
         Guid SocketTypeId { get; }
         #endregion

@@ -17,11 +17,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
 
         #region Fields
         private readonly Guid _statId;
-        private readonly TimeSpan _remainingDuration;
         private readonly string _expression;
         private readonly int _calculationPriority;
         private readonly Dictionary<string, Guid> _expressionStatIds;
         private readonly Dictionary<string, double> _expressionValues;
+
+        private TimeSpan _remainingDuration;
         #endregion
 
         #region Constructors
@@ -156,6 +157,24 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public double GetValueForValueExpressionId(string valueExpressionId)
         {
             return _expressionValues[valueExpressionId];
+        }
+
+        /// <inheritdoc />
+        public override void UpdateElapsedTime(TimeSpan elapsedTime)
+        {
+            if (_remainingDuration == TimeSpan.Zero)
+            {
+                return;
+            }
+
+            _remainingDuration = TimeSpan.FromMilliseconds(Math.Max(
+                (_remainingDuration - elapsedTime).TotalMilliseconds,
+                0));
+
+            if (_remainingDuration == TimeSpan.Zero)
+            {
+                OnExpired();
+            }
         }
         #endregion
     }

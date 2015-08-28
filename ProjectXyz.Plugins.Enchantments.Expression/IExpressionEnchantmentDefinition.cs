@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
     public interface IExpressionEnchantmentDefinition
     {
         #region Properties
-        Guid Id { get; set; }
+        Guid Id { get; }
 
-        Guid EnchantmentDefinitionId { get; set; }
+        Guid EnchantmentDefinitionId { get; }
         
-        Guid StatId { get; set; }
+        Guid StatId { get; }
 
-        Guid ExpressionId { get; set; }
+        Guid ExpressionId { get; }
 
-        TimeSpan MinimumDuration { get; set; }
+        TimeSpan MinimumDuration { get; }
 
-        TimeSpan MaximumDuration { get; set; }
+        TimeSpan MaximumDuration { get; }
         #endregion
     }
 }

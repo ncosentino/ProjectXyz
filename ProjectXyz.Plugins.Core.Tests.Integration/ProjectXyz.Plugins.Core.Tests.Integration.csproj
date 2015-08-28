@@ -70,9 +70,9 @@
       <Project>{e424c78a-da58-47d2-b003-dbb902cb92e7}</Project>
       <Name>ProjectXyz.Data.Sql</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Tests\ProjectXyz.Data.Tests.csproj">
+    <ProjectReference Include="..\ProjectXyz.Data.Tests.Integration\ProjectXyz.Data.Tests.Integration.csproj">
       <Project>{DF9B53B0-844C-468E-954E-D3AD5904608D}</Project>
-      <Name>ProjectXyz.Data.Tests</Name>
+      <Name>ProjectXyz.Data.Tests.Integration</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
       <Project>{57BC7B00-7C8C-4470-A054-597742187E56}</Project>

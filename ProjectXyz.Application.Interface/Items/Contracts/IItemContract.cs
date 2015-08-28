@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
@@ -18,44 +19,6 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         #endregion
 
         #region Properties
-        public string Name
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
-                return default(string);
-            }
-        }
-
-        public string InventoryGraphicResource
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
-                return default(string);
-            }
-        }
-
-        public Guid MagicTypeId
-        {
-            get
-            {
-                return default(Guid);
-            }
-        }
-
-        public string ItemType
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>().Trim().Length > 0);
-                return default(string);
-            }
-        }
-
         public IStatCollection Stats
         {
             get
@@ -65,30 +28,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IEnumerable<string> EquippableSlots
+        public IEnumerable<Guid> EquippableSlotIds
         {
             get
             {
-                Contract.Ensures(Contract.Result<IEnumerable<string>>() != null);
-                return default(IEnumerable<string>);
-            }
-        }
-
-        public Guid MaterialTypeId
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
-                return default(Guid);
-            }
-        }
-
-        public Guid SocketTypeId
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
-                return default(Guid);
+                Contract.Ensures(Contract.Result<IEnumerable<Guid>>() != null);
+                return default(IEnumerable<Guid>);
             }
         }
 
@@ -119,12 +64,12 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             }
         }
 
-        public IRequirements Requirements
+        public IItemRequirements Requirements
         {
             get
             {
-                Contract.Ensures(Contract.Result<IRequirements>() != null);
-                return default(IRequirements);
+                Contract.Ensures(Contract.Result<IItemRequirements>() != null);
+                return default(IItemRequirements);
             }
         }
 
@@ -137,6 +82,18 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
         public abstract Guid Id { get; }
 
         public abstract int RequiredSockets { get; }
+
+        public abstract Guid NameStringResourceId { get; }
+
+        public abstract Guid InventoryGraphicResourceId { get; }
+
+        public abstract Guid MagicTypeId { get; }
+
+        public abstract Guid ItemTypeId { get; }
+
+        public abstract Guid MaterialTypeId { get; }
+
+        public abstract Guid SocketTypeId { get; }
         #endregion
 
         #region Methods

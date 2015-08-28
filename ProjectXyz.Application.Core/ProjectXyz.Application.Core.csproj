@@ -164,7 +164,7 @@
     <Compile Include="Items\Inventory.cs" />
     <Compile Include="Items\ItemSaver.cs" />
     <Compile Include="Items\Equipment.cs" />
-    <Compile Include="Items\Requirements.cs" />
+    <Compile Include="Items\Requirements\ItemRequirements.cs" />
     <Compile Include="Items\ItemCollection.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Manager.cs" />

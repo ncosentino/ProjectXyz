@@ -60,13 +60,13 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
 
         public abstract void UseItem(IItem item);
 
-        public abstract bool CanEquip(IItem item, string slot);
+        public abstract bool CanEquip(IItem item, Guid slotId);
 
-        public abstract void Equip(IItem item, string slot);
+        public abstract void Equip(IItem item, Guid slotId);
 
-        public abstract IItem Unequip(string slot);
+        public abstract IItem Unequip(Guid slotId);
 
-        public abstract bool CanUnequip(string slot);
+        public abstract bool CanUnequip(Guid slotId);
 
         public abstract void UpdatePosition(float x, float y);
 

@@ -110,10 +110,9 @@ namespace ProjectXyz.Application.Core.Actors
         {
             // TODO: check requirements
 
-            var slots = item.EquippableSlots.ToArray();
-            foreach (var slot in slots)
+            foreach (var slotId in item.EquippableSlotIds)
             {
-                if (CanEquip(item, slot))
+                if (CanEquip(item, slotId))
                 {
                     return true;
                 }
@@ -125,12 +124,11 @@ namespace ProjectXyz.Application.Core.Actors
 
         public void UseItem(IItem item)
         {
-            var slots = item.EquippableSlots.ToArray();
-            foreach (var slot in slots)
+            foreach (var slotId in item.EquippableSlotIds)
             {
-                if (CanEquip(item, slot))
+                if (CanEquip(item, slotId))
                 {
-                    Equip(item, slot);
+                    Equip(item, slotId);
                     return;
                 }
             }
@@ -139,26 +137,26 @@ namespace ProjectXyz.Application.Core.Actors
             throw new NotImplementedException("Cannot use '" + item + "' because there is no implementation yet!");
         }
 
-        public bool CanEquip(IItem item, string slot)
+        public bool CanEquip(IItem item, Guid slotId)
         {
             // TODO: check requirements
 
-            return _equipment.CanEquip(item, slot);
+            return _equipment.CanEquip(item, slotId);
         }
 
-        public void Equip(IItem item, string slot)
+        public void Equip(IItem item, Guid slotId)
         {
-            _equipment.Equip(item, slot);
+            _equipment.Equip(item, slotId);
         }
 
-        public bool CanUnequip(string slot)
+        public bool CanUnequip(Guid slotId)
         {
-            return _equipment.CanUnequip(slot);
+            return _equipment.CanUnequip(slotId);
         }
 
-        public IItem Unequip(string slot)
+        public IItem Unequip(Guid slotId)
         {
-            return _equipment.Unequip(slot);
+            return _equipment.Unequip(slotId);
         }
 
         public void UpdateElapsedTime(TimeSpan elapsedTime)
@@ -199,21 +197,21 @@ namespace ProjectXyz.Application.Core.Actors
 
             _stats = StatCollection.Create(result.Stats);
             _stats.Set(Stat.Create(
+                Guid.NewGuid(), 
                 ActorStats.CurrentLife,
                 CalculateCurrentLife(_stats)));
         }
 
-        private void UnequipToInventory(IMutableEquipment equipment, string slot, IMutableItemCollection items)
+        private void UnequipToInventory(IMutableEquipment equipment, Guid slotId, IMutableItemCollection items)
         {
             Contract.Requires<ArgumentNullException>(equipment != null);
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(slotId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(items != null);
 
-            var item = equipment.Unequip(slot);
+            var item = equipment.Unequip(slotId);
             if (item == null)
             {
-                throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slot));
+                throw new InvalidOperationException(string.Format("There is no item to unequip from slot {0}.", slotId));
             }
 
             items.Add(item);

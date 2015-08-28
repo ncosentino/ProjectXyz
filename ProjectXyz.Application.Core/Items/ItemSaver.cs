@@ -1,59 +1,156 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Data.Core.Items;
 using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Requirements;
+using ProjectXyz.Data.Interface.Items.Sockets;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Core.Items
 {
-    public class ItemSaver : IItemSaver
+    public sealed class ItemSaver : IItemSaver
     {
         #region Fields
         private readonly IEnchantmentSaver _enchantmentSaver;
+        private readonly IItemEnchantmentRepository _itemEnchantmentRepository;
+        private readonly IItemStoreRepository _itemStoreRepository;
+        private readonly IItemMiscRequirementsRepository _itemMiscRequirementsRepository;
+        private readonly IItemStatRequirementsRepository _itemStatRequirementsRepository;
+        private readonly ISocketedItemRepository _socketedItemRepository;
+        private readonly IItemStatRepository _itemStatRepository;
+        private readonly IStatRepository _statRepository;
         #endregion
 
         #region Constructors
-        private ItemSaver(IEnchantmentSaver enchantmentSaver)
+        private ItemSaver(
+            IEnchantmentSaver enchantmentSaver,
+            IItemEnchantmentRepository itemEnchantmentRepository,
+            IItemStoreRepository itemStoreRepository,
+            IItemMiscRequirementsRepository itemMiscRequirementsRepository,
+            IItemStatRequirementsRepository itemStatRequirementsRepository,
+            ISocketedItemRepository socketedItemRepository,
+            IItemStatRepository itemStatRepository,
+            IStatRepository statRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
+            Contract.Requires<ArgumentNullException>(itemEnchantmentRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStoreRepository != null);
+            Contract.Requires<ArgumentNullException>(itemMiscRequirementsRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStatRequirementsRepository != null);
+            Contract.Requires<ArgumentNullException>(socketedItemRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStatRepository != null);
+            Contract.Requires<ArgumentNullException>(statRepository != null);
+
             _enchantmentSaver = enchantmentSaver;
+            _itemEnchantmentRepository = itemEnchantmentRepository;
+            _itemStoreRepository = itemStoreRepository;
+            _itemMiscRequirementsRepository = itemMiscRequirementsRepository;
+            _itemStatRequirementsRepository = itemStatRequirementsRepository;
+            _socketedItemRepository = socketedItemRepository;
+            _itemStatRepository = itemStatRepository;
+            _statRepository = statRepository;
         }
         #endregion
 
         #region Methods
-        public static IItemSaver Create(IEnchantmentSaver enchantmentSaver)
+        public static IItemSaver Create(
+            IEnchantmentSaver enchantmentSaver,
+            IItemEnchantmentRepository itemEnchantmentRepository,
+            IItemStoreRepository itemStoreRepository,
+            IItemMiscRequirementsRepository itemMiscRequirementsRepository,
+            IItemStatRequirementsRepository itemStatRequirementsRepository,
+            ISocketedItemRepository socketedItemRepository,
+            IItemStatRepository itemStatRepository,
+            IStatRepository statRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
+            Contract.Requires<ArgumentNullException>(itemEnchantmentRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStoreRepository != null);
+            Contract.Requires<ArgumentNullException>(itemMiscRequirementsRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStatRequirementsRepository != null);
+            Contract.Requires<ArgumentNullException>(socketedItemRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStatRepository != null);
+            Contract.Requires<ArgumentNullException>(statRepository != null);
             Contract.Ensures(Contract.Result<IItemSaver>() != null);
 
-            return new ItemSaver(enchantmentSaver);
+            var itemSaver = new ItemSaver(
+                enchantmentSaver,
+                itemEnchantmentRepository,
+                itemStoreRepository,
+                itemMiscRequirementsRepository,
+                itemStatRequirementsRepository,
+                socketedItemRepository,
+                itemStatRepository,
+                statRepository);
+            return itemSaver;
         }
 
         public IItemStore Save(IItem source)
         {
-            var destination = ItemStore.Create(
+            var itemStore = _itemStoreRepository.Add(
                 source.Id,
-                source.Name, 
-                source.InventoryGraphicResource, 
-                source.ItemType, 
+                source.NameStringResourceId,
+                source.InventoryGraphicResourceId,
+                source.MagicTypeId,
+                source.ItemTypeId,
                 source.MaterialTypeId,
-                source.SocketTypeId,
-                source.EquippableSlots);
+                source.SocketTypeId);
 
-            destination.Stats.Add(source.Stats);
+            foreach (var stat in source.Stats)
+            {
+                var statId = stat.Id;
+                
+                _statRepository.Add(
+                    statId,
+                    stat.StatDefinitionId,
+                    stat.Value);
+                _itemStatRepository.Add(
+                    Guid.NewGuid(),
+                    source.Id,
+                    statId);
+            }
 
-            destination.Enchantments.Add(source.Enchantments.Select(x => _enchantmentSaver.Save(x)));
+            foreach (var enchantment in source.Enchantments)
+            {
+                _enchantmentSaver.Save(enchantment);
+                _itemEnchantmentRepository.Add(
+                    Guid.NewGuid(),
+                    source.Id,
+                    enchantment.Id);
+            }
 
-            destination.SocketedItems.Add(source.SocketedItems.Select(Save));
+            foreach (var socketedItem in source.SocketedItems)
+            {
+                var socketedItemStore = Save(socketedItem);
+                _socketedItemRepository.Add(
+                    Guid.NewGuid(),
+                    source.Id,
+                    socketedItemStore.Id);
+            }
 
-            destination.Requirements.Class = source.Requirements.Class;
-            destination.Requirements.Level = source.Requirements.Level;
-            destination.Requirements.Race = source.Requirements.Race;
+            var requirements = source.Requirements;
+            foreach (var stat in requirements.Stats)
+            {
+                _statRepository.Add(
+                    stat.Id,
+                    stat.StatDefinitionId,
+                    stat.Value);
+                _itemStatRequirementsRepository.Add(
+                    Guid.NewGuid(),
+                    source.Id,
+                    stat.Id);
+            }
 
-            return destination;
+            _itemMiscRequirementsRepository.Add(
+                Guid.NewGuid(),
+                source.Id,
+                requirements.RaceDefinitionId,
+                requirements.ClassDefinitionId);
+
+            return itemStore;
         }
         #endregion
     }

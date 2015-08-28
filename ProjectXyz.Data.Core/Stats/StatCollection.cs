@@ -32,7 +32,7 @@ namespace ProjectXyz.Data.Core.Stats
                     throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
                 }
 
-                _stats[stat.Id] = stat;
+                _stats[stat.StatDefinitionId] = stat;
             }
         }
         #endregion
@@ -83,7 +83,7 @@ namespace ProjectXyz.Data.Core.Stats
 
         public void Set(IStat stat)
         {
-            _stats[stat.Id] = stat;
+            _stats[stat.StatDefinitionId] = stat;
         }
         
         public void Add(IEnumerable<IStat> stats)
@@ -95,7 +95,7 @@ namespace ProjectXyz.Data.Core.Stats
                     throw new NullReferenceException("Stats within the provided enumerable cannot be null.");
                 }
 
-                _stats.Add(stat.Id, stat);
+                _stats.Add(stat.StatDefinitionId, stat);
             }
         }
 
@@ -112,7 +112,7 @@ namespace ProjectXyz.Data.Core.Stats
 
         public bool Remove(IEnumerable<IStat> stats)
         {
-            return Remove(stats.Select(x => x.Id));
+            return Remove(stats.Select(x => x.StatDefinitionId));
         }
 
         public bool Contains(Guid id)

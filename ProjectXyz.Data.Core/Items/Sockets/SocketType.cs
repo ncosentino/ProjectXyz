@@ -8,38 +8,43 @@ namespace ProjectXyz.Data.Core.Items.Sockets
 {
     public sealed class SocketType : ISocketType
     {
-        #region Constructors
-        private SocketType(Guid socketTypeId, Guid stringResourceId)
-        {
-            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
-            Contract.Requires<ArgumentException>(stringResourceId != Guid.Empty);
+        #region Fields
+        private readonly Guid _id;
+        private readonly Guid _nameStringResourceId;
+        #endregion
 
-            Id = socketTypeId;
-            StringResourceId = stringResourceId;
+        #region Constructors
+        private SocketType(
+            Guid id, 
+            Guid nameStringResourceId)
+        {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+
+            _id = id;
+            _nameStringResourceId = nameStringResourceId;
         }
         #endregion
 
         #region Properties
-        public Guid Id
-        {
-            get;
-            private set;
-        }
+        /// <inheritdoc />
+        public Guid Id { get { return _id; } }
 
-        public Guid StringResourceId
-        {
-            get;
-            private set;
-        }
+        /// <inheritdoc />
+        public Guid NameStringResourceId { get { return _nameStringResourceId; } }
         #endregion
 
         #region Methods
-        public static ISocketType Create(Guid socketTypeId, Guid stringResourceId)
+        public static ISocketType Create(
+            Guid id,
+            Guid nameStringResourceId)
         {
-            Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
-            Contract.Requires<ArgumentException>(stringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Ensures(Contract.Result<ISocketType>() != null);
-            return new SocketType(socketTypeId, stringResourceId);
+
+            var socketType = new SocketType(id, nameStringResourceId);
+            return socketType;
         }
         #endregion
     }

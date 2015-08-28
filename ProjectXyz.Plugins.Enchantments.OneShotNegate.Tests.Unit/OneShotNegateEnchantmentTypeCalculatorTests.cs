@@ -70,7 +70,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
             var initialStat = new Mock<IStat>(MockBehavior.Strict);
             initialStat
-                .Setup(x => x.Id)
+                .Setup(x => x.StatDefinitionId)
                 .Returns(statId);
 
             var stats = new Mock<IStatCollection>(MockBehavior.Strict);
@@ -136,7 +136,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             Assert.Equal(1, result.Stats.Count);
             Assert.Contains(initialStat.Object, result.Stats);
 
-            initialStat.Verify(x => x.Id, Times.Once);
+            initialStat.Verify(x => x.StatDefinitionId, Times.Once);
 
             stats.Verify(x => x.GetEnumerator(), Times.Once);
 

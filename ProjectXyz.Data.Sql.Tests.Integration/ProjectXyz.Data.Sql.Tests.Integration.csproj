@@ -141,7 +141,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseTest.cs" />
     <Compile Include="Enchantments\EnchantmentTypeRepositoryTests.cs" />
+    <Compile Include="Items\Affixes\ItemAffixDefinitionRepositoryTests.cs" />
+    <Compile Include="Items\Materials\MaterialTypeRepositoryTests.cs" />
+    <Compile Include="Items\MagicTypes\MagicTypeRepositoryTests.cs" />
+    <Compile Include="Items\EquipSlots\EquipSlotTypeRepositoryTests.cs" />
+    <Compile Include="Items\ItemStoreRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,130 +1,102 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics.Contracts;
-
-using ProjectXyz.Data.Interface.Stats;
+using System.Linq;
 using ProjectXyz.Data.Interface.Items;
-using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Core.Enchantments;
 
 namespace ProjectXyz.Data.Core.Items
 {
     public sealed class ItemStore : IItemStore
     {
         #region Fields
-        private readonly IMutableStatCollection _stats;
-        private readonly IMutableEnchantmentCollection _enchantments;
-        private readonly IRequirements _requirements;
-        private readonly IMutableItemStoreCollection _socketedItems;
-        private readonly IList<string> _equippableSlots;
-        
-        private Guid _id;
+        private readonly Guid _id;
+        private readonly Guid _nameStringResourceId;
+        private readonly Guid _inventoryGraphicResourceId;
+        private readonly Guid _magicTypeId;
+        private readonly Guid _itemTypeId;
+        private readonly Guid _materialTypeId;
+        private readonly Guid _socketTypeId;
         #endregion
 
         #region Constructors
         private ItemStore(
             Guid id,
-            string name, 
-            string inventoryGraphicResource, 
-            string itemType, 
-            Guid materialTypeId, 
-            Guid socketTypeId, 
-            IEnumerable<string> equippableSlots)
+            Guid nameStringResourceId,
+            Guid inventoryGraphicResourceId,
+            Guid magicTypeId,
+            Guid itemTypeId,
+            Guid materialTypeId,
+            Guid socketTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name.Trim().Length > 0);
-            Contract.Requires<ArgumentNullException>(inventoryGraphicResource != null);
-            Contract.Requires<ArgumentException>(inventoryGraphicResource.Trim().Length > 0);
-            Contract.Requires<ArgumentNullException>(itemType != null);
-            Contract.Requires<ArgumentException>(itemType.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentException>(inventoryGraphicResourceId != Guid.Empty);
+            Contract.Requires<ArgumentException>(magicTypeId != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(materialTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(equippableSlots != null);
-            
-            _stats = StatCollection.Create();
-            _enchantments = EnchantmentCollection.Create();
-            _requirements = Items.Requirements.Create();
-            _socketedItems = ItemStoreCollection.Create();
-            _equippableSlots = equippableSlots.ToArray();
 
             _id = id;
-            Name = name;
-            InventoryGraphicResource = inventoryGraphicResource;
-            MaterialTypeId = materialTypeId;
-            SocketTypeId = socketTypeId;
-            ItemType = itemType;
+            _nameStringResourceId = nameStringResourceId;
+            _inventoryGraphicResourceId = inventoryGraphicResourceId;
+            _magicTypeId = magicTypeId;
+            _itemTypeId = itemTypeId;
+            _materialTypeId = materialTypeId;
+            _socketTypeId = socketTypeId;
         }
         #endregion
 
         #region Properties
-        public string Name { get; private set; }
+        /// <inheritdoc />
+        public Guid Id { get { return _id; } }
 
-        public string InventoryGraphicResource { get; private set; }
+        /// <inheritdoc />
+        public Guid NameStringResourceId { get { return _nameStringResourceId; } }
 
-        public Guid MagicTypeId { get; private set; }
+        /// <inheritdoc />
+        public Guid InventoryGraphicResourceId { get { return _inventoryGraphicResourceId; } }
 
-        public string ItemType { get; private set; }
+        /// <inheritdoc />
+        public Guid MagicTypeId { get { return _magicTypeId; } }
 
-        public Guid MaterialTypeId { get; private set; }
+        /// <inheritdoc />
+        public Guid ItemTypeId { get { return _itemTypeId; } }
 
-        public Guid SocketTypeId { get; private set; }
+        /// <inheritdoc />
+        public Guid MaterialTypeId { get { return _materialTypeId; } }
 
-        public IMutableStatCollection Stats
-        {
-            get { return _stats; }
-        }
-
-        public IMutableEnchantmentCollection Enchantments
-        {
-            get { return _enchantments; }
-        }
-
-        public IRequirements Requirements
-        {
-            get { return _requirements; }
-        }
-
-        public IMutableItemStoreCollection SocketedItems
-        {
-            get { return _socketedItems; }
-        }
-
-        public IEnumerable<string> EquippableSlots
-        {
-            get { return _equippableSlots; }
-        }
-
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        /// <inheritdoc />
+        public Guid SocketTypeId { get { return _socketTypeId; } }
         #endregion
 
         #region Methods
         public static IItemStore Create(
-            Guid id, 
-            string name, 
-            string inventoryGraphicResource, 
-            string itemType, 
+            Guid id,
+            Guid nameStringResourceId,
+            Guid inventoryGraphicResourceId,
+            Guid magicTypeId,
+            Guid itemTypeId,
             Guid materialTypeId,
-            Guid socketTypeId, 
-            IEnumerable<string> equippableSlots)
+            Guid socketTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name.Trim().Length > 0);
-            Contract.Requires<ArgumentNullException>(inventoryGraphicResource != null);
-            Contract.Requires<ArgumentException>(inventoryGraphicResource.Trim().Length > 0);
-            Contract.Requires<ArgumentNullException>(itemType != null);
-            Contract.Requires<ArgumentException>(itemType.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentException>(inventoryGraphicResourceId != Guid.Empty);
+            Contract.Requires<ArgumentException>(magicTypeId != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(materialTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(equippableSlots != null);
             Contract.Ensures(Contract.Result<IItemStore>() != null);
-            return new ItemStore(id, name, inventoryGraphicResource, itemType, materialTypeId, socketTypeId, equippableSlots);
+            
+            var itemStore = new ItemStore(
+                id,
+                nameStringResourceId,
+                inventoryGraphicResourceId,
+                magicTypeId,
+                itemTypeId,
+                materialTypeId,
+                socketTypeId);
+            return itemStore;
         }
         #endregion
     }

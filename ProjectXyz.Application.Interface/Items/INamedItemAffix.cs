@@ -8,7 +8,7 @@ namespace ProjectXyz.Application.Interface.Items
     public interface INamedItemAffix : IItemAffix
     {
         #region Properties
-        string Name { get; }
+        Guid NameStringResourceId { get; }
         #endregion
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Core.Stats
@@ -23,9 +21,15 @@ namespace ProjectXyz.Data.Core.Stats
             return new StatFactory();
         }
 
-        public IStat CreateStat(Guid id, double value)
+        public IStat CreateStat(
+            Guid id, 
+            Guid statDefinitionId,
+            double value)
         {
-            return Stat.Create(id, value);
+            return Stat.Create(
+                id, 
+                statDefinitionId,
+                value);
         }
         #endregion
     }

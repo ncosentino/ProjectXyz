@@ -14,18 +14,18 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             Contract.Requires<ArgumentNullException>(equipment != null);
             Contract.Requires<ArgumentNullException>(item != null);
             
-            string slot;
-            if (!equipment.TryGetFirstOpenSlot(item, out slot))
+            Guid slotId;
+            if (!equipment.TryGetFirstOpenSlot(item, out slotId))
             {
                 return false;
             }
 
-            if (!equipment.CanEquip(item, slot))
+            if (!equipment.CanEquip(item, slotId))
             {
                 return false;
             }
 
-            equipment.Equip(item, slot);
+            equipment.Equip(item, slotId);
             return true;
         }
         #endregion

@@ -7,7 +7,11 @@ namespace ProjectXyz.Data.Interface.Items.Sockets
     public interface IStatSocketTypeRepository
     {
         #region Methods
-        IStatSocketType GetByStatId(Guid statId);
+        void Add(IStatSocketType statSocketType);
+
+        void RemoveById(Guid id);
+
+        IStatSocketType GetByStatDefinitionId(Guid statDefinitionId);
 
         IStatSocketType GetBySocketTypeId(Guid socketTypeId);
 

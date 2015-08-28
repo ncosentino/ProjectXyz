@@ -9,20 +9,18 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     internal abstract class ICanEquipItemContract : ICanEquip
     {
         #region Methods
-        public bool CanEquip(IItem item, string slot)
+        public bool CanEquip(IItem item, Guid slotId)
         {
             Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(slotId != Guid.Empty);
             
             return default(bool);
         }
 
-        public void Equip(IItem item, string slot)
+        public void Equip(IItem item, Guid slotId)
         {
             Contract.Requires<ArgumentNullException>(item != null);
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(slotId != Guid.Empty);
         }
         #endregion
     }

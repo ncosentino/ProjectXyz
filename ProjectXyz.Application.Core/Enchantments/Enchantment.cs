@@ -14,8 +14,6 @@ namespace ProjectXyz.Application.Core.Enchantments
         private readonly Guid _statusTypeId;
         private readonly Guid _enchantmentTypeId;
         private readonly List<Guid> _weatherIds;
-
-        private TimeSpan _remainingDuration;
         #endregion
 
         #region Constructors
@@ -79,24 +77,17 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         #region Methods
         /// <inheritdoc />
-        public void UpdateElapsedTime(TimeSpan elapsedTime)
+        public virtual void UpdateElapsedTime(TimeSpan elapsedTime)
         {
-            if (_remainingDuration == TimeSpan.Zero)
-            {
-                return;
-            }
+            // do nothing
+        }
 
-            _remainingDuration = TimeSpan.FromMilliseconds(Math.Max(
-                (_remainingDuration - elapsedTime).TotalMilliseconds,
-                0));
-
-            if (_remainingDuration == TimeSpan.Zero)
+        protected void OnExpired()
+        {
+            var handler = Expired;
+            if (handler != null)
             {
-                var handler = Expired;
-                if (handler != null)
-                {
-                    handler.Invoke(this, EventArgs.Empty);
-                }
+                handler.Invoke(this, EventArgs.Empty);
             }
         }
         #endregion

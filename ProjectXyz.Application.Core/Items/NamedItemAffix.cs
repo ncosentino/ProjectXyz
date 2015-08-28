@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 
@@ -12,26 +10,27 @@ namespace ProjectXyz.Application.Core.Items
     public class NamedItemAffix : INamedItemAffix
     {
         #region Fields
-        private readonly string _name;
+        private readonly Guid _nameStringResourceId;
         private readonly List<IEnchantment> _enchantments;
         #endregion
 
         #region Constructors
-        private NamedItemAffix(string name, IEnumerable<IEnchantment> enchantments)
+        private NamedItemAffix(
+            Guid nameStringResourceId,
+            IEnumerable<IEnchantment> enchantments)
         {
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name.Trim().Length >= 0);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(enchantments != null);
 
-            _name = name;
+            _nameStringResourceId = nameStringResourceId;
             _enchantments = new List<IEnchantment>(enchantments);
         }
         #endregion
 
         #region Properties
-        public string Name
+        public Guid NameStringResourceId
         {
-            get { return _name; }
+            get { return _nameStringResourceId; }
         }
 
         public IEnumerable<IEnchantment> Enchantments
@@ -41,14 +40,17 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Methods
-        public static INamedItemAffix Create(string name, IEnumerable<IEnchantment> enchantments)
+        public static INamedItemAffix Create(
+            Guid nameStringResourceId,
+            IEnumerable<IEnchantment> enchantments)
         {
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name.Trim().Length >= 0);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Ensures(Contract.Result<INamedItemAffix>() != null);
 
-            return new NamedItemAffix(name, enchantments);
+            return new NamedItemAffix(
+                nameStringResourceId,
+                enchantments);
         }
         #endregion
     }

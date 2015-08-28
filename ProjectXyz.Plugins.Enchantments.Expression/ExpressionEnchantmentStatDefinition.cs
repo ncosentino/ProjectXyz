@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
@@ -32,28 +31,28 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public Guid Id
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public Guid EnchantmentDefinitionId
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public string IdForExpression
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public Guid StatId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 

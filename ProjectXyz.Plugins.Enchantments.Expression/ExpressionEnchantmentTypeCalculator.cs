@@ -68,7 +68,10 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 var newValue = _expressioNEvaluator.Evaluate(
                     enchantment,
                     stats);
-                var newStat = _statFactory.CreateStat(enchantment.StatId, newValue);
+                var newStat = _statFactory.CreateStat(
+                    Guid.NewGuid(), 
+                    enchantment.StatId, 
+                    newValue);
                 stats[enchantment.StatId] = newStat;
 
                 yield return enchantment;

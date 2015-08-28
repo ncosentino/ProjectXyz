@@ -9,27 +9,41 @@ namespace ProjectXyz.Data.Core.Items.Sockets
     public sealed class StatSocketType : IStatSocketType
     {
         #region Fields
-        private readonly Guid _statId;
+        private readonly Guid _id;
+        private readonly Guid _statDefinitionId;
         private readonly Guid _socketTypeId;
         #endregion
 
         #region Constructors
-        private StatSocketType(Guid statId, Guid socketTypeId)
+        private StatSocketType(
+            Guid id,
+            Guid statDefinitionId, 
+            Guid socketTypeId)
         {
-            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
 
-            _statId = statId;
+            _id = id;
+            _statDefinitionId = statDefinitionId;
             _socketTypeId = socketTypeId;
         }
         #endregion
 
         #region Properties
-        public Guid StatId
+        /// <inheritdoc />
+        public Guid Id
         {
-            get { return _statId; }
+            get { return _id; }
         }
 
+        /// <inheritdoc />
+        public Guid StatDefinitionId
+        {
+            get { return _statDefinitionId; }
+        }
+
+        /// <inheritdoc />
         public Guid SocketTypeId
         {
             get { return _socketTypeId; }
@@ -37,13 +51,21 @@ namespace ProjectXyz.Data.Core.Items.Sockets
         #endregion
 
         #region Methods
-        public static IStatSocketType Create(Guid statId, Guid socketTypeId)
+        public static IStatSocketType Create(
+            Guid id,
+            Guid statDefinitionId,
+            Guid socketTypeId)
         {
-            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(statDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<IStatSocketType>() != null);
 
-            return new StatSocketType(statId, socketTypeId);
+            var statSocketType = new StatSocketType(
+                id, 
+                statDefinitionId, 
+                socketTypeId);
+            return statSocketType;
         }
         #endregion
     }

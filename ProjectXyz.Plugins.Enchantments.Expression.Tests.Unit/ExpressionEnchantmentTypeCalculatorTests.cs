@@ -93,15 +93,15 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var stat2 = new Mock<IStat>(MockBehavior.Strict);
             stat2
-                .Setup(x => x.Id)
+                .Setup(x => x.StatDefinitionId)
                 .Returns(statId);
 
             var statFactory = new Mock<IStatFactory>(MockBehavior.Strict);
             statFactory
-                .Setup(x => x.CreateStat(statId, VALUE1))
+                .Setup(x => x.CreateStat(It.IsAny<Guid>(), statId, VALUE1))
                 .Returns(stat1.Object);
             statFactory
-                .Setup(x => x.CreateStat(statId, VALUE2))
+                .Setup(x => x.CreateStat(It.IsAny<Guid>(), statId, VALUE2))
                 .Returns(stat2.Object);
 
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
@@ -140,9 +140,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             enchantment2.Verify(x => x.WeatherIds, Times.Once);
             enchantment2.Verify(x => x.CalculationPriority, Times.Once);
 
-            stat2.Verify(x => x.Id, Times.Once);
+            stat2.Verify(x => x.StatDefinitionId, Times.Once);
 
-            statFactory.Verify(x => x.CreateStat(It.IsAny<Guid>(), It.IsAny<double>()), Times.Exactly(2));
+            statFactory.Verify(x => x.CreateStat(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<double>()), Times.Exactly(2));
 
             expressionEvaluator.Verify(x => x.Evaluate(It.IsAny<IExpressionEnchantment>(), It.IsAny<IStatCollection>()), Times.Exactly(2));
         }

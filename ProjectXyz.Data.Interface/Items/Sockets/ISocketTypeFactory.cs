@@ -7,7 +7,9 @@ namespace ProjectXyz.Data.Interface.Items.Sockets
     public interface ISocketTypeFactory
     {
         #region Methods
-        ISocketType CreateById(Guid socketTypeId);
+        ISocketType Create(
+            Guid id, 
+            Guid nameStringResourceId);
         #endregion
     }
 }

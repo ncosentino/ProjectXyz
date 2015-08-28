@@ -9,7 +9,7 @@ namespace ProjectXyz.Data.Interface.Items.Sockets
         #region Properties
         Guid Id { get; }
 
-        Guid StringResourceId { get; }
+        Guid NameStringResourceId { get; }
         #endregion
     }
 }

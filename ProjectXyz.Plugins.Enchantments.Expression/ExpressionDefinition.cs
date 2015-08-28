@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
@@ -21,13 +20,13 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
 
         #region Properties        
         /// <inheritdoc />
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
 
         /// <inheritdoc />
-        public string Expression { get; set; }
+        public string Expression { get; private set; }
 
         /// <inheritdoc />
-        public int CalculationPriority { get; set; }
+        public int CalculationPriority { get; private set; }
         #endregion
 
         #region Methods

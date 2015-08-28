@@ -12,7 +12,9 @@ namespace ProjectXyz.Application.Interface.Items
         #region Methods
         IItemAffix CreateItemAffix(IEnumerable<IEnchantment> enchantments);
 
-        INamedItemAffix CreateNamedItemAffix(IEnumerable<IEnchantment> enchantments, string name);
+        INamedItemAffix CreateNamedItemAffix(
+            IEnumerable<IEnchantment> enchantments, 
+            Guid nameStringResourceId);
         #endregion
     }
 }

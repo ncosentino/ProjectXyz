@@ -34,35 +34,35 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public Guid Id
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public Guid EnchantmentDefinitionId
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public string IdForExpression
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public double MinimumValue
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public double MaximumValue
         {
             get;
-            set;
+            private set;
         }
         #endregion
 

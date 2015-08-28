@@ -7,13 +7,13 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IEnchantmentDefinition
     {
         #region Properties
-        Guid Id { get; set; }
+        Guid Id { get; }
         
-        Guid TriggerId { get; set; }
+        Guid TriggerId { get; }
 
-        Guid StatusTypeId { get; set; }
+        Guid StatusTypeId { get; }
 
-        Guid EnchantmentWeatherId { get; set; }
+        Guid EnchantmentWeatherId { get; }
         #endregion
     }
 }

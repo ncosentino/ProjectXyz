@@ -8,23 +8,22 @@ namespace ProjectXyz.Application.Interface.Items
     public class EquipmentChangedEventArgs : EventArgs
     {
         #region Fields
-        private readonly string _slot;
+        private readonly Guid _slotId;
         #endregion
 
         #region Constructors
-        public EquipmentChangedEventArgs(string slot)
+        public EquipmentChangedEventArgs(Guid slotId)
         {
-            Contract.Requires<ArgumentNullException>(slot != null);
-            Contract.Requires<ArgumentException>(slot.Trim().Length > 0);
+            Contract.Requires<ArgumentException>(slotId != Guid.Empty);
 
-            _slot = slot.Trim();
+            _slotId = slotId;
         }
         #endregion
 
         #region Properties
-        public string Slot
+        public Guid SlotId
         {
-            get { return _slot; }
+            get { return _slotId; }
         }
         #endregion
 
@@ -32,7 +31,7 @@ namespace ProjectXyz.Application.Interface.Items
         [ContractInvariantMethod]
         private void InvariantMethod()
         {
-            Contract.Invariant(!string.IsNullOrEmpty(_slot));
+            Contract.Invariant(_slotId != Guid.Empty);
         }
         #endregion
     }

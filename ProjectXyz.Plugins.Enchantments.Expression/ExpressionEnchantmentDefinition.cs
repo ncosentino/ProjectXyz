@@ -39,42 +39,42 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public Guid Id
         {
             get;
-            set;
+            private set;
         }
         
         /// <inheritdoc />
         public Guid EnchantmentDefinitionId
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public Guid ExpressionId
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public Guid StatId
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public TimeSpan MinimumDuration
         {
             get;
-            set;
+            private set;
         }
 
         /// <inheritdoc />
         public TimeSpan MaximumDuration
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
