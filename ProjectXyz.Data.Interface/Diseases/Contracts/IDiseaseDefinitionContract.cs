@@ -20,14 +20,13 @@ namespace ProjectXyz.Data.Interface.Diseases.Contracts
             }
         }
 
-        public string Name
+        public Guid NameStringResourceId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
 
-                return default(string);
+                return default(Guid);
             }
         }
 

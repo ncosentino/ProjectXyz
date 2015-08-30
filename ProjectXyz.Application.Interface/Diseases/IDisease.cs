@@ -10,7 +10,7 @@ namespace ProjectXyz.Application.Interface.Diseases
         #region Properties
         Guid Id { get; }
 
-        string Name { get; }
+        Guid NameStringResourceId { get; }
 
         IDiseaseState CurrentState { get; }
 

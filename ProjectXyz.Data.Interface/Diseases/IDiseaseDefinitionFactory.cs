@@ -12,7 +12,10 @@ namespace ProjectXyz.Data.Interface.Diseases
     public interface IDiseaseDefinitionFactory
     {
         #region Methods
-        IDiseaseDefinition Create(Guid id, string name, Guid diseaseStatesId);
+        IDiseaseDefinition Create(
+            Guid id, 
+            Guid nameStringResourceId,
+            Guid diseaseStatesId);
         #endregion
     }
 }

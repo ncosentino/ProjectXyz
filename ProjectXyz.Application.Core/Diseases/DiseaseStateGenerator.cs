@@ -62,7 +62,7 @@ namespace ProjectXyz.Application.Core.Diseases
         public IDiseaseState GenerateForId(IRandom randomizer, Guid id)
         {
             var diseaseStateDefinition = _diseaseStateDefinitionRepository.GetById(id);
-            var diseaseStateEnchantments = _diseaseStateEnchantmentsRepository.GetById(diseaseStateDefinition.DiseaseStatesEnchantmentsId);
+            var diseaseStateEnchantments = _diseaseStateEnchantmentsRepository.GetByDiseaseStateId(id);
             var enchantments = GetEnchantments(
                 _enchantmentGenerator,
                 randomizer,
@@ -70,7 +70,7 @@ namespace ProjectXyz.Application.Core.Diseases
 
             return _diseaseStateFactory.Create(
                 diseaseStateDefinition.Id,
-                diseaseStateDefinition.Name,
+                diseaseStateDefinition.NameStringResourceId,
                 diseaseStateDefinition.PreviousStateId,
                 diseaseStateDefinition.NextStateId,
                 diseaseStateDefinition.DiseaseSpreadTypeId,

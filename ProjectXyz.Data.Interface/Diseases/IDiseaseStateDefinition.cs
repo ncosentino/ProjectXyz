@@ -10,14 +10,12 @@ namespace ProjectXyz.Data.Interface.Diseases
         #region Properties
         Guid Id { get; }
 
-        string Name { get; }
+        Guid NameStringResourceId { get; }
 
         Guid PreviousStateId { get; }
 
         Guid NextStateId { get; }
-
-        Guid DiseaseStatesEnchantmentsId { get; }
-
+        
         Guid DiseaseSpreadTypeId { get; }
         #endregion
     }

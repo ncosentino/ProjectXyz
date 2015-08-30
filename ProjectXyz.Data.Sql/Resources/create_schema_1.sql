@@ -229,15 +229,14 @@ CREATE TABLE MagicTypesRandomAffixes (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE Diseases (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_DisplayStringResourceId] REFERENCES [DisplayStrings]([Id]),
   [DiseaseStatesId] GUID NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE DiseaseStates (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_DisplayStringResourceId] REFERENCES [DisplayStrings]([Id]),
   [PreviousStateId] GUID NOT NULL ON CONFLICT FAIL, 
   [NextStateId] GUID NOT NULL ON CONFLICT FAIL, 
-  [DiseaseStatesEnchantmentsId] GUID NOT NULL ON CONFLICT FAIL,
   [DiseaseSpreadTypeId] GUID NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE DiseaseStatesEnchantments (
@@ -247,4 +246,11 @@ CREATE TABLE DiseaseStatesEnchantments (
 
 CREATE TABLE DiseaseSpreadTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [Name] VARCHAR(64) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_DisplayStringResourceId] REFERENCES [DisplayStrings]([Id]));
+
+---------------------------------------------------------------------------------------------------
+-- MAPS
+---------------------------------------------------------------------------------------------------
+CREATE TABLE Maps (
+  [Id] GUID NOT NULL ON CONFLICT FAIL, 
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_DisplayStringResourceId] REFERENCES [DisplayStrings]([Id]));

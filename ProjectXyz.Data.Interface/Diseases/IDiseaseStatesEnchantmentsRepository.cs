@@ -9,6 +9,8 @@ namespace ProjectXyz.Data.Interface.Diseases
     {
         #region Methods
         IDiseaseStatesEnchantments GetById(Guid id);
+
+        IDiseaseStatesEnchantments GetByDiseaseStateId(Guid id);
         #endregion
     }
 }

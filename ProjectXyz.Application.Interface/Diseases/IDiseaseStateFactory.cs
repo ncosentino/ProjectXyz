@@ -12,7 +12,7 @@ namespace ProjectXyz.Application.Interface.Diseases
         #region Methods
         IDiseaseState Create(
             Guid id, 
-            string name, 
+            Guid nameStringResourceId, 
             Guid previousStateId, 
             Guid nextStateId, 
             Guid diseaseSpreadTypeId, 

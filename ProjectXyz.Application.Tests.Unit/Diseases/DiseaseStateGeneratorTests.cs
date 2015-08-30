@@ -19,26 +19,27 @@ namespace ProjectXyz.Application.Tests.Unit.Diseases
         [Fact]
         public void DiseaseStateGenerator_GenerateForId_Success()
         {
-            const string DISEASE_STATE_NAME = "The Name";
-            Guid DISEASE_STATE_ID = Guid.NewGuid();
-            Guid DISEASE_STATE_SPREAD_ID = Guid.NewGuid();
-            Guid DISEASE_STATE_ENCHANTMENTS_ID = Guid.NewGuid();
-            Guid DISEASE_STATE_NEXT_ID = Guid.NewGuid();
-            Guid DISEASE_STATE_PREVIOUS_ID = Guid.NewGuid();
-            Guid ENCHANTMENT_ID = Guid.NewGuid();
+            // Setup
+            Guid diseaseStateNameResourceId = Guid.NewGuid();
+            Guid diseaseStateId = Guid.NewGuid();
+            Guid diseaseStateSpreadId = Guid.NewGuid();
+            Guid diseaseStateEnchantmentsId = Guid.NewGuid();
+            Guid diseaseStateNextId = Guid.NewGuid();
+            Guid diseaseStatePreviousId = Guid.NewGuid();
+            Guid enchantmentId = Guid.NewGuid();
 
             var expectedResult = new Mock<IDiseaseState>();
 
             var diseaseStateFactory = new Mock<IDiseaseStateFactory>();
             diseaseStateFactory
                 .Setup(x => x.Create(
-                    DISEASE_STATE_ID, 
-                    DISEASE_STATE_NAME,
-                    DISEASE_STATE_PREVIOUS_ID,
-                    DISEASE_STATE_NEXT_ID,
-                    DISEASE_STATE_SPREAD_ID,
+                    diseaseStateId, 
+                    diseaseStateNameResourceId,
+                    diseaseStatePreviousId,
+                    diseaseStateNextId,
+                    diseaseStateSpreadId,
                     It.IsAny<IEnumerable<IEnchantment>>()))
-                .Callback<Guid, string, Guid, Guid, Guid, IEnumerable<IEnchantment>>((a, b, c, d, e, f) => f.ToList())
+                .Callback<Guid, Guid, Guid, Guid, Guid, IEnumerable<IEnchantment>>((a, b, c, d, e, f) => f.ToList())
                 .Returns(expectedResult.Object);
 
             var randomizer = new Mock<IRandom>();
@@ -47,42 +48,39 @@ namespace ProjectXyz.Application.Tests.Unit.Diseases
 
             var enchantmentGenerator = new Mock<IEnchantmentGenerator>();
             enchantmentGenerator
-                .Setup(x => x.Generate(randomizer.Object, ENCHANTMENT_ID))
+                .Setup(x => x.Generate(randomizer.Object, enchantmentId))
                 .Returns(enchantment.Object);
 
             var diseaseStateDefinition = new Mock<IDiseaseStateDefinition>();
             diseaseStateDefinition
                 .Setup(x => x.Id)
-                .Returns(DISEASE_STATE_ID);
+                .Returns(diseaseStateId);
             diseaseStateDefinition
-                .Setup(x => x.DiseaseStatesEnchantmentsId)
-                .Returns(DISEASE_STATE_ENCHANTMENTS_ID);
-            diseaseStateDefinition
-                .Setup(x => x.Name)
-                .Returns(DISEASE_STATE_NAME);
+                .Setup(x => x.NameStringResourceId)
+                .Returns(diseaseStateNameResourceId);
             diseaseStateDefinition
                 .Setup(x => x.DiseaseSpreadTypeId)
-                .Returns(DISEASE_STATE_SPREAD_ID);
+                .Returns(diseaseStateSpreadId);
             diseaseStateDefinition
                 .Setup(x => x.NextStateId)
-                .Returns(DISEASE_STATE_NEXT_ID);
+                .Returns(diseaseStateNextId);
             diseaseStateDefinition
                 .Setup(x => x.PreviousStateId)
-                .Returns(DISEASE_STATE_PREVIOUS_ID);
+                .Returns(diseaseStatePreviousId);
 
             var diseaseStateDefinitionRepository = new Mock<IDiseaseStateDefinitionRepository>();
             diseaseStateDefinitionRepository
-                .Setup(x => x.GetById(DISEASE_STATE_ID))
+                .Setup(x => x.GetById(diseaseStateId))
                 .Returns(diseaseStateDefinition.Object);
 
             var diseaseStatesEnchantments = new Mock<IDiseaseStatesEnchantments>();
             diseaseStatesEnchantments
                 .Setup(x => x.EnchantmentIds)
-                .Returns(new[] { ENCHANTMENT_ID });
+                .Returns(new[] { enchantmentId });
 
             var diseaseStateEnchantmentsRepository = new Mock<IDiseaseStatesEnchantmentsRepository>();
             diseaseStateEnchantmentsRepository
-                .Setup(x => x.GetById(DISEASE_STATE_ENCHANTMENTS_ID))
+                .Setup(x => x.GetByDiseaseStateId(diseaseStateId))
                 .Returns(diseaseStatesEnchantments.Object);
 
             var diseaseGenerator = DiseaseStateGenerator.Create(
@@ -91,48 +89,38 @@ namespace ProjectXyz.Application.Tests.Unit.Diseases
                 diseaseStateDefinitionRepository.Object,
                 diseaseStateEnchantmentsRepository.Object);
 
+            // Execute
             var result = diseaseGenerator.GenerateForId(
                 randomizer.Object, 
-                DISEASE_STATE_ID);
+                diseaseStateId);
             
+            // Assert
             Assert.Equal(expectedResult.Object, result);
 
-            diseaseStateDefinitionRepository
-                .Verify(x => x.GetById(DISEASE_STATE_ID), Times.Once);
+            diseaseStateDefinitionRepository.Verify(x => x.GetById(diseaseStateId), Times.Once);
 
-            diseaseStateEnchantmentsRepository
-                .Verify(x => x.GetById(DISEASE_STATE_ENCHANTMENTS_ID), Times.Once);
+            diseaseStateEnchantmentsRepository.Verify(x => x.GetByDiseaseStateId(It.IsAny<Guid>()), Times.Once);
 
-            diseaseStatesEnchantments
-                .Verify(x => x.EnchantmentIds, Times.Once);            
+            diseaseStatesEnchantments.Verify(x => x.EnchantmentIds, Times.Once);            
 
-            enchantmentGenerator
-                .Verify(x => x.Generate(randomizer.Object, ENCHANTMENT_ID), Times.Once);
+            enchantmentGenerator.Verify(x => x.Generate(It.IsAny<IRandom>(), It.IsAny<Guid>()), Times.Once);
 
-            diseaseStateFactory
-                .Verify(x => x.Create(
-                    DISEASE_STATE_ID,
-                    DISEASE_STATE_NAME,
-                    DISEASE_STATE_PREVIOUS_ID,
-                    DISEASE_STATE_NEXT_ID,
-                    DISEASE_STATE_SPREAD_ID,
+            diseaseStateFactory.Verify(
+                x => x.Create(
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<IEnumerable<IEnchantment>>()),
-                    Times.Once);
+                Times.Once);
 
-            diseaseStateDefinition
-                .Verify(x => x.Id, Times.Once);
-            diseaseStateDefinition
-                .Verify(x => x.DiseaseStatesEnchantmentsId, Times.Once);
-            diseaseStateDefinition
-                .Verify(x => x.DiseaseSpreadTypeId, Times.Once);
-            diseaseStateDefinition
-                .Verify(x => x.Id, Times.Once);
-            diseaseStateDefinition
-                .Verify(x => x.Name, Times.Once);
-            diseaseStateDefinition
-                .Verify(x => x.NextStateId, Times.Once);
-            diseaseStateDefinition
-                .Verify(x => x.PreviousStateId, Times.Once);
+            diseaseStateDefinition.Verify(x => x.Id, Times.Once);
+            diseaseStateDefinition.Verify(x => x.DiseaseSpreadTypeId, Times.Once);
+            diseaseStateDefinition.Verify(x => x.Id, Times.Once);
+            diseaseStateDefinition.Verify(x => x.NameStringResourceId, Times.Once);
+            diseaseStateDefinition.Verify(x => x.NextStateId, Times.Once);
+            diseaseStateDefinition.Verify(x => x.PreviousStateId, Times.Once);
         }
     }
 }

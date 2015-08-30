@@ -8,7 +8,10 @@ namespace ProjectXyz.Application.Interface.Diseases
     public interface IDiseaseFactory
     {
         #region Methods
-        IDisease Create(Guid id, string name, IEnumerable<IDiseaseState> states);
+        IDisease Create(
+            Guid id, 
+            Guid nameStringResourceId, 
+            IEnumerable<IDiseaseState> states);
         #endregion
     }
 }

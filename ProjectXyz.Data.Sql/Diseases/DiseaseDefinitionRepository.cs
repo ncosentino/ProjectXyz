@@ -60,7 +60,7 @@ namespace ProjectXyz.Data.Sql.Diseases
                     throw new InvalidOperationException("No disease with Id '" + id + "' was found.");
                 }
 
-                var name = reader.GetString(reader.GetOrdinal("Name"));
+                var name = reader.GetGuid(reader.GetOrdinal("NameStringResourceId"));
                 var diseaseStatesId = reader.GetGuid(reader.GetOrdinal("DiseaseStatesId"));
 
                 return _diseaseDefinitionFactory.Create(

@@ -24,9 +24,15 @@ namespace ProjectXyz.Data.Core.Diseases
             return new DiseaseDefinitionFactory();
         }
 
-        public IDiseaseDefinition Create(Guid id, string name, Guid diseaseStatesId)
+        public IDiseaseDefinition Create(
+            Guid id, 
+            Guid nameStringResourceId, 
+            Guid diseaseStatesId)
         {
-            return DiseaseDefinition.Create(id, name, diseaseStatesId);
+            return DiseaseDefinition.Create(
+                id, 
+                nameStringResourceId, 
+                diseaseStatesId);
         }
         #endregion
     }

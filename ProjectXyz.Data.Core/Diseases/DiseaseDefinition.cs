@@ -12,23 +12,22 @@ namespace ProjectXyz.Data.Core.Diseases
     {
         #region Fields
         private readonly Guid _id;
-        private readonly string _name;
+        private readonly Guid _nameStringResourceId;
         private readonly Guid _diseaseStateId;
         #endregion
 
         #region Constructors
         private DiseaseDefinition(
             Guid id,
-            string name,
+            Guid nameStringResourceId,
             Guid diseaseStateId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name != string.Empty);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(diseaseStateId != Guid.Empty);
 
             _id = id;
-            _name = name;
+            _nameStringResourceId = nameStringResourceId;
             _diseaseStateId = diseaseStateId;
         }
         #endregion
@@ -39,9 +38,9 @@ namespace ProjectXyz.Data.Core.Diseases
             get { return _id; }
         }
 
-        public string Name
+        public Guid NameStringResourceId
         {
-            get { return _name; }
+            get { return _nameStringResourceId; }
         }
 
         public Guid DiseaseStatesId
@@ -53,18 +52,17 @@ namespace ProjectXyz.Data.Core.Diseases
         #region Methods
         public static IDiseaseDefinition Create(
             Guid id,
-            string name,
+            Guid nameStringResourceId,
             Guid diseaseStateId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name != string.Empty);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(diseaseStateId != Guid.Empty);
             Contract.Ensures(Contract.Result<IDiseaseDefinition>() != null);
 
             return new DiseaseDefinition(
                 id,
-                name,
+                nameStringResourceId,
                 diseaseStateId);
         }
         #endregion

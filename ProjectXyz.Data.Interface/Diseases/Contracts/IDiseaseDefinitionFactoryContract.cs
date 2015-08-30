@@ -10,11 +10,13 @@ namespace ProjectXyz.Data.Interface.Diseases.Contracts
     public abstract class IDiseaseDefinitionFactoryContract : IDiseaseDefinitionFactory
     {
         #region Methods
-        public IDiseaseDefinition Create(Guid id, string name, Guid diseaseStatesId)
+        public IDiseaseDefinition Create(
+            Guid id, 
+            Guid nameStringResourceId, 
+            Guid diseaseStatesId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name != string.Empty);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(diseaseStatesId != Guid.Empty);
             Contract.Ensures(Contract.Result<IDiseaseDefinition>() != null);
 

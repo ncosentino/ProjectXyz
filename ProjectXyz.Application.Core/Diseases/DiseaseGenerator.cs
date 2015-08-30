@@ -60,7 +60,7 @@ namespace ProjectXyz.Application.Core.Diseases
 
             return _diseaseFactory.Create(
                 id, 
-                diseaseDefinition.Name,
+                diseaseDefinition.NameStringResourceId,
                 diseaseStates);
         }
 

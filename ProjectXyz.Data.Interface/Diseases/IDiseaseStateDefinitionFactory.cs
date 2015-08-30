@@ -13,7 +13,6 @@ namespace ProjectXyz.Data.Interface.Diseases
             string name,
             Guid previousStateId, 
             Guid nextStateId, 
-            Guid diseaseStatesEnchantmentsId, 
             Guid diseaseSpreadTypeId);
         #endregion
     }
