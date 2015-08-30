@@ -4,7 +4,6 @@ using System.Linq;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
-using ProjectXyz.Data.Tests.Unit.Stats.Mocks;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -18,7 +17,7 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
         public void Add_Single_HasItem()
         {
             // Setup
-            var stat = new MockStatBuilder().Build();
+            var stat = Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123);
             var stats = StatCollection.Create();
 
             // Execute
@@ -37,9 +36,9 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
 
             var statsToAdd = new IStat[]
             {
-                new MockStatBuilder().WithStatId(new Guid("b0a7f872-07ef-48f9-a29f-126738f1d26f")).Build(),
-                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
-                new MockStatBuilder().WithStatId(new Guid("31a039fe-bf9f-462b-b5a3-3e176c98a42f")).Build(),
+                Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123),
+                Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123),
+                Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123),
             };
 
             // Execute
@@ -60,12 +59,14 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
         public void Add_MultipleDuplicates_Throws()
         {
             // Setup
+            var statDefinitionId = Guid.NewGuid();
+            
             var stats = StatCollection.Create();
 
             var statsToAdd = new IStat[]
             {
-                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
-                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
+                Stat.Create(Guid.NewGuid(), statDefinitionId, 123),
+                Stat.Create(Guid.NewGuid(), statDefinitionId, 123),
             };
 
             // Execute
@@ -79,7 +80,7 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
         public void Remove_ExistingSingle_Successful()
         {
             // Setup
-            var stat = new MockStatBuilder().Build();
+            var stat = Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123);
             var stats = StatCollection.Create();
 
             stats.Add(stat);
@@ -98,7 +99,7 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
         public void Remove_NonexistentSingle_Fails()
         {
             // Setup
-            var stat = new MockStatBuilder().Build();
+            var stat = Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123);
             var stats = StatCollection.Create();
 
             // Execute
@@ -119,9 +120,9 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
 
             var statsToRemove = new IStat[]
             {
-                new MockStatBuilder().WithStatId(new Guid("b0a7f872-07ef-48f9-a29f-126738f1d26f")).Build(),
-                new MockStatBuilder().WithStatId(new Guid("577c7455-4a59-4589-9c45-ee7aa6e4bfd0")).Build(),
-                new MockStatBuilder().WithStatId(new Guid("31a039fe-bf9f-462b-b5a3-3e176c98a42f")).Build(),
+                Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123),
+                Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123),
+                Stat.Create(Guid.NewGuid(), Guid.NewGuid(), 123),
             };
 
             stats.Add(statsToRemove);
