@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
@@ -13,7 +14,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private readonly IExpressionEnchantmentDefinitionRepository _expressionEnchantmentDefinitionRepository;
         private readonly IExpressionEnchantmentValueDefinitionRepository _expressionEnchantmentValueDefinitionRepository;
         private readonly IExpressionEnchantmentStatDefinitionRepository _expressionEnchantmentStatDefinitionRepository;
-        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
+        private readonly IEnchantmentDefinitionWeatherTypeGroupingRepository _enchantmentDefinitionWeatherGroupingRepository;
         private readonly IExpressionDefinitionRepository _expressionDefinitionRepository;
         #endregion
 
@@ -24,14 +25,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IExpressionEnchantmentValueDefinitionRepository expressionEnchantmentValueDefinitionRepository,
             IExpressionEnchantmentStatDefinitionRepository expressionEnchantmentStatDefinitionRepository,
             IExpressionDefinitionRepository expressionDefinitionRepository,
-            IEnchantmentWeatherRepository enchantmentWeatherRepository)
+            IEnchantmentDefinitionWeatherTypeGroupingRepository enchantmentDefinitionWeatherGroupingRepository)
         {
             _expressionEnchantmentFactory = expressionEnchantmentFactory;
             _expressionEnchantmentDefinitionRepository = expressionEnchantmentDefinitionRepository;
             _expressionEnchantmentValueDefinitionRepository = expressionEnchantmentValueDefinitionRepository;
             _expressionEnchantmentStatDefinitionRepository = expressionEnchantmentStatDefinitionRepository;
             _expressionDefinitionRepository = expressionDefinitionRepository;
-            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+            _enchantmentDefinitionWeatherGroupingRepository = enchantmentDefinitionWeatherGroupingRepository;
         }
         #endregion
 
@@ -42,7 +43,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IExpressionEnchantmentValueDefinitionRepository expressionEnchantmentValueDefinitionRepository,
             IExpressionEnchantmentStatDefinitionRepository expressionEnchantmentStatDefinitionRepository,
             IExpressionDefinitionRepository expressionDefinitionRepository,
-            IEnchantmentWeatherRepository enchantmentWeatherRepository)
+            IEnchantmentDefinitionWeatherTypeGroupingRepository enchantmentDefinitionWeatherGroupingRepository)
         {
             var generator = new ExpressioneEnchantmentGenerator(
                 expressionEnchantmentFactory,
@@ -50,7 +51,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 expressionEnchantmentValueDefinitionRepository,
                 expressionEnchantmentStatDefinitionRepository,
                 expressionDefinitionRepository,
-                enchantmentWeatherRepository);
+                enchantmentDefinitionWeatherGroupingRepository);
             return generator;
         }
 
@@ -61,9 +62,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             var expressionEnchantmentDefinition = _expressionEnchantmentDefinitionRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
             var expressionEnchantmentValueDefinitions = _expressionEnchantmentValueDefinitionRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
             var expressionEnchantmentStatDefinitions = _expressionEnchantmentStatDefinitionRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
-            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentDefinition.EnchantmentWeatherId);
             var expressionDefinition = _expressionDefinitionRepository.GetById(expressionEnchantmentDefinition.ExpressionId);
-
+            var enchantmentWeather = _enchantmentDefinitionWeatherGroupingRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
+            
             var duration = GenerateDuration(
                 randomizer,
                 expressionEnchantmentDefinition);
@@ -80,13 +81,29 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 Guid.NewGuid(),
                 enchantmentDefinition.StatusTypeId,
                 enchantmentDefinition.TriggerId,
-                enchantmentWeather.WeatherIds,
+                enchantmentWeather.WeatherTypeGroupingId,
                 duration,
                 expressionEnchantmentDefinition.StatId,
                 expressionDefinition.Expression,
                 expressionDefinition.CalculationPriority,
                 expressionStats,
                 expressionValues);
+        }
+
+        private IEnumerable<Guid> GetWeatherIds(
+            IEnchantmentDefinitionWeatherTypeGroupingRepository enchantmentDefinitionWeatherGroupingRepository,
+            IWeatherGroupingRepository weatherGroupingRepository,
+            Guid enchantmentDefinitionId)
+        {
+            var enchantmentWeather = enchantmentDefinitionWeatherGroupingRepository.GetById(enchantmentDefinitionId);
+            if (enchantmentWeather == null)
+            {
+                return Enumerable.Empty<Guid>();
+            }
+
+            var weatherGrouping = weatherGroupingRepository.GetByGroupingId(enchantmentWeather.WeatherTypeGroupingId);
+            var weatherIds = weatherGrouping.Select(x => x.WeatherId);
+            return weatherIds;
         }
 
         private TimeSpan GenerateDuration(

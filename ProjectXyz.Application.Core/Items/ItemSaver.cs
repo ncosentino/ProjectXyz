@@ -17,6 +17,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IEnchantmentSaver _enchantmentSaver;
         private readonly IItemEnchantmentRepository _itemEnchantmentRepository;
         private readonly IItemStoreRepository _itemStoreRepository;
+        private readonly IItemStoreItemMiscRequirementsRepository _itemStoreItemMiscRequirementsRepository;
         private readonly IItemMiscRequirementsRepository _itemMiscRequirementsRepository;
         private readonly IItemStatRequirementsRepository _itemStatRequirementsRepository;
         private readonly ISocketedItemRepository _socketedItemRepository;
@@ -29,6 +30,7 @@ namespace ProjectXyz.Application.Core.Items
             IEnchantmentSaver enchantmentSaver,
             IItemEnchantmentRepository itemEnchantmentRepository,
             IItemStoreRepository itemStoreRepository,
+            IItemStoreItemMiscRequirementsRepository itemStoreItemMiscRequirementsRepository,
             IItemMiscRequirementsRepository itemMiscRequirementsRepository,
             IItemStatRequirementsRepository itemStatRequirementsRepository,
             ISocketedItemRepository socketedItemRepository,
@@ -38,6 +40,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
             Contract.Requires<ArgumentNullException>(itemEnchantmentRepository != null);
             Contract.Requires<ArgumentNullException>(itemStoreRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStoreItemMiscRequirementsRepository != null);
             Contract.Requires<ArgumentNullException>(itemMiscRequirementsRepository != null);
             Contract.Requires<ArgumentNullException>(itemStatRequirementsRepository != null);
             Contract.Requires<ArgumentNullException>(socketedItemRepository != null);
@@ -47,6 +50,7 @@ namespace ProjectXyz.Application.Core.Items
             _enchantmentSaver = enchantmentSaver;
             _itemEnchantmentRepository = itemEnchantmentRepository;
             _itemStoreRepository = itemStoreRepository;
+            _itemStoreItemMiscRequirementsRepository = itemStoreItemMiscRequirementsRepository;
             _itemMiscRequirementsRepository = itemMiscRequirementsRepository;
             _itemStatRequirementsRepository = itemStatRequirementsRepository;
             _socketedItemRepository = socketedItemRepository;
@@ -60,6 +64,7 @@ namespace ProjectXyz.Application.Core.Items
             IEnchantmentSaver enchantmentSaver,
             IItemEnchantmentRepository itemEnchantmentRepository,
             IItemStoreRepository itemStoreRepository,
+            IItemStoreItemMiscRequirementsRepository itemStoreItemMiscRequirementsRepository,
             IItemMiscRequirementsRepository itemMiscRequirementsRepository,
             IItemStatRequirementsRepository itemStatRequirementsRepository,
             ISocketedItemRepository socketedItemRepository,
@@ -69,6 +74,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
             Contract.Requires<ArgumentNullException>(itemEnchantmentRepository != null);
             Contract.Requires<ArgumentNullException>(itemStoreRepository != null);
+            Contract.Requires<ArgumentNullException>(itemStoreItemMiscRequirementsRepository != null);
             Contract.Requires<ArgumentNullException>(itemMiscRequirementsRepository != null);
             Contract.Requires<ArgumentNullException>(itemStatRequirementsRepository != null);
             Contract.Requires<ArgumentNullException>(socketedItemRepository != null);
@@ -80,6 +86,7 @@ namespace ProjectXyz.Application.Core.Items
                 enchantmentSaver,
                 itemEnchantmentRepository,
                 itemStoreRepository,
+                itemStoreItemMiscRequirementsRepository,
                 itemMiscRequirementsRepository,
                 itemStatRequirementsRepository,
                 socketedItemRepository,
@@ -92,6 +99,7 @@ namespace ProjectXyz.Application.Core.Items
         {
             var itemStore = _itemStoreRepository.Add(
                 source.Id,
+                source.ItemDefinitionId,
                 source.NameStringResourceId,
                 source.InventoryGraphicResourceId,
                 source.MagicTypeId,
@@ -144,11 +152,15 @@ namespace ProjectXyz.Application.Core.Items
                     stat.Id);
             }
 
-            _itemMiscRequirementsRepository.Add(
+            var itemMiscRequirements = _itemMiscRequirementsRepository.Add(
                 Guid.NewGuid(),
-                source.Id,
                 requirements.RaceDefinitionId,
                 requirements.ClassDefinitionId);
+
+            _itemStoreItemMiscRequirementsRepository.Add(
+                Guid.NewGuid(),
+                source.Id,
+                itemMiscRequirements.Id);
 
             return itemStore;
         }

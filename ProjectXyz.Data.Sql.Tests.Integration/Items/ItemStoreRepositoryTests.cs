@@ -5,6 +5,7 @@ using Moq;
 using ProjectXyz.Data.Core.Items;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Sql.Items;
+using ProjectXyz.Tests.Integration;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -47,6 +48,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>()))
                 .Returns(genericCollectionResult.Object);
 
@@ -64,6 +66,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                     Guid.NewGuid(),
                     Guid.NewGuid(),
                     Guid.NewGuid(),
+                    Guid.NewGuid(),
                     Guid.NewGuid());
             }
 
@@ -75,6 +78,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
 
             factory.Verify(
                 x => x.Create(
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
@@ -109,6 +113,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
             var expectedResult = new Mock<IItemStore>(MockBehavior.Strict);
 
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var itemTypeId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -120,6 +125,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
             factory
                 .Setup(x => x.Create(
                     id,
+                    itemDefinitionId,
                     nameStringResourceId,
                     inventoryGraphicResourceId,
                     magicTypeId,
@@ -134,6 +140,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
 
             CreateItemStore(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,
@@ -149,6 +156,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
 
             factory.Verify(
                 x => x.Create(
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
@@ -177,6 +185,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 Guid.NewGuid());
 
             // Execute
@@ -197,6 +206,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var itemTypeId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -213,6 +223,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
             // Execute
             var result = repository.Add(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,
@@ -242,6 +253,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
 
         private void CreateItemStore(
             Guid id,
+            Guid itemDefinitionId,
             Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
@@ -252,6 +264,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
+                { "ItemDefinitionId", itemDefinitionId },
                 { "InventoryGraphicResourceId", inventoryGraphicResourceId },
                 { "ItemTypeId", itemTypeId },
                 { "MagicTypeId", magicTypeId },
@@ -266,6 +279,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                     Items
                 (
                     Id,
+                    ItemDefinitionId,
                     InventoryGraphicResourceId,
                     ItemTypeId,
                     MagicTypeId,
@@ -276,6 +290,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                 VALUES
                 (
                     @Id,
+                    @ItemDefinitionId,
                     @InventoryGraphicResourceId,
                     @ItemTypeId,
                     @MagicTypeId,

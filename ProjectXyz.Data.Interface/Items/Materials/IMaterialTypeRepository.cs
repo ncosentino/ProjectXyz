@@ -7,7 +7,9 @@ namespace ProjectXyz.Data.Interface.Items.Materials
     public interface IMaterialTypeRepository
     {
         #region Methods
-        void Add(IMaterialType itemStore);
+        IMaterialType Add(
+            Guid id,
+            Guid nameStringResourceId);
 
         void RemoveById(Guid id);
 

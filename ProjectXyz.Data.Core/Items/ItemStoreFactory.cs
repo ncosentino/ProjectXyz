@@ -23,6 +23,7 @@ namespace ProjectXyz.Data.Core.Items
         /// <inheritdoc />
         public IItemStore Create(
             Guid id,
+            Guid itemDefinitionId,
             Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
@@ -32,6 +33,7 @@ namespace ProjectXyz.Data.Core.Items
         {
             var itemStore = ItemStore.Create(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,

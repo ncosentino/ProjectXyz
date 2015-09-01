@@ -7,7 +7,9 @@ namespace ProjectXyz.Data.Interface.Items
     public interface IItemTypeRepository
     {
         #region Methods
-        void Add(IItemType itemStore);
+        IItemType Add(
+            Guid id,
+            Guid nameStringResourceId);
 
         void RemoveById(Guid id);
 

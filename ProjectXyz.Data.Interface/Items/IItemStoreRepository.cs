@@ -9,6 +9,7 @@ namespace ProjectXyz.Data.Interface.Items
         #region Methods
         IItemStore Add(
             Guid id,
+            Guid itemDefinitionId,
             Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,

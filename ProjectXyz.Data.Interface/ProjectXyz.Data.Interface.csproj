@@ -151,16 +151,19 @@
     <Compile Include="Diseases\IDiseaseStatesEnchantments.cs" />
     <Compile Include="Diseases\IDiseaseStateDefinition.cs" />
     <Compile Include="Diseases\IDiseaseDefinition.cs" />
+    <Compile Include="Diseases\IDiseaseDataStore.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentDefinitionRepositoryContract.cs" />
-    <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
-    <Compile Include="Enchantments\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentsDataStore.cs" />
+    <Compile Include="Items\Affixes\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
+    <Compile Include="Items\Affixes\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerContract.cs" />
-    <Compile Include="Enchantments\IEnchantmentWeatherFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentWeather.cs" />
-    <Compile Include="Enchantments\IEnchantmentWeatherRepository.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionWeatherGroupingFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionWeatherGrouping.cs" />
+    <Compile Include="Enchantments\IEnchantmentDefinitionWeatherGroupingRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentStoreFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinition.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionRepository.cs" />
@@ -168,19 +171,37 @@
     <Compile Include="Enchantments\IStatusNegationRepository.cs" />
     <Compile Include="Enchantments\IStatusNegationFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTypeRepository.cs" />
-    <Compile Include="Enchantments\IMagicTypesRandomAffixesRepository.cs" />
-    <Compile Include="Enchantments\IMagicTypesRandomAffixesFactory.cs" />
-    <Compile Include="Enchantments\IMagicTypesRandomAffixes.cs" />
-    <Compile Include="Enchantments\IAffixMagicTypes.cs" />
-    <Compile Include="Enchantments\IAffixMagicTypesRepository.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGroupingRepository.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGroupingFactory.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGrouping.cs" />
+    <Compile Include="Items\Affixes\IMagicTypesRandomAffixesRepository.cs" />
+    <Compile Include="Items\Affixes\IMagicTypesRandomAffixesFactory.cs" />
+    <Compile Include="Items\Affixes\IMagicTypesRandomAffixes.cs" />
     <Compile Include="Enchantments\IStatusNegation.cs" />
-    <Compile Include="Items\Affixes\IItemAffixEnchantment.cs" />
-    <Compile Include="Items\Affixes\IItemAffixEnchantmentFactory.cs" />
-    <Compile Include="Items\Affixes\IItemAffixEnchantmentRepository.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionEnchantment.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionEnchantmentFactory.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionEnchantmentRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionFilterRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionFactory.cs" />
+    <Compile Include="Items\Contracts\IItemDefinitionContract.cs" />
+    <Compile Include="Items\IItemDataStore.cs" />
+    <Compile Include="Items\IItemDefinitionStatRepository.cs" />
+    <Compile Include="Items\IItemDefinitionStatFactory.cs" />
+    <Compile Include="Items\IItemDefinition.cs" />
+    <Compile Include="Items\IItemDefinitionFactory.cs" />
+    <Compile Include="Items\IItemDefinitionRepository.cs" />
+    <Compile Include="Items\IItemDefinitionStat.cs" />
     <Compile Include="Items\IItemStoreFactory.cs" />
     <Compile Include="Items\IItemStoreRepository.cs" />
+    <Compile Include="Items\Requirements\IItemDefinitionStatRequirements.cs" />
+    <Compile Include="Items\Requirements\IItemDefinitionStatRequirementsFactory.cs" />
+    <Compile Include="Items\Requirements\IItemDefinitionStatRequirementsRepository.cs" />
+    <Compile Include="Items\Requirements\IItemDefinitionIItemMiscRequirements.cs" />
+    <Compile Include="Items\Requirements\IItemDefinitionItemMiscRequirementsFactory.cs" />
+    <Compile Include="Items\Requirements\IItemDefinitionItemMiscRequirementsRepository.cs" />
+    <Compile Include="Items\Requirements\IItemStoreIItemMiscRequirements.cs" />
+    <Compile Include="Items\Requirements\IItemStoreItemMiscRequirementsFactory.cs" />
+    <Compile Include="Items\Requirements\IItemStoreItemMiscRequirementsRepository.cs" />
     <Compile Include="Items\Requirements\IItemMiscRequirementsRepository.cs" />
     <Compile Include="Items\Requirements\IItemStatRequirementsRepository.cs" />
     <Compile Include="Items\Requirements\IItemStatRequirementsFactory.cs" />
@@ -238,6 +259,17 @@
     <Compile Include="Maps\IMapStoreFactory.cs" />
     <Compile Include="Maps\IMapStoreRepository.cs" />
     <Compile Include="Maps\IMapStore.cs" />
+    <Compile Include="Resources\IGraphicResource.cs" />
+    <Compile Include="Resources\IGraphicResourceFactory.cs" />
+    <Compile Include="Resources\IGraphicResourceRepository.cs" />
+    <Compile Include="Resources\IResourcesDataStore.cs" />
+    <Compile Include="Resources\IStringResource.cs" />
+    <Compile Include="Resources\IStringResourceFactory.cs" />
+    <Compile Include="Resources\IStringResourceRepository.cs" />
+    <Compile Include="Resources\IDisplayLanguageRepository.cs" />
+    <Compile Include="Resources\IDisplayLanguageFactory.cs" />
+    <Compile Include="Resources\IDisplayLanguage.cs" />
+    <Compile Include="Stats\IStatsDataStore.cs" />
     <Compile Include="Stats\IStatDefinitionRepository.cs" />
     <Compile Include="Stats\IStatDefinitionFactory.cs" />
     <Compile Include="Stats\IStatDefinition.cs" />
@@ -256,6 +288,10 @@
     <Compile Include="Stats\IStatCollection.cs" />
     <Compile Include="Stats\IStatFactory.cs" />
     <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
+    <Compile Include="Weather\IWeatherGroupingRepository.cs" />
+    <Compile Include="Weather\IWeatherDataStore.cs" />
+    <Compile Include="Weather\IWeatherGroupingFactory.cs" />
+    <Compile Include="Weather\IWeatherGrouping.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
@@ -263,9 +299,7 @@
       <Name>ProjectXyz.Interface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Weather\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

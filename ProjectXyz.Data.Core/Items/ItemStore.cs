@@ -10,6 +10,7 @@ namespace ProjectXyz.Data.Core.Items
     {
         #region Fields
         private readonly Guid _id;
+        private readonly Guid _itemDefinitionId;
         private readonly Guid _nameStringResourceId;
         private readonly Guid _inventoryGraphicResourceId;
         private readonly Guid _magicTypeId;
@@ -21,6 +22,7 @@ namespace ProjectXyz.Data.Core.Items
         #region Constructors
         private ItemStore(
             Guid id,
+            Guid itemDefinitionId,
             Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
@@ -29,6 +31,7 @@ namespace ProjectXyz.Data.Core.Items
             Guid socketTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(inventoryGraphicResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(magicTypeId != Guid.Empty);
@@ -37,6 +40,7 @@ namespace ProjectXyz.Data.Core.Items
             Contract.Requires<ArgumentException>(socketTypeId != Guid.Empty);
 
             _id = id;
+            _itemDefinitionId = itemDefinitionId;
             _nameStringResourceId = nameStringResourceId;
             _inventoryGraphicResourceId = inventoryGraphicResourceId;
             _magicTypeId = magicTypeId;
@@ -49,6 +53,9 @@ namespace ProjectXyz.Data.Core.Items
         #region Properties
         /// <inheritdoc />
         public Guid Id { get { return _id; } }
+
+        /// <inheritdoc />
+        public Guid ItemDefinitionId { get { return _itemDefinitionId; } }
 
         /// <inheritdoc />
         public Guid NameStringResourceId { get { return _nameStringResourceId; } }
@@ -72,6 +79,7 @@ namespace ProjectXyz.Data.Core.Items
         #region Methods
         public static IItemStore Create(
             Guid id,
+            Guid itemDefinitionId,
             Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
@@ -80,6 +88,7 @@ namespace ProjectXyz.Data.Core.Items
             Guid socketTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(inventoryGraphicResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(magicTypeId != Guid.Empty);
@@ -90,6 +99,7 @@ namespace ProjectXyz.Data.Core.Items
             
             var itemStore = new ItemStore(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,

@@ -10,10 +10,10 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     public abstract class IEnchantmentTriggerFactoryContract : IEnchantmentTriggerFactory
     {
         #region Methods
-        public IEnchantmentTrigger CreateEnchantmentTrigger(Guid id, string name)
+        public IEnchantmentTrigger Create(Guid id, Guid nameStringResourceId)
         {
-            Contract.Requires<ArgumentNullException>(name != null);
-            Contract.Requires<ArgumentException>(name != string.Empty);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentTrigger>() != null);
 
             return default(IEnchantmentTrigger);

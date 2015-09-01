@@ -5,6 +5,7 @@ using Moq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 using IMutableEnchantmentCollection = ProjectXyz.Application.Interface.Enchantments.IMutableEnchantmentCollection;
@@ -43,9 +44,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.GetAll())
                 .Returns(new[] { statusNegation.Object });
 
+            var weatherTypeGroupingRepository = new Mock<IWeatherGroupingRepository>(MockBehavior.Strict);
+
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
 
-            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object);
+            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
+                statusNegationRepository.Object,
+                weatherTypeGroupingRepository.Object);
 
             // Execute
             var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments.Object);
@@ -67,6 +72,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             // Setup
             var statId = Guid.NewGuid();
             var statusTypeId = Guid.NewGuid();
+            var weatherTypeGroupingId = Guid.NewGuid();
 
             var initialStat = new Mock<IStat>(MockBehavior.Strict);
             initialStat
@@ -82,19 +88,25 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             modifierEnchantment
                 .Setup(x => x.StatusTypeId)
                 .Returns(statusTypeId);
+            modifierEnchantment
+                .Setup(x => x.WeatherGroupingId)
+                .Returns(weatherTypeGroupingId);
 
             var untouchedEnchantment = new Mock<IEnchantment>(MockBehavior.Strict);
             untouchedEnchantment
                 .Setup(x => x.StatusTypeId)
                 .Returns(Guid.NewGuid());
+            untouchedEnchantment
+                .Setup(x => x.WeatherGroupingId)
+                .Returns(weatherTypeGroupingId);
 
             var negationEnchantment = new Mock<IOneShotNegateEnchantment>(MockBehavior.Strict);
             negationEnchantment
                 .Setup(x => x.StatId)
                 .Returns(statId);
             negationEnchantment
-                .Setup(x => x.WeatherIds)
-                .Returns(Enumerable.Empty<Guid>());
+                .Setup(x => x.WeatherGroupingId)
+                .Returns(weatherTypeGroupingId);
 
             var enchantments = new Mock<IEnumerable<IEnchantment>>(MockBehavior.Strict);
             enchantments
@@ -119,9 +131,16 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.GetAll())
                 .Returns(new[] { statusNegation.Object });
 
+            var weatherTypeGroupingRepository = new Mock<IWeatherGroupingRepository>(MockBehavior.Strict);
+            weatherTypeGroupingRepository
+                .Setup(x => x.GetByGroupingId(weatherTypeGroupingId))
+                .Returns(new IWeatherGrouping[0]);
+
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
             
-            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object);
+            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
+                statusNegationRepository.Object,
+                weatherTypeGroupingRepository.Object);
 
             // Execute
             var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments.Object);
@@ -141,11 +160,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             stats.Verify(x => x.GetEnumerator(), Times.Once);
 
             modifierEnchantment.Verify(x => x.StatusTypeId, Times.Exactly(2));
+            modifierEnchantment.Verify(x => x.WeatherGroupingId, Times.Once);
 
             untouchedEnchantment.Verify(x => x.StatusTypeId, Times.Once);
+            untouchedEnchantment.Verify(x => x.WeatherGroupingId, Times.Once);
 
             negationEnchantment.Verify(x => x.StatId, Times.Once);
-            negationEnchantment.Verify(x => x.WeatherIds, Times.Once);
+            negationEnchantment.Verify(x => x.WeatherGroupingId, Times.Once);
 
             enchantments.Verify(x => x.GetEnumerator(), Times.Once);
 
@@ -153,6 +174,8 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             statusNegation.Verify(x => x.StatId, Times.Once);
 
             statusNegationRepository.Verify(x => x.GetAll(), Times.Once);
+
+            weatherTypeGroupingRepository.Verify(x => x.GetByGroupingId(It.IsAny<Guid>()), Times.Exactly(3));
         }
 
         [Fact]
@@ -161,6 +184,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             // Setup
             var statId = Guid.NewGuid();
             var statusTypeId = Guid.NewGuid();
+            var weatherTypeGroupingId = Guid.NewGuid();
 
             var stats = new Mock<IStatCollection>(MockBehavior.Strict);
             stats
@@ -172,8 +196,8 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.StatId)
                 .Returns(statId);
             negationEnchantment
-                .Setup(x => x.WeatherIds)
-                .Returns(Enumerable.Empty<Guid>());
+                .Setup(x => x.WeatherGroupingId)
+                .Returns(weatherTypeGroupingId);
 
             var enchantments = new Mock<IEnumerable<IEnchantment>>(MockBehavior.Strict);
             enchantments
@@ -196,9 +220,16 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
                 .Setup(x => x.GetAll())
                 .Returns(new[] { statusNegation.Object });
 
+            var weatherTypeGroupingRepository = new Mock<IWeatherGroupingRepository>(MockBehavior.Strict);
+            weatherTypeGroupingRepository
+                .Setup(x => x.GetByGroupingId(weatherTypeGroupingId))
+                .Returns(new IWeatherGrouping[0]);
+
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
 
-            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository.Object);
+            var enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
+                statusNegationRepository.Object, 
+                weatherTypeGroupingRepository.Object);
 
             // Execute
             var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments.Object);
@@ -214,7 +245,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             stats.Verify(x => x.GetEnumerator(), Times.Once);
 
             negationEnchantment.Verify(x => x.StatId, Times.Once);
-            negationEnchantment.Verify(x => x.WeatherIds, Times.Once);
+            negationEnchantment.Verify(x => x.WeatherGroupingId, Times.Once);
 
             enchantments.Verify(x => x.GetEnumerator(), Times.Once);
 
@@ -222,6 +253,8 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             statusNegation.Verify(x => x.StatId, Times.Once);
 
             statusNegationRepository.Verify(x => x.GetAll(), Times.Once);
+
+            weatherTypeGroupingRepository.Verify(x => x.GetByGroupingId(It.IsAny<Guid>()), Times.Once);
         }
         #endregion
     }

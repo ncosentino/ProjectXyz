@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics.Contracts;
+using ProjectXyz.Data.Interface.Items.Affixes;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {

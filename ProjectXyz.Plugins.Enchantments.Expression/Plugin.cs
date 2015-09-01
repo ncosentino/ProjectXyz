@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Data.Sql;
 using ProjectXyz.Plugins.Enchantments.Expression.Sql;
 
@@ -14,7 +14,6 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
     public sealed class Plugin : IEnchantmentPlugin
     {
         #region Fields
-        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
         private readonly IExpressionEnchantmentStoreRepository _expressionEnchantmentStoreRepository;
         private readonly IExpressionEnchantmentStatRepository _expressionEnchantmentStatRepository;
         private readonly IExpressionEnchantmentValueRepository _expressionEnchantmentValueRepository;
@@ -32,17 +31,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         #region Constructors
         public Plugin(
             IDatabase database,
-            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
-            IEnchantmentWeatherRepository enchantmentWeatherRepository)
+            IDataStore dataStore)
         {
-
-            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
-            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+            _enchantmentDefinitionRepository = dataStore.Enchantments.EnchantmentDefinitions;
 
             var stringExpressionEvaluator = DataTableExpressionEvaluator.Create();
             var expressionEvaluator = ExpressionEvaluator.Create(stringExpressionEvaluator.Evaluate);
-
-            var statFactory = StatFactory.Create();
 
             _expressionDefinitionFactory = ExpressionDefinitionFactory.Create();
             _expressionDefinitionRepository = ExpressionDefinitionRepository.Create(
@@ -50,8 +44,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 _expressionDefinitionFactory);
 
             _enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
-                statFactory,
-                expressionEvaluator);
+                dataStore.Stats.StatFactory,
+                expressionEvaluator,
+                dataStore.Weather.WeatherGroupings);
 
             _expressionEnchantmentStoreFactory = ExpressionEnchantmentStoreFactory.Create();
 
@@ -90,13 +85,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 database,
                 expressionEnchantmentStatDefinitionFactory);
 
+            var enchantmentDefinitionWeatherGroupingRepository = dataStore.Enchantments.EnchantmentWeather;
             _expressionEnchantmentGenerator = ExpressioneEnchantmentGenerator.Create(
                 enchantmentFactory,
                 expressionEnchantmentDefinitioneRepository,
                 expressionEnchantmentValueDefinitionRepository,
                 expressionEnchantmentStatDefinitionRepository,
                 _expressionDefinitionRepository,
-                enchantmentWeatherRepository);
+                enchantmentDefinitionWeatherGroupingRepository);
         }
         #endregion
 
@@ -215,20 +211,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 .Select(x => new KeyValuePair<string, double>(x.IdForExpression, x.Value));
 
             var expressionDefinition = _expressionDefinitionRepository.GetById(expressionEnchantmentStore.ExpressionId);
-
-            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentStore.EnchantmentWeatherId);
-            if (enchantmentWeather == null)
-            {
-                throw new InvalidOperationException(string.Format(
-                    "Could not find enchantment weather for id '{0}'.",
-                    enchantmentStore.EnchantmentWeatherId));
-            }
-
+            
             var expressionEnchantment = _expressionEnchantmentFactory.Create(
                 enchantmentStore.Id,
                 enchantmentStore.StatusTypeId,
                 enchantmentStore.TriggerId,
-                enchantmentWeather.WeatherIds,
+                enchantmentStore.WeatherGroupingId,
                 expressionEnchantmentStore.RemainingDuration,
                 expressionEnchantmentStore.StatId,
                 expressionDefinition.Expression,

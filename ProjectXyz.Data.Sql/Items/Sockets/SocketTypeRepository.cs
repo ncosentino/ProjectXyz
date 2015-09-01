@@ -41,12 +41,14 @@ namespace ProjectXyz.Data.Sql.Items.Sockets
                 factory);
         }
 
-        public void Add(ISocketType socketType)
+        public ISocketType Add(
+            Guid id,
+            Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", socketType.Id },
-                { "NameStringResourceId", socketType.NameStringResourceId },
+                { "Id", id },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -67,6 +69,11 @@ namespace ProjectXyz.Data.Sql.Items.Sockets
             {
                 command.ExecuteNonQuery();
             }
+
+            var socketType = _factory.Create(
+                id,
+                nameStringResourceId);
+            return socketType;
         }
 
         public void RemoveById(Guid id)

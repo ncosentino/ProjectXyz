@@ -24,19 +24,16 @@ namespace ProjectXyz.Data.Core.Items.Requirements
         /// <inheritdoc />
         public IItemMiscRequirements Create(
             Guid id,
-            Guid itemId,
-            Guid raceDefinitionId,
-            Guid classDefinitionId)
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(itemId != Guid.Empty);
             Contract.Requires<ArgumentException>(raceDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(classDefinitionId != Guid.Empty);
             Contract.Ensures(Contract.Result<IItemMiscRequirements>() != null);
 
             var itemMiscRequirements = ItemMiscRequirements.Create(
                 id,
-                itemId,
                 raceDefinitionId,
                 classDefinitionId);
             return itemMiscRequirements;

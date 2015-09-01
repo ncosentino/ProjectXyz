@@ -10,7 +10,10 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IEnchantmentDefinitionRepository
     {
         #region Methods
-        void Add(IEnchantmentDefinition enchantmentDefinition);
+        IEnchantmentDefinition Add(
+            Guid id,
+            Guid triggerId,
+            Guid statusTypeId);
 
         void RemoveById(Guid id);
 

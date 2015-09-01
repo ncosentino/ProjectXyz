@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -34,9 +35,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var expressionEvaluator = new Mock<IExpressionEvaluator>(MockBehavior.Strict);
 
+            var weatherTypeGroupingRepository = new Mock<IWeatherGroupingRepository>(MockBehavior.Strict);
+
             var enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
                 statFactory.Object,
-                expressionEvaluator.Object);
+                expressionEvaluator.Object,
+                weatherTypeGroupingRepository.Object);
 
             // Execute
             var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments.Object);
@@ -59,6 +63,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             const double VALUE1 = 123;
             const double VALUE2 = 456;
             var statId = Guid.NewGuid();
+            var weatherGroupingId = Guid.NewGuid();
             
             var stats = new Mock<IStatCollection>(MockBehavior.Strict);
             stats
@@ -70,8 +75,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                 .Setup(x => x.StatId)
                 .Returns(statId);
             enchantment1
-                .Setup(x => x.WeatherIds)
-                .Returns(Enumerable.Empty<Guid>());
+                .Setup(x => x.WeatherGroupingId)
+                .Returns(weatherGroupingId);
             enchantment1
                 .Setup(x => x.CalculationPriority)
                 .Returns(0);
@@ -81,8 +86,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
                 .Setup(x => x.StatId)
                 .Returns(statId);
             enchantment2
-                .Setup(x => x.WeatherIds)
-                .Returns(Enumerable.Empty<Guid>());
+                .Setup(x => x.WeatherGroupingId)
+                .Returns(weatherGroupingId);
             enchantment2
                 .Setup(x => x.CalculationPriority)
                 .Returns(0);
@@ -98,10 +103,10 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var statFactory = new Mock<IStatFactory>(MockBehavior.Strict);
             statFactory
-                .Setup(x => x.CreateStat(It.IsAny<Guid>(), statId, VALUE1))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statId, VALUE1))
                 .Returns(stat1.Object);
             statFactory
-                .Setup(x => x.CreateStat(It.IsAny<Guid>(), statId, VALUE2))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statId, VALUE2))
                 .Returns(stat2.Object);
 
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
@@ -114,9 +119,15 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
               .Setup(x => x.Evaluate(enchantment2.Object, It.IsAny<IStatCollection>()))
               .Returns(VALUE2);
 
+            var weatherTypeGroupingRepository = new Mock<IWeatherGroupingRepository>(MockBehavior.Strict);
+            weatherTypeGroupingRepository
+                .Setup(x => x.GetByGroupingId(weatherGroupingId))
+                .Returns(new IWeatherGrouping[0]);
+
             var enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
                 statFactory.Object,
-                expressionEvaluator.Object);
+                expressionEvaluator.Object,
+                weatherTypeGroupingRepository.Object);
 
             // Execute
             var result = enchantmentTypeCalculator.Calculate(enchantmentContext.Object, stats.Object, enchantments);
@@ -133,18 +144,20 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             stats.Verify(x => x.GetEnumerator(), Times.Once);
 
             enchantment1.Verify(x => x.StatId, Times.AtLeastOnce);
-            enchantment1.Verify(x => x.WeatherIds, Times.Once);
+            enchantment1.Verify(x => x.WeatherGroupingId, Times.Once);
             enchantment1.Verify(x => x.CalculationPriority, Times.Once);
 
             enchantment2.Verify(x => x.StatId, Times.AtLeastOnce);
-            enchantment2.Verify(x => x.WeatherIds, Times.Once);
+            enchantment2.Verify(x => x.WeatherGroupingId, Times.Once);
             enchantment2.Verify(x => x.CalculationPriority, Times.Once);
 
             stat2.Verify(x => x.StatDefinitionId, Times.Once);
 
-            statFactory.Verify(x => x.CreateStat(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<double>()), Times.Exactly(2));
+            statFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<double>()), Times.Exactly(2));
 
             expressionEvaluator.Verify(x => x.Evaluate(It.IsAny<IExpressionEnchantment>(), It.IsAny<IStatCollection>()), Times.Exactly(2));
+
+            weatherTypeGroupingRepository.Verify(x => x.GetByGroupingId(It.IsAny<Guid>()), Times.Exactly(2));
         }
         #endregion
     }

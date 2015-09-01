@@ -7,6 +7,7 @@ using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
+using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
 {
@@ -15,26 +16,31 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         #region Fields
         private readonly IStatFactory _statFactory;
         private readonly IExpressionEvaluator _expressioNEvaluator;
+        private readonly IWeatherGroupingRepository _weatherGroupingRepository;
         #endregion
 
         #region Constructors
         private ExpressionEnchantmentTypeCalculator(
             IStatFactory statFactory,
-            IExpressionEvaluator expressioNEvaluator)
+            IExpressionEvaluator expressionEvaluator,
+            IWeatherGroupingRepository weatherGroupingRepository)
         {
             _statFactory = statFactory;
-            _expressioNEvaluator = expressioNEvaluator;
+            _expressioNEvaluator = expressionEvaluator;
+            _weatherGroupingRepository = weatherGroupingRepository;
         }
         #endregion
 
         #region Methods
         public static IEnchantmentTypeCalculator Create(
             IStatFactory statFactory,
-            IExpressionEvaluator expressionEvaluator)
+            IExpressionEvaluator expressionEvaluator,
+            IWeatherGroupingRepository weatherGroupingRepository)
         {
             return new ExpressionEnchantmentTypeCalculator(
                 statFactory,
-                expressionEvaluator);
+                expressionEvaluator,
+                weatherGroupingRepository);
         }
 
         public IEnchantmentTypeCalculatorResult Calculate(
@@ -63,12 +69,17 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IEnumerable<IEnchantment> enchantments, 
             IMutableStatCollection stats)
         {
-            foreach (var enchantment in GetActiveExpressionEnchantments(enchantmentContext, enchantments))
+            var activeEnchantments = GetActiveExpressionEnchantments(
+                _weatherGroupingRepository,
+                enchantmentContext,
+                enchantments);
+
+            foreach (var enchantment in activeEnchantments)
             {
                 var newValue = _expressioNEvaluator.Evaluate(
                     enchantment,
                     stats);
-                var newStat = _statFactory.CreateStat(
+                var newStat = _statFactory.Create(
                     Guid.NewGuid(), 
                     enchantment.StatId, 
                     newValue);
@@ -79,11 +90,18 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         }
 
         private IEnumerable<IExpressionEnchantment> GetActiveExpressionEnchantments(
+            IWeatherGroupingRepository weatherGroupingRepository,
             IEnchantmentContext enchantmentContext,
             IEnumerable<IEnchantment> enchantments)
         {
             return enchantments
-                .Where(x => x is IExpressionEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
+                .Where(x =>
+                {
+                    var weatherGroupings = weatherGroupingRepository
+                        .GetByGroupingId(x.WeatherGroupingId)
+                        .ToArray();
+                    return x is IExpressionEnchantment && (!weatherGroupings.Any() || weatherGroupings.Any(e => e.WeatherId == enchantmentContext.ActiveWeatherId));
+                })
                 .Cast<IExpressionEnchantment>()
                 .OrderBy(x => x.CalculationPriority);
         }

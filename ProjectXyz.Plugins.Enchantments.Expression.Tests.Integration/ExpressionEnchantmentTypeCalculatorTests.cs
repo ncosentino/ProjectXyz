@@ -4,7 +4,7 @@ using System.Linq;
 using Moq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -20,12 +20,13 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
         {
             // Setup
             var statId = Guid.NewGuid();
+            var weatherTypeGroupingId = Guid.NewGuid();
 
             var additiveEnchantment = ExpressionEnchantment.Create(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
-                Enumerable.Empty<Guid>(),
+                weatherTypeGroupingId,
                 TimeSpan.Zero,
                 statId,
                 "STAT + VALUE",
@@ -37,7 +38,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
-                Enumerable.Empty<Guid>(),
+                weatherTypeGroupingId,
                 TimeSpan.Zero,
                 statId,
                 "STAT * VALUE",
@@ -57,9 +58,15 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
 
             var expressionEvaluator = ExpressionEvaluator.Create(dataTableExpressionEvaluator.Evaluate);
 
+            var weatherTypeGroupingRepository = new Mock<IWeatherGroupingRepository>(MockBehavior.Strict);
+            weatherTypeGroupingRepository
+                .Setup(x => x.GetByGroupingId(weatherTypeGroupingId))
+                .Returns(new IWeatherGrouping[0]);
+
             var enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
                 statFactory,
-                expressionEvaluator);
+                expressionEvaluator,
+                weatherTypeGroupingRepository.Object);
 
             var stats = StatCollection.Create();
 

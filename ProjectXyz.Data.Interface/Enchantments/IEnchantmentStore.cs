@@ -18,7 +18,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         Guid EnchantmentTypeId { get; }
 
-        Guid EnchantmentWeatherId { get; }
+        Guid WeatherGroupingId { get; }
         #endregion
     }
 }

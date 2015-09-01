@@ -56,7 +56,7 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
             }
         }
 
-        public Guid EnchantmentWeatherId
+        public Guid WeatherGroupingId
         {
             get
             {

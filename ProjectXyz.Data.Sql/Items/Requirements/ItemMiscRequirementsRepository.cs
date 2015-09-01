@@ -43,20 +43,17 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
 
         public IItemMiscRequirements Add(
             Guid id,
-            Guid itemId,
-            Guid raceDefinitionId,
-            Guid classDefinitionId)
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId)
         {
             var itemMiscRequirements = _factory.Create(
                 id,
-                itemId,
                 raceDefinitionId,
                 classDefinitionId);
 
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", itemMiscRequirements.Id },
-                { "ItemId", itemMiscRequirements.ItemId },
                 { "RaceDefinitionId", itemMiscRequirements.RaceDefinitionId },
                 { "ClassDefinitionId", itemMiscRequirements.ClassDefinitionId },
             };
@@ -64,17 +61,15 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    ItemMiscRequirementss
+                    ItemMiscRequirements
                 (
                     Id,
-                    ItemId,
                     RaceDefinitionId,
                     ClassDefinitionId
                 )
                 VALUES
                 (
                     @Id,
-                    @NameStringResourceId,
                     @RaceDefinitionId,
                     @ClassDefinitionId
                 )
@@ -92,7 +87,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    ItemMiscRequirementss
+                    ItemMiscRequirements
                 WHERE
                     Id = @id
                 ;",
@@ -110,7 +105,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
                 SELECT 
                     *
                 FROM
-                    ItemMiscRequirementss
+                    ItemMiscRequirements
                 WHERE
                     Id = @Id
                 LIMIT 1
@@ -130,33 +125,6 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             }
         }
 
-        public IItemMiscRequirements GetByItemId(Guid itemId)
-        {
-            using (var command = _database.CreateCommand(
-                @"
-                SELECT 
-                    *
-                FROM
-                    ItemMiscRequirementss
-                WHERE
-                    ItemId = @ItemId
-                LIMIT 1
-                ;",
-                "@ItemId",
-                itemId))
-            {
-                using (var reader = command.ExecuteReader())
-                {
-                    if (!reader.Read())
-                    {
-                        throw new InvalidOperationException("No item misc requirements with item Id '" + itemId + "' was found.");
-                    }
-
-                    return GetFromReader(reader, _factory);
-                }
-            }
-        }
-
         public IEnumerable<IItemMiscRequirements> GetAll()
         {
             using (var command = _database.CreateCommand(
@@ -164,7 +132,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
                 SELECT 
                     *
                 FROM
-                    ItemMiscRequirementss
+                    ItemMiscRequirements
                 ;"))
             {
                 using (var reader = command.ExecuteReader())
@@ -183,11 +151,13 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             Contract.Requires<ArgumentNullException>(factory != null);
             Contract.Ensures(Contract.Result<IItemMiscRequirements>() != null);
 
+            var raceDefinitionIdIndex = reader.GetOrdinal("RaceDefinitionId");
+            var classDefinitionIdIndex = reader.GetOrdinal("ClassDefinitionId");
+
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
-                reader.GetGuid(reader.GetOrdinal("ItemId")),
-                reader.GetGuid(reader.GetOrdinal("RaceDefinitionId")),
-                reader.GetGuid(reader.GetOrdinal("ClassDefinitionId")));
+                reader.IsDBNull(raceDefinitionIdIndex) ? null : (Guid?)reader.GetGuid(raceDefinitionIdIndex),
+                reader.IsDBNull(classDefinitionIdIndex) ? null : (Guid?)reader.GetGuid(classDefinitionIdIndex));
         }
 
         [ContractInvariantMethod]

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Core.Items.Affixes;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
@@ -26,7 +25,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             const int LEVEL = 0;
             var magicTypeId = Guid.NewGuid();
             var itemAffixDefinitionId1 = Guid.NewGuid();
+            var itemAffixDefinitionNameStringResourceId1 = Guid.NewGuid();
             var itemAffixDefinitionId2 = Guid.NewGuid();
+            var itemAffixDefinitionNameStringResourceId2 = Guid.NewGuid();
             var enchantmentId1 = Guid.NewGuid();
             var enchantmentId2 = Guid.NewGuid();
 
@@ -52,11 +53,17 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             itemAffixDefinition1
                 .Setup(x => x.Id)
                 .Returns(itemAffixDefinitionId1);
+            itemAffixDefinition1
+                .Setup(x => x.NameStringResourceId)
+                .Returns(itemAffixDefinitionNameStringResourceId1);
 
             var itemAffixDefinition2 = new Mock<IItemAffixDefinition>(MockBehavior.Strict);
             itemAffixDefinition2
                 .Setup(x => x.Id)
                 .Returns(itemAffixDefinitionId2);
+            itemAffixDefinition2
+                .Setup(x => x.NameStringResourceId)
+                .Returns(itemAffixDefinitionNameStringResourceId2);
 
             var itemAffixDefinitionRepository = new Mock<IItemAffixDefinitionRepository>(MockBehavior.Strict);
             itemAffixDefinitionRepository
@@ -76,17 +83,17 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     true))
                 .Returns(new[] { itemAffixDefinitionId1, itemAffixDefinitionId2 });
 
-            var itemAffixEnchantment1 = new Mock<IItemAffixEnchantment>(MockBehavior.Strict);
+            var itemAffixEnchantment1 = new Mock<IItemAffixDefinitionEnchantment>(MockBehavior.Strict);
             itemAffixEnchantment1
-                .Setup(x => x.EnchantmentId)
+                .Setup(x => x.EnchantmentDefinitionId)
                 .Returns(enchantmentId1);
 
-            var itemAffixEnchantment2 = new Mock<IItemAffixEnchantment>(MockBehavior.Strict);
+            var itemAffixEnchantment2 = new Mock<IItemAffixDefinitionEnchantment>(MockBehavior.Strict);
             itemAffixEnchantment2
-                .Setup(x => x.EnchantmentId)
+                .Setup(x => x.EnchantmentDefinitionId)
                 .Returns(enchantmentId2);
 
-            var itemAffixEnchantmentRepository = new Mock<IItemAffixEnchantmentRepository>(MockBehavior.Strict);
+            var itemAffixEnchantmentRepository = new Mock<IItemAffixDefinitionEnchantmentRepository>(MockBehavior.Strict);
             itemAffixEnchantmentRepository
                 .Setup(x => x.GetByItemAffixDefinitionId(itemAffixDefinitionId1))
                 .Returns(new[]
@@ -105,16 +112,22 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
 
             var itemAffixFactory = new Mock<IItemAffixFactory>(MockBehavior.Strict);
             itemAffixFactory
-                .Setup(x => x.CreateItemAffix(new[]
-                {
-                    enchantment1.Object,
-                }))
+                .Setup(x => x.Create(
+                    itemAffixDefinitionId1,
+                    itemAffixDefinitionNameStringResourceId1,
+                    new[]
+                    {
+                        enchantment1.Object,
+                    }))
                 .Returns(itemAffix1.Object);
             itemAffixFactory
-                .Setup(x => x.CreateItemAffix(new[]
-                {
-                    enchantment2.Object,
-                }))
+                .Setup(x => x.Create(
+                    itemAffixDefinitionId2,
+                    itemAffixDefinitionNameStringResourceId2,
+                    new[]
+                    {
+                        enchantment2.Object,
+                    }))
                 .Returns(itemAffix2.Object);
 
             var magicTypesRandomAffixes = new Mock<IMagicTypesRandomAffixes>(MockBehavior.Strict);
@@ -154,8 +167,10 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             enchantmentGenerator.Verify(x => x.Generate(It.IsAny<IRandom>(), It.IsAny<Guid>()), Times.Exactly(2));
             
             itemAffixDefinition1.Verify(x => x.Id, Times.Once);
+            itemAffixDefinition1.Verify(x => x.NameStringResourceId, Times.Once);
             
             itemAffixDefinition2.Verify(x => x.Id, Times.Once);
+            itemAffixDefinition2.Verify(x => x.NameStringResourceId, Times.Once);
 
             itemAffixDefinitionRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Exactly(2));
 
@@ -168,13 +183,13 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     It.IsAny<bool>()),
                 Times.Once);
 
-            itemAffixEnchantment1.Verify(x => x.EnchantmentId, Times.Once);
+            itemAffixEnchantment1.Verify(x => x.EnchantmentDefinitionId, Times.Once);
 
-            itemAffixEnchantment2.Verify(x => x.EnchantmentId, Times.Once);
+            itemAffixEnchantment2.Verify(x => x.EnchantmentDefinitionId, Times.Once);
 
             itemAffixEnchantmentRepository.Verify(x => x.GetByItemAffixDefinitionId(It.IsAny<Guid>()), Times.Exactly(2));
             
-            itemAffixFactory.Verify(x => x.CreateItemAffix(It.IsAny<IEnumerable<IEnchantment>>()), Times.Exactly(2));
+            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Exactly(2));
 
             magicTypesRandomAffixes.Verify(x => x.MinimumAffixes, Times.Once);
             magicTypesRandomAffixes.Verify(x => x.MaximumAffixes, Times.Once);
@@ -232,17 +247,17 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     false))
                 .Returns(new[] { itemPrefixId });
 
-            var itemAffixEnchantment1 = new Mock<IItemAffixEnchantment>(MockBehavior.Strict);
+            var itemAffixEnchantment1 = new Mock<IItemAffixDefinitionEnchantment>(MockBehavior.Strict);
             itemAffixEnchantment1
-                .Setup(x => x.EnchantmentId)
+                .Setup(x => x.EnchantmentDefinitionId)
                 .Returns(enchantmentId1);
 
-            var itemAffixEnchantment2 = new Mock<IItemAffixEnchantment>(MockBehavior.Strict);
+            var itemAffixEnchantment2 = new Mock<IItemAffixDefinitionEnchantment>(MockBehavior.Strict);
             itemAffixEnchantment2
-                .Setup(x => x.EnchantmentId)
+                .Setup(x => x.EnchantmentDefinitionId)
                 .Returns(enchantmentId2);
 
-            var itemAffixEnchantmentRepository = new Mock<IItemAffixEnchantmentRepository>(MockBehavior.Strict);
+            var itemAffixEnchantmentRepository = new Mock<IItemAffixDefinitionEnchantmentRepository>(MockBehavior.Strict);
             itemAffixEnchantmentRepository
                 .Setup(x => x.GetByItemAffixDefinitionId(itemPrefixId))
                 .Returns(new[]
@@ -251,17 +266,18 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     itemAffixEnchantment2.Object
                 });
 
-            var itemPrefix = new Mock<INamedItemAffix>(MockBehavior.Strict);
+            var itemPrefix = new Mock<IItemAffix>(MockBehavior.Strict);
 
             var itemAffixFactory = new Mock<IItemAffixFactory>(MockBehavior.Strict);
             itemAffixFactory
-                .Setup(x => x.CreateNamedItemAffix(
+                .Setup(x => x.Create(
+                    itemPrefixId,
+                    affixNameStringResourceId,
                     new[]
                     {
                         enchantment1.Object,
                         enchantment2.Object
-                    },
-                    affixNameStringResourceId))
+                    }))
                 .Returns(itemPrefix.Object);
             
             var magicTypesRandomAffixesRepository = new Mock<IMagicTypesRandomAffixesRepository>(MockBehavior.Strict);
@@ -301,13 +317,13 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     It.IsAny<bool>()),
                 Times.Once);
 
-            itemAffixEnchantment1.Verify(x => x.EnchantmentId, Times.Once);
+            itemAffixEnchantment1.Verify(x => x.EnchantmentDefinitionId, Times.Once);
 
-            itemAffixEnchantment2.Verify(x => x.EnchantmentId, Times.Once);
+            itemAffixEnchantment2.Verify(x => x.EnchantmentDefinitionId, Times.Once);
 
             itemAffixEnchantmentRepository.Verify(x => x.GetByItemAffixDefinitionId(It.IsAny<Guid>()), Times.Once);
 
-            itemAffixFactory.Verify(x => x.CreateNamedItemAffix(It.IsAny<IEnumerable<IEnchantment>>(), It.IsAny<Guid>()), Times.Once);
+            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
         }
 
         [Fact]
@@ -360,17 +376,17 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     true))
                 .Returns(new[] { itemSuffixId });
 
-            var itemAffixEnchantment1 = new Mock<IItemAffixEnchantment>(MockBehavior.Strict);
+            var itemAffixEnchantment1 = new Mock<IItemAffixDefinitionEnchantment>(MockBehavior.Strict);
             itemAffixEnchantment1
-                .Setup(x => x.EnchantmentId)
+                .Setup(x => x.EnchantmentDefinitionId)
                 .Returns(enchantmentId1);
 
-            var itemAffixEnchantment2 = new Mock<IItemAffixEnchantment>(MockBehavior.Strict);
+            var itemAffixEnchantment2 = new Mock<IItemAffixDefinitionEnchantment>(MockBehavior.Strict);
             itemAffixEnchantment2
-                .Setup(x => x.EnchantmentId)
+                .Setup(x => x.EnchantmentDefinitionId)
                 .Returns(enchantmentId2);
 
-            var itemAffixEnchantmentRepository = new Mock<IItemAffixEnchantmentRepository>(MockBehavior.Strict);
+            var itemAffixEnchantmentRepository = new Mock<IItemAffixDefinitionEnchantmentRepository>(MockBehavior.Strict);
             itemAffixEnchantmentRepository
                 .Setup(x => x.GetByItemAffixDefinitionId(itemSuffixId))
                 .Returns(new[]
@@ -379,17 +395,18 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     itemAffixEnchantment2.Object
                 });
 
-            var itemSuffix = new Mock<INamedItemAffix>(MockBehavior.Strict);
+            var itemSuffix = new Mock<IItemAffix>(MockBehavior.Strict);
 
             var itemAffixFactory = new Mock<IItemAffixFactory>(MockBehavior.Strict);
             itemAffixFactory
-                .Setup(x => x.CreateNamedItemAffix(
+                .Setup(x => x.Create(
+                    itemSuffixId,
+                    affixNameStringResourceId,
                     new[]
                     {
                         enchantment1.Object,
                         enchantment2.Object
-                    },
-                    affixNameStringResourceId))
+                    }))
                 .Returns(itemSuffix.Object);
 
             var magicTypesRandomAffixesRepository = new Mock<IMagicTypesRandomAffixesRepository>(MockBehavior.Strict);
@@ -429,13 +446,13 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                     It.IsAny<bool>()),
                 Times.Once);
 
-            itemAffixEnchantment1.Verify(x => x.EnchantmentId, Times.Once);
+            itemAffixEnchantment1.Verify(x => x.EnchantmentDefinitionId, Times.Once);
 
-            itemAffixEnchantment2.Verify(x => x.EnchantmentId, Times.Once);
+            itemAffixEnchantment2.Verify(x => x.EnchantmentDefinitionId, Times.Once);
 
             itemAffixEnchantmentRepository.Verify(x => x.GetByItemAffixDefinitionId(It.IsAny<Guid>()), Times.Once);
 
-            itemAffixFactory.Verify(x => x.CreateNamedItemAffix(It.IsAny<IEnumerable<IEnchantment>>(), It.IsAny<Guid>()), Times.Once);
+            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
         }
         #endregion
     }

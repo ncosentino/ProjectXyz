@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Sql;
 using ProjectXyz.Plugins.Core.Enchantments;
 using ProjectXyz.Plugins.Enchantments;
+using ProjectXyz.Tests.Integration;
 using Xunit;
 
 namespace ProjectXyz.Plugins.Core.Tests.Integration.Enchantments
 {
-    public class EnchantmentPluginRegistrarTests
+    public class EnchantmentPluginRegistrarTests : DatabaseTest
     {
         #region Methods
         [Fact]
@@ -26,14 +26,13 @@ namespace ProjectXyz.Plugins.Core.Tests.Integration.Enchantments
 
             var database = new Mock<IDatabase>(MockBehavior.Strict);
 
-            var enchantmentDefinitionRepository = new Mock<IEnchantmentDefinitionRepository>(MockBehavior.Strict);
-
-            var enchantmentWeatherRepository = new Mock<IEnchantmentWeatherRepository>(MockBehavior.Strict);
-
+            var dataStore = SqlDataStore.Create(
+                Database,
+                SqlDatabaseUpgrader.Create());
+                
             var plugin = new Plugins.Enchantments.Expression.Plugin(
                 database.Object,
-                enchantmentDefinitionRepository.Object,
-                enchantmentWeatherRepository.Object);
+                dataStore);
 
             enchantmentSaver
                 .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantment), plugin.SaveEnchantmentCallback));

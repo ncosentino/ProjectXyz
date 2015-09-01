@@ -10,25 +10,21 @@ namespace ProjectXyz.Data.Core.Items.Requirements
     {
         #region Fields
         private readonly Guid _id;
-        private readonly Guid _itemId;
-        private readonly Guid _raceDefinitionId;
-        private readonly Guid _classDefinitionId;
+        private readonly Guid? _raceDefinitionId;
+        private readonly Guid? _classDefinitionId;
         #endregion
 
         #region Constructors
         private ItemMiscRequirements(
             Guid id,
-            Guid itemId,
-            Guid raceDefinitionId,
-            Guid classDefinitionId)
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(itemId != Guid.Empty);
             Contract.Requires<ArgumentException>(raceDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(classDefinitionId != Guid.Empty);
             
             _id = id;
-            _itemId = itemId;
             _raceDefinitionId = raceDefinitionId;
             _classDefinitionId = classDefinitionId;
         }
@@ -39,32 +35,25 @@ namespace ProjectXyz.Data.Core.Items.Requirements
         public Guid Id { get { return _id; } }
 
         /// <inheritdoc />
-        public Guid ItemId { get { return _itemId; } }
+        public Guid? RaceDefinitionId { get { return _raceDefinitionId; } }
 
         /// <inheritdoc />
-        public Guid RaceDefinitionId { get { return _raceDefinitionId; } }
-
-        /// <inheritdoc />
-        public Guid ClassDefinitionId { get { return _classDefinitionId; } }
+        public Guid? ClassDefinitionId { get { return _classDefinitionId; } }
         #endregion
 
         #region Methods
         public static IItemMiscRequirements Create(
             Guid id,
-            Guid itemId,
-            Guid raceDefinitionId,
-            Guid classDefinitionId)
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(itemId != Guid.Empty);
             Contract.Requires<ArgumentException>(raceDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentException>(classDefinitionId != Guid.Empty);
-
             Contract.Ensures(Contract.Result<IItemMiscRequirements>() != null);
 
             var itemMiscRequirements = new ItemMiscRequirements(
                 id,
-                itemId,
                 raceDefinitionId,
                 classDefinitionId);
             return itemMiscRequirements;

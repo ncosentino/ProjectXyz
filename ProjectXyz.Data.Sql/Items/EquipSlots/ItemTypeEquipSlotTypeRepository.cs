@@ -41,13 +41,16 @@ namespace ProjectXyz.Data.Sql.Items.EquipSlots
                 factory);
         }
 
-        public void Add(IItemTypeEquipSlotType itemTypeEquipSlotType)
+        public IItemTypeEquipSlotType Add(
+            Guid id,
+            Guid itemTypeId,
+            Guid equipSlotType)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", itemTypeEquipSlotType.Id },
-                { "ItemTypeId", itemTypeEquipSlotType.ItemTypeId },
-                { "EquipSlotType", itemTypeEquipSlotType.ItemTypeId },
+                { "Id", id },
+                { "ItemTypeId", itemTypeId },
+                { "EquipSlotTypeId", equipSlotType },
             };
 
             using (var command = _database.CreateCommand(
@@ -57,19 +60,25 @@ namespace ProjectXyz.Data.Sql.Items.EquipSlots
                 (
                     Id,
                     ItemTypeId,
-                    EquipSlotType
+                    EquipSlotTypeId
                 )
                 VALUES
                 (
                     @Id,
                     @ItemTypeId,
-                    @EquipSlotType
+                    @EquipSlotTypeId
                 )
                 ;",
                 namedParameters))
             {
                 command.ExecuteNonQuery();
             }
+
+            var itemTypeEquipSlotType = _factory.Create(
+                id,
+                itemTypeId,
+                equipSlotType);
+            return itemTypeEquipSlotType;
         }
 
         public void RemoveById(Guid id)
@@ -115,7 +124,7 @@ namespace ProjectXyz.Data.Sql.Items.EquipSlots
             }
         }
 
-        public IItemTypeEquipSlotType GetByItemTypeId(Guid itemTypeId)
+        public IEnumerable<IItemTypeEquipSlotType> GetByItemTypeId(Guid itemTypeId)
         {
             using (var command = _database.CreateCommand(
                 @"
@@ -137,7 +146,11 @@ namespace ProjectXyz.Data.Sql.Items.EquipSlots
                         throw new InvalidOperationException("No item type equip slot type with item type Id '" + itemTypeId + "' was found.");
                     }
 
-                    return GetFromReader(reader, _factory);
+                    do
+                    {
+                        yield return GetFromReader(reader, _factory);
+                    }
+                    while (reader.Read());
                 }
             }
         }

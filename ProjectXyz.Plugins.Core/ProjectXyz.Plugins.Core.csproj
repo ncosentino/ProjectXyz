@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enchantments\EnchantmentPluginRegistrar.cs" />
+    <Compile Include="Items\ItemPluginRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +150,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
       <Project>{44f68c7b-0cdb-49a8-8e71-89ebd095f7a4}</Project>
       <Name>ProjectXyz.Plugins.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items\ProjectXyz.Plugins.Items.csproj">
+      <Project>{565994c5-942a-429e-86c1-3d75e9caf442}</Project>
+      <Name>ProjectXyz.Plugins.Items</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

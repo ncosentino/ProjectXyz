@@ -61,7 +61,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    ItemStatRequirementss
+                    ItemStatRequirements
                 (
                     Id,
                     ItemId,
@@ -70,7 +70,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
                 VALUES
                 (
                     @Id,
-                    @NameStringResourceId,
+                    @ItemId,
                     @StatId
                 )
                 ;",
@@ -87,7 +87,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    ItemStatRequirementss
+                    ItemStatRequirements
                 WHERE
                     Id = @id
                 ;",
@@ -105,7 +105,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
                 SELECT 
                     *
                 FROM
-                    ItemStatRequirementss
+                    ItemStatRequirements
                 WHERE
                     Id = @Id
                 LIMIT 1
@@ -125,14 +125,14 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
             }
         }
 
-        public IItemStatRequirements GetByItemId(Guid itemId)
+        public IEnumerable<IItemStatRequirements> GetByItemId(Guid itemId)
         {
             using (var command = _database.CreateCommand(
                 @"
                 SELECT 
                     *
                 FROM
-                    ItemStatRequirementss
+                    ItemStatRequirements
                 WHERE
                     ItemId = @ItemId
                 LIMIT 1
@@ -147,7 +147,11 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
                         throw new InvalidOperationException("No item stat requirements with item Id '" + itemId + "' was found.");
                     }
 
-                    return GetFromReader(reader, _factory);
+                    do
+                    {
+                        yield return GetFromReader(reader, _factory);
+                    }
+                    while (reader.Read());
                 }
             }
         }
@@ -159,7 +163,7 @@ namespace ProjectXyz.Data.Sql.Items.Requirements
                 SELECT 
                     *
                 FROM
-                    ItemStatRequirementss
+                    ItemStatRequirements
                 ;"))
             {
                 using (var reader = command.ExecuteReader())

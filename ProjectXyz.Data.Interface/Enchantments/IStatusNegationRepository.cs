@@ -11,11 +11,14 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         IStatusNegation GetForId(Guid id);
 
-        IStatusNegation GetForStatId(Guid statId);
+        IStatusNegation GetForStatDefinitionId(Guid statDefinitionId);
 
         IStatusNegation GetForEnchantmentStatusId(Guid enchantmentStatusId);
 
-        void Add(IStatusNegation statusNegation);
+        IStatusNegation Add(
+            Guid id,
+            Guid statDefinitionId,
+            Guid enchantmentStatusId);
 
         void RemoveById(Guid id);
         #endregion

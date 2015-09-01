@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using Moq;
 using ProjectXyz.Data.Interface.Items.Materials;
@@ -167,30 +168,28 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.Materials
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(command.Object);
 
-            var objectToAdd = new Mock<IMaterialType>(MockBehavior.Strict);
-            objectToAdd
-                .Setup(x => x.Id)
-                .Returns(id);
-            objectToAdd
-                .Setup(x => x.NameStringResourceId)
-                .Returns(nameStringResourceId);
-
-            var factory = new Mock<IMaterialTypeFactory>();
+            var createdObject = new Mock<IMaterialType>(MockBehavior.Strict);
+            
+            var factory = new Mock<IMaterialTypeFactory>(MockBehavior.Strict);
+            factory
+                .Setup(x => x.Create(id, nameStringResourceId))
+                .Returns(createdObject.Object);
           
             var repository = MaterialTypeRepository.Create(
                 database.Object,
                 factory.Object);
           
             // Execute
-            repository.Add(objectToAdd.Object);
+            var result = repository.Add(id, nameStringResourceId);
 
             // Assert
+            Assert.Equal(createdObject.Object, result);
+
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Once);
 
             command.Verify(x => x.ExecuteNonQuery(), Times.Once);
 
-            objectToAdd.Verify(x => x.Id, Times.Once);
-            objectToAdd.Verify(x => x.NameStringResourceId, Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
         #endregion
     }

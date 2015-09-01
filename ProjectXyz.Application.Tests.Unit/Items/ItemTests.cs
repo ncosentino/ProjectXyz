@@ -6,6 +6,7 @@ using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items.Sockets;
@@ -25,6 +26,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
 
             var itemMetaData = new Mock<IItemMetaData>(MockBehavior.Strict);
 
@@ -36,16 +38,19 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var result = Item.Create(
                 itemContext.Object,
                 id,
+                itemDefinitionId,
                 itemMetaData.Object,
                 itemRequirements.Object,
                 Enumerable.Empty<IStat>(),
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(id, result.Id);
+            Assert.Equal(itemDefinitionId, result.ItemDefinitionId);
             Assert.Empty(result.Enchantments);
             Assert.Empty(result.SocketedItems);
             Assert.Empty(result.EquippableSlotIds);
@@ -57,6 +62,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
 
             var itemMetaData = new Mock<IItemMetaData>(MockBehavior.Strict);
 
@@ -91,10 +97,12 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var item = Item.Create(
                 itemContext.Object,
                 id,
+                itemDefinitionId,
                 itemMetaData.Object,
                 itemRequirements.Object,
                 Enumerable.Empty<IStat>(),
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 

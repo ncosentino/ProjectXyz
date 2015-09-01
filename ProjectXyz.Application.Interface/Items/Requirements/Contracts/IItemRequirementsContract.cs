@@ -10,20 +10,20 @@ namespace ProjectXyz.Application.Interface.Items.Requirements.Contracts
     public abstract class IItemRequirementsContract : IItemRequirements
     {
         #region Properties
-        public Guid RaceDefinitionId
+        public Guid? RaceDefinitionId
         {
             get
             {
-                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                Contract.Ensures(Contract.Result<Guid?>() != Guid.Empty);
                 return default(Guid);
             }
         }
 
-        public Guid ClassDefinitionId
+        public Guid? ClassDefinitionId
         {
             get
             {
-                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                Contract.Ensures(Contract.Result<Guid?>() != Guid.Empty);
                 return default(Guid);
             }
         }

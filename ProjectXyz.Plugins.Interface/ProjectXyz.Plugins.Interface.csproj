@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\IItemPluginRegistrar.cs" />
     <Compile Include="Enchantments\IEnchantmentPluginRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments\ProjectXyz.Plugins.Enchantments.csproj">
       <Project>{a8a53899-95ad-4466-9a3a-8a43dc9c6249}</Project>
       <Name>ProjectXyz.Plugins.Enchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items\ProjectXyz.Plugins.Items.csproj">
+      <Project>{565994c5-942a-429e-86c1-3d75e9caf442}</Project>
+      <Name>ProjectXyz.Plugins.Items</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

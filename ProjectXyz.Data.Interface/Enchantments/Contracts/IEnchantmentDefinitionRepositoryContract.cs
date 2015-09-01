@@ -11,17 +11,29 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
         #region Methods
         public IEnchantmentDefinition GetById(Guid id)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
 
             return default(IEnchantmentDefinition);
         }
 
-        public void Add(IEnchantmentDefinition enchantmentDefinition)
+        public IEnchantmentDefinition Add(
+            Guid id,
+            Guid triggerId,
+            Guid statusTypeId)
         {
-            Contract.Requires<ArgumentNullException>(enchantmentDefinition != null);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
+            Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
+            
+            return default(IEnchantmentDefinition);
         }
 
-        public abstract void RemoveById(Guid id);
+        public void RemoveById(Guid id)
+        {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+        }
         #endregion
     }
 }

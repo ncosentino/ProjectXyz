@@ -20,6 +20,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
         {
             // Setup
             var id =  Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -80,6 +81,13 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
             reader
                 .Setup(x => x.GetGuid(6))
                 .Returns(socketTypeId);
+            
+            reader
+               .Setup(x => x.GetOrdinal("ItemDefinitionId"))
+               .Returns(7);
+            reader
+                .Setup(x => x.GetGuid(7))
+                .Returns(itemDefinitionId);
                         
             var command = new Mock<IDbCommand>();
             command
@@ -97,6 +105,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
             factory
                 .Setup(x => x.Create(
                     id,
+                    itemDefinitionId,
                     nameStringResourceId,
                     inventoryGraphicResourceId,
                     magicTypeId,
@@ -116,6 +125,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
             Assert.Equal(enchantmentStore.Object, result);
 
             factory.Verify(x => x.Create(
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
@@ -209,6 +219,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -229,6 +240,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
             factory
                 .Setup(x => x.Create(
                     id,
+                    itemDefinitionId,
                     nameStringResourceId,
                     inventoryGraphicResourceId,
                     magicTypeId,
@@ -244,6 +256,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
             // Execute
             var result = repository.Add(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,
@@ -260,6 +273,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
 
             factory.Verify(
                 x => x.Create(
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),

@@ -41,12 +41,14 @@ namespace ProjectXyz.Data.Sql.Items.Materials
                 factory);
         }
 
-        public void Add(IMaterialType MaterialType)
+        public IMaterialType Add(
+            Guid id,
+            Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", MaterialType.Id },
-                { "NameStringResourceId", MaterialType.NameStringResourceId },
+                { "Id", id },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -67,6 +69,11 @@ namespace ProjectXyz.Data.Sql.Items.Materials
             {
                 command.ExecuteNonQuery();
             }
+
+            var materialType = _factory.Create(
+                id,
+                nameStringResourceId);
+            return materialType;
         }
 
         public void RemoveById(Guid id)

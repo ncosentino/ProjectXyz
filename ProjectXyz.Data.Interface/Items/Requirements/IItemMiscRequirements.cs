@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using ProjectXyz.Data.Interface.Items.Requirements.Requirements;
+using ProjectXyz.Data.Interface.Items.Requirements.Contracts;
 
 namespace ProjectXyz.Data.Interface.Items.Requirements
 {
@@ -11,12 +11,10 @@ namespace ProjectXyz.Data.Interface.Items.Requirements
     {
         #region Properties
         Guid Id { get; }
+        
+        Guid? RaceDefinitionId { get; }
 
-        Guid ItemId { get; }
-
-        Guid RaceDefinitionId { get; }
-
-        Guid ClassDefinitionId { get; }
+        Guid? ClassDefinitionId { get; }
         #endregion
     }
 }

@@ -7,7 +7,9 @@ namespace ProjectXyz.Data.Interface.Items.MagicTypes
     public interface IMagicTypeRepository
     {
         #region Methods
-        void Add(IMagicType itemStore);
+        IMagicType Add(
+            Guid id,
+            Guid nameStringResourceId);
 
         void RemoveById(Guid id);
 

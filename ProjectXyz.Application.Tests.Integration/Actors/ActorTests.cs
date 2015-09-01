@@ -10,6 +10,7 @@ using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Actors.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Application.Tests.Integration.Helpers;
@@ -44,7 +45,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Equip,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -61,6 +62,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var enchantedItem = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -69,6 +71,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 1),
                 },
                new[] { enchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -104,7 +107,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Hold,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -121,6 +124,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var enchantedItem = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -129,6 +133,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 1),
                 },
                new[] { enchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -164,7 +169,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Hold,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -181,6 +186,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var enchantedItem = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -189,6 +195,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 1),
                 },
                new[] { enchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -221,7 +228,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Hold,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -238,6 +245,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var itemToBeEnchanted = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -246,6 +254,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 1),
                 },
                Enumerable.Empty<IEnchantment>(),
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -281,7 +290,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Equip,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.CurrentLife,
                 "LIFE + VALUE",
@@ -298,6 +307,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var enchantedItem = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -306,6 +316,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 1),
                 },
                new[] { enchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -341,7 +352,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Equip,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -358,6 +369,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var itemToBeEnchanted = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -366,6 +378,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 1),
                 },
                Enumerable.Empty<IEnchantment>(),
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -406,6 +419,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var item = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -414,6 +428,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, 10),
                 },
                Enumerable.Empty<IEnchantment>(),
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -440,7 +455,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Equip,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -452,7 +467,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.CurrentDurability,
                 "DUR + VALUE",
@@ -469,6 +484,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var enchantedItem = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -477,6 +493,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, MAX_DURABILITY),
                 },
                new[] { lifeEnchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -512,7 +529,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.CurrentDurability,
                 "DUR + VALUE",
@@ -529,6 +546,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var item = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -537,6 +555,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, MAX_DURABILITY),
                 },
                Enumerable.Empty<IEnchantment>(),
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
@@ -573,7 +592,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 EnchantmentStatuses.Curse,
                 EnchantmentTriggers.Equip,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "LIFE + VALUE",
@@ -585,7 +604,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Equip,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 ActorStats.Bless);
 
             var itemMetaData = new Mock<IItemMetaData>(MockBehavior.Strict);
@@ -597,6 +616,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
             var cursedItem = Item.Create(
                itemContext,
                Guid.NewGuid(),
+               Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
                new[]
@@ -604,11 +624,13 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                    Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, -1),
                },
                new[] { curseEnchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { HEAD_EQUIP_SLOT });
 
             var blessItem = Item.Create(
                itemContext,
+               Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
                itemRequirements.Object,
@@ -617,6 +639,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                    Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, -1),
                },
                new[] { blessEnchantment },
+               Enumerable.Empty<IItemAffix>(),
                Enumerable.Empty<IItem>(),
                new[] { MAGIC_POTION_EQUIP_SLOT });
 

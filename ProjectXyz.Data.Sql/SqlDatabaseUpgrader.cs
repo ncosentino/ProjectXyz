@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
-
-using ProjectXyz.Data.Sql.Properties;
 
 namespace ProjectXyz.Data.Sql
 {
@@ -59,7 +56,7 @@ namespace ProjectXyz.Data.Sql
             var resourceName = string.Format(
                 "create_schema_{0}", 
                 schemaVersion);
-            return Resources.ResourceManager.GetString(resourceName);
+            return Properties.Resources.ResourceManager.GetString(resourceName);
         }
         #endregion
     }

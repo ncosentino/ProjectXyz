@@ -14,26 +14,23 @@ namespace ProjectXyz.Data.Core.Enchantments
             Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId,
-            Guid enchantmentWeatherId,
-            TimeSpan remainingDuration)
+            Guid enchantmentWeatherId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentWeatherId != Guid.Empty);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
 
             this.Id = id;
             this.EnchantmentTypeId = enchantmentTypeId;
-            this.EnchantmentWeatherId = enchantmentWeatherId;
+            this.WeatherGroupingId = enchantmentWeatherId;
             this.TriggerId = triggerId;
             this.StatusTypeId = statusTypeId;
-            this.RemainingDuration = remainingDuration;
         }
         #endregion
 
-        #region Properties        
+        #region Properties
         /// <inheritdoc />
         public Guid Id
         {
@@ -54,14 +51,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             get;
             private set;
         }
-
-        /// <inheritdoc />
-        public TimeSpan RemainingDuration
-        {
-            get;
-            private set;
-        }
-
+        
         /// <inheritdoc />
         public Guid EnchantmentTypeId
         {
@@ -70,7 +60,7 @@ namespace ProjectXyz.Data.Core.Enchantments
         }
 
         /// <inheritdoc />
-        public Guid EnchantmentWeatherId
+        public Guid WeatherGroupingId
         {
             get;
             private set;
@@ -78,20 +68,18 @@ namespace ProjectXyz.Data.Core.Enchantments
         #endregion
 
         #region Methods
-        private IEnchantmentStore Create(
+        public static IEnchantmentStore Create(
             Guid id,
             Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId,
-            Guid enchantmentWeatherId,
-            TimeSpan remainingDuration)
+            Guid weatherTypeGroupingId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentException>(enchantmentWeatherId != Guid.Empty);
-            Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
+            Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentStore>() != null);
 
             var enchantmentStore = new EnchantmentStore(
@@ -99,8 +87,7 @@ namespace ProjectXyz.Data.Core.Enchantments
                 enchantmentTypeId,
                 triggerId,
                 statusTypeId,
-                enchantmentWeatherId,
-                remainingDuration);
+                weatherTypeGroupingId);
             return enchantmentStore;
         }
 
@@ -111,8 +98,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             Contract.Invariant(EnchantmentTypeId != Guid.Empty);
             Contract.Invariant(TriggerId != Guid.Empty);
             Contract.Invariant(StatusTypeId != Guid.Empty);
-            Contract.Invariant(EnchantmentWeatherId != Guid.Empty);
-            Contract.Invariant(RemainingDuration >= TimeSpan.Zero);
+            Contract.Invariant(WeatherGroupingId != Guid.Empty);
         }
         #endregion
     }

@@ -11,15 +11,15 @@ namespace ProjectXyz.Application.Core.Items.Requirements
     public sealed class ItemRequirements : IItemRequirements
     {
         #region Fields
-        private readonly Guid _raceDefinitionId;
-        private readonly Guid _classDefinitionId;
+        private readonly Guid? _raceDefinitionId;
+        private readonly Guid? _classDefinitionId;
         private readonly IStatCollection _stats;
         #endregion
 
         #region Constructors
         private ItemRequirements(
-            Guid raceDefinitionId,
-            Guid classDefinitionId,
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId,
             IEnumerable<IStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);
@@ -31,12 +31,12 @@ namespace ProjectXyz.Application.Core.Items.Requirements
         #endregion
         
         #region Properties
-        public Guid RaceDefinitionId
+        public Guid? RaceDefinitionId
         {
             get { return _raceDefinitionId; }
         }
 
-        public Guid ClassDefinitionId
+        public Guid? ClassDefinitionId
         {
             get { return _classDefinitionId; }
         }
@@ -49,8 +49,8 @@ namespace ProjectXyz.Application.Core.Items.Requirements
 
         #region Methods
         public static IItemRequirements Create(
-            Guid raceDefinitionId,
-            Guid classDefinitionId,
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId,
             IEnumerable<IStat> stats)
         {
             Contract.Requires<ArgumentNullException>(stats != null);

@@ -24,19 +24,19 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            IEnumerable<Guid> weatherIds,
+            Guid weatherTypeGroupingId,
             Guid statId)
             : base(
                 id,
                 statusTypeId,
                 triggerId,
                 ENCHANTMENT_TYPE_ID,
-                weatherIds)
+                weatherTypeGroupingId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
 
             _statId = statId;
@@ -53,13 +53,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            IEnumerable<Guid> weatherIds,
+            Guid weatherTypeGroupingId,
             Guid statId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentNullException>(weatherTypeGroupingId != null);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Ensures(Contract.Result<IOneShotNegateEnchantment>() != null);
 
@@ -67,7 +67,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 id,
                 statusTypeId,
                 triggerId,
-                weatherIds,
+                weatherTypeGroupingId,
                 statId);
             return enchantment;
         }

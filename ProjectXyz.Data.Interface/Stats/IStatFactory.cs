@@ -10,7 +10,7 @@ namespace ProjectXyz.Data.Interface.Stats
     public interface IStatFactory
     {
         #region Methods
-        IStat CreateStat(
+        IStat Create(
             Guid id,
             Guid statDefinitionId,
             double value);

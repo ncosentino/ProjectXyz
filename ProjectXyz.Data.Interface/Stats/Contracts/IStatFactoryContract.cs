@@ -9,7 +9,7 @@ namespace ProjectXyz.Data.Interface.Stats.Contracts
     public abstract class IStatFactoryContract : IStatFactory
     {
         #region Methods
-        public IStat CreateStat(
+        public IStat Create(
             Guid id,
             Guid statDefinitionId,
             double value)

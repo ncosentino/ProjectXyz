@@ -43,6 +43,7 @@ namespace ProjectXyz.Data.Sql.Items
 
         public IItemStore Add(
             Guid id,
+            Guid itemDefinitionId,
             Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
@@ -53,6 +54,7 @@ namespace ProjectXyz.Data.Sql.Items
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
+                { "ItemDefinitionId", itemDefinitionId },
                 { "InventoryGraphicResourceId", inventoryGraphicResourceId },
                 { "ItemTypeId", itemTypeId },
                 { "MagicTypeId", magicTypeId },
@@ -67,6 +69,7 @@ namespace ProjectXyz.Data.Sql.Items
                     Items
                 (
                     Id,
+                    ItemDefinitionId,
                     InventoryGraphicResourceId,
                     ItemTypeId,
                     MagicTypeId,
@@ -77,6 +80,7 @@ namespace ProjectXyz.Data.Sql.Items
                 VALUES
                 (
                     @Id,
+                    @ItemDefinitionId,
                     @InventoryGraphicResourceId,
                     @ItemTypeId,
                     @MagicTypeId,
@@ -92,6 +96,7 @@ namespace ProjectXyz.Data.Sql.Items
 
             var itemStore = _factory.Create(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,
@@ -172,6 +177,7 @@ namespace ProjectXyz.Data.Sql.Items
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
+                reader.GetGuid(reader.GetOrdinal("ItemDefinitionId")),
                 reader.GetGuid(reader.GetOrdinal("NameStringResourceId")),
                 reader.GetGuid(reader.GetOrdinal("InventoryGraphicResourceId")),
                 reader.GetGuid(reader.GetOrdinal("MagicTypeId")),

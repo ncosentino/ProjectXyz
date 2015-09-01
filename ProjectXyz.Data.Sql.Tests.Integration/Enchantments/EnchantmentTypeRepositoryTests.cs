@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Data.Sql.Enchantments;
+using ProjectXyz.Tests.Integration;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 

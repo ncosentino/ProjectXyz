@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Data.Interface.Stats;
 
@@ -34,6 +35,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             {
                 Contract.Ensures(Contract.Result<IEnumerable<Guid>>() != null);
                 return default(IEnumerable<Guid>);
+            }
+        }
+
+        public IEnumerable<IItemAffix> Affixes
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IEnumerable<IItemAffix>>() != null);
+                return default(IEnumerable<IItemAffix>);
             }
         }
 
@@ -70,6 +80,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             {
                 Contract.Ensures(Contract.Result<IItemRequirements>() != null);
                 return default(IItemRequirements);
+            }
+        }
+
+        public Guid ItemDefinitionId
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
             }
         }
 

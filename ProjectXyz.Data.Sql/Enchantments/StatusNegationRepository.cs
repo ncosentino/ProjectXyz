@@ -11,24 +11,35 @@ namespace ProjectXyz.Data.Sql.Enchantments
     {
         #region Fields
         private readonly IDatabase _database;
+        private readonly IStatusNegationFactory _factory;
         #endregion
 
         #region Constructors
-        private StatusNegationRepository(IDatabase database)
+        private StatusNegationRepository(
+            IDatabase database,
+            IStatusNegationFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
+            Contract.Requires<ArgumentNullException>(factory != null);
 
             _database = database;
+            _factory = factory;
         }
         #endregion
 
         #region Methods
-        public static IStatusNegationRepository Create(IDatabase database)
+        public static IStatusNegationRepository Create(
+            IDatabase database,
+            IStatusNegationFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
+            Contract.Requires<ArgumentNullException>(factory != null);
             Contract.Ensures(Contract.Result<IStatusNegationRepository>() != null);
 
-            return new StatusNegationRepository(database);
+            var repository = new StatusNegationRepository(
+                database,
+                factory);
+            return repository;
         }
 
         public IEnumerable<IStatusNegation> GetAll()
@@ -44,13 +55,13 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 {
                     while (reader.Read())
                     {
-                        yield return CreateStatusNegationFromReader(reader);
+                        yield return CreateStatusNegationFromReader(reader, _factory);
                     }
                 }
             }
         }
 
-        public IStatusNegation GetForStatId(Guid statId)
+        public IStatusNegation GetForStatDefinitionId(Guid statDefinitionId)
         {
             using (var command = _database.CreateCommand(
                 @"
@@ -59,15 +70,19 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 FROM
                     StatusNegation
                 WHERE
-                    StatId=@StatId",
-                "StatId",
-                statId))
+                    StatDefinitionId=@StatDefinitionId",
+                "StatDefinitionId",
+                statDefinitionId))
             {
                 using (var reader = command.ExecuteReader())
                 {
-                    return reader.Read()
-                        ? CreateStatusNegationFromReader(reader)
-                        : null;
+                    if (!reader.Read())
+                    {
+                        throw new InvalidOperationException("No enchantment trigger with stat definition Id '" + statDefinitionId + "' was found.");
+                    }
+
+                    var statusNegation = CreateStatusNegationFromReader(reader, _factory);
+                    return statusNegation;
                 }
             }
         }
@@ -87,9 +102,13 @@ namespace ProjectXyz.Data.Sql.Enchantments
             {
                 using (var reader = command.ExecuteReader())
                 {
-                    return reader.Read()
-                        ? CreateStatusNegationFromReader(reader)
-                        : null;
+                    if (!reader.Read())
+                    {
+                        throw new InvalidOperationException("No status negation with Id '" + id + "' was found.");
+                    }
+
+                    var statusNegation = CreateStatusNegationFromReader(reader, _factory);
+                    return statusNegation;
                 }
             }
         }
@@ -109,20 +128,27 @@ namespace ProjectXyz.Data.Sql.Enchantments
             {
                 using (var reader = command.ExecuteReader())
                 {
-                    return reader.Read()
-                        ? CreateStatusNegationFromReader(reader)
-                        : null;
+                    if (!reader.Read())
+                    {
+                        throw new InvalidOperationException("No status negation with enchantment status Id '" + enchantmentStatusId + "' was found.");
+                    }
+
+                    var statusNegation = CreateStatusNegationFromReader(reader, _factory);
+                    return statusNegation;
                 }
             }
         }
 
-        public void Add(IStatusNegation statusNegation)
+        public IStatusNegation Add( 
+            Guid id,
+            Guid statDefinitionId,
+            Guid enchantmentStatusId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", statusNegation.Id },
-                { "StatId", statusNegation.StatId},
-                { "EnchantmentStatusId", statusNegation.EnchantmentStatusId },
+                { "Id", id },
+                { "StatDefinitionId", statDefinitionId },
+                { "EnchantmentStatusId", enchantmentStatusId },
             };
 
             using (var command = _database.CreateCommand(
@@ -131,13 +157,13 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     StatusNegation
                 (
                     Id,
-                    StatId,
+                    StatDefinitionId,
                     EnchantmentStatusId
                 )
                 VALUES
                 (
                     @Id,
-                    @StatId,
+                    @StatDefinitionId,
                     @EnchantmentStatusId
                 )
                 ;",
@@ -145,6 +171,12 @@ namespace ProjectXyz.Data.Sql.Enchantments
             {
                 command.ExecuteNonQuery();
             }
+
+            var statusNegation = _factory.Create(
+                id,
+                statDefinitionId,
+                enchantmentStatusId);
+            return statusNegation;
         }
 
         public void RemoveById(Guid id)
@@ -163,10 +195,21 @@ namespace ProjectXyz.Data.Sql.Enchantments
             }
         }
 
-        private IStatusNegation CreateStatusNegationFromReader(IDataReader reader)
+        private IStatusNegation CreateStatusNegationFromReader(IDataReader reader, IStatusNegationFactory factory)
         {
-            throw new NotImplementedException("// TODO: implement this");
+            Contract.Requires<ArgumentNullException>(reader != null);
+            Contract.Requires<ArgumentNullException>(factory != null);
+            Contract.Ensures(Contract.Result<IStatusNegation>() != null);
+
+            var id = reader.GetGuid(reader.GetOrdinal("Id"));
+            var statDefinitionId = reader.GetGuid(reader.GetOrdinal("StatDefinitionId"));
+            var enchantmentStatusId = reader.GetGuid(reader.GetOrdinal("EnchantmentStatusId"));
+            return factory.Create(
+                id, 
+                statDefinitionId, 
+                enchantmentStatusId);
         }
+
         #endregion
     }
 }

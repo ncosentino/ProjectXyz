@@ -41,12 +41,14 @@ namespace ProjectXyz.Data.Sql.Items.MagicTypes
                 factory);
         }
 
-        public void Add(IMagicType magicType)
+        public IMagicType Add(
+            Guid id,
+            Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", magicType.Id },
-                { "NameStringResourceId", magicType.NameStringResourceId },
+                { "Id", id },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -67,6 +69,11 @@ namespace ProjectXyz.Data.Sql.Items.MagicTypes
             {
                 command.ExecuteNonQuery();
             }
+
+            var magicType = _factory.Create(
+                id,
+                nameStringResourceId);
+            return magicType;
         }
 
         public void RemoveById(Guid id)

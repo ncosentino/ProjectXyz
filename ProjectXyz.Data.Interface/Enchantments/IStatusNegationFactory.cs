@@ -7,7 +7,10 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IStatusNegationFactory
     {
         #region Method
-        IStatusNegation Create(Guid statId, Guid enchantmentStatusId);
+        IStatusNegation Create(
+            Guid id,
+            Guid statId,
+            Guid enchantmentStatusId);
         #endregion
     }
 }

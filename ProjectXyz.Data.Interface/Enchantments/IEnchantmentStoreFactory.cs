@@ -12,7 +12,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
             Guid triggerId,
             Guid statusTypeId,
             Guid enchantmentTypeId,
-            Guid enchantmentWeatherId);
+            Guid weatherTypeGroupingId);
         #endregion
     }
 }

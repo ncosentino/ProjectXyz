@@ -12,7 +12,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IEnchantmentTriggerFactory
     {
         #region Methods
-        IEnchantmentTrigger CreateEnchantmentTrigger(Guid id, string name);
+        IEnchantmentTrigger Create(Guid id, Guid nameStringResourceId);
         #endregion
     }
 }

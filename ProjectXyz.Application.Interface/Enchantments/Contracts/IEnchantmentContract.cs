@@ -45,12 +45,12 @@ namespace ProjectXyz.Application.Interface.Enchantments.Contracts
             }
         }
 
-        public IEnumerable<Guid> WeatherIds
+        public Guid WeatherGroupingId
         {
             get
             {
-                Contract.Ensures(Contract.Result<IEnumerable<Guid>>() != null);
-                return default(IEnumerable<Guid>);
+                Contract.Ensures(Contract.Result<Guid>() != null);
+                return default(Guid);
             }
         }
         #endregion

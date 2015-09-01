@@ -7,7 +7,9 @@ namespace ProjectXyz.Data.Interface.Items.Sockets
     public interface ISocketTypeRepository
     {
         #region Methods
-        void Add(ISocketType socketType);
+        ISocketType Add(
+            Guid id,
+            Guid nameStringResourceId);
 
         void RemoveById(Guid id);
 

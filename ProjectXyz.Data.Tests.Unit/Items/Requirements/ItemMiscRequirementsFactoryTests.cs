@@ -16,7 +16,6 @@ namespace ProjectXyz.Data.Tests.Unit.Items.Requirements
         {
             // Setup
             var id = Guid.NewGuid();
-            var itemId = Guid.NewGuid();
             var raceDefinitionId = Guid.NewGuid();
             var classDefinitionid = Guid.NewGuid();
 
@@ -25,13 +24,11 @@ namespace ProjectXyz.Data.Tests.Unit.Items.Requirements
             // Execute
             var result = itemMiscRequirementsFactory.Create(
                 id,
-                itemId,
                 raceDefinitionId,
                 classDefinitionid);
 
             // Assert
             Assert.Equal(id, result.Id);
-            Assert.Equal(itemId, result.ItemId);
             Assert.Equal(raceDefinitionId, result.RaceDefinitionId);
             Assert.Equal(classDefinitionid, result.ClassDefinitionId);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
@@ -10,27 +11,28 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
     {
         #region Fields
         private readonly IOneShotNegateEnchantmentFactory _oneShotNegateEnchantmentFactory;
-        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
+        private readonly IEnchantmentDefinitionWeatherTypeGroupingRepository _enchantmentDefinitionWeatherGroupingRepository;
+        private readonly IWeatherGroupingRepository _weatherGroupingRepository;
         #endregion
 
         #region Constructors
         private OneShotNegateEnchantmentGenerator(
             IOneShotNegateEnchantmentFactory oneShotNegateEnchantmentFactory,
-            IEnchantmentWeatherRepository enchantmentWeatherRepository)
+            IEnchantmentDefinitionWeatherTypeGroupingRepository enchantmentDefinitionWeatherGroupingRepository)
         {
             _oneShotNegateEnchantmentFactory = oneShotNegateEnchantmentFactory;
-            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+            _enchantmentDefinitionWeatherGroupingRepository = enchantmentDefinitionWeatherGroupingRepository;
         }
         #endregion
 
         #region Methods
         public static IOneShotNegateEnchantmentGenerator Create(
             IOneShotNegateEnchantmentFactory oneShotNegateEnchantmentFactory,
-            IEnchantmentWeatherRepository enchantmentWeatherRepository)
+            IEnchantmentDefinitionWeatherTypeGroupingRepository enchantmentDefinitionWeatherGroupingRepository)
         {
             var generator = new OneShotNegateEnchantmentGenerator(
                 oneShotNegateEnchantmentFactory,
-                enchantmentWeatherRepository);
+                enchantmentDefinitionWeatherGroupingRepository);
             return generator;
         }
 
@@ -39,13 +41,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             IEnchantmentDefinition enchantmentDefinition,
             IOneShotNegateEnchantmentDefinition oneShotNegateEnchantmentDefinition)
         {
-            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentDefinition.EnchantmentWeatherId);
-
+            var enchantmentWeather = _enchantmentDefinitionWeatherGroupingRepository.GetByEnchantmentDefinitionId(enchantmentDefinition.Id);
+            
             return _oneShotNegateEnchantmentFactory.Create(
                 Guid.NewGuid(),
                 enchantmentDefinition.StatusTypeId,
                 enchantmentDefinition.TriggerId,
-                enchantmentWeather.WeatherIds,
+                enchantmentWeather.WeatherTypeGroupingId,
                 oneShotNegateEnchantmentDefinition.StatId);
         }
         #endregion

@@ -41,12 +41,14 @@ namespace ProjectXyz.Data.Sql.Items.EquipSlots
                 factory);
         }
 
-        public void Add(IEquipSlotType equipSlotType)
+        public IEquipSlotType Add(
+            Guid id,
+            Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", equipSlotType.Id },
-                { "NameStringResourceId", equipSlotType.NameStringResourceId },
+                { "Id", id },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -67,6 +69,11 @@ namespace ProjectXyz.Data.Sql.Items.EquipSlots
             {
                 command.ExecuteNonQuery();
             }
+
+            var equipSlotType = _factory.Create(
+                id,
+                nameStringResourceId);
+            return equipSlotType;
         }
 
         public void RemoveById(Guid id)

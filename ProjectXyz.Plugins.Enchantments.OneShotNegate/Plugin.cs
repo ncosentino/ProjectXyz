@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Sql;
-using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
@@ -13,7 +13,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
     public sealed class Plugin : IEnchantmentPlugin
     {
         #region Fields
-        private readonly IEnchantmentWeatherRepository _enchantmentWeatherRepository;
         private readonly IOneShotNegateEnchantmentStoreRepository _oneShotNegateEnchantmentStoreRepository;
         private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
         private readonly IOneShotNegateEnchantmentDefinitionRepository _oneShotNegateEnchantmentDefinitioneRepository;
@@ -26,21 +25,19 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Constructors
         public Plugin(
             IDatabase database,
-            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
-            IEnchantmentWeatherRepository enchantmentWeatherRepository)
+            IDataStore dataStore)
         {
+            _enchantmentDefinitionRepository = dataStore.Enchantments.EnchantmentDefinitions;
 
-            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
-            _enchantmentWeatherRepository = enchantmentWeatherRepository;
+            _enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
+                dataStore.Enchantments.StatusNegations,
+                dataStore.Weather.WeatherGroupings);
 
-            var statusNegationRepository = StatusNegationRepository.Create(database);
-
-            _enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(statusNegationRepository);
-
+            var enchantmentDefinitionWeatherGroupingRepository = dataStore.Enchantments.EnchantmentWeather;
             var enchantmentFactory = OneShotNegateEnchantmentFactory.Create();
             _oneShotNegateEnchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(
                 enchantmentFactory,
-                enchantmentWeatherRepository);
+                enchantmentDefinitionWeatherGroupingRepository);
 
             _oneShotNegateEnchantmentStoreFactory = OneShotNegateEnchantmentStoreFactory.Create();
 
@@ -134,20 +131,12 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                     "Cannot create oneShotNegate enchantment for enchantment store with id '{0}'.",
                     enchantmentStore.Id));
             }
-
-            var enchantmentWeather = _enchantmentWeatherRepository.GetById(enchantmentStore.EnchantmentWeatherId);
-            if (enchantmentWeather == null)
-            {
-                throw new InvalidOperationException(string.Format(
-                    "Could not find enchantment weather for id '{0}'.",
-                    enchantmentStore.EnchantmentWeatherId));
-            }
-
+            
             var oneShotNegateEnchantment = _oneShotNegateEnchantmentFactory.Create(
                 enchantmentStore.Id,
                 enchantmentStore.StatusTypeId,
                 enchantmentStore.TriggerId,
-                enchantmentWeather.WeatherIds,
+                enchantmentStore.WeatherGroupingId,
                 oneShotNegateEnchantmentStore.StatId);
             
             return oneShotNegateEnchantment;

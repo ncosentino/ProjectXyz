@@ -145,6 +145,10 @@
       <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
       <Name>ProjectXyz.Data.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Tests.Integration\ProjectXyz.Tests.Integration.csproj">
+      <Project>{62743082-62ed-41a0-9c96-48f1c559d8e5}</Project>
+      <Name>ProjectXyz.Tests.Integration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Tests\ProjectXyz.Tests.csproj">
       <Project>{732b4e6c-92fc-49cd-89a7-97e68d776db0}</Project>
       <Name>ProjectXyz.Tests</Name>

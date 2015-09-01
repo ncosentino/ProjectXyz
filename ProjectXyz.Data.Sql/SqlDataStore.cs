@@ -5,9 +5,19 @@ using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Core.Maps;
 using ProjectXyz.Data.Interface.Actors;
 using ProjectXyz.Data.Interface.Diseases;
+using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Maps;
+using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Data.Sql.Actors;
+using ProjectXyz.Data.Sql.Enchantments;
+using ProjectXyz.Data.Sql.Items;
 using ProjectXyz.Data.Sql.Maps;
+using ProjectXyz.Data.Sql.Resources;
+using ProjectXyz.Data.Sql.Stats;
+using ProjectXyz.Data.Sql.Weather;
 
 namespace ProjectXyz.Data.Sql
 {
@@ -16,8 +26,11 @@ namespace ProjectXyz.Data.Sql
         #region Fields
         private readonly IActorStoreRepository _actorStoreRepository;
         private readonly IMapStoreRepository _mapStoreRepository;
-        private readonly IDiseaseSpreadTypeRepository _diseaseSpreadTypeRepository;
-        private readonly IDiseaseStatesEnchantmentsRepository _diseaseStatesEnchantmentsRepository;
+        private readonly IItemDataStore _itemDataStore;
+        private readonly IEnchantmentsDataStore _enchantmentsDataStore;
+        private readonly IStatsDataStore _statsDataStore;
+        private readonly IResourcesDataStore _resourcesDataStore;
+        private readonly IWeatherDataStore _weatherDataStore;
         #endregion
 
         #region Constructors
@@ -25,6 +38,10 @@ namespace ProjectXyz.Data.Sql
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(upgrader != null);
+
+            _resourcesDataStore = SqlResourcesDataStore.Create(database);
+
+            _statsDataStore = SqlStatsDataStore.Create(database);
             
             _actorStoreRepository = ActorStoreRepository.Create(
                 database,
@@ -33,6 +50,12 @@ namespace ProjectXyz.Data.Sql
             _mapStoreRepository = MapStoreRepository.Create(
                 database,
                 MapStoreFactory.Create());
+
+            _itemDataStore = SqlItemDataStore.Create(database);
+
+            _enchantmentsDataStore = SqlEnchantmentsDataStore.Create(database);
+
+            _weatherDataStore = SqlWeatherDataStore.Create(database);
 
             CreateOrUpgrade(database, upgrader);
         }
@@ -49,14 +72,34 @@ namespace ProjectXyz.Data.Sql
             get { return _mapStoreRepository; }
         }
 
-        public IDiseaseSpreadTypeRepository DiseaseSpreadType
+        public IEnchantmentsDataStore Enchantments
         {
-            get { return _diseaseSpreadTypeRepository; }
+            get { return _enchantmentsDataStore; }
         }
 
-        public IDiseaseStatesEnchantmentsRepository DiseaseStatesEnchantments
+        public IStatsDataStore Stats
         {
-            get { return _diseaseStatesEnchantmentsRepository; }
+            get { return _statsDataStore; }
+        }
+
+        public IDiseaseDataStore Diseases
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IItemDataStore Items
+        {
+            get { return _itemDataStore; }
+        }
+
+        public IWeatherDataStore Weather
+        {
+            get { return _weatherDataStore; }
+        }
+
+        public  IResourcesDataStore Resources
+        {
+            get { return _resourcesDataStore; }
         }
         #endregion
 

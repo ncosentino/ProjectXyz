@@ -42,8 +42,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             using (var command = _database.CreateCommand(
                 @"
                 SELECT 
-                    Id,
-                    Name
+                    *
                 FROM
                     EnchantmentTriggers
                 WHERE
@@ -71,8 +70,8 @@ namespace ProjectXyz.Data.Sql.Enchantments
             Contract.Ensures(Contract.Result<IEnchantmentTrigger>() != null);
 
             var id = reader.GetGuid(reader.GetOrdinal("Id"));
-            var name = reader.GetString(reader.GetOrdinal("Name"));
-            return factory.CreateEnchantmentTrigger(id, name);
+            var nameStringResourceId = reader.GetGuid(reader.GetOrdinal("NameStringResourceId"));
+            return factory.Create(id, nameStringResourceId);
         }
         #endregion
     }

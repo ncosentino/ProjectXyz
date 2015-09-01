@@ -16,6 +16,7 @@ namespace ProjectXyz.Data.Tests.Unit.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -28,6 +29,7 @@ namespace ProjectXyz.Data.Tests.Unit.Items
             // Execute
             var result = itemStoreFactory.Create(
                 id,
+                itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,
@@ -37,6 +39,7 @@ namespace ProjectXyz.Data.Tests.Unit.Items
 
             // Assert
             Assert.Equal(id, result.Id);
+            Assert.Equal(itemDefinitionId, result.ItemDefinitionId);
             Assert.Equal(nameStringResourceId, result.NameStringResourceId);
             Assert.Equal(inventoryGraphicResourceId, result.InventoryGraphicResourceId);
             Assert.Equal(magicTypeId, result.MagicTypeId);

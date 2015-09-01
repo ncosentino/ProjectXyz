@@ -4,22 +4,21 @@ using System.Collections.Specialized;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Application.Core.Items.Requirements;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
-using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 
 namespace ProjectXyz.Application.Core.Items
 {
-    public class Item : IItem
+    public sealed class Item : IItem
     {
         #region Fields
         private readonly IMutableItemCollection _socketedItems;
@@ -27,36 +26,45 @@ namespace ProjectXyz.Application.Core.Items
         private readonly IItemContext _context;
         private readonly IItemRequirements _requirements;
         private readonly Guid _id;
+        private readonly Guid _itemDefinitionId;
         private readonly IItemMetaData _itemMetaData;
         private readonly List<Guid> _equippableSlots;
         private readonly IMutableStatCollection _baseStats;
+        private readonly List<IItemAffix> _affixes;
 
         private IMutableStatCollection _stats;
         private bool _statsDirty;
         #endregion
 
         #region Constructors
-        protected Item(
-            IItemContext context, 
+        private Item(
+            IItemContext context,
             Guid id,
+            Guid itemDefinitionId,
             IItemMetaData itemMetaData,
             IItemRequirements itemRequirements,
             IEnumerable<IStat> stats,
             IEnumerable<IEnchantment> enchantments,
+            IEnumerable<IItemAffix> affixes,
             IEnumerable<IItem> socketedItems,
             IEnumerable<Guid> equippableSlots)
         {
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentException>(id != null);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Requires<ArgumentNullException>(affixes != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
             Contract.Requires<ArgumentNullException>(equippableSlots != null);
 
             _context = context;
             _id = id;
+            _itemDefinitionId = itemDefinitionId;
             _itemMetaData = itemMetaData;
             _requirements = itemRequirements;
             _equippableSlots = new List<Guid>(equippableSlots);
+            _affixes = new List<IItemAffix>(affixes);
             
             _baseStats = StatCollection.Create(stats);
             _statsDirty = true;
@@ -75,41 +83,55 @@ namespace ProjectXyz.Application.Core.Items
         #endregion
 
         #region Properties
+        /// <inheritdoc />
         public Guid Id
         {
             get { return _id; }
         }
 
+        /// <inheritdoc />
+        public Guid ItemDefinitionId
+        {
+            get { return _itemDefinitionId; }
+        }
+
+        /// <inheritdoc />
         public Guid NameStringResourceId
         {
             get { return _itemMetaData.NameStringResourceId; }
         }
 
+        /// <inheritdoc />
         public Guid InventoryGraphicResourceId
         {
             get { return _itemMetaData.InventoryGraphicResourceId; }
         }
 
+        /// <inheritdoc />
         public Guid MagicTypeId
         {
             get { return _itemMetaData.MagicTypeId; }
         }
 
+        /// <inheritdoc />
         public Guid MaterialTypeId
         {
             get { return _itemMetaData.MaterialTypeId; }
         }
 
+        /// <inheritdoc />
         public Guid SocketTypeId
         {
             get { return _itemMetaData.SocketTypeId; }
         }
 
+        /// <inheritdoc />
         public Guid ItemTypeId
         {
             get { return _itemMetaData.ItemTypeId; }
         }
 
+        /// <inheritdoc />
         public double Weight
         {
             get
@@ -119,6 +141,7 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        /// <inheritdoc />
         public double Value
         {
             get
@@ -128,6 +151,7 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        /// <inheritdoc />
         public int RequiredSockets
         {
             get
@@ -137,6 +161,7 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        /// <inheritdoc />
         public int CurrentDurability
         {
             get
@@ -146,6 +171,7 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        /// <inheritdoc />
         public int MaximumDurability
         {
             get
@@ -155,6 +181,7 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        /// <inheritdoc />
         public IStatCollection Stats
         {
             get
@@ -164,24 +191,34 @@ namespace ProjectXyz.Application.Core.Items
             }
         }
 
+        /// <inheritdoc />
         public IEnumerable<Guid> EquippableSlotIds
         {
             get { return _equippableSlots; }
         }
 
+        /// <inheritdoc />
         public IEnchantmentCollection Enchantments
         {
             get { return _enchantments; }
         }
 
+        /// <inheritdoc />
         public IItemRequirements Requirements
         {
             get { return _requirements; }
         }
 
+        /// <inheritdoc />
         public IItemCollection SocketedItems
         {
             get { return _socketedItems; }
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<IItemAffix> Affixes
+        {
+            get { return _affixes; }
         }
         #endregion
 
@@ -189,16 +226,21 @@ namespace ProjectXyz.Application.Core.Items
         public static IItem Create(
             IItemContext context,
             Guid id,
+            Guid itemDefinitionId,
             IItemMetaData itemMetaData,
             IItemRequirements itemRequirements,
             IEnumerable<IStat> stats,
             IEnumerable<IEnchantment> enchantments,
+            IEnumerable<IItemAffix> affixes,
             IEnumerable<IItem> socketedItems,
             IEnumerable<Guid> equippableSlots)
         {
             Contract.Requires<ArgumentNullException>(context != null);
-            Contract.Requires<ArgumentException>(id != null);
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(enchantments != null);
+            Contract.Requires<ArgumentNullException>(affixes != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
             Contract.Requires<ArgumentNullException>(equippableSlots != null);
             Contract.Ensures(Contract.Result<IItem>() != null);
@@ -206,10 +248,12 @@ namespace ProjectXyz.Application.Core.Items
             return new Item(
                 context, 
                 id,
+                itemDefinitionId,
                 itemMetaData,
                 itemRequirements,
                 stats,
                 enchantments,
+                affixes,
                 socketedItems,
                 equippableSlots);
         }
@@ -263,7 +307,7 @@ namespace ProjectXyz.Application.Core.Items
             return string.Format("Id: {0}, NameStringResourceId: {1}", Id, NameStringResourceId);
         }
 
-        protected void EnsureStatsCalculated()
+        private void EnsureStatsCalculated()
         {
             Contract.Ensures(_stats != null);
             Contract.Ensures(!_statsDirty);

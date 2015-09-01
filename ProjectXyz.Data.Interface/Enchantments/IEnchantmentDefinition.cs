@@ -12,8 +12,6 @@ namespace ProjectXyz.Data.Interface.Enchantments
         Guid TriggerId { get; }
 
         Guid StatusTypeId { get; }
-
-        Guid EnchantmentWeatherId { get; }
         #endregion
     }
 }

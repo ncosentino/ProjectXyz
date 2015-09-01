@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using Moq;
-using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Sql;
 using ProjectXyz.Plugins.Enchantments.Expression.Sql;
+using ProjectXyz.Tests.Integration;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 

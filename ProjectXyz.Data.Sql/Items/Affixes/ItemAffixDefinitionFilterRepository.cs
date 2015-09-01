@@ -48,9 +48,13 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
                 FROM
                     ItemAffixDefinitions
                 LEFT OUTER JOIN
-                    ItemAffixMagicTypes
+                    ItemAffixDefinitionMagicTypes
                 ON
-                    ItemAffixMagicTypes.ItemAffixDefinitionId = ItemAffixDefinition.Id
+                    ItemAffixDefinitionMagicTypes.ItemAffixDefinitionId = ItemAffixDefinition.Id
+                LEFT OUTER JOIN
+                    MagicTypeGroupings
+                ON
+                    MagicTypeGroupings.GroupingId = ItemAffixDefinitionMagicTypes.MagicTypeGroupingsId
                 WHERE
                     MinimumLevel >= @MinimumLevel AND
                     MaximumLevel <= @MaximumLevel AND
@@ -67,8 +71,7 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
             }
 
             commandText += ";";
-
-
+            
             var namedParameters = new Dictionary<string, object>()
             {
                 { "MaximumLevel", maximumLevel},

@@ -7,7 +7,9 @@ namespace ProjectXyz.Data.Interface.Items.EquipSlots
     public interface IEquipSlotTypeRepository
     {
         #region Methods
-        void Add(IEquipSlotType itemStore);
+        IEquipSlotType Add(
+            Guid id,
+            Guid nameStringResourceId);
 
         void RemoveById(Guid id);
 

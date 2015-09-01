@@ -25,7 +25,7 @@ namespace ProjectXyz.Application.Tests.Integration.Enchantments
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ActorStats.MaximumLife,
                 "VALUE",

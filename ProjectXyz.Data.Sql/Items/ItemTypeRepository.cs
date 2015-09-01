@@ -41,12 +41,14 @@ namespace ProjectXyz.Data.Sql.Items
                 factory);
         }
 
-        public void Add(IItemType itemType)
+        public IItemType Add(
+            Guid id,
+            Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", itemType.Id },
-                { "NameStringResourceId", itemType.NameStringResourceId },
+                { "Id", id },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -67,6 +69,11 @@ namespace ProjectXyz.Data.Sql.Items
             {
                 command.ExecuteNonQuery();
             }
+
+            var itemType = _factory.Create(
+                id,
+                nameStringResourceId);
+            return itemType;
         }
 
         public void RemoveById(Guid id)

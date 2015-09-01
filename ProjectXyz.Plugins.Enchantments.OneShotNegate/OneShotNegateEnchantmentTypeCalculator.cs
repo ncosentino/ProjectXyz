@@ -6,6 +6,7 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Stats;
+using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
 {
@@ -13,19 +14,28 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
     {
         #region Fields
         private readonly IStatusNegationRepository _statusNegationRepository;
+        private readonly IWeatherGroupingRepository _weatherGroupingRepository;
         #endregion
 
         #region Constructors
-        private OneShotNegateEnchantmentTypeCalculator(IStatusNegationRepository statusNegationRepository)
+        private OneShotNegateEnchantmentTypeCalculator(
+            IStatusNegationRepository statusNegationRepository,
+            IWeatherGroupingRepository weatherGroupingRepository)
         {
             _statusNegationRepository = statusNegationRepository;
+            _weatherGroupingRepository = weatherGroupingRepository;
         }
         #endregion
 
         #region Methods
-        public static IEnchantmentTypeCalculator Create(IStatusNegationRepository statusNegationRepository)
+        public static IEnchantmentTypeCalculator Create(
+            IStatusNegationRepository statusNegationRepository,
+            IWeatherGroupingRepository weatherGroupingRepository)
         {
-            return new OneShotNegateEnchantmentTypeCalculator(statusNegationRepository);
+            var calculator = new OneShotNegateEnchantmentTypeCalculator(
+                statusNegationRepository, 
+                weatherGroupingRepository);
+            return calculator;
         }
 
         public IEnchantmentTypeCalculatorResult Calculate(
@@ -54,7 +64,8 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         {
             IEnumerable<IEnchantment> allEnchantments = enchantments as IEnchantment[] ?? enchantments.ToArray();
 
-            var negationEnchantments = GetActiveOneShotNegateEnchantments(
+            var activeNegationEnchantments = GetActiveOneShotNegateEnchantments(
+                _weatherGroupingRepository,
                 enchantmentContext, 
                 allEnchantments)
                 .ToArray();
@@ -62,35 +73,42 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             var activeNegations = new Dictionary<Guid, HashSet<IOneShotNegateEnchantment>>();
             foreach (var statusNegation in _statusNegationRepository.GetAll())
             {
-                var negatingEnchantments = new HashSet<IOneShotNegateEnchantment>(negationEnchantments.Where(x => x.StatId == statusNegation.StatId));
-                if (negationEnchantments.Any())
+                var negatingEnchantments = new HashSet<IOneShotNegateEnchantment>(activeNegationEnchantments.Where(x => x.StatId == statusNegation.StatId));
+                if (activeNegationEnchantments.Any())
                 {
                     activeNegations[statusNegation.EnchantmentStatusId] = negatingEnchantments;
                 }
             }
 
             foreach (var enchantment in allEnchantments
-                .Except(negationEnchantments)
+                .Except(activeNegationEnchantments)
                 .Where(x => activeNegations.ContainsKey(x.StatusTypeId)))
             {
                 removedEnchantments.Add(enchantment);
                 activeNegations.Remove(enchantment.StatusTypeId);
             }
 
-            foreach (var negationEnchantment in negationEnchantments)
+            foreach (var negationEnchantment in activeNegationEnchantments)
             {
                 removedEnchantments.Add(negationEnchantment);
             }
 
-            return negationEnchantments;
+            return activeNegationEnchantments;
         }
 
         private IEnumerable<IOneShotNegateEnchantment> GetActiveOneShotNegateEnchantments(
+            IWeatherGroupingRepository weatherGroupingRepository,
              IEnchantmentContext enchantmentContext,
              IEnumerable<IEnchantment> enchantments)
         {
             return enchantments
-                .Where(x => x is IOneShotNegateEnchantment && (!x.WeatherIds.Any() || x.WeatherIds.Any(e => e == enchantmentContext.ActiveWeatherId)))
+                .Where(x =>
+                {
+                    var weatherGroupings = weatherGroupingRepository
+                        .GetByGroupingId(x.WeatherGroupingId)
+                        .ToArray();
+                    return x is IOneShotNegateEnchantment && (!weatherGroupings.Any() || weatherGroupings.Any(e => e.WeatherId == enchantmentContext.ActiveWeatherId));
+                })
                 .Cast<IOneShotNegateEnchantment>();
         }
         #endregion

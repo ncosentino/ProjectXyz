@@ -21,7 +21,7 @@ namespace ProjectXyz.Data.Core.Stats
             return new StatFactory();
         }
 
-        public IStat CreateStat(
+        public IStat Create(
             Guid id, 
             Guid statDefinitionId,
             double value)

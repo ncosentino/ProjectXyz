@@ -9,6 +9,15 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
     public abstract class IItemStoreContract : IItemStore
     {
         #region Properties
+        public Guid ItemDefinitionId
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
+            }
+        }
+
         public Guid NameStringResourceId
         {
             get

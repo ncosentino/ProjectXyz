@@ -9,9 +9,8 @@ namespace ProjectXyz.Data.Interface.Items.Requirements
         #region Methods
         IItemMiscRequirements Create(
             Guid id,
-            Guid itemId,
-            Guid raceDefinitionId,
-            Guid classDefinitionId);
+            Guid? raceDefinitionId,
+            Guid? classDefinitionId);
         #endregion
     }
 }

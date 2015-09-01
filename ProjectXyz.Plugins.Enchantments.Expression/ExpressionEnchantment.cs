@@ -30,7 +30,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            IEnumerable<Guid> weatherIds,
+            Guid weatherTypeGroupingId,
             TimeSpan remainingDuration,
             Guid statId,
             string expression,
@@ -42,12 +42,12 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 statusTypeId,
                 triggerId,
                 ENCHANTMENT_TYPE_ID,
-                weatherIds)
+                weatherTypeGroupingId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
@@ -116,7 +116,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
-            IEnumerable<Guid> weatherIds,
+            Guid weatherTypeGroupingId,
             TimeSpan remainingDuration,
             Guid statId,
             string expression,
@@ -127,7 +127,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
             Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(expression));
@@ -139,7 +139,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 id,
                 statusTypeId,
                 triggerId,
-                weatherIds,
+                weatherTypeGroupingId,
                 remainingDuration,
                 statId,
                 expression,

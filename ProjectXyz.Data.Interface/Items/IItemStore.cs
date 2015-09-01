@@ -10,6 +10,8 @@ namespace ProjectXyz.Data.Interface.Items
     public interface IItemStore : IGameObject
     {
         #region Properties
+        Guid ItemDefinitionId { get; }
+
         Guid NameStringResourceId { get; }
 
         Guid InventoryGraphicResourceId { get; }

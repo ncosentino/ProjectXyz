@@ -25,6 +25,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -33,6 +34,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var socketTypeId = Guid.NewGuid();
             var raceDefinitionId = Guid.NewGuid();
             var classDefinitionId = Guid.NewGuid();
+            var itemMiscRequirementsId = Guid.NewGuid();
 
             var itemStore = new Mock<IItemStore>(MockBehavior.Strict);
 
@@ -72,6 +74,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.Id)
                 .Returns(id);
             sourceItem
+                .Setup(x => x.ItemDefinitionId)
+                .Returns(itemDefinitionId);
+            sourceItem
                 .Setup(x => x.NameStringResourceId)
                 .Returns(nameStringResourceId);
             sourceItem
@@ -110,6 +115,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             itemStoreRepository
                 .Setup(x => x.Add(
                     id,
+                    itemDefinitionId,
                     nameStringResourceId,
                     inventoryGraphicResourceId,
                     magicTypeId,
@@ -119,11 +125,21 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Returns(itemStore.Object);
 
             var itemMiscRequirements = new Mock<IItemMiscRequirements>(MockBehavior.Strict);
+            itemMiscRequirements
+                .Setup(x => x.Id)
+                .Returns(itemMiscRequirementsId);
 
             var itemMiscRequirementsRepository = new Mock<IItemMiscRequirementsRepository>(MockBehavior.Strict);
             itemMiscRequirementsRepository
-                .Setup(x => x.Add(It.IsAny<Guid>(), id, raceDefinitionId, classDefinitionId))
+                .Setup(x => x.Add(It.IsAny<Guid>(), raceDefinitionId, classDefinitionId))
                 .Returns(itemMiscRequirements.Object);
+
+            var itemStoreItemMiscRequirements = new Mock<IItemStoreItemMiscRequirements>(MockBehavior.Strict);
+
+            var itemStoreItemMiscRequirementsRepository = new Mock<IItemStoreItemMiscRequirementsRepository>(MockBehavior.Strict);
+            itemStoreItemMiscRequirementsRepository
+                .Setup(x => x.Add(It.IsAny<Guid>(), id, itemMiscRequirementsId))
+                .Returns(itemStoreItemMiscRequirements.Object);
 
             var itemStatRequirementsRepository = new Mock<IItemStatRequirementsRepository>(MockBehavior.Strict);
 
@@ -137,6 +153,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                enchantmentSaver.Object,
                itemEnchantmentRepository.Object,
                itemStoreRepository.Object,
+               itemStoreItemMiscRequirementsRepository.Object,
                itemMiscRequirementsRepository.Object,
                itemStatRequirementsRepository.Object,
                socketedItemRepository.Object,
@@ -162,6 +179,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             itemRequirements.Verify(x => x.ClassDefinitionId);
 
             sourceItem.Verify(x => x.Id, Times.Exactly(2));
+            sourceItem.Verify(x => x.ItemDefinitionId, Times.Once());
             sourceItem.Verify(x => x.NameStringResourceId, Times.Once());
             sourceItem.Verify(x => x.InventoryGraphicResourceId, Times.Once());
             sourceItem.Verify(x => x.MagicTypeId, Times.Once());
@@ -181,6 +199,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>()),
                 Times.Once());
 
@@ -188,9 +207,12 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 x => x.Add(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>(),
                     It.IsAny<Guid>()), 
                 Times.Once());
+
+            itemMiscRequirements.Verify(x => x.Id, Times.Once());
+
+            itemStoreItemMiscRequirementsRepository.Verify(x => x.Add(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once());
         }
 
         [Fact]
@@ -198,6 +220,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
         {
             // Setup
             var id = Guid.NewGuid();
+            var itemDefinitionId = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
@@ -208,6 +231,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var classDefinitionId = Guid.NewGuid();
             var statId = Guid.NewGuid();
             var statDefinitionId = Guid.NewGuid();
+            var itemMiscRequirementsId = Guid.NewGuid();
             const int STAT_VALUE = 123;
 
             var itemStore = new Mock<IItemStore>(MockBehavior.Strict);
@@ -262,6 +286,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.Id)
                 .Returns(id);
             sourceItem
+                .Setup(x => x.ItemDefinitionId)
+                .Returns(itemDefinitionId);
+            sourceItem
                 .Setup(x => x.NameStringResourceId)
                 .Returns(nameStringResourceId);
             sourceItem
@@ -300,6 +327,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             itemStoreRepository
                 .Setup(x => x.Add(
                     id,
+                    itemDefinitionId,
                     nameStringResourceId,
                     inventoryGraphicResourceId,
                     magicTypeId,
@@ -309,10 +337,20 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Returns(itemStore.Object);
 
             var itemMiscRequirements = new Mock<IItemMiscRequirements>(MockBehavior.Strict);
+            itemMiscRequirements
+                .Setup(x => x.Id)
+                .Returns(itemMiscRequirementsId);
 
+            var itemStoreItemMiscRequirements = new Mock<IItemStoreItemMiscRequirements>(MockBehavior.Strict);
+
+            var itemStoreItemMiscRequirementsRepository = new Mock<IItemStoreItemMiscRequirementsRepository>(MockBehavior.Strict);
+            itemStoreItemMiscRequirementsRepository
+                .Setup(x => x.Add(It.IsAny<Guid>(), id, itemMiscRequirementsId))
+                .Returns(itemStoreItemMiscRequirements.Object);
+            
             var itemMiscRequirementsRepository = new Mock<IItemMiscRequirementsRepository>(MockBehavior.Strict);
             itemMiscRequirementsRepository
-                .Setup(x => x.Add(It.IsAny<Guid>(), id, raceDefinitionId, classDefinitionId))
+                .Setup(x => x.Add(It.IsAny<Guid>(), raceDefinitionId, classDefinitionId))
                 .Returns(itemMiscRequirements.Object);
 
             var itemStatRequirementsRepository = new Mock<IItemStatRequirementsRepository>(MockBehavior.Strict);
@@ -339,6 +377,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                enchantmentSaver.Object,
                itemEnchantmentRepository.Object,
                itemStoreRepository.Object,
+               itemStoreItemMiscRequirementsRepository.Object,
                itemMiscRequirementsRepository.Object,
                itemStatRequirementsRepository.Object,
                socketedItemRepository.Object,

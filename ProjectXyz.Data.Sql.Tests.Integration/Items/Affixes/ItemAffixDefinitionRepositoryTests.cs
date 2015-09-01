@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using ProjectXyz.Data.Interface.Items.Affixes;
-using ProjectXyz.Data.Sql.Items;
 using ProjectXyz.Data.Sql.Items.Affixes;
+using ProjectXyz.Tests.Integration;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -55,7 +55,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Affixes
             const int NUMBER_OF_RESULTS = 5;
             for (int i = 0; i < NUMBER_OF_RESULTS; i++)
             {
-                CreateItemAffixDefinition(
+                CreateDefinition(
                     Guid.NewGuid(),
                     Guid.NewGuid(),
                     true,
@@ -122,7 +122,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Affixes
                 Database,
                 factory.Object);
 
-            CreateItemAffixDefinition(
+            CreateDefinition(
                 id,
                 nameStringResourceId,
                 IS_PREFIX,
@@ -156,7 +156,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Affixes
                 factory.Object);
 
             var id = Guid.NewGuid();
-            CreateItemAffixDefinition(
+            CreateDefinition(
                 id,
                 Guid.NewGuid(),
                 true,
@@ -230,7 +230,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Affixes
             entryToAdd.Verify(x => x.MaximumLevel, Times.Once);
         }
 
-        private void CreateItemAffixDefinition(
+        private void CreateDefinition(
             Guid id,
             Guid nameStringResourceId,
             bool isPrefix,

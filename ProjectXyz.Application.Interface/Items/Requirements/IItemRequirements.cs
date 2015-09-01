@@ -11,9 +11,9 @@ namespace ProjectXyz.Application.Interface.Items.Requirements
     public interface IItemRequirements
     {
         #region Properties
-        Guid RaceDefinitionId { get; }
+        Guid? RaceDefinitionId { get; }
 
-        Guid ClassDefinitionId { get; }
+        Guid? ClassDefinitionId { get; }
 
         IStatCollection Stats { get; }
         #endregion

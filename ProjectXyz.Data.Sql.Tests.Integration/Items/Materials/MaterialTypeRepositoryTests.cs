@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Data.Sql.Items.Materials;
+using ProjectXyz.Tests.Integration;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -158,25 +159,25 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Materials
             var id = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
 
-            var entryToAdd = new Mock<IMaterialType>(MockBehavior.Strict);
-            entryToAdd
-                .Setup(x => x.Id)
-                .Returns(id);
-            entryToAdd
-                .Setup(x => x.NameStringResourceId)
-                .Returns(nameStringResourceId);
+            var createdEntry = new Mock<IMaterialType>(MockBehavior.Strict);
 
             var factory = new Mock<IMaterialTypeFactory>(MockBehavior.Strict);
+            factory
+                .Setup(x => x.Create(id, nameStringResourceId))
+                .Returns(createdEntry.Object);
 
             var repository = MaterialTypeRepository.Create(
                 Database,
                 factory.Object);
 
-
             // Execute
-            repository.Add(entryToAdd.Object);
+            var result = repository.Add(
+                id, 
+                nameStringResourceId);
 
             // Assert
+            Assert.Equal(createdEntry.Object, result);
+
             using (var command = Database.CreateCommand("SELECT * FROM MaterialTypes"))
             {
                 using (var reader = command.ExecuteReader())
@@ -186,8 +187,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Materials
                 }
             }
 
-            entryToAdd.Verify(x => x.Id, Times.Once);
-            entryToAdd.Verify(x => x.NameStringResourceId, Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
         }
 
         private void CreateMaterialType(

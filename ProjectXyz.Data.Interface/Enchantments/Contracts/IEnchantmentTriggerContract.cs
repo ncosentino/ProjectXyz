@@ -10,21 +10,22 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
     public abstract class IEnchantmentTriggerContract : IEnchantmentTrigger
     {
         #region Properties
-        public string Name
+        public Guid NameStringResourceId
         {
             get
             {
-                Contract.Ensures(Contract.Result<string>() != null);
-                Contract.Ensures(Contract.Result<string>() != string.Empty);
-                return default(string);
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
             }
         }
 
         public Guid Id
         {
-            get { return default(Guid); }
-
-            set { }
+            get
+            {
+                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
+                return default(Guid);
+            }
         }
         #endregion
     }

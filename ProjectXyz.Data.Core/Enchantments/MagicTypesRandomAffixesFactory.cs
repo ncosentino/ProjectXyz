@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics.Contracts;
 
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Items.Affixes;
 
 namespace ProjectXyz.Data.Core.Enchantments
 {
@@ -24,7 +25,7 @@ namespace ProjectXyz.Data.Core.Enchantments
             return new MagicTypesRandomAffixesFactory();
         }
 
-        public IMagicTypesRandomAffixes CreateMagicTypesRandomAffixes(Guid id, Guid magicTypeId, int minimumAffixes, int maximumAffixes)
+        public IMagicTypesRandomAffixes Create(Guid id, Guid magicTypeId, int minimumAffixes, int maximumAffixes)
         {
             return MagicTypesRandomAffixes.Create(id, magicTypeId, minimumAffixes, maximumAffixes);
         }

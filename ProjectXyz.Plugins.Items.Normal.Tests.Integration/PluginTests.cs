@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Moq;
+using ProjectXyz.Application.Core;
+using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
+using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Interface;
+using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Core.Items.Sockets;
+using ProjectXyz.Data.Sql;
+using ProjectXyz.Data.Sql.Items.Sockets;
+using ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers;
+using ProjectXyz.Tests.Integration;
+using ProjectXyz.Tests.Xunit.Categories;
+using Xunit;
+
+namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
+{
+    [Items]
+    [ApplicationLayer]
+    public class PluginTests : DatabaseTest
+    {
+        #region Methods
+        [Fact]
+        public void GenerateItemCallbackInvoke_SimpleDefinition_MatchesDefinition()
+        {
+            // Setup
+            const int LEVEL = 0;
+
+            var dataStore = SqlDataStore.Create(
+                Database,
+                SqlDatabaseUpgrader.Create());
+
+            var addResult = ItemDefinitionRepositoryHelper.AddItemDefinition(dataStore);
+
+            var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
+
+            var enchantmentCalculatorResultFactory = EnchantmentCalculatorResultFactory.Create();
+
+            var enchantmentCalculator = EnchantmentCalculator.Create(
+                enchantmentContext.Object,
+                enchantmentCalculatorResultFactory,
+                Enumerable.Empty<IEnchantmentTypeCalculator>());
+
+            var enchantmentFactory = EnchantmentFactory.Create();
+
+            var statSocketTypeFactory = StatSocketTypeFactory.Create();
+            var statSocketTypeRepository = StatSocketTypeRepository.Create(
+                Database,
+                statSocketTypeFactory);
+
+            var itemContext = ItemContext.Create(
+                enchantmentCalculator,
+                enchantmentFactory,
+                statSocketTypeRepository);
+
+            var randomizer = new Mock<IRandom>(MockBehavior.Strict);
+
+            var applicationManager = Manager.Create(dataStore);
+
+            var plugin = new Plugin(
+                Database,
+                dataStore,
+                applicationManager);
+
+            // Execute
+            var result = plugin.GenerateItemCallback.Invoke(
+                randomizer.Object,
+                addResult.ItemDefinition.Id,
+                LEVEL,
+                itemContext);
+
+            // Assert
+            Assert.Equal(addResult.ItemDefinition.Id, result.ItemDefinitionId);
+            Assert.Equal(addResult.ItemDefinition.InventoryGraphicResourceId, result.InventoryGraphicResourceId);
+            Assert.Equal(addResult.ItemDefinition.ItemTypeId, result.ItemTypeId);
+            Assert.Equal(addResult.ItemDefinition.MagicTypeId, result.MagicTypeId);
+            Assert.Equal(addResult.ItemDefinition.MaterialTypeId, result.MaterialTypeId);
+            Assert.Equal(addResult.ItemDefinition.NameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(addResult.ItemDefinition.SocketTypeId, result.SocketTypeId);
+            Assert.Empty(result.Enchantments);
+        }
+        #endregion
+    }
+}

@@ -13,7 +13,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         private readonly Guid _triggerId; 
         private readonly Guid _statusTypeId;
         private readonly Guid _enchantmentTypeId;
-        private readonly List<Guid> _weatherIds;
+        private readonly Guid _weatherTypeGroupingId;
         #endregion
 
         #region Constructors
@@ -22,19 +22,19 @@ namespace ProjectXyz.Application.Core.Enchantments
             Guid statusTypeId,
             Guid triggerId,
             Guid enchantmentTypeId,
-            IEnumerable<Guid> weatherIds)
+            Guid weatherTypeGroupingId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(weatherIds != null);
+            Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
 
             _id = id;
             _triggerId = triggerId;
             _statusTypeId = statusTypeId;
             _enchantmentTypeId = enchantmentTypeId;
-            _weatherIds = new List<Guid>(weatherIds);
+            _weatherTypeGroupingId = weatherTypeGroupingId;
         }
         #endregion
 
@@ -43,7 +43,7 @@ namespace ProjectXyz.Application.Core.Enchantments
         public event EventHandler<EventArgs> Expired;
         #endregion
 
-        #region Properties        
+        #region Properties
         /// <inheritdoc />
         public Guid Id
         {
@@ -69,9 +69,9 @@ namespace ProjectXyz.Application.Core.Enchantments
         }
 
         /// <inheritdoc />
-        public IEnumerable<Guid> WeatherIds
+        public Guid WeatherGroupingId
         {
-            get { return _weatherIds; }
+            get { return _weatherTypeGroupingId; }
         }
         #endregion
 

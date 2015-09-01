@@ -16,7 +16,7 @@ namespace ProjectXyz.Data.Interface.Items.Requirements
 
         IItemStatRequirements GetById(Guid id);
 
-        IItemStatRequirements GetByItemId(Guid itemId);
+        IEnumerable<IItemStatRequirements> GetByItemId(Guid itemId);
 
         IEnumerable<IItemStatRequirements> GetAll();
         #endregion

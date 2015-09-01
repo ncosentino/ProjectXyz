@@ -22,7 +22,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
 
         Guid EnchantmentTypeId { get; }
 
-        IEnumerable<Guid> WeatherIds { get; }
+        Guid WeatherGroupingId { get; }
         #endregion
     }
 }

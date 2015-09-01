@@ -14,7 +14,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
         #region Properties
         Guid Id { get; }
 
-        string Name { get; }
+        Guid NameStringResourceId { get; }
         #endregion
     }
 }

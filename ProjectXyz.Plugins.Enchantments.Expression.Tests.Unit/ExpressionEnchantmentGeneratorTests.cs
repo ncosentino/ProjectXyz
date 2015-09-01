@@ -5,6 +5,7 @@ using System.Linq;
 using Moq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
@@ -26,6 +27,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var expressionId = Guid.NewGuid();
             var enchantmentWeatherId = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
+            var weatherTypeGroupingId = Guid.NewGuid();
             const string EXPRESSION_STAT_ID = "ExpressionStatId";
             const string EXPRESSION_VALUE_ID = "ExpressionStatId";
             const string EXPRESSION = EXPRESSION_STAT_ID + " " + EXPRESSION_VALUE_ID;
@@ -77,9 +79,6 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
-            enchantmentDefinition
-                .Setup(x => x.EnchantmentWeatherId)
-                .Returns(enchantmentWeatherId);
 
             var expressionStatIds = new[] 
             {
@@ -93,7 +92,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var expressionEnchantmentFactory = new Mock<IExpressionEnchantmentFactory>(MockBehavior.Strict);
             expressionEnchantmentFactory
-                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, Enumerable.Empty<Guid>(), TimeSpan.FromSeconds(1), targetStatId, EXPRESSION, CALCULATION_PRIORITY, expressionStatIds, expressionValues))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, weatherTypeGroupingId, TimeSpan.FromSeconds(1), targetStatId, EXPRESSION, CALCULATION_PRIORITY, expressionStatIds, expressionValues))
                 .Returns(enchantment.Object);
 
             var expressionEnchantmentDefinitionRepository = new Mock<IExpressionEnchantmentDefinitionRepository>(MockBehavior.Strict);
@@ -115,7 +114,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var expressionEnchantmentValueDefinitionRepository = new Mock<IExpressionEnchantmentValueDefinitionRepository>(MockBehavior.Strict);
             expressionEnchantmentValueDefinitionRepository
                 .Setup(x => x.GetByEnchantmentDefinitionId(enchantmentDefinitionId))
-                .Returns(new IExpressionEnchantmentValueDefinition[] { expressionEnchantmentValueDefinition.Object });
+                .Returns(new[] { expressionEnchantmentValueDefinition.Object });
 
             var expressionEnchantmentStatDefinition = new Mock<IExpressionEnchantmentStatDefinition>(MockBehavior.Strict);
             expressionEnchantmentStatDefinition
@@ -128,25 +127,25 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var expressionEnchantmentStatDefinitionRepository = new Mock<IExpressionEnchantmentStatDefinitionRepository>(MockBehavior.Strict);
             expressionEnchantmentStatDefinitionRepository
                 .Setup(x => x.GetByEnchantmentDefinitionId(enchantmentDefinitionId))
-                .Returns(new IExpressionEnchantmentStatDefinition[] { expressionEnchantmentStatDefinition.Object });
+                .Returns(new[] { expressionEnchantmentStatDefinition.Object });
 
-            var enchantmentWeather = new Mock<IEnchantmentWeather>(MockBehavior.Strict);
+            var enchantmentWeather = new Mock<IEnchantmentDefinitionWeatherGrouping>(MockBehavior.Strict);
             enchantmentWeather
-                .Setup(x => x.WeatherIds)
-                .Returns(Enumerable.Empty<Guid>());
+                .Setup(x => x.WeatherTypeGroupingId)
+                .Returns(weatherTypeGroupingId);
 
-            var enchantmentWeatherRepository = new Mock<IEnchantmentWeatherRepository>(MockBehavior.Strict);
-            enchantmentWeatherRepository
-                .Setup(x => x.GetById(enchantmentWeatherId))
+            var enchantmentDefinitionWeatherGroupingRepository = new Mock<IEnchantmentDefinitionWeatherTypeGroupingRepository>(MockBehavior.Strict);
+            enchantmentDefinitionWeatherGroupingRepository
+                .Setup(x => x.GetByEnchantmentDefinitionId(enchantmentDefinitionId))
                 .Returns(enchantmentWeather.Object);
-
+            
             var enchantmentGenerator = ExpressioneEnchantmentGenerator.Create(
                 expressionEnchantmentFactory.Object,
                 expressionEnchantmentDefinitionRepository.Object,
                 expressionEnchantmentValueDefinitionRepository.Object,
                 expressionEnchantmentStatDefinitionRepository.Object,
                 expressionDefinitionRepository.Object,
-                enchantmentWeatherRepository.Object);
+                enchantmentDefinitionWeatherGroupingRepository.Object);
 
             // Execute
             var result = enchantmentGenerator.Generate(
@@ -166,17 +165,16 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             expressionEnchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
             expressionEnchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
 
-            enchantmentDefinition.Verify(x => x.Id, Times.Exactly(3));
+            enchantmentDefinition.Verify(x => x.Id, Times.Exactly(4));
             enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);
             enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            enchantmentDefinition.Verify(x => x.EnchantmentWeatherId, Times.Once);
 
             expressionEnchantmentFactory.Verify(
                 x => x.Create(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<IEnumerable<Guid>>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<TimeSpan>(),
                     It.IsAny<Guid>(),
                     It.IsAny<string>(),
@@ -197,10 +195,10 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             expressionEnchantmentStatDefinition.Verify(x => x.StatId, Times.Once);
 
             expressionEnchantmentStatDefinitionRepository.Verify(x => x.GetByEnchantmentDefinitionId(It.IsAny<Guid>()), Times.Once);
-
-            enchantmentWeather.Verify(x => x.WeatherIds, Times.Once);
-
-            enchantmentWeatherRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Once);
+            
+            enchantmentDefinitionWeatherGroupingRepository.Verify(x => x.GetByEnchantmentDefinitionId(It.IsAny<Guid>()), Times.Once);
+            
+            enchantmentWeather.Verify(x => x.WeatherTypeGroupingId, Times.Once);
         }
         #endregion
     }

@@ -18,10 +18,12 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
         public void Generate_ValidArguments_Success()
         {
             // Setup
+            var enchantmentDefinitionId = Guid.NewGuid();
             var statId = Guid.NewGuid();
             var statusTypeId = Guid.NewGuid();
             var triggerId = Guid.NewGuid();
             var enchantmentWeatherId = Guid.NewGuid();
+            var weatherTypeGroupingId = Guid.NewGuid();
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
 
@@ -34,33 +36,33 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
 
             var enchantmentDefinition = new Mock<IEnchantmentDefinition>(MockBehavior.Strict);
             enchantmentDefinition
+                .Setup(x => x.Id)
+                .Returns(enchantmentDefinitionId);
+            enchantmentDefinition
                 .Setup(x => x.StatusTypeId)
                 .Returns(statusTypeId);
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
-            enchantmentDefinition
-                .Setup(x => x.EnchantmentWeatherId)
-                .Returns(enchantmentWeatherId);
 
             var oneShotNegateEnchantmentFactory = new Mock<IOneShotNegateEnchantmentFactory>(MockBehavior.Strict);
             oneShotNegateEnchantmentFactory
-                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, Enumerable.Empty<Guid>(), statId))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, weatherTypeGroupingId, statId))
                 .Returns(enchantment.Object);
 
-            var enchantmentWeather = new Mock<IEnchantmentWeather>(MockBehavior.Strict);
+            var enchantmentWeather = new Mock<IEnchantmentDefinitionWeatherGrouping>(MockBehavior.Strict);
             enchantmentWeather
-                .Setup(x => x.WeatherIds)
-                .Returns(Enumerable.Empty<Guid>());
+                .Setup(x => x.WeatherTypeGroupingId)
+                .Returns(weatherTypeGroupingId);
 
-            var enchantmentWeatherRepository = new Mock<IEnchantmentWeatherRepository>(MockBehavior.Strict);
-            enchantmentWeatherRepository
-                .Setup(x => x.GetById(enchantmentWeatherId))
+            var enchantmentDefinitionWeatherGroupingRepository = new Mock<IEnchantmentDefinitionWeatherTypeGroupingRepository>(MockBehavior.Strict);
+            enchantmentDefinitionWeatherGroupingRepository
+                .Setup(x => x.GetByEnchantmentDefinitionId(enchantmentDefinitionId))
                 .Returns(enchantmentWeather.Object);
 
             var enchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(
                 oneShotNegateEnchantmentFactory.Object,
-                enchantmentWeatherRepository.Object);
+                enchantmentDefinitionWeatherGroupingRepository.Object);
 
             // Execute
             var result = enchantmentGenerator.Generate(
@@ -73,22 +75,22 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             
             oneShotNegateEnchantmentDefinition.Verify(x => x.StatId, Times.Once);
 
+            enchantmentDefinition.Verify(x => x.Id, Times.Once);
             enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);            
             enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            enchantmentDefinition.Verify(x => x.EnchantmentWeatherId, Times.Once);
             
             oneShotNegateEnchantmentFactory.Verify(
                 x => x.Create(
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
-                    It.IsAny<IEnumerable<Guid>>(),
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>()),
                 Times.Once);
 
-            enchantmentWeather.Verify(x => x.WeatherIds, Times.Once);
-
-            enchantmentWeatherRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Once);
+            enchantmentWeather.Verify(x => x.WeatherTypeGroupingId, Times.Once);
+            
+            enchantmentDefinitionWeatherGroupingRepository.Verify(x => x.GetByEnchantmentDefinitionId(It.IsAny<Guid>()), Times.Once);
         }
         #endregion
     }

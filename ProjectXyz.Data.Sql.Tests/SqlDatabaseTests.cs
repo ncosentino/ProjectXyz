@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
-
+using Moq;
+using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
-using Moq;
-
-using ProjectXyz.Tests.Xunit.Categories;
-
-namespace ProjectXyz.Data.Sql.Tests
+namespace ProjectXyz.Data.Sql.Tests.Unit
 {
     [DataLayer]
     public class SqlDatabaseTests

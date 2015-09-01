@@ -23,7 +23,7 @@ namespace ProjectXyz.Data.Tests.Unit.Stats
             var factory = StatFactory.Create();
 
             // Execute
-            var result = factory.CreateStat(
+            var result = factory.Create(
                 id,
                 statDefinitionId,
                 VALUE);

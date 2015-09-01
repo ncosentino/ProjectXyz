@@ -5,6 +5,7 @@ using Moq;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Application.Tests.Integration.Helpers;
@@ -53,6 +54,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
             var socketCandidate = Item.Create(
                 itemContext,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
                 new[]
@@ -61,11 +63,13 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.RequiredSockets, 1),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
             var socketableItem = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -75,6 +79,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.Weight, 50),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
@@ -124,7 +129,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.Value,
                 "VALUE",
@@ -134,6 +139,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
 
             var socketCandidate = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -146,11 +152,13 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 {
                     socketCandidateEnchantment,
                 },
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
             var socketableItem = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -160,6 +168,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.Weight, 50),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
@@ -205,15 +214,18 @@ namespace ProjectXyz.Application.Tests.Integration.Items
             var socketCandidate = Item.Create(
                 itemContext,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
                 Enumerable.Empty<IStat>(),
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
             var socketableItem = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -222,6 +234,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), statIdForSocketing, 1),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
@@ -270,6 +283,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
             var socketCandidate = Item.Create(
                 itemContext,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
                 new[]
@@ -277,11 +291,13 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.RequiredSockets, 1),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
             var socketableItem = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -290,6 +306,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), openSocketTypeId, 1),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
@@ -336,7 +353,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 remainingDuration,
                 ItemStats.Value,
                 "BASE + BONUS",
@@ -346,6 +363,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
 
             var socketCandidate = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -357,11 +375,13 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 {
                     socketCandidateEnchantment,
                 },
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
             var socketableItem = Item.Create(
                 itemContext,
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
@@ -371,6 +391,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.Value, BASE_VALUE),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
@@ -410,7 +431,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.CurrentDurability,
                 "VALUE",
@@ -421,6 +442,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
             var item = Item.Create(
                 itemContext,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
                 new[]
@@ -429,6 +451,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, BASE_MAX_DURABILITY),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 
@@ -474,7 +497,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
-                Enumerable.Empty<Guid>(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.CurrentDurability,
                 "VALUE",
@@ -485,6 +508,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
             var item = Item.Create(
                 itemContext,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 itemMetaData.Object,
                 itemRequirements.Object,
                 new[]
@@ -493,6 +517,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                     Stat.Create(Guid.NewGuid(), ItemStats.MaximumDurability, BASE_MAX_DURABILITY),
                 },
                 Enumerable.Empty<IEnchantment>(),
+                Enumerable.Empty<IItemAffix>(),
                 Enumerable.Empty<IItem>(),
                 Enumerable.Empty<Guid>());
 

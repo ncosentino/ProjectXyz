@@ -16,20 +16,17 @@ namespace ProjectXyz.Data.Tests.Unit.Items.Requirements
         {
             // Setup
             var id = Guid.NewGuid();
-            var itemId = Guid.NewGuid();
             var raceDefinitionId = Guid.NewGuid();
             var classDefinitionId = Guid.NewGuid();
 
             // Execute
             var result = ItemMiscRequirements.Create(
                 id,
-                itemId,
                 raceDefinitionId,
                 classDefinitionId);
 
             // Assert
             Assert.Equal(id, result.Id);
-            Assert.Equal(itemId, result.ItemId);
             Assert.Equal(raceDefinitionId, result.RaceDefinitionId);
             Assert.Equal(classDefinitionId, result.ClassDefinitionId);
         }
