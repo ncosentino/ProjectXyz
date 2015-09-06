@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Items.Affixes;
 
 namespace ProjectXyz.Data.Sql.Items.Affixes

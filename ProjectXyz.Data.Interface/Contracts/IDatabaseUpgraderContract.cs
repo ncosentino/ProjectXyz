@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
-namespace ProjectXyz.Data.Sql.Contracts
+namespace ProjectXyz.Data.Interface.Contracts
 {
     [ContractClassFor(typeof(IDatabaseUpgrader))]
     public abstract class IDatabaseUpgraderContract : IDatabaseUpgrader

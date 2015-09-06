@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Actors;
 
 namespace ProjectXyz.Data.Sql.Actors

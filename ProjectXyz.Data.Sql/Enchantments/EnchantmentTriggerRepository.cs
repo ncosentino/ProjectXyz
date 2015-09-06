@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Diagnostics.Contracts;
-
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Data.Sql.Enchantments

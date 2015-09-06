@@ -129,11 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors\ActorStoreRepository.cs" />
-    <Compile Include="Contracts\IDatabaseCommandCreatorContract.cs" />
-    <Compile Include="Contracts\IDatabaseCommandExecuterContract.cs" />
-    <Compile Include="Contracts\IDatabaseContract.cs" />
-    <Compile Include="Contracts\IDatabaseQueryExecuterContract.cs" />
-    <Compile Include="Contracts\IDatabaseUpgraderContract.cs" />
     <Compile Include="Diseases\DiseaseSpreadTypeRepository.cs" />
     <Compile Include="Diseases\DiseaseDefinitionRepository.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherTypeGroupingRepository.cs" />
@@ -170,11 +165,6 @@
     <Compile Include="Resources\StringResourceRepository.cs" />
     <Compile Include="Resources\DisplayLanguageRepository.cs" />
     <Compile Include="SqlDatabaseUpgrader.cs" />
-    <Compile Include="IDatabaseQueryExecuter.cs" />
-    <Compile Include="IDatabaseCommandExecuter.cs" />
-    <Compile Include="IDatabaseCommandCreator.cs" />
-    <Compile Include="IDatabase.cs" />
-    <Compile Include="IDatabaseUpgrader.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

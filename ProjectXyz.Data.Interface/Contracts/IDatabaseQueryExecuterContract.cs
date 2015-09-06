@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
+using System.Linq;
 
-namespace ProjectXyz.Data.Sql.Contracts
+namespace ProjectXyz.Data.Interface.Contracts
 {
     [ContractClassFor(typeof(IDatabaseQueryExecutor))]
     public abstract class IDatabaseQueryExecutorContract : IDatabaseQueryExecutor

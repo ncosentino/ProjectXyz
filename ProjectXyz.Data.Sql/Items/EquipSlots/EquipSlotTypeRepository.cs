@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Items.EquipSlots;
 
 namespace ProjectXyz.Data.Sql.Items.EquipSlots

@@ -132,6 +132,11 @@
     <Compile Include="Actors\IActorStore.cs" />
     <Compile Include="Actors\IActorStoreFactory.cs" />
     <Compile Include="Actors\IActorStoreRepository.cs" />
+    <Compile Include="Contracts\IDatabaseCommandCreatorContract.cs" />
+    <Compile Include="Contracts\IDatabaseCommandExecuterContract.cs" />
+    <Compile Include="Contracts\IDatabaseContract.cs" />
+    <Compile Include="Contracts\IDatabaseQueryExecuterContract.cs" />
+    <Compile Include="Contracts\IDatabaseUpgraderContract.cs" />
     <Compile Include="Contracts\IDataStore.cs" />
     <Compile Include="Diseases\Contracts\IDiseaseSpreadTypeRepositoryContract.cs" />
     <Compile Include="Diseases\Contracts\IDiseaseSpreadTypeFactoryContract.cs" />
@@ -155,6 +160,11 @@
     <Compile Include="Enchantments\Contracts\IEnchantmentDefinitionRepositoryContract.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentsDataStore.cs" />
+    <Compile Include="IDatabase.cs" />
+    <Compile Include="IDatabaseCommandCreator.cs" />
+    <Compile Include="IDatabaseCommandExecuter.cs" />
+    <Compile Include="IDatabaseQueryExecuter.cs" />
+    <Compile Include="IDatabaseUpgrader.cs" />
     <Compile Include="Items\Affixes\Contracts\IMagicTypesRandomAffixesRepositoryContract.cs" />
     <Compile Include="Items\Affixes\Contracts\IMagicTypesRandomAffixesFactoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentTriggerFactoryContract.cs" />

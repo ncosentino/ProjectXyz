@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Data.Core.Weather;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Data.Sql.Weather

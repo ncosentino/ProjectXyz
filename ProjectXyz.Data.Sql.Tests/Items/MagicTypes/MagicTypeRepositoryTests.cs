@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Moq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Items.MagicTypes;
 using ProjectXyz.Data.Sql.Items.MagicTypes;
 using ProjectXyz.Tests.Xunit.Categories;

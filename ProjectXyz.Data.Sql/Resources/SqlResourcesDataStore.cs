@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Data.Core.Resources;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Resources;
 
 namespace ProjectXyz.Data.Sql.Resources

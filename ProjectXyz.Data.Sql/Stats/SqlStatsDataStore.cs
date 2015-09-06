@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Sql.Stats

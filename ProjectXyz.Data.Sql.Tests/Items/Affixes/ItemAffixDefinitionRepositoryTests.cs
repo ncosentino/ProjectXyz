@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Moq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Data.Sql.Items;
 using ProjectXyz.Data.Sql.Items.Affixes;

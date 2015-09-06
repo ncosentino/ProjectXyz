@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
+using System.Linq;
+using ProjectXyz.Data.Interface.Contracts;
 
-using ProjectXyz.Data.Sql.Contracts;
-
-namespace ProjectXyz.Data.Sql
+namespace ProjectXyz.Data.Interface
 {
     [ContractClass(typeof(IDatabaseCommandCreatorContract))]
     public interface IDatabaseCommandCreator

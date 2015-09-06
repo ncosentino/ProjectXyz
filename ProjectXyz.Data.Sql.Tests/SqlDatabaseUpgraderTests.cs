@@ -3,7 +3,7 @@
 using Xunit;
 
 using Moq;
-
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Tests.Xunit.Categories;
 
 namespace ProjectXyz.Data.Sql.Tests

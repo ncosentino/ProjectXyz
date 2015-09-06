@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Sql;
 
 namespace ProjectXyz.Tests.Integration

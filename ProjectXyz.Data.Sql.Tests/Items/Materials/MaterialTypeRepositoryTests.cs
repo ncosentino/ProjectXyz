@@ -4,6 +4,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using Moq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Items.Materials;
 using ProjectXyz.Data.Sql.Items.Materials;
 using ProjectXyz.Tests.Xunit.Categories;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Sql;
 using ProjectXyz.Plugins.Core.Enchantments;
 using ProjectXyz.Plugins.Enchantments;

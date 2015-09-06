@@ -9,6 +9,7 @@ using ProjectXyz.Data.Core.Items.MagicTypes;
 using ProjectXyz.Data.Core.Items.Materials;
 using ProjectXyz.Data.Core.Items.Requirements;
 using ProjectXyz.Data.Core.Items.Sockets;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Items.EquipSlots;

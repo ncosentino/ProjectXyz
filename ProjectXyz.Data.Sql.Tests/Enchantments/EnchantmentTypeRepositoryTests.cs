@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Moq;
+using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
