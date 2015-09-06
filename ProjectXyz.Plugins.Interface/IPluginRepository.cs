@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectXyz.Plugins
+namespace ProjectXyz.Plugins.Interface
 {
     public interface IPluginRepository<TPlugin> : IPluginRepository
     {

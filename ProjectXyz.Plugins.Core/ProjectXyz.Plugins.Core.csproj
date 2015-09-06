@@ -126,8 +126,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PluginManager.cs" />
     <Compile Include="Enchantments\EnchantmentPluginRegistrar.cs" />
     <Compile Include="Items\ItemPluginRegistrar.cs" />
+    <Compile Include="PluginRegistrarManager.cs" />
+    <Compile Include="PluginRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

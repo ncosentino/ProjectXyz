@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ProjectXyz.Plugins.Interface;
 
-namespace ProjectXyz.Plugins
+namespace ProjectXyz.Plugins.Core
 {
     public sealed class PluginRepository<TPlugin> : IPluginRepository<TPlugin>
     {

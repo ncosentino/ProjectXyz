@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Xunit;
 
-namespace ProjectXyz.Plugins.Tests.Unit
+namespace ProjectXyz.Plugins.Core.Tests.Unit
 {
     public class PluginRepositoryTests
     {
