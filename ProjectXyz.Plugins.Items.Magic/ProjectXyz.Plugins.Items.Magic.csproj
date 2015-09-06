@@ -48,10 +48,6 @@
       <Project>{69A56C1B-CD41-4DCC-ABF1-DBB097DD489D}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
-      <Project>{FA14C733-DF45-4E7B-B61F-497D032FC0B1}</Project>
-      <Name>ProjectXyz.Data.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
       <Project>{D84CA25F-A1F8-4EFC-AD09-906D786C3094}</Project>
       <Name>ProjectXyz.Data.Interface</Name>

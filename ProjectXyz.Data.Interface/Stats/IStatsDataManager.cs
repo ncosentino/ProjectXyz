@@ -12,6 +12,8 @@ namespace ProjectXyz.Data.Interface.Stats
         IStatRepository Stats { get; }
 
         IStatFactory StatFactory { get; }
+
+        IStatCollectionFactory StatCollectionFactory { get; }
         #endregion
     }
 }

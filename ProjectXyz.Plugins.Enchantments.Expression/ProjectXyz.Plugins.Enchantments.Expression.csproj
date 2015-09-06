@@ -196,17 +196,13 @@
     <Compile Include="Sql\ExpressionEnchantmentStatRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
-      <Project>{5f23d262-459c-4655-acde-d8563fe33698}</Project>
-      <Name>ProjectXyz.Application.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{69a56c1b-cd41-4dcc-abf1-dbb097dd489d}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
-      <Project>{fa14c733-df45-4e7b-b61f-497d032fc0b1}</Project>
-      <Name>ProjectXyz.Data.Core</Name>
+    <ProjectReference Include="..\ProjectXyz.Application.Shared\ProjectXyz.Application.Shared.csproj">
+      <Project>{1eae0ba1-6ff0-46ae-87c1-84d04f137f33}</Project>
+      <Name>ProjectXyz.Application.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
       <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>

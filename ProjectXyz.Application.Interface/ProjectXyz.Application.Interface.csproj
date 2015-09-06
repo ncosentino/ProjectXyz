@@ -140,6 +140,7 @@
     <Compile Include="Diseases\IDiseaseGenerator.cs" />
     <Compile Include="Diseases\IDiseaseState.cs" />
     <Compile Include="Diseases\IDisease.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentTypeCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\Calculations\IEnchantmentCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\CreateEnchantmentDelegate.cs" />
     <Compile Include="Enchantments\GenerateEnchantmentDelegate.cs" />

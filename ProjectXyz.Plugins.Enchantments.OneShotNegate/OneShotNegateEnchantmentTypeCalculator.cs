@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Data.Interface.Enchantments;
@@ -15,26 +14,31 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Fields
         private readonly IStatusNegationRepository _statusNegationRepository;
         private readonly IWeatherGroupingRepository _weatherGroupingRepository;
+        private readonly IEnchantmentTypeCalculatorResultFactory _enchantmentTypeCalculatorResultFactory;
         #endregion
 
         #region Constructors
         private OneShotNegateEnchantmentTypeCalculator(
             IStatusNegationRepository statusNegationRepository,
-            IWeatherGroupingRepository weatherGroupingRepository)
+            IWeatherGroupingRepository weatherGroupingRepository,
+            IEnchantmentTypeCalculatorResultFactory enchantmentTypeCalculatorResultFactory)
         {
             _statusNegationRepository = statusNegationRepository;
             _weatherGroupingRepository = weatherGroupingRepository;
+            _enchantmentTypeCalculatorResultFactory = enchantmentTypeCalculatorResultFactory;
         }
         #endregion
 
         #region Methods
         public static IEnchantmentTypeCalculator Create(
             IStatusNegationRepository statusNegationRepository,
-            IWeatherGroupingRepository weatherGroupingRepository)
+            IWeatherGroupingRepository weatherGroupingRepository,
+            IEnchantmentTypeCalculatorResultFactory enchantmentTypeCalculatorResultFactory)
         {
             var calculator = new OneShotNegateEnchantmentTypeCalculator(
                 statusNegationRepository, 
-                weatherGroupingRepository);
+                weatherGroupingRepository,
+                enchantmentTypeCalculatorResultFactory);
             return calculator;
         }
 
@@ -44,12 +48,12 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             IEnumerable<IEnchantment> enchantments)
         {
             var removedEnchantments = new List<IEnchantment>();
-            var processedEnchantments = new List<IEnchantment>(ProcessEnchantments(
+            var processedEnchantments = ProcessEnchantments(
                 enchantmentContext,
                 enchantments,
-                removedEnchantments));
+                removedEnchantments);
 
-            var result = EnchantmentTypeCalculatorResult.Create(
+            var result = _enchantmentTypeCalculatorResultFactory.Create(
                 removedEnchantments,
                 processedEnchantments,
                 stats);

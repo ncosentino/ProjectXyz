@@ -239,12 +239,10 @@
     <Compile Include="Enchantments\IEnchantmentTriggerRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTrigger.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreContract.cs" />
-    <Compile Include="Enchantments\Contracts\IMutableEnchantmentCollectionContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentStoreCollectionContract.cs" />
     <Compile Include="Enchantments\IEnchantmentStoreCollection.cs" />
     <Compile Include="Enchantments\IEnchantmentStore.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinition.cs" />
-    <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
     <Compile Include="IDataManager.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
@@ -279,6 +277,7 @@
     <Compile Include="Resources\IDisplayLanguageRepository.cs" />
     <Compile Include="Resources\IDisplayLanguageFactory.cs" />
     <Compile Include="Resources\IDisplayLanguage.cs" />
+    <Compile Include="Stats\IStatCollectionFactory.cs" />
     <Compile Include="Stats\IStatsDataManager.cs" />
     <Compile Include="Stats\IStatDefinitionRepository.cs" />
     <Compile Include="Stats\IStatDefinitionFactory.cs" />

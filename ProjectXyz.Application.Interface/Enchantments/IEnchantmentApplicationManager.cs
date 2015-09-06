@@ -14,6 +14,10 @@ namespace ProjectXyz.Application.Interface.Enchantments
         IEnchantmentCalculator EnchantmentCalculator { get; }
 
         IEnchantmentFactory EnchantmentFactory { get; }
+
+        IEnchantmentSaver EnchantmentSaver { get; }
+
+        IEnchantmentTypeCalculatorResultFactory EnchantmentTypeCalculatorResultFactory { get; }
         #endregion
     }
 }

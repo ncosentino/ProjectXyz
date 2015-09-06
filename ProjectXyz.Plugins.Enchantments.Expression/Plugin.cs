@@ -5,8 +5,6 @@ using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Interface.Weather;
-using ProjectXyz.Data.Sql;
 using ProjectXyz.Plugins.Enchantments.Expression.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
@@ -31,7 +29,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         #region Constructors
         public Plugin(
             IDatabase database,
-            IDataManager dataManager)
+            IDataManager dataManager,
+            IApplicationManager applicationManager)
         {
             _enchantmentDefinitionRepository = dataManager.Enchantments.EnchantmentDefinitions;
 
@@ -46,7 +45,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             _enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
                 dataManager.Stats.StatFactory,
                 expressionEvaluator,
-                dataManager.Weather.WeatherGroupings);
+                dataManager.Weather.WeatherGroupings,
+                applicationManager.Enchantments.EnchantmentTypeCalculatorResultFactory,
+                dataManager.Stats.StatCollectionFactory);
 
             _expressionEnchantmentStoreFactory = ExpressionEnchantmentStoreFactory.Create();
 

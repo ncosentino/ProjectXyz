@@ -64,6 +64,10 @@
       <Project>{69a56c1b-cd41-4dcc-abf1-dbb097dd489d}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Shared\ProjectXyz.Application.Shared.csproj">
+      <Project>{1eae0ba1-6ff0-46ae-87c1-84d04f137f33}</Project>
+      <Name>ProjectXyz.Application.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
       <Project>{fa14c733-df45-4e7b-b61f-497d032fc0b1}</Project>
       <Name>ProjectXyz.Data.Core</Name>

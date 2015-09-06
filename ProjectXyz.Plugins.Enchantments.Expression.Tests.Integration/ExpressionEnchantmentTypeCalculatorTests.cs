@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Weather;
@@ -63,10 +64,16 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 .Setup(x => x.GetByGroupingId(weatherTypeGroupingId))
                 .Returns(new IWeatherGrouping[0]);
 
+            var enchantmentTypeCalculatorResultFactory = EnchantmentTypeCalculatorResultFactory.Create();
+
+            var statCollectionFactory = StatCollectionFactory.Create();
+
             var enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
                 statFactory,
                 expressionEvaluator,
-                weatherTypeGroupingRepository.Object);
+                weatherTypeGroupingRepository.Object,
+                enchantmentTypeCalculatorResultFactory,
+                statCollectionFactory);
 
             var stats = StatCollection.Create();
 

@@ -5,7 +5,6 @@ using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
-using ProjectXyz.Data.Sql;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate.Sql;
 
 namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
@@ -25,13 +24,15 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Constructors
         public Plugin(
             IDatabase database,
-            IDataManager dataManager)
+            IDataManager dataManager,
+            IApplicationManager applicationManager)
         {
             _enchantmentDefinitionRepository = dataManager.Enchantments.EnchantmentDefinitions;
 
             _enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
                 dataManager.Enchantments.StatusNegations,
-                dataManager.Weather.WeatherGroupings);
+                dataManager.Weather.WeatherGroupings,
+                applicationManager.Enchantments.EnchantmentTypeCalculatorResultFactory);
 
             var enchantmentDefinitionWeatherGroupingRepository = dataManager.Enchantments.EnchantmentWeather;
             var enchantmentFactory = OneShotNegateEnchantmentFactory.Create();

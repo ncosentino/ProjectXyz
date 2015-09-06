@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Application.Core.Enchantments
@@ -14,6 +15,8 @@ namespace ProjectXyz.Application.Core.Enchantments
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IEnchantmentGenerator _enchantmentGenerator;
         private readonly IEnchantmentCalculator _enchantmentCalculator;
+        private readonly IEnchantmentSaver _enchantmentSaver;
+        private readonly IEnchantmentTypeCalculatorResultFactory _enchantmentTypeCalculatorResultFactory;
         #endregion
 
         #region Constructors
@@ -33,6 +36,13 @@ namespace ProjectXyz.Application.Core.Enchantments
                 enchantmentContext,
                 enchantmentCalculatorResultFactory,
                 enchantmentTypeCalculators);
+
+            var enchantmentStoreFactory = EnchantmentStoreFactory.Create();
+            _enchantmentSaver = Enchantments.EnchantmentSaver.Create(
+                enchantmentStoreFactory,
+                dataManager.Enchantments.EnchantmentStores);
+
+            _enchantmentTypeCalculatorResultFactory = Calculations.EnchantmentTypeCalculatorResultFactory.Create();
         }
         #endregion
 
@@ -53,6 +63,18 @@ namespace ProjectXyz.Application.Core.Enchantments
         public IEnchantmentCalculator EnchantmentCalculator
         {
             get { return _enchantmentCalculator; }
+        }
+
+        /// <inheritdoc />
+        public IEnchantmentSaver EnchantmentSaver
+        {
+            get { return _enchantmentSaver; }
+        }
+
+        /// <inheritdoc />
+        public IEnchantmentTypeCalculatorResultFactory EnchantmentTypeCalculatorResultFactory
+        {
+            get { return _enchantmentTypeCalculatorResultFactory; }
         }
         #endregion
 

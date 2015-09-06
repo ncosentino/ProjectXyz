@@ -148,7 +148,6 @@
     <Compile Include="Enchantments\MagicTypesRandomAffixes.cs" />
     <Compile Include="Enchantments\EnchantmentStatuses.cs" />
     <Compile Include="Enchantments\EnchantmentStore.cs" />
-    <Compile Include="Enchantments\EnchantmentCollection.cs" />
     <Compile Include="Enchantments\EnchantmentTriggers.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGroupingFactory.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGrouping.cs" />
@@ -200,6 +199,7 @@
     <Compile Include="Resources\StringResource.cs" />
     <Compile Include="Resources\StringResourceFactory.cs" />
     <Compile Include="Stats\ActorStats.cs" />
+    <Compile Include="Stats\StatCollectionFactory.cs" />
     <Compile Include="Stats\StatDefinition.cs" />
     <Compile Include="Stats\StatDefinitionFactory.cs" />
     <Compile Include="Stats\Stat.cs" />

@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{49AEEAAE-D84C-48EF-8C8B-9137AE14262A}</ProjectGuid>
+    <ProjectGuid>{1EAE0BA1-6FF0-46AE-87C1-84D04F137F33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Application.Tests.Integration</RootNamespace>
-    <AssemblyName>ProjectXyz.Application.Tests.Integration</AssemblyName>
+    <RootNamespace>ProjectXyz.Application.Shared</RootNamespace>
+    <AssemblyName>ProjectXyz.Application.Shared</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,7 +57,7 @@
     <CodeContractsExtraAnalysisOptions />
     <CodeContractsSQLServerOption />
     <CodeContractsBaseLineFile />
-    <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
     <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
     <CodeContractsFailBuildOnWarnings>True</CodeContractsFailBuildOnWarnings>
     <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
@@ -119,83 +118,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL" />
-    <Reference Include="Moq, Version=4.2.1409.1722, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net35\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\ActorTests.cs" />
-    <Compile Include="Enchantments\EnchantmentCalculatorTests.cs" />
-    <Compile Include="Enchantments\EnchantmentSaverTests.cs" />
-    <Compile Include="Helpers\EnchantmentCalculatorHelper.cs" />
-    <Compile Include="Helpers\ItemContextHelper.cs" />
-    <Compile Include="Items\ItemTests.cs" />
+    <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
-      <Project>{5f23d262-459c-4655-acde-d8563fe33698}</Project>
-      <Name>ProjectXyz.Application.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{69a56c1b-cd41-4dcc-abf1-dbb097dd489d}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Shared\ProjectXyz.Application.Shared.csproj">
-      <Project>{1eae0ba1-6ff0-46ae-87c1-84d04f137f33}</Project>
-      <Name>ProjectXyz.Application.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
-      <Project>{fa14c733-df45-4e7b-b61f-497d032fc0b1}</Project>
-      <Name>ProjectXyz.Data.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
       <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
       <Name>ProjectXyz.Data.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Tests.Unit\ProjectXyz.Data.Tests.Unit.csproj">
-      <Project>{e26ffb4b-d421-4690-83eb-8f65d6a7f61d}</Project>
-      <Name>ProjectXyz.Data.Tests.Unit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Tests.Integration\ProjectXyz.Data.Tests.Integration.csproj">
-      <Project>{df9b53b0-844c-468e-954e-d3ad5904608d}</Project>
-      <Name>ProjectXyz.Data.Tests.Integration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
-      <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
-      <Name>ProjectXyz.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Expression\ProjectXyz.Plugins.Enchantments.Expression.csproj">
-      <Project>{b5aaf78d-6583-47c7-9eef-efefca828473}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Expression</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.OneShotNegate\ProjectXyz.Plugins.Enchantments.OneShotNegate.csproj">
-      <Project>{400aa358-8128-4e01-9a44-9de06ededad2}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.OneShotNegate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Tests.Integration\ProjectXyz.Tests.Integration.csproj">
-      <Project>{62743082-62ed-41a0-9c96-48f1c559d8e5}</Project>
-      <Name>ProjectXyz.Tests.Integration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Tests\ProjectXyz.Tests.csproj">
-      <Project>{732b4e6c-92fc-49cd-89a7-97e68d776db0}</Project>
-      <Name>ProjectXyz.Tests</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

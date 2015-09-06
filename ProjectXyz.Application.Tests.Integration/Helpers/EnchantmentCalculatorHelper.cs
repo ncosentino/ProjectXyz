@@ -8,6 +8,7 @@ using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Weather;
 using ProjectXyz.Plugins.Enchantments.Expression;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate;
@@ -19,7 +20,9 @@ namespace ProjectXyz.Application.Tests.Integration.Helpers
         #region Methods
         public static IEnchantmentCalculator CreateEnchantmentCalculator(
             IStatusNegationRepository statusNegationRepository = null,
-            IWeatherGroupingRepository weatherGroupingRepository = null)
+            IWeatherGroupingRepository weatherGroupingRepository = null,
+            IEnchantmentTypeCalculatorResultFactory enchantmentTypeCalculatorResultFactory = null,
+            IStatCollectionFactory statCollectionFactory = null)
         {
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
 
@@ -67,6 +70,16 @@ namespace ProjectXyz.Application.Tests.Integration.Helpers
                 weatherGroupingRepository = mockWeatherGroupingRepository.Object;
             }
 
+            if (enchantmentTypeCalculatorResultFactory == null)
+            {
+                enchantmentTypeCalculatorResultFactory = EnchantmentTypeCalculatorResultFactory.Create();
+            }
+
+            if (statCollectionFactory == null)
+            {
+                statCollectionFactory = StatCollectionFactory.Create();
+            }
+
             var enchantmentCalculator = EnchantmentCalculator.Create(
                 enchantmentContext.Object,
                 enchantmentCalculatorResultFactory,
@@ -74,11 +87,14 @@ namespace ProjectXyz.Application.Tests.Integration.Helpers
                 {
                     OneShotNegateEnchantmentTypeCalculator.Create(
                     statusNegationRepository,
-                    weatherGroupingRepository),
+                    weatherGroupingRepository,
+                    enchantmentTypeCalculatorResultFactory),
                     ExpressionEnchantmentTypeCalculator.Create(
                         statFactory,
                         expressionEvaluator,
-                        weatherGroupingRepository),
+                        weatherGroupingRepository,
+                        enchantmentTypeCalculatorResultFactory,
+                        statCollectionFactory),
                 });
 
             return enchantmentCalculator;

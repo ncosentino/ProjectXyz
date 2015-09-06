@@ -13,6 +13,7 @@ namespace ProjectXyz.Data.Sql.Stats
         private readonly IStatDefinitionRepository _statDefinitionRepository;
         private readonly IStatRepository _statRepository;
         private readonly IStatFactory _statFactory;
+        private readonly IStatCollectionFactory _statCollectionFactory;
         #endregion
 
         #region Constructors
@@ -27,6 +28,8 @@ namespace ProjectXyz.Data.Sql.Stats
             _statDefinitionRepository = StatDefinitionRepository.Create(
                 database,
                 statDefinitionFactory);
+
+            _statCollectionFactory = Core.Stats.StatCollectionFactory.Create();
         }
         #endregion
 
@@ -36,6 +39,8 @@ namespace ProjectXyz.Data.Sql.Stats
         public IStatRepository Stats { get { return _statRepository; } }
 
         public IStatFactory StatFactory { get { return _statFactory; } }
+        
+        public IStatCollectionFactory StatCollectionFactory { get { return _statCollectionFactory; } }
         #endregion
 
         #region Methods

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
-using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Stats;
-using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Plugins.Enchantments.Expression
@@ -17,17 +14,23 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         private readonly IStatFactory _statFactory;
         private readonly IExpressionEvaluator _expressioNEvaluator;
         private readonly IWeatherGroupingRepository _weatherGroupingRepository;
+        private readonly IEnchantmentTypeCalculatorResultFactory _enchantmentTypeCalculatorResultFactory;
+        private readonly IStatCollectionFactory _statCollectionFactory;
         #endregion
 
         #region Constructors
         private ExpressionEnchantmentTypeCalculator(
             IStatFactory statFactory,
             IExpressionEvaluator expressionEvaluator,
-            IWeatherGroupingRepository weatherGroupingRepository)
+            IWeatherGroupingRepository weatherGroupingRepository,
+            IEnchantmentTypeCalculatorResultFactory enchantmentTypeCalculatorResultFactory,
+            IStatCollectionFactory statCollectionFactory)
         {
             _statFactory = statFactory;
             _expressioNEvaluator = expressionEvaluator;
             _weatherGroupingRepository = weatherGroupingRepository;
+            _enchantmentTypeCalculatorResultFactory = enchantmentTypeCalculatorResultFactory;
+            _statCollectionFactory = statCollectionFactory;
         }
         #endregion
 
@@ -35,12 +38,16 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public static IEnchantmentTypeCalculator Create(
             IStatFactory statFactory,
             IExpressionEvaluator expressionEvaluator,
-            IWeatherGroupingRepository weatherGroupingRepository)
+            IWeatherGroupingRepository weatherGroupingRepository,
+            IEnchantmentTypeCalculatorResultFactory enchantmentTypeCalculatorResultFactory,
+            IStatCollectionFactory statCollectionFactory)
         {
             return new ExpressionEnchantmentTypeCalculator(
                 statFactory,
                 expressionEvaluator,
-                weatherGroupingRepository);
+                weatherGroupingRepository,
+                enchantmentTypeCalculatorResultFactory,
+                statCollectionFactory);
         }
 
         public IEnchantmentTypeCalculatorResult Calculate(
@@ -48,15 +55,14 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IStatCollection stats,
             IEnumerable<IEnchantment> enchantments)
         {
-            var newStats = StatCollection.Create();
-            newStats.Add(stats);
+            var newStats = _statCollectionFactory.Create(stats);
 
-            var processedEnchantments = new List<IEnchantment>(ProcessEnchantments(
+            var processedEnchantments = ProcessEnchantments(
                 enchantmentContext,
                 enchantments,
-                newStats));
+                newStats);
 
-            var result = EnchantmentTypeCalculatorResult.Create(
+            var result = _enchantmentTypeCalculatorResultFactory.Create(
                 Enumerable.Empty<IEnchantment>(),
                 processedEnchantments,
                 newStats);

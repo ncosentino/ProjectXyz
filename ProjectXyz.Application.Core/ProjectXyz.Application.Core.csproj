@@ -137,11 +137,12 @@
     <Compile Include="Diseases\DiseaseGenerator.cs" />
     <Compile Include="Enchantments\Calculations\EnchantmentCalculatorResult.cs" />
     <Compile Include="Enchantments\Calculations\EnchantmentTypeCalculatorResult.cs" />
+    <Compile Include="Enchantments\Calculations\EnchantmentTypeCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Enchantments\EnchantmentFactory.cs" />
     <Compile Include="Enchantments\EnchantmentGenerator.cs" />
     <Compile Include="Enchantments\Calculations\EnchantmentCalculatorResultFactory.cs" />
-    <Compile Include="Enchantments\EnchantmentManager.cs" />
+    <Compile Include="Enchantments\EnchantmentApplicationManager.cs" />
     <Compile Include="GameObjects\Doors\Door.cs" />
     <Compile Include="GameObjects\Doors\ICloseable.cs" />
     <Compile Include="GameObjects\Doors\IDoor.cs" />
@@ -159,7 +160,6 @@
     <Compile Include="Items\ItemContext.cs" />
     <Compile Include="Items\ItemGenerator.cs" />
     <Compile Include="Items\ItemManager.cs" />
-    <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
     <Compile Include="Enchantments\Calculations\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
