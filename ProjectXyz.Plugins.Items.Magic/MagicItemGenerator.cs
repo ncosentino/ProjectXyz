@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Items.Magic
         private readonly IItemMetaDataFactory _itemMetaDataFactory;
         private readonly INormalItemGenerator _normalItemGenerator;
         private readonly IItemAffixGenerator _itemAffixGenerator;
-        private readonly IItemDataStore _itemDataStore;
+        private readonly IItemDataManager _itemDataManager;
         #endregion
 
         #region COnstructors
@@ -27,14 +27,14 @@ namespace ProjectXyz.Plugins.Items.Magic
             IItemMetaDataFactory itemMetaDataFactory,
             INormalItemGenerator normalItemGenerator,
             IItemAffixGenerator itemAffixGenerator,
-            IItemDataStore itemDataStore)
+            IItemDataManager itemDataManager)
         {
             _magicType = magicType;
             _itemFactory = itemFactory;
             _itemMetaDataFactory = itemMetaDataFactory;
             _normalItemGenerator = normalItemGenerator;
             _itemAffixGenerator = itemAffixGenerator;
-            _itemDataStore = itemDataStore;
+            _itemDataManager = itemDataManager;
         }
         #endregion
 
@@ -45,7 +45,7 @@ namespace ProjectXyz.Plugins.Items.Magic
             IItemMetaDataFactory itemMetaDataFactory,
             INormalItemGenerator normalItemGenerator,
             IItemAffixGenerator itemAffixGenerator,
-            IItemDataStore itemDataStore)
+            IItemDataManager itemDataManager)
         {
             var generator = new MagicItemGenerator(
                 magicType,
@@ -53,7 +53,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 itemMetaDataFactory,
                 normalItemGenerator,
                 itemAffixGenerator,
-                itemDataStore);
+                itemDataManager);
             return generator;
         }
 
@@ -110,7 +110,7 @@ namespace ProjectXyz.Plugins.Items.Magic
             int level, 
             Guid magicTypeId)
         {
-            var magicTypesRandomAffixes = _itemDataStore.MagicTypesRandomAffixes.GetForMagicTypeId(magicTypeId);
+            var magicTypesRandomAffixes = _itemDataManager.MagicTypesRandomAffixes.GetForMagicTypeId(magicTypeId);
 
             var targetAffixCount = 
                 (int)Math.Round(magicTypesRandomAffixes.MinimumAffixes + 

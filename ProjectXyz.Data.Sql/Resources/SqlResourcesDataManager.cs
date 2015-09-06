@@ -7,7 +7,7 @@ using ProjectXyz.Data.Interface.Resources;
 
 namespace ProjectXyz.Data.Sql.Resources
 {
-    public sealed class SqlResourcesDataStore : IResourcesDataStore
+    public sealed class SqlResourcesDataManager : IResourcesDataManager
     {
         #region Fields
         private readonly IDisplayLanguageRepository _displayLanguageRepository;
@@ -16,7 +16,7 @@ namespace ProjectXyz.Data.Sql.Resources
         #endregion
 
         #region Constructors
-        private SqlResourcesDataStore(IDatabase database)
+        private SqlResourcesDataManager(IDatabase database)
         {
             var displayLanguageFactory = DisplayLanguageFactory.Create();
             _displayLanguageRepository = DisplayLanguageRepository.Create(
@@ -44,10 +44,10 @@ namespace ProjectXyz.Data.Sql.Resources
         #endregion
 
         #region Methods
-        public static IResourcesDataStore Create(IDatabase database)
+        public static IResourcesDataManager Create(IDatabase database)
         {
-            var dataStore = new SqlResourcesDataStore(database);
-            return dataStore;
+            var dataManager = new SqlResourcesDataManager(database);
+            return dataManager;
         }
         #endregion
     }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Enchantments
 {
-    public interface IEnchantmentsDataStore
+    public interface IEnchantmentsDataManager
     {
         #region Properties
         IEnchantmentDefinitionRepository EnchantmentDefinitions { get; }

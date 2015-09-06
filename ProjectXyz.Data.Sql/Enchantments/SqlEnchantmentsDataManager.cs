@@ -7,7 +7,7 @@ using ProjectXyz.Data.Interface.Enchantments;
 
 namespace ProjectXyz.Data.Sql.Enchantments
 {
-    public sealed class SqlEnchantmentsDataStore : IEnchantmentsDataStore
+    public sealed class SqlEnchantmentsDataManager : IEnchantmentsDataManager
     {
         #region Fields
         private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
@@ -19,7 +19,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
         #endregion
 
         #region Constructors
-        private SqlEnchantmentsDataStore(IDatabase database)
+        private SqlEnchantmentsDataManager(IDatabase database)
         {
             var enchantmentTriggerFactory = EnchantmentTriggerFactory.Create();
             _enchantmentTriggerRepository = EnchantmentTriggerRepository.Create(
@@ -65,10 +65,10 @@ namespace ProjectXyz.Data.Sql.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantmentsDataStore Create(IDatabase database)
+        public static IEnchantmentsDataManager Create(IDatabase database)
         {
-            var dataStore = new SqlEnchantmentsDataStore(database);
-            return dataStore;
+            var dataManager = new SqlEnchantmentsDataManager(database);
+            return dataManager;
         }
         #endregion
     }

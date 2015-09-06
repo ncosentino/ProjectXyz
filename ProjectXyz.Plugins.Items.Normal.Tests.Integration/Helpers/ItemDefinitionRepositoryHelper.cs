@@ -11,7 +11,7 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
     public static class ItemDefinitionRepositoryHelper
     {
         #region Methods
-        public static AddItemDefinitionResult AddItemDefinition(IDataStore dataStore)
+        public static AddItemDefinitionResult AddItemDefinition(IDataManager dataManager)
         {
             var itemDefinitionId = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
@@ -22,35 +22,35 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
             var socketTypeId = Guid.NewGuid();
             var equipSlotTypeId = Guid.NewGuid();
 
-            var displayLanguage = dataStore.Resources.DisplayLanguages.Add(
+            var displayLanguage = dataManager.Resources.DisplayLanguages.Add(
                 Guid.NewGuid(),
                 "Dummy Language");
-            dataStore.Resources.StringResources.Add(
+            dataManager.Resources.StringResources.Add(
                 nameStringResourceId, 
                 displayLanguage.Id,
                 "Dummy String");
-            dataStore.Resources.GraphicResources.Add(
+            dataManager.Resources.GraphicResources.Add(
                 inventoryGraphicResourceId,
                 displayLanguage.Id,
                 "Dummy Graphic");
 
-            dataStore.Items.SocketTypes.Add(
+            dataManager.Items.SocketTypes.Add(
                 socketTypeId,
                 nameStringResourceId);
-            dataStore.Items.MaterialTypes.Add(
+            dataManager.Items.MaterialTypes.Add(
                 materialTypeId,
                 nameStringResourceId);
-            dataStore.Items.ItemTypes.Add(
+            dataManager.Items.ItemTypes.Add(
                 itemTypeId,
                 nameStringResourceId);
-            dataStore.Items.MagicTypes.Add(
+            dataManager.Items.MagicTypes.Add(
                 magicTypeId,
                 nameStringResourceId);
-            dataStore.Items.EquipSlotTypes.Add(
+            dataManager.Items.EquipSlotTypes.Add(
                 equipSlotTypeId,
                 nameStringResourceId);
 
-            var itemDefinition = dataStore.Items.ItemDefinitions.Add(
+            var itemDefinition = dataManager.Items.ItemDefinitions.Add(
                 itemDefinitionId,
                 nameStringResourceId,
                 inventoryGraphicResourceId,
@@ -59,17 +59,17 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
                 materialTypeId,
                 socketTypeId);
 
-            var itemMiscRequirements = dataStore.Items.ItemMiscRequirements.Add(
+            var itemMiscRequirements = dataManager.Items.ItemMiscRequirements.Add(
                 Guid.NewGuid(),
                 null,
                 null);
 
-            var itemDefinitionItemMiscRequirements = dataStore.Items.ItemDefinitionItemMiscRequirements.Add(
+            var itemDefinitionItemMiscRequirements = dataManager.Items.ItemDefinitionItemMiscRequirements.Add(
                 Guid.NewGuid(),
                 itemDefinitionId,
                 itemMiscRequirements.Id);
 
-            var itemTypeEquipSlotType = dataStore.Items.ItemTypeEquipSlotType.Add(
+            var itemTypeEquipSlotType = dataManager.Items.ItemTypeEquipSlotType.Add(
                 Guid.NewGuid(),
                 itemTypeId,
                 equipSlotTypeId);

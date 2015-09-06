@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Resources
 {
-    public interface IResourcesDataStore
+    public interface IResourcesDataManager
     {
         #region Properties
         IDisplayLanguageRepository DisplayLanguages { get; }

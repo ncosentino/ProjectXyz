@@ -18,13 +18,13 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         #region Constructors
         private EnchantmentApplicationManager(
-            IDataManager dataManager,
+            IDataStore dataStore,
             IEnumerable<IEnchantmentTypeCalculator> enchantmentTypeCalculators)
         {
             _enchantmentFactory = Enchantments.EnchantmentFactory.Create();
             
             _enchantmentGenerator = Enchantments.EnchantmentGenerator.Create(
-                dataManager.Enchantments.EnchantmentTypes,
+                dataStore.Enchantments.EnchantmentTypes,
                 TypeLoader.Create());
 
             var enchantmentContext = EnchantmentContext.Create();
@@ -58,13 +58,13 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         #region Methods
         public static IEnchantmentApplicationManager Create(
-            IDataManager dataManager,
+            IDataStore dataStore,
             IEnumerable<IEnchantmentTypeCalculator> enchantmentTypeCalculators)
         {
             Contract.Ensures(Contract.Result<IEnchantmentApplicationManager>() != null);
 
             return new EnchantmentApplicationManager(
-                dataManager,
+                dataStore,
                 enchantmentTypeCalculators);
         }
         #endregion

@@ -10,7 +10,7 @@ using ProjectXyz.Data.Interface.Items.Sockets;
 
 namespace ProjectXyz.Data.Interface.Items
 {
-    public interface IItemDataStore
+    public interface IItemDataManager
     {
         #region Properties
         IItemDefinitionRepository ItemDefinitions { get; }

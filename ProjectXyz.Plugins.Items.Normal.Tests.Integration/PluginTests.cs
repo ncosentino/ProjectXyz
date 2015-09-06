@@ -29,11 +29,11 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
             // Setup
             const int LEVEL = 0;
 
-            var dataStore = SqlDataStore.Create(
+            var dataManager = SqlDataManager.Create(
                 Database,
                 SqlDatabaseUpgrader.Create());
 
-            var addResult = ItemDefinitionRepositoryHelper.AddItemDefinition(dataStore);
+            var addResult = ItemDefinitionRepositoryHelper.AddItemDefinition(dataManager);
 
             var enchantmentContext = new Mock<IEnchantmentContext>(MockBehavior.Strict);
 
@@ -58,11 +58,11 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
 
-            var applicationManager = Manager.Create(dataStore);
+            var applicationManager = ApplicationManager.Create(dataManager);
 
             var plugin = new Plugin(
                 Database,
-                dataStore,
+                dataManager,
                 applicationManager);
 
             // Execute

@@ -18,20 +18,20 @@ namespace ProjectXyz.Plugins.Items.Normal
         #region Constructors
         public Plugin(
             IDatabase database,
-            IDataStore dataStore,
+            IDataManager dataManager,
             IApplicationManager applicationManager)
         {
             var statRepository = StatRepository.Create(
                 database,
-                dataStore.Stats.StatFactory);
+                dataManager.Stats.StatFactory);
 
             _normalItemGenerator = NormalItemGenerator.Create(
                 applicationManager.Items.ItemFactory,
                 applicationManager.Items.ItemMetaDataFactory,
                 applicationManager.Items.ItemRequirementsFactory,
-                dataStore.Stats.StatFactory,
+                dataManager.Stats.StatFactory,
                 statRepository,
-                dataStore.Items);
+                dataManager.Items);
         }
         #endregion
 

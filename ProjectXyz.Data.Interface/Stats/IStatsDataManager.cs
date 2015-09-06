@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Stats
 {
-    public interface IStatsDataStore
+    public interface IStatsDataManager
     {
         #region Properties
         IStatDefinitionRepository StatDefinitions { get; }

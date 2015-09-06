@@ -7,14 +7,14 @@ using ProjectXyz.Data.Interface.Weather;
 
 namespace ProjectXyz.Data.Sql.Weather
 {
-    public sealed class SqlWeatherDataStore : IWeatherDataStore
+    public sealed class SqlWeatherDataManager : IWeatherDataManager
     {
         #region Fields
         private readonly IWeatherGroupingRepository _weatherGroupingRepository;
         #endregion
 
         #region Constructors
-        private SqlWeatherDataStore(IDatabase database)
+        private SqlWeatherDataManager(IDatabase database)
         {
             var weatherGroupingFactory = WeatherGroupingFactory.Create();
             _weatherGroupingRepository = WeatherTypeGroupingRepository.Create(
@@ -28,10 +28,10 @@ namespace ProjectXyz.Data.Sql.Weather
         #endregion
 
         #region Methods
-        public static IWeatherDataStore Create(IDatabase database)
+        public static IWeatherDataManager Create(IDatabase database)
         {
-            var dataStore = new SqlWeatherDataStore(database);
-            return dataStore;
+            var dataManager = new SqlWeatherDataManager(database);
+            return dataManager;
         }
         #endregion
     }

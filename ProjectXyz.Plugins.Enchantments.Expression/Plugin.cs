@@ -31,9 +31,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         #region Constructors
         public Plugin(
             IDatabase database,
-            IDataStore dataStore)
+            IDataManager dataManager)
         {
-            _enchantmentDefinitionRepository = dataStore.Enchantments.EnchantmentDefinitions;
+            _enchantmentDefinitionRepository = dataManager.Enchantments.EnchantmentDefinitions;
 
             var stringExpressionEvaluator = DataTableExpressionEvaluator.Create();
             var expressionEvaluator = ExpressionEvaluator.Create(stringExpressionEvaluator.Evaluate);
@@ -44,9 +44,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 _expressionDefinitionFactory);
 
             _enchantmentTypeCalculator = ExpressionEnchantmentTypeCalculator.Create(
-                dataStore.Stats.StatFactory,
+                dataManager.Stats.StatFactory,
                 expressionEvaluator,
-                dataStore.Weather.WeatherGroupings);
+                dataManager.Weather.WeatherGroupings);
 
             _expressionEnchantmentStoreFactory = ExpressionEnchantmentStoreFactory.Create();
 
@@ -85,7 +85,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 database,
                 expressionEnchantmentStatDefinitionFactory);
 
-            var enchantmentDefinitionWeatherGroupingRepository = dataStore.Enchantments.EnchantmentWeather;
+            var enchantmentDefinitionWeatherGroupingRepository = dataManager.Enchantments.EnchantmentWeather;
             _expressionEnchantmentGenerator = ExpressioneEnchantmentGenerator.Create(
                 enchantmentFactory,
                 expressionEnchantmentDefinitioneRepository,

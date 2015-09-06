@@ -14,25 +14,25 @@ using ProjectXyz.Data.Interface.Resources;
 
 namespace ProjectXyz.Data.Interface
 {
-    [ContractClass(typeof(IDataStoreContract))]
-    public interface IDataStore
+    [ContractClass(typeof(IDataManagerContract))]
+    public interface IDataManager
     {
         #region Properties
         IActorStoreRepository Actors { get; }
 
         IMapStoreRepository Maps { get; }
 
-        IEnchantmentsDataStore Enchantments { get; }
+        IEnchantmentsDataManager Enchantments { get; }
 
-        IStatsDataStore Stats { get; }
+        IStatsDataManager Stats { get; }
 
-        IDiseaseDataStore Diseases { get; }
+        IDiseaseDataManager Diseases { get; }
 
-        IItemDataStore Items { get; }
+        IItemDataManager Items { get; }
 
-        IWeatherDataStore Weather { get; }
+        IWeatherDataManager Weather { get; }
 
-        IResourcesDataStore Resources { get; }
+        IResourcesDataManager Resources { get; }
         #endregion
     }
 }

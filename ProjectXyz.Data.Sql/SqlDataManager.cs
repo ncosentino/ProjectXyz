@@ -21,27 +21,27 @@ using ProjectXyz.Data.Sql.Weather;
 
 namespace ProjectXyz.Data.Sql
 {
-    public sealed class SqlDataStore : IDataStore
+    public sealed class SqlDataManager : IDataManager
     {
         #region Fields
         private readonly IActorStoreRepository _actorStoreRepository;
         private readonly IMapStoreRepository _mapStoreRepository;
-        private readonly IItemDataStore _itemDataStore;
-        private readonly IEnchantmentsDataStore _enchantmentsDataStore;
-        private readonly IStatsDataStore _statsDataStore;
-        private readonly IResourcesDataStore _resourcesDataStore;
-        private readonly IWeatherDataStore _weatherDataStore;
+        private readonly IItemDataManager _itemDataManager;
+        private readonly IEnchantmentsDataManager _enchantmentsDataManager;
+        private readonly IStatsDataManager _statsDataManager;
+        private readonly IResourcesDataManager _resourcesDataManager;
+        private readonly IWeatherDataManager _weatherDataManager;
         #endregion
 
         #region Constructors
-        private SqlDataStore(IDatabase database, IDatabaseUpgrader upgrader)
+        private SqlDataManager(IDatabase database, IDatabaseUpgrader upgrader)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(upgrader != null);
 
-            _resourcesDataStore = SqlResourcesDataStore.Create(database);
+            _resourcesDataManager = SqlResourcesDataManager.Create(database);
 
-            _statsDataStore = SqlStatsDataStore.Create(database);
+            _statsDataManager = SqlStatsDataManager.Create(database);
             
             _actorStoreRepository = ActorStoreRepository.Create(
                 database,
@@ -51,11 +51,11 @@ namespace ProjectXyz.Data.Sql
                 database,
                 MapStoreFactory.Create());
 
-            _itemDataStore = SqlItemDataStore.Create(database);
+            _itemDataManager = SqlItemDataManager.Create(database);
 
-            _enchantmentsDataStore = SqlEnchantmentsDataStore.Create(database);
+            _enchantmentsDataManager = SqlEnchantmentsDataManager.Create(database);
 
-            _weatherDataStore = SqlWeatherDataStore.Create(database);
+            _weatherDataManager = SqlWeatherDataManager.Create(database);
 
             CreateOrUpgrade(database, upgrader);
         }
@@ -72,45 +72,45 @@ namespace ProjectXyz.Data.Sql
             get { return _mapStoreRepository; }
         }
 
-        public IEnchantmentsDataStore Enchantments
+        public IEnchantmentsDataManager Enchantments
         {
-            get { return _enchantmentsDataStore; }
+            get { return _enchantmentsDataManager; }
         }
 
-        public IStatsDataStore Stats
+        public IStatsDataManager Stats
         {
-            get { return _statsDataStore; }
+            get { return _statsDataManager; }
         }
 
-        public IDiseaseDataStore Diseases
+        public IDiseaseDataManager Diseases
         {
             get { throw new NotImplementedException(); }
         }
 
-        public IItemDataStore Items
+        public IItemDataManager Items
         {
-            get { return _itemDataStore; }
+            get { return _itemDataManager; }
         }
 
-        public IWeatherDataStore Weather
+        public IWeatherDataManager Weather
         {
-            get { return _weatherDataStore; }
+            get { return _weatherDataManager; }
         }
 
-        public  IResourcesDataStore Resources
+        public  IResourcesDataManager Resources
         {
-            get { return _resourcesDataStore; }
+            get { return _resourcesDataManager; }
         }
         #endregion
 
         #region Methods
-        public static IDataStore Create(IDatabase database, IDatabaseUpgrader upgrader)
+        public static IDataManager Create(IDatabase database, IDatabaseUpgrader upgrader)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(upgrader != null);
-            Contract.Ensures(Contract.Result<IDataStore>() != null);
+            Contract.Ensures(Contract.Result<IDataManager>() != null);
 
-            return new SqlDataStore(database, upgrader);
+            return new SqlDataManager(database, upgrader);
         }
 
         private void CreateOrUpgrade(IDatabase database, IDatabaseUpgrader upgrader)

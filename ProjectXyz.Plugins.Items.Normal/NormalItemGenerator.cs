@@ -19,7 +19,7 @@ namespace ProjectXyz.Plugins.Items.Normal
         private readonly IStatFactory _statFactory;
         private readonly IItemRequirementsFactory _itemRequirementsFactory;
         private readonly IStatRepository _statRepository;
-        private readonly IItemDataStore _itemDataStore;
+        private readonly IItemDataManager _itemDataManager;
         #endregion
 
         #region COnstructors
@@ -29,14 +29,14 @@ namespace ProjectXyz.Plugins.Items.Normal
             IItemRequirementsFactory itemRequirementsFactory,
             IStatFactory statFactory,
             IStatRepository statRepository,
-            IItemDataStore itemDataStore)
+            IItemDataManager itemDataManager)
         {
             _itemFactory = itemFactory;
             _itemMetaDataFactory = itemMetaDataFactory;
             _statFactory = statFactory;
             _itemRequirementsFactory = itemRequirementsFactory;
             _statRepository = statRepository;
-            _itemDataStore = itemDataStore;
+            _itemDataManager = itemDataManager;
         }
         #endregion
 
@@ -47,7 +47,7 @@ namespace ProjectXyz.Plugins.Items.Normal
             IItemRequirementsFactory itemRequirementsFactory,
             IStatFactory statFactory,
             IStatRepository statRepository,
-            IItemDataStore itemDataStore)
+            IItemDataManager itemDataManager)
         {
             var generator = new NormalItemGenerator(
                 itemFactory,
@@ -55,7 +55,7 @@ namespace ProjectXyz.Plugins.Items.Normal
                 itemRequirementsFactory,
                 statFactory,
                 statRepository,
-                itemDataStore);
+                itemDataManager);
             return generator;
         }
 
@@ -65,8 +65,8 @@ namespace ProjectXyz.Plugins.Items.Normal
             int level,
             IItemContext itemContext)
         {
-            var itemDefinition = _itemDataStore.ItemDefinitions.GetById(itemDefinitionId);
-            var itemDefinitionStats = _itemDataStore.ItemDefinitionStat.GetByItemDefinitionId(itemDefinitionId);
+            var itemDefinition = _itemDataManager.ItemDefinitions.GetById(itemDefinitionId);
+            var itemDefinitionStats = _itemDataManager.ItemDefinitionStat.GetByItemDefinitionId(itemDefinitionId);
 
             var itemMetaData = _itemMetaDataFactory.Create(
                 itemDefinition.NameStringResourceId,
@@ -81,17 +81,17 @@ namespace ProjectXyz.Plugins.Items.Normal
                 _statFactory,
                 itemDefinitionStats);
 
-            var equippableSlots = _itemDataStore.ItemTypeEquipSlotType
+            var equippableSlots = _itemDataManager.ItemTypeEquipSlotType
                 .GetByItemTypeId(itemDefinition.ItemTypeId)
                 .Select(x => x.EquipSlotTypeId);
 
             var enchantments = GenerateEnchantments();
 
-            var requiredStats = _itemDataStore.ItemDefinitionStatRequirements
+            var requiredStats = _itemDataManager.ItemDefinitionStatRequirements
                 .GetByItemDefinitionId(itemDefinitionId)
                 .Select(x => _statRepository.GetById(x.StatId));
-            var itemDefinitionItemMiscRequirements = _itemDataStore.ItemDefinitionItemMiscRequirements.GetByItemDefinitionId(itemDefinitionId);
-            var itemMiscRequirements = _itemDataStore.ItemMiscRequirements.GetById(itemDefinitionItemMiscRequirements.ItemMiscRequirementsId);
+            var itemDefinitionItemMiscRequirements = _itemDataManager.ItemDefinitionItemMiscRequirements.GetByItemDefinitionId(itemDefinitionId);
+            var itemMiscRequirements = _itemDataManager.ItemMiscRequirements.GetById(itemDefinitionItemMiscRequirements.ItemMiscRequirementsId);
             var itemRequirements = _itemRequirementsFactory.Create(
                 itemMiscRequirements.RaceDefinitionId,
                 itemMiscRequirements.ClassDefinitionId,

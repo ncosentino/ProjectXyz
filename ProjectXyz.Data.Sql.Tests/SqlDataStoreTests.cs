@@ -13,11 +13,11 @@ using ProjectXyz.Tests.Xunit.Categories;
 namespace ProjectXyz.Data.Sql.Tests
 {
     [DataLayer]
-    public class SqlDataStoreTests
+    public class SqlDataManagerTests
     {
         #region Methods
         [Fact]
-        public void SqlDataStore_OpenDatabase_ChecksVersion()
+        public void SqlDataManager_OpenDatabase_ChecksVersion()
         {
             var userVersionReader = MockUserVersionReader.ForVersion(0);
 
@@ -36,7 +36,7 @@ namespace ProjectXyz.Data.Sql.Tests
                 .Setup(x => x.CurrentSchemaVersion)
                 .Returns(1);
 
-            var dataStore = SqlDataStore.Create(
+            var dataManager = SqlDataManager.Create(
                 database.Object,
                 upgrader.Object);
 
@@ -46,7 +46,7 @@ namespace ProjectXyz.Data.Sql.Tests
         }
 
         [Fact]
-        public void SqlDataStore_OpenDatabaseNoRead_Throws()
+        public void SqlDataManager_OpenDatabaseNoRead_Throws()
         {
             var userVersionReader = new Mock<IDataReader>();
             userVersionReader
@@ -68,7 +68,7 @@ namespace ProjectXyz.Data.Sql.Tests
                 .Setup(x => x.CurrentSchemaVersion)
                 .Returns(1);
 
-            var exception = Assert.Throws<InvalidOperationException>(() => SqlDataStore.Create(
+            var exception = Assert.Throws<InvalidOperationException>(() => SqlDataManager.Create(
                 database.Object,
                 upgrader.Object));
             Assert.Equal(
@@ -77,7 +77,7 @@ namespace ProjectXyz.Data.Sql.Tests
         }
 
         [Fact]
-        public void SqlDataStore_OpenDatabaseFutureVersion_Throws()
+        public void SqlDataManager_OpenDatabaseFutureVersion_Throws()
         {
             var userVersionReader = MockUserVersionReader.ForVersion(1);
 
@@ -96,7 +96,7 @@ namespace ProjectXyz.Data.Sql.Tests
                 .Setup(x => x.CurrentSchemaVersion)
                 .Returns(0);
 
-            var exception = Assert.Throws<InvalidOperationException>(() => SqlDataStore.Create(
+            var exception = Assert.Throws<InvalidOperationException>(() => SqlDataManager.Create(
                 database.Object,
                 upgrader.Object));
             Assert.Equal(
@@ -105,7 +105,7 @@ namespace ProjectXyz.Data.Sql.Tests
         }
 
         [Fact]
-        public void SqlDataStore_OpenDatabase_SetsDatabasePragmas()
+        public void SqlDataManager_OpenDatabase_SetsDatabasePragmas()
         {
             var userVersionReader = MockUserVersionReader.ForVersion(0);
 
@@ -124,7 +124,7 @@ namespace ProjectXyz.Data.Sql.Tests
                 .Setup(x => x.CurrentSchemaVersion)
                 .Returns(1);
 
-            var dataStore = SqlDataStore.Create(
+            var dataManager = SqlDataManager.Create(
                 database.Object,
                 upgrader.Object);
 
@@ -133,7 +133,7 @@ namespace ProjectXyz.Data.Sql.Tests
         }
 
         [Fact]
-        public void SqlDataStore_OpenNewDatabase_UpgradesToVersion1()
+        public void SqlDataManager_OpenNewDatabase_UpgradesToVersion1()
         {
             var userVersionReader = MockUserVersionReader.ForVersion(0);
 
@@ -152,7 +152,7 @@ namespace ProjectXyz.Data.Sql.Tests
                 .Setup(x => x.CurrentSchemaVersion)
                 .Returns(1);
 
-            var dataStore = SqlDataStore.Create(
+            var dataManager = SqlDataManager.Create(
                 database.Object,
                 upgrader.Object);
 
@@ -161,7 +161,7 @@ namespace ProjectXyz.Data.Sql.Tests
         }
 
         [Fact]
-        public void SqlDataStore_OpenExistingDatabase_NoUpgrade()
+        public void SqlDataManager_OpenExistingDatabase_NoUpgrade()
         {
             var userVersionReader = MockUserVersionReader.ForVersion(1);
 
@@ -180,7 +180,7 @@ namespace ProjectXyz.Data.Sql.Tests
                 .Setup(x => x.CurrentSchemaVersion)
                 .Returns(1);
 
-            var dataStore = SqlDataStore.Create(
+            var dataManager = SqlDataManager.Create(
                 database.Object,
                 upgrader.Object);
             

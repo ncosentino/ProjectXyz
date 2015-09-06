@@ -27,13 +27,13 @@ namespace ProjectXyz.Plugins.Core.Tests.Integration.Enchantments
 
             var database = new Mock<IDatabase>(MockBehavior.Strict);
 
-            var dataStore = SqlDataStore.Create(
+            var dataManager = SqlDataManager.Create(
                 Database,
                 SqlDatabaseUpgrader.Create());
                 
             var plugin = new Plugins.Enchantments.Expression.Plugin(
                 database.Object,
-                dataStore);
+                dataManager);
 
             enchantmentSaver
                 .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantment), plugin.SaveEnchantmentCallback));

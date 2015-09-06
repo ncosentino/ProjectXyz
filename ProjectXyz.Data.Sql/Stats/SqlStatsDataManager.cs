@@ -7,7 +7,7 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Sql.Stats
 {
-    public sealed class SqlStatsDataStore : IStatsDataStore
+    public sealed class SqlStatsDataManager : IStatsDataManager
     {
         #region Fields
         private readonly IStatDefinitionRepository _statDefinitionRepository;
@@ -16,7 +16,7 @@ namespace ProjectXyz.Data.Sql.Stats
         #endregion
 
         #region Constructors
-        private SqlStatsDataStore(IDatabase database)
+        private SqlStatsDataManager(IDatabase database)
         {
             _statFactory = Core.Stats.StatFactory.Create();
             _statRepository = StatRepository.Create(
@@ -39,10 +39,10 @@ namespace ProjectXyz.Data.Sql.Stats
         #endregion
 
         #region Methods
-        public static IStatsDataStore Create(IDatabase database)
+        public static IStatsDataManager Create(IDatabase database)
         {
-            var dataStore = new SqlStatsDataStore(database);
-            return dataStore;
+            var dataManager = new SqlStatsDataManager(database);
+            return dataManager;
         }
         #endregion
     }

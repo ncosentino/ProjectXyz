@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ProjectXyz.Data.Interface.Weather
 {
-    public interface IWeatherDataStore
+    public interface IWeatherDataManager
     {
         #region Properties
         IWeatherGroupingRepository WeatherGroupings { get; }

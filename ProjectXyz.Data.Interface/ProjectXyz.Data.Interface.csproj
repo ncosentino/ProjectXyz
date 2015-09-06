@@ -137,7 +137,7 @@
     <Compile Include="Contracts\IDatabaseContract.cs" />
     <Compile Include="Contracts\IDatabaseQueryExecuterContract.cs" />
     <Compile Include="Contracts\IDatabaseUpgraderContract.cs" />
-    <Compile Include="Contracts\IDataStore.cs" />
+    <Compile Include="Contracts\IDataManagerContract.cs" />
     <Compile Include="Diseases\Contracts\IDiseaseSpreadTypeRepositoryContract.cs" />
     <Compile Include="Diseases\Contracts\IDiseaseSpreadTypeFactoryContract.cs" />
     <Compile Include="Diseases\Contracts\IDiseaseSpreadTypeContract.cs" />
@@ -156,10 +156,10 @@
     <Compile Include="Diseases\IDiseaseStatesEnchantments.cs" />
     <Compile Include="Diseases\IDiseaseStateDefinition.cs" />
     <Compile Include="Diseases\IDiseaseDefinition.cs" />
-    <Compile Include="Diseases\IDiseaseDataStore.cs" />
+    <Compile Include="Diseases\IDiseaseDataManager.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentDefinitionRepositoryContract.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentsDataStore.cs" />
+    <Compile Include="Enchantments\IEnchantmentsDataManager.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="IDatabaseCommandCreator.cs" />
     <Compile Include="IDatabaseCommandExecuter.cs" />
@@ -194,7 +194,7 @@
     <Compile Include="Items\Affixes\IItemAffixDefinitionFilterRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionFactory.cs" />
     <Compile Include="Items\Contracts\IItemDefinitionContract.cs" />
-    <Compile Include="Items\IItemDataStore.cs" />
+    <Compile Include="Items\IItemDataManager.cs" />
     <Compile Include="Items\IItemDefinitionStatRepository.cs" />
     <Compile Include="Items\IItemDefinitionStatFactory.cs" />
     <Compile Include="Items\IItemDefinition.cs" />
@@ -245,7 +245,7 @@
     <Compile Include="Enchantments\IEnchantmentStore.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinition.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
-    <Compile Include="IDataStore.cs" />
+    <Compile Include="IDataManager.cs" />
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectContract.cs" />
     <Compile Include="Items\Materials\IMaterialTypeRepository.cs" />
@@ -272,14 +272,14 @@
     <Compile Include="Resources\IGraphicResource.cs" />
     <Compile Include="Resources\IGraphicResourceFactory.cs" />
     <Compile Include="Resources\IGraphicResourceRepository.cs" />
-    <Compile Include="Resources\IResourcesDataStore.cs" />
+    <Compile Include="Resources\IResourcesDataManager.cs" />
     <Compile Include="Resources\IStringResource.cs" />
     <Compile Include="Resources\IStringResourceFactory.cs" />
     <Compile Include="Resources\IStringResourceRepository.cs" />
     <Compile Include="Resources\IDisplayLanguageRepository.cs" />
     <Compile Include="Resources\IDisplayLanguageFactory.cs" />
     <Compile Include="Resources\IDisplayLanguage.cs" />
-    <Compile Include="Stats\IStatsDataStore.cs" />
+    <Compile Include="Stats\IStatsDataManager.cs" />
     <Compile Include="Stats\IStatDefinitionRepository.cs" />
     <Compile Include="Stats\IStatDefinitionFactory.cs" />
     <Compile Include="Stats\IStatDefinition.cs" />
@@ -299,7 +299,7 @@
     <Compile Include="Stats\IStatFactory.cs" />
     <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
     <Compile Include="Weather\IWeatherGroupingRepository.cs" />
-    <Compile Include="Weather\IWeatherDataStore.cs" />
+    <Compile Include="Weather\IWeatherDataManager.cs" />
     <Compile Include="Weather\IWeatherGroupingFactory.cs" />
     <Compile Include="Weather\IWeatherGrouping.cs" />
   </ItemGroup>

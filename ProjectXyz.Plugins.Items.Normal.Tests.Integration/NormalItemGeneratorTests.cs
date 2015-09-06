@@ -31,9 +31,9 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
             // Setup
             const int LEVEL = 0;
 
-            var dataStore = SqlDataStore.Create(Database, SqlDatabaseUpgrader.Create());
+            var dataManager = SqlDataManager.Create(Database, SqlDatabaseUpgrader.Create());
 
-            var addResult = ItemDefinitionRepositoryHelper.AddItemDefinition(dataStore);
+            var addResult = ItemDefinitionRepositoryHelper.AddItemDefinition(dataManager);
 
             var itemFactory = ItemFactory.Create();
 
@@ -76,7 +76,7 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
                 itemRequirementsFactory,
                 statFactory,
                 statRepository,
-                dataStore.Items);
+                dataManager.Items);
 
             // Execute
             var result = generator.Generate(

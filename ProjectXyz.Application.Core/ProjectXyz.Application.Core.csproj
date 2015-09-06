@@ -173,7 +173,7 @@
     <Compile Include="Items\ItemCollection.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="TypeLoader.cs" />
-    <Compile Include="Manager.cs" />
+    <Compile Include="ApplicationManager.cs" />
     <Compile Include="Maps\Map.cs" />
     <Compile Include="Maps\MapContext.cs" />
     <Compile Include="Maps\MapManager.cs" />

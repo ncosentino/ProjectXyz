@@ -22,7 +22,7 @@ namespace ProjectXyz.Application.Core.Items
 
         #region Constructors
         private ItemApplicationManager(
-            IDataStore dataStore,
+            IDataManager dataManager,
             IEnchantmentApplicationManager enchantmentApplicationManager)
         {
             _itemFactory = Items.ItemFactory.Create();
@@ -31,11 +31,11 @@ namespace ProjectXyz.Application.Core.Items
             _itemAffixFactory = Affixes.ItemAffixFactory.Create();
             _itemAffixGenerator = Affixes.ItemAffixGenerator.Create(
                 enchantmentApplicationManager.EnchantmentGenerator,
-                dataStore.Items.ItemAffixDefinitions,
-                dataStore.Items.ItemAffixDefinitionFilter,
-                dataStore.Items.ItemAffixDefinitionEnchantment,
+                dataManager.Items.ItemAffixDefinitions,
+                dataManager.Items.ItemAffixDefinitionFilter,
+                dataManager.Items.ItemAffixDefinitionEnchantment,
                 _itemAffixFactory,
-                dataStore.Items.MagicTypesRandomAffixes);
+                dataManager.Items.MagicTypesRandomAffixes);
         }
         #endregion
 
@@ -73,13 +73,13 @@ namespace ProjectXyz.Application.Core.Items
 
         #region Methods
         public static IItemApplicationManager Create(
-            IDataStore dataStore,
+            IDataManager dataManager,
             IEnchantmentApplicationManager enchantmentApplicationManager)
         {
             Contract.Ensures(Contract.Result<IItemApplicationManager>() != null);
 
             return new ItemApplicationManager(
-                dataStore,
+                dataManager,
                 enchantmentApplicationManager);
         }
         #endregion

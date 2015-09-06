@@ -26,7 +26,7 @@ using ProjectXyz.Data.Sql.Items.Sockets;
 
 namespace ProjectXyz.Data.Sql.Items
 {
-    public sealed class SqlItemDataStore : IItemDataStore
+    public sealed class SqlItemDataManager : IItemDataManager
     {
         #region Fields
         private readonly IItemDefinitionRepository _itemDefinitionRepository;
@@ -47,7 +47,7 @@ namespace ProjectXyz.Data.Sql.Items
         #endregion
 
         #region Constructors
-        private SqlItemDataStore(IDatabase database)
+        private SqlItemDataManager(IDatabase database)
         {
             var itemTypeEquipSlotTypeFactory = ItemTypeEquipSlotTypeFactory.Create();
             _itemTypeEquipSlotTypeRepository = ItemTypeEquipSlotTypeRepository.Create(
@@ -158,9 +158,9 @@ namespace ProjectXyz.Data.Sql.Items
         #endregion
 
         #region Methods
-        public static IItemDataStore Create(IDatabase database)
+        public static IItemDataManager Create(IDatabase database)
         {
-            var dataContext = new SqlItemDataStore(database);
+            var dataContext = new SqlItemDataManager(database);
             return dataContext;
         }
         #endregion

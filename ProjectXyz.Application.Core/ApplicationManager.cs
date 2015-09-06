@@ -15,7 +15,7 @@ using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Application.Core
 {
-    public sealed class Manager : IApplicationManager
+    public sealed class ApplicationManager : IApplicationManager
     {
         #region Fields
         private readonly IActorManager _actorManager;
@@ -26,25 +26,25 @@ namespace ProjectXyz.Application.Core
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Manager" /> class.
+        /// Initializes a new instance of the <see cref="ApplicationManager" /> class.
         /// </summary>
-        /// <param name="dataStore">The data store. Cannot be null.</param>
-        private Manager(IDataStore dataStore)
+        /// <param name="dataManager">The data store. Cannot be null.</param>
+        private ApplicationManager(IDataManager dataManager)
         {
-            Contract.Requires<ArgumentNullException>(dataStore != null, "dataStore");
+            Contract.Requires<ArgumentNullException>(dataManager != null, "dataManager");
 
-            _actorManager = ActorManager.Create(dataStore.Actors);
+            _actorManager = ActorManager.Create(dataManager.Actors);
             
-            _mapManager = MapManager.Create(dataStore.Maps);
+            _mapManager = MapManager.Create(dataManager.Maps);
 
             // FIXME: initialize these...
             var enchantmentTypeCalculators = Enumerable.Empty<IEnchantmentTypeCalculator>();
             _enchantmentManager = EnchantmentApplicationManager.Create(
-                dataStore,
+                dataManager,
                 enchantmentTypeCalculators);
             
             _itemManager = ItemApplicationManager.Create(
-                dataStore,
+                dataManager,
                 _enchantmentManager);
         }
         #endregion
@@ -75,16 +75,16 @@ namespace ProjectXyz.Application.Core
         /// <summary>
         /// Creates a new <see cref="IApplicationManager" /> instance.
         /// </summary>
-        /// <param name="dataStore">The data store. Cannot be null.</param>
+        /// <param name="dataManager">The data store. Cannot be null.</param>
         /// <returns>
         /// Returns a new <see cref="IApplicationManager" /> instance.
         /// </returns>
-        public static IApplicationManager Create(IDataStore dataStore)
+        public static IApplicationManager Create(IDataManager dataManager)
         {
-            Contract.Requires<ArgumentNullException>(dataStore != null, "dataStore");
+            Contract.Requires<ArgumentNullException>(dataManager != null, "dataManager");
             Contract.Ensures(Contract.Result<IApplicationManager>() != null);
 
-            return new Manager(dataStore);
+            return new ApplicationManager(dataManager);
         }
         #endregion
     }

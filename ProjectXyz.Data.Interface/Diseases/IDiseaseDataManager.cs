@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Diseases
 {
-    public interface IDiseaseDataStore
+    public interface IDiseaseDataManager
     {
         #region Properties
         IDiseaseDefinitionRepository DiseaseDefinitions { get; }

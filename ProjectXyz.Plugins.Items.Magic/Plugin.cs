@@ -19,20 +19,20 @@ namespace ProjectXyz.Plugins.Items.Magic
         #region Constructors
         public Plugin(
             IDatabase database, 
-            IDataStore dataStore,
+            IDataManager dataManager,
             IApplicationManager applicationManager)
         {
             var statRepository = StatRepository.Create(
                 database,
-                dataStore.Stats.StatFactory);
+                dataManager.Stats.StatFactory);
 
             var normalItemGenerator = NormalItemGenerator.Create(
                 applicationManager.Items.ItemFactory,
                 applicationManager.Items.ItemMetaDataFactory,
                 applicationManager.Items.ItemRequirementsFactory,
-                dataStore.Stats.StatFactory,
+                dataManager.Stats.StatFactory,
                 statRepository,
-                dataStore.Items);
+                dataManager.Items);
 
             _magicItemGenerator = MagicItemGenerator.Create(
                 MagicTypeId,
@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 applicationManager.Items.ItemMetaDataFactory,
                 normalItemGenerator,
                 applicationManager.Items.ItemAffixGenerator,
-                dataStore.Items);
+                dataManager.Items);
         }
         #endregion
 

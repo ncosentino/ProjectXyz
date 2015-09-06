@@ -25,15 +25,15 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         #region Constructors
         public Plugin(
             IDatabase database,
-            IDataStore dataStore)
+            IDataManager dataManager)
         {
-            _enchantmentDefinitionRepository = dataStore.Enchantments.EnchantmentDefinitions;
+            _enchantmentDefinitionRepository = dataManager.Enchantments.EnchantmentDefinitions;
 
             _enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
-                dataStore.Enchantments.StatusNegations,
-                dataStore.Weather.WeatherGroupings);
+                dataManager.Enchantments.StatusNegations,
+                dataManager.Weather.WeatherGroupings);
 
-            var enchantmentDefinitionWeatherGroupingRepository = dataStore.Enchantments.EnchantmentWeather;
+            var enchantmentDefinitionWeatherGroupingRepository = dataManager.Enchantments.EnchantmentWeather;
             var enchantmentFactory = OneShotNegateEnchantmentFactory.Create();
             _oneShotNegateEnchantmentGenerator = OneShotNegateEnchantmentGenerator.Create(
                 enchantmentFactory,
