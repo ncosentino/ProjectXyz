@@ -47,7 +47,10 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 database,
                 enchantmentDefinitionWeatherGroupingFactory);
 
-            _enchantmentTypeRepository = EnchantmentTypeRepository.Create(database);
+            var enchantmentTypeFactory = EnchantmentTypeFactory.Create();
+            _enchantmentTypeRepository = EnchantmentTypeRepository.Create(
+                database,
+                enchantmentTypeFactory);
         }
         #endregion
 

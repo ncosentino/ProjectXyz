@@ -9,13 +9,13 @@ namespace ProjectXyz.Application.Core.Items
     public sealed class ItemGenerator : IItemGenerator
     {
         #region Fields
-        private readonly Dictionary<Guid, GenerateItemDelegate> _generateItemDelegates;
+        private readonly Dictionary<Guid, IItemTypeGenerator> _generateItemDelegates;
         #endregion
 
         #region Constructors
         private ItemGenerator()
         {
-            _generateItemDelegates = new Dictionary<Guid, GenerateItemDelegate>();
+            _generateItemDelegates = new Dictionary<Guid, IItemTypeGenerator>();
         }
         #endregion
 
@@ -27,7 +27,7 @@ namespace ProjectXyz.Application.Core.Items
         }
 
         /// <inheritdoc />
-        public void RegisterCallback(Guid magicTypeId, GenerateItemDelegate callbackToRegister)
+        public void RegisterCallback(Guid magicTypeId, IItemTypeGenerator callbackToRegister)
         {
             _generateItemDelegates[magicTypeId] = callbackToRegister;
         }
@@ -45,8 +45,8 @@ namespace ProjectXyz.Application.Core.Items
                 throw new InvalidOperationException(string.Format("No callback registered for magic type id '{0}'.", magicTypeId));
             }
 
-            var callback = _generateItemDelegates[magicTypeId];
-            var result = callback.Invoke(
+            var generator = _generateItemDelegates[magicTypeId];
+            var result = generator.Generate(
                 randomizer, 
                 itemDefinitionId,
                 level,

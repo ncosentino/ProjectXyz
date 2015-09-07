@@ -42,6 +42,7 @@ namespace ProjectXyz.Data.Sql.Items
         private readonly ISocketTypeRepository _socketTypeRepository;
         private readonly IMaterialTypeRepository _materialTypeRepository;
         private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IItemTypeGeneratorPluginRepository _itemTypeGeneratorPluginRepository;
         private readonly IMagicTypeRepository _magicTypeRepository;
         private readonly IEquipSlotTypeRepository _equipSlotTypeRepository;
         #endregion
@@ -113,6 +114,11 @@ namespace ProjectXyz.Data.Sql.Items
                 database,
                 itemTypeFactory);
 
+            var itemTypeGeneratorPluginFactory = ItemTypeGeneratorPluginFactory.Create();
+            _itemTypeGeneratorPluginRepository = ItemTypeGeneratorPluginRepository.Create(
+                database,
+                itemTypeGeneratorPluginFactory);
+
             var magicTypeFactory = MagicTypeFactory.Create();
             _magicTypeRepository = MagicTypeRepository.Create(
                 database,
@@ -151,6 +157,8 @@ namespace ProjectXyz.Data.Sql.Items
         public IMaterialTypeRepository MaterialTypes { get { return _materialTypeRepository; } }
 
         public IItemTypeRepository ItemTypes { get { return _itemTypeRepository; } }
+
+        public IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get { return _itemTypeGeneratorPluginRepository; } }
 
         public IMagicTypeRepository MagicTypes { get { return _magicTypeRepository; } }
 

@@ -10,13 +10,8 @@ namespace ProjectXyz.Plugins.Items.Magic
 {
     public sealed class Plugin : IItemPlugin
     {
-        #region Constants
-        // FIXME: find a way that we can map this in the database instead...
-        private static readonly Guid MAGIC_TYPE = Guid.NewGuid();
-        #endregion
-
         #region Fields
-        private readonly IMagicItemGenerator _magicItemGenerator;
+        private readonly IItemTypeGenerator _magicItemGenerator;
         #endregion
 
         #region Constructors
@@ -37,8 +32,11 @@ namespace ProjectXyz.Plugins.Items.Magic
                 statRepository,
                 dataManager.Items);
 
+            var itemTypeGeneratorClassName = typeof(MagicItemGenerator).FullName;
+            var itemTypeGeneratorPlugin = dataManager.Items.ItemTypeGeneratorPlugins.GetByItemGeneratorClassName(itemTypeGeneratorClassName);
+
             _magicItemGenerator = MagicItemGenerator.Create(
-                MagicTypeId,
+                itemTypeGeneratorPlugin.MagicTypeId,
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
                 normalItemGenerator,
@@ -48,14 +46,9 @@ namespace ProjectXyz.Plugins.Items.Magic
         #endregion
 
         #region Properties
-        public Guid MagicTypeId
+        public IItemTypeGenerator ItemTypeGenerator
         {
-            get { return MAGIC_TYPE; }
-        }
-
-        public GenerateItemDelegate GenerateItemCallback
-        {
-            get { return _magicItemGenerator.Generate; }
+            get { return _magicItemGenerator; }
         }
         #endregion
     }

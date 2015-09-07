@@ -75,7 +75,7 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
                 applicationManager);
 
             // Execute
-            var result = plugin.GenerateItemCallback.Invoke(
+            var result = plugin.ItemTypeGenerator.Generate(
                 randomizer.Object,
                 addResult.ItemDefinition.Id,
                 LEVEL,

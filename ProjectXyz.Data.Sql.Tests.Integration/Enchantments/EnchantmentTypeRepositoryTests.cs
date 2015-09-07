@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Tests.Integration;
 using ProjectXyz.Tests.Xunit.Categories;
@@ -14,55 +15,35 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
     {
         #region Methods
         [Fact]
-        public void GetStoreRepositoryClassName_IdExists_ExpectedValues()
+        public void GetByEnchantmentDefinitionId_IdExists_ExpectedValues()
         {
             // Setup
             Guid enchantmentDefinitionId = Guid.NewGuid();
-            const string CLASS_NAME = "the class name";
+            const string STORE_CLASS_NAME = "the class name";
+            const string DEFINITION_CLASS_NAME = "the class name";
             var enchantmentTypeId = Guid.NewGuid();
 
             CreateEnchantmentType(
                 enchantmentTypeId,
-                CLASS_NAME,
-                Guid.NewGuid().ToString());
+                STORE_CLASS_NAME,
+                DEFINITION_CLASS_NAME);
 
             CreateEnchantmentDefinition(
                 enchantmentDefinitionId, 
                 enchantmentTypeId);
 
-            var repository = EnchantmentTypeRepository.Create(Database);
+            var enchantmentTypeFactory = EnchantmentTypeFactory.Create();
+
+            var repository = EnchantmentTypeRepository.Create(
+                Database,
+                enchantmentTypeFactory);
 
             // Execute
-            var result = repository.GetStoreRepositoryClassName(enchantmentDefinitionId);
+            var result = repository.GetByEnchantmentDefinitionId(enchantmentDefinitionId);
 
             // Assert
-            Assert.Equal(CLASS_NAME, result);
-        }
-
-        [Fact]
-        public void GetDefinitionRepositoryClassName_IdExists_ExpectedValues()
-        {
-            // Setup
-            Guid enchantmentDefinitionId = Guid.NewGuid();
-            const string CLASS_NAME = "the class name";
-            var enchantmentTypeId = Guid.NewGuid();
-
-            CreateEnchantmentType(
-                enchantmentTypeId,
-                Guid.NewGuid().ToString(),
-                CLASS_NAME);
-
-            CreateEnchantmentDefinition(
-                enchantmentDefinitionId,
-                enchantmentTypeId);
-
-            var repository = EnchantmentTypeRepository.Create(Database);
-
-            // Execute
-            var result = repository.GetDefinitionRepositoryClassName(enchantmentDefinitionId);
-
-            // Assert
-            Assert.Equal(CLASS_NAME, result);
+            Assert.Equal(STORE_CLASS_NAME, result.StoreRepositoryClassName);
+            Assert.Equal(DEFINITION_CLASS_NAME, result.DefinitionRepositoryClassName);
         }
 
         private void CreateEnchantmentType(Guid enchantmentTypeId, string storeRepositoryClassName, string definitionRepositoryClassName)

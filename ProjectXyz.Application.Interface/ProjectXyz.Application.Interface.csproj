@@ -166,10 +166,10 @@
     <Compile Include="Items\Contracts\ICanEquipItemContract.cs" />
     <Compile Include="Items\Contracts\IItemFactoryContract.cs" />
     <Compile Include="Items\IItemMetaDataFactory.cs" />
-    <Compile Include="Items\GenerateItemDelegate.cs" />
     <Compile Include="Items\IItemFactory.cs" />
     <Compile Include="Items\IItemGenerator.cs" />
     <Compile Include="Items\IItemMetaData.cs" />
+    <Compile Include="Items\IItemTypeGenerator.cs" />
     <Compile Include="Items\IObservableDurability.cs" />
     <Compile Include="Items\EquipmentChangedEventArgs.cs" />
     <Compile Include="Items\ICanEquip.cs" />

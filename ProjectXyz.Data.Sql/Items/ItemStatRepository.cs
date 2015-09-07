@@ -47,16 +47,11 @@ namespace ProjectXyz.Data.Sql.Items
             Guid itemId,
             Guid statId)
         {
-            var itemStat = _factory.Create(
-                id,
-                itemId,
-                statId);
-
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", itemStat.Id },
-                { "ItemId", itemStat.ItemId },
-                { "StatId", itemStat.StatId },
+                { "Id", id },
+                { "ItemId", itemId },
+                { "StatId", statId },
             };
 
             using (var command = _database.CreateCommand(
@@ -79,7 +74,11 @@ namespace ProjectXyz.Data.Sql.Items
             {
                 command.ExecuteNonQuery();
             }
-
+            
+            var itemStat = _factory.Create(
+                id,
+                itemId,
+                statId);
             return itemStat;
         }
 

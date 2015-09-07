@@ -139,6 +139,7 @@
     <Compile Include="Enchantments\EnchantmentTriggerRepository.cs" />
     <Compile Include="Items\Affixes\MagicTypesRandomAffixesRepository.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantmentRepository.cs" />
+    <Compile Include="Items\ItemTypeGeneratorPluginRepository.cs" />
     <Compile Include="Items\SqlItemDataManager.cs" />
     <Compile Include="Items\ItemDefinitionStatRepository.cs" />
     <Compile Include="Items\ItemDefinitionRepository.cs" />

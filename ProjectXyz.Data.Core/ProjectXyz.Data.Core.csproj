@@ -135,6 +135,8 @@
     <Compile Include="Diseases\DiseaseSpreadType.cs" />
     <Compile Include="Diseases\DiseaseDefinitionFactory.cs" />
     <Compile Include="Diseases\DiseaseDefinition.cs" />
+    <Compile Include="Enchantments\EnchantmentTypeFactory.cs" />
+    <Compile Include="Enchantments\EnchantmentType.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherGroupingFactory.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherGrouping.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionFactory.cs" />
@@ -153,6 +155,8 @@
     <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGrouping.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantmentFactory.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantment.cs" />
+    <Compile Include="Items\ItemTypeGeneratorPluginFactory.cs" />
+    <Compile Include="Items\ItemTypeGeneratorPlugin.cs" />
     <Compile Include="Items\ItemDefinitionStat.cs" />
     <Compile Include="Items\ItemDefinitionStatFactory.cs" />
     <Compile Include="Items\ItemDefinition.cs" />

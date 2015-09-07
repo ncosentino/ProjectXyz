@@ -87,6 +87,11 @@ CREATE TABLE ItemTypes (
   [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
+CREATE TABLE [ItemTypeGeneratorPlugins] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL, 
+  [MagicTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_MagicTypeId] REFERENCES [MagicTypes]([Id]),
+  [ItemGeneratorClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
+
 CREATE TABLE MagicTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),

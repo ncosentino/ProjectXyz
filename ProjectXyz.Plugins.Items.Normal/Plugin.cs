@@ -9,13 +9,8 @@ namespace ProjectXyz.Plugins.Items.Normal
 {
     public sealed class Plugin : IItemPlugin
     {
-        #region Constants
-        // FIXME: find a way that we can map this in the database instead...
-        private static readonly Guid MAGIC_TYPE = Guid.NewGuid();
-        #endregion
-
         #region Fields
-        private readonly INormalItemGenerator _normalItemGenerator;
+        private readonly IItemTypeGenerator _normalItemGenerator;
         #endregion
 
         #region Constructors
@@ -39,14 +34,9 @@ namespace ProjectXyz.Plugins.Items.Normal
         #endregion
 
         #region Properties
-        public Guid MagicTypeId
+        public IItemTypeGenerator ItemTypeGenerator
         {
-            get { return MAGIC_TYPE; }
-        }
-
-        public GenerateItemDelegate GenerateItemCallback
-        {
-            get { return _normalItemGenerator.Generate; }
+            get { return _normalItemGenerator; }
         }
         #endregion
     }

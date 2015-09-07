@@ -11,7 +11,7 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Plugins.Items.Normal
 {
-    public sealed class NormalItemGenerator : INormalItemGenerator
+    public sealed class NormalItemGenerator : IItemTypeGenerator
     {
         #region Fields
         private readonly IItemFactory _itemFactory;
@@ -41,7 +41,7 @@ namespace ProjectXyz.Plugins.Items.Normal
         #endregion
 
         #region Methods
-        public static INormalItemGenerator Create(
+        public static IItemTypeGenerator Create(
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
             IItemRequirementsFactory itemRequirementsFactory,

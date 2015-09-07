@@ -4,21 +4,21 @@ using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Items;
 
-namespace ProjectXyz.Data.Sql.Enchantments
+namespace ProjectXyz.Data.Sql.Items
 {
-    public sealed class EnchantmentTypeRepository : IEnchantmentTypeRepository
+    public sealed class ItemTypeGeneratorPluginRepository : IItemTypeGeneratorPluginRepository
     {
         #region Fields
         private readonly IDatabase _database;
-        private readonly IEnchantmentTypeFactory _factory;
+        private readonly IItemTypeGeneratorPluginFactory _factory;
         #endregion
 
         #region Constructors
-        private EnchantmentTypeRepository(
+        private ItemTypeGeneratorPluginRepository(
             IDatabase database,
-            IEnchantmentTypeFactory factory)
+            IItemTypeGeneratorPluginFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(factory != null);
@@ -29,45 +29,45 @@ namespace ProjectXyz.Data.Sql.Enchantments
         #endregion
 
         #region Methods
-        public static IEnchantmentTypeRepository Create(
+        public static IItemTypeGeneratorPluginRepository Create(
             IDatabase database,
-            IEnchantmentTypeFactory factory)
+            IItemTypeGeneratorPluginFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentTypeRepository>() != null);
+            Contract.Ensures(Contract.Result<IItemTypeGeneratorPluginRepository>() != null);
 
-            return new EnchantmentTypeRepository(
+            return new ItemTypeGeneratorPluginRepository(
                 database,
                 factory);
         }
 
-        public IEnchantmentType Add(
+        public IItemTypeGeneratorPlugin Add(
             Guid id, 
-            string storeRepositoryClassName, 
+            Guid magicTypeId, 
             string definitionRepositoryClassName)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
-                { "StoreRepositoryClassName", storeRepositoryClassName },
-                { "DefinitionRepositoryClassName", definitionRepositoryClassName },
+                { "MagicTypeId", magicTypeId },
+                { "ItemGeneratorClassName", definitionRepositoryClassName },
             };
 
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    EnchantmentTypes
+                    ItemTypeGeneratorPlugins
                 (
                     Id,
-                    StoreRepositoryClassName,
-                    DefinitionRepositoryClassName
+                    MagicTypeId,
+                    ItemGeneratorClassName
                 )
                 VALUES
                 (
                     @Id,
-                    @StoreRepositoryClassName,
-                    @DefinitionRepositoryClassName
+                    @MagicTypeId,
+                    @ItemGeneratorClassName
                 )
                 ;",
                 namedParameters))
@@ -75,21 +75,21 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 command.ExecuteNonQuery();
             }
 
-            var enchantmentType = _factory.Create(
+            var itemTypeGeneratorPlugin = _factory.Create(
                 id,
-                storeRepositoryClassName,
+                magicTypeId,
                 definitionRepositoryClassName);
-            return enchantmentType;
+            return itemTypeGeneratorPlugin;
         }
 
-        public IEnchantmentType GetById(Guid id)
+        public IItemTypeGeneratorPlugin GetById(Guid id)
         {
             using (var command = _database.CreateCommand(
             @"
                 SELECT 
                     *
                 FROM
-                    EnchantmentTypes
+                    ItemTypeGeneratorPlugins
                 WHERE
                     Id = @Id
                 LIMIT 1",
@@ -100,7 +100,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 {
                     if (!reader.Read())
                     {
-                        throw new InvalidOperationException("No enchantment type with Id '" + id + "' was found.");
+                        throw new InvalidOperationException("No item type generator plugin with Id '" + id + "' was found.");
                     }
 
                     return GetFromReader(reader, _factory);
@@ -108,29 +108,25 @@ namespace ProjectXyz.Data.Sql.Enchantments
             }
         }
 
-        public IEnchantmentType GetByEnchantmentDefinitionId(Guid enchantmentDefinitionId)
+        public IItemTypeGeneratorPlugin GetByMagicTypeId(Guid magicTypeId)
         {
             using (var command = _database.CreateCommand(
             @"
                 SELECT 
                     *
                 FROM
-                    EnchantmentDefinitions
-                LEFT OUTER JOIN 
-                    EnchantmentTypes
-                ON
-                    EnchantmentDefinitions.EnchantmentTypeId=EnchantmentTypes.Id
+                    ItemTypeGeneratorPlugins
                 WHERE
-                    EnchantmentDefinitions.Id = @EnchantmentDefinitionid
+                    MagicTypeId = @MagicTypeId
                 LIMIT 1",
-               "EnchantmentDefinitionid",
-               enchantmentDefinitionId))
+               "MagicTypeId",
+               magicTypeId))
             {
                 using (var reader = command.ExecuteReader())
                 {
                     if (!reader.Read())
                     {
-                        throw new InvalidOperationException("No enchantment type with enchantmentdefinition Id '" + enchantmentDefinitionId + "' was found.");
+                        throw new InvalidOperationException("No item type generator plugin with magic type Id '" + magicTypeId + "' was found.");
                     }
 
                     return GetFromReader(reader, _factory);
@@ -138,14 +134,40 @@ namespace ProjectXyz.Data.Sql.Enchantments
             }
         }
 
-        public IEnumerable<IEnchantmentType> GetAll()
+        public IItemTypeGeneratorPlugin GetByItemGeneratorClassName(string itemGeneratorClassName)
         {
             using (var command = _database.CreateCommand(
             @"
                 SELECT 
                     *
                 FROM
-                    EnchantmentTypes
+                    ItemTypeGeneratorPlugins
+                WHERE
+                    ItemGeneratorClassName = @ItemGeneratorClassName
+                LIMIT 1",
+               "ItemGeneratorClassName",
+               itemGeneratorClassName))
+            {
+                using (var reader = command.ExecuteReader())
+                {
+                    if (!reader.Read())
+                    {
+                        throw new InvalidOperationException("No item type generator plugin with item generator class name '" + itemGeneratorClassName + "' was found.");
+                    }
+
+                    return GetFromReader(reader, _factory);
+                }
+            }
+        }
+
+        public IEnumerable<IItemTypeGeneratorPlugin> GetAll()
+        {
+            using (var command = _database.CreateCommand(
+            @"
+                SELECT 
+                    *
+                FROM
+                    ItemTypeGeneratorPlugins
                 WHERE
                     Id = @Id"))
             {
@@ -164,7 +186,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    EnchantmentTypes
+                    ItemTypeGeneratorPlugins
                 WHERE
                     Id = @id
                 ;",
@@ -175,16 +197,16 @@ namespace ProjectXyz.Data.Sql.Enchantments
             }
         }
 
-        private IEnchantmentType GetFromReader(IDataReader reader, IEnchantmentTypeFactory factory)
+        private IItemTypeGeneratorPlugin GetFromReader(IDataReader reader, IItemTypeGeneratorPluginFactory factory)
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IEnchantmentType>() != null);
+            Contract.Ensures(Contract.Result<IItemTypeGeneratorPlugin>() != null);
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
-                reader.GetString(reader.GetOrdinal("StoreRepositoryClassName")),
-                reader.GetString(reader.GetOrdinal("DefinitionRepositoryClassName")));
+                reader.GetGuid(reader.GetOrdinal("MagicTypeId")),
+                reader.GetString(reader.GetOrdinal("ItemGeneratorClassName")));
         }
 
         [ContractInvariantMethod]

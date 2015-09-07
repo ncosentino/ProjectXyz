@@ -5,7 +5,7 @@ using ProjectXyz.Interface;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    public interface IItemGenerator : IRegisterCallback<Guid, GenerateItemDelegate>
+    public interface IItemGenerator : IRegisterCallback<Guid, IItemTypeGenerator>
     {
         #region Methods
         IItem Generate(

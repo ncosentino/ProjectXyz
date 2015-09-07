@@ -39,6 +39,8 @@ namespace ProjectXyz.Data.Interface.Items
 
         IItemTypeRepository ItemTypes { get; }
 
+        IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get; }
+
         IMagicTypeRepository MagicTypes { get; }
 
         IEquipSlotTypeRepository EquipSlotTypes { get; }

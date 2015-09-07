@@ -11,7 +11,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
         #region Methods
         IEnchantment Generate(
             IRandom randomizer,
-            Guid enchantmentId);
+            Guid enchantmentDefinitionId);
         #endregion
     }
 }

@@ -6,25 +6,26 @@ using System.Text.RegularExpressions;
 using Moq;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Interface.Enchantments;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Sql.Enchantments;
+using ProjectXyz.Data.Sql.Items;
 using ProjectXyz.Tests.Xunit.Categories;
 using Xunit;
 
-namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
+namespace ProjectXyz.Data.Sql.Tests.Unit.Items
 {
     [DataLayer]
-    [Enchantments]
-    public class EnchantmentTypeRepositoryTests
+    [Items]
+    public class ItemTypeGeneratorRepositoryTests
     {
         #region Methods
         [Fact]
-        public void GetByEnchantmentDefinitionId_IdExists_ExpectedValues()
+        public void GetByMagicTypeId_IdExists_ExpectedValues()
         {
             // Setup
-            var enchantmentTypeId = Guid.NewGuid();
-            Guid enchantmentDefinitionId = Guid.NewGuid();
-            const string STORE_CLASS_NAME = "the store class name";
-            const string DEFINITION_CLASS_NAME = "the definition class name";
+            var itemTypeGeneratorPluginId = Guid.NewGuid();
+            Guid magicTypeId = Guid.NewGuid();
+            const string GENERATOR_CLASS_NAME = "the definition class name";
 
             var reader = new Mock<IDataReader>(MockBehavior.Strict);
             reader
@@ -35,19 +36,19 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
                 .Returns(0);
             reader
                 .Setup(x => x.GetGuid(0))
-                .Returns(enchantmentTypeId);
+                .Returns(itemTypeGeneratorPluginId);
             reader
-                .Setup(x => x.GetOrdinal("StoreRepositoryClassName"))
+                .Setup(x => x.GetOrdinal("MagicTypeId"))
                 .Returns(1);
             reader
-                .Setup(x => x.GetString(1))
-                .Returns(STORE_CLASS_NAME);
+                .Setup(x => x.GetGuid(1))
+                .Returns(magicTypeId);
             reader
-                .Setup(x => x.GetOrdinal("DefinitionRepositoryClassName"))
+                .Setup(x => x.GetOrdinal("ItemGeneratorClassName"))
                 .Returns(2);
             reader
                 .Setup(x => x.GetString(2))
-                .Returns(DEFINITION_CLASS_NAME);
+                .Returns(GENERATOR_CLASS_NAME);
             reader
                 .Setup(x => x.Dispose());
 
@@ -63,27 +64,27 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var expectedResult = new Mock<IEnchantmentType>(MockBehavior.Strict);
+            var expectedResult = new Mock<IItemTypeGeneratorPlugin>(MockBehavior.Strict);
 
-            var factory = new Mock<IEnchantmentTypeFactory>(MockBehavior.Strict);
+            var factory = new Mock<IItemTypeGeneratorPluginFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.Create(enchantmentTypeId, STORE_CLASS_NAME, DEFINITION_CLASS_NAME))
+                .Setup(x => x.Create(itemTypeGeneratorPluginId, magicTypeId, GENERATOR_CLASS_NAME))
                 .Returns(expectedResult.Object);
 
-            var repository = EnchantmentTypeRepository.Create(
+            var repository = ItemTypeGeneratorPluginRepository.Create(
                 database.Object,
                 factory.Object);
 
             // Execute
-            var result = repository.GetByEnchantmentDefinitionId(enchantmentDefinitionId);
+            var result = repository.GetByMagicTypeId(magicTypeId);
 
             // Assert
             Assert.Equal(expectedResult.Object, result);
 
             reader.Verify(x => x.Read(), Times.Once());
             reader.Verify(x => x.GetOrdinal(It.IsAny<string>()), Times.Exactly(3));
-            reader.Verify(x => x.GetGuid(It.IsAny<int>()), Times.Once());
-            reader.Verify(x => x.GetString(It.IsAny<int>()), Times.Exactly(2));
+            reader.Verify(x => x.GetGuid(It.IsAny<int>()), Times.Exactly(2));
+            reader.Verify(x => x.GetString(It.IsAny<int>()), Times.Once());
             reader.Verify(x => x.Dispose(), Times.Once);
 
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
@@ -91,14 +92,14 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
             command.Verify(x => x.ExecuteReader(), Times.Once);
             command.Verify(x => x.Dispose(), Times.Once);
 
-            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
-        public void GetByEnchantmentDefinitionId_IdDoesNotExist_ThrowsInvalidOperationException()
+        public void GetByMagicTypeId_IdDoesNotExist_ThrowsInvalidOperationException()
         {
             // Setup
-            Guid enchantmentDefinitionId = Guid.NewGuid();
+            Guid itemGeneratorPluginId = Guid.NewGuid();
 
             var reader = new Mock<IDataReader>(MockBehavior.Strict);
             reader
@@ -119,20 +120,20 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var factory = new Mock<IEnchantmentTypeFactory>(MockBehavior.Strict);
+            var factory = new Mock<IItemTypeGeneratorPluginFactory>(MockBehavior.Strict);
 
-            var repository = EnchantmentTypeRepository.Create(
+            var repository = ItemTypeGeneratorPluginRepository.Create(
                 database.Object,
                 factory.Object);
 
-            Assert.ThrowsDelegateWithReturn method = () => repository.GetByEnchantmentDefinitionId(enchantmentDefinitionId);
+            Assert.ThrowsDelegateWithReturn method = () => repository.GetByMagicTypeId(itemGeneratorPluginId);
 
             // Execute
             var result = Assert.Throws<InvalidOperationException>(method);
 
             // Assert
             Assert.True(
-                Regex.IsMatch(result.Message, "No enchantment type with enchantmentdefinition Id '.+' was found\\."),
+                Regex.IsMatch(result.Message, "No item type generator plugin with magic type Id '.+' was found\\."),
                 "Not expecting message: " + result.Message);
 
             reader.Verify(x => x.Read(), Times.Once());
@@ -148,10 +149,9 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
         public void GetById_IdExists_ExpectedValues()
         {
             // Setup
-            var enchantmentTypeId = Guid.NewGuid();
-            Guid enchantmentDefinitionId = Guid.NewGuid();
-            const string STORE_CLASS_NAME = "the store class name";
-            const string DEFINITION_CLASS_NAME = "the definition class name";
+            var itemTypeGeneratorPluginId = Guid.NewGuid();
+            Guid magicTypeId = Guid.NewGuid();
+            const string GENERATOR_CLASS_NAME = "the definition class name";
 
             var reader = new Mock<IDataReader>(MockBehavior.Strict);
             reader
@@ -162,19 +162,19 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
                 .Returns(0);
             reader
                 .Setup(x => x.GetGuid(0))
-                .Returns(enchantmentTypeId);
+                .Returns(itemTypeGeneratorPluginId);
             reader
-                .Setup(x => x.GetOrdinal("StoreRepositoryClassName"))
+                .Setup(x => x.GetOrdinal("MagicTypeId"))
                 .Returns(1);
             reader
-                .Setup(x => x.GetString(1))
-                .Returns(STORE_CLASS_NAME);
+                .Setup(x => x.GetGuid(1))
+                .Returns(magicTypeId);
             reader
-                .Setup(x => x.GetOrdinal("DefinitionRepositoryClassName"))
+                .Setup(x => x.GetOrdinal("ItemGeneratorClassName"))
                 .Returns(2);
             reader
                 .Setup(x => x.GetString(2))
-                .Returns(DEFINITION_CLASS_NAME);
+                .Returns(GENERATOR_CLASS_NAME);
             reader
                 .Setup(x => x.Dispose());
 
@@ -190,27 +190,27 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var expectedResult = new Mock<IEnchantmentType>(MockBehavior.Strict);
+            var expectedResult = new Mock<IItemTypeGeneratorPlugin>(MockBehavior.Strict);
 
-            var factory = new Mock<IEnchantmentTypeFactory>(MockBehavior.Strict);
+            var factory = new Mock<IItemTypeGeneratorPluginFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.Create(enchantmentTypeId, STORE_CLASS_NAME, DEFINITION_CLASS_NAME))
+                .Setup(x => x.Create(itemTypeGeneratorPluginId, magicTypeId, GENERATOR_CLASS_NAME))
                 .Returns(expectedResult.Object);
 
-            var repository = EnchantmentTypeRepository.Create(
+            var repository = ItemTypeGeneratorPluginRepository.Create(
                 database.Object,
                 factory.Object);
 
             // Execute
-            var result = repository.GetById(enchantmentDefinitionId);
+            var result = repository.GetById(itemTypeGeneratorPluginId);
 
             // Assert
             Assert.Equal(expectedResult.Object, result);
 
             reader.Verify(x => x.Read(), Times.Once());
             reader.Verify(x => x.GetOrdinal(It.IsAny<string>()), Times.Exactly(3));
-            reader.Verify(x => x.GetGuid(It.IsAny<int>()), Times.Once());
-            reader.Verify(x => x.GetString(It.IsAny<int>()), Times.Exactly(2));
+            reader.Verify(x => x.GetGuid(It.IsAny<int>()), Times.Exactly(2));
+            reader.Verify(x => x.GetString(It.IsAny<int>()), Times.Once());
             reader.Verify(x => x.Dispose(), Times.Once);
 
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
@@ -218,14 +218,14 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
             command.Verify(x => x.ExecuteReader(), Times.Once);
             command.Verify(x => x.Dispose(), Times.Once);
 
-            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
         public void GetById_IdDoesNotExist_ThrowsInvalidOperationException()
         {
             // Setup
-            Guid enchantmentDefinitionId = Guid.NewGuid();
+            Guid itemGeneratorPluginId = Guid.NewGuid();
 
             var reader = new Mock<IDataReader>(MockBehavior.Strict);
             reader
@@ -246,20 +246,20 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Enchantments
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var factory = new Mock<IEnchantmentTypeFactory>(MockBehavior.Strict);
+            var factory = new Mock<IItemTypeGeneratorPluginFactory>(MockBehavior.Strict);
 
-            var repository = EnchantmentTypeRepository.Create(
+            var repository = ItemTypeGeneratorPluginRepository.Create(
                 database.Object,
                 factory.Object);
 
-            Assert.ThrowsDelegateWithReturn method = () => repository.GetById(enchantmentDefinitionId);
+            Assert.ThrowsDelegateWithReturn method = () => repository.GetById(itemGeneratorPluginId);
 
             // Execute
             var result = Assert.Throws<InvalidOperationException>(method);
 
             // Assert
             Assert.True(
-                Regex.IsMatch(result.Message, "No enchantment type with Id '.+' was found\\."),
+                Regex.IsMatch(result.Message, "No item type generator plugin with Id '.+' was found\\."),
                 "Not expecting message: " + result.Message);
 
             reader.Verify(x => x.Read(), Times.Once());

@@ -158,6 +158,8 @@
     <Compile Include="Diseases\IDiseaseDefinition.cs" />
     <Compile Include="Diseases\IDiseaseDataManager.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentDefinitionRepositoryContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentTypeFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentType.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentsDataManager.cs" />
     <Compile Include="IDatabase.cs" />
@@ -194,6 +196,9 @@
     <Compile Include="Items\Affixes\IItemAffixDefinitionFilterRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionFactory.cs" />
     <Compile Include="Items\Contracts\IItemDefinitionContract.cs" />
+    <Compile Include="Items\IItemTypeGeneratorPlugin.cs" />
+    <Compile Include="Items\IItemTypeGeneratorPluginFactory.cs" />
+    <Compile Include="Items\IItemTypeGeneratorPluginRepository.cs" />
     <Compile Include="Items\IItemDataManager.cs" />
     <Compile Include="Items\IItemDefinitionStatRepository.cs" />
     <Compile Include="Items\IItemDefinitionStatFactory.cs" />

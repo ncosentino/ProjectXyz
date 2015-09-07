@@ -8,9 +8,18 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IEnchantmentTypeRepository
     {
         #region Methods
-        string GetStoreRepositoryClassName(Guid enchantmentDefinitionId);
+        IEnchantmentType Add(
+            Guid id,
+            string storeRepositoryClassName,
+            string definitionRepositoryClassName);
 
-        string GetDefinitionRepositoryClassName(Guid enchantmentDefinitionId);
+        IEnchantmentType GetById(Guid id);
+
+        IEnchantmentType GetByEnchantmentDefinitionId(Guid enchantmentDefinitionId);
+
+        IEnumerable<IEnchantmentType> GetAll();
+
+        void RemoveById(Guid id);
         #endregion
     }
 }

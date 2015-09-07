@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Application.Interface;
-using ProjectXyz.Application.Interface.Items;
+using System.Text;
 
-namespace ProjectXyz.Plugins.Items.Normal
+namespace ProjectXyz.Application.Interface.Items
 {
-    public interface INormalItemGenerator
+    public interface IItemTypeGenerator
     {
         #region Methods
         IItem Generate(

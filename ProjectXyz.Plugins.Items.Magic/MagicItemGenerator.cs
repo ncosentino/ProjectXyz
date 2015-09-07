@@ -5,17 +5,16 @@ using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Items;
-using ProjectXyz.Plugins.Items.Normal;
 
 namespace ProjectXyz.Plugins.Items.Magic
 {
-    public sealed class MagicItemGenerator : IMagicItemGenerator
+    public sealed class MagicItemGenerator : IItemTypeGenerator
     {
         #region Fields
         private readonly Guid _magicType;
         private readonly IItemFactory _itemFactory;
         private readonly IItemMetaDataFactory _itemMetaDataFactory;
-        private readonly INormalItemGenerator _normalItemGenerator;
+        private readonly IItemTypeGenerator _normalItemGenerator;
         private readonly IItemAffixGenerator _itemAffixGenerator;
         private readonly IItemDataManager _itemDataManager;
         #endregion
@@ -25,7 +24,7 @@ namespace ProjectXyz.Plugins.Items.Magic
             Guid magicType,
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
-            INormalItemGenerator normalItemGenerator,
+            IItemTypeGenerator normalItemGenerator,
             IItemAffixGenerator itemAffixGenerator,
             IItemDataManager itemDataManager)
         {
@@ -39,11 +38,11 @@ namespace ProjectXyz.Plugins.Items.Magic
         #endregion
 
         #region Methods
-        public static IMagicItemGenerator Create(
+        public static IItemTypeGenerator Create(
             Guid magicType,
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
-            INormalItemGenerator normalItemGenerator,
+            IItemTypeGenerator normalItemGenerator,
             IItemAffixGenerator itemAffixGenerator,
             IItemDataManager itemDataManager)
         {

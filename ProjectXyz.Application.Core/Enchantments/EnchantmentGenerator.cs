@@ -57,14 +57,14 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         /// <inheritdoc />
         public IEnchantment Generate(
-            IRandom randomizer, 
-            Guid enchantmentId)
+            IRandom randomizer,
+            Guid enchantmentDefinitionId)
         {
-            var definitionRepositoryClassName = _enchantmentTypeRepository.GetDefinitionRepositoryClassName(enchantmentId);
-            var definitionRepositoryType = _typeLoader.GetType(definitionRepositoryClassName);
+            var enchantmentType = _enchantmentTypeRepository.GetByEnchantmentDefinitionId(enchantmentDefinitionId);
+            var definitionRepositoryType = _typeLoader.GetType(enchantmentType.DefinitionRepositoryClassName);
             if (definitionRepositoryType == null)
             {
-                throw new InvalidOperationException(string.Format("No enchantment definition repository was found for type '{0}'.", definitionRepositoryClassName));
+                throw new InvalidOperationException(string.Format("No enchantment definition repository was found for type '{0}'.", enchantmentType.DefinitionRepositoryClassName));
             }
 
             if (!_generateEnchantmentMapping.ContainsKey(definitionRepositoryType))
@@ -74,7 +74,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
             var enchantment = _generateEnchantmentMapping[definitionRepositoryType].Invoke(
                 randomizer,
-                enchantmentId);
+                enchantmentDefinitionId);
             return enchantment;
         }
         #endregion
