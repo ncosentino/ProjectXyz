@@ -18,22 +18,27 @@ namespace ProjectXyz.Plugins.Core.Tests.Unit
             // Setup
             var dataManager = new Mock<IDataManager>(MockBehavior.Strict);
 
-            var enchantmentFactory = new Mock<IEnchantmentFactory>(MockBehavior.Strict);
-
             var enchantmentGenerator = new Mock<IEnchantmentGenerator>(MockBehavior.Strict);
 
             var enchantmentSaver = new Mock<IEnchantmentSaver>(MockBehavior.Strict);
 
-            var enchantmentApplicationManager = new Mock<IEnchantmentApplicationManager>(MockBehavior.Strict);
-            enchantmentApplicationManager
-                .Setup(x => x.EnchantmentFactory)
+            var enchantmentFactory = new Mock<IEnchantmentFactory>(MockBehavior.Strict);
+
+            var enchantmentApplicationFactoryManager = new Mock<IEnchantmentApplicationFactoryManager>(MockBehavior.Strict);
+            enchantmentApplicationFactoryManager
+                .Setup(x => x.Enchantments)
                 .Returns(enchantmentFactory.Object);
+
+            var enchantmentApplicationManager = new Mock<IEnchantmentApplicationManager>(MockBehavior.Strict);
             enchantmentApplicationManager
                 .Setup(x => x.EnchantmentGenerator)
                 .Returns(enchantmentGenerator.Object);
             enchantmentApplicationManager
                 .Setup(x => x.EnchantmentSaver)
                 .Returns(enchantmentSaver.Object);
+            enchantmentApplicationManager
+                .Setup(x => x.Factories)
+                .Returns(enchantmentApplicationFactoryManager.Object);
 
             var applicationManager = new Mock<IApplicationManager>(MockBehavior.Strict);
             applicationManager
@@ -48,9 +53,11 @@ namespace ProjectXyz.Plugins.Core.Tests.Unit
             // Assert
             Assert.NotNull(result);
 
-            enchantmentApplicationManager.Verify(x => x.EnchantmentFactory, Times.Once);
+            enchantmentApplicationFactoryManager.Verify(x => x.Enchantments, Times.Once);
+
             enchantmentApplicationManager.Verify(x => x.EnchantmentGenerator, Times.Once);
             enchantmentApplicationManager.Verify(x => x.EnchantmentSaver, Times.Once);
+            enchantmentApplicationManager.Verify(x => x.Factories, Times.Once);
 
             applicationManager.Verify(x => x.Enchantments, Times.AtLeastOnce());
         }

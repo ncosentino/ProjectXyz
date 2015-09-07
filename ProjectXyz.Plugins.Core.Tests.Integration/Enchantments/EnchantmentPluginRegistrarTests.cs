@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using ProjectXyz.Application.Core;
+using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Sql;
@@ -32,12 +32,12 @@ namespace ProjectXyz.Plugins.Core.Tests.Integration.Enchantments
                 Database,
                 SqlDatabaseUpgrader.Create());
 
-            var applicationManager = ApplicationManager.Create(dataManager);
+            var enchantmentApplicationFactoryManager = EnchantmentApplicationFactoryManager.Create();
                 
             var plugin = new Plugins.Enchantments.Expression.Plugin(
                 database.Object,
                 dataManager,
-                applicationManager);
+                enchantmentApplicationFactoryManager);
 
             enchantmentSaver
                 .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantment), plugin.SaveEnchantmentCallback));

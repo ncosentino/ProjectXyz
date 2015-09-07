@@ -18,6 +18,8 @@ namespace ProjectXyz.Data.Interface.Enchantments
         IStatusNegationRepository StatusNegations { get; }
 
         IEnchantmentTypeRepository EnchantmentTypes { get; }
+
+        IEnchantmentStoreFactory EnchantmentStoreFactory { get; }
         #endregion
     }
 }

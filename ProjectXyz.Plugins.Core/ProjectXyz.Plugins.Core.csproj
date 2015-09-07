@@ -126,6 +126,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PluginLoader.cs" />
+    <Compile Include="Enchantments\EnchantmentPluginLoader.cs" />
+    <Compile Include="Items\ItemPluginLoader.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="Enchantments\EnchantmentPluginRegistrar.cs" />
     <Compile Include="Items\ItemPluginRegistrar.cs" />

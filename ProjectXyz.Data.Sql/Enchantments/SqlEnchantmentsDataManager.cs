@@ -16,6 +16,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
         private readonly IEnchantmentDefinitionWeatherTypeGroupingRepository _enchantmentDefinitionWeatherGroupingRepository;
         private readonly IStatusNegationRepository _statusNegationRepository;
         private readonly IEnchantmentTypeRepository _enchantmentTypeRepository;
+        private readonly IEnchantmentStoreFactory _enchantmentStoreFactory;
         #endregion
 
         #region Constructors
@@ -31,10 +32,10 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 database,
                 enchantmentDefinitionFactory);
 
-            var enchantmentStoreFactory = EnchantmentStoreFactory.Create();
+            _enchantmentStoreFactory = Core.Enchantments.EnchantmentStoreFactory.Create();
             _enchantmentStoreRepository = EnchantmentStoreRepository.Create(
                 database,
-                enchantmentStoreFactory);
+                _enchantmentStoreFactory);
 
             var statusNegationFactory = StatusNegationFactory.Create();
             _statusNegationRepository = StatusNegationRepository.Create(
@@ -51,17 +52,26 @@ namespace ProjectXyz.Data.Sql.Enchantments
         #endregion
 
         #region Properties
+        /// <inheritdoc />
         public IEnchantmentDefinitionRepository EnchantmentDefinitions { get { return _enchantmentDefinitionRepository; } }
 
+        /// <inheritdoc />
         public IEnchantmentStoreRepository EnchantmentStores { get { return _enchantmentStoreRepository;} }
 
+        /// <inheritdoc />
         public IEnchantmentTriggerRepository EnchantmentTriggers { get { return _enchantmentTriggerRepository; } }
 
+        /// <inheritdoc />
         public IEnchantmentDefinitionWeatherTypeGroupingRepository EnchantmentWeather { get { return _enchantmentDefinitionWeatherGroupingRepository; } }
 
+        /// <inheritdoc />
         public IStatusNegationRepository StatusNegations { get { return _statusNegationRepository; } }
 
+        /// <inheritdoc />
         public IEnchantmentTypeRepository EnchantmentTypes { get { return _enchantmentTypeRepository; } }
+
+        /// <inheritdoc />
+        public IEnchantmentStoreFactory EnchantmentStoreFactory { get { return _enchantmentStoreFactory; } }
         #endregion
 
         #region Methods

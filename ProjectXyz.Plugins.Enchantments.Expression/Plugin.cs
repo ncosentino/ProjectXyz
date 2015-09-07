@@ -30,7 +30,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         public Plugin(
             IDatabase database,
             IDataManager dataManager,
-            IApplicationManager applicationManager)
+            IEnchantmentApplicationFactoryManager enchantmentApplicationFactoryManager)
         {
             _enchantmentDefinitionRepository = dataManager.Enchantments.EnchantmentDefinitions;
 
@@ -46,7 +46,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 dataManager.Stats.StatFactory,
                 expressionEvaluator,
                 dataManager.Weather.WeatherGroupings,
-                applicationManager.Enchantments.EnchantmentTypeCalculatorResultFactory,
+                enchantmentApplicationFactoryManager.EnchantmentTypeCalculatorResults,
                 dataManager.Stats.StatCollectionFactory);
 
             _expressionEnchantmentStoreFactory = ExpressionEnchantmentStoreFactory.Create();

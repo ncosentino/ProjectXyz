@@ -25,14 +25,14 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         public Plugin(
             IDatabase database,
             IDataManager dataManager,
-            IApplicationManager applicationManager)
+            IEnchantmentApplicationFactoryManager enchantmentApplicationFactoryManager)
         {
             _enchantmentDefinitionRepository = dataManager.Enchantments.EnchantmentDefinitions;
 
             _enchantmentTypeCalculator = OneShotNegateEnchantmentTypeCalculator.Create(
                 dataManager.Enchantments.StatusNegations,
                 dataManager.Weather.WeatherGroupings,
-                applicationManager.Enchantments.EnchantmentTypeCalculatorResultFactory);
+                enchantmentApplicationFactoryManager.EnchantmentTypeCalculatorResults);
 
             var enchantmentDefinitionWeatherGroupingRepository = dataManager.Enchantments.EnchantmentWeather;
             var enchantmentFactory = OneShotNegateEnchantmentFactory.Create();

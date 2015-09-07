@@ -21,7 +21,7 @@ namespace ProjectXyz.Plugins.Core
             IApplicationManager applicationManager)
         {
             _enchantmentPluginRegistrar = EnchantmentPluginRegistrar.Create(
-                applicationManager.Enchantments.EnchantmentFactory,
+                applicationManager.Enchantments.Factories.Enchantments,
                 applicationManager.Enchantments.EnchantmentSaver,
                 applicationManager.Enchantments.EnchantmentGenerator);
         }

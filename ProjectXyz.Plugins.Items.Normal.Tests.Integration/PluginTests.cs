@@ -58,7 +58,16 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
 
-            var applicationManager = ApplicationManager.Create(dataManager);
+            var enchantmentApplicationFactoryManager = EnchantmentApplicationFactoryManager.Create();
+
+            var enchantmentApplicationManager = EnchantmentApplicationManager.Create(
+                dataManager,
+                enchantmentApplicationFactoryManager,
+                Enumerable.Empty<IEnchantmentTypeCalculator>());
+            
+            var applicationManager = ItemApplicationManager.Create(
+                dataManager,
+                enchantmentApplicationManager);
 
             var plugin = new Plugin(
                 Database,

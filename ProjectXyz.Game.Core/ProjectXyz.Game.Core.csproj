@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E0722B2-2264-4BA9-93C7-8355C3BDF211}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectXyz.Game.Core</RootNamespace>
+    <AssemblyName>ProjectXyz.Game.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
+      <Project>{5f23d262-459c-4655-acde-d8563fe33698}</Project>
+      <Name>ProjectXyz.Application.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
+      <Project>{69a56c1b-cd41-4dcc-abf1-dbb097dd489d}</Project>
+      <Name>ProjectXyz.Application.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
+      <Project>{fa14c733-df45-4e7b-b61f-497d032fc0b1}</Project>
+      <Name>ProjectXyz.Data.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
+      <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
+      <Name>ProjectXyz.Data.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
+      <Project>{e212e33c-399c-47f6-a00e-00e0a5268477}</Project>
+      <Name>ProjectXyz.Game.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
+      <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
+      <Name>ProjectXyz.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
+      <Project>{345a6a69-13f6-4089-bbf3-d6d502e8ec5b}</Project>
+      <Name>ProjectXyz.Plugins.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments\ProjectXyz.Plugins.Enchantments.csproj">
+      <Project>{a8a53899-95ad-4466-9a3a-8a43dc9c6249}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
+      <Project>{44f68c7b-0cdb-49a8-8e71-89ebd095f7a4}</Project>
+      <Name>ProjectXyz.Plugins.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items\ProjectXyz.Plugins.Items.csproj">
+      <Project>{565994c5-942a-429e-86c1-3d75e9caf442}</Project>
+      <Name>ProjectXyz.Plugins.Items</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

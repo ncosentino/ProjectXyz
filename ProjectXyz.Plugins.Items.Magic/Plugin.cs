@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Sql;
 using ProjectXyz.Data.Sql.Stats;
 using ProjectXyz.Plugins.Items.Normal;
 
@@ -12,6 +10,11 @@ namespace ProjectXyz.Plugins.Items.Magic
 {
     public sealed class Plugin : IItemPlugin
     {
+        #region Constants
+        // FIXME: find a way that we can map this in the database instead...
+        private static readonly Guid MAGIC_TYPE = Guid.NewGuid();
+        #endregion
+
         #region Fields
         private readonly IMagicItemGenerator _magicItemGenerator;
         #endregion
@@ -20,26 +23,26 @@ namespace ProjectXyz.Plugins.Items.Magic
         public Plugin(
             IDatabase database, 
             IDataManager dataManager,
-            IApplicationManager applicationManager)
+            IItemApplicationManager itemApplicationManager)
         {
             var statRepository = StatRepository.Create(
                 database,
                 dataManager.Stats.StatFactory);
 
             var normalItemGenerator = NormalItemGenerator.Create(
-                applicationManager.Items.ItemFactory,
-                applicationManager.Items.ItemMetaDataFactory,
-                applicationManager.Items.ItemRequirementsFactory,
+                itemApplicationManager.ItemFactory,
+                itemApplicationManager.ItemMetaDataFactory,
+                itemApplicationManager.ItemRequirementsFactory,
                 dataManager.Stats.StatFactory,
                 statRepository,
                 dataManager.Items);
 
             _magicItemGenerator = MagicItemGenerator.Create(
                 MagicTypeId,
-                applicationManager.Items.ItemFactory,
-                applicationManager.Items.ItemMetaDataFactory,
+                itemApplicationManager.ItemFactory,
+                itemApplicationManager.ItemMetaDataFactory,
                 normalItemGenerator,
-                applicationManager.Items.ItemAffixGenerator,
+                itemApplicationManager.ItemAffixGenerator,
                 dataManager.Items);
         }
         #endregion
@@ -47,7 +50,7 @@ namespace ProjectXyz.Plugins.Items.Magic
         #region Properties
         public Guid MagicTypeId
         {
-            get { throw new NotImplementedException(); }
+            get { return MAGIC_TYPE; }
         }
 
         public GenerateItemDelegate GenerateItemCallback

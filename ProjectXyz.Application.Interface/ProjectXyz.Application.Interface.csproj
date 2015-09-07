@@ -146,6 +146,7 @@
     <Compile Include="Enchantments\GenerateEnchantmentDelegate.cs" />
     <Compile Include="Enchantments\IEnchantable.cs" />
     <Compile Include="Enchantments\Calculations\IEnchantmentCalculatorResult.cs" />
+    <Compile Include="Enchantments\IEnchantmentApplicationFactoryManager.cs" />
     <Compile Include="Enchantments\IEnchantmentApplicationManager.cs" />
     <Compile Include="Enchantments\IEnchantmentContext.cs" />
     <Compile Include="Enchantments\IEnchantmentFactory.cs" />

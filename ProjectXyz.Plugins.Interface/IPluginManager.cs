@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Plugins.Enchantments;
+using ProjectXyz.Plugins.Items;
 
 namespace ProjectXyz.Plugins.Interface
 {
     public interface IPluginManager
     {
         #region Properties
-        IPluginRepository<IEnchantmentPlugin> Enchantments { get; }
+        IEnumerable<IEnchantmentPlugin> Enchantments { get; }
+
+        IEnumerable<IItemPlugin> Items { get; }
         #endregion
     }
 }

@@ -4,7 +4,6 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Core.Actors;
 using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Maps;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Actors;
@@ -20,18 +19,19 @@ namespace ProjectXyz.Application.Core
         #region Fields
         private readonly IActorManager _actorManager;
         private readonly IMapManager _mapManager;
-        private readonly IItemApplicationManager _itemManager;
+        private readonly IItemApplicationManager _itemApplicationManager;
         private readonly IEnchantmentApplicationManager _enchantmentManager;
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationManager" /> class.
-        /// </summary>
-        /// <param name="dataManager">The data store. Cannot be null.</param>
-        private ApplicationManager(IDataManager dataManager)
+        private ApplicationManager(
+            IDataManager dataManager,
+            IEnchantmentApplicationFactoryManager enchantmentApplicationFactoryManager,
+            IItemApplicationManager itemApplicationManager)
         {
-            Contract.Requires<ArgumentNullException>(dataManager != null, "dataManager");
+            Contract.Requires<ArgumentNullException>(dataManager != null);
+            Contract.Requires<ArgumentNullException>(enchantmentApplicationFactoryManager != null);
+            Contract.Requires<ArgumentNullException>(itemApplicationManager != null);
 
             _actorManager = ActorManager.Create(dataManager.Actors);
             
@@ -41,11 +41,10 @@ namespace ProjectXyz.Application.Core
             var enchantmentTypeCalculators = Enumerable.Empty<IEnchantmentTypeCalculator>();
             _enchantmentManager = EnchantmentApplicationManager.Create(
                 dataManager,
+                enchantmentApplicationFactoryManager,
                 enchantmentTypeCalculators);
-            
-            _itemManager = ItemApplicationManager.Create(
-                dataManager,
-                _enchantmentManager);
+
+            _itemApplicationManager = itemApplicationManager;
         }
         #endregion
 
@@ -62,7 +61,7 @@ namespace ProjectXyz.Application.Core
 
         public IItemApplicationManager Items
         {
-            get { return _itemManager; }
+            get { return _itemApplicationManager; }
         }
 
         public IEnchantmentApplicationManager Enchantments
@@ -72,19 +71,20 @@ namespace ProjectXyz.Application.Core
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Creates a new <see cref="IApplicationManager" /> instance.
-        /// </summary>
-        /// <param name="dataManager">The data store. Cannot be null.</param>
-        /// <returns>
-        /// Returns a new <see cref="IApplicationManager" /> instance.
-        /// </returns>
-        public static IApplicationManager Create(IDataManager dataManager)
+        public static IApplicationManager Create(
+            IDataManager dataManager,
+            IEnchantmentApplicationFactoryManager enchantmentApplicationFactoryManager,
+            IItemApplicationManager itemApplicationManager)
         {
-            Contract.Requires<ArgumentNullException>(dataManager != null, "dataManager");
+            Contract.Requires<ArgumentNullException>(dataManager != null);
+            Contract.Requires<ArgumentNullException>(enchantmentApplicationFactoryManager != null);
+            Contract.Requires<ArgumentNullException>(itemApplicationManager != null);
             Contract.Ensures(Contract.Result<IApplicationManager>() != null);
 
-            return new ApplicationManager(dataManager);
+            return new ApplicationManager(
+                dataManager, 
+                enchantmentApplicationFactoryManager,
+                itemApplicationManager);
         }
         #endregion
     }

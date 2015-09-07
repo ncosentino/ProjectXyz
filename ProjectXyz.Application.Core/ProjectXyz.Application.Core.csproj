@@ -143,6 +143,7 @@
     <Compile Include="Enchantments\EnchantmentGenerator.cs" />
     <Compile Include="Enchantments\Calculations\EnchantmentCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\EnchantmentApplicationManager.cs" />
+    <Compile Include="Enchantments\EnchantmentApplicationFactoryManager.cs" />
     <Compile Include="GameObjects\Doors\Door.cs" />
     <Compile Include="GameObjects\Doors\ICloseable.cs" />
     <Compile Include="GameObjects\Doors\IDoor.cs" />
@@ -159,7 +160,7 @@
     <Compile Include="Items\ItemFactory.cs" />
     <Compile Include="Items\ItemContext.cs" />
     <Compile Include="Items\ItemGenerator.cs" />
-    <Compile Include="Items\ItemManager.cs" />
+    <Compile Include="Items\ItemApplicationManager.cs" />
     <Compile Include="Enchantments\EnchantmentBlock.cs" />
     <Compile Include="Enchantments\Calculations\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCollection.cs" />
@@ -198,6 +199,10 @@
     <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
       <Project>{57bc7b00-7c8c-4470-a054-597742187e56}</Project>
       <Name>ProjectXyz.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
+      <Project>{345a6a69-13f6-4089-bbf3-d6d502e8ec5b}</Project>
+      <Name>ProjectXyz.Plugins.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments\ProjectXyz.Plugins.Enchantments.csproj">
       <Project>{a8a53899-95ad-4466-9a3a-8a43dc9c6249}</Project>
