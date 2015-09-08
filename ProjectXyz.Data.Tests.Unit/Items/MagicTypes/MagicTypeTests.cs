@@ -17,15 +17,18 @@ namespace ProjectXyz.Data.Tests.Unit.Items.MagicTypes
             // Setup
             var id = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
+            const int RARITY_WEIGHTING = 123;
 
             // Execute
             var result = MagicType.Create(
                 id,
-                nameStringResourceId);
+                nameStringResourceId,
+                RARITY_WEIGHTING);
 
             // Assert
             Assert.Equal(id, result.Id);
             Assert.Equal(nameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(RARITY_WEIGHTING, result.RarityWeighting);
         }
     }
 }

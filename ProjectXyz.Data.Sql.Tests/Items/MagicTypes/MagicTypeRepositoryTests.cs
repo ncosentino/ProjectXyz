@@ -22,11 +22,14 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
             // Setup
             var id =  Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
+            const int RARITY_WEIGHTING = 123;
 
-            var reader = new Mock<IDataReader>();
+            var reader = new Mock<IDataReader>(MockBehavior.Strict);
             reader
                 .Setup(x => x.Read())
                 .Returns(true);
+            reader
+                .Setup(x => x.Dispose());
             
             reader
                 .Setup(x => x.GetOrdinal("Id"))
@@ -41,6 +44,13 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
             reader
                 .Setup(x => x.GetGuid(1))
                 .Returns(nameStringResourceId);
+
+            reader
+                .Setup(x => x.GetOrdinal("RarityWeighting"))
+                .Returns(2);
+            reader
+                .Setup(x => x.GetInt32(2))
+                .Returns(RARITY_WEIGHTING);
                         
             var command = new Mock<IDbCommand>();
             command
@@ -52,14 +62,15 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()))
                 .Returns(command.Object);
 
-            var enchantmentStore = new Mock<IMagicType>();
+            var magicType = new Mock<IMagicType>();
 
             var factory = new Mock<IMagicTypeFactory>(MockBehavior.Strict);
             factory
                 .Setup(x => x.Create(
                     id,
-                    nameStringResourceId))
-                .Returns(enchantmentStore.Object);
+                    nameStringResourceId,
+                    RARITY_WEIGHTING))
+                .Returns(magicType.Object);
 
             var repository = MagicTypeRepository.Create(
                 database.Object,
@@ -69,11 +80,12 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
             var result = repository.GetById(id);
 
             // Assert
-            Assert.Equal(enchantmentStore.Object, result);
+            Assert.Equal(magicType.Object, result);
 
             factory.Verify(x => x.Create(
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>()),
+                    It.IsAny<Guid>(),
+                    It.IsAny<int>()),
                     Times.Once);
 
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<object>()), Times.Once);
@@ -161,6 +173,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
             // Setup
             var id = Guid.NewGuid();
             var nameStringResourceId = Guid.NewGuid();
+            const int RARITY_WEIGHTING = 123;
             var command = new Mock<IDbCommand>();
 
             var database = new Mock<IDatabase>();
@@ -172,7 +185,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
 
             var factory = new Mock<IMagicTypeFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.Create(id, nameStringResourceId))
+                .Setup(x => x.Create(id, nameStringResourceId, RARITY_WEIGHTING))
                 .Returns(createdObject.Object);
 
             var repository = MagicTypeRepository.Create(
@@ -180,7 +193,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
                 factory.Object);
 
             // Execute
-            var result = repository.Add(id, nameStringResourceId);
+            var result = repository.Add(id, nameStringResourceId, RARITY_WEIGHTING);
 
             // Assert
             Assert.Equal(createdObject.Object, result);
@@ -189,7 +202,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.MagicTypes
 
             command.Verify(x => x.ExecuteNonQuery(), Times.Once);
 
-            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<int>()), Times.Once);
         }
         #endregion
     }

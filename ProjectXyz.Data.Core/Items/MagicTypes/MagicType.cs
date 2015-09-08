@@ -11,18 +11,22 @@ namespace ProjectXyz.Data.Core.Items.MagicTypes
         #region Fields
         private readonly Guid _id;
         private readonly Guid _nameStringResourceId;
+        private readonly int _rarityWeighting;
         #endregion
 
         #region Constructors
         private MagicType(
             Guid id,
-            Guid nameStringResourceId)
+            Guid nameStringResourceId,
+            int rarityWeighting)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentOutOfRangeException>(rarityWeighting >= 0);
             
             _id = id;
             _nameStringResourceId = nameStringResourceId;
+            _rarityWeighting = rarityWeighting;
         }
         #endregion
 
@@ -32,20 +36,26 @@ namespace ProjectXyz.Data.Core.Items.MagicTypes
 
         /// <inheritdoc />
         public Guid NameStringResourceId { get { return _nameStringResourceId; } }
+
+        /// <inheritdoc />
+        public int RarityWeighting { get { return _rarityWeighting; } }
         #endregion
 
         #region Methods
         public static IMagicType Create(
             Guid id,
-            Guid nameStringResourceId)
+            Guid nameStringResourceId,
+            int rarityWeighting)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentOutOfRangeException>(rarityWeighting >= 0);
             Contract.Ensures(Contract.Result<IMagicType>() != null);
             
             var magicType = new MagicType(
                 id,
-                nameStringResourceId);
+                nameStringResourceId,
+                rarityWeighting);
             return magicType;
         }
         #endregion

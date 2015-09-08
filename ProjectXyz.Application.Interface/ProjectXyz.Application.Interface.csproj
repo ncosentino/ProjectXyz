@@ -165,6 +165,7 @@
     <Compile Include="Items\Contracts\ICanUnequipItemContract.cs" />
     <Compile Include="Items\Contracts\ICanEquipItemContract.cs" />
     <Compile Include="Items\Contracts\IItemFactoryContract.cs" />
+    <Compile Include="Items\Drops\IDropGenerator.cs" />
     <Compile Include="Items\IItemMetaDataFactory.cs" />
     <Compile Include="Items\IItemFactory.cs" />
     <Compile Include="Items\IItemGenerator.cs" />

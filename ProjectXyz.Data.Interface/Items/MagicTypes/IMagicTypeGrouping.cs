@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Items.MagicTypes
 {
-    public interface IMagicType
+    public interface IMagicTypeGrouping
     {
         #region Properties
         Guid Id { get; }
 
-        Guid NameStringResourceId { get; }
+        Guid GroupingId { get; }
 
-        int RarityWeighting { get; }
+        Guid MagicTypeId { get; }
         #endregion
     }
 }

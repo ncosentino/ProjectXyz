@@ -155,6 +155,7 @@
     <Compile Include="Interactions\OpenDoorInteraction.cs" />
     <Compile Include="Items\Affixes\ItemAffixFactory.cs" />
     <Compile Include="Items\Affixes\ItemAffix.cs" />
+    <Compile Include="Items\Drops\DropGenerator.cs" />
     <Compile Include="Items\ItemMetaDataFactory.cs" />
     <Compile Include="Items\ItemMetaData.cs" />
     <Compile Include="Items\ItemFactory.cs" />

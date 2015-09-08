@@ -23,15 +23,18 @@ namespace ProjectXyz.Data.Core.Items.MagicTypes
 
         public IMagicType Create(
             Guid id,
-            Guid nameStringResourceId)
+            Guid nameStringResourceId,
+            int rarityWeighting)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentOutOfRangeException>(rarityWeighting >= 0);
             Contract.Ensures(Contract.Result<IMagicType>() != null);
             
             var magicType = MagicType.Create(
                 id,
-                nameStringResourceId);
+                nameStringResourceId,
+                rarityWeighting);
             return magicType;
         }
         #endregion

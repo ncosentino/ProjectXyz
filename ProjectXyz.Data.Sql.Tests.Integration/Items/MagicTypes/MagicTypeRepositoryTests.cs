@@ -42,7 +42,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             factory
                 .Setup(x => x.Create(
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>()))
+                    It.IsAny<Guid>(),
+                    123))
                 .Returns(genericCollectionResult.Object);
 
             var repository = MagicTypeRepository.Create(
@@ -54,7 +55,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             {
                 CreateMagicType(
                     Guid.NewGuid(),
-                    Guid.NewGuid());
+                    Guid.NewGuid(),
+                    123);
             }
 
             // Execute
@@ -66,7 +68,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             factory.Verify(
                 x => x.Create(
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>()),
+                    It.IsAny<Guid>(),
+                    It.IsAny<int>()),
                 Times.Exactly(NUMBER_OF_RESULTS));
         }
 
@@ -100,7 +103,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             factory
                 .Setup(x => x.Create(
                     id,
-                    nameStringResourceId))
+                    nameStringResourceId,
+                    123))
                 .Returns(expectedResult.Object);
 
             var repository = MagicTypeRepository.Create(
@@ -109,7 +113,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
 
             CreateMagicType(
                 id,
-                nameStringResourceId);
+                nameStringResourceId,
+                123);
 
             // Execute
             var result = repository.GetById(id);
@@ -120,7 +125,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             factory.Verify(
                 x => x.Create(
                     It.IsAny<Guid>(),
-                    It.IsAny<Guid>()),
+                    It.IsAny<Guid>(),
+                    It.IsAny<int>()),
                 Times.Once);
         }
 
@@ -137,7 +143,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             var id = Guid.NewGuid();
             CreateMagicType(
                 id,
-                Guid.NewGuid());
+                Guid.NewGuid(),
+                123);
 
             // Execute
             repository.RemoveById(id);
@@ -163,7 +170,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
 
             var factory = new Mock<IMagicTypeFactory>(MockBehavior.Strict);
             factory
-                .Setup(x => x.Create(id, nameStringResourceId))
+                .Setup(x => x.Create(id, nameStringResourceId, 123))
                 .Returns(createdEntry.Object);
 
             var repository = MagicTypeRepository.Create(
@@ -173,7 +180,8 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
             // Execute
             var result = repository.Add(
                 id,
-                nameStringResourceId);
+                nameStringResourceId,
+                123);
 
             // Assert
             Assert.Equal(createdEntry.Object, result);
@@ -187,17 +195,19 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
                 }
             }
 
-            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<int>()), Times.Once);
         }
 
         private void CreateMagicType(
             Guid id,
-            Guid nameStringResourceId)
+            Guid nameStringResourceId,
+            int rarityWeighting)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
                 { "NameStringResourceId", nameStringResourceId },
+                { "RarityWeighting", rarityWeighting },
             };
 
             using (var command = Database.CreateCommand(
@@ -206,12 +216,14 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.MagicTypes
                     MagicTypes
                 (
                     Id,
-                    NameStringResourceId
+                    NameStringResourceId,
+                    RarityWeighting
                 )
                 VALUES
                 (
                     @Id,
-                    @NameStringResourceId
+                    @NameStringResourceId,
+                    @RarityWeighting
                 )
                 ;",
                 namedParameters))

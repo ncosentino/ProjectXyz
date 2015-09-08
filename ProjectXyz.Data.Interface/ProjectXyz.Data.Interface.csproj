@@ -196,6 +196,16 @@
     <Compile Include="Items\Affixes\IItemAffixDefinitionFilterRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionFactory.cs" />
     <Compile Include="Items\Contracts\IItemDefinitionContract.cs" />
+    <Compile Include="Items\Drops\IDropLinkRepository.cs" />
+    <Compile Include="Items\Drops\IDropLinkFactory.cs" />
+    <Compile Include="Items\Drops\IDropEntryRepository.cs" />
+    <Compile Include="Items\Drops\IDropEntryFactory.cs" />
+    <Compile Include="Items\Drops\IDropRepository.cs" />
+    <Compile Include="Items\Drops\IDropFactory.cs" />
+    <Compile Include="Items\Drops\IDrop.cs" />
+    <Compile Include="Items\Drops\IDropLink.cs" />
+    <Compile Include="Items\Drops\IDropEntry.cs" />
+    <Compile Include="Items\Drops\IHasDropWeighting.cs" />
     <Compile Include="Items\IItemTypeGeneratorPlugin.cs" />
     <Compile Include="Items\IItemTypeGeneratorPluginFactory.cs" />
     <Compile Include="Items\IItemTypeGeneratorPluginRepository.cs" />
@@ -208,6 +218,8 @@
     <Compile Include="Items\IItemDefinitionStat.cs" />
     <Compile Include="Items\IItemStoreFactory.cs" />
     <Compile Include="Items\IItemStoreRepository.cs" />
+    <Compile Include="Items\MagicTypes\IMagicTypeGroupingRepository.cs" />
+    <Compile Include="Items\MagicTypes\IMagicTypeGrouping.cs" />
     <Compile Include="Items\Requirements\IItemDefinitionStatRequirements.cs" />
     <Compile Include="Items\Requirements\IItemDefinitionStatRequirementsFactory.cs" />
     <Compile Include="Items\Requirements\IItemDefinitionStatRequirementsRepository.cs" />

@@ -9,7 +9,8 @@ namespace ProjectXyz.Data.Interface.Items.MagicTypes
         #region Methods
         IMagicType Create(
             Guid id,
-            Guid nameStringResourceId);
+            Guid nameStringResourceId,
+            int rarityWeighting);
         #endregion
     }
 }

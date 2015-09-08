@@ -95,6 +95,7 @@ CREATE TABLE [ItemTypeGeneratorPlugins] (
 CREATE TABLE MagicTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [RarityWeighting] INTEGER NOT NULL ON CONFLICT FAIL,
   PRIMARY KEY (Id));
 
  CREATE TABLE MagicTypeGroupings (

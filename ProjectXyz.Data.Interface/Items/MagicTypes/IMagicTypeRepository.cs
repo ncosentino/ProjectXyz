@@ -9,7 +9,8 @@ namespace ProjectXyz.Data.Interface.Items.MagicTypes
         #region Methods
         IMagicType Add(
             Guid id,
-            Guid nameStringResourceId);
+            Guid nameStringResourceId,
+            int rarityWeighting);
 
         void RemoveById(Guid id);
 

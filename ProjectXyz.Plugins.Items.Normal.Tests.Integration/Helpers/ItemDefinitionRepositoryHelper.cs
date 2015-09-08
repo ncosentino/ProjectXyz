@@ -45,7 +45,8 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
                 nameStringResourceId);
             dataManager.Items.MagicTypes.Add(
                 magicTypeId,
-                nameStringResourceId);
+                nameStringResourceId,
+                123);
             dataManager.Items.EquipSlotTypes.Add(
                 equipSlotTypeId,
                 nameStringResourceId);

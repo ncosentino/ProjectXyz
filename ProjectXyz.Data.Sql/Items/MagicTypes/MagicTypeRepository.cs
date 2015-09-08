@@ -44,12 +44,14 @@ namespace ProjectXyz.Data.Sql.Items.MagicTypes
 
         public IMagicType Add(
             Guid id,
-            Guid nameStringResourceId)
+            Guid nameStringResourceId,
+            int rarityWeighting)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
                 { "NameStringResourceId", nameStringResourceId },
+                { "RarityWeighting", rarityWeighting },
             };
 
             using (var command = _database.CreateCommand(
@@ -58,12 +60,14 @@ namespace ProjectXyz.Data.Sql.Items.MagicTypes
                     MagicTypes
                 (
                     Id,
-                    NameStringResourceId
+                    NameStringResourceId,
+                    RarityWeighting
                 )
                 VALUES
                 (
                     @Id,
-                    @NameStringResourceId
+                    @NameStringResourceId,
+                    @RarityWeighting
                 )
                 ;",
                 namedParameters))
@@ -73,7 +77,8 @@ namespace ProjectXyz.Data.Sql.Items.MagicTypes
 
             var magicType = _factory.Create(
                 id,
-                nameStringResourceId);
+                nameStringResourceId,
+                rarityWeighting);
             return magicType;
         }
 
@@ -148,7 +153,8 @@ namespace ProjectXyz.Data.Sql.Items.MagicTypes
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
-                reader.GetGuid(reader.GetOrdinal("NameStringResourceId")));
+                reader.GetGuid(reader.GetOrdinal("NameStringResourceId")),
+                reader.GetInt32(reader.GetOrdinal("RarityWeighting")));
         }
 
         [ContractInvariantMethod]

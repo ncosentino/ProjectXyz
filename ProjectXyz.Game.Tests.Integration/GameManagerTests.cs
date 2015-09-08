@@ -76,7 +76,8 @@ namespace ProjectXyz.Game.Tests.Integration
             var magicStringResource = gameManager.DataManager.Resources.StringResources.Add(Guid.NewGuid(), displayLanguage.Id, "Magic Type");
             var magicMagicType = gameManager.DataManager.Items.MagicTypes.Add(
                 Guid.NewGuid(),
-                magicStringResource.Id);
+                magicStringResource.Id,
+                123);
             gameManager.DataManager.Items.ItemTypeGeneratorPlugins.Add(
                 Guid.NewGuid(),
                 magicMagicType.Id,

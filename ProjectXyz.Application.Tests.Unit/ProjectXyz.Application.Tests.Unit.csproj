@@ -51,6 +51,7 @@
     <Compile Include="Diseases\DiseaseStateGeneratorTests.cs" />
     <Compile Include="Enchantments\EnchantmentBlockTests.cs" />
     <Compile Include="Items\Affixes\ItemAffixGeneratorTests.cs" />
+    <Compile Include="Items\Drops\DropGeneratorTests.cs" />
     <Compile Include="Items\InventoryTests.cs" />
     <Compile Include="Items\ItemSaverTests.cs" />
     <Compile Include="Items\ItemTests.cs" />
