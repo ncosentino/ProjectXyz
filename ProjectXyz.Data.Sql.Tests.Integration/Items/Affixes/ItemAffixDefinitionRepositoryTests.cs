@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
+using ProjectXyz.Data.Core.Items.Affixes;
 using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Data.Sql.Items.Affixes;
 using ProjectXyz.Tests.Integration;
@@ -184,34 +185,20 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Affixes
             var nameStringResourceId = Guid.NewGuid();
             const bool IS_PREFIX = true;
             const int MINIMUM_LEVEL = 123;
-            const int MAXIMUMLEVEL = 456;
-
-            var entryToAdd = new Mock<IItemAffixDefinition>(MockBehavior.Strict);
-            entryToAdd
-                .Setup(x => x.Id)
-                .Returns(id);
-            entryToAdd
-                .Setup(x => x.NameStringResourceId)
-                .Returns(nameStringResourceId);
-            entryToAdd
-                .Setup(x => x.IsPrefix)
-                .Returns(IS_PREFIX);
-            entryToAdd
-                .Setup(x => x.MinimumLevel)
-                .Returns(MINIMUM_LEVEL);
-            entryToAdd
-                .Setup(x => x.MaximumLevel)
-                .Returns(MAXIMUMLEVEL);
-
-            var factory = new Mock<IItemAffixDefinitionFactory>(MockBehavior.Strict);
+            const int MAXIMUM_LEVEL = 456;
+            var factory = ItemAffixDefinitionFactory.Create();
 
             var repository = ItemAffixDefinitionRepository.Create(
                 Database,
-                factory.Object);
-
+                factory);
 
             // Execute
-            repository.Add(entryToAdd.Object);
+            repository.Add(
+                id,
+                nameStringResourceId,
+                IS_PREFIX,
+                MINIMUM_LEVEL,
+                MAXIMUM_LEVEL);
 
             // Assert
             using (var command = Database.CreateCommand("SELECT * FROM ItemAffixDefinitions"))
@@ -222,12 +209,6 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items.Affixes
                     Assert.False(reader.Read(), "Not expecting additional rows.");
                 }
             }
-
-            entryToAdd.Verify(x => x.Id, Times.Once);
-            entryToAdd.Verify(x => x.NameStringResourceId, Times.Once);
-            entryToAdd.Verify(x => x.IsPrefix, Times.Once);
-            entryToAdd.Verify(x => x.MinimumLevel, Times.Once);
-            entryToAdd.Verify(x => x.MaximumLevel, Times.Once);
         }
 
         private void CreateDefinition(

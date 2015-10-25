@@ -11,14 +11,17 @@ namespace ProjectXyz.Data.Core.Enchantments
         #region Constructors
         private EnchantmentDefinition(
             Guid id,
+            Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
 
             this.Id = id;
+            this.EnchantmentTypeId = enchantmentTypeId;
             this.TriggerId = triggerId;
             this.StatusTypeId = statusTypeId;
         }
@@ -27,6 +30,13 @@ namespace ProjectXyz.Data.Core.Enchantments
         #region Properties
         /// <inheritdoc />
         public Guid Id
+        {
+            get;
+            private set;
+        }
+
+        /// <inheritdoc />
+        public Guid EnchantmentTypeId
         {
             get;
             private set;
@@ -50,16 +60,19 @@ namespace ProjectXyz.Data.Core.Enchantments
         #region Methods
         public static IEnchantmentDefinition Create(
             Guid id,
+            Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);
 
             var enchantmentDefinition = new EnchantmentDefinition(
                 id,
+                enchantmentTypeId,
                 triggerId,
                 statusTypeId);
             return enchantmentDefinition;
@@ -69,6 +82,7 @@ namespace ProjectXyz.Data.Core.Enchantments
         private void ContractInvariantMethod()
         {
             Contract.Invariant(Id != Guid.Empty);
+            Contract.Invariant(EnchantmentTypeId != Guid.Empty);
             Contract.Invariant(TriggerId != Guid.Empty);
             Contract.Invariant(StatusTypeId != Guid.Empty);
         }

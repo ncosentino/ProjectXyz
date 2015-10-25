@@ -19,10 +19,12 @@ namespace ProjectXyz.Data.Interface.Enchantments.Contracts
 
         public IEnchantmentDefinition Add(
             Guid id,
+            Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentDefinition>() != null);

@@ -9,6 +9,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
         #region Methods
         IEnchantmentDefinition Create(
             Guid id,
+            Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId);
         #endregion

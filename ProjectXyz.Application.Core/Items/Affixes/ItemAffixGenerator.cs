@@ -79,12 +79,17 @@ namespace ProjectXyz.Application.Core.Items.Affixes
                 minimumAffixes +
                 (int)(randomizer.NextDouble() * (magicTypesAffix.MaximumAffixes - minimumAffixes));
 
-            var candidateIds = new List<Guid>(_itemAffixDefinitionFilterRepository.GetIdsForFilter(
+            var candidateIds = _itemAffixDefinitionFilterRepository.GetIdsForFilter(
                 level, 
                 int.MaxValue, 
                 magicTypeId,
                 true,
-                true));
+                true)
+                .ToList();
+            if (candidateIds.Count < 1)
+            {
+                throw new InvalidOperationException("No item affixes exist for the specified filter.");
+            }
 
             for (int i = 0; i < numberOfAffixes; i++)
             {
@@ -126,14 +131,19 @@ namespace ProjectXyz.Application.Core.Items.Affixes
 
         private IItemAffix GenerateNamedAffix(IRandom randomizer, int level, Guid magicTypeId, bool prefix)
         {
-            var candidateIds = new List<Guid>(_itemAffixDefinitionFilterRepository.GetIdsForFilter(
+            var candidateIds = _itemAffixDefinitionFilterRepository.GetIdsForFilter(
                 level,
                 int.MaxValue,
                 magicTypeId,
                 prefix,
-                !prefix));
+                !prefix)
+                .ToArray();
+            if (candidateIds.Length < 1)
+            {
+                throw new InvalidOperationException("No item affixes exist for the specified filter.");
+            }
 
-            var candidateIndex = (int)(randomizer.NextDouble() * (candidateIds.Count - 1));
+            var candidateIndex = (int)(randomizer.NextDouble() * (candidateIds.Length - 1));
             var selectedAffixDefinitionId = candidateIds[candidateIndex];
 
             var affix = GenerateAffix(

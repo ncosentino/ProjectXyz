@@ -59,9 +59,9 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             get { return typeof(IOneShotNegateEnchantmentStore); }
         }
 
-        public Type EnchantmentDefinitionType
+        public Type EnchantmentDefinitionRepositoryType
         {
-            get { return typeof(IOneShotNegateEnchantmentDefinition); }
+            get { return typeof(IOneShotNegateEnchantmentDefinitionRepository); }
         }
 
         public Type EnchantmentType

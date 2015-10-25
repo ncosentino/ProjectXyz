@@ -210,14 +210,16 @@ CREATE TABLE SocketedItems (
 CREATE TABLE [EnchantmentTypes] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [StoreRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
-  [DefinitionRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
+  [DefinitionRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [Enchantments] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
   [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
   [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL,
-  [WeatherTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_WeatherTypeGroupingId] REFERENCES [WeatherTypeGroupings]([GroupingId]));
+  [WeatherTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_WeatherTypeGroupingId] REFERENCES [WeatherTypeGroupings]([GroupingId]),
+  PRIMARY KEY (Id));
 
 CREATE TABLE [ExpressionEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
@@ -229,13 +231,15 @@ CREATE TABLE [ExpressionEnchantmentValues] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [ExpressionEnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
   [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
-  [Value] FLOAT NOT NULL ON CONFLICT FAIL);
+  [Value] FLOAT NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [ExpressionEnchantmentStats] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [ExpressionEnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
   [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
-  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]));
+  [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [Stats]([Id]),
+  PRIMARY KEY (Id));
 
 CREATE TABLE [OneShotNegateEnchantments] (
   [EnchantmentId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentId] REFERENCES [Enchantments]([Id]),
@@ -244,13 +248,15 @@ CREATE TABLE [OneShotNegateEnchantments] (
 CREATE TABLE [EnchantmentDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
-  [TriggerId] GUID NOT NULL ON CONFLICT FAIL, 
-  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL);
+  [TriggerId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTriggerId] REFERENCES [EnchantmentTriggers]([Id]), 
+  [StatusTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentStatusId] REFERENCES [EnchantmentStatuses]([Id]),
+  PRIMARY KEY (Id));
 
 CREATE TABLE [ExpressionDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [Expression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
-  [CalculationPriority] INTEGER NOT NULL ON CONFLICT FAIL);
+  [CalculationPriority] INTEGER NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [ExpressionEnchantmentDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
@@ -258,20 +264,23 @@ CREATE TABLE [ExpressionEnchantmentDefinitions] (
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [StatDefinitions]([Id]), 
   [ExpressionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ExpressionId] REFERENCES [ExpressionDefinitions]([Id]),
   [MinimumDuration] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL);
+  [MaximumDuration] FLOAT NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [ExpressionEnchantmentStatDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [StatId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [StatDefinitions]([Id]), 
-  [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE);
+  [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [ExpressionEnchantmentValueDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   [IdForExpression] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
   [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
-  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL);
+  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [OneShotNegateEnchantmentDefinitions] (
   [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
@@ -279,21 +288,25 @@ CREATE TABLE [OneShotNegateEnchantmentDefinitions] (
 
 CREATE TABLE [EnchantmentStatuses] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]));
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  PRIMARY KEY (Id));
 
 CREATE TABLE [EnchantmentTriggers] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]));
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  PRIMARY KEY (Id));
 
 CREATE TABLE [EnchantmentDefinitionWeatherGroupings] (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [EnchantmentDefinitionId]  GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]),
-  [WeatherTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_WeatherTypeGroupingId] REFERENCES [WeatherTypeGroupings]([GroupingId]));
+  [WeatherTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
 
 CREATE TABLE [StatusNegations] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [StatDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatDefinitionId] REFERENCES [StatDefinitions]([Id]),
-  [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]));
+  [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
+  PRIMARY KEY (Id));
 
 ---------------------------------------------------------------------------------------------------
 -- AFFIXES
@@ -303,35 +316,41 @@ CREATE TABLE [ItemAffixDefinitions] (
   [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
   [IsPrefix] BIT NOT NULL ON CONFLICT FAIL,
   [MinimumLevel] INT NOT NULL ON CONFLICT FAIL,
-  [MaximumLevel] INT NOT NULL ON CONFLICT FAIL);
+  [MaximumLevel] INT NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id)); 
 
 CREATE TABLE ItemAffixDefinitionMagicTypeGrouping (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [ItemAffixDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ItemAffixId] REFERENCES [ItemAffixDefinitions]([Id]),
-  [MagicTypeGroupingsId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_MagicTypeGroupingsId] REFERENCES [MagicTypeGroupings]([Id]));
+  [MagicTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id)); 
 
 CREATE TABLE ItemAffixDefinitionEnchantments (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [ItemAffixDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ItemAffixId] REFERENCES [ItemAffixDefinitions]([Id]),
-  [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]));
+  [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]),
+  PRIMARY KEY (Id)); 
 
 CREATE TABLE MagicTypesRandomAffixes (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
   [MagicTypeId] GUID NOT NULL ON CONFLICT FAIL,
   [MinimumAffixes] GUID NOT NULL ON CONFLICT FAIL,
-  [MaximumAffixes] GUID NOT NULL ON CONFLICT FAIL);
+  [MaximumAffixes] GUID NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id)); 
 
 ---------------------------------------------------------------------------------------------------
 -- WEATHER
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE WeatherTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]));
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  PRIMARY KEY (Id));
 
 CREATE TABLE WeatherTypeGroupings (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [GroupingId] GUID NOT NULL ON CONFLICT FAIL,
-  [MagicTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_MagicTypeId] REFERENCES [MagicTypes]([Id]));
+  [WeatherTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_WeatherTypeId] REFERENCES [WeatherTypes]([Id]),
+  PRIMARY KEY (Id));
 
 ---------------------------------------------------------------------------------------------------
 -- DISEASES

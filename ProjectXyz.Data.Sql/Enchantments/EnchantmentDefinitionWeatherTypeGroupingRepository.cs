@@ -45,13 +45,13 @@ namespace ProjectXyz.Data.Sql.Enchantments
         public IEnchantmentDefinitionWeatherGrouping Add(
             Guid id,
             Guid enchantmentDefinitionId,
-            Guid weatherTypeDefinitionId)
+            Guid weatherTypeGroupingId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
                 { "EnchantmentDefinitionId", enchantmentDefinitionId },
-                { "WeatherTypeDefinitionId", weatherTypeDefinitionId },
+                { "WeatherTypeGroupingId", weatherTypeGroupingId },
             };
 
             using (var command = _database.CreateCommand(
@@ -61,13 +61,13 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 (
                     Id,
                     EnchantmentDefinitionId,
-                    WeatherTypeDefinitionId
+                    WeatherTypeGroupingId
                 )
                 VALUES
                 (
                     @Id,
                     @EnchantmentDefinitionId,
-                    @WeatherTypeDefinitionId
+                    @WeatherTypeGroupingId
                 )
                 ;",
                 namedParameters))
@@ -78,7 +78,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             var enchantmentDefinitionWeatherGrouping = _factory.Create(
                 id,
                 enchantmentDefinitionId,
-                weatherTypeDefinitionId);
+                weatherTypeGroupingId);
             return enchantmentDefinitionWeatherGrouping;
         }
 
@@ -167,7 +167,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
                 reader.GetGuid(reader.GetOrdinal("EnchantmentDefinitionId")),
-                reader.GetGuid(reader.GetOrdinal("WeatherTypeDefinitionId")));
+                reader.GetGuid(reader.GetOrdinal("WeatherTypeGroupingId")));
         }
         #endregion
     }

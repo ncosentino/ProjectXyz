@@ -196,49 +196,46 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items.Affixes
             const int MINIMUM_LEVEL = 123;
             const int MAXIMUMLEVEL = 456;
 
-            var command = new Mock<IDbCommand>();
+            var command = new Mock<IDbCommand>(MockBehavior.Strict);
+            command
+                .Setup(x => x.ExecuteNonQuery())
+                .Returns(1);
+            command
+                .Setup(x => x.Dispose());
 
             var database = new Mock<IDatabase>();
             database
                 .Setup(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(command.Object);
 
-            var itemAffixDefinition = new Mock<IItemAffixDefinition>(MockBehavior.Strict);
-            itemAffixDefinition
-                .Setup(x => x.Id)
-                .Returns(id);
-            itemAffixDefinition
-                .Setup(x => x.NameStringResourceId)
-                .Returns(nameStringResourceId);
-            itemAffixDefinition
-                .Setup(x => x.IsPrefix)
-                .Returns(IS_PREFIX);
-            itemAffixDefinition
-                .Setup(x => x.MinimumLevel)
-                .Returns(MINIMUM_LEVEL);
-            itemAffixDefinition
-                .Setup(x => x.MaximumLevel)
-                .Returns(MAXIMUMLEVEL);
+            var expectedResult = new Mock<IItemAffixDefinition>(MockBehavior.Strict);
 
             var factory = new Mock<IItemAffixDefinitionFactory>();
+            factory
+                .Setup(x => x.Create(id, nameStringResourceId, IS_PREFIX, MINIMUM_LEVEL, MAXIMUMLEVEL))
+                .Returns(expectedResult.Object);
 
             var repository = ItemAffixDefinitionRepository.Create(
                 database.Object,
                 factory.Object);
 
             // Execute
-            repository.Add(itemAffixDefinition.Object);
+            var result = repository.Add(
+                id,
+                nameStringResourceId,
+                IS_PREFIX,
+                MINIMUM_LEVEL,
+                MAXIMUMLEVEL);
 
             // Assert
+            Assert.Equal(expectedResult.Object, result);
+
             database.Verify(x => x.CreateCommand(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Once);
 
             command.Verify(x => x.ExecuteNonQuery(), Times.Once);
+            command.Verify(x => x.Dispose(), Times.Once);
 
-            itemAffixDefinition.Verify(x => x.Id, Times.Once);
-            itemAffixDefinition.Verify(x => x.NameStringResourceId, Times.Once);
-            itemAffixDefinition.Verify(x => x.IsPrefix, Times.Once);
-            itemAffixDefinition.Verify(x => x.MinimumLevel, Times.Once);
-            itemAffixDefinition.Verify(x => x.MaximumLevel, Times.Once);
+            factory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<bool>(), It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
         #endregion
     }

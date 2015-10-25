@@ -8,6 +8,8 @@ namespace ProjectXyz.Data.Interface.Enchantments
     {
         #region Properties
         Guid Id { get; }
+
+        Guid EnchantmentTypeId { get; }
         
         Guid TriggerId { get; }
 

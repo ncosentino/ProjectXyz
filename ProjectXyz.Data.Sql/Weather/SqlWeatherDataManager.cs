@@ -11,6 +11,7 @@ namespace ProjectXyz.Data.Sql.Weather
     {
         #region Fields
         private readonly IWeatherGroupingRepository _weatherGroupingRepository;
+        private readonly IWeatherRepository _weatherRepository;
         #endregion
 
         #region Constructors
@@ -20,11 +21,17 @@ namespace ProjectXyz.Data.Sql.Weather
             _weatherGroupingRepository = WeatherTypeGroupingRepository.Create(
                 database,
                 weatherGroupingFactory);
+            var weatherFactory = WeatherFactory.Create();
+            _weatherRepository = WeatherRepository.Create(
+                database,
+                weatherFactory);
         }
         #endregion
 
         #region Properties
         public IWeatherGroupingRepository WeatherGroupings { get { return _weatherGroupingRepository; } }
+
+        public IWeatherRepository Weather { get { return _weatherRepository; } }
         #endregion
 
         #region Methods

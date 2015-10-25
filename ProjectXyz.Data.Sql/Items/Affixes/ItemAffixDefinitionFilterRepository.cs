@@ -49,13 +49,13 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
                 FROM
                     ItemAffixDefinitions
                 LEFT OUTER JOIN
-                    ItemAffixDefinitionMagicTypes
+                    ItemAffixDefinitionMagicTypeGrouping
                 ON
-                    ItemAffixDefinitionMagicTypes.ItemAffixDefinitionId = ItemAffixDefinition.Id
+                    ItemAffixDefinitionMagicTypeGrouping.ItemAffixDefinitionId = ItemAffixDefinitions.Id
                 LEFT OUTER JOIN
                     MagicTypeGroupings
                 ON
-                    MagicTypeGroupings.GroupingId = ItemAffixDefinitionMagicTypes.MagicTypeGroupingsId
+                    MagicTypeGroupings.GroupingId = ItemAffixDefinitionMagicTypeGrouping.MagicTypeGroupingId
                 WHERE
                     MinimumLevel >= @MinimumLevel AND
                     MaximumLevel <= @MaximumLevel AND
@@ -77,7 +77,7 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
             {
                 { "MaximumLevel", maximumLevel},
                 { "MinimumLevel", minimumLevel },
-                { "MmagicTypeId", magicTypeId },
+                { "MagicTypeId", magicTypeId },
             };
 
             using (var command = _database.CreateCommand(commandText, namedParameters))

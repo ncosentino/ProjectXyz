@@ -12,6 +12,10 @@ namespace ProjectXyz.Data.Interface.Enchantments
     public interface IEnchantmentTriggerRepository
     {
         #region Methods
+        IEnchantmentTrigger Add(
+            Guid id,
+            Guid nameStringResourceId);
+
         IEnchantmentTrigger GetById(Guid id);
         #endregion
     }

@@ -9,6 +9,8 @@ namespace ProjectXyz.Data.Interface.Weather
     {
         #region Properties
         IWeatherGroupingRepository WeatherGroupings { get; }
+
+        IWeatherRepository Weather { get; }
         #endregion
     }
 }

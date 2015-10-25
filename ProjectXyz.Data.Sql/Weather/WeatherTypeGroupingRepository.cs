@@ -158,7 +158,7 @@ namespace ProjectXyz.Data.Sql.Weather
                 SELECT 
                     *
                 FROM
-                    StatDefinitions
+                    WeatherTypeGroupings
                 ;"))
             {
                 using (var reader = command.ExecuteReader())

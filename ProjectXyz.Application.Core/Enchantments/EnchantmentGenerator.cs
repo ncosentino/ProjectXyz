@@ -67,12 +67,13 @@ namespace ProjectXyz.Application.Core.Enchantments
                 throw new InvalidOperationException(string.Format("No enchantment definition repository was found for type '{0}'.", enchantmentType.DefinitionRepositoryClassName));
             }
 
-            if (!_generateEnchantmentMapping.ContainsKey(definitionRepositoryType))
+            var key = _generateEnchantmentMapping.Keys.FirstOrDefault(x => x.IsAssignableFrom(definitionRepositoryType));
+            if (key == null)
             {
                 throw new InvalidOperationException(string.Format("No callback registered for type '{0}'.", definitionRepositoryType));
             }
 
-            var enchantment = _generateEnchantmentMapping[definitionRepositoryType].Invoke(
+            var enchantment = _generateEnchantmentMapping[key].Invoke(
                 randomizer,
                 enchantmentDefinitionId);
             return enchantment;

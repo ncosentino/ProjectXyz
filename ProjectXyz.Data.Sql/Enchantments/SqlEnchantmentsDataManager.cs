@@ -13,6 +13,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
         private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
         private readonly IEnchantmentStoreRepository _enchantmentStoreRepository;
         private readonly IEnchantmentTriggerRepository _enchantmentTriggerRepository;
+        private readonly IEnchantmentStatusRepository _enchantmentStatusRepository;
         private readonly IEnchantmentDefinitionWeatherTypeGroupingRepository _enchantmentDefinitionWeatherGroupingRepository;
         private readonly IStatusNegationRepository _statusNegationRepository;
         private readonly IEnchantmentTypeRepository _enchantmentTypeRepository;
@@ -26,6 +27,11 @@ namespace ProjectXyz.Data.Sql.Enchantments
             _enchantmentTriggerRepository = EnchantmentTriggerRepository.Create(
                 database,
                 enchantmentTriggerFactory);
+
+            var enchantmentStatusFactory = EnchantmentStatusFactory.Create();
+            _enchantmentStatusRepository = EnchantmentStatusRepository.Create(
+                database,
+                enchantmentStatusFactory);
 
             var enchantmentDefinitionFactory = EnchantmentDefinitionFactory.Create();
             _enchantmentDefinitionRepository = EnchantmentDefinitionRepository.Create(
@@ -63,6 +69,9 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
         /// <inheritdoc />
         public IEnchantmentTriggerRepository EnchantmentTriggers { get { return _enchantmentTriggerRepository; } }
+
+        /// <inheritdoc />
+        public IEnchantmentStatusRepository EnchantmentStatuses { get { return _enchantmentStatusRepository; } }
 
         /// <inheritdoc />
         public IEnchantmentDefinitionWeatherTypeGroupingRepository EnchantmentWeather { get { return _enchantmentDefinitionWeatherGroupingRepository; } }

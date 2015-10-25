@@ -42,7 +42,7 @@ namespace ProjectXyz.Plugins.Core.Tests.Integration.Enchantments
             enchantmentSaver
                 .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantment), plugin.SaveEnchantmentCallback));
             enchantmentGenerator
-                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantmentDefinition), plugin.GenerateEnchantmentCallback));
+                .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantmentDefinitionRepository), plugin.GenerateEnchantmentCallback));
             enchantmentFactory
                 .Setup(x => x.RegisterCallbackForType(typeof(Plugins.Enchantments.Expression.IExpressionEnchantmentStore), plugin.CreateEnchantmentCallback));
 

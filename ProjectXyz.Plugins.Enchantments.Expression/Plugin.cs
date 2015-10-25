@@ -103,9 +103,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             get { return typeof(IExpressionEnchantmentStore); }
         }
 
-        public Type EnchantmentDefinitionType
+        public Type EnchantmentDefinitionRepositoryType
         {
-            get { return typeof(IExpressionEnchantmentDefinition); }
+            get { return typeof(IExpressionEnchantmentDefinitionRepository); }
         }
 
         public Type EnchantmentType

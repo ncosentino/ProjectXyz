@@ -131,15 +131,18 @@
     <Compile Include="Actors\ActorStoreRepository.cs" />
     <Compile Include="Diseases\DiseaseSpreadTypeRepository.cs" />
     <Compile Include="Diseases\DiseaseDefinitionRepository.cs" />
+    <Compile Include="Enchantments\EnchantmentStatusRepository.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherTypeGroupingRepository.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionRepository.cs" />
     <Compile Include="Enchantments\SqlEnchantmentsDataManager.cs" />
     <Compile Include="Enchantments\StatusNegationRepository.cs" />
     <Compile Include="Enchantments\EnchantmentTypeRepository.cs" />
     <Compile Include="Enchantments\EnchantmentTriggerRepository.cs" />
+    <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGroupingRepository.cs" />
     <Compile Include="Items\Affixes\MagicTypesRandomAffixesRepository.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantmentRepository.cs" />
     <Compile Include="Items\ItemTypeGeneratorPluginRepository.cs" />
+    <Compile Include="Items\MagicTypes\MagicTypeGroupingRepository.cs" />
     <Compile Include="Items\SqlItemDataManager.cs" />
     <Compile Include="Items\ItemDefinitionStatRepository.cs" />
     <Compile Include="Items\ItemDefinitionRepository.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="Stats\StatDefinitionRepository.cs" />
     <Compile Include="Stats\SqlStatsDataManager.cs" />
     <Compile Include="Stats\StatRepository.cs" />
+    <Compile Include="Weather\WeatherRepository.cs" />
     <Compile Include="Weather\SqlWeatherDataManager.cs" />
     <Compile Include="Weather\WeatherTypeGroupingRepository.cs" />
   </ItemGroup>

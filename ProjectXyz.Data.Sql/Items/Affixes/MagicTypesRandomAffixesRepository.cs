@@ -59,7 +59,7 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    ItemAffixDefinitions
+                    MagicTypesRandomAffixes
                 (
                     Id,
                     MagicTypeId,
@@ -92,7 +92,7 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    ItemAffixDefinitions
+                    MagicTypesRandomAffixes
                 WHERE
                     Id = @id
                 ;",
@@ -164,7 +164,7 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
                 SELECT 
                     *
                 FROM
-                    ItemAffixDefinitions
+                    MagicTypesRandomAffixes
                 ;"))
             {
                 using (var reader = command.ExecuteReader())

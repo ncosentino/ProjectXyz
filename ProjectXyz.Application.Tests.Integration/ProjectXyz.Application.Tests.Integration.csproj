@@ -138,6 +138,7 @@
     <Compile Include="Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Enchantments\EnchantmentSaverTests.cs" />
     <Compile Include="Helpers\EnchantmentCalculatorHelper.cs" />
+    <Compile Include="Helpers\EnchantmentStatuses.cs" />
     <Compile Include="Helpers\ItemContextHelper.cs" />
     <Compile Include="Items\ItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -44,12 +44,14 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
         public IEnchantmentDefinition Add(
             Guid id,
+            Guid enchantmentTypeId,
             Guid triggerId,
             Guid statusTypeId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
+                { "EnchantmentTypeId", enchantmentTypeId },
                 { "TriggerId", triggerId },
                 { "StatusTypeId", statusTypeId },
             };
@@ -57,15 +59,17 @@ namespace ProjectXyz.Data.Sql.Enchantments
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    Enchantments
+                    EnchantmentDefinitions
                 (
                     Id,
+                    EnchantmentTypeId,
                     TriggerId,
                     StatusTypeId
                 )
                 VALUES
                 (
                     @Id,
+                    @EnchantmentTypeId,
                     @TriggerId,
                     @StatusTypeId
                 )
@@ -77,6 +81,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
             var enchantmentDefinition = _factory.Create(
                 id,
+                enchantmentTypeId,
                 triggerId,
                 statusTypeId);
             return enchantmentDefinition;
@@ -87,7 +92,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    Enchantments
+                    EnchantmentDefinitions
                 WHERE
                     Id = @id
                 ;",
@@ -105,7 +110,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 SELECT 
                     *
                 FROM
-                    Enchantments
+                    EnchantmentDefinitions
                 WHERE
                     Id = @id
                 LIMIT 1
@@ -117,7 +122,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
                 {
                     if (!reader.Read())
                     {
-                        throw new InvalidOperationException("No enchantment with Id '" + id + "' was found.");
+                        throw new InvalidOperationException("No enchantment definition with Id '" + id + "' was found.");
                     }
 
                     var enchantmentDefinition = EnchantmentFromReader(
@@ -136,6 +141,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
+                reader.GetGuid(reader.GetOrdinal("EnchantmentTypeId")),
                 reader.GetGuid(reader.GetOrdinal("TriggerId")),
                 reader.GetGuid(reader.GetOrdinal("StatusTypeId")));
         }

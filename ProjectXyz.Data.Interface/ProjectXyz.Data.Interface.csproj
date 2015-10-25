@@ -157,7 +157,13 @@
     <Compile Include="Diseases\IDiseaseStateDefinition.cs" />
     <Compile Include="Diseases\IDiseaseDefinition.cs" />
     <Compile Include="Diseases\IDiseaseDataManager.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStatusContract.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStatusFactoryContract.cs" />
+    <Compile Include="Enchantments\Contracts\IEnchantmentStatusRepositoryContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentDefinitionRepositoryContract.cs" />
+    <Compile Include="Enchantments\IEnchantmentStatus.cs" />
+    <Compile Include="Enchantments\IEnchantmentStatusFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentStatusRepository.cs" />
     <Compile Include="Enchantments\IEnchantmentTypeFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentType.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
@@ -183,8 +189,8 @@
     <Compile Include="Enchantments\IStatusNegationRepository.cs" />
     <Compile Include="Enchantments\IStatusNegationFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTypeRepository.cs" />
-    <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGroupingRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGroupingFactory.cs" />
+    <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGroupingRepository.cs" />
     <Compile Include="Items\Affixes\IItemAffixDefinitionMagicTypeGrouping.cs" />
     <Compile Include="Items\Affixes\IMagicTypesRandomAffixesRepository.cs" />
     <Compile Include="Items\Affixes\IMagicTypesRandomAffixesFactory.cs" />
@@ -218,6 +224,7 @@
     <Compile Include="Items\IItemDefinitionStat.cs" />
     <Compile Include="Items\IItemStoreFactory.cs" />
     <Compile Include="Items\IItemStoreRepository.cs" />
+    <Compile Include="Items\MagicTypes\IMagicTypeGroupingFactory.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeGroupingRepository.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeGrouping.cs" />
     <Compile Include="Items\Requirements\IItemDefinitionStatRequirements.cs" />
@@ -314,6 +321,9 @@
     <Compile Include="Stats\IStatCollection.cs" />
     <Compile Include="Stats\IStatFactory.cs" />
     <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
+    <Compile Include="Weather\IWeatherRepository.cs" />
+    <Compile Include="Weather\IWeatherFactory.cs" />
+    <Compile Include="Weather\IWeather.cs" />
     <Compile Include="Weather\IWeatherGroupingRepository.cs" />
     <Compile Include="Weather\IWeatherDataManager.cs" />
     <Compile Include="Weather\IWeatherGroupingFactory.cs" />

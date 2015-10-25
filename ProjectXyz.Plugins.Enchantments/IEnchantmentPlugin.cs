@@ -9,7 +9,7 @@ namespace ProjectXyz.Plugins.Enchantments
         #region Properties
         Type EnchantmentStoreType { get; }
 
-        Type EnchantmentDefinitionType { get; }
+        Type EnchantmentDefinitionRepositoryType { get; }
 
         Type EnchantmentType { get; }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using ProjectXyz.Application.Core;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;

@@ -11,7 +11,12 @@ namespace ProjectXyz.Data.Interface.Items.Affixes
 
         IEnumerable<IItemAffixDefinition> GetAll();
 
-        void Add(IItemAffixDefinition itemStore);
+        IItemAffixDefinition Add(
+            Guid id,
+            Guid nameStringResourceId,
+            bool isPrefix,
+            int minimumLevel,
+            int maximumLevel);
 
         void RemoveById(Guid id);
         #endregion

@@ -135,6 +135,8 @@
     <Compile Include="Diseases\DiseaseSpreadType.cs" />
     <Compile Include="Diseases\DiseaseDefinitionFactory.cs" />
     <Compile Include="Diseases\DiseaseDefinition.cs" />
+    <Compile Include="Enchantments\EnchantmentStatus.cs" />
+    <Compile Include="Enchantments\EnchantmentStatusFactory.cs" />
     <Compile Include="Enchantments\EnchantmentTypeFactory.cs" />
     <Compile Include="Enchantments\EnchantmentType.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherGroupingFactory.cs" />
@@ -148,7 +150,6 @@
     <Compile Include="Enchantments\StatusNegation.cs" />
     <Compile Include="Enchantments\MagicTypesRandomAffixesFactory.cs" />
     <Compile Include="Enchantments\MagicTypesRandomAffixes.cs" />
-    <Compile Include="Enchantments\EnchantmentStatuses.cs" />
     <Compile Include="Enchantments\EnchantmentStore.cs" />
     <Compile Include="Enchantments\EnchantmentTriggers.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGroupingFactory.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Items\EquipSlots\ItemTypeEquipSlotType.cs" />
     <Compile Include="Items\EquipSlots\EquipSlotType.cs" />
     <Compile Include="Items\EquipSlots\EquipSlotTypeFactory.cs" />
+    <Compile Include="Items\MagicTypes\MagicTypeGrouping.cs" />
+    <Compile Include="Items\MagicTypes\MagicTypeGroupingFactory.cs" />
     <Compile Include="Items\Requirements\ItemDefinitionItemMiscRequirementsFactory.cs" />
     <Compile Include="Items\Requirements\ItemDefinitionItemMiscRequirements.cs" />
     <Compile Include="Items\Requirements\ItemDefinitionStatRequirements.cs" />
@@ -210,6 +213,8 @@
     <Compile Include="Stats\ItemStats.cs" />
     <Compile Include="Stats\StatCollection.cs" />
     <Compile Include="Stats\StatFactory.cs" />
+    <Compile Include="Weather\WeatherFactory.cs" />
+    <Compile Include="Weather\Weather.cs" />
     <Compile Include="Weather\WeatherGroupingFactory.cs" />
     <Compile Include="Weather\WeatherGrouping.cs" />
   </ItemGroup>

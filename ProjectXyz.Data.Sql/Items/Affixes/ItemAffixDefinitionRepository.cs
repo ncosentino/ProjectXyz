@@ -42,15 +42,20 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
                 factory);
         }
 
-        public void Add(IItemAffixDefinition itemAffixDefinition)
+        public IItemAffixDefinition Add(
+            Guid id,
+            Guid nameStringResourceId,
+            bool isPrefix,
+            int minimumLevel,
+            int maximumLevel)
         {
             var namedParameters = new Dictionary<string, object>()
             {
-                { "Id", itemAffixDefinition.Id },
-                { "IsPrefix", itemAffixDefinition.IsPrefix },
-                { "MaximumLevel", itemAffixDefinition.MaximumLevel},
-                { "MinimumLevel", itemAffixDefinition.MinimumLevel },
-                { "NameStringResourceId", itemAffixDefinition.NameStringResourceId },
+                { "Id", id },
+                { "IsPrefix", isPrefix },
+                { "MaximumLevel", maximumLevel},
+                { "MinimumLevel", minimumLevel },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -77,6 +82,14 @@ namespace ProjectXyz.Data.Sql.Items.Affixes
             {
                 command.ExecuteNonQuery();
             }
+
+            var itemAffixDefinition = _factory.Create(
+                id,
+                nameStringResourceId,
+                isPrefix,
+                minimumLevel,
+                maximumLevel);
+            return itemAffixDefinition;
         }
 
         public void RemoveById(Guid id)

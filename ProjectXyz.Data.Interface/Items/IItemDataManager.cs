@@ -31,6 +31,8 @@ namespace ProjectXyz.Data.Interface.Items
 
         IItemAffixDefinitionEnchantmentRepository ItemAffixDefinitionEnchantment { get; }
 
+        IItemAffixDefinitionMagicTypeGroupingRepository ItemAffixDefinitionMagicTypeGroupings { get; }
+
         IMagicTypesRandomAffixesRepository MagicTypesRandomAffixes { get; }
 
         ISocketTypeRepository SocketTypes { get; }
@@ -42,6 +44,8 @@ namespace ProjectXyz.Data.Interface.Items
         IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get; }
 
         IMagicTypeRepository MagicTypes { get; }
+
+        IMagicTypeGroupingRepository MagicTypeGroupings { get; }
 
         IEquipSlotTypeRepository EquipSlotTypes { get; }
         #endregion

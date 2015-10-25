@@ -4,21 +4,13 @@ using System.Linq;
 
 namespace ProjectXyz.Data.Interface.Items.Affixes
 {
-    public interface IItemAffixDefinitionMagicTypeGroupinRepository
+    public interface IItemAffixDefinitionMagicTypeGroupingFactory
     {
         #region Methods
-        IItemAffixDefinitionMagicTypeGrouping Add(
+        IItemAffixDefinitionMagicTypeGrouping Create(
             Guid id,
             Guid itemAffixDefinitionId,
             Guid magicTypesGroupingId);
-
-        IItemAffixDefinitionMagicTypeGrouping GetById(Guid id);
-
-        IItemAffixDefinitionMagicTypeGrouping GetByItemAffixDefinitionId(Guid itemAffixDefinitionId);
-
-        void RemoveById(Guid id);
-
-        IEnumerable<IItemAffixDefinitionMagicTypeGrouping> GetAll();
         #endregion
     }
 }

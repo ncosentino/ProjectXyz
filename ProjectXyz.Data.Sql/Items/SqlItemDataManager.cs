@@ -38,12 +38,14 @@ namespace ProjectXyz.Data.Sql.Items
         private readonly IItemAffixDefinitionEnchantmentRepository _itemAffixDefinitionEnchantmentRepository;
         private readonly IItemAffixDefinitionRepository _itemAffixDefinitionRepository;
         private readonly IItemAffixDefinitionFilterRepository _itemAffixDefinitionFilterRepository;
+        private readonly IItemAffixDefinitionMagicTypeGroupingRepository _itemAffixDefinitionMagicTypeGroupingRepository;
         private readonly IMagicTypesRandomAffixesRepository _magicTypesRandomAffixesRepository;
         private readonly ISocketTypeRepository _socketTypeRepository;
         private readonly IMaterialTypeRepository _materialTypeRepository;
         private readonly IItemTypeRepository _itemTypeRepository;
         private readonly IItemTypeGeneratorPluginRepository _itemTypeGeneratorPluginRepository;
         private readonly IMagicTypeRepository _magicTypeRepository;
+        private readonly IMagicTypeGroupingRepository _magicTypeGroupingRepository;
         private readonly IEquipSlotTypeRepository _equipSlotTypeRepository;
         #endregion
 
@@ -94,6 +96,11 @@ namespace ProjectXyz.Data.Sql.Items
                 database,
                 itemAffixDefinitionFactory);
 
+            var itemAffixDefinitionMagicTypeGroupingFactory = ItemAffixDefinitionMagicTypeGroupingFactory.Create();
+            _itemAffixDefinitionMagicTypeGroupingRepository = ItemAffixDefinitionMagicTypeGroupingRepository.Create(
+                database,
+                itemAffixDefinitionMagicTypeGroupingFactory);
+
             var magicTypesRandomAffixesFactory = MagicTypesRandomAffixesFactory.Create();
             _magicTypesRandomAffixesRepository = MagicTypesRandomAffixesRepository.Create(
                 database,
@@ -124,6 +131,11 @@ namespace ProjectXyz.Data.Sql.Items
                 database,
                 magicTypeFactory);
 
+            var magicTypeGroupingFactory = MagicTypeGroupingFactory.Create();
+            _magicTypeGroupingRepository = MagicTypeGroupingRepository.Create(
+                database,
+                magicTypeGroupingFactory);
+
             var equipSlotTypeFactory = EquipSlotTypeFactory.Create();
             _equipSlotTypeRepository = EquipSlotTypeRepository.Create(
                 database,
@@ -150,6 +162,8 @@ namespace ProjectXyz.Data.Sql.Items
 
         public IItemAffixDefinitionEnchantmentRepository ItemAffixDefinitionEnchantment { get { return _itemAffixDefinitionEnchantmentRepository; } }
 
+        public IItemAffixDefinitionMagicTypeGroupingRepository ItemAffixDefinitionMagicTypeGroupings { get { return _itemAffixDefinitionMagicTypeGroupingRepository; } }
+
         public IMagicTypesRandomAffixesRepository MagicTypesRandomAffixes { get { return _magicTypesRandomAffixesRepository; } }
 
         public ISocketTypeRepository SocketTypes { get { return _socketTypeRepository; } }
@@ -161,6 +175,8 @@ namespace ProjectXyz.Data.Sql.Items
         public IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get { return _itemTypeGeneratorPluginRepository; } }
 
         public IMagicTypeRepository MagicTypes { get { return _magicTypeRepository; } }
+
+        public IMagicTypeGroupingRepository MagicTypeGroupings { get { return _magicTypeGroupingRepository; } }
 
         public IEquipSlotTypeRepository EquipSlotTypes { get { return _equipSlotTypeRepository; } }
         #endregion

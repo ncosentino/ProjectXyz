@@ -59,7 +59,7 @@ namespace ProjectXyz.Plugins.Core.Enchantments
                     enchantmentPlugin.SaveEnchantmentCallback);    
 
                 _enchantmentGenerator.RegisterCallbackForType(
-                    enchantmentPlugin.EnchantmentDefinitionType,
+                    enchantmentPlugin.EnchantmentDefinitionRepositoryType,
                     enchantmentPlugin.GenerateEnchantmentCallback);
 
                 _enchantmentFactory.RegisterCallbackForType(

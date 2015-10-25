@@ -37,6 +37,41 @@ namespace ProjectXyz.Data.Sql.Enchantments
             return new EnchantmentTriggerRepository(database, factory);
         }
 
+        public IEnchantmentTrigger Add(
+            Guid id,
+            Guid nameStringResourceId)
+        {
+            var namedParameters = new Dictionary<string, object>()
+            {
+                { "Id", id },
+                { "NameStringResourceId", nameStringResourceId },
+            };
+
+            using (var command = _database.CreateCommand(
+                @"
+                INSERT INTO
+                    EnchantmentTriggers
+                (
+                    Id,
+                    NameStringResourceId
+                )
+                VALUES
+                (
+                    @Id,
+                    @NameStringResourceId
+                )
+                ;",
+                namedParameters))
+            {
+                command.ExecuteNonQuery();
+            }
+
+            var itemStat = _factory.Create(
+                id,
+                nameStringResourceId);
+            return itemStat;
+        }
+
         public IEnchantmentTrigger GetById(Guid id)
         {
             using (var command = _database.CreateCommand(

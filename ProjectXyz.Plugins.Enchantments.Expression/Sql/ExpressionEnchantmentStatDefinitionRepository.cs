@@ -136,16 +136,10 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Sql
             {
                 using (var reader = command.ExecuteReader())
                 {
-                    if (!reader.Read())
-                    {
-                        throw new InvalidOperationException("No expression enchantment stat definition with enchantment definition ID '" + enchantmentDefinitionId + "' was found.");
-                    }
-
-                    do
+                    while (reader.Read())
                     {
                         yield return ExpressionEnchantmentStatDefinitionFromReader(reader, _factory);
                     }
-                    while (reader.Read());
                 }
             }
         }
