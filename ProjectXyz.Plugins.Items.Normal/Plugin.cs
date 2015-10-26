@@ -23,14 +23,24 @@ namespace ProjectXyz.Plugins.Items.Normal
                 database,
                 dataManager.Stats.StatFactory);
 
+            var itemStatGenerator = ItemStatGenerator.Create(dataManager.Stats.StatFactory);
+
+            var itemRequirementsGenerator = ItemRequirementsGenerator.Create(
+                dataManager.Items.ItemDefinitionStatRequirements,
+                dataManager.Stats.Stats,
+                dataManager.Items.ItemDefinitionItemMiscRequirements,
+                dataManager.Items.ItemMiscRequirements,
+                itemApplicationManager.ItemRequirementsFactory);
+
             _normalItemGenerator = NormalItemGenerator.Create(
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
                 itemApplicationManager.ItemRequirementsFactory,
                 dataManager.Items.ItemNamePartFactory,
-                dataManager.Stats.StatFactory,
                 statRepository,
-                dataManager.Items);
+                dataManager.Items,
+                itemStatGenerator,
+                itemRequirementsGenerator);
         }
         #endregion
 

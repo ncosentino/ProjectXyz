@@ -38,7 +38,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMagicAffixGenerator.cs" />
+    <Compile Include="IMagicItemNamer.cs" />
+    <Compile Include="MagicAffixGenerator.cs" />
     <Compile Include="MagicItemGenerator.cs" />
+    <Compile Include="MagicItemNamer.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

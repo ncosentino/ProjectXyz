@@ -73,14 +73,24 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
 
+            var itemStatGenerator = ItemStatGenerator.Create(dataManager.Stats.StatFactory);
+
+            var itemRequirementsGenerator = ItemRequirementsGenerator.Create(
+                dataManager.Items.ItemDefinitionStatRequirements,
+                dataManager.Stats.Stats,
+                dataManager.Items.ItemDefinitionItemMiscRequirements,
+                dataManager.Items.ItemMiscRequirements,
+                itemRequirementsFactory);
+
             var generator = NormalItemGenerator.Create(
                 itemFactory,
                 itemMetaDataFactory,
                 itemRequirementsFactory,
                 itemNamePartFactory,
-                statFactory,
                 statRepository,
-                dataManager.Items);
+                dataManager.Items,
+                itemStatGenerator,
+                itemRequirementsGenerator);
 
             // Execute
             var result = generator.Generate(

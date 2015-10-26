@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.Affixes;
-using ProjectXyz.Data.Interface.Items;
 
 namespace ProjectXyz.Plugins.Items.Magic
 {
@@ -15,9 +13,8 @@ namespace ProjectXyz.Plugins.Items.Magic
         private readonly IItemFactory _itemFactory;
         private readonly IItemMetaDataFactory _itemMetaDataFactory;
         private readonly IItemTypeGenerator _normalItemGenerator;
-        private readonly IItemAffixGenerator _itemAffixGenerator;
-        private readonly IItemDataManager _itemDataManager;
-        private readonly IItemNamePartFactory _itemNamePartFactory;
+        private readonly IMagicAffixGenerator _magicAffixGenerator;
+        private readonly IMagicItemNamer _magicItemNamer;
         #endregion
 
         #region COnstructors
@@ -25,18 +22,16 @@ namespace ProjectXyz.Plugins.Items.Magic
             Guid magicType,
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
-            IItemNamePartFactory itemNamePartFactory,
             IItemTypeGenerator normalItemGenerator,
-            IItemAffixGenerator itemAffixGenerator,
-            IItemDataManager itemDataManager)
+            IMagicAffixGenerator magicAffixGenerator,
+            IMagicItemNamer magicItemNamer)
         {
             _magicType = magicType;
             _itemFactory = itemFactory;
             _itemMetaDataFactory = itemMetaDataFactory;
-            _itemNamePartFactory = itemNamePartFactory;
             _normalItemGenerator = normalItemGenerator;
-            _itemAffixGenerator = itemAffixGenerator;
-            _itemDataManager = itemDataManager;
+            _magicAffixGenerator = magicAffixGenerator;
+            _magicItemNamer = magicItemNamer;
         }
         #endregion
 
@@ -45,19 +40,17 @@ namespace ProjectXyz.Plugins.Items.Magic
             Guid magicType,
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
-            IItemNamePartFactory itemNamePartFactory,
             IItemTypeGenerator normalItemGenerator,
-            IItemAffixGenerator itemAffixGenerator,
-            IItemDataManager itemDataManager)
+            IMagicAffixGenerator magicAffixGenerator,
+            IMagicItemNamer magicItemNamer)
         {
             var generator = new MagicItemGenerator(
                 magicType,
                 itemFactory,
                 itemMetaDataFactory,
-                itemNamePartFactory,
                 normalItemGenerator,
-                itemAffixGenerator,
-                itemDataManager);
+                magicAffixGenerator,
+                magicItemNamer);
             return generator;
         }
 
@@ -80,8 +73,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 normalItem.MaterialTypeId,
                 normalItem.SocketTypeId);
 
-            var affixes = GenerateAffixes(
-                _itemAffixGenerator,
+            var affixes = _magicAffixGenerator.GenerateAffixes(
                 randomizer,
                 level,
                 _magicType)
@@ -91,8 +83,8 @@ namespace ProjectXyz.Plugins.Items.Magic
                 .SelectMany(x => x.Enchantments)
                 .Concat(normalItem.Enchantments);
 
-            var itemNameParts = CreateItemName(
-                normalItem,
+            var itemNameParts = _magicItemNamer.CreateItemName(
+                normalItem.ItemNameParts,
                 affixes);
 
             var item = _itemFactory.Create(
@@ -108,92 +100,6 @@ namespace ProjectXyz.Plugins.Items.Magic
                 Enumerable.Empty<IItem>(),
                 normalItem.EquippableSlotIds);
             return item;
-        }
-
-        private IEnumerable<IItemNamePart> CreateItemName(
-            IItem normalItem,
-            IEnumerable<IItemAffix> affixes)
-        {
-            // give our item a nice new name based on the affixes
-            var nameParts = new List<IItemNamePart>(normalItem.ItemNameParts);
-            var originalNamePart = normalItem.ItemNameParts.First();
-
-            var prefix = affixes.FirstOrDefault(x => x.Prefix);
-            if (prefix != null)
-            {
-                nameParts.Add(_itemNamePartFactory.Create(
-                    Guid.NewGuid(),
-                    originalNamePart.PartId,
-                    prefix.NameStringResourceId,
-                    0));
-
-                // re-insert the original name part at index 1
-                nameParts.Remove(originalNamePart);
-                originalNamePart = _itemNamePartFactory.Create(
-                    originalNamePart.Id,
-                    originalNamePart.PartId,
-                    originalNamePart.NameStringResourceId,
-                    1);
-                nameParts.Add(originalNamePart);
-            }
-
-            var suffix = affixes.FirstOrDefault(x => !x.Prefix);
-            if (suffix != null)
-            {
-                nameParts.Add(_itemNamePartFactory.Create(
-                    Guid.NewGuid(),
-                    originalNamePart.PartId,
-                    suffix.NameStringResourceId,
-                    originalNamePart.Order + 1));
-            }
-
-            return nameParts;
-        }
-
-        private IEnumerable<IItemAffix> GenerateAffixes(
-            IItemAffixGenerator itemAffixGenerator,
-            IRandom randomizer,
-            int level, 
-            Guid magicTypeId)
-        {
-            var magicTypesRandomAffixes = _itemDataManager.MagicTypesRandomAffixes.GetForMagicTypeId(magicTypeId);
-
-            var targetAffixCount = 
-                (int)Math.Round(magicTypesRandomAffixes.MinimumAffixes + 
-                randomizer.NextDouble() * (magicTypesRandomAffixes.MaximumAffixes - magicTypesRandomAffixes.MinimumAffixes));
-
-            bool gotPrefix = false;
-            var generatesAffixDefinitionIds = new HashSet<Guid>();
-
-            while (generatesAffixDefinitionIds.Count < targetAffixCount)
-            {
-                var shouldGeneratePrefix = (magicTypesRandomAffixes.MaximumAffixes != 2 || !gotPrefix) && randomizer.NextDouble() >= 0.5d;
-
-                IItemAffix affix;
-                if (shouldGeneratePrefix)
-                {
-                    affix = itemAffixGenerator.GeneratePrefix(
-                        randomizer,
-                        level,
-                        magicTypeId);
-                    gotPrefix = true;
-                }
-                else
-                {
-                    affix = itemAffixGenerator.GenerateSuffix(
-                        randomizer,
-                        level,
-                        magicTypeId);
-                }
-
-                if (generatesAffixDefinitionIds.Contains(affix.ItemAffixDefinitionId))
-                {
-                    continue;
-                }
-
-                generatesAffixDefinitionIds.Add(affix.ItemAffixDefinitionId);
-                yield return affix;
-            }
         }
         #endregion
     }

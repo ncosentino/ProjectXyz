@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Application.Interface.Items;
+﻿using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Sql.Stats;
 using ProjectXyz.Plugins.Items.Normal;
@@ -24,26 +21,41 @@ namespace ProjectXyz.Plugins.Items.Magic
                 database,
                 dataManager.Stats.StatFactory);
 
+            var itemStatGenerator = ItemStatGenerator.Create(dataManager.Stats.StatFactory);
+
+            var itemRequirementsGenerator = ItemRequirementsGenerator.Create(
+                dataManager.Items.ItemDefinitionStatRequirements,
+                dataManager.Stats.Stats,
+                dataManager.Items.ItemDefinitionItemMiscRequirements,
+                dataManager.Items.ItemMiscRequirements,
+                itemApplicationManager.ItemRequirementsFactory);
+
             var normalItemGenerator = NormalItemGenerator.Create(
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
                 itemApplicationManager.ItemRequirementsFactory,
                 dataManager.Items.ItemNamePartFactory,
-                dataManager.Stats.StatFactory,
                 statRepository,
-                dataManager.Items);
+                dataManager.Items,
+                itemStatGenerator,
+                itemRequirementsGenerator);
 
             var itemTypeGeneratorClassName = typeof(MagicItemGenerator).FullName;
             var itemTypeGeneratorPlugin = dataManager.Items.ItemTypeGeneratorPlugins.GetByItemGeneratorClassName(itemTypeGeneratorClassName);
+
+            var magicAffixGenerator = MagicAffixGenerator.Create(
+                dataManager.Items.MagicTypesRandomAffixes,
+                itemApplicationManager.ItemAffixGenerator);
+
+            var magicItemNamer = MagicItemNamer.Create(dataManager.Items.ItemNamePartFactory);
 
             _magicItemGenerator = MagicItemGenerator.Create(
                 itemTypeGeneratorPlugin.MagicTypeId,
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
-                dataManager.Items.ItemNamePartFactory,
                 normalItemGenerator,
-                itemApplicationManager.ItemAffixGenerator,
-                dataManager.Items);
+                magicAffixGenerator,
+                magicItemNamer);
         }
         #endregion
 
