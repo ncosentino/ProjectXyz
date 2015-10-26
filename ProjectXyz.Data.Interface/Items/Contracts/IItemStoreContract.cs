@@ -18,7 +18,7 @@ namespace ProjectXyz.Data.Interface.Items.Contracts
             }
         }
 
-        public Guid NameStringResourceId
+        public Guid ItemNamePartId
         {
             get
             {

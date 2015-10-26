@@ -10,7 +10,6 @@ namespace ProjectXyz.Application.Interface.Items
     public interface IItemMetaData
     {
         #region Properties
-        Guid NameStringResourceId { get; }
 
         Guid InventoryGraphicResourceId { get; }
 

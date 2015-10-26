@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Data.Interface.Items.Affixes;
+﻿using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Items.EquipSlots;
 using ProjectXyz.Data.Interface.Items.MagicTypes;
 using ProjectXyz.Data.Interface.Items.Materials;
@@ -40,6 +37,10 @@ namespace ProjectXyz.Data.Interface.Items
         IMaterialTypeRepository MaterialTypes { get; }
 
         IItemTypeRepository ItemTypes { get; }
+
+        IItemNamePartRepository ItemNameParts { get; }
+
+        IItemNamePartFactory ItemNamePartFactory { get; }
 
         IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get; }
 

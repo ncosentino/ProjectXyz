@@ -28,6 +28,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
                 itemApplicationManager.ItemRequirementsFactory,
+                dataManager.Items.ItemNamePartFactory,
                 dataManager.Stats.StatFactory,
                 statRepository,
                 dataManager.Items);
@@ -39,6 +40,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 itemTypeGeneratorPlugin.MagicTypeId,
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
+                dataManager.Items.ItemNamePartFactory,
                 normalItemGenerator,
                 itemApplicationManager.ItemAffixGenerator,
                 dataManager.Items);

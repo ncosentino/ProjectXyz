@@ -20,13 +20,15 @@ namespace ProjectXyz.Plugins.Items.Normal
         private readonly IItemRequirementsFactory _itemRequirementsFactory;
         private readonly IStatRepository _statRepository;
         private readonly IItemDataManager _itemDataManager;
+        private readonly IItemNamePartFactory _itemNamePartFactory;
         #endregion
 
-        #region COnstructors
+        #region Constructors
         private NormalItemGenerator(
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
             IItemRequirementsFactory itemRequirementsFactory,
+            IItemNamePartFactory itemNamePartFactory,
             IStatFactory statFactory,
             IStatRepository statRepository,
             IItemDataManager itemDataManager)
@@ -35,6 +37,7 @@ namespace ProjectXyz.Plugins.Items.Normal
             _itemMetaDataFactory = itemMetaDataFactory;
             _statFactory = statFactory;
             _itemRequirementsFactory = itemRequirementsFactory;
+            _itemNamePartFactory = itemNamePartFactory;
             _statRepository = statRepository;
             _itemDataManager = itemDataManager;
         }
@@ -45,6 +48,7 @@ namespace ProjectXyz.Plugins.Items.Normal
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
             IItemRequirementsFactory itemRequirementsFactory,
+            IItemNamePartFactory itemNamePartFactory,
             IStatFactory statFactory,
             IStatRepository statRepository,
             IItemDataManager itemDataManager)
@@ -53,6 +57,7 @@ namespace ProjectXyz.Plugins.Items.Normal
                 itemFactory,
                 itemMetaDataFactory,
                 itemRequirementsFactory,
+                itemNamePartFactory,
                 statFactory,
                 statRepository,
                 itemDataManager);
@@ -69,7 +74,6 @@ namespace ProjectXyz.Plugins.Items.Normal
             var itemDefinitionStats = _itemDataManager.ItemDefinitionStat.GetByItemDefinitionId(itemDefinitionId);
 
             var itemMetaData = _itemMetaDataFactory.Create(
-                itemDefinition.NameStringResourceId,
                 itemDefinition.InventoryGraphicResourceId,
                 itemDefinition.MagicTypeId, // NOTE: this allows items like potions to be spawned as "magic" but have no affixes
                 itemDefinition.ItemTypeId,
@@ -97,11 +101,18 @@ namespace ProjectXyz.Plugins.Items.Normal
                 itemMiscRequirements.ClassDefinitionId,
                 requiredStats);
 
+            var itemNamePart = _itemNamePartFactory.Create(
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                itemDefinition.NameStringResourceId,
+                0);
+
             var item = _itemFactory.Create(
                 itemContext,
                 Guid.NewGuid(),
                 itemDefinitionId,
                 itemMetaData,
+                new[] { itemNamePart },
                 itemRequirements,
                 itemStats,
                 enchantments,

@@ -5,6 +5,7 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Core.Items
@@ -29,6 +30,7 @@ namespace ProjectXyz.Application.Core.Items
             Guid id,
             Guid itemDefinitionId,
             IItemMetaData itemMetaData,
+            IEnumerable<IItemNamePart> itemNameParts,
             IItemRequirements itemRequirements,
             IEnumerable<IStat> stats,
             IEnumerable<IEnchantment> enchantments,
@@ -41,6 +43,7 @@ namespace ProjectXyz.Application.Core.Items
                 id,
                 itemDefinitionId,
                 itemMetaData,
+                itemNameParts,
                 itemRequirements,
                 stats,
                 enchantments,

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics.Contracts;
-
-using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Contracts;
 using ProjectXyz.Application.Interface.Items.Requirements;
+using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Items
 {
@@ -28,6 +27,8 @@ namespace ProjectXyz.Application.Interface.Items
         double Value { get; }
 
         IStatCollection Stats { get; }
+
+        IEnumerable<IItemNamePart> ItemNameParts { get; }
 
         IEnumerable<Guid> EquippableSlotIds { get; }
 

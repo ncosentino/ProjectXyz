@@ -12,6 +12,7 @@ using ProjectXyz.Application.Tests.Integration.Helpers;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Plugins.Enchantments.Expression;
@@ -56,6 +57,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -72,6 +74,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -142,6 +145,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -161,6 +165,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -216,6 +221,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 Enumerable.Empty<IStat>(),
                 Enumerable.Empty<IEnchantment>(),
@@ -228,6 +234,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -285,6 +292,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -300,6 +308,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -366,6 +375,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -384,6 +394,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -444,6 +455,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {
@@ -510,6 +522,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 new[]
                 {

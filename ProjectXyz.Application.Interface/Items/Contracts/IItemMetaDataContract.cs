@@ -9,15 +9,6 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
     public abstract class IItemMetaDataContract : IItemMetaData
     {
         #region Properties
-        public Guid NameStringResourceId
-        {
-            get
-            {
-                Contract.Ensures(Contract.Result<Guid>() != Guid.Empty);
-                return default(Guid);
-            }
-        }
-
         public Guid InventoryGraphicResourceId
         {
             get

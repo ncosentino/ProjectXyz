@@ -16,6 +16,7 @@ using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Application.Tests.Integration.Helpers;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Tests.Unit.Actors.Mocks;
 using ProjectXyz.Plugins.Enchantments.Expression;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate;
@@ -64,6 +65,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -126,6 +128,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -188,6 +191,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -247,6 +251,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -309,6 +314,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -371,6 +377,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -421,6 +428,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -486,6 +494,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -548,6 +557,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                 {
@@ -618,6 +628,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                {
@@ -633,6 +644,7 @@ namespace ProjectXyz.Application.Tests.Integration.Actors
                Guid.NewGuid(),
                Guid.NewGuid(),
                itemMetaData.Object,
+               Enumerable.Empty<IItemNamePart>(),
                itemRequirements.Object,
                new[]
                {

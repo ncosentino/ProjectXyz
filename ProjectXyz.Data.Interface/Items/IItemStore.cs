@@ -12,7 +12,7 @@ namespace ProjectXyz.Data.Interface.Items
         #region Properties
         Guid ItemDefinitionId { get; }
 
-        Guid NameStringResourceId { get; }
+        Guid ItemNamePartId { get; }
 
         Guid InventoryGraphicResourceId { get; }
 

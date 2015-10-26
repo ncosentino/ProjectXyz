@@ -40,7 +40,7 @@ namespace ProjectXyz.Data.Tests.Unit.Items
             // Assert
             Assert.Equal(id, result.Id);
             Assert.Equal(itemDefinitionId, result.ItemDefinitionId);
-            Assert.Equal(nameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(nameStringResourceId, result.ItemNamePartId);
             Assert.Equal(inventoryGraphicResourceId, result.InventoryGraphicResourceId);
             Assert.Equal(magicTypeId, result.MagicTypeId);
             Assert.Equal(itemTypeId, result.ItemTypeId);

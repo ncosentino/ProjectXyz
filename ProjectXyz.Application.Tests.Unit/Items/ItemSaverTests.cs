@@ -20,13 +20,13 @@ namespace ProjectXyz.Application.Tests.Unit.Items
     public class ItemSaverTests
     {
         #region Methods
+
         [Fact]
         public void Save_BasicItem_Success()
         {
             // Setup
             var id = Guid.NewGuid();
             var itemDefinitionId = Guid.NewGuid();
-            var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
             var itemTypeId = Guid.NewGuid();
@@ -35,6 +35,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var raceDefinitionId = Guid.NewGuid();
             var classDefinitionId = Guid.NewGuid();
             var itemMiscRequirementsId = Guid.NewGuid();
+            var itemNamePartId = Guid.NewGuid();
+            var itemNamePartPartId = Guid.NewGuid();
+            var itemNamePartNameStringResourceId = Guid.NewGuid();
 
             var itemStore = new Mock<IItemStore>(MockBehavior.Strict);
 
@@ -69,6 +72,25 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.ClassDefinitionId)
                 .Returns(classDefinitionId);
 
+            var itemNamePart = new Mock<IItemNamePart>(MockBehavior.Strict);
+            itemNamePart
+                .Setup(x => x.Id)
+                .Returns(itemNamePartId);
+            itemNamePart
+                .Setup(x => x.PartId)
+                .Returns(itemNamePartPartId);
+            itemNamePart
+                .Setup(x => x.NameStringResourceId)
+                .Returns(itemNamePartNameStringResourceId);
+            itemNamePart
+                .Setup(x => x.Order)
+                .Returns(1);
+
+            var itemNameParts = new[]
+            {
+                itemNamePart.Object,
+            };
+
             var sourceItem = new Mock<IItem>(MockBehavior.Strict);
             sourceItem
                 .Setup(x => x.Id)
@@ -77,8 +99,8 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.ItemDefinitionId)
                 .Returns(itemDefinitionId);
             sourceItem
-                .Setup(x => x.NameStringResourceId)
-                .Returns(nameStringResourceId);
+                .Setup(x => x.ItemNameParts)
+                .Returns(itemNameParts);
             sourceItem
                 .Setup(x => x.InventoryGraphicResourceId)
                 .Returns(inventoryGraphicResourceId);
@@ -116,7 +138,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.Add(
                     id,
                     itemDefinitionId,
-                    nameStringResourceId,
+                    itemNamePartPartId,
                     inventoryGraphicResourceId,
                     magicTypeId,
                     itemTypeId,
@@ -149,6 +171,17 @@ namespace ProjectXyz.Application.Tests.Unit.Items
 
             var statRepository = new Mock<IStatRepository>(MockBehavior.Strict);
 
+            var itemNamePartRepository = new Mock<IItemNamePartRepository>(MockBehavior.Strict);
+            itemNamePartRepository
+                .Setup(x => x.RemoveByPartId(itemNamePartPartId));
+            itemNamePartRepository
+                .Setup(x => x.Add(
+                    itemNamePartId,
+                    itemNamePartPartId,
+                    itemNamePartNameStringResourceId,
+                    1))
+                .Returns(itemNamePart.Object);
+
             var itemSaver = ItemSaver.Create(
                enchantmentSaver.Object,
                itemEnchantmentRepository.Object,
@@ -158,7 +191,8 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                itemStatRequirementsRepository.Object,
                socketedItemRepository.Object,
                itemStatRepository.Object,
-               statRepository.Object);
+               statRepository.Object,
+               itemNamePartRepository.Object);
             
             // Execute
             var result = itemSaver.Save(sourceItem.Object);
@@ -178,9 +212,14 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             itemRequirements.Verify(x => x.RaceDefinitionId);
             itemRequirements.Verify(x => x.ClassDefinitionId);
 
+            itemNamePart.Verify(x => x.Id, Times.Once());
+            itemNamePart.Verify(x => x.PartId, Times.AtLeastOnce);
+            itemNamePart.Verify(x => x.NameStringResourceId, Times.Once());
+            itemNamePart.Verify(x => x.Order, Times.Once());
+
             sourceItem.Verify(x => x.Id, Times.Exactly(2));
             sourceItem.Verify(x => x.ItemDefinitionId, Times.Once());
-            sourceItem.Verify(x => x.NameStringResourceId, Times.Once());
+            sourceItem.Verify(x => x.ItemNameParts, Times.AtLeastOnce());
             sourceItem.Verify(x => x.InventoryGraphicResourceId, Times.Once());
             sourceItem.Verify(x => x.MagicTypeId, Times.Once());
             sourceItem.Verify(x => x.ItemTypeId, Times.Once());
@@ -213,6 +252,15 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             itemMiscRequirements.Verify(x => x.Id, Times.Once());
 
             itemStoreItemMiscRequirementsRepository.Verify(x => x.Add(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<Guid>()), Times.Once());
+
+            itemNamePartRepository.Verify(x => x.RemoveByPartId(It.IsAny<Guid>()), Times.Once);
+            itemNamePartRepository.Verify(
+                x => x.Add(
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<int>()),
+                Times.Once);
         }
 
         [Fact]
@@ -221,7 +269,6 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             // Setup
             var id = Guid.NewGuid();
             var itemDefinitionId = Guid.NewGuid();
-            var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
             var itemTypeId = Guid.NewGuid();
@@ -232,6 +279,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var statId = Guid.NewGuid();
             var statDefinitionId = Guid.NewGuid();
             var itemMiscRequirementsId = Guid.NewGuid();
+            var itemNamePartId = Guid.NewGuid();
+            var itemNamePartPartId = Guid.NewGuid();
+            var itemNamePartNameStringResourceId = Guid.NewGuid();
             const int STAT_VALUE = 123;
 
             var itemStore = new Mock<IItemStore>(MockBehavior.Strict);
@@ -246,13 +296,13 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             itemStat
                 .Setup(x => x.Value)
                 .Returns(STAT_VALUE);
-            
+
             var itemStats = new Mock<IStatCollection>(MockBehavior.Strict);
             itemStats
                 .Setup(x => x.GetEnumerator())
                 .Returns(new List<IStat>()
                 {
-                    itemStat.Object  
+                    itemStat.Object
                 }.GetEnumerator());
 
             var itemEnchantments = new Mock<IEnchantmentCollection>(MockBehavior.Strict);
@@ -281,6 +331,25 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.ClassDefinitionId)
                 .Returns(classDefinitionId);
 
+            var itemNamePart = new Mock<IItemNamePart>(MockBehavior.Strict);
+            itemNamePart
+                .Setup(x => x.Id)
+                .Returns(itemNamePartId);
+            itemNamePart
+                .Setup(x => x.PartId)
+                .Returns(itemNamePartPartId);
+            itemNamePart
+                .Setup(x => x.NameStringResourceId)
+                .Returns(itemNamePartNameStringResourceId);
+            itemNamePart
+                .Setup(x => x.Order)
+                .Returns(1);
+
+            var itemNameParts = new[]
+            {
+                itemNamePart.Object,
+            };
+
             var sourceItem = new Mock<IItem>(MockBehavior.Strict);
             sourceItem
                 .Setup(x => x.Id)
@@ -289,8 +358,8 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.ItemDefinitionId)
                 .Returns(itemDefinitionId);
             sourceItem
-                .Setup(x => x.NameStringResourceId)
-                .Returns(nameStringResourceId);
+                .Setup(x => x.ItemNameParts)
+                .Returns(itemNameParts);
             sourceItem
                 .Setup(x => x.InventoryGraphicResourceId)
                 .Returns(inventoryGraphicResourceId);
@@ -328,7 +397,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 .Setup(x => x.Add(
                     id,
                     itemDefinitionId,
-                    nameStringResourceId,
+                    itemNamePartPartId,
                     inventoryGraphicResourceId,
                     magicTypeId,
                     itemTypeId,
@@ -343,11 +412,12 @@ namespace ProjectXyz.Application.Tests.Unit.Items
 
             var itemStoreItemMiscRequirements = new Mock<IItemStoreItemMiscRequirements>(MockBehavior.Strict);
 
-            var itemStoreItemMiscRequirementsRepository = new Mock<IItemStoreItemMiscRequirementsRepository>(MockBehavior.Strict);
+            var itemStoreItemMiscRequirementsRepository =
+                new Mock<IItemStoreItemMiscRequirementsRepository>(MockBehavior.Strict);
             itemStoreItemMiscRequirementsRepository
                 .Setup(x => x.Add(It.IsAny<Guid>(), id, itemMiscRequirementsId))
                 .Returns(itemStoreItemMiscRequirements.Object);
-            
+
             var itemMiscRequirementsRepository = new Mock<IItemMiscRequirementsRepository>(MockBehavior.Strict);
             itemMiscRequirementsRepository
                 .Setup(x => x.Add(It.IsAny<Guid>(), raceDefinitionId, classDefinitionId))
@@ -373,16 +443,28 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                     STAT_VALUE))
                 .Returns(itemStat.Object);
 
+            var itemNamePartRepository = new Mock<IItemNamePartRepository>(MockBehavior.Strict);
+            itemNamePartRepository
+                .Setup(x => x.RemoveByPartId(itemNamePartPartId));
+            itemNamePartRepository
+                .Setup(x => x.Add(
+                    itemNamePartId,
+                    itemNamePartPartId,
+                    itemNamePartNameStringResourceId,
+                    1))
+                .Returns(itemNamePart.Object);
+
             var itemSaver = ItemSaver.Create(
-               enchantmentSaver.Object,
-               itemEnchantmentRepository.Object,
-               itemStoreRepository.Object,
-               itemStoreItemMiscRequirementsRepository.Object,
-               itemMiscRequirementsRepository.Object,
-               itemStatRequirementsRepository.Object,
-               socketedItemRepository.Object,
-               itemStatRepository.Object,
-               statRepository.Object);
+                enchantmentSaver.Object,
+                itemEnchantmentRepository.Object,
+                itemStoreRepository.Object,
+                itemStoreItemMiscRequirementsRepository.Object,
+                itemMiscRequirementsRepository.Object,
+                itemStatRequirementsRepository.Object,
+                socketedItemRepository.Object,
+                itemStatRepository.Object,
+                statRepository.Object,
+                itemNamePartRepository.Object);
 
             // Execute
             var result = itemSaver.Save(sourceItem.Object);
@@ -392,7 +474,6 @@ namespace ProjectXyz.Application.Tests.Unit.Items
 
             itemStats.Verify(x => x.GetEnumerator(), Times.Once());
 
-            itemStat.Verify(x => x.Id, Times.Once());
             itemStat.Verify(x => x.Id, Times.Once());
             itemStat.Verify(x => x.Value, Times.Once());
 
@@ -409,7 +490,17 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                     It.IsAny<Guid>(),
                     It.IsAny<double>()),
                 Times.Once);
+
+            itemNamePartRepository.Verify(x => x.RemoveByPartId(It.IsAny<Guid>()), Times.Once);
+            itemNamePartRepository.Verify(
+                x => x.Add(
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<Guid>(),
+                    It.IsAny<int>()),
+                Times.Once);
         }
+
         #endregion
     }
 }

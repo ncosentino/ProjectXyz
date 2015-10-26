@@ -56,6 +56,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             itemAffixDefinition1
                 .Setup(x => x.NameStringResourceId)
                 .Returns(itemAffixDefinitionNameStringResourceId1);
+            itemAffixDefinition1
+                .Setup(x => x.IsPrefix)
+                .Returns(true);
 
             var itemAffixDefinition2 = new Mock<IItemAffixDefinition>(MockBehavior.Strict);
             itemAffixDefinition2
@@ -64,6 +67,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             itemAffixDefinition2
                 .Setup(x => x.NameStringResourceId)
                 .Returns(itemAffixDefinitionNameStringResourceId2);
+            itemAffixDefinition2
+                .Setup(x => x.IsPrefix)
+                .Returns(false);
 
             var itemAffixDefinitionRepository = new Mock<IItemAffixDefinitionRepository>(MockBehavior.Strict);
             itemAffixDefinitionRepository
@@ -115,6 +121,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                 .Setup(x => x.Create(
                     itemAffixDefinitionId1,
                     itemAffixDefinitionNameStringResourceId1,
+                    true,
                     new[]
                     {
                         enchantment1.Object,
@@ -124,6 +131,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                 .Setup(x => x.Create(
                     itemAffixDefinitionId2,
                     itemAffixDefinitionNameStringResourceId2,
+                    false,
                     new[]
                     {
                         enchantment2.Object,
@@ -168,9 +176,11 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             
             itemAffixDefinition1.Verify(x => x.Id, Times.Once);
             itemAffixDefinition1.Verify(x => x.NameStringResourceId, Times.Once);
-            
+            itemAffixDefinition1.Verify(x => x.IsPrefix, Times.Once);
+
             itemAffixDefinition2.Verify(x => x.Id, Times.Once);
             itemAffixDefinition2.Verify(x => x.NameStringResourceId, Times.Once);
+            itemAffixDefinition2.Verify(x => x.IsPrefix, Times.Once);
 
             itemAffixDefinitionRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Exactly(2));
 
@@ -189,7 +199,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
 
             itemAffixEnchantmentRepository.Verify(x => x.GetByItemAffixDefinitionId(It.IsAny<Guid>()), Times.Exactly(2));
             
-            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Exactly(2));
+            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<bool>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Exactly(2));
 
             magicTypesRandomAffixes.Verify(x => x.MinimumAffixes, Times.Once);
             magicTypesRandomAffixes.Verify(x => x.MaximumAffixes, Times.Once);
@@ -231,7 +241,10 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             itemPrefixDefinition
                 .Setup(x => x.NameStringResourceId)
                 .Returns(affixNameStringResourceId);
-            
+            itemPrefixDefinition
+                .Setup(x => x.IsPrefix)
+                .Returns(true);
+
             var itemAffixDefinitionRepository = new Mock<IItemAffixDefinitionRepository>(MockBehavior.Strict);
             itemAffixDefinitionRepository
                 .Setup(x => x.GetById(itemPrefixId))
@@ -273,6 +286,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                 .Setup(x => x.Create(
                     itemPrefixId,
                     affixNameStringResourceId,
+                    true,
                     new[]
                     {
                         enchantment1.Object,
@@ -305,6 +319,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
 
             itemPrefixDefinition.Verify(x => x.Id, Times.Once);
             itemPrefixDefinition.Verify(x => x.NameStringResourceId, Times.Once);
+            itemPrefixDefinition.Verify(x => x.IsPrefix, Times.Once);
 
             itemAffixDefinitionRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Once);
 
@@ -323,7 +338,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
 
             itemAffixEnchantmentRepository.Verify(x => x.GetByItemAffixDefinitionId(It.IsAny<Guid>()), Times.Once);
 
-            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
+            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<bool>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
         }
 
         [Fact]
@@ -360,6 +375,9 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
             itemSuffixDefinition
                 .Setup(x => x.NameStringResourceId)
                 .Returns(affixNameStringResourceId);
+            itemSuffixDefinition
+                .Setup(x => x.IsPrefix)
+                .Returns(false);
 
             var itemAffixDefinitionRepository = new Mock<IItemAffixDefinitionRepository>(MockBehavior.Strict);
             itemAffixDefinitionRepository
@@ -402,6 +420,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
                 .Setup(x => x.Create(
                     itemSuffixId,
                     affixNameStringResourceId,
+                    false,
                     new[]
                     {
                         enchantment1.Object,
@@ -434,6 +453,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
 
             itemSuffixDefinition.Verify(x => x.Id, Times.Once);
             itemSuffixDefinition.Verify(x => x.NameStringResourceId, Times.Once);
+            itemSuffixDefinition.Verify(x => x.IsPrefix, Times.Once);
 
             itemAffixDefinitionRepository.Verify(x => x.GetById(It.IsAny<Guid>()), Times.Once);
 
@@ -452,7 +472,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items.Affixes
 
             itemAffixEnchantmentRepository.Verify(x => x.GetByItemAffixDefinitionId(It.IsAny<Guid>()), Times.Once);
 
-            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
+            itemAffixFactory.Verify(x => x.Create(It.IsAny<Guid>(), It.IsAny<Guid>(), It.IsAny<bool>(), It.IsAny<IEnumerable<IEnchantment>>()), Times.Once);
         }
         #endregion
     }

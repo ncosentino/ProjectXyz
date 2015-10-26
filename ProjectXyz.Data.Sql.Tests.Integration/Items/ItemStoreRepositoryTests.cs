@@ -243,7 +243,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
 
             Assert.NotNull(result);
             Assert.Equal(id, result.Id);
-            Assert.Equal(nameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(nameStringResourceId, result.ItemNamePartId);
             Assert.Equal(inventoryGraphicResourceId, result.InventoryGraphicResourceId);
             Assert.Equal(magicTypeId, result.MagicTypeId);
             Assert.Equal(itemTypeId, result.ItemTypeId);
@@ -269,7 +269,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                 { "ItemTypeId", itemTypeId },
                 { "MagicTypeId", magicTypeId },
                 { "MaterialTypeId", materialTypeId },
-                { "NameStringResourceId", nameStringResourceId },
+                { "ItemNamePartId", nameStringResourceId },
                 { "SocketTypeId", socketTypeId },
             };
 
@@ -284,7 +284,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                     ItemTypeId,
                     MagicTypeId,
                     MaterialTypeId,
-                    NameStringResourceId,
+                    ItemNamePartId,
                     SocketTypeId
                 )
                 VALUES
@@ -295,7 +295,7 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Items
                     @ItemTypeId,
                     @MagicTypeId,
                     @MaterialTypeId,
-                    @NameStringResourceId,
+                    @ItemNamePartId,
                     @SocketTypeId
                 )
                 ;",

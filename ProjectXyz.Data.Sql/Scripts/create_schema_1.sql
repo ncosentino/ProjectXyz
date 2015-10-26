@@ -159,12 +159,19 @@ CREATE TABLE ItemDefinitionStatRequirements (
 CREATE TABLE Items (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [ItemDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ItemDefinitionId] REFERENCES [ItemDefinitions]([Id]),
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [ItemNamePartId] GUID NOT NULL ON CONFLICT FAIL,
   [InventoryGraphicResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_InventoryGraphicResourceId] REFERENCES [GraphicResources]([Id]),
   [MagicTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_MagicTypeId] REFERENCES [MagicTypes]([Id]),
   [ItemTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ItemTypeId] REFERENCES [ItemTypes]([Id]),
   [MaterialTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_MaterialTypeId] REFERENCES [MaterialTypes]([Id]),
   [SocketTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_SocketTypeId] REFERENCES [SocketTypes]([Id]),
+  PRIMARY KEY (Id));
+
+CREATE TABLE ItemNameParts (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [PartId] GUID NOT NULL ON CONFLICT FAIL,
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [Order] INT NOT NULL ON CONFLICT FAIL,
   PRIMARY KEY (Id));
 
 CREATE TABLE ItemStatRequirements (

@@ -6,6 +6,7 @@ using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
@@ -26,6 +27,15 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             {
                 Contract.Ensures(Contract.Result<IStatCollection>() != null);
                 return default(IStatCollection);
+            }
+        }
+
+        public IEnumerable<IItemNamePart> ItemNameParts
+        {
+            get
+            {
+                Contract.Ensures(Contract.Result<IEnumerable<IItemNamePart>>() != null);
+                return default(IEnumerable<IItemNamePart>);
             }
         }
 

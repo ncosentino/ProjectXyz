@@ -10,7 +10,7 @@ namespace ProjectXyz.Data.Interface.Items
         IItemStore Add(
             Guid id,
             Guid itemDefinitionId,
-            Guid nameStringResourceId,
+            Guid itemNamePartId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
             Guid itemTypeId,

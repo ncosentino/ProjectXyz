@@ -12,6 +12,8 @@ namespace ProjectXyz.Application.Interface.Items.Affixes
 
         Guid NameStringResourceId { get; }
 
+        bool Prefix { get; }
+
         IEnumerable<IEnchantment> Enchantments { get; }
         #endregion
     }

@@ -248,7 +248,13 @@ namespace ProjectXyz.Plugins.Items.Magic.Tests.Integration
             Assert.Equal(addResult.ItemDefinition.ItemTypeId, result.ItemTypeId);
             Assert.Equal(addResult.ItemDefinition.MagicTypeId, result.MagicTypeId);
             Assert.Equal(addResult.ItemDefinition.MaterialTypeId, result.MaterialTypeId);
-            Assert.Equal(addResult.ItemDefinition.NameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(2, result.ItemNameParts.Count());
+            Assert.True(
+                result.ItemNameParts.Any(x => x.NameStringResourceId == addResult.ItemDefinition.NameStringResourceId),
+                "Expecting a name part containing the item's name.");
+            Assert.True(
+                result.ItemNameParts.Any(x => x.NameStringResourceId == itemAffixDefinition.NameStringResourceId),
+                "Expecting a name part containing the affix's name");
             Assert.Equal(addResult.ItemDefinition.SocketTypeId, result.SocketTypeId);
 
             Assert.Equal(1, result.Enchantments.Count());

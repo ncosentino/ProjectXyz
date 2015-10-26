@@ -24,11 +24,13 @@ namespace ProjectXyz.Application.Core.Items.Affixes
         public IItemAffix Create(
             Guid itemAffixDefinitionId,
             Guid nameStringResourceId,
+            bool prefix,
             IEnumerable<IEnchantment> enchantments)
         {
             var itemAffix = ItemAffix.Create(
                 itemAffixDefinitionId,
                 nameStringResourceId,
+                prefix,
                 enchantments);
             return itemAffix;
         }

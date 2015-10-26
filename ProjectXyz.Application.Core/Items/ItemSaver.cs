@@ -23,6 +23,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly ISocketedItemRepository _socketedItemRepository;
         private readonly IItemStatRepository _itemStatRepository;
         private readonly IStatRepository _statRepository;
+        private readonly IItemNamePartRepository _itemNamePartRepository;
         #endregion
 
         #region Constructors
@@ -35,7 +36,8 @@ namespace ProjectXyz.Application.Core.Items
             IItemStatRequirementsRepository itemStatRequirementsRepository,
             ISocketedItemRepository socketedItemRepository,
             IItemStatRepository itemStatRepository,
-            IStatRepository statRepository)
+            IStatRepository statRepository,
+            IItemNamePartRepository itemNamePartRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
             Contract.Requires<ArgumentNullException>(itemEnchantmentRepository != null);
@@ -46,6 +48,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(socketedItemRepository != null);
             Contract.Requires<ArgumentNullException>(itemStatRepository != null);
             Contract.Requires<ArgumentNullException>(statRepository != null);
+            Contract.Requires<ArgumentNullException>(itemNamePartRepository != null);
 
             _enchantmentSaver = enchantmentSaver;
             _itemEnchantmentRepository = itemEnchantmentRepository;
@@ -56,6 +59,7 @@ namespace ProjectXyz.Application.Core.Items
             _socketedItemRepository = socketedItemRepository;
             _itemStatRepository = itemStatRepository;
             _statRepository = statRepository;
+            _itemNamePartRepository = itemNamePartRepository;
         }
         #endregion
 
@@ -69,7 +73,8 @@ namespace ProjectXyz.Application.Core.Items
             IItemStatRequirementsRepository itemStatRequirementsRepository,
             ISocketedItemRepository socketedItemRepository,
             IItemStatRepository itemStatRepository,
-            IStatRepository statRepository)
+            IStatRepository statRepository,
+            IItemNamePartRepository itemNamePartRepository)
         {
             Contract.Requires<ArgumentNullException>(enchantmentSaver != null);
             Contract.Requires<ArgumentNullException>(itemEnchantmentRepository != null);
@@ -80,6 +85,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentNullException>(socketedItemRepository != null);
             Contract.Requires<ArgumentNullException>(itemStatRepository != null);
             Contract.Requires<ArgumentNullException>(statRepository != null);
+            Contract.Requires<ArgumentNullException>(itemNamePartRepository != null);
             Contract.Ensures(Contract.Result<IItemSaver>() != null);
 
             var itemSaver = new ItemSaver(
@@ -91,16 +97,30 @@ namespace ProjectXyz.Application.Core.Items
                 itemStatRequirementsRepository,
                 socketedItemRepository,
                 itemStatRepository,
-                statRepository);
+                statRepository,
+                itemNamePartRepository);
             return itemSaver;
         }
 
         public IItemStore Save(IItem source)
         {
+            // FIXME: this name deleting/saving seems a bit shitty...
+            var itemNamePartId = source.ItemNameParts.First().PartId;
+            _itemNamePartRepository.RemoveByPartId(itemNamePartId);
+            
+            foreach (var itemNamePart in source.ItemNameParts)
+            {
+                _itemNamePartRepository.Add(
+                    itemNamePart.Id,
+                    itemNamePart.PartId,
+                    itemNamePart.NameStringResourceId,
+                    itemNamePart.Order);
+            }
+            
             var itemStore = _itemStoreRepository.Add(
                 source.Id,
                 source.ItemDefinitionId,
-                source.NameStringResourceId,
+                itemNamePartId,
                 source.InventoryGraphicResourceId,
                 source.MagicTypeId,
                 source.ItemTypeId,

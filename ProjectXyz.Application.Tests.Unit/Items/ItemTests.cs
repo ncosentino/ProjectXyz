@@ -9,6 +9,7 @@ using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Tests.Xunit.Categories;
@@ -40,6 +41,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 id,
                 itemDefinitionId,
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 Enumerable.Empty<IStat>(),
                 Enumerable.Empty<IEnchantment>(),
@@ -65,6 +67,8 @@ namespace ProjectXyz.Application.Tests.Unit.Items
             var itemDefinitionId = Guid.NewGuid();
 
             var itemMetaData = new Mock<IItemMetaData>(MockBehavior.Strict);
+
+            var itemNameParts = new IItemNamePart[0];
 
             var itemRequirements = new Mock<IItemRequirements>(MockBehavior.Strict);
 
@@ -99,6 +103,7 @@ namespace ProjectXyz.Application.Tests.Unit.Items
                 id,
                 itemDefinitionId,
                 itemMetaData.Object,
+                Enumerable.Empty<IItemNamePart>(),
                 itemRequirements.Object,
                 Enumerable.Empty<IStat>(),
                 Enumerable.Empty<IEnchantment>(),

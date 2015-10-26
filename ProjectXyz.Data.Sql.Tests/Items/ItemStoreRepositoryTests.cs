@@ -42,7 +42,7 @@ namespace ProjectXyz.Data.Sql.Tests.Unit.Items
                 .Returns(id);
 
             reader
-                .Setup(x => x.GetOrdinal("NameStringResourceId"))
+                .Setup(x => x.GetOrdinal("ItemNamePartId"))
                 .Returns(1);
             reader
                 .Setup(x => x.GetGuid(1))

@@ -27,6 +27,7 @@ namespace ProjectXyz.Plugins.Items.Normal
                 itemApplicationManager.ItemFactory,
                 itemApplicationManager.ItemMetaDataFactory,
                 itemApplicationManager.ItemRequirementsFactory,
+                dataManager.Items.ItemNamePartFactory,
                 dataManager.Stats.StatFactory,
                 statRepository,
                 dataManager.Items);

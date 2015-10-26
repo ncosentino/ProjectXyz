@@ -11,7 +11,7 @@ namespace ProjectXyz.Data.Core.Items
         #region Fields
         private readonly Guid _id;
         private readonly Guid _itemDefinitionId;
-        private readonly Guid _nameStringResourceId;
+        private readonly Guid _itemNamePartId;
         private readonly Guid _inventoryGraphicResourceId;
         private readonly Guid _magicTypeId;
         private readonly Guid _itemTypeId;
@@ -23,7 +23,7 @@ namespace ProjectXyz.Data.Core.Items
         private ItemStore(
             Guid id,
             Guid itemDefinitionId,
-            Guid nameStringResourceId,
+            Guid itemNamePartId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
             Guid itemTypeId,
@@ -32,7 +32,7 @@ namespace ProjectXyz.Data.Core.Items
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
-            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
+            Contract.Requires<ArgumentException>(itemNamePartId != Guid.Empty);
             Contract.Requires<ArgumentException>(inventoryGraphicResourceId != Guid.Empty);
             Contract.Requires<ArgumentException>(magicTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(itemTypeId != Guid.Empty);
@@ -41,7 +41,7 @@ namespace ProjectXyz.Data.Core.Items
 
             _id = id;
             _itemDefinitionId = itemDefinitionId;
-            _nameStringResourceId = nameStringResourceId;
+            _itemNamePartId = itemNamePartId;
             _inventoryGraphicResourceId = inventoryGraphicResourceId;
             _magicTypeId = magicTypeId;
             _itemTypeId = itemTypeId;
@@ -58,7 +58,7 @@ namespace ProjectXyz.Data.Core.Items
         public Guid ItemDefinitionId { get { return _itemDefinitionId; } }
 
         /// <inheritdoc />
-        public Guid NameStringResourceId { get { return _nameStringResourceId; } }
+        public Guid ItemNamePartId { get { return _itemNamePartId; } }
 
         /// <inheritdoc />
         public Guid InventoryGraphicResourceId { get { return _inventoryGraphicResourceId; } }

@@ -156,6 +156,8 @@
     <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGrouping.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantmentFactory.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantment.cs" />
+    <Compile Include="Items\ItemNamePartFactory.cs" />
+    <Compile Include="Items\ItemNamePart.cs" />
     <Compile Include="Items\ItemTypeGeneratorPluginFactory.cs" />
     <Compile Include="Items\ItemTypeGeneratorPlugin.cs" />
     <Compile Include="Items\ItemDefinitionStat.cs" />

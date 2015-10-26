@@ -8,6 +8,7 @@ using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Items.Requirements;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Data.Core.Items;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Sql;
@@ -40,6 +41,8 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
             var itemMetaDataFactory = ItemMetaDataFactory.Create();
 
             var itemRequirementsFactory = ItemRequirementsFactory.Create();
+
+            var itemNamePartFactory = ItemNamePartFactory.Create();
 
             var statFactory = StatFactory.Create();
 
@@ -74,6 +77,7 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
                 itemFactory,
                 itemMetaDataFactory,
                 itemRequirementsFactory,
+                itemNamePartFactory,
                 statFactory,
                 statRepository,
                 dataManager.Items);
@@ -91,7 +95,8 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
             Assert.Equal(addResult.ItemDefinition.ItemTypeId, result.ItemTypeId);
             Assert.Equal(addResult.ItemDefinition.MagicTypeId, result.MagicTypeId);
             Assert.Equal(addResult.ItemDefinition.MaterialTypeId, result.MaterialTypeId);
-            Assert.Equal(addResult.ItemDefinition.NameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(1, result.ItemNameParts.Count());
+            Assert.Equal(addResult.ItemDefinition.NameStringResourceId, result.ItemNameParts.First().NameStringResourceId);
             Assert.Equal(addResult.ItemDefinition.SocketTypeId, result.SocketTypeId);
             Assert.Empty(result.Enchantments);
         }

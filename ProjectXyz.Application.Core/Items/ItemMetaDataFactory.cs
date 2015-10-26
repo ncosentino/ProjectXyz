@@ -21,7 +21,6 @@ namespace ProjectXyz.Application.Core.Items
         }
 
         public IItemMetaData Create(
-            Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
             Guid itemTypeId,
@@ -29,7 +28,6 @@ namespace ProjectXyz.Application.Core.Items
             Guid socketTypeId)
         {
             var itemMetaData = ItemMetaData.Create(
-                nameStringResourceId,
                 inventoryGraphicResourceId,
                 magicTypeId,
                 itemTypeId,

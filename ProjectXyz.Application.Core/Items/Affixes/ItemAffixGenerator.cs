@@ -126,6 +126,7 @@ namespace ProjectXyz.Application.Core.Items.Affixes
             return _itemAffixFactory.Create(
                 affixDefinitionId,
                 affixDefinition.NameStringResourceId,
+                affixDefinition.IsPrefix,
                 enchantments);
         }
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ProjectXyz.Application.Interface.Items
 {
@@ -8,7 +6,6 @@ namespace ProjectXyz.Application.Interface.Items
     {
         #region Methods
         IItemMetaData Create(
-            Guid nameStringResourceId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
             Guid itemTypeId,

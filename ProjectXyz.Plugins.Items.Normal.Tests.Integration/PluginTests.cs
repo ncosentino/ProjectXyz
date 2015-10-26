@@ -86,7 +86,8 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
             Assert.Equal(addResult.ItemDefinition.ItemTypeId, result.ItemTypeId);
             Assert.Equal(addResult.ItemDefinition.MagicTypeId, result.MagicTypeId);
             Assert.Equal(addResult.ItemDefinition.MaterialTypeId, result.MaterialTypeId);
-            Assert.Equal(addResult.ItemDefinition.NameStringResourceId, result.NameStringResourceId);
+            Assert.Equal(1, result.ItemNameParts.Count());
+            Assert.Equal(addResult.ItemDefinition.NameStringResourceId, result.ItemNameParts.First().NameStringResourceId);
             Assert.Equal(addResult.ItemDefinition.SocketTypeId, result.SocketTypeId);
             Assert.Empty(result.Enchantments);
         }

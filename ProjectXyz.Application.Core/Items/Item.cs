@@ -12,6 +12,7 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Items.Requirements;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
@@ -31,6 +32,7 @@ namespace ProjectXyz.Application.Core.Items
         private readonly List<Guid> _equippableSlots;
         private readonly IMutableStatCollection _baseStats;
         private readonly List<IItemAffix> _affixes;
+        private readonly List<IItemNamePart> _itemNameParts;
 
         private IMutableStatCollection _stats;
         private bool _statsDirty;
@@ -42,6 +44,7 @@ namespace ProjectXyz.Application.Core.Items
             Guid id,
             Guid itemDefinitionId,
             IItemMetaData itemMetaData,
+            IEnumerable<IItemNamePart> itemNameParts,
             IItemRequirements itemRequirements,
             IEnumerable<IStat> stats,
             IEnumerable<IEnchantment> enchantments,
@@ -53,6 +56,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(itemNameParts != null);
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Requires<ArgumentNullException>(affixes != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
@@ -62,6 +66,7 @@ namespace ProjectXyz.Application.Core.Items
             _id = id;
             _itemDefinitionId = itemDefinitionId;
             _itemMetaData = itemMetaData;
+            _itemNameParts = new List<IItemNamePart>(itemNameParts);
             _requirements = itemRequirements;
             _equippableSlots = new List<Guid>(equippableSlots);
             _affixes = new List<IItemAffix>(affixes);
@@ -96,9 +101,9 @@ namespace ProjectXyz.Application.Core.Items
         }
 
         /// <inheritdoc />
-        public Guid NameStringResourceId
+        public IEnumerable<IItemNamePart> ItemNameParts
         {
-            get { return _itemMetaData.NameStringResourceId; }
+            get { return _itemNameParts; }
         }
 
         /// <inheritdoc />
@@ -228,6 +233,7 @@ namespace ProjectXyz.Application.Core.Items
             Guid id,
             Guid itemDefinitionId,
             IItemMetaData itemMetaData,
+            IEnumerable<IItemNamePart> itemNameParts,
             IItemRequirements itemRequirements,
             IEnumerable<IStat> stats,
             IEnumerable<IEnchantment> enchantments,
@@ -239,6 +245,7 @@ namespace ProjectXyz.Application.Core.Items
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(itemNameParts != null);
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Requires<ArgumentNullException>(affixes != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);
@@ -250,6 +257,7 @@ namespace ProjectXyz.Application.Core.Items
                 id,
                 itemDefinitionId,
                 itemMetaData,
+                itemNameParts,
                 itemRequirements,
                 stats,
                 enchantments,
@@ -304,7 +312,7 @@ namespace ProjectXyz.Application.Core.Items
 
         public override string ToString()
         {
-            return string.Format("Id: {0}, NameStringResourceId: {1}", Id, NameStringResourceId);
+            return $"Id: {Id}, Item Name Parts: {string.Join(", ", ItemNameParts.OrderBy(x => x.Order).Select(x => x.Id.ToString()).ToArray())}";
         }
 
         private void EnsureStatsCalculated()

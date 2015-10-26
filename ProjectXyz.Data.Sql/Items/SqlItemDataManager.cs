@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Data.Core.Enchantments;
+﻿using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Items;
 using ProjectXyz.Data.Core.Items.Affixes;
 using ProjectXyz.Data.Core.Items.EquipSlots;
@@ -43,6 +40,8 @@ namespace ProjectXyz.Data.Sql.Items
         private readonly ISocketTypeRepository _socketTypeRepository;
         private readonly IMaterialTypeRepository _materialTypeRepository;
         private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IItemNamePartRepository _itemNamePartRepository;
+        private readonly IItemNamePartFactory _itemNamePartFactory;
         private readonly IItemTypeGeneratorPluginRepository _itemTypeGeneratorPluginRepository;
         private readonly IMagicTypeRepository _magicTypeRepository;
         private readonly IMagicTypeGroupingRepository _magicTypeGroupingRepository;
@@ -121,6 +120,11 @@ namespace ProjectXyz.Data.Sql.Items
                 database,
                 itemTypeFactory);
 
+            _itemNamePartFactory = Core.Items.ItemNamePartFactory.Create();
+            _itemNamePartRepository = ItemNamePartRepository.Create(
+                database,
+                _itemNamePartFactory);
+
             var itemTypeGeneratorPluginFactory = ItemTypeGeneratorPluginFactory.Create();
             _itemTypeGeneratorPluginRepository = ItemTypeGeneratorPluginRepository.Create(
                 database,
@@ -171,6 +175,10 @@ namespace ProjectXyz.Data.Sql.Items
         public IMaterialTypeRepository MaterialTypes { get { return _materialTypeRepository; } }
 
         public IItemTypeRepository ItemTypes { get { return _itemTypeRepository; } }
+
+        public IItemNamePartRepository ItemNameParts { get { return _itemNamePartRepository; } }
+
+        public IItemNamePartFactory ItemNamePartFactory { get { return _itemNamePartFactory; } }
 
         public IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get { return _itemTypeGeneratorPluginRepository; } }
 

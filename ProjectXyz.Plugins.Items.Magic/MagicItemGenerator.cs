@@ -17,6 +17,7 @@ namespace ProjectXyz.Plugins.Items.Magic
         private readonly IItemTypeGenerator _normalItemGenerator;
         private readonly IItemAffixGenerator _itemAffixGenerator;
         private readonly IItemDataManager _itemDataManager;
+        private readonly IItemNamePartFactory _itemNamePartFactory;
         #endregion
 
         #region COnstructors
@@ -24,6 +25,7 @@ namespace ProjectXyz.Plugins.Items.Magic
             Guid magicType,
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
+            IItemNamePartFactory itemNamePartFactory,
             IItemTypeGenerator normalItemGenerator,
             IItemAffixGenerator itemAffixGenerator,
             IItemDataManager itemDataManager)
@@ -31,6 +33,7 @@ namespace ProjectXyz.Plugins.Items.Magic
             _magicType = magicType;
             _itemFactory = itemFactory;
             _itemMetaDataFactory = itemMetaDataFactory;
+            _itemNamePartFactory = itemNamePartFactory;
             _normalItemGenerator = normalItemGenerator;
             _itemAffixGenerator = itemAffixGenerator;
             _itemDataManager = itemDataManager;
@@ -42,6 +45,7 @@ namespace ProjectXyz.Plugins.Items.Magic
             Guid magicType,
             IItemFactory itemFactory,
             IItemMetaDataFactory itemMetaDataFactory,
+            IItemNamePartFactory itemNamePartFactory,
             IItemTypeGenerator normalItemGenerator,
             IItemAffixGenerator itemAffixGenerator,
             IItemDataManager itemDataManager)
@@ -50,6 +54,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 magicType,
                 itemFactory,
                 itemMetaDataFactory,
+                itemNamePartFactory,
                 normalItemGenerator,
                 itemAffixGenerator,
                 itemDataManager);
@@ -69,7 +74,6 @@ namespace ProjectXyz.Plugins.Items.Magic
                 itemContext);
 
             var itemMetaData = _itemMetaDataFactory.Create(
-                normalItem.NameStringResourceId,
                 normalItem.InventoryGraphicResourceId,
                 _magicType,
                 normalItem.ItemTypeId,
@@ -87,13 +91,16 @@ namespace ProjectXyz.Plugins.Items.Magic
                 .SelectMany(x => x.Enchantments)
                 .Concat(normalItem.Enchantments);
 
-            // TODO: how do we name the item using the affixes now?
-            
+            var itemNameParts = CreateItemName(
+                normalItem,
+                affixes);
+
             var item = _itemFactory.Create(
                 itemContext,
                 Guid.NewGuid(),
                 itemDefinitionId,
                 itemMetaData,
+                itemNameParts,
                 normalItem.Requirements,
                 normalItem.Stats,
                 enchantments,
@@ -101,6 +108,46 @@ namespace ProjectXyz.Plugins.Items.Magic
                 Enumerable.Empty<IItem>(),
                 normalItem.EquippableSlotIds);
             return item;
+        }
+
+        private IEnumerable<IItemNamePart> CreateItemName(
+            IItem normalItem,
+            IEnumerable<IItemAffix> affixes)
+        {
+            // give our item a nice new name based on the affixes
+            var nameParts = new List<IItemNamePart>(normalItem.ItemNameParts);
+            var originalNamePart = normalItem.ItemNameParts.First();
+
+            var prefix = affixes.FirstOrDefault(x => x.Prefix);
+            if (prefix != null)
+            {
+                nameParts.Add(_itemNamePartFactory.Create(
+                    Guid.NewGuid(),
+                    originalNamePart.PartId,
+                    prefix.NameStringResourceId,
+                    0));
+
+                // re-insert the original name part at index 1
+                nameParts.Remove(originalNamePart);
+                originalNamePart = _itemNamePartFactory.Create(
+                    originalNamePart.Id,
+                    originalNamePart.PartId,
+                    originalNamePart.NameStringResourceId,
+                    1);
+                nameParts.Add(originalNamePart);
+            }
+
+            var suffix = affixes.FirstOrDefault(x => !x.Prefix);
+            if (suffix != null)
+            {
+                nameParts.Add(_itemNamePartFactory.Create(
+                    Guid.NewGuid(),
+                    originalNamePart.PartId,
+                    suffix.NameStringResourceId,
+                    originalNamePart.Order + 1));
+            }
+
+            return nameParts;
         }
 
         private IEnumerable<IItemAffix> GenerateAffixes(

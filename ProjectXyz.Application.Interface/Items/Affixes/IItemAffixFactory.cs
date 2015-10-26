@@ -11,6 +11,7 @@ namespace ProjectXyz.Application.Interface.Items.Affixes
         IItemAffix Create(
             Guid itemAffixDefinitionId,
             Guid nameStringResourceId,
+            bool prefix,
             IEnumerable<IEnchantment> enchantments);
         #endregion
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
+using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
@@ -18,6 +19,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             Guid id,
             Guid itemDefinitionId,
             IItemMetaData itemMetaData,
+            IEnumerable<IItemNamePart> itemNameParts,
             IItemRequirements itemRequirements,
             IEnumerable<IStat> stats,
             IEnumerable<IEnchantment> enchantments,
@@ -29,6 +31,7 @@ namespace ProjectXyz.Application.Interface.Items.Contracts
             Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Requires<ArgumentException>(itemDefinitionId != Guid.Empty);
             Contract.Requires<ArgumentNullException>(itemMetaData != null);
+            Contract.Requires<ArgumentNullException>(itemNameParts != null);
             Contract.Requires<ArgumentNullException>(enchantments != null);
             Contract.Requires<ArgumentNullException>(affixes != null);
             Contract.Requires<ArgumentNullException>(socketedItems != null);

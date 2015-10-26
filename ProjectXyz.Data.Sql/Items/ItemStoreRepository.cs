@@ -45,7 +45,7 @@ namespace ProjectXyz.Data.Sql.Items
         public IItemStore Add(
             Guid id,
             Guid itemDefinitionId,
-            Guid nameStringResourceId,
+            Guid itemNamePartId,
             Guid inventoryGraphicResourceId,
             Guid magicTypeId,
             Guid itemTypeId,
@@ -60,7 +60,7 @@ namespace ProjectXyz.Data.Sql.Items
                 { "ItemTypeId", itemTypeId },
                 { "MagicTypeId", magicTypeId },
                 { "MaterialTypeId", materialTypeId },
-                { "NameStringResourceId", nameStringResourceId },
+                { "ItemNamePartId", itemNamePartId },
                 { "SocketTypeId", socketTypeId },
             };
 
@@ -75,7 +75,7 @@ namespace ProjectXyz.Data.Sql.Items
                     ItemTypeId,
                     MagicTypeId,
                     MaterialTypeId,
-                    NameStringResourceId,
+                    ItemNamePartId,
                     SocketTypeId
                 )
                 VALUES
@@ -86,7 +86,7 @@ namespace ProjectXyz.Data.Sql.Items
                     @ItemTypeId,
                     @MagicTypeId,
                     @MaterialTypeId,
-                    @NameStringResourceId,
+                    @ItemNamePartId,
                     @SocketTypeId
                 )
                 ;",
@@ -98,7 +98,7 @@ namespace ProjectXyz.Data.Sql.Items
             var itemStore = _factory.Create(
                 id,
                 itemDefinitionId,
-                nameStringResourceId,
+                itemNamePartId,
                 inventoryGraphicResourceId,
                 magicTypeId,
                 itemTypeId,
@@ -179,7 +179,7 @@ namespace ProjectXyz.Data.Sql.Items
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
                 reader.GetGuid(reader.GetOrdinal("ItemDefinitionId")),
-                reader.GetGuid(reader.GetOrdinal("NameStringResourceId")),
+                reader.GetGuid(reader.GetOrdinal("ItemNamePartId")),
                 reader.GetGuid(reader.GetOrdinal("InventoryGraphicResourceId")),
                 reader.GetGuid(reader.GetOrdinal("MagicTypeId")),
                 reader.GetGuid(reader.GetOrdinal("ItemTypeId")),
