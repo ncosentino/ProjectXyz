@@ -13,6 +13,7 @@ using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Names;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Plugins.Enchantments.Expression;

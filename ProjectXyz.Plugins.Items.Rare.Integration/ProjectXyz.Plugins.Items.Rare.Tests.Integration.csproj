@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAE2A6C9-FC25-45D7-9A55-973E7E0E9FB3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectXyz.Plugins.Items.Rare.Tests.Integration</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Items.Rare.Tests.Integration</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net35\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.98.1\lib\net20\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.98.1\lib\net20\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PluginTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
+      <Project>{5F23D262-459C-4655-ACDE-D8563FE33698}</Project>
+      <Name>ProjectXyz.Application.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
+      <Project>{69A56C1B-CD41-4DCC-ABF1-DBB097DD489D}</Project>
+      <Name>ProjectXyz.Application.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
+      <Project>{FA14C733-DF45-4E7B-B61F-497D032FC0B1}</Project>
+      <Name>ProjectXyz.Data.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
+      <Project>{D84CA25F-A1F8-4EFC-AD09-906D786C3094}</Project>
+      <Name>ProjectXyz.Data.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Sql\ProjectXyz.Data.Sql.csproj">
+      <Project>{E424C78A-DA58-47D2-B003-DBB902CB92E7}</Project>
+      <Name>ProjectXyz.Data.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Interface\ProjectXyz.Interface.csproj">
+      <Project>{57BC7B00-7C8C-4470-A054-597742187E56}</Project>
+      <Name>ProjectXyz.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
+      <Project>{345A6A69-13F6-4089-BBF3-D6D502E8EC5B}</Project>
+      <Name>ProjectXyz.Plugins.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Expression\ProjectXyz.Plugins.Enchantments.Expression.csproj">
+      <Project>{B5AAF78D-6583-47C7-9EEF-EFEFCA828473}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.Expression</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.OneShotNegate\ProjectXyz.Plugins.Enchantments.OneShotNegate.csproj">
+      <Project>{400AA358-8128-4E01-9A44-9DE06EDEDAD2}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.OneShotNegate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments\ProjectXyz.Plugins.Enchantments.csproj">
+      <Project>{A8A53899-95AD-4466-9A3A-8A43DC9C6249}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
+      <Project>{44F68C7B-0CDB-49A8-8E71-89EBD095F7A4}</Project>
+      <Name>ProjectXyz.Plugins.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items.Magic\ProjectXyz.Plugins.Items.Magic.csproj">
+      <Project>{8AF646F9-7799-4910-9336-5DAFD38BD81D}</Project>
+      <Name>ProjectXyz.Plugins.Items.Magic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items.Normal.Tests.Integration\ProjectXyz.Plugins.Items.Normal.Tests.Integration.csproj">
+      <Project>{16EE4CB5-785D-4589-B030-EAB95147EA75}</Project>
+      <Name>ProjectXyz.Plugins.Items.Normal.Tests.Integration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items.Normal\ProjectXyz.Plugins.Items.Normal.csproj">
+      <Project>{043C7FAE-ADBE-460A-BFAF-8FB84DA5258F}</Project>
+      <Name>ProjectXyz.Plugins.Items.Normal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items.Rare\ProjectXyz.Plugins.Items.Rare.csproj">
+      <Project>{9d7ddcc3-91f3-4a4a-a867-a233b3d568d4}</Project>
+      <Name>ProjectXyz.Plugins.Items.Rare</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Items\ProjectXyz.Plugins.Items.csproj">
+      <Project>{565994C5-942A-429E-86C1-3D75E9CAF442}</Project>
+      <Name>ProjectXyz.Plugins.Items</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Tests.Integration\ProjectXyz.Tests.Integration.csproj">
+      <Project>{62743082-62ED-41A0-9C96-48F1C559D8E5}</Project>
+      <Name>ProjectXyz.Tests.Integration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Tests\ProjectXyz.Tests.csproj">
+      <Project>{732B4E6C-92FC-49CD-89A7-97E68D776DB0}</Project>
+      <Name>ProjectXyz.Tests</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.98.1\build\net20\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.98.1\build\net20\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.98.1\build\net20\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.98.1\build\net20\System.Data.SQLite.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

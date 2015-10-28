@@ -210,6 +210,19 @@ CREATE TABLE SocketedItems (
   [ChildItemId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ChildItemId] REFERENCES [Items]([Id]),
   PRIMARY KEY (Id)); 
 
+CREATE TABLE ItemTypeGroupings (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [GroupingId] GUID NOT NULL ON CONFLICT FAIL,
+  [ItemTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ItemTypeId] REFERENCES [ItemTypes]([Id]),
+  PRIMARY KEY (Id));
+
+CREATE TABLE RandomItemNameAffixes (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [IsPrefix] BIT NOT NULL ON CONFLICT FAIL,
+  [ItemTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL,
+  [MagicTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL,
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  PRIMARY KEY (Id));
 ---------------------------------------------------------------------------------------------------
 -- ENCHANTMENTS
 -- http://agiledata.org/essays/mappingObjects.html#MappingInheritance

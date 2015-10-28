@@ -4,6 +4,7 @@ using ProjectXyz.Data.Core.Items.Affixes;
 using ProjectXyz.Data.Core.Items.EquipSlots;
 using ProjectXyz.Data.Core.Items.MagicTypes;
 using ProjectXyz.Data.Core.Items.Materials;
+using ProjectXyz.Data.Core.Items.Names;
 using ProjectXyz.Data.Core.Items.Requirements;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Interface;
@@ -12,12 +13,14 @@ using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Items.EquipSlots;
 using ProjectXyz.Data.Interface.Items.MagicTypes;
 using ProjectXyz.Data.Interface.Items.Materials;
+using ProjectXyz.Data.Interface.Items.Names;
 using ProjectXyz.Data.Interface.Items.Requirements;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Sql.Items.Affixes;
 using ProjectXyz.Data.Sql.Items.EquipSlots;
 using ProjectXyz.Data.Sql.Items.MagicTypes;
 using ProjectXyz.Data.Sql.Items.Materials;
+using ProjectXyz.Data.Sql.Items.Names;
 using ProjectXyz.Data.Sql.Items.Requirements;
 using ProjectXyz.Data.Sql.Items.Sockets;
 
@@ -40,8 +43,11 @@ namespace ProjectXyz.Data.Sql.Items
         private readonly ISocketTypeRepository _socketTypeRepository;
         private readonly IMaterialTypeRepository _materialTypeRepository;
         private readonly IItemTypeRepository _itemTypeRepository;
+        private readonly IItemTypeGroupingRepository _itemTypeGroupingRepository;
         private readonly IItemNamePartRepository _itemNamePartRepository;
         private readonly IItemNamePartFactory _itemNamePartFactory;
+        private readonly IItemNameAffixRepository _itemNameAffixRepository;
+        private readonly IItemNameAffixFilter _itemNameAffixFilter;
         private readonly IItemTypeGeneratorPluginRepository _itemTypeGeneratorPluginRepository;
         private readonly IMagicTypeRepository _magicTypeRepository;
         private readonly IMagicTypeGroupingRepository _magicTypeGroupingRepository;
@@ -120,10 +126,23 @@ namespace ProjectXyz.Data.Sql.Items
                 database,
                 itemTypeFactory);
 
-            _itemNamePartFactory = Core.Items.ItemNamePartFactory.Create();
+            var itemTypeGroupingFactory = ItemTypeGroupingFactory.Create();
+            _itemTypeGroupingRepository = ItemTypeGroupingRepository.Create(
+                database,
+                itemTypeGroupingFactory);
+
+            _itemNamePartFactory = Core.Items.Names.ItemNamePartFactory.Create();
             _itemNamePartRepository = ItemNamePartRepository.Create(
                 database,
                 _itemNamePartFactory);
+            
+            var itemNameAffixFactory = ItemNameAffixFactory.Create();
+            _itemNameAffixRepository = ItemNameAffixRepository.Create(
+                database,
+                itemNameAffixFactory);
+            _itemNameAffixFilter = Names.ItemNameAffixFilter.Create(
+                database,
+                itemNameAffixFactory);
 
             var itemTypeGeneratorPluginFactory = ItemTypeGeneratorPluginFactory.Create();
             _itemTypeGeneratorPluginRepository = ItemTypeGeneratorPluginRepository.Create(
@@ -176,7 +195,13 @@ namespace ProjectXyz.Data.Sql.Items
 
         public IItemTypeRepository ItemTypes { get { return _itemTypeRepository; } }
 
+        public IItemTypeGroupingRepository ItemTypeGroupings { get { return _itemTypeGroupingRepository; } }
+
         public IItemNamePartRepository ItemNameParts { get { return _itemNamePartRepository; } }
+
+        public IItemNameAffixRepository ItemNameAffixes { get { return _itemNameAffixRepository; } }
+
+        public IItemNameAffixFilter ItemNameAffixFilter { get { return _itemNameAffixFilter; } }
 
         public IItemNamePartFactory ItemNamePartFactory { get { return _itemNamePartFactory; } }
 

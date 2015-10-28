@@ -9,6 +9,7 @@ using ProjectXyz.Application.Core.Items.Requirements;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Items;
+using ProjectXyz.Data.Core.Items.Names;
 using ProjectXyz.Data.Core.Items.Sockets;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Sql;

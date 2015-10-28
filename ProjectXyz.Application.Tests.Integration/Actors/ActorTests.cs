@@ -17,6 +17,7 @@ using ProjectXyz.Application.Tests.Integration.Helpers;
 using ProjectXyz.Data.Core.Enchantments;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Names;
 using ProjectXyz.Data.Tests.Unit.Actors.Mocks;
 using ProjectXyz.Plugins.Enchantments.Expression;
 using ProjectXyz.Plugins.Enchantments.OneShotNegate;

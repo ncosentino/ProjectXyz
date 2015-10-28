@@ -14,7 +14,6 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
         public static AddItemDefinitionResult AddItemDefinition(IDataManager dataManager)
         {
             var itemDefinitionId = Guid.NewGuid();
-            var nameStringResourceId = Guid.NewGuid();
             var inventoryGraphicResourceId = Guid.NewGuid();
             var magicTypeId = Guid.NewGuid();
             var itemTypeId = Guid.NewGuid();
@@ -25,10 +24,10 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
             var displayLanguage = dataManager.Resources.DisplayLanguages.Add(
                 Guid.NewGuid(),
                 "Dummy Language");
-            dataManager.Resources.StringResources.Add(
-                nameStringResourceId, 
+            var nameStringResource = StringResourceRepositoryHelper.AddStringResource(
+                dataManager,
                 displayLanguage.Id,
-                "Dummy String");
+                "Item Name String");
             dataManager.Resources.GraphicResources.Add(
                 inventoryGraphicResourceId,
                 displayLanguage.Id,
@@ -36,24 +35,24 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
 
             dataManager.Items.SocketTypes.Add(
                 socketTypeId,
-                nameStringResourceId);
+                nameStringResource.Id);
             dataManager.Items.MaterialTypes.Add(
                 materialTypeId,
-                nameStringResourceId);
+                nameStringResource.Id);
             dataManager.Items.ItemTypes.Add(
                 itemTypeId,
-                nameStringResourceId);
+                nameStringResource.Id);
             dataManager.Items.MagicTypes.Add(
                 magicTypeId,
-                nameStringResourceId,
+                nameStringResource.Id,
                 123);
             dataManager.Items.EquipSlotTypes.Add(
                 equipSlotTypeId,
-                nameStringResourceId);
+                nameStringResource.Id);
 
             var itemDefinition = dataManager.Items.ItemDefinitions.Add(
                 itemDefinitionId,
-                nameStringResourceId,
+                nameStringResource.Id,
                 inventoryGraphicResourceId,
                 magicTypeId,
                 itemTypeId,

@@ -212,8 +212,15 @@
     <Compile Include="Items\Drops\IDropLink.cs" />
     <Compile Include="Items\Drops\IDropEntry.cs" />
     <Compile Include="Items\Drops\IHasDropWeighting.cs" />
-    <Compile Include="Items\IItemNamePart.cs" />
-    <Compile Include="Items\IItemNamePartFactory.cs" />
+    <Compile Include="Items\IItemTypeGrouping.cs" />
+    <Compile Include="Items\IItemTypeGroupingFactory.cs" />
+    <Compile Include="Items\IItemTypeGroupingRepository.cs" />
+    <Compile Include="Items\Names\IItemNameAffixFilter.cs" />
+    <Compile Include="Items\Names\IItemNamePart.cs" />
+    <Compile Include="Items\Names\IItemNamePartFactory.cs" />
+    <Compile Include="Items\Names\IItemNameAffix.cs" />
+    <Compile Include="Items\Names\IItemNameAffixFactory.cs" />
+    <Compile Include="Items\Names\IItemNameAffixRepository.cs" />
     <Compile Include="Items\IItemTypeGeneratorPlugin.cs" />
     <Compile Include="Items\IItemTypeGeneratorPluginFactory.cs" />
     <Compile Include="Items\IItemTypeGeneratorPluginRepository.cs" />
@@ -226,7 +233,7 @@
     <Compile Include="Items\IItemDefinitionStat.cs" />
     <Compile Include="Items\IItemStoreFactory.cs" />
     <Compile Include="Items\IItemStoreRepository.cs" />
-    <Compile Include="Items\IItemNamePartRepository.cs" />
+    <Compile Include="Items\Names\IItemNamePartRepository.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeGroupingFactory.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeGroupingRepository.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeGrouping.cs" />

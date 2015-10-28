@@ -142,8 +142,11 @@
     <Compile Include="Items\Affixes\MagicTypesRandomAffixesRepository.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantmentRepository.cs" />
     <Compile Include="Items\ItemTypeGeneratorPluginRepository.cs" />
-    <Compile Include="Items\ItemNamePartRepository.cs" />
+    <Compile Include="Items\ItemTypeGroupingRepository.cs" />
+    <Compile Include="Items\Names\ItemNameAffixFilter.cs" />
+    <Compile Include="Items\Names\ItemNamePartRepository.cs" />
     <Compile Include="Items\MagicTypes\MagicTypeGroupingRepository.cs" />
+    <Compile Include="Items\Names\ItemNameAffixRepository.cs" />
     <Compile Include="Items\SqlItemDataManager.cs" />
     <Compile Include="Items\ItemDefinitionStatRepository.cs" />
     <Compile Include="Items\ItemDefinitionRepository.cs" />

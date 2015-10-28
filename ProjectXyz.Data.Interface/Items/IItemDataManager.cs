@@ -2,6 +2,7 @@
 using ProjectXyz.Data.Interface.Items.EquipSlots;
 using ProjectXyz.Data.Interface.Items.MagicTypes;
 using ProjectXyz.Data.Interface.Items.Materials;
+using ProjectXyz.Data.Interface.Items.Names;
 using ProjectXyz.Data.Interface.Items.Requirements;
 using ProjectXyz.Data.Interface.Items.Sockets;
 
@@ -38,7 +39,13 @@ namespace ProjectXyz.Data.Interface.Items
 
         IItemTypeRepository ItemTypes { get; }
 
+        IItemTypeGroupingRepository ItemTypeGroupings { get; }
+
         IItemNamePartRepository ItemNameParts { get; }
+
+        IItemNameAffixRepository ItemNameAffixes { get; }
+
+        IItemNameAffixFilter ItemNameAffixFilter { get; }
 
         IItemNamePartFactory ItemNamePartFactory { get; }
 

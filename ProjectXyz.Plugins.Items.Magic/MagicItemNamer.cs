@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Names;
 
 namespace ProjectXyz.Plugins.Items.Magic
 {

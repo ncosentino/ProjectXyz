@@ -5,6 +5,7 @@ using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Data.Interface.Items.Names;
 using ProjectXyz.Data.Interface.Items.Requirements;
 using ProjectXyz.Data.Interface.Items.Sockets;
 using ProjectXyz.Data.Interface.Stats;
