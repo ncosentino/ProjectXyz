@@ -141,6 +141,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enchantments\EnchantmentPluginRepositoryTests.cs" />
     <Compile Include="Enchantments\EnchantmentTypeRepositoryTests.cs" />
     <Compile Include="Enchantments\EnchantmentTriggerRepositoryTests.cs" />
     <Compile Include="Items\Affixes\ItemAffixDefinitionRepositoryTests.cs" />

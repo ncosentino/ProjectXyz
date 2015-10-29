@@ -10,11 +10,6 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
         Enchantment,
         IExpressionEnchantment
     {
-        #region Constants
-        // FIXME: this should be a constant value defined somewhere
-        private static readonly Guid ENCHANTMENT_TYPE_ID = Guid.NewGuid();
-        #endregion
-
         #region Fields
         private readonly Guid _statId;
         private readonly string _expression;
@@ -30,6 +25,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             TimeSpan remainingDuration,
             Guid statId,
@@ -41,12 +37,13 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 id,
                 statusTypeId,
                 triggerId,
-                ENCHANTMENT_TYPE_ID,
+                enchantmentTypeId,
                 weatherTypeGroupingId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
@@ -116,6 +113,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             TimeSpan remainingDuration,
             Guid statId,
@@ -125,8 +123,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             IEnumerable<KeyValuePair<string, double>> expressionValues)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Requires<ArgumentOutOfRangeException>(remainingDuration >= TimeSpan.Zero);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
@@ -139,6 +138,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 id,
                 statusTypeId,
                 triggerId,
+                enchantmentTypeId,
                 weatherTypeGroupingId,
                 remainingDuration,
                 statId,

@@ -137,6 +137,8 @@
     <Compile Include="Diseases\DiseaseDefinition.cs" />
     <Compile Include="Enchantments\EnchantmentStatus.cs" />
     <Compile Include="Enchantments\EnchantmentStatusFactory.cs" />
+    <Compile Include="Enchantments\EnchantmentPlugin.cs" />
+    <Compile Include="Enchantments\EnchantmentPluginFactory.cs" />
     <Compile Include="Enchantments\EnchantmentTypeFactory.cs" />
     <Compile Include="Enchantments\EnchantmentType.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherGroupingFactory.cs" />

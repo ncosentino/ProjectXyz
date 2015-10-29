@@ -23,6 +23,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             Guid statId)
         {
@@ -30,6 +31,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 id,
                 statusTypeId,
                 triggerId,
+                enchantmentTypeId,
                 weatherTypeGroupingId,
                 statId);
             return enchantment;

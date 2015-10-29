@@ -11,20 +11,24 @@ namespace ProjectXyz.Application.Core.Enchantments
     public sealed class EnchantmentGenerator : IEnchantmentGenerator
     {
         #region Fields
-        private readonly IEnchantmentTypeRepository _enchantmentTypeRepository;
+        private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
+        private readonly IEnchantmentPluginRepository _enchantmentPluginRepository;
         private readonly ITypeLoader _typeLoader;
         private readonly Dictionary<Type, GenerateEnchantmentDelegate> _generateEnchantmentMapping;
         #endregion
 
         #region Constructors
         private EnchantmentGenerator(
-            IEnchantmentTypeRepository enchantmentTypeRepository,
+            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
+            IEnchantmentPluginRepository enchantmentPluginRepository,
             ITypeLoader typeLoader)
         {
-            Contract.Requires<ArgumentNullException>(enchantmentTypeRepository != null);
+            Contract.Requires<ArgumentNullException>(enchantmentDefinitionRepository != null);
+            Contract.Requires<ArgumentNullException>(enchantmentPluginRepository != null);
             Contract.Requires<ArgumentNullException>(typeLoader != null);
 
-            _enchantmentTypeRepository = enchantmentTypeRepository;
+            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
+            _enchantmentPluginRepository = enchantmentPluginRepository;
             _typeLoader = typeLoader;
             _generateEnchantmentMapping = new Dictionary<Type, GenerateEnchantmentDelegate>();
         }
@@ -32,14 +36,19 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         #region Methods
         public static IEnchantmentGenerator Create(
-            IEnchantmentTypeRepository enchantmentTypeRepository,
+            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
+            IEnchantmentPluginRepository enchantmentPluginRepository,
             ITypeLoader typeLoader)
         {
-            Contract.Requires<ArgumentNullException>(enchantmentTypeRepository != null);
+            Contract.Requires<ArgumentNullException>(enchantmentDefinitionRepository != null);
+            Contract.Requires<ArgumentNullException>(enchantmentPluginRepository != null);
             Contract.Requires<ArgumentNullException>(typeLoader != null);
             Contract.Ensures(Contract.Result<IEnchantmentGenerator>() != null);
 
-            return new EnchantmentGenerator(enchantmentTypeRepository, typeLoader);
+            return new EnchantmentGenerator(
+                enchantmentDefinitionRepository,
+                enchantmentPluginRepository, 
+                typeLoader);
         }
 
         /// <inheritdoc />
@@ -60,7 +69,8 @@ namespace ProjectXyz.Application.Core.Enchantments
             IRandom randomizer,
             Guid enchantmentDefinitionId)
         {
-            var enchantmentType = _enchantmentTypeRepository.GetByEnchantmentDefinitionId(enchantmentDefinitionId);
+            var enchantmentDefinition = _enchantmentDefinitionRepository.GetById(enchantmentDefinitionId);
+            var enchantmentType = _enchantmentPluginRepository.GetByEnchantmentTypeId(enchantmentDefinition.EnchantmentTypeId);
             var definitionRepositoryType = _typeLoader.GetType(enchantmentType.DefinitionRepositoryClassName);
             if (definitionRepositoryType == null)
             {

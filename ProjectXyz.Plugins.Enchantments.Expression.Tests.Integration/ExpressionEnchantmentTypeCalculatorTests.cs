@@ -27,6 +27,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 weatherTypeGroupingId,
                 TimeSpan.Zero,
                 statId,
@@ -36,6 +37,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Integration
                 new[] { new KeyValuePair<string, double>("VALUE", 10) } );
 
             var multiplicativeEnchantment = ExpressionEnchantment.Create(
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),

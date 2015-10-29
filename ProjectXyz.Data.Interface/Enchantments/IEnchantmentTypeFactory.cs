@@ -9,8 +9,7 @@ namespace ProjectXyz.Data.Interface.Enchantments
         #region Methods
         IEnchantmentType Create(
             Guid id,
-            string storeRepositoryClassName,
-            string definitionRepositoryClassName);
+            Guid nameStringResourceId);
         #endregion
     }
 }

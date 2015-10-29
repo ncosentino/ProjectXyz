@@ -25,7 +25,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             var statusTypeId = Guid.NewGuid();
             var triggerId = Guid.NewGuid();
             var expressionId = Guid.NewGuid();
-            var enchantmentWeatherId = Guid.NewGuid();
+            var enchantmentTypeId = Guid.NewGuid();
             var enchantmentDefinitionId = Guid.NewGuid();
             var weatherTypeGroupingId = Guid.NewGuid();
             const string EXPRESSION_STAT_ID = "ExpressionStatId";
@@ -79,6 +79,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
+            enchantmentDefinition
+                .Setup(x => x.EnchantmentTypeId)
+                .Returns(enchantmentTypeId);
 
             var expressionStatIds = new[] 
             {
@@ -92,7 +95,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             var expressionEnchantmentFactory = new Mock<IExpressionEnchantmentFactory>(MockBehavior.Strict);
             expressionEnchantmentFactory
-                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, weatherTypeGroupingId, TimeSpan.FromSeconds(1), targetStatId, EXPRESSION, CALCULATION_PRIORITY, expressionStatIds, expressionValues))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, enchantmentTypeId, weatherTypeGroupingId, TimeSpan.FromSeconds(1), targetStatId, EXPRESSION, CALCULATION_PRIORITY, expressionStatIds, expressionValues))
                 .Returns(enchantment.Object);
 
             var expressionEnchantmentDefinitionRepository = new Mock<IExpressionEnchantmentDefinitionRepository>(MockBehavior.Strict);
@@ -159,18 +162,19 @@ namespace ProjectXyz.Plugins.Enchantments.Expression.Tests.Unit
 
             expressionDefinition.Verify(x => x.Expression, Times.Once);
             expressionDefinition.Verify(x => x.CalculationPriority, Times.Once);
+            enchantmentDefinition.Verify(x => x.Id, Times.Exactly(4));
+            enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);
+            enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
+            enchantmentDefinition.Verify(x => x.EnchantmentTypeId, Times.Once);
 
             expressionEnchantmentDefinition.Verify(x => x.StatId, Times.Once);
             expressionEnchantmentDefinition.Verify(x => x.ExpressionId, Times.Once);
             expressionEnchantmentDefinition.Verify(x => x.MinimumDuration, Times.Exactly(2));
             expressionEnchantmentDefinition.Verify(x => x.MaximumDuration, Times.Once);
 
-            enchantmentDefinition.Verify(x => x.Id, Times.Exactly(4));
-            enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);
-            enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-
             expressionEnchantmentFactory.Verify(
                 x => x.Create(
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),

@@ -26,7 +26,8 @@ namespace ProjectXyz.Application.Core.Enchantments
             _enchantmentApplicationFactoryManager = enchantmentApplicationFactoryManager;
 
             _enchantmentGenerator = Enchantments.EnchantmentGenerator.Create(
-                dataManager.Enchantments.EnchantmentTypes,
+                dataManager.Enchantments.EnchantmentDefinitions,
+                dataManager.Enchantments.EnchantmentPlugins,
                 TypeLoader.Create());
 
             var enchantmentContext = EnchantmentContext.Create();

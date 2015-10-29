@@ -59,9 +59,14 @@ namespace ProjectXyz.Plugins.Items.Magic.Tests.Integration
                 false,
                 0,
                 0);
-            
+
             var enchantmentType = dataManager.Enchantments.EnchantmentTypes.Add(
-                Guid.NewGuid(), 
+                Guid.NewGuid(),
+                StringResourceRepositoryHelper.AddStringResource(dataManager, "enchantment type").Id);
+
+            var enchantmentPlugin = dataManager.Enchantments.EnchantmentPlugins.Add(
+                Guid.NewGuid(),
+                enchantmentType.Id,
                 "Store Repository Class Name",
                 typeof(ExpressionEnchantmentDefinitionRepository).AssemblyQualifiedName);
 
@@ -261,7 +266,7 @@ namespace ProjectXyz.Plugins.Items.Magic.Tests.Integration
             Assert.IsAssignableFrom<IExpressionEnchantment>(result.Enchantments.First());
             Assert.Equal(enchantmentDefinition.StatusTypeId, result.Enchantments.First().StatusTypeId);
             Assert.Equal(enchantmentDefinition.TriggerId, result.Enchantments.First().TriggerId);
-            ////Assert.Equal(enchantmentDefinition.EnchantmentTypeId, result.Enchantments.First().EnchantmentTypeId); // FIXME: this needs to be defined in the database and NOT in code... it's in two spots now.
+            Assert.Equal(enchantmentDefinition.EnchantmentTypeId, result.Enchantments.First().EnchantmentTypeId);
         }
         #endregion
     }

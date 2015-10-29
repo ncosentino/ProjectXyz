@@ -22,7 +22,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             var statId = Guid.NewGuid();
             var statusTypeId = Guid.NewGuid();
             var triggerId = Guid.NewGuid();
-            var enchantmentWeatherId = Guid.NewGuid();
+            var enchantmentTypeId = Guid.NewGuid();
             var weatherTypeGroupingId = Guid.NewGuid();
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
@@ -44,10 +44,13 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             enchantmentDefinition
                 .Setup(x => x.TriggerId)
                 .Returns(triggerId);
+            enchantmentDefinition
+                .Setup(x => x.EnchantmentTypeId)
+                .Returns(enchantmentTypeId);
 
             var oneShotNegateEnchantmentFactory = new Mock<IOneShotNegateEnchantmentFactory>(MockBehavior.Strict);
             oneShotNegateEnchantmentFactory
-                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, weatherTypeGroupingId, statId))
+                .Setup(x => x.Create(It.IsAny<Guid>(), statusTypeId, triggerId, enchantmentTypeId, weatherTypeGroupingId, statId))
                 .Returns(enchantment.Object);
 
             var enchantmentWeather = new Mock<IEnchantmentDefinitionWeatherGrouping>(MockBehavior.Strict);
@@ -78,9 +81,11 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate.Tests.Unit
             enchantmentDefinition.Verify(x => x.Id, Times.Once);
             enchantmentDefinition.Verify(x => x.StatusTypeId, Times.Once);            
             enchantmentDefinition.Verify(x => x.TriggerId, Times.Once);
-            
+            enchantmentDefinition.Verify(x => x.EnchantmentTypeId, Times.Once);
+
             oneShotNegateEnchantmentFactory.Verify(
                 x => x.Create(
+                    It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),
                     It.IsAny<Guid>(),

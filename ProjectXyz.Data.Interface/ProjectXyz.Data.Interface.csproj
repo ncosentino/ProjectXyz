@@ -164,10 +164,13 @@
     <Compile Include="Enchantments\IEnchantmentStatus.cs" />
     <Compile Include="Enchantments\IEnchantmentStatusFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentStatusRepository.cs" />
+    <Compile Include="Enchantments\IEnchantmentPlugin.cs" />
+    <Compile Include="Enchantments\IEnchantmentPluginFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentTypeFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentType.cs" />
     <Compile Include="Enchantments\IEnchantmentDefinitionFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentsDataManager.cs" />
+    <Compile Include="Enchantments\IEnchantmentPluginRepository.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="IDatabaseCommandCreator.cs" />
     <Compile Include="IDatabaseCommandExecuter.cs" />

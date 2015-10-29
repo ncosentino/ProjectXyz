@@ -134,6 +134,7 @@
     <Compile Include="Enchantments\EnchantmentStatusRepository.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionWeatherTypeGroupingRepository.cs" />
     <Compile Include="Enchantments\EnchantmentDefinitionRepository.cs" />
+    <Compile Include="Enchantments\EnchantmentPluginRepository.cs" />
     <Compile Include="Enchantments\SqlEnchantmentsDataManager.cs" />
     <Compile Include="Enchantments\StatusNegationRepository.cs" />
     <Compile Include="Enchantments\EnchantmentTypeRepository.cs" />

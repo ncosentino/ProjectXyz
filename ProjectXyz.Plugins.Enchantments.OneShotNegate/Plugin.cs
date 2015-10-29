@@ -137,6 +137,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 enchantmentStore.Id,
                 enchantmentStore.StatusTypeId,
                 enchantmentStore.TriggerId,
+                enchantmentStore.EnchantmentTypeId,
                 enchantmentStore.WeatherGroupingId,
                 oneShotNegateEnchantmentStore.StatId);
             

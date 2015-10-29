@@ -217,6 +217,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 enchantmentStore.Id,
                 enchantmentStore.StatusTypeId,
                 enchantmentStore.TriggerId,
+                enchantmentStore.EnchantmentTypeId,
                 enchantmentStore.WeatherGroupingId,
                 expressionEnchantmentStore.RemainingDuration,
                 expressionEnchantmentStore.StatId,

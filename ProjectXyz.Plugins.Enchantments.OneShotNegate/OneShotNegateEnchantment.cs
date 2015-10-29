@@ -10,11 +10,6 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
         Enchantment,
         IOneShotNegateEnchantment
     {
-        #region Constants
-        // FIXME: this should be a constant value defined somewhere
-        private static readonly Guid ENCHANTMENT_TYPE_ID = Guid.NewGuid();
-        #endregion
-
         #region Fields
         private readonly Guid _statId;
         #endregion
@@ -24,18 +19,20 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             Guid statId)
             : base(
                 id,
                 statusTypeId,
                 triggerId,
-                ENCHANTMENT_TYPE_ID,
+                enchantmentTypeId,
                 weatherTypeGroupingId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Requires<ArgumentException>(weatherTypeGroupingId != Guid.Empty);
             Contract.Requires<ArgumentException>(statId != Guid.Empty);
 
@@ -53,20 +50,21 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             Guid statId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
             Contract.Requires<ArgumentException>(statusTypeId != Guid.Empty);
-            Contract.Requires<ArgumentNullException>(weatherTypeGroupingId != null);
-            Contract.Requires<ArgumentException>(statId != Guid.Empty);
+            Contract.Requires<ArgumentException>(triggerId != Guid.Empty);
+            Contract.Requires<ArgumentException>(enchantmentTypeId != Guid.Empty);
             Contract.Ensures(Contract.Result<IOneShotNegateEnchantment>() != null);
 
             var enchantment = new OneShotNegateEnchantment(
                 id,
                 statusTypeId,
                 triggerId,
+                enchantmentTypeId,
                 weatherTypeGroupingId,
                 statId);
             return enchantment;

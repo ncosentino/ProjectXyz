@@ -81,6 +81,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 Guid.NewGuid(),
                 enchantmentDefinition.StatusTypeId,
                 enchantmentDefinition.TriggerId,
+                enchantmentDefinition.EnchantmentTypeId,
                 enchantmentWeather.WeatherTypeGroupingId,
                 duration,
                 expressionEnchantmentDefinition.StatId,
@@ -89,23 +90,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
                 expressionStats,
                 expressionValues);
         }
-
-        private IEnumerable<Guid> GetWeatherIds(
-            IEnchantmentDefinitionWeatherTypeGroupingRepository enchantmentDefinitionWeatherGroupingRepository,
-            IWeatherGroupingRepository weatherGroupingRepository,
-            Guid enchantmentDefinitionId)
-        {
-            var enchantmentWeather = enchantmentDefinitionWeatherGroupingRepository.GetById(enchantmentDefinitionId);
-            if (enchantmentWeather == null)
-            {
-                return Enumerable.Empty<Guid>();
-            }
-
-            var weatherGrouping = weatherGroupingRepository.GetByGroupingId(enchantmentWeather.WeatherTypeGroupingId);
-            var weatherIds = weatherGrouping.Select(x => x.WeatherId);
-            return weatherIds;
-        }
-
+        
         private TimeSpan GenerateDuration(
             IRandom randomizer,
             IExpressionEnchantmentDefinition expressionEnchantmentDefinition)

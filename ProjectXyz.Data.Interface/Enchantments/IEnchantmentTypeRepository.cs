@@ -10,13 +10,10 @@ namespace ProjectXyz.Data.Interface.Enchantments
         #region Methods
         IEnchantmentType Add(
             Guid id,
-            string storeRepositoryClassName,
-            string definitionRepositoryClassName);
+            Guid nameStringResourceId);
 
         IEnchantmentType GetById(Guid id);
-
-        IEnchantmentType GetByEnchantmentDefinitionId(Guid enchantmentDefinitionId);
-
+        
         IEnumerable<IEnchantmentType> GetAll();
 
         void RemoveById(Guid id);

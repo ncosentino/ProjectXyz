@@ -23,18 +23,15 @@ namespace ProjectXyz.Data.Core.Enchantments
 
         public IEnchantmentType Create(
             Guid id,
-            string storeRepositoryClassName,
-            string definitionRepositoryClassName)
+            Guid nameStringResourceId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(storeRepositoryClassName));
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(definitionRepositoryClassName));
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentType>() != null);
 
             return EnchantmentType.Create(
                 id, 
-                storeRepositoryClassName, 
-                definitionRepositoryClassName);
+                nameStringResourceId);
         }
         #endregion
     }

@@ -134,6 +134,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.Value,
                 "VALUE",
@@ -364,6 +365,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 remainingDuration,
                 ItemStats.Value,
                 "BASE + BONUS",
@@ -444,6 +446,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
                 Guid.NewGuid(),
                 EnchantmentTriggers.Item,
                 Guid.NewGuid(),
+                Guid.NewGuid(),
                 TimeSpan.Zero,
                 ItemStats.CurrentDurability,
                 "VALUE",
@@ -507,6 +510,7 @@ namespace ProjectXyz.Application.Tests.Integration.Items
             var itemContext = ItemContextHelper.CreateItemContext(statSocketTypeRepository: statSocketTypeRepository.Object);
 
             var breakingEnchantment = ExpressionEnchantment.Create(
+                Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 Guid.NewGuid(),

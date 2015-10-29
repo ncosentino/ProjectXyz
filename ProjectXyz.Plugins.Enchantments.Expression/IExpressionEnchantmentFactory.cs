@@ -11,6 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expression
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             TimeSpan remainingDuration,
             Guid statId,

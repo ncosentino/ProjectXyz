@@ -47,6 +47,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
                 Guid.NewGuid(),
                 enchantmentDefinition.StatusTypeId,
                 enchantmentDefinition.TriggerId,
+                enchantmentDefinition.EnchantmentTypeId,
                 enchantmentWeather.WeatherTypeGroupingId,
                 oneShotNegateEnchantmentDefinition.StatId);
         }

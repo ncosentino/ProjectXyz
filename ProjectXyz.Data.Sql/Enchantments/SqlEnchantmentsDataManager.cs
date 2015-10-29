@@ -17,6 +17,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
         private readonly IEnchantmentDefinitionWeatherTypeGroupingRepository _enchantmentDefinitionWeatherGroupingRepository;
         private readonly IStatusNegationRepository _statusNegationRepository;
         private readonly IEnchantmentTypeRepository _enchantmentTypeRepository;
+        private readonly IEnchantmentPluginRepository _enchantmentPluginRepository;
         private readonly IEnchantmentStoreFactory _enchantmentStoreFactory;
         #endregion
 
@@ -57,6 +58,11 @@ namespace ProjectXyz.Data.Sql.Enchantments
             _enchantmentTypeRepository = EnchantmentTypeRepository.Create(
                 database,
                 enchantmentTypeFactory);
+
+            var enchantmentPluginFactory = EnchantmentPluginFactory.Create();
+            _enchantmentPluginRepository = EnchantmentPluginRepository.Create(
+                database,
+                enchantmentPluginFactory);
         }
         #endregion
 
@@ -81,6 +87,9 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
         /// <inheritdoc />
         public IEnchantmentTypeRepository EnchantmentTypes { get { return _enchantmentTypeRepository; } }
+
+        /// <inheritdoc />
+        public IEnchantmentPluginRepository EnchantmentPlugins { get { return _enchantmentPluginRepository; } }
 
         /// <inheritdoc />
         public IEnchantmentStoreFactory EnchantmentStoreFactory { get { return _enchantmentStoreFactory; } }

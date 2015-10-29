@@ -44,14 +44,12 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
         public IEnchantmentType Add(
             Guid id, 
-            string storeRepositoryClassName, 
-            string definitionRepositoryClassName)
+            Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
-                { "StoreRepositoryClassName", storeRepositoryClassName },
-                { "DefinitionRepositoryClassName", definitionRepositoryClassName },
+                { "NameStringResourceId", nameStringResourceId },
             };
 
             using (var command = _database.CreateCommand(
@@ -60,14 +58,12 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     EnchantmentTypes
                 (
                     Id,
-                    StoreRepositoryClassName,
-                    DefinitionRepositoryClassName
+                    NameStringResourceId
                 )
                 VALUES
                 (
                     @Id,
-                    @StoreRepositoryClassName,
-                    @DefinitionRepositoryClassName
+                    @NameStringResourceId
                 )
                 ;",
                 namedParameters))
@@ -77,8 +73,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
             var enchantmentType = _factory.Create(
                 id,
-                storeRepositoryClassName,
-                definitionRepositoryClassName);
+                nameStringResourceId);
             return enchantmentType;
         }
 
@@ -101,36 +96,6 @@ namespace ProjectXyz.Data.Sql.Enchantments
                     if (!reader.Read())
                     {
                         throw new InvalidOperationException("No enchantment type with Id '" + id + "' was found.");
-                    }
-
-                    return GetFromReader(reader, _factory);
-                }
-            }
-        }
-
-        public IEnchantmentType GetByEnchantmentDefinitionId(Guid enchantmentDefinitionId)
-        {
-            using (var command = _database.CreateCommand(
-            @"
-                SELECT 
-                    *
-                FROM
-                    EnchantmentDefinitions
-                LEFT OUTER JOIN 
-                    EnchantmentTypes
-                ON
-                    EnchantmentDefinitions.EnchantmentTypeId=EnchantmentTypes.Id
-                WHERE
-                    EnchantmentDefinitions.Id = @EnchantmentDefinitionid
-                LIMIT 1",
-               "EnchantmentDefinitionid",
-               enchantmentDefinitionId))
-            {
-                using (var reader = command.ExecuteReader())
-                {
-                    if (!reader.Read())
-                    {
-                        throw new InvalidOperationException("No enchantment type with enchantmentdefinition Id '" + enchantmentDefinitionId + "' was found.");
                     }
 
                     return GetFromReader(reader, _factory);
@@ -183,8 +148,7 @@ namespace ProjectXyz.Data.Sql.Enchantments
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
-                reader.GetString(reader.GetOrdinal("StoreRepositoryClassName")),
-                reader.GetString(reader.GetOrdinal("DefinitionRepositoryClassName")));
+                reader.GetGuid(reader.GetOrdinal("NameStringResourceId")));
         }
 
         [ContractInvariantMethod]

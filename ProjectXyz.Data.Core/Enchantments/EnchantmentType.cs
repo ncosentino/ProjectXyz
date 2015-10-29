@@ -10,23 +10,19 @@ namespace ProjectXyz.Data.Core.Enchantments
     {
         #region Fields
         private readonly Guid _id;
-        private readonly string _storeRepositoryClassName;
-        private readonly string _definitionRepositoryClassName;
+        private readonly Guid _nameStringResourceId;
         #endregion
 
         #region Constructors
         private EnchantmentType(
             Guid id,
-            string storeRepositoryClassName,
-            string definitionRepositoryClassName)
+            Guid nameStringResourceId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(storeRepositoryClassName));
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(definitionRepositoryClassName));
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
 
             _id = id;
-            _storeRepositoryClassName = storeRepositoryClassName;
-            _definitionRepositoryClassName = definitionRepositoryClassName;
+            _nameStringResourceId = nameStringResourceId;
         }
         #endregion
 
@@ -36,32 +32,24 @@ namespace ProjectXyz.Data.Core.Enchantments
             get { return _id; }
         }
 
-        public string StoreRepositoryClassName
+        public Guid NameStringResourceId
         {
-            get { return _storeRepositoryClassName; }
-        }
-
-        public string DefinitionRepositoryClassName
-        {
-            get { return _definitionRepositoryClassName; }
+            get { return _nameStringResourceId; }
         }
         #endregion
 
         #region Methods
         public static IEnchantmentType Create(
             Guid id,
-            string storeRepositoryClassName,
-            string definitionRepositoryClassName)
+            Guid nameStringResourceId)
         {
             Contract.Requires<ArgumentException>(id != Guid.Empty);
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(storeRepositoryClassName));
-            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(definitionRepositoryClassName));
+            Contract.Requires<ArgumentException>(nameStringResourceId != Guid.Empty);
             Contract.Ensures(Contract.Result<IEnchantmentType>() != null);
 
             return new EnchantmentType(
-                id, 
-                storeRepositoryClassName, 
-                definitionRepositoryClassName);
+                id,
+                nameStringResourceId);
         }
         #endregion
     }

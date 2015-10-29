@@ -19,6 +19,8 @@ namespace ProjectXyz.Data.Interface.Enchantments
 
         IEnchantmentTypeRepository EnchantmentTypes { get; }
 
+        IEnchantmentPluginRepository EnchantmentPlugins { get; }
+
         IEnchantmentStoreFactory EnchantmentStoreFactory { get; }
 
         IEnchantmentStatusRepository EnchantmentStatuses { get; }

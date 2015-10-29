@@ -32,16 +32,23 @@ namespace ProjectXyz.Game.Tests.Unit
 
             var enchantmentStoreRepository = new Mock<IEnchantmentStoreRepository>(MockBehavior.Strict);
 
+            var enchantmentDefinitionRepository = new Mock<IEnchantmentDefinitionRepository>(MockBehavior.Strict);
+
+            var enchantmentPluginRepository = new Mock<IEnchantmentPluginRepository>(MockBehavior.Strict);
+
             var enchantmentDataManager = new Mock<IEnchantmentsDataManager>(MockBehavior.Strict);
-            enchantmentDataManager
-                .Setup(x => x.EnchantmentTypes)
-                .Returns(enchantmentTypeRepository.Object);
             enchantmentDataManager
                 .Setup(x => x.EnchantmentStoreFactory)
                 .Returns(enchantmentStoreFactory.Object);
             enchantmentDataManager
                .Setup(x => x.EnchantmentStores)
                .Returns(enchantmentStoreRepository.Object);
+            enchantmentDataManager
+               .Setup(x => x.EnchantmentDefinitions)
+               .Returns(enchantmentDefinitionRepository.Object);
+            enchantmentDataManager
+               .Setup(x => x.EnchantmentPlugins)
+               .Returns(enchantmentPluginRepository.Object);
 
             var itemAffixDefinitionRepository = new Mock<IItemAffixDefinitionRepository>(MockBehavior.Strict);
 
@@ -88,9 +95,9 @@ namespace ProjectXyz.Game.Tests.Unit
             // Assert
             Assert.NotNull(result);
 
-            enchantmentDataManager.Verify(x => x.EnchantmentTypes, Times.Exactly(2));
             enchantmentDataManager.Verify(x => x.EnchantmentStoreFactory, Times.Exactly(2));
             enchantmentDataManager.Verify(x => x.EnchantmentStores, Times.Exactly(2));
+            enchantmentDataManager.Verify(x => x.EnchantmentDefinitions, Times.Exactly(2));
 
             itemDataManager.Verify(x => x.ItemAffixDefinitions, Times.Once);
             itemDataManager.Verify(x => x.ItemAffixDefinitionFilter, Times.Once);
@@ -99,7 +106,7 @@ namespace ProjectXyz.Game.Tests.Unit
 
             dataManager.Verify(x => x.Actors, Times.Once);
             dataManager.Verify(x => x.Maps, Times.Once);
-            dataManager.Verify(x => x.Enchantments, Times.Exactly(6));
+            dataManager.Verify(x => x.Enchantments, Times.Exactly(8));
             dataManager.Verify(x => x.Items, Times.Exactly(4));
         }
         #endregion

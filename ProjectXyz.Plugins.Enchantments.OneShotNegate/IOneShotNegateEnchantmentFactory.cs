@@ -11,6 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegate
             Guid id,
             Guid statusTypeId,
             Guid triggerId,
+            Guid enchantmentTypeId,
             Guid weatherTypeGroupingId,
             Guid statId);
         #endregion

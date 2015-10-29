@@ -227,10 +227,16 @@ CREATE TABLE RandomItemNameAffixes (
 -- ENCHANTMENTS
 -- http://agiledata.org/essays/mappingObjects.html#MappingInheritance
 ---------------------------------------------------------------------------------------------------
-CREATE TABLE [EnchantmentTypes] (
+CREATE TABLE [EnchantmentPlugins] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
+  [EnchantmentTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentTypeId] REFERENCES [EnchantmentTypes]([Id]),
   [StoreRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
   [DefinitionRepositoryClassName] VARCHAR(256) NOT NULL ON CONFLICT FAIL COLLATE NOCASE,
+  PRIMARY KEY (Id));
+
+CREATE TABLE [EnchantmentTypes] (
+  [Id] GUID NOT NULL ON CONFLICT FAIL, 
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE [Enchantments] (

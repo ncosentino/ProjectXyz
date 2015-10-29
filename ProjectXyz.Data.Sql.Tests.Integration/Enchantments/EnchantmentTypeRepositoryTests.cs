@@ -18,20 +18,13 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
         public void GetByEnchantmentDefinitionId_IdExists_ExpectedValues()
         {
             // Setup
-            Guid enchantmentDefinitionId = Guid.NewGuid();
-            const string STORE_CLASS_NAME = "the class name";
-            const string DEFINITION_CLASS_NAME = "the class name";
             var enchantmentTypeId = Guid.NewGuid();
+            var nameStringResourceId = Guid.NewGuid();
 
             CreateEnchantmentType(
                 enchantmentTypeId,
-                STORE_CLASS_NAME,
-                DEFINITION_CLASS_NAME);
-
-            CreateEnchantmentDefinition(
-                enchantmentDefinitionId, 
-                enchantmentTypeId);
-
+                nameStringResourceId);
+            
             var enchantmentTypeFactory = EnchantmentTypeFactory.Create();
 
             var repository = EnchantmentTypeRepository.Create(
@@ -39,20 +32,19 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                 enchantmentTypeFactory);
 
             // Execute
-            var result = repository.GetByEnchantmentDefinitionId(enchantmentDefinitionId);
+            var result = repository.GetById(enchantmentTypeId);
 
             // Assert
-            Assert.Equal(STORE_CLASS_NAME, result.StoreRepositoryClassName);
-            Assert.Equal(DEFINITION_CLASS_NAME, result.DefinitionRepositoryClassName);
+            Assert.Equal(enchantmentTypeId, result.Id);
+            Assert.Equal(nameStringResourceId, result.NameStringResourceId);
         }
 
-        private void CreateEnchantmentType(Guid enchantmentTypeId, string storeRepositoryClassName, string definitionRepositoryClassName)
+        private void CreateEnchantmentType(Guid enchantmentTypeId, Guid nameStringResourceId)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "@Id", enchantmentTypeId },
-                { "@StoreRepositoryClassName", storeRepositoryClassName },
-                { "@DefinitionRepositoryClassName", definitionRepositoryClassName },
+                { "@NameStringResourceId", nameStringResourceId },
             };
 
             Database.Execute(@"
@@ -60,44 +52,12 @@ namespace ProjectXyz.Data.Sql.Tests.Integration.Enchantments
                     [EnchantmentTypes]
                 (
                     [Id],
-                    [StoreRepositoryClassName],
-                    [DefinitionRepositoryClassName]
+                    [NameStringResourceId]
                 )
                 VALUES
                 (
                     @Id,
-                    @StoreRepositoryClassName,
-                    @DefinitionRepositoryClassName
-                )
-                ;",
-                namedParameters);
-        }
-
-        private void CreateEnchantmentDefinition(Guid enchantmentDefinitionId, Guid enchantmentTypeId)
-        {
-            var namedParameters = new Dictionary<string, object>()
-            {
-                { "@Id", enchantmentDefinitionId },
-                { "@EnchantmentTypeId", enchantmentTypeId },
-                { "@TriggerId", Guid.NewGuid().ToString() },
-                { "@StatusTypeId", Guid.NewGuid().ToString() },
-            };
-
-            Database.Execute(@"
-                INSERT INTO
-                    [EnchantmentDefinitions]
-                (
-                    [Id],
-                    [EnchantmentTypeId],
-                    [TriggerId],
-                    [StatusTypeId]
-                )
-                VALUES
-                (
-                    @Id,
-                    @EnchantmentTypeId,
-                    @TriggerId,
-                    @StatusTypeId
+                    @NameStringResourceId
                 )
                 ;",
                 namedParameters);
