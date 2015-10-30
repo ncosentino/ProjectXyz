@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ProjectXyz.Data.Interface.Stats;
 
-namespace ProjectXyz.Data.Interface.Items
+namespace ProjectXyz.Data.Interface.Time
 {
-    public interface IItemDefinitionStat : IStatRange
+    public interface ITimeOfDay
     {
         #region Properties
         Guid Id { get; }
-
-        Guid ItemDefinitionId { get; }
         #endregion
     }
 }

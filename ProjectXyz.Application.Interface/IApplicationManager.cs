@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using ProjectXyz.Application.Interface.Actors;
+﻿using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Maps;
+using ProjectXyz.Application.Interface.Stats;
 
 namespace ProjectXyz.Application.Interface
 {
@@ -16,6 +12,8 @@ namespace ProjectXyz.Application.Interface
         IActorManager Actors { get; }
 
         IMapManager Maps { get; }
+
+        IStatApplicationManager Stats { get; }
 
         IItemApplicationManager Items { get; }
 

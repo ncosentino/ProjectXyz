@@ -253,6 +253,7 @@
     <Compile Include="Items\Requirements\IItemStatRequirementsRepository.cs" />
     <Compile Include="Items\Requirements\IItemStatRequirementsFactory.cs" />
     <Compile Include="Items\Requirements\IItemMiscRequirementsFactory.cs" />
+    <Compile Include="Items\Sockets\IItemSocketPatternFilter.cs" />
     <Compile Include="Items\Sockets\ISocketedItem.cs" />
     <Compile Include="Items\Sockets\ISocketedItemFactory.cs" />
     <Compile Include="Items\Sockets\ISocketedItemRepository.cs" />
@@ -293,6 +294,15 @@
     <Compile Include="Items\MagicTypes\IMagicType.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeFactory.cs" />
     <Compile Include="Items\MagicTypes\IMagicTypeRepository.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternDefinitionRepository.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternDefinitionFactory.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternDefinition.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternDefinitionEnchantmentRepository.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternDefinitionStatRepository.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternEnchantmentFactory.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternStatFactory.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternStat.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternEnchantment.cs" />
     <Compile Include="Items\Sockets\ISocketTypeRepository.cs" />
     <Compile Include="Items\Sockets\IStatSocketTypeRepository.cs" />
     <Compile Include="Items\Sockets\IStatSocketTypeFactory.cs" />
@@ -314,6 +324,7 @@
     <Compile Include="Resources\IDisplayLanguageRepository.cs" />
     <Compile Include="Resources\IDisplayLanguageFactory.cs" />
     <Compile Include="Resources\IDisplayLanguage.cs" />
+    <Compile Include="Stats\IStatRange.cs" />
     <Compile Include="Stats\IStatCollectionFactory.cs" />
     <Compile Include="Stats\IStatsDataManager.cs" />
     <Compile Include="Stats\IStatDefinitionRepository.cs" />
@@ -334,6 +345,7 @@
     <Compile Include="Stats\IStatCollection.cs" />
     <Compile Include="Stats\IStatFactory.cs" />
     <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
+    <Compile Include="Time\ITimeOfDay.cs" />
     <Compile Include="Weather\IWeatherRepository.cs" />
     <Compile Include="Weather\IWeatherFactory.cs" />
     <Compile Include="Weather\IWeather.cs" />

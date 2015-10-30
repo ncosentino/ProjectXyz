@@ -6,6 +6,7 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Items.Requirements;
+using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Items;
@@ -74,7 +75,7 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
 
             var randomizer = new Mock<IRandom>(MockBehavior.Strict);
 
-            var itemStatGenerator = ItemStatGenerator.Create(dataManager.Stats.StatFactory);
+            var statGenerator = StatGenerator.Create(dataManager.Stats.StatFactory);
 
             var itemRequirementsGenerator = ItemRequirementsGenerator.Create(
                 dataManager.Items.ItemDefinitionStatRequirements,
@@ -90,7 +91,7 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
                 itemNamePartFactory,
                 statRepository,
                 dataManager.Items,
-                itemStatGenerator,
+                statGenerator,
                 itemRequirementsGenerator);
 
             // Execute

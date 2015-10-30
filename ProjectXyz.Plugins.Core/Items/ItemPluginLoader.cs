@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Plugins.Interface;
 using ProjectXyz.Plugins.Items;
@@ -15,6 +16,7 @@ namespace ProjectXyz.Plugins.Core.Items
         #region Fields
         private readonly IDatabase _database;
         private readonly IDataManager _dataManager;
+        private readonly IStatApplicationManager _statApplicationManager;
         private readonly IItemApplicationManager _itemApplicationManager;
         #endregion
 
@@ -22,12 +24,14 @@ namespace ProjectXyz.Plugins.Core.Items
         private ItemPluginLoader(
             IDatabase database,
             IDataManager dataManager,
+            IStatApplicationManager statApplicationManager,
             IItemApplicationManager itemApplicationManager,
             IEnumerable<string> pluginDirectoryPaths)
             : base(pluginDirectoryPaths)
         {
             _database = database;
             _dataManager = dataManager;
+            _statApplicationManager = statApplicationManager;
             _itemApplicationManager = itemApplicationManager;
         }
         #endregion
@@ -50,12 +54,14 @@ namespace ProjectXyz.Plugins.Core.Items
         public static IPluginRepository<IItemPlugin> Create(
             IDatabase database,
             IDataManager dataManager,
+            IStatApplicationManager statApplicationManager,
             IItemApplicationManager itemApplicationManager,
             IEnumerable<string> pluginDirectoryPaths)
         {
             var loader = new ItemPluginLoader(
                 database,
                 dataManager,
+                statApplicationManager,
                 itemApplicationManager,
                 pluginDirectoryPaths);
             return loader;
@@ -68,6 +74,7 @@ namespace ProjectXyz.Plugins.Core.Items
             {
                 _database,
                 _dataManager,
+                _statApplicationManager,
                 _itemApplicationManager,
             };
             return arguments;
@@ -80,6 +87,7 @@ namespace ProjectXyz.Plugins.Core.Items
             {
                 typeof(IDatabase),
                 typeof(IDataManager),
+                typeof(IStatApplicationManager),
                 typeof(IItemApplicationManager),
             };
             return types;

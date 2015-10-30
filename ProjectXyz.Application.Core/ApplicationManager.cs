@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Core.Actors;
@@ -10,6 +9,7 @@ using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Maps;
+using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Data.Interface;
 
 namespace ProjectXyz.Application.Core
@@ -21,17 +21,22 @@ namespace ProjectXyz.Application.Core
         private readonly IMapManager _mapManager;
         private readonly IItemApplicationManager _itemApplicationManager;
         private readonly IEnchantmentApplicationManager _enchantmentManager;
+        private readonly IStatApplicationManager _statApplicationManager;
         #endregion
 
         #region Constructors
         private ApplicationManager(
             IDataManager dataManager,
             IEnchantmentApplicationFactoryManager enchantmentApplicationFactoryManager,
+            IStatApplicationManager statApplicationManager,
             IItemApplicationManager itemApplicationManager)
         {
             Contract.Requires<ArgumentNullException>(dataManager != null);
             Contract.Requires<ArgumentNullException>(enchantmentApplicationFactoryManager != null);
+            Contract.Requires<ArgumentNullException>(statApplicationManager != null);
             Contract.Requires<ArgumentNullException>(itemApplicationManager != null);
+
+            _statApplicationManager = statApplicationManager;
 
             _actorManager = ActorManager.Create(dataManager.Actors);
             
@@ -49,24 +54,34 @@ namespace ProjectXyz.Application.Core
         #endregion
 
         #region Properties
+        /// <inheritdoc />
         public IActorManager Actors
         {
             get { return _actorManager; }
         }
 
+        /// <inheritdoc />
         public IMapManager Maps
         {
             get { return _mapManager; }
         }
 
+        /// <inheritdoc />
         public IItemApplicationManager Items
         {
             get { return _itemApplicationManager; }
         }
 
+        /// <inheritdoc />
         public IEnchantmentApplicationManager Enchantments
         {
             get { return _enchantmentManager; }
+        }
+
+        /// <inheritdoc />
+        public IStatApplicationManager Stats
+        {
+            get { return _statApplicationManager; }
         }
         #endregion
 
@@ -74,16 +89,19 @@ namespace ProjectXyz.Application.Core
         public static IApplicationManager Create(
             IDataManager dataManager,
             IEnchantmentApplicationFactoryManager enchantmentApplicationFactoryManager,
+            IStatApplicationManager statApplicationManager,
             IItemApplicationManager itemApplicationManager)
         {
             Contract.Requires<ArgumentNullException>(dataManager != null);
             Contract.Requires<ArgumentNullException>(enchantmentApplicationFactoryManager != null);
+            Contract.Requires<ArgumentNullException>(statApplicationManager != null);
             Contract.Requires<ArgumentNullException>(itemApplicationManager != null);
             Contract.Ensures(Contract.Result<IApplicationManager>() != null);
 
             return new ApplicationManager(
                 dataManager, 
                 enchantmentApplicationFactoryManager,
+                statApplicationManager,
                 itemApplicationManager);
         }
         #endregion

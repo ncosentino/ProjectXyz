@@ -58,6 +58,7 @@
     <Compile Include="Items\InventoryTests.cs" />
     <Compile Include="Items\ItemSaverTests.cs" />
     <Compile Include="Items\ItemTests.cs" />
+    <Compile Include="Items\Sockets\SocketPatternItemConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

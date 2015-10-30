@@ -1,4 +1,5 @@
 ﻿using ProjectXyz.Application.Interface.Items;
+using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Data.Sql.Stats;
 using ProjectXyz.Plugins.Items.Normal;
@@ -15,13 +16,12 @@ namespace ProjectXyz.Plugins.Items.Magic
         public Plugin(
             IDatabase database, 
             IDataManager dataManager,
+            IStatApplicationManager statApplicationManager,
             IItemApplicationManager itemApplicationManager)
         {
             var statRepository = StatRepository.Create(
                 database,
                 dataManager.Stats.StatFactory);
-
-            var itemStatGenerator = ItemStatGenerator.Create(dataManager.Stats.StatFactory);
 
             var itemRequirementsGenerator = ItemRequirementsGenerator.Create(
                 dataManager.Items.ItemDefinitionStatRequirements,
@@ -37,7 +37,7 @@ namespace ProjectXyz.Plugins.Items.Magic
                 dataManager.Items.ItemNamePartFactory,
                 statRepository,
                 dataManager.Items,
-                itemStatGenerator,
+                statApplicationManager.StatGenerator,
                 itemRequirementsGenerator);
 
             var itemTypeGeneratorClassName = typeof(MagicItemGenerator).FullName;

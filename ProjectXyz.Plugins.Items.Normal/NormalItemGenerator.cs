@@ -6,6 +6,7 @@ using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Requirements;
+using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Names;
 using ProjectXyz.Data.Interface.Stats;
@@ -19,7 +20,7 @@ namespace ProjectXyz.Plugins.Items.Normal
         private readonly IItemMetaDataFactory _itemMetaDataFactory;
         private readonly IItemDataManager _itemDataManager;
         private readonly IItemNamePartFactory _itemNamePartFactory;
-        private readonly IItemStatGenerator _itemStatGenerator;
+        private readonly IStatGenerator _statGenerator;
         private readonly IItemRequirementsGenerator _itemRequirementsgenerator;
 
         #endregion
@@ -30,14 +31,14 @@ namespace ProjectXyz.Plugins.Items.Normal
             IItemMetaDataFactory itemMetaDataFactory,
             IItemNamePartFactory itemNamePartFactory,
             IItemDataManager itemDataManager,
-            IItemStatGenerator itemStatGenerator,
+            IStatGenerator statGenerator,
             IItemRequirementsGenerator itemRequirementsGenerator)
         {
             _itemFactory = itemFactory;
             _itemMetaDataFactory = itemMetaDataFactory;
             _itemNamePartFactory = itemNamePartFactory;
             _itemDataManager = itemDataManager;
-            _itemStatGenerator = itemStatGenerator;
+            _statGenerator = statGenerator;
             _itemRequirementsgenerator = itemRequirementsGenerator;
         }
         #endregion
@@ -50,7 +51,7 @@ namespace ProjectXyz.Plugins.Items.Normal
             IItemNamePartFactory itemNamePartFactory,
             IStatRepository statRepository,
             IItemDataManager itemDataManager,
-            IItemStatGenerator itemStatGenerator,
+            IStatGenerator statGenerator,
             IItemRequirementsGenerator itemRequirementsGenerator)
         {
             var generator = new NormalItemGenerator(
@@ -58,7 +59,7 @@ namespace ProjectXyz.Plugins.Items.Normal
                 itemMetaDataFactory,
                 itemNamePartFactory,
                 itemDataManager,
-                itemStatGenerator,
+                statGenerator,
                 itemRequirementsGenerator);
             return generator;
         }
@@ -79,9 +80,9 @@ namespace ProjectXyz.Plugins.Items.Normal
                 itemDefinition.MaterialTypeId,
                 itemDefinition.SocketTypeId);
 
-            var itemStats = _itemStatGenerator.GenerateItemStats(
+            var itemStats = _statGenerator.GenerateStats(
                 randomizer,
-                itemDefinitionStats);
+                itemDefinitionStats.Cast<IStatRange>());
 
             var equippableSlots = _itemDataManager.ItemTypeEquipSlotType
                 .GetByItemTypeId(itemDefinition.ItemTypeId)

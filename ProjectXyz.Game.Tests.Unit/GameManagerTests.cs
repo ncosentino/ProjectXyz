@@ -8,6 +8,7 @@ using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Items.Affixes;
 using ProjectXyz.Data.Interface.Maps;
+using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Game.Core;
 using Xunit;
 
@@ -22,11 +23,16 @@ namespace ProjectXyz.Game.Tests.Unit
             // Setup
             var database = new Mock<IDatabase>(MockBehavior.Strict);
 
+            var statFactory = new Mock<IStatFactory>(MockBehavior.Strict);
+
+            var statsDataManager = new Mock<IStatsDataManager>(MockBehavior.Strict);
+            statsDataManager
+                .Setup(x => x.StatFactory)
+                .Returns(statFactory.Object);
+
             var actorStoreRepository = new Mock<IActorStoreRepository>(MockBehavior.Strict);
 
             var mapStoreRepository = new Mock<IMapStoreRepository>(MockBehavior.Strict);
-
-            var enchantmentTypeRepository = new Mock<IEnchantmentTypeRepository>(MockBehavior.Strict);
 
             var enchantmentStoreFactory = new Mock<IEnchantmentStoreFactory>(MockBehavior.Strict);
 
@@ -85,6 +91,9 @@ namespace ProjectXyz.Game.Tests.Unit
             dataManager
                 .Setup(x => x.Items)
                 .Returns(itemDataManager.Object);
+            dataManager
+                .Setup(x => x.Stats)
+                .Returns(statsDataManager.Object);
 
             // Execute
             var result = GameManager.Create(
@@ -94,6 +103,8 @@ namespace ProjectXyz.Game.Tests.Unit
 
             // Assert
             Assert.NotNull(result);
+
+            statsDataManager.Verify(x => x.StatFactory, Times.Once);
 
             enchantmentDataManager.Verify(x => x.EnchantmentStoreFactory, Times.Exactly(2));
             enchantmentDataManager.Verify(x => x.EnchantmentStores, Times.Exactly(2));
@@ -108,6 +119,7 @@ namespace ProjectXyz.Game.Tests.Unit
             dataManager.Verify(x => x.Maps, Times.Once);
             dataManager.Verify(x => x.Enchantments, Times.Exactly(8));
             dataManager.Verify(x => x.Items, Times.Exactly(4));
+            dataManager.Verify(x => x.Stats, Times.Once);
         }
         #endregion
     }

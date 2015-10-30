@@ -170,6 +170,8 @@
     <Compile Include="Items\IItemFactory.cs" />
     <Compile Include="Items\IItemGenerator.cs" />
     <Compile Include="Items\IItemMetaData.cs" />
+    <Compile Include="Stats\IStatApplicationManager.cs" />
+    <Compile Include="Stats\IStatGenerator.cs" />
     <Compile Include="Items\IItemTypeGenerator.cs" />
     <Compile Include="Items\IObservableDurability.cs" />
     <Compile Include="Items\EquipmentChangedEventArgs.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Items\IItemContext.cs" />
     <Compile Include="Items\ISocketable.cs" />
     <Compile Include="Items\Requirements\IItemRequirementsFactory.cs" />
+    <Compile Include="Items\Sockets\ISocketPatternItemConverter.cs" />
     <Compile Include="ITypeLoader.cs" />
     <Compile Include="IUpdateElapsedTimeContract.cs" />
     <Compile Include="Enchantments\Contracts\IEnchantmentCollectionContract.cs" />
@@ -239,6 +242,7 @@
     <Compile Include="Shading\IMutableShade.cs" />
     <Compile Include="Shading\IObservableShade.cs" />
     <Compile Include="Shading\IShade.cs" />
+    <Compile Include="Stats\IStatMerger.cs" />
     <Compile Include="Time\IMutableCalendar.cs" />
     <Compile Include="Time\IObservableCalendar.cs" />
     <Compile Include="Time\ICalendar.cs" />

@@ -37,7 +37,7 @@ CREATE TABLE [Stats] (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE MaterialTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
  ---------------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE MaterialTypes (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE RaceDefinitions (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 ---------------------------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ CREATE TABLE RaceDefinitions (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE ClassDefinitions (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 ---------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ CREATE TABLE Drops (
 
 CREATE TABLE ItemTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE [ItemTypeGeneratorPlugins] (
@@ -94,7 +94,7 @@ CREATE TABLE [ItemTypeGeneratorPlugins] (
 
 CREATE TABLE MagicTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   [RarityWeighting] INTEGER NOT NULL ON CONFLICT FAIL,
   PRIMARY KEY (Id));
 
@@ -106,18 +106,40 @@ CREATE TABLE MagicTypes (
 
 CREATE TABLE EquipSlotTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE SocketTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE StatSocketTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [StatDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [StatDefinitions]([Id]), 
   [SocketTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_SocketTypeId] REFERENCES [SocketTypes]([Id]),
+  PRIMARY KEY (Id));
+
+CREATE TABLE SocketPatternDefinitions (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
+  [InventoryGraphicResourceId] GUID CONSTRAINT [FK_InventoryGraphicResourcesId] REFERENCES [GraphicResources]([Id]),
+  [MagicTypeId] GUID CONSTRAINT [FK_MagicTypeId] REFERENCES [MagicTypes]([Id]),
+  [Chance] FLOAT NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
+
+CREATE TABLE SocketPatternDefinitionStats (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [SocketPatternDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_SocketPatternDefinitionId] REFERENCES [SocketPatternDefinitions]([Id]),
+  [StatDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StatId] REFERENCES [StatDefinitions]([Id]), 
+  [MinimumValue] FLOAT NOT NULL ON CONFLICT FAIL, 
+  [MaximumValue] FLOAT NOT NULL ON CONFLICT FAIL,
+  PRIMARY KEY (Id));
+
+CREATE TABLE SocketPatternDefinitionEnchantments (
+  [Id] GUID NOT NULL ON CONFLICT FAIL,
+  [SocketPatternDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_SocketPatternDefinitionId] REFERENCES [SocketPatternDefinitions]([Id]),
+  [EnchantmentDefinitionId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_EnchantmentDefinitionId] REFERENCES [EnchantmentDefinitions]([Id]), 
   PRIMARY KEY (Id));
 
 CREATE TABLE ItemTypeEquipSlotTypes (
@@ -128,7 +150,7 @@ CREATE TABLE ItemTypeEquipSlotTypes (
 
 CREATE TABLE ItemDefinitions (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   [InventoryGraphicResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_InventoryGraphicResourceId] REFERENCES [GraphicResources]([Id]),
   [MagicTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_MagicTypeId] REFERENCES [MagicTypes]([Id]),
   [ItemTypeId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_ItemTypeId] REFERENCES [ItemTypes]([Id]),
@@ -170,7 +192,7 @@ CREATE TABLE Items (
 CREATE TABLE ItemNameParts (
   [Id] GUID NOT NULL ON CONFLICT FAIL,
   [PartId] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   [Order] INT NOT NULL ON CONFLICT FAIL,
   PRIMARY KEY (Id));
 
@@ -221,7 +243,7 @@ CREATE TABLE RandomItemNameAffixes (
   [IsPrefix] BIT NOT NULL ON CONFLICT FAIL,
   [ItemTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL,
   [MagicTypeGroupingId] GUID NOT NULL ON CONFLICT FAIL,
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 ---------------------------------------------------------------------------------------------------
 -- ENCHANTMENTS
@@ -236,7 +258,7 @@ CREATE TABLE [EnchantmentPlugins] (
 
 CREATE TABLE [EnchantmentTypes] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE [Enchantments] (
@@ -314,12 +336,12 @@ CREATE TABLE [OneShotNegateEnchantmentDefinitions] (
 
 CREATE TABLE [EnchantmentStatuses] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE [EnchantmentTriggers] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE [EnchantmentDefinitionWeatherGroupings] (
@@ -339,7 +361,7 @@ CREATE TABLE [StatusNegations] (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE [ItemAffixDefinitions] (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   [IsPrefix] BIT NOT NULL ON CONFLICT FAIL,
   [MinimumLevel] INT NOT NULL ON CONFLICT FAIL,
   [MaximumLevel] INT NOT NULL ON CONFLICT FAIL,
@@ -369,7 +391,7 @@ CREATE TABLE MagicTypesRandomAffixes (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE WeatherTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   PRIMARY KEY (Id));
 
 CREATE TABLE WeatherTypeGroupings (
@@ -383,12 +405,12 @@ CREATE TABLE WeatherTypeGroupings (
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE Diseases (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   [DiseaseStatesId] GUID NOT NULL ON CONFLICT FAIL);
 
 CREATE TABLE DiseaseStates (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]),
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]),
   [PreviousStateId] GUID NOT NULL ON CONFLICT FAIL, 
   [NextStateId] GUID NOT NULL ON CONFLICT FAIL, 
   [DiseaseSpreadTypeId] GUID NOT NULL ON CONFLICT FAIL);
@@ -400,14 +422,14 @@ CREATE TABLE DiseaseStatesEnchantments (
 
 CREATE TABLE DiseaseSpreadTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]));
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]));
 
 ---------------------------------------------------------------------------------------------------
 -- MAPS
 ---------------------------------------------------------------------------------------------------
 CREATE TABLE TerrainTypes (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]));
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]));
 
 CREATE TABLE MapTiles (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
@@ -420,4 +442,4 @@ CREATE TABLE MapTiles (
 
 CREATE TABLE Maps (
   [Id] GUID NOT NULL ON CONFLICT FAIL, 
-  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_StringResourcesId] REFERENCES [StringResources]([Id]));
+  [NameStringResourceId] GUID NOT NULL ON CONFLICT FAIL CONSTRAINT [FK_NameStringResourcesId] REFERENCES [StringResources]([Id]));

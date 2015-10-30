@@ -2,36 +2,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface;
-using ProjectXyz.Data.Interface.Items;
+using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats;
 
-namespace ProjectXyz.Plugins.Items.Normal
+namespace ProjectXyz.Application.Core.Stats
 {
-    public sealed class ItemStatGenerator : IItemStatGenerator
+    public sealed class StatGenerator : IStatGenerator
     {
         #region Fields
         private readonly IStatFactory _statFactory;
         #endregion
 
         #region Constructors
-        public ItemStatGenerator(IStatFactory statFactory)
+        private StatGenerator(IStatFactory statFactory)
         {
             _statFactory = statFactory;
         }
         #endregion
 
         #region Methods
-        public static IItemStatGenerator Create(IStatFactory statFactory)
+        public static IStatGenerator Create(IStatFactory statFactory)
         {
-            var generator = new ItemStatGenerator(statFactory);
+            var generator = new StatGenerator(statFactory);
             return generator;
         }
 
-        public IEnumerable<IStat> GenerateItemStats(
+        public IEnumerable<IStat> GenerateStats(
             IRandom randomizer,
-            IEnumerable<IItemDefinitionStat> itemDefinitionStats)
+            IEnumerable<IStatRange> statRanges)
         {
-            return itemDefinitionStats
+            return statRanges
                 .Select(x =>
                 {
                     var value =

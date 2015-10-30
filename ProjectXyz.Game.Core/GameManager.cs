@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Game.Interface;
@@ -29,6 +30,8 @@ namespace ProjectXyz.Game.Core
         {
             _dataManager = dataManager;
 
+            var statApplicattionManager = StatApplicationManager.Create(dataManager);
+
             var enchantmentApplicationFactoryManager = EnchantmentApplicationFactoryManager.Create();
 
             var enchantmentPluginLoader = EnchantmentPluginLoader.Create(
@@ -51,6 +54,7 @@ namespace ProjectXyz.Game.Core
             var itemPluginLoader = ItemPluginLoader.Create(
                 database,
                 dataManager,
+                statApplicattionManager,
                 itemApplicationManager,
                 pluginDirectories);
 
@@ -61,6 +65,7 @@ namespace ProjectXyz.Game.Core
             _applicationManager = Application.Core.ApplicationManager.Create(
                 _dataManager,
                 enchantmentApplicationFactoryManager,
+                statApplicattionManager,
                 itemApplicationManager);
 
             _pluginRegistrarManager = Plugins.Core.PluginRegistrarManager.Create(

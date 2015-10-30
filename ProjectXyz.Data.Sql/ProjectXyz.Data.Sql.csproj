@@ -148,6 +148,10 @@
     <Compile Include="Items\Names\ItemNamePartRepository.cs" />
     <Compile Include="Items\MagicTypes\MagicTypeGroupingRepository.cs" />
     <Compile Include="Items\Names\ItemNameAffixRepository.cs" />
+    <Compile Include="Items\Sockets\ItemSocketPatternFilter.cs" />
+    <Compile Include="Items\Sockets\SocketPatternDefinitionRepository.cs" />
+    <Compile Include="Items\Sockets\SocketPatternDefinitionEnchantmentRepository.cs" />
+    <Compile Include="Items\Sockets\SocketPatternDefinitionStatRepository.cs" />
     <Compile Include="Items\SqlItemDataManager.cs" />
     <Compile Include="Items\ItemDefinitionStatRepository.cs" />
     <Compile Include="Items\ItemDefinitionRepository.cs" />

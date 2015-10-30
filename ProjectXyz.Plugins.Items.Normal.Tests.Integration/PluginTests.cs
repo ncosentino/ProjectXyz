@@ -5,6 +5,7 @@ using Moq;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Items.Sockets;
@@ -63,15 +64,18 @@ namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration
                 dataManager,
                 enchantmentApplicationFactoryManager,
                 Enumerable.Empty<IEnchantmentTypeCalculator>());
-            
-            var applicationManager = ItemApplicationManager.Create(
+
+            var statApplicationManager = StatApplicationManager.Create(dataManager);
+
+            var itemApplicationManager = ItemApplicationManager.Create(
                 dataManager,
                 enchantmentApplicationManager);
 
             var plugin = new Plugin(
                 Database,
                 dataManager,
-                applicationManager);
+                statApplicationManager,
+                itemApplicationManager);
 
             // Execute
             var result = plugin.ItemTypeGenerator.Generate(

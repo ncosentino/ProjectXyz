@@ -41,6 +41,9 @@ namespace ProjectXyz.Data.Sql.Items
         private readonly IItemAffixDefinitionMagicTypeGroupingRepository _itemAffixDefinitionMagicTypeGroupingRepository;
         private readonly IMagicTypesRandomAffixesRepository _magicTypesRandomAffixesRepository;
         private readonly ISocketTypeRepository _socketTypeRepository;
+        private readonly ISocketPatternDefinitionRepository _socketPatternDefinitionRepository;
+        private readonly ISocketPatternDefinitionEnchantmentRepository _socketPatternDefinitionEnchantmentRepository;
+        private readonly ISocketPatternDefinitionStatRepository _socketPatternDefinitionStatRepository;
         private readonly IMaterialTypeRepository _materialTypeRepository;
         private readonly IItemTypeRepository _itemTypeRepository;
         private readonly IItemTypeGroupingRepository _itemTypeGroupingRepository;
@@ -116,6 +119,21 @@ namespace ProjectXyz.Data.Sql.Items
                 database,
                 socketTypeFactory);
 
+            var socketPatternDefinitionFactory = SocketPatternDefinitionFactory.Create();
+            _socketPatternDefinitionRepository = SocketPatternDefinitionRepository.Create(
+                database,
+                socketPatternDefinitionFactory);
+
+            var socketPatternDefinitionEnchantmentFactory = SocketPatternEnchantmentFactory.Create();
+            _socketPatternDefinitionEnchantmentRepository = SocketPatternDefinitionEnchantmentRepository.Create(
+                database,
+                socketPatternDefinitionEnchantmentFactory);
+
+            var socketPatternDefinitionStatFactory = SocketPatternStatFactory.Create();
+            _socketPatternDefinitionStatRepository = SocketPatternDefinitionStatRepository.Create(
+                database,
+                socketPatternDefinitionStatFactory);
+
             var materialTypeFactory = MaterialTypeFactory.Create();
             _materialTypeRepository = MaterialTypeRepository.Create(
                 database,
@@ -167,50 +185,82 @@ namespace ProjectXyz.Data.Sql.Items
         #endregion
 
         #region Properties
+        /// <inheritdoc />
         public IItemDefinitionRepository ItemDefinitions { get { return _itemDefinitionRepository; } }
 
+        /// <inheritdoc />
         public IItemDefinitionStatRepository ItemDefinitionStat { get { return _itemDefinitionStatRepository;} }
 
+        /// <inheritdoc />
         public IItemTypeEquipSlotTypeRepository ItemTypeEquipSlotType { get { return _itemTypeEquipSlotTypeRepository; } }
 
+        /// <inheritdoc />
         public IItemDefinitionStatRequirementsRepository ItemDefinitionStatRequirements { get { return _itemDefinitionStatRequirementsRepository; } }
 
+        /// <inheritdoc />
         public IItemMiscRequirementsRepository ItemMiscRequirements { get { return _itemMiscRequirementsRepository; } }
 
+        /// <inheritdoc />
         public IItemDefinitionItemMiscRequirementsRepository ItemDefinitionItemMiscRequirements { get { return _itemDefinitionItemMiscRequirementsRepository; } }
-        
+
+        /// <inheritdoc />
         public IItemAffixDefinitionRepository ItemAffixDefinitions { get { return _itemAffixDefinitionRepository; } }
 
+        /// <inheritdoc />
         public IItemAffixDefinitionFilterRepository ItemAffixDefinitionFilter { get { return _itemAffixDefinitionFilterRepository; } }
 
+        /// <inheritdoc />
         public IItemAffixDefinitionEnchantmentRepository ItemAffixDefinitionEnchantment { get { return _itemAffixDefinitionEnchantmentRepository; } }
 
+        /// <inheritdoc />
         public IItemAffixDefinitionMagicTypeGroupingRepository ItemAffixDefinitionMagicTypeGroupings { get { return _itemAffixDefinitionMagicTypeGroupingRepository; } }
 
+        /// <inheritdoc />
         public IMagicTypesRandomAffixesRepository MagicTypesRandomAffixes { get { return _magicTypesRandomAffixesRepository; } }
 
+        /// <inheritdoc />
         public ISocketTypeRepository SocketTypes { get { return _socketTypeRepository; } }
 
+        /// <inheritdoc />
+        public ISocketPatternDefinitionRepository SocketPatternDefinitions { get { return _socketPatternDefinitionRepository; } }
+
+        /// <inheritdoc />
+        public ISocketPatternDefinitionEnchantmentRepository SocketPatternDefinitionEnchantments { get { return _socketPatternDefinitionEnchantmentRepository; } }
+
+        /// <inheritdoc />
+        public ISocketPatternDefinitionStatRepository SocketPatternDefinitionStats { get { return _socketPatternDefinitionStatRepository; } }
+
+        /// <inheritdoc />
         public IMaterialTypeRepository MaterialTypes { get { return _materialTypeRepository; } }
 
+        /// <inheritdoc />
         public IItemTypeRepository ItemTypes { get { return _itemTypeRepository; } }
 
+        /// <inheritdoc />
         public IItemTypeGroupingRepository ItemTypeGroupings { get { return _itemTypeGroupingRepository; } }
 
+        /// <inheritdoc />
         public IItemNamePartRepository ItemNameParts { get { return _itemNamePartRepository; } }
 
+        /// <inheritdoc />
         public IItemNameAffixRepository ItemNameAffixes { get { return _itemNameAffixRepository; } }
 
+        /// <inheritdoc />
         public IItemNameAffixFilter ItemNameAffixFilter { get { return _itemNameAffixFilter; } }
 
+        /// <inheritdoc />
         public IItemNamePartFactory ItemNamePartFactory { get { return _itemNamePartFactory; } }
 
+        /// <inheritdoc />
         public IItemTypeGeneratorPluginRepository ItemTypeGeneratorPlugins { get { return _itemTypeGeneratorPluginRepository; } }
 
+        /// <inheritdoc />
         public IMagicTypeRepository MagicTypes { get { return _magicTypeRepository; } }
 
+        /// <inheritdoc />
         public IMagicTypeGroupingRepository MagicTypeGroupings { get { return _magicTypeGroupingRepository; } }
 
+        /// <inheritdoc />
         public IEquipSlotTypeRepository EquipSlotTypes { get { return _equipSlotTypeRepository; } }
         #endregion
 

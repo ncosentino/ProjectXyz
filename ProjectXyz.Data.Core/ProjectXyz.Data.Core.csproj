@@ -188,6 +188,12 @@
     <Compile Include="Items\Materials\MaterialType.cs" />
     <Compile Include="Items\Materials\MaterialTypeFactory.cs" />
     <Compile Include="Items\Requirements\ItemMiscRequirements.cs" />
+    <Compile Include="Items\Sockets\SocketPatternDefinitionFactory.cs" />
+    <Compile Include="Items\Sockets\SocketPatternDefinition.cs" />
+    <Compile Include="Items\Sockets\SocketPatternEnchantmentFactory.cs" />
+    <Compile Include="Items\Sockets\SocketPatternStatFactory.cs" />
+    <Compile Include="Items\Sockets\SocketPatternStat.cs" />
+    <Compile Include="Items\Sockets\SocketPatternEnchantment.cs" />
     <Compile Include="Items\Sockets\StatSocketTypeFactory.cs" />
     <Compile Include="Items\Sockets\SocketTypeFactory.cs" />
     <Compile Include="Items\Sockets\SocketedItemFactory.cs" />

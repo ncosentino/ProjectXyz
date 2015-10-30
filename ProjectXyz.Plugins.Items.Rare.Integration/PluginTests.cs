@@ -6,6 +6,7 @@ using ProjectXyz.Application.Core;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Items;
+using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Interface;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Data.Core.Enchantments;
@@ -256,14 +257,17 @@ namespace ProjectXyz.Plugins.Items.Rare.Tests.Integration
                 enchantmentApplicationManager.EnchantmentGenerator);
             enchantmentPluginRegistrar.RegisterPlugins(new[] { new Enchantments.Expression.Plugin(Database, dataManager, enchantmentApplicationFactoryManager) });
 
-            var applicationManager = ItemApplicationManager.Create(
+            var statApplicationManager = StatApplicationManager.Create(dataManager);
+
+            var itemApplicationManager = ItemApplicationManager.Create(
                 dataManager,
                 enchantmentApplicationManager);
 
             var plugin = new Plugin(
                 Database,
                 dataManager,
-                applicationManager);
+                statApplicationManager,
+                itemApplicationManager);
 
             // Execute
             var result = plugin.ItemTypeGenerator.Generate(

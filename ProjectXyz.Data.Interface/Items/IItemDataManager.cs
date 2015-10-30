@@ -35,6 +35,12 @@ namespace ProjectXyz.Data.Interface.Items
 
         ISocketTypeRepository SocketTypes { get; }
 
+        ISocketPatternDefinitionRepository SocketPatternDefinitions { get; }
+
+        ISocketPatternDefinitionEnchantmentRepository SocketPatternDefinitionEnchantments { get; }
+
+        ISocketPatternDefinitionStatRepository SocketPatternDefinitionStats { get; }
+
         IMaterialTypeRepository MaterialTypes { get; }
 
         IItemTypeRepository ItemTypes { get; }

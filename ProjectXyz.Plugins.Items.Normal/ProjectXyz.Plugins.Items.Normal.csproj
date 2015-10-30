@@ -39,9 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IItemRequirementsGenerator.cs" />
-    <Compile Include="IItemStatGenerator.cs" />
     <Compile Include="ItemRequirementsGenerator.cs" />
-    <Compile Include="ItemStatGenerator.cs" />
     <Compile Include="NormalItemGenerator.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
