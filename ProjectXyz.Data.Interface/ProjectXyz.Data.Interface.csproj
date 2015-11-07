@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectXyz.Data.Interface</RootNamespace>
     <AssemblyName>ProjectXyz.Data.Interface</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
     <TargetFrameworkProfile />
@@ -120,7 +120,6 @@
     <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -331,9 +330,6 @@
     <Compile Include="Stats\IStatDefinitionFactory.cs" />
     <Compile Include="Stats\IStatDefinition.cs" />
     <Compile Include="Stats\IStatRepository.cs" />
-    <Compile Include="System\Collections\Specialized\INotifyCollectionChanged.cs" />
-    <Compile Include="System\Collections\Specialized\NotifyCollectionChangedAction.cs" />
-    <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Contracts\IStatFactoryContract.cs" />
     <Compile Include="Stats\Contracts\IStatCollectionContract.cs" />
@@ -344,7 +340,6 @@
     <Compile Include="Stats\IStat.cs" />
     <Compile Include="Stats\IStatCollection.cs" />
     <Compile Include="Stats\IStatFactory.cs" />
-    <Compile Include="System\Collections\Specialized\NotifyCollectionChangedEventHandler.cs" />
     <Compile Include="Time\ITimeOfDay.cs" />
     <Compile Include="Weather\IWeatherRepository.cs" />
     <Compile Include="Weather\IWeatherFactory.cs" />
