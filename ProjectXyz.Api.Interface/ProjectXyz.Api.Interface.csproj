@@ -40,7 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IApiManager.cs" />
+    <Compile Include="IRequestPublisher.cs" />
+    <Compile Include="IResponder.cs" />
+    <Compile Include="INotifier.cs" />
+    <Compile Include="IRequestRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestPublishedEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Interface.Messaging\ProjectXyz.Api.Interface.Messaging.csproj">
+      <Project>{0d988c68-749c-4ddb-b4ab-8ee809cbf2d0}</Project>
+      <Name>ProjectXyz.Api.Interface.Messaging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

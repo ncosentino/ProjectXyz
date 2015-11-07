@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3EF55103-9B98-4BBF-88A7-BA87A483CA4B}</ProjectGuid>
+    <ProjectGuid>{0D988C68-749C-4DDB-B4AB-8EE809CBF2D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Amqp</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Amqp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>ProjectXyz.Api.Interface.Messaging</RootNamespace>
+    <AssemblyName>ProjectXyz.Api.Interface.Messaging</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -30,41 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RabbitMQ.Client, Version=3.5.6.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\packages\RabbitMQ.Client.3.5.6\lib\net40\RabbitMQ.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RequestFactory.cs" />
-    <Compile Include="IRequestFactory.cs" />
+    <Compile Include="INotification.cs" />
+    <Compile Include="IPayload.cs" />
+    <Compile Include="IRequest.cs" />
+    <Compile Include="IResponse.cs" />
+    <Compile Include="Maps\IMapDataRequest.cs" />
+    <Compile Include="Maps\IMapDataResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestPublisher.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Core\ProjectXyz.Api.Core.csproj">
-      <Project>{5c2477bf-cd54-4d82-af6a-33f3da58b742}</Project>
-      <Name>ProjectXyz.Api.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Interface.Messaging\ProjectXyz.Api.Interface.Messaging.csproj">
-      <Project>{0d988c68-749c-4ddb-b4ab-8ee809cbf2d0}</Project>
-      <Name>ProjectXyz.Api.Interface.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Interface\ProjectXyz.Api.Interface.csproj">
-      <Project>{bd766253-0125-4539-9f19-27fad67288e7}</Project>
-      <Name>ProjectXyz.Api.Interface</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
