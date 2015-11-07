@@ -83,6 +83,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Items.Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Items.Rare.Tests.Integration", "ProjectXyz.Plugins.Items.Rare.Integration\ProjectXyz.Plugins.Items.Rare.Tests.Integration.csproj", "{AAE2A6C9-FC25-45D7-9A55-973E7E0E9FB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Interface", "ProjectXyz.Api.Interface\ProjectXyz.Api.Interface.csproj", "{BD766253-0125-4539-9F19-27FAD67288E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Amqp", "ProjectXyz.Api.Amqp\ProjectXyz.Api.Amqp.csproj", "{3EF55103-9B98-4BBF-88A7-BA87A483CA4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -237,6 +241,14 @@ Global
 		{AAE2A6C9-FC25-45D7-9A55-973E7E0E9FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE2A6C9-FC25-45D7-9A55-973E7E0E9FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAE2A6C9-FC25-45D7-9A55-973E7E0E9FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD766253-0125-4539-9F19-27FAD67288E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD766253-0125-4539-9F19-27FAD67288E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD766253-0125-4539-9F19-27FAD67288E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD766253-0125-4539-9F19-27FAD67288E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF55103-9B98-4BBF-88A7-BA87A483CA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF55103-9B98-4BBF-88A7-BA87A483CA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF55103-9B98-4BBF-88A7-BA87A483CA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF55103-9B98-4BBF-88A7-BA87A483CA4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
