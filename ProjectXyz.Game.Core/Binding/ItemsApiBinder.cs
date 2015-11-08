@@ -1,7 +1,7 @@
 ﻿using System;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Interface.Messaging.GameObjects.Inventory;
-using ProjectXyz.Api.Interface.Messaging.Maps;
+using ProjectXyz.Api.Messaging.Interface.GameObjects.Inventory;
+using ProjectXyz.Api.Messaging.Interface.Maps;
 using ProjectXyz.Application.Core.Maps;
 using ProjectXyz.Application.Core.Time;
 using ProjectXyz.Application.Interface.GameObjects.Items;

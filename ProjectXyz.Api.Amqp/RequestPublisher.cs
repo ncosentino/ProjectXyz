@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Interface.Messaging;
+using ProjectXyz.Api.Messaging.Interface;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 

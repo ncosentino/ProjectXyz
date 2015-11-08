@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Interface.Messaging;
+using ProjectXyz.Api.Messaging.Interface;
 
 namespace ProjectXyz.Api.Core
 {

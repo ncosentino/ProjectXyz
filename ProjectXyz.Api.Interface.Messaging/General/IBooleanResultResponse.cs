@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectXyz.Api.Interface.Messaging.General
+namespace ProjectXyz.Api.Messaging.Interface.General
 {
     public interface IBooleanResultResponse : IResponse
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{0D988C68-749C-4DDB-B4AB-8EE809CBF2D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Interface.Messaging</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Interface.Messaging</AssemblyName>
+    <RootNamespace>ProjectXyz.Api.Messaging.Interface</RootNamespace>
+    <AssemblyName>ProjectXyz.Api.Messaging.Interface</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,10 +45,13 @@
     <Compile Include="INotification.cs" />
     <Compile Include="IPayload.cs" />
     <Compile Include="IRequest.cs" />
+    <Compile Include="IResponseReader.cs" />
     <Compile Include="IResponse.cs" />
     <Compile Include="GameObjects\Inventory\IAddItemToInventoryRequest.cs" />
     <Compile Include="GameObjects\Inventory\ICanAddItemToInventoryRequest.cs" />
     <Compile Include="General\IBooleanResultResponse.cs" />
+    <Compile Include="IRequestReader.cs" />
+    <Compile Include="IResponseWriter.cs" />
     <Compile Include="Maps\IMapDataRequest.cs" />
     <Compile Include="Maps\IMapDataResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

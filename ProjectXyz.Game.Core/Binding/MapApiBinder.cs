@@ -1,6 +1,6 @@
 ﻿using System;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Interface.Messaging.Maps;
+using ProjectXyz.Api.Messaging.Interface.Maps;
 using ProjectXyz.Application.Interface.Maps;
 
 namespace ProjectXyz.Game.Core.Binding

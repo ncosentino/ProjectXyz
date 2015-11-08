@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectXyz.Api.Interface.Messaging
+namespace ProjectXyz.Api.Messaging.Interface
 {
     public interface IResponse : IIPayload
     {

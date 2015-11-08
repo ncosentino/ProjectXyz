@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectXyz.Api.Interface.Messaging.GameObjects.Inventory
+namespace ProjectXyz.Api.Messaging.Interface.GameObjects.Inventory
 {
     public interface IEquipFromInventoryRequest : IRequest
     {

@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Api.Interface.Messaging.Maps
+﻿namespace ProjectXyz.Api.Messaging.Interface.Maps
 {
     public interface IMapDataResponse : IResponse
     {

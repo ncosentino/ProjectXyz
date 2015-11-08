@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProjectXyz.Api.Interface.Messaging;
+using ProjectXyz.Api.Messaging.Interface;
 using RabbitMQ.Client.Events;
 
 namespace ProjectXyz.Api.Amqp
