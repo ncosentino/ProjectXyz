@@ -363,7 +363,7 @@ namespace ProjectXyz.Application.Core.Items
                 if (enchantmentsDiffered)
                 {
                     OnEnchantmentsChanged(new NotifyCollectionChangedEventArgs(
-                        NotifyCollectionChangedAction.Reset,
+                        NotifyCollectionChangedAction.Replace,
                         addedEnchantments.ToArray(),
                         removedEnchantments.ToArray()));
                 }
