@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Application.Core.GameObjects;
 using ProjectXyz.Application.Core.GameObjects.Doors;
-using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 using ProjectXyz.Application.Interface.Interactions;
 
 namespace ProjectXyz.Application.Core.Interactions

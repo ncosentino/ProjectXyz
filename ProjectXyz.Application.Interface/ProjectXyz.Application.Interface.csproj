@@ -128,11 +128,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\Contracts\IActorContract.cs" />
-    <Compile Include="Actors\ExtensionMethods\IActorExtensionMethods.cs" />
-    <Compile Include="Actors\IActorContext.cs" />
-    <Compile Include="Actors\IActor.cs" />
-    <Compile Include="Actors\IActorManager.cs" />
+    <Compile Include="GameObjects\Actors\Contracts\IActorContract.cs" />
+    <Compile Include="GameObjects\Actors\ExtensionMethods\IActorExtensionMethods.cs" />
+    <Compile Include="GameObjects\Actors\IActorContext.cs" />
+    <Compile Include="GameObjects\Actors\IActor.cs" />
+    <Compile Include="GameObjects\Actors\IActorManager.cs" />
     <Compile Include="Diseases\IDiseaseStateFactory.cs" />
     <Compile Include="Diseases\IDiseaseStateGenerator.cs" />
     <Compile Include="Diseases\IDiseaseFactory.cs" />
@@ -154,6 +154,7 @@
     <Compile Include="Enchantments\IEnchantmentTypeCalculator.cs" />
     <Compile Include="Enchantments\IObservableEnchantmentCollection.cs" />
     <Compile Include="Enchantments\SaveEnchantmentDelegate.cs" />
+    <Compile Include="GameObjects\Items\IHasInventory.cs" />
     <Compile Include="IApplicationManager.cs" />
     <Compile Include="Interactions\IInteractable.cs" />
     <Compile Include="Interactions\IInteraction.cs" />
@@ -165,6 +166,9 @@
     <Compile Include="Items\Contracts\ICanEquipItemContract.cs" />
     <Compile Include="Items\Contracts\IItemFactoryContract.cs" />
     <Compile Include="Items\Drops\IDropGenerator.cs" />
+    <Compile Include="Items\ICanEquip.cs" />
+    <Compile Include="Items\ICanUnequip.cs" />
+    <Compile Include="Items\ICanUseItem.cs" />
     <Compile Include="Items\IItemMetaDataFactory.cs" />
     <Compile Include="Items\IItemFactory.cs" />
     <Compile Include="Items\IItemGenerator.cs" />
@@ -174,9 +178,7 @@
     <Compile Include="Items\IItemTypeGenerator.cs" />
     <Compile Include="Items\IObservableDurability.cs" />
     <Compile Include="Items\EquipmentChangedEventArgs.cs" />
-    <Compile Include="Items\ICanEquip.cs" />
-    <Compile Include="Items\ICanUnequip.cs" />
-    <Compile Include="Items\ICanUseItem.cs" />
+    <Compile Include="GameObjects\Items\IHasEquipment.cs" />
     <Compile Include="Items\IItemApplicationManager.cs" />
     <Compile Include="Items\Affixes\IItemAffixFactory.cs" />
     <Compile Include="Items\Affixes\IItemAffix.cs" />
@@ -216,8 +218,8 @@
     <Compile Include="Enchantments\Calculations\IEnchantmentCalculator.cs" />
     <Compile Include="Enchantments\IEnchantmentCollection.cs" />
     <Compile Include="Enchantments\IMutableEnchantmentCollection.cs" />
-    <Compile Include="IGameObject.cs" />
-    <Compile Include="IGameObjectContract.cs" />
+    <Compile Include="GameObjects\IGameObject.cs" />
+    <Compile Include="GameObjects\Contracts\IGameObjectContract.cs" />
     <Compile Include="Items\Contracts\ISocketCandidateContract.cs" />
     <Compile Include="Items\Contracts\IItemContract.cs" />
     <Compile Include="Items\ExtensionMethods\ISocketCandidateExtensionMethods.cs" />

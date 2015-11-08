@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.GameObjects;
 using ProjectXyz.Application.Interface.Items.Affixes;
 using ProjectXyz.Application.Interface.Items.Contracts;
 using ProjectXyz.Application.Interface.Items.Requirements;

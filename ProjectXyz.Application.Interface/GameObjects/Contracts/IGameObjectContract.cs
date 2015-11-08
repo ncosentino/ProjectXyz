@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 
-namespace ProjectXyz.Application.Interface
+namespace ProjectXyz.Application.Interface.GameObjects.Contracts
 {
     [ContractClassFor(typeof(IGameObject))]
     public abstract class IGameObjectContract : IGameObject

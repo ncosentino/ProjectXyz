@@ -94,17 +94,21 @@ namespace ProjectXyz.Api.Amqp
             Publish?.Invoke(this, new RequestPublishedEventArgs(request));
         }
 
-        private void Consume(BlockingCollection<BasicDeliverEventArgs> queue, CancellationToken token)
+        private void Consume(
+            BlockingCollection<BasicDeliverEventArgs> queue, 
+            CancellationToken cancellationToken)
         {
-            foreach (var basicDeliverEventArgs in queue.GetConsumingEnumerable())
+            try
             {
-                if (token.IsCancellationRequested)
+                foreach (var request in queue
+                    .GetConsumingEnumerable(cancellationToken)
+                    .Select(basicDeliverEventArgs => _requestFactory.Create(basicDeliverEventArgs)))
                 {
-                    return;
+                    OnPublish(request);
                 }
-
-                var request = _requestFactory.Create(basicDeliverEventArgs);
-                OnPublish(request);
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
         #endregion

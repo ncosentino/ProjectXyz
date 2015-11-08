@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ProjectXyz.Application.Interface.Actors
+namespace ProjectXyz.Application.Interface.GameObjects.Actors
 {
     public interface IActorManager
     {

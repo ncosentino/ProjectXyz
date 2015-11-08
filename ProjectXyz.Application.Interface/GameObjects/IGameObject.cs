@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
+using ProjectXyz.Application.Interface.GameObjects.Contracts;
 
-namespace ProjectXyz.Application.Interface
+namespace ProjectXyz.Application.Interface.GameObjects
 {
     [ContractClass(typeof(IGameObjectContract))]
     public interface IGameObject : IUpdateElapsedTime

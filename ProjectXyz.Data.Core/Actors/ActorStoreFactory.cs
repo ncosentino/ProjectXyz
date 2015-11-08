@@ -24,9 +24,9 @@ namespace ProjectXyz.Data.Core.Actors
             return new ActorStoreFactory();
         }
 
-        public IActorStore CreateActorStore()
+        public IActorStore CreateActorStore(Guid id)
         {
-            return ActorStore.Create();
+            return ActorStore.Create(id);
         }
         #endregion
     }

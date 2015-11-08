@@ -7,9 +7,10 @@ using ProjectXyz.Data.Interface.Stats;
 
 namespace ProjectXyz.Data.Interface.Actors
 {
-    public interface IActorStore
+    public interface IActorStore : IGameObject
     {
         #region Properties
+
         IMutableStatCollection Stats { get; }
         #endregion
     }

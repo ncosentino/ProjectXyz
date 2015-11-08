@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 
 namespace ProjectXyz.Application.Interface.Interactions
 {

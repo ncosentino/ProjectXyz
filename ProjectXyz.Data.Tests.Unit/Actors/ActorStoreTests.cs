@@ -14,9 +14,15 @@ namespace ProjectXyz.Data.Tests.Unit.Actors
         [Fact]
         public void Actor_CreateInstance_DefaultValues()
         {
-            var actor = ActorStore.Create();
+            // Setup
+            var id = Guid.NewGuid();
 
+            // Execute
+            var actor = ActorStore.Create(id);
+
+            // Assert
             Assert.Empty(actor.Stats);
+            Assert.Equal(id, actor.Id);
         }
     }
 }

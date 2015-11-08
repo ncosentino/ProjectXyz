@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 using ProjectXyz.Application.Interface.Interactions;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;

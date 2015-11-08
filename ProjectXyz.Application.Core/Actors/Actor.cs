@@ -9,12 +9,12 @@ using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Stats.ExtensionMethods;
 using ProjectXyz.Data.Core.Stats;
 using ProjectXyz.Data.Core.Enchantments;
-using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.ExtensionMethods;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 using ProjectXyz.Data.Interface.Actors;
 
 namespace ProjectXyz.Application.Core.Actors
@@ -54,6 +54,11 @@ namespace ProjectXyz.Application.Core.Actors
         #endregion
 
         #region Properties
+        public Guid Id
+        {
+            get { return _actor.Id; }
+        }
+
         public float X
         {
             get;

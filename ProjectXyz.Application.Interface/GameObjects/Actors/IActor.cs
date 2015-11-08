@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics.Contracts;
-
+﻿using System.Diagnostics.Contracts;
+using ProjectXyz.Application.Interface.GameObjects.Actors.Contracts;
+using ProjectXyz.Application.Interface.GameObjects.Items;
 using ProjectXyz.Application.Interface.Items;
-using ProjectXyz.Application.Interface.Actors.Contracts;
 using ProjectXyz.Data.Interface.Stats;
 
-namespace ProjectXyz.Application.Interface.Actors
+namespace ProjectXyz.Application.Interface.GameObjects.Actors
 {
     [ContractClass(typeof(IActorContract))]
-    public interface IActor : IUpdateElapsedTime, ICanEquip, ICanUnequip, ICanUseItem
+    public interface IActor : 
+        IGameObject,
+        ICanEquip, 
+        ICanUnequip, 
+        ICanUseItem
     {
         #region Properties
         /// <summary>

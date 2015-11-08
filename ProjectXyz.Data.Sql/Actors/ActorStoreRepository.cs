@@ -38,7 +38,8 @@ namespace ProjectXyz.Data.Sql.Actors
 
         public IActorStore GetById(Guid actorId)
         {
-            return _factory.CreateActorStore();
+            // TODO: go query the database...
+            return _factory.CreateActorStore(actorId);
         }
         #endregion
     }

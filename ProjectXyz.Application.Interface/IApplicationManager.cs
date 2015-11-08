@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Application.Interface.Actors;
-using ProjectXyz.Application.Interface.Enchantments;
+﻿using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Application.Interface.Maps;
 using ProjectXyz.Application.Interface.Stats;

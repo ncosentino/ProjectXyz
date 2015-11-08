@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
+﻿using System.Diagnostics.Contracts;
 using ProjectXyz.Application.Interface.Items.Contracts;
 
 namespace ProjectXyz.Application.Interface.Items
 {
-    [ContractClass(typeof(IcanUseItemContract))]
+    [ContractClass(typeof(ICanUseItemContract))]
     public interface ICanUseItem
     {
         #region Methods

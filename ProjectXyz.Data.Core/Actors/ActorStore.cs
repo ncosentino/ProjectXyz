@@ -14,27 +14,30 @@ namespace ProjectXyz.Data.Core.Actors
     {
         #region Fields
         private readonly IMutableStatCollection _stats;
+        private readonly Guid _id;
         #endregion
 
         #region Constructors
-        private ActorStore()
+        private ActorStore(Guid id)
         {
             _stats = StatCollection.Create();
+
+            _id = id;
         }
         #endregion
 
         #region Properties
-        public IMutableStatCollection Stats
-        {
-            get { return _stats; }
-        }
+        public IMutableStatCollection Stats => _stats;
+
+        public Guid Id => _id;
         #endregion
 
         #region Methods
-        public static IActorStore Create()
+        public static IActorStore Create(Guid id)
         {
+            Contract.Requires<ArgumentException>(id != Guid.Empty);
             Contract.Ensures(Contract.Result<IActorStore>() != null);
-            return new ActorStore();
+            return new ActorStore(id);
         }
         #endregion
     }

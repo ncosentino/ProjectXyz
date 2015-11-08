@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
+using ProjectXyz.Application.Interface.GameObjects.Items;
 
 namespace ProjectXyz.Application.Interface.Items.Contracts
 {
     [ContractClassFor(typeof(ICanUseItem))]
-    internal abstract class IcanUseItemContract : ICanUseItem
+    internal abstract class ICanUseItemContract : ICanUseItem
     {
         #region Methods
         public bool CanUseItem(IItem item)

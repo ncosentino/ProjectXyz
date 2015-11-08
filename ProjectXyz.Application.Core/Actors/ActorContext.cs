@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
-
-using ProjectXyz.Application.Interface.Actors;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 
 namespace ProjectXyz.Application.Core.Actors
 {

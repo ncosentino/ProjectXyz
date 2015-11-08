@@ -55,6 +55,17 @@ namespace ProjectXyz.Application.Interface.Items.ExtensionMethods
             slot = slots[slots.Count - 1];
             return true;
         }
+
+        public static bool CanAddItem(this IInventory inventory, int slot, IItem item)
+        {
+            Contract.Requires<ArgumentNullException>(inventory != null);
+            Contract.Requires<ArgumentNullException>(item != null);
+
+            return
+                !inventory.UsedSlots.Contains(slot) &&
+                !inventory.IsFull() &&
+                inventory.TotalWeight() + item.Weight <= inventory.WeightCapacity;
+        }
         #endregion
     }
 }

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Application.Interface.Items;
 using ProjectXyz.Data.Interface.Stats;
 
-namespace ProjectXyz.Application.Interface.Actors.Contracts
+namespace ProjectXyz.Application.Interface.GameObjects.Actors.Contracts
 {
     [ContractClassFor(typeof(IActor))]
     internal abstract class IActorContract : IActor
@@ -15,6 +12,8 @@ namespace ProjectXyz.Application.Interface.Actors.Contracts
         public abstract float X { get; }
 
         public abstract float Y { get; }
+
+        public abstract Guid Id { get; }
 
         public string AnimationResource
         {

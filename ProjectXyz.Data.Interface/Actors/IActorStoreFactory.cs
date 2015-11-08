@@ -8,7 +8,7 @@ namespace ProjectXyz.Data.Interface.Actors
     public interface IActorStoreFactory
     {
         #region Methods
-        IActorStore CreateActorStore();
+        IActorStore CreateActorStore(Guid id);
         #endregion
     }
 }

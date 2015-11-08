@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using ProjectXyz.Application.Core.Interactions;
-using ProjectXyz.Application.Interface.Actors;
+using ProjectXyz.Application.Interface.GameObjects.Actors;
 using ProjectXyz.Application.Interface.Interactions;
 
 namespace ProjectXyz.Application.Core.GameObjects.Doors

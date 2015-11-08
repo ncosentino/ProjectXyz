@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics.Contracts;
 using ProjectXyz.Application.Core.Shading;
+using ProjectXyz.Application.Interface.GameObjects;
 using ProjectXyz.Application.Interface.Maps;
 using ProjectXyz.Application.Interface.Shading;
 using ProjectXyz.Data.Interface.Maps;
@@ -81,6 +82,13 @@ namespace ProjectXyz.Application.Core.Maps
             _shade.Green = brightness;
             _shade.Blue = brightness;
             _shade.Alpha = 1f;
+        }
+
+        public TGameObject FindGameObject<TGameObject>(Guid id)
+            where TGameObject : IGameObject
+        {
+            // TODO: implement this
+            return default(TGameObject);
         }
 
         [ContractInvariantMethod]
