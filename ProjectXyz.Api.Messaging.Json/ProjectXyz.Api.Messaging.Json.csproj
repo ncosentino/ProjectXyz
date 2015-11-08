@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5C2477BF-CD54-4D82-AF6A-33F3DA58B742}</ProjectGuid>
+    <ProjectGuid>{C7D454AF-0B06-4B1F-BECE-B18250210B8F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Core</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>ProjectXyz.Api.Messaging.Json</RootNamespace>
+    <AssemblyName>ProjectXyz.Api.Messaging.Json</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,25 +30,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiManager.cs" />
+    <Compile Include="JsonRequestReader.cs" />
+    <Compile Include="JsonResponseReader.cs" />
+    <Compile Include="JsonResponseWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestRegistrar.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Interface\ProjectXyz.Api.Interface.csproj">
-      <Project>{bd766253-0125-4539-9f19-27fad67288e7}</Project>
-      <Name>ProjectXyz.Api.Interface</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Messaging.Interface\ProjectXyz.Api.Messaging.Interface.csproj">
       <Project>{5734aa15-5461-4e2d-8f62-58b4ed0df53b}</Project>
       <Name>ProjectXyz.Api.Messaging.Interface</Name>

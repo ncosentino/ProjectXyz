@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using ProjectXyz.Api.Interface;
 using ProjectXyz.Api.Messaging.Interface;
 

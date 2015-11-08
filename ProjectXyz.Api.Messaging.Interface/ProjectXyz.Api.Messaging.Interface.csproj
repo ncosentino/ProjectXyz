@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0D988C68-749C-4DDB-B4AB-8EE809CBF2D0}</ProjectGuid>
+    <ProjectGuid>{5734AA15-5461-4E2D-8F62-58B4ED0DF53B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectXyz.Api.Messaging.Interface</RootNamespace>

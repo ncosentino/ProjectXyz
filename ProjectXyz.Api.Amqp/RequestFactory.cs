@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
-using ProjectXyz.Api.Messaging.Core.General;
 using ProjectXyz.Api.Messaging.Interface;
 using RabbitMQ.Client.Events;
 
@@ -42,7 +41,9 @@ namespace ProjectXyz.Api.Amqp
             IRequest request;
             using (var bodyStream = new MemoryStream(deliverEventArgs.Body))
             {
-                request = _requestReader.Read(bodyStream, typeof(BooleanResultResponse));
+                // TODO: map the type to a... type.
+                request = null;
+                ////request = _requestReader.Read(bodyStream, typeof(BooleanResultResponse));
             }
 
             return request;

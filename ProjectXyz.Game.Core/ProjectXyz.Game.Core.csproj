@@ -47,13 +47,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Interface.Messaging\ProjectXyz.Api.Messaging.Interface.csproj">
-      <Project>{0d988c68-749c-4ddb-b4ab-8ee809cbf2d0}</Project>
-      <Name>ProjectXyz.Api.Messaging.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Interface\ProjectXyz.Api.Interface.csproj">
       <Project>{bd766253-0125-4539-9f19-27fad67288e7}</Project>
       <Name>ProjectXyz.Api.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Messaging.Interface\ProjectXyz.Api.Messaging.Interface.csproj">
+      <Project>{5734aa15-5461-4e2d-8f62-58b4ed0df53b}</Project>
+      <Name>ProjectXyz.Api.Messaging.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
       <Project>{5f23d262-459c-4655-acde-d8563fe33698}</Project>
