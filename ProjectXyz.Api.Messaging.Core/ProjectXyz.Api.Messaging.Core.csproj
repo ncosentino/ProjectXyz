@@ -38,11 +38,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\Inventory\InventoryItemPath.cs" />
     <Compile Include="General\BaseRequest.cs" />
     <Compile Include="General\BooleanResultResponse.cs" />
     <Compile Include="Initialization\InitializeWorldRequest.cs" />
     <Compile Include="MessageDiscoverer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Messaging.Interface\ProjectXyz.Api.Messaging.Interface.csproj">

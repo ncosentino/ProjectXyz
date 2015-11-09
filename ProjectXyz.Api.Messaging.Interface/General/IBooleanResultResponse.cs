@@ -5,9 +5,9 @@ namespace ProjectXyz.Api.Messaging.Interface.General
     public interface IBooleanResultResponse : IResponse
     {
         #region Properties
-        bool Result { get; }
+        bool Result { get; set; }
 
-        Guid ErrorStringResourceId { get; }
+        Guid ErrorStringResourceId { get; set; }
         #endregion
     }
 }

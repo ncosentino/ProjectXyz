@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConcreteConverter.cs" />
     <Compile Include="JsonRequestReader.cs" />
     <Compile Include="JsonResponseReader.cs" />
     <Compile Include="JsonResponseWriter.cs" />

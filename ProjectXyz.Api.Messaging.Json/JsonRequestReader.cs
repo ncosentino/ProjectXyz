@@ -11,16 +11,21 @@ namespace ProjectXyz.Api.Messaging.Json
 {
     public sealed class JsonRequestReader : IRequestReader
     {
+        #region Fields
+        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        #endregion
+
         #region Constructors
-        private JsonRequestReader()
+        private JsonRequestReader(JsonSerializerSettings jsonSerializerSettings)
         {
+            _jsonSerializerSettings = jsonSerializerSettings;
         }
         #endregion
 
         #region Methods
-        public static IRequestReader Create()
+        public static IRequestReader Create(JsonSerializerSettings jsonSerializerSettings)
         {
-            var reader = new JsonRequestReader();
+            var reader = new JsonRequestReader(jsonSerializerSettings);
             return reader;
         }
         
@@ -36,7 +41,8 @@ namespace ProjectXyz.Api.Messaging.Json
             {
                 return (IRequest)JsonConvert.DeserializeObject(
                     reader.ReadToEnd(),
-                    type);
+                    type,
+                    _jsonSerializerSettings);
             }
         }
         #endregion

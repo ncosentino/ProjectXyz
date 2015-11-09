@@ -6,7 +6,7 @@ using System;
 
 namespace ProjectXyz.Api.Amqp
 {
-    public sealed class Responder : IResponder
+    public sealed class ResponseSender : IResponseSender
     {
         #region Fields
         private readonly Dictionary<Type, string> _responseTypeMapping;
@@ -15,7 +15,7 @@ namespace ProjectXyz.Api.Amqp
         #endregion
 
         #region Constructors
-        private Responder(
+        private ResponseSender(
             IResponseWriter responseWriter,
             IChannelWriter channelWriter,
             IDictionary<Type, string> responseTypeMapping)
@@ -27,19 +27,19 @@ namespace ProjectXyz.Api.Amqp
         #endregion
 
         #region Methods
-        public static IResponder Create(
+        public static IResponseSender Create(
             IResponseWriter responseWriter,
             IChannelWriter channelWriter,
             IDictionary<Type, string> responseTypeMapping)
         {
-            var responder = new Responder(
+            var sender = new ResponseSender(
                 responseWriter,
                 channelWriter,
                 responseTypeMapping);
-            return responder;
+            return sender;
         }
 
-        public void Respond<TResponse>(TResponse response)
+        public void Send<TResponse>(TResponse response)
             where TResponse : IResponse
         {
             var typeKey = response.GetType();

@@ -5,7 +5,7 @@ namespace ProjectXyz.Api.Messaging.Interface
     public interface IResponse : IPayload
     {
         #region Properties
-        Guid RequestId { get; }
+        Guid RequestId { get; set; }
         #endregion
     }
 }

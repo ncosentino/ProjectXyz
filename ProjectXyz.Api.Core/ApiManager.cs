@@ -1,4 +1,5 @@
 ﻿using ProjectXyz.Api.Interface;
+using ProjectXyz.Api.Messaging.Interface;
 
 namespace ProjectXyz.Api.Core
 {
@@ -25,6 +26,9 @@ namespace ProjectXyz.Api.Core
         
         /// <inheritdoc/>
         public IRequestRegistrar RequestRegistrar { get; }
+
+        /// <inheritdoc/>
+        public IResponseFactory ResponseFactory { get; }
         #endregion
 
         #region Methods

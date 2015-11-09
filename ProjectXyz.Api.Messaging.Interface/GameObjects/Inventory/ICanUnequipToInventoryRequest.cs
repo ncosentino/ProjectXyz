@@ -5,15 +5,9 @@ namespace ProjectXyz.Api.Messaging.Interface.GameObjects.Inventory
     public interface ICanUnequipToInventoryRequest : IRequest
     {
         #region Properties
-        Guid SourceGameObjectId { get; }
+        IEquipmentItemPath SourceItemPath { get; }
 
-        Guid SourceEquipmentSlotId { get; }
-
-        Guid DestinationGameObjectId { get; }
-
-        Guid DestinationInventoryId { get; }
-
-        int DestinationIndex { get; }
+        IInventoryItemPath DestinationItemPath { get; }
         #endregion
     }
 }

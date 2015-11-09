@@ -1,20 +1,25 @@
 ﻿using System;
+using System.Linq;
 using ProjectXyz.Api.Interface;
+using ProjectXyz.Api.Messaging.Interface.General;
 using ProjectXyz.Api.Messaging.Interface.Maps;
 using ProjectXyz.Application.Interface.Maps;
+using ProjectXyz.Application.Interface.Worlds;
 
-namespace ProjectXyz.Game.Core.Binding.Explore
+namespace ProjectXyz.Game.Core.Binding
 {
     public sealed class MapApiBinder : IApiBinder
     {
         #region Fields
         private readonly IApiManager _apiManager;
+        private readonly IWorldManager _worldManager;
         private readonly IMapManager _mapManager;
         #endregion
 
         #region Constructors
         private MapApiBinder(
             IApiManager apiManager,
+            IWorldManager worldManager,
             IMapManager mapManager)
         {
             _apiManager = apiManager;
@@ -31,10 +36,12 @@ namespace ProjectXyz.Game.Core.Binding.Explore
         #region Methods
         public static IApiBinder Create(
             IApiManager apiManager,
+            IWorldManager worldManager,
             IMapManager mapManager)
         {
             var binder = new MapApiBinder(
                 apiManager,
+                worldManager,
                 mapManager);
             return binder;
         }
@@ -65,8 +72,18 @@ namespace ProjectXyz.Game.Core.Binding.Explore
             _apiManager.RequestRegistrar.Unsubscribe<IMapDataRequest>(HandleMapDataRequest);
         }
 
-        private void HandleMapDataRequest(IMapDataRequest mapDataRequest)
+        private void HandleMapDataRequest(IMapDataRequest request)
         {
+            var activeMap = _worldManager.World.Maps.FirstOrDefault(x => x.Id == request.MapId);
+            if (activeMap == null)
+            {
+                _apiManager.Responder.Respond<IBooleanResultResponse>(request.Id, r =>
+                {
+                    r.Result = false;
+                    r.ErrorStringResourceId = Guid.NewGuid(); // TODO: send back a server state error? map isn't even active...
+                });
+            }
+
             // TODO: respond!
             //_apiManager.Responder.Respond();
         }

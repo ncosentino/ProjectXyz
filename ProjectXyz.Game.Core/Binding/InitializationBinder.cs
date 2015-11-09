@@ -1,16 +1,14 @@
 ﻿using System;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Messaging.Interface.GameObjects.Inventory;
+using ProjectXyz.Api.Messaging.Interface.General;
 using ProjectXyz.Api.Messaging.Interface.Initialization;
 using ProjectXyz.Application.Core.Maps;
 using ProjectXyz.Application.Core.Time;
-using ProjectXyz.Application.Interface.GameObjects.Items;
-using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Maps;
 using ProjectXyz.Application.Interface.Worlds;
 using DateTime = ProjectXyz.Application.Core.Time.DateTime;
 
-namespace ProjectXyz.Game.Core.Binding.Explore
+namespace ProjectXyz.Game.Core.Binding
 {
     public sealed class InitializationBinder : IApiBinder
     {
@@ -85,6 +83,11 @@ namespace ProjectXyz.Game.Core.Binding.Explore
                 mapId,
                 MapContext.Create(Calendar.Create(DateTime.Create(0, 0, 0, 0, 0, 0)))); // FIXME: where do we pull this context from?
             _worldManager.World.ActivateMap(map);
+
+            _apiManager.Responder.Respond<IBooleanResultResponse>(request.Id, r =>
+            {
+                r.Result = true;
+            });
         }
 
         private Guid GetMapIdForPlayer(Guid playerId)

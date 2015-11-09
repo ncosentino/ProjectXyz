@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IApiManager.cs" />
     <Compile Include="IRequestPublisher.cs" />
+    <Compile Include="IResponseSender.cs" />
     <Compile Include="IResponder.cs" />
     <Compile Include="INotifier.cs" />
     <Compile Include="IRequestRegistrar.cs" />

@@ -7,13 +7,10 @@ using ProjectXyz.Api.Messaging.Interface;
 
 namespace ProjectXyz.Api.Interface
 {
-    public interface IResponder
+    public interface IResponseSender
     {
         #region Methods
-        void Respond<TResponse>(Guid requestId)
-            where TResponse : IResponse;
-
-        void Respond<TResponse>(Guid requestId, Action<TResponse> callback)
+        void Send<TResponse>(TResponse response)
             where TResponse : IResponse;
         #endregion
     }

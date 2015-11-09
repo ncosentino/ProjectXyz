@@ -38,6 +38,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\IGameObjectPath.cs" />
+    <Compile Include="GameObjects\Inventory\IEquipmentItemPath.cs" />
+    <Compile Include="GameObjects\Inventory\IInventoryItemPath.cs" />
     <Compile Include="GameObjects\Inventory\IUnequipToInventoryRequest .cs" />
     <Compile Include="GameObjects\Inventory\IEquipFromInventoryRequest.cs" />
     <Compile Include="GameObjects\Inventory\ICanUnequipToInventoryRequest.cs" />
@@ -47,6 +50,7 @@
     <Compile Include="INotification.cs" />
     <Compile Include="IPayload.cs" />
     <Compile Include="IRequest.cs" />
+    <Compile Include="IResponseFactory.cs" />
     <Compile Include="IResponseReader.cs" />
     <Compile Include="IResponse.cs" />
     <Compile Include="GameObjects\Inventory\IAddItemToInventoryRequest.cs" />

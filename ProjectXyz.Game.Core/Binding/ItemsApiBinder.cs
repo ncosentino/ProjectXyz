@@ -8,7 +8,7 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Maps;
 using DateTime = ProjectXyz.Application.Core.Time.DateTime;
 
-namespace ProjectXyz.Game.Core.Binding.Explore
+namespace ProjectXyz.Game.Core.Binding
 {
     public sealed class ItemsApiBinder : IApiBinder
     {
@@ -75,35 +75,35 @@ namespace ProjectXyz.Game.Core.Binding.Explore
             // FIXME: wtf do we do about this little shit storm?
             var map = _mapManager.GetMapById(Guid.NewGuid(), MapContext.Create(Calendar.Create(DateTime.Create(1, 1, 0, 0, 0, 0))));
 
-            var sourceObject = map.FindGameObject<IHasInventory>(request.SourceGameObjectId);
+            var sourceObject = map.FindGameObject<IHasInventory>(request.SourceItemPath.OwnerPath.GameObjectId);
             if (sourceObject == null)
             {
                 // TODO: error response
                 return;
             }
 
-            var sourceInventory = sourceObject.GetInventory(request.SourceInventoryId);
+            var sourceInventory = sourceObject.GetInventory(request.SourceItemPath.InventoryId);
             if (sourceInventory == null)
             {
                 // TODO: error response
                 return;
             }
 
-            var sourceItem = sourceInventory[request.SourceIndex];
+            var sourceItem = sourceInventory[request.SourceItemPath.Index];
             if (sourceItem == null)
             {
                 // TODO: error response
                 return;
             }
 
-            var destinationObject = map.FindGameObject<IHasInventory>(request.DestinationGameObjectId);
+            var destinationObject = map.FindGameObject<IHasInventory>(request.DestinationItemPath.OwnerPath.GameObjectId);
             if (destinationObject == null)
             {
                 // TODO: error response
                 return;
             }
 
-            var destinationInventory = sourceObject.GetInventory(request.DestinationInventoryId);
+            var destinationInventory = sourceObject.GetInventory(request.DestinationItemPath.InventoryId);
             if (destinationInventory == null)
             {
                 // TODO: error response
@@ -111,7 +111,7 @@ namespace ProjectXyz.Game.Core.Binding.Explore
             }
 
             var canAddItem = destinationInventory.CanAddItem(
-                request.DestinationIndex, 
+                request.DestinationItemPath.Index, 
                 sourceItem);
 
             // TODO: respond...

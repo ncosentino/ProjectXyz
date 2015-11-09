@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using ProjectXyz.Api.Interface;
 using ProjectXyz.Application.Interface.Maps;
 using ProjectXyz.Game.Core.Binding;
-using ProjectXyz.Game.Core.Binding.Explore;
 using ProjectXyz.Game.Interface;
 using ProjectXyz.Utilities;
 
@@ -48,6 +47,7 @@ namespace ProjectXyz.Game.Core
         {
             using (MapApiBinder.Create(
                 _apiManager, 
+                _gameManager.WorldManager,
                 _gameManager.ApplicationManager.Maps))
             {
                 await AsyncGameLoop(cancellationToken);
