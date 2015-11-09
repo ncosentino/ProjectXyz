@@ -1,6 +1,6 @@
 ﻿namespace ProjectXyz.Api.Messaging.Interface
 {
-    public interface INotification : IIPayload
+    public interface INotification : IPayload
     {
         #region Properties
         #endregion

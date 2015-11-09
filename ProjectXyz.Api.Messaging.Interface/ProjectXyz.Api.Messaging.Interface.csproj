@@ -42,6 +42,7 @@
     <Compile Include="GameObjects\Inventory\IEquipFromInventoryRequest.cs" />
     <Compile Include="GameObjects\Inventory\ICanUnequipToInventoryRequest.cs" />
     <Compile Include="GameObjects\Inventory\ICanEquipFromInventoryRequest.cs" />
+    <Compile Include="IMessageDiscoverer.cs" />
     <Compile Include="INotification.cs" />
     <Compile Include="IPayload.cs" />
     <Compile Include="IRequest.cs" />

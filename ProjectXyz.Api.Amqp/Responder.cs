@@ -1,12 +1,15 @@
 ﻿using System.IO;
 using ProjectXyz.Api.Interface;
 using ProjectXyz.Api.Messaging.Interface;
+using System.Collections.Generic;
+using System;
 
 namespace ProjectXyz.Api.Amqp
 {
     public sealed class Responder : IResponder
     {
         #region Fields
+        private readonly Dictionary<Type, string> _responseTypeMapping;
         private readonly IResponseWriter _responseWriter;
         private readonly IChannelWriter _channelWriter;
         #endregion
@@ -14,8 +17,10 @@ namespace ProjectXyz.Api.Amqp
         #region Constructors
         private Responder(
             IResponseWriter responseWriter,
-            IChannelWriter channelWriter)
+            IChannelWriter channelWriter,
+            IDictionary<Type, string> responseTypeMapping)
         {
+            _responseTypeMapping = new Dictionary<Type, string>(responseTypeMapping);
             _responseWriter = responseWriter;
             _channelWriter = channelWriter;
         }
@@ -24,17 +29,25 @@ namespace ProjectXyz.Api.Amqp
         #region Methods
         public static IResponder Create(
             IResponseWriter responseWriter,
-            IChannelWriter channelWriter)
+            IChannelWriter channelWriter,
+            IDictionary<Type, string> responseTypeMapping)
         {
             var responder = new Responder(
                 responseWriter,
-                channelWriter);
+                channelWriter,
+                responseTypeMapping);
             return responder;
         }
 
         public void Respond<TResponse>(TResponse response)
             where TResponse : IResponse
         {
+            var typeKey = response.GetType();
+            if (!_responseTypeMapping.ContainsKey(typeKey))
+            {
+                throw new NotSupportedException(string.Format("Mapping of response type '{0}' is not supported.", typeKey));
+            }
+
             using (var responseStream = new MemoryStream())
             {
                 _responseWriter.Write(
@@ -42,7 +55,7 @@ namespace ProjectXyz.Api.Amqp
                     responseStream);
 
                 _channelWriter.WriteToChannel(
-                    response.Type,
+                    _responseTypeMapping[typeKey],
                     responseStream.GetBuffer(),
                     response.RequestId);
             }
