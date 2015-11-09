@@ -250,6 +250,8 @@
     <Compile Include="Time\IDate.cs" />
     <Compile Include="Time\IDateTime.cs" />
     <Compile Include="Time\ITime.cs" />
+    <Compile Include="Worlds\IWorld.cs" />
+    <Compile Include="Worlds\IWorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">

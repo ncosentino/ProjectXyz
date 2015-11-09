@@ -8,7 +8,7 @@ using ProjectXyz.Application.Interface.Items.ExtensionMethods;
 using ProjectXyz.Application.Interface.Maps;
 using DateTime = ProjectXyz.Application.Core.Time.DateTime;
 
-namespace ProjectXyz.Game.Core.Binding
+namespace ProjectXyz.Game.Core.Binding.Explore
 {
     public sealed class ItemsApiBinder : IApiBinder
     {

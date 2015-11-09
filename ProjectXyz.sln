@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.Json", "ProjectXyz.Api.Messaging.Json\ProjectXyz.Api.Messaging.Json.csproj", "{C7D454AF-0B06-4B1F-BECE-B18250210B8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Utilities", "ProjectXyz.Utilities\ProjectXyz.Utilities.csproj", "{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -297,6 +299,10 @@ Global
 		{C7D454AF-0B06-4B1F-BECE-B18250210B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D454AF-0B06-4B1F-BECE-B18250210B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7D454AF-0B06-4B1F-BECE-B18250210B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

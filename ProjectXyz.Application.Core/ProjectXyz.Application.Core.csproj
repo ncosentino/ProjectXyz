@@ -186,6 +186,8 @@
     <Compile Include="Shading\Shade.cs" />
     <Compile Include="Time\Calendar.cs" />
     <Compile Include="Time\DateTime.cs" />
+    <Compile Include="Worlds\World.cs" />
+    <Compile Include="Worlds\WorldManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">

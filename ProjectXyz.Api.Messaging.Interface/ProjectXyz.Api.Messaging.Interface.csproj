@@ -43,6 +43,7 @@
     <Compile Include="GameObjects\Inventory\ICanUnequipToInventoryRequest.cs" />
     <Compile Include="GameObjects\Inventory\ICanEquipFromInventoryRequest.cs" />
     <Compile Include="IMessageDiscoverer.cs" />
+    <Compile Include="Initialization\IInitializeWorldRequest.cs" />
     <Compile Include="INotification.cs" />
     <Compile Include="IPayload.cs" />
     <Compile Include="IRequest.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Maps\IMapDataResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

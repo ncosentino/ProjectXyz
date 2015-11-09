@@ -3,7 +3,7 @@ using ProjectXyz.Api.Interface;
 using ProjectXyz.Api.Messaging.Interface.Maps;
 using ProjectXyz.Application.Interface.Maps;
 
-namespace ProjectXyz.Game.Core.Binding
+namespace ProjectXyz.Game.Core.Binding.Explore
 {
     public sealed class MapApiBinder : IApiBinder
     {

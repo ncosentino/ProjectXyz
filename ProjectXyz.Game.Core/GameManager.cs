@@ -5,6 +5,7 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Items;
 using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Interface;
+using ProjectXyz.Application.Interface.Worlds;
 using ProjectXyz.Data.Interface;
 using ProjectXyz.Game.Interface;
 using ProjectXyz.Plugins.Core.Enchantments;
@@ -15,20 +16,13 @@ namespace ProjectXyz.Game.Core
 {
     public sealed class GameManager : IGameManager
     {
-        #region Fields
-        private readonly IDataManager _dataManager;
-        private readonly IApplicationManager _applicationManager;
-        private readonly IPluginManager _pluginManager;
-        private readonly IPluginRegistrarManager _pluginRegistrarManager;
-        #endregion
-
         #region Constructors
         private GameManager(
             IDatabase database,
             IDataManager dataManager,
             IEnumerable<string> pluginDirectories)
         {
-            _dataManager = dataManager;
+            DataManager = dataManager;
 
             var statApplicattionManager = StatApplicationManager.Create(dataManager);
 
@@ -58,34 +52,39 @@ namespace ProjectXyz.Game.Core
                 itemApplicationManager,
                 pluginDirectories);
 
-            _pluginManager = Plugins.Core.PluginManager.Create(
+            PluginManager = Plugins.Core.PluginManager.Create(
                 enchantmentPluginLoader,
                 itemPluginLoader);
 
-            _applicationManager = Application.Core.ApplicationManager.Create(
-                _dataManager,
+            ApplicationManager = Application.Core.ApplicationManager.Create(
+                DataManager,
                 enchantmentApplicationFactoryManager,
                 statApplicattionManager,
                 itemApplicationManager);
 
-            _pluginRegistrarManager = Plugins.Core.PluginRegistrarManager.Create(
-                _dataManager,
-                _applicationManager);
+            WorldManager = Application.Core.Worlds.WorldManager.Create();
+
+            PluginRegistrarManager = Plugins.Core.PluginRegistrarManager.Create(
+                DataManager,
+                ApplicationManager);
         }
         #endregion
 
         #region Properties
         /// <inheritdoc />
-        public IDataManager DataManager { get { return _dataManager; } }
+        public IDataManager DataManager { get; }
 
         /// <inheritdoc />
-        public IApplicationManager ApplicationManager { get { return _applicationManager; } }
+        public IApplicationManager ApplicationManager { get; }
 
         /// <inheritdoc />
-        public IPluginManager PluginManager { get { return _pluginManager; } }
+        public IWorldManager WorldManager { get; }
 
         /// <inheritdoc />
-        public IPluginRegistrarManager PluginRegistrarManager { get { return _pluginRegistrarManager; } }
+        public IPluginManager PluginManager { get; }
+
+        /// <inheritdoc />
+        public IPluginRegistrarManager PluginRegistrarManager { get; }
         #endregion
 
         #region Methods

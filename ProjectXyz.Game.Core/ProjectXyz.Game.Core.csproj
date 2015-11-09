@@ -38,10 +38,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binding\ItemsApiBinder.cs" />
+    <Compile Include="Binding\Explore\InitializationBinder.cs" />
+    <Compile Include="Binding\Explore\ItemsApiBinder.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameManager.cs" />
-    <Compile Include="Binding\MapApiBinder.cs" />
+    <Compile Include="Binding\Explore\MapApiBinder.cs" />
     <Compile Include="Binding\IApiBinder.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +95,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Items\ProjectXyz.Plugins.Items.csproj">
       <Project>{565994c5-942a-429e-86c1-3d75e9caf442}</Project>
       <Name>ProjectXyz.Plugins.Items</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Utilities\ProjectXyz.Utilities.csproj">
+      <Project>{0ed9070e-58c3-4606-b6a5-fadff0a9f73f}</Project>
+      <Name>ProjectXyz.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
