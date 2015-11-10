@@ -27,9 +27,11 @@ namespace ProjectXyz.Game.Core
         {
             _gameManager = gameManager;
             _apiManager = apiManager;
-
-
         }
+        #endregion
+
+        #region Events
+        public event EventHandler<EventArgs> Started;
         #endregion
 
         #region Methods
@@ -46,7 +48,11 @@ namespace ProjectXyz.Game.Core
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             using (MapApiBinder.Create(
-                _apiManager, 
+                _apiManager,
+                _gameManager.WorldManager,
+                _gameManager.ApplicationManager.Maps))
+            using (InitializationBinder.Create(
+                _apiManager,
                 _gameManager.WorldManager,
                 _gameManager.ApplicationManager.Maps))
             {
@@ -64,6 +70,8 @@ namespace ProjectXyz.Game.Core
             return Task.Factory.StartNew(
                 () =>
                 {
+                    Started?.Invoke(this, EventArgs.Empty);
+
                     var mapLastUpdatedCache = new ConcurrentDictionary<IMap, DateTime>();
                     using (var gate = new RateGate(60, TimeSpan.FromSeconds(1)))
                     {

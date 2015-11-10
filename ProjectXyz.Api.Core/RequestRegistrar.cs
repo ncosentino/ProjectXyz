@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using ProjectXyz.Api.Interface;
 using ProjectXyz.Api.Messaging.Interface;
 
@@ -79,15 +80,27 @@ namespace ProjectXyz.Api.Core
 
             _publisher.Publish -= Publisher_Publish;
         }
+
+        private bool TryGetHandlerKey(Type requestType, out Type key)
+        {
+            if (_handlers.ContainsKey(requestType))
+            {
+                key = requestType;
+                return true;
+            }
+
+            key = _handlers.Keys.FirstOrDefault(x => x.IsAssignableFrom(requestType));
+            return key != null;
+        }
         #endregion
 
         #region Event Handlers
         private void Publisher_Publish(object sender, RequestPublishedEventArgs e)
         {
-            var key = e.Request.GetType();
-            if (!_handlers.ContainsKey(key))
+            Type key;
+            if (!TryGetHandlerKey(e.Request.GetType(), out key))
             {
-                return;
+                throw new NotSupportedException("No handler is is configured to support this event.");
             }
 
             foreach (var handler in _handlers[key].Values)

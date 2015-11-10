@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
+using ProjectXyz.Utilities;
 
 namespace ProjectXyz.Api.Messaging.Json
 {
@@ -11,26 +12,21 @@ namespace ProjectXyz.Api.Messaging.Json
     {
         #region Fields
         private readonly Dictionary<Type, Type> _concreteTypeCache;
-        private readonly Type[] _possibleTypeCache;
+        private readonly ITypeMapper _typeMapper;
         #endregion
 
         #region Constructors
-        private ConcreteConverter(Func<IEnumerable<Type>> getTypesCallback)
+        private ConcreteConverter(ITypeMapper typeMapper)
         {
             _concreteTypeCache = new Dictionary<Type, Type>();
-            _possibleTypeCache = getTypesCallback
-                .Invoke()
-                .Where(x => !x.IsAbstract &&
-                    !x.IsInterface &&
-                    x.GetConstructors().FirstOrDefault(c => c.GetParameters().Length == 0) != null)
-                .ToArray();
+            _typeMapper = typeMapper;
         }
         #endregion
 
         #region Methods
-        public static JsonConverter Create(Func<IEnumerable<Type>> getTypesCallback)
+        public static JsonConverter Create(ITypeMapper typeMapper)
         {
-            var converter = new ConcreteConverter(getTypesCallback);
+            var converter = new ConcreteConverter(typeMapper);
             return converter;
         }
 
@@ -46,7 +42,7 @@ namespace ProjectXyz.Api.Messaging.Json
                 return true;
             }
 
-            var concreteType = _possibleTypeCache.FirstOrDefault(objectType.IsAssignableFrom);
+            var concreteType = _typeMapper.GetConcreteType(objectType);
             if (concreteType == null)
             {
                 return false;

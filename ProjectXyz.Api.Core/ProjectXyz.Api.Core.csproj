@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestRegistrar.cs" />
     <Compile Include="Responder.cs" />
+    <Compile Include="ResponseFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Interface\ProjectXyz.Api.Interface.csproj">
@@ -54,6 +55,10 @@
     <ProjectReference Include="..\ProjectXyz.Api.Messaging.Interface\ProjectXyz.Api.Messaging.Interface.csproj">
       <Project>{5734aa15-5461-4e2d-8f62-58b4ed0df53b}</Project>
       <Name>ProjectXyz.Api.Messaging.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Utilities\ProjectXyz.Utilities.csproj">
+      <Project>{0ed9070e-58c3-4606-b6a5-fadff0a9f73f}</Project>
+      <Name>ProjectXyz.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

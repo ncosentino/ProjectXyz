@@ -50,7 +50,6 @@
     <Compile Include="INotification.cs" />
     <Compile Include="IPayload.cs" />
     <Compile Include="IRequest.cs" />
-    <Compile Include="IResponseFactory.cs" />
     <Compile Include="IResponseReader.cs" />
     <Compile Include="IResponse.cs" />
     <Compile Include="GameObjects\Inventory\IAddItemToInventoryRequest.cs" />

@@ -44,7 +44,6 @@
     <Compile Include="GameManager.cs" />
     <Compile Include="Binding\MapApiBinder.cs" />
     <Compile Include="Binding\IApiBinder.cs" />
-    <Compile Include="IGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
