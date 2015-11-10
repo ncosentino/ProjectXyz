@@ -117,9 +117,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.Core", "ProjectXyz.Api.Messaging.Core\ProjectXyz.Api.Messaging.Core.csproj", "{815EFA46-153A-4CD1-B0F3-53543DB1B7EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.Json", "ProjectXyz.Api.Messaging.Json\ProjectXyz.Api.Messaging.Json.csproj", "{C7D454AF-0B06-4B1F-BECE-B18250210B8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.Serialization.Json", "ProjectXyz.Api.Messaging.Serialization.Json\ProjectXyz.Api.Messaging.Serialization.Json.csproj", "{C7D454AF-0B06-4B1F-BECE-B18250210B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Utilities", "ProjectXyz.Utilities\ProjectXyz.Utilities.csproj", "{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Messaging.Serialization.Interface", "ProjectXyz.Api.Messaging.Serialization.Interface\ProjectXyz.Api.Messaging.Serialization.Interface.csproj", "{E9F32E99-1009-491C-96B8-44AA2D015112}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -303,6 +305,10 @@ Global
 		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ED9070E-58C3-4606-B6A5-FADFF0A9F73F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9F32E99-1009-491C-96B8-44AA2D015112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9F32E99-1009-491C-96B8-44AA2D015112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9F32E99-1009-491C-96B8-44AA2D015112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9F32E99-1009-491C-96B8-44AA2D015112}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -359,5 +365,6 @@ Global
 		{5734AA15-5461-4E2D-8F62-58B4ED0DF53B} = {1D21D8E5-50AE-46BA-A4AB-FA06AE1BFEAC}
 		{815EFA46-153A-4CD1-B0F3-53543DB1B7EF} = {1D21D8E5-50AE-46BA-A4AB-FA06AE1BFEAC}
 		{C7D454AF-0B06-4B1F-BECE-B18250210B8F} = {1D21D8E5-50AE-46BA-A4AB-FA06AE1BFEAC}
+		{E9F32E99-1009-491C-96B8-44AA2D015112} = {1D21D8E5-50AE-46BA-A4AB-FA06AE1BFEAC}
 	EndGlobalSection
 EndGlobal

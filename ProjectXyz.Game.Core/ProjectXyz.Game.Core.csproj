@@ -51,6 +51,10 @@
       <Project>{bd766253-0125-4539-9f19-27fad67288e7}</Project>
       <Name>ProjectXyz.Api.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Messaging.Core\ProjectXyz.Api.Messaging.Core.csproj">
+      <Project>{815efa46-153a-4cd1-b0f3-53543db1b7ef}</Project>
+      <Name>ProjectXyz.Api.Messaging.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Messaging.Interface\ProjectXyz.Api.Messaging.Interface.csproj">
       <Project>{5734aa15-5461-4e2d-8f62-58b4ed0df53b}</Project>
       <Name>ProjectXyz.Api.Messaging.Interface</Name>

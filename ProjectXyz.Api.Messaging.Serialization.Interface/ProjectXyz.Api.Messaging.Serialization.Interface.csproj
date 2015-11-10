@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5C2477BF-CD54-4D82-AF6A-33F3DA58B742}</ProjectGuid>
+    <ProjectGuid>{E9F32E99-1009-491C-96B8-44AA2D015112}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Core</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>ProjectXyz.Api.Messaging.Serialization.Interface</RootNamespace>
+    <AssemblyName>ProjectXyz.Api.Messaging.Serialization.Interface</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,31 +34,19 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiManager.cs" />
-    <Compile Include="MessageDiscoverer.cs" />
+    <Compile Include="IRequestReader.cs" />
+    <Compile Include="IResponseReader.cs" />
+    <Compile Include="IResponseWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestRegistrar.cs" />
-    <Compile Include="Responder.cs" />
-    <Compile Include="ResponseFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Interface\ProjectXyz.Api.Interface.csproj">
-      <Project>{bd766253-0125-4539-9f19-27fad67288e7}</Project>
-      <Name>ProjectXyz.Api.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Messaging.Interface\ProjectXyz.Api.Messaging.Interface.csproj">
       <Project>{5734aa15-5461-4e2d-8f62-58b4ed0df53b}</Project>
       <Name>ProjectXyz.Api.Messaging.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Utilities\ProjectXyz.Utilities.csproj">
-      <Project>{0ed9070e-58c3-4606-b6a5-fadff0a9f73f}</Project>
-      <Name>ProjectXyz.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

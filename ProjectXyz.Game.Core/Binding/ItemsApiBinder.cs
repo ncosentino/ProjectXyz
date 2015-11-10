@@ -1,6 +1,6 @@
 ﻿using System;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Messaging.Interface.GameObjects.Inventory;
+using ProjectXyz.Api.Messaging.Core.GameObjects.Inventory;
 using ProjectXyz.Application.Core.Maps;
 using ProjectXyz.Application.Core.Time;
 using ProjectXyz.Application.Interface.GameObjects.Items;
@@ -62,15 +62,15 @@ namespace ProjectXyz.Game.Core.Binding
 
         private void Subscribe()
         {
-            _apiManager.RequestRegistrar.Subscribe<ICanAddItemToInventoryRequest>(HandleCanAddItemToInventoryRequest);
+            _apiManager.RequestRegistrar.Subscribe<CanAddItemToInventoryRequest>(HandleCanAddItemToInventoryRequest);
         }
 
         private void Unsubscribe()
         {
-            _apiManager.RequestRegistrar.Unsubscribe<ICanAddItemToInventoryRequest>(HandleCanAddItemToInventoryRequest);
+            _apiManager.RequestRegistrar.Unsubscribe<CanAddItemToInventoryRequest>(HandleCanAddItemToInventoryRequest);
         }
 
-        private void HandleCanAddItemToInventoryRequest(ICanAddItemToInventoryRequest request)
+        private void HandleCanAddItemToInventoryRequest(CanAddItemToInventoryRequest request)
         {
             // FIXME: wtf do we do about this little shit storm?
             var map = _mapManager.GetMapById(Guid.NewGuid(), MapContext.Create(Calendar.Create(DateTime.Create(1, 1, 0, 0, 0, 0))));

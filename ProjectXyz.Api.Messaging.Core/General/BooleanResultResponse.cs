@@ -1,9 +1,9 @@
 ﻿using System;
-using ProjectXyz.Api.Messaging.Interface.General;
+using ProjectXyz.Api.Messaging.Interface;
 
 namespace ProjectXyz.Api.Messaging.Core.General
 {
-    public sealed class BooleanResultResponse : IBooleanResultResponse
+    public sealed class BooleanResultResponse : BaseResponse
     {
         #region Properties
         public Guid RequestId { get; set; }

@@ -1,12 +1,9 @@
 ﻿using System;
-using ProjectXyz.Api.Messaging.Core.General;
-using ProjectXyz.Api.Messaging.Interface.Initialization;
+using ProjectXyz.Api.Messaging.Interface;
 
 namespace ProjectXyz.Api.Messaging.Core.Initialization
 {
-    public sealed class InitializeWorldRequest : 
-        BaseRequest, 
-        IInitializeWorldRequest
+    public sealed class InitializeWorldRequest : BaseRequest
     {
         #region Properties
         public Guid PlayerId { get; set; }

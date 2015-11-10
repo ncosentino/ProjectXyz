@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using ProjectXyz.Api.Interface;
 using ProjectXyz.Api.Messaging.Interface;
+using ProjectXyz.Api.Messaging.Serialization.Interface;
 using RabbitMQ.Client.Events;
 
 namespace ProjectXyz.Api.Amqp

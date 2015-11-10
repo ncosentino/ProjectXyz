@@ -38,11 +38,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseRequest.cs" />
+    <Compile Include="BaseResponse.cs" />
+    <Compile Include="GameObjects\GameObjectPath.cs" />
+    <Compile Include="GameObjects\Inventory\AddItemToInventoryRequest.cs" />
+    <Compile Include="GameObjects\Inventory\CanAddItemToInventoryRequest.cs" />
+    <Compile Include="GameObjects\Inventory\CanEquipFromInventoryRequest.cs" />
+    <Compile Include="GameObjects\Inventory\CanUnequipToInventoryRequest.cs" />
+    <Compile Include="GameObjects\Inventory\EquipFromInventoryRequest.cs" />
+    <Compile Include="GameObjects\Inventory\EquipmentItemPath.cs" />
     <Compile Include="GameObjects\Inventory\InventoryItemPath.cs" />
-    <Compile Include="General\BaseRequest.cs" />
+    <Compile Include="GameObjects\Inventory\UnequipToInventoryRequest .cs" />
     <Compile Include="General\BooleanResultResponse.cs" />
     <Compile Include="Initialization\InitializeWorldRequest.cs" />
-    <Compile Include="MessageDiscoverer.cs" />
+    <Compile Include="Maps\GameObject.cs" />
+    <Compile Include="Maps\GameObjectMapDataRequest.cs" />
+    <Compile Include="Maps\GameObjectMapDataResponse.cs" />
+    <Compile Include="Maps\Location.cs" />
+    <Compile Include="Maps\MapTile.cs" />
+    <Compile Include="Maps\StaticMapDataRequest.cs" />
+    <Compile Include="Maps\StaticMapDataResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

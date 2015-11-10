@@ -1,7 +1,7 @@
 ﻿using System;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Messaging.Interface.General;
-using ProjectXyz.Api.Messaging.Interface.Initialization;
+using ProjectXyz.Api.Messaging.Core.General;
+using ProjectXyz.Api.Messaging.Core.Initialization;
 using ProjectXyz.Application.Core.Maps;
 using ProjectXyz.Application.Core.Time;
 using ProjectXyz.Application.Interface.Maps;
@@ -67,15 +67,15 @@ namespace ProjectXyz.Game.Core.Binding
 
         private void Subscribe()
         {
-            _apiManager.RequestRegistrar.Subscribe<IInitializeWorldRequest>(HandleInitializeWorldRequest);
+            _apiManager.RequestRegistrar.Subscribe<InitializeWorldRequest>(HandleInitializeWorldRequest);
         }
 
         private void Unsubscribe()
         {
-            _apiManager.RequestRegistrar.Unsubscribe<IInitializeWorldRequest>(HandleInitializeWorldRequest);
+            _apiManager.RequestRegistrar.Unsubscribe<InitializeWorldRequest>(HandleInitializeWorldRequest);
         }
 
-        private void HandleInitializeWorldRequest(IInitializeWorldRequest request)
+        private void HandleInitializeWorldRequest(InitializeWorldRequest request)
         {
             var mapId = GetMapIdForPlayer(request.PlayerId);
 
@@ -84,7 +84,7 @@ namespace ProjectXyz.Game.Core.Binding
                 MapContext.Create(Calendar.Create(DateTime.Create(0, 0, 0, 0, 0, 0)))); // FIXME: where do we pull this context from?
             _worldManager.World.ActivateMap(map);
 
-            _apiManager.Responder.Respond<IBooleanResultResponse>(request.Id, r =>
+            _apiManager.Responder.Respond<BooleanResultResponse>(request.Id, r =>
             {
                 r.Result = true;
             });

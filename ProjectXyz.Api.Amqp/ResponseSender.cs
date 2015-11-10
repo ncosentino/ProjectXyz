@@ -3,6 +3,7 @@ using ProjectXyz.Api.Interface;
 using ProjectXyz.Api.Messaging.Interface;
 using System.Collections.Generic;
 using System;
+using ProjectXyz.Api.Messaging.Serialization.Interface;
 
 namespace ProjectXyz.Api.Amqp
 {

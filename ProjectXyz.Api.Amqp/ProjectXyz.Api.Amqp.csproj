@@ -61,6 +61,10 @@
       <Project>{5734aa15-5461-4e2d-8f62-58b4ed0df53b}</Project>
       <Name>ProjectXyz.Api.Messaging.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Messaging.Serialization.Interface\ProjectXyz.Api.Messaging.Serialization.Interface.csproj">
+      <Project>{e9f32e99-1009-491c-96b8-44aa2d015112}</Project>
+      <Name>ProjectXyz.Api.Messaging.Serialization.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

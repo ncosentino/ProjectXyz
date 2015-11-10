@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IApiManager.cs" />
+    <Compile Include="IMessageDiscoverer.cs" />
     <Compile Include="IRequestPublisher.cs" />
     <Compile Include="IResponseFactory.cs" />
     <Compile Include="IResponseSender.cs" />

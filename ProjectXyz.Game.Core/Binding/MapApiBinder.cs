@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using ProjectXyz.Api.Interface;
-using ProjectXyz.Api.Messaging.Interface.General;
+using ProjectXyz.Api.Messaging.Core.General;
+using ProjectXyz.Api.Messaging.Core.Maps;
 using ProjectXyz.Api.Messaging.Interface.Maps;
 using ProjectXyz.Application.Interface.Maps;
 using ProjectXyz.Application.Interface.Worlds;
@@ -64,20 +65,20 @@ namespace ProjectXyz.Game.Core.Binding
 
         private void Subscribe()
         {
-            _apiManager.RequestRegistrar.Subscribe<IMapDataRequest>(HandleMapDataRequest);
+            _apiManager.RequestRegistrar.Subscribe<StaticMapDataRequest>(HandleMapDataRequest);
         }
 
         private void Unsubscribe()
         {
-            _apiManager.RequestRegistrar.Unsubscribe<IMapDataRequest>(HandleMapDataRequest);
+            _apiManager.RequestRegistrar.Unsubscribe<StaticMapDataRequest>(HandleMapDataRequest);
         }
 
-        private void HandleMapDataRequest(IMapDataRequest request)
+        private void HandleMapDataRequest(StaticMapDataRequest request)
         {
             var activeMap = _worldManager.World.Maps.FirstOrDefault(x => x.Id == request.MapId);
             if (activeMap == null)
             {
-                _apiManager.Responder.Respond<IBooleanResultResponse>(request.Id, r =>
+                _apiManager.Responder.Respond<BooleanResultResponse>(request.Id, r =>
                 {
                     r.Result = false;
                     r.ErrorStringResourceId = Guid.NewGuid(); // TODO: send back a server state error? map isn't even active...
