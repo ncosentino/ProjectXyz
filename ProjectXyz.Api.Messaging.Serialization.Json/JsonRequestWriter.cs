@@ -8,27 +8,27 @@ using ProjectXyz.Api.Messaging.Serialization.Interface;
 
 namespace ProjectXyz.Api.Messaging.Serialization.Json
 {
-    public sealed class JsonResponseWriter : IResponseWriter
+    public sealed class JsonRequestWriter : IRequestWriter
     {
         #region Constructors
-        private JsonResponseWriter()
+        private JsonRequestWriter()
         {
         }
         #endregion
 
         #region Methods
-        public static IResponseWriter Create()
+        public static IRequestWriter Create()
         {
-            var writer = new JsonResponseWriter();
+            var writer = new JsonRequestWriter();
             return writer;
         }
 
-        public void Write<TResponse>(TResponse response, Stream stream)
-            where TResponse : IResponse
+        public void Write<TRequest>(TRequest request, Stream stream)
+            where TRequest : IRequest
         {
             using (var writer = new StreamWriter(stream))
             {
-                writer.Write(JsonConvert.SerializeObject(response));
+                writer.Write(JsonConvert.SerializeObject(request));
             }
         }
         #endregion

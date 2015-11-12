@@ -5,10 +5,10 @@ using System.Text;
 
 namespace ProjectXyz.Data.Interface.Maps
 {
-    public interface IMapStore
+    public interface IMapStore : IGameObject
     {
         #region Properties
-        Guid Id { get; }
+        bool IsInterior { get; }
         #endregion
     }
 }

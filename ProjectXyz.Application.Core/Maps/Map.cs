@@ -15,38 +15,29 @@ namespace ProjectXyz.Application.Core.Maps
     {
         #region Fields
         private readonly IMapContext _context;
-        private readonly IMapStore _store;
         private readonly IMutableShade _shade;
         #endregion
 
         #region Constructors
-        private Map(IMapContext context, IMapStore mapStore)
+        private Map(
+            IMapContext context, 
+            IMapStore mapStore)
         {
             Contract.Requires<ArgumentNullException>(context != null);
             Contract.Requires<ArgumentNullException>(mapStore != null);
 
             _context = context;
-            _store = mapStore;
+            Id = mapStore.Id;
+            IsInterior = mapStore.IsInterior;
 
             _shade = Shade.Create(1f, 1f, 1f, 1f);
         }
         #endregion
 
         #region Properties
-        public Guid Id
-        {
-            get { return _store.Id; }
-        }
+        public Guid Id { get; }
 
-        public string ResourceName
-        {
-            get { return "Assets/Resources/Maps/Swamp.tmx"; }
-        }
-
-        public bool IsInterior
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public bool IsInterior { get; }
 
         public IObservableShade AmbientLight
         {
@@ -94,8 +85,8 @@ namespace ProjectXyz.Application.Core.Maps
         [ContractInvariantMethod]
         private void InvariantMethod()
         {
+            Contract.Invariant(Id != Guid.Empty);
             Contract.Invariant(_context != null);
-            Contract.Invariant(_store != null);
             Contract.Invariant(_shade != null);
         }
         #endregion

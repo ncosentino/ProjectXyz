@@ -39,7 +39,7 @@ namespace ProjectXyz.Data.Sql.Maps
         public IMapStore GetMapStoreById(Guid mapId)
         {
             // TODO: implement reading from the database
-            return _factory.CreateMapStore(mapId);
+            return _factory.CreateMapStore(mapId, false);
         }
         #endregion
     }

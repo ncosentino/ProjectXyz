@@ -10,9 +10,6 @@ namespace ProjectXyz.Application.Interface.Maps
     public interface IMap : IGameObject
     {
         #region Properties
-        // FIXME: this *IS* the resource
-        string ResourceName { get; }
-
         bool IsInterior { get; }
 
         IObservableShade AmbientLight { get; }
