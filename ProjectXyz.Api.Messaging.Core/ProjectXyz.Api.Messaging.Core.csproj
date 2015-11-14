@@ -48,6 +48,7 @@
     <Compile Include="GameObjects\Inventory\InventoryItemPath.cs" />
     <Compile Include="GameObjects\Inventory\UnequipToInventoryRequest .cs" />
     <Compile Include="General\BooleanResultResponse.cs" />
+    <Compile Include="Initialization\CreateCharacterRequest.cs" />
     <Compile Include="Initialization\InitializeWorldRequest.cs" />
     <Compile Include="Maps\GameObject.cs" />
     <Compile Include="Maps\GameObjectMapDataRequest.cs" />
