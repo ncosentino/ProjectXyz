@@ -47,17 +47,33 @@ namespace ProjectXyz.Game.Core
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            using (MapApiBinder.Create(
-                _apiManager,
-                _gameManager.WorldManager,
-                _gameManager.ApplicationManager.Maps))
-            using (InitializationBinder.Create(
-                _apiManager,
-                _gameManager.WorldManager,
-                _gameManager.ApplicationManager.Maps))
+            var binders = CreateApiBinders().ToArray();
+            try
             {
                 await AsyncGameLoop(cancellationToken);
             }
+            finally
+            {
+                foreach (var binder in binders)
+                {
+                    binder.Dispose();
+                }
+            }
+        }
+
+        private IEnumerable<IApiBinder> CreateApiBinders()
+        {
+            yield return MapApiBinder.Create(
+                _apiManager,
+                _gameManager.WorldManager,
+                _gameManager.ApplicationManager.Maps);
+            yield return InitializationBinder.Create(
+                _apiManager,
+                _gameManager.WorldManager,
+                _gameManager.ApplicationManager.Maps);
+            yield return CharacterCreationBinding.Create(
+                _apiManager,
+                _gameManager.DataManager);
         }
 
         private async Task AsyncGameLoop(CancellationToken cancellationToken)

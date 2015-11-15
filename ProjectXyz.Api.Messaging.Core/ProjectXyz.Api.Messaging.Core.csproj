@@ -38,6 +38,9 @@
   <ItemGroup>
     <Compile Include="BaseRequest.cs" />
     <Compile Include="BaseResponse.cs" />
+    <Compile Include="CharacterCreation\GenderInfo.cs" />
+    <Compile Include="CharacterCreation\ClassInfo.cs" />
+    <Compile Include="CharacterCreation\RaceInfo.cs" />
     <Compile Include="GameObjects\GameObjectPath.cs" />
     <Compile Include="GameObjects\Inventory\AddItemToInventoryRequest.cs" />
     <Compile Include="GameObjects\Inventory\CanAddItemToInventoryRequest.cs" />
@@ -48,7 +51,9 @@
     <Compile Include="GameObjects\Inventory\InventoryItemPath.cs" />
     <Compile Include="GameObjects\Inventory\UnequipToInventoryRequest .cs" />
     <Compile Include="General\BooleanResultResponse.cs" />
-    <Compile Include="Initialization\CreateCharacterRequest.cs" />
+    <Compile Include="CharacterCreation\GetNewCharacterOptionsResponse.cs" />
+    <Compile Include="CharacterCreation\GetNewCharacterOptionsRequest.cs" />
+    <Compile Include="CharacterCreation\CreateCharacterRequest.cs" />
     <Compile Include="Initialization\InitializeWorldRequest.cs" />
     <Compile Include="Maps\GameObject.cs" />
     <Compile Include="Maps\GameObjectMapDataRequest.cs" />

@@ -1,7 +1,6 @@
 ﻿using System;
-using ProjectXyz.Api.Messaging.Interface;
 
-namespace ProjectXyz.Api.Messaging.Core.Initialization
+namespace ProjectXyz.Api.Messaging.Core.CharacterCreation
 {
     public sealed class CreateCharacterRequest : BaseRequest
     {

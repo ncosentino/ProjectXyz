@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binding\CharacterCreationBinding.cs" />
     <Compile Include="Binding\InitializationBinder.cs" />
     <Compile Include="Binding\ItemsApiBinder.cs" />
     <Compile Include="Game.cs" />
