@@ -7,7 +7,7 @@ namespace ProjectXyz.Api.Messaging.Core.CharacterCreation
         #region Properties
         public string Name { get; set; }
 
-        public bool Male { get; set; }
+        public Guid GenderId { get; set; }
 
         public Guid RaceId { get; set; }
 
