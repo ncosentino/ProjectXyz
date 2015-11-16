@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace ProjectXyz.Data.Interface.Resources
+namespace ProjectXyz.Data.Resources.Interface.Graphics
 {
-    public interface IStringResourceRepository
+    public interface IGraphicResourceRepository
     {
         #region Methods
-        IStringResource Add(
+        IGraphicResource Add(
             Guid id,
             Guid displayLanguageId,
             string name);
 
-        IStringResource GetById(Guid id);
+        IGraphicResource GetById(Guid id);
 
-        IEnumerable<IStringResource> GetAll();
+        IEnumerable<IGraphicResource> GetAll();
 
         void RemoveById(Guid id);
         #endregion

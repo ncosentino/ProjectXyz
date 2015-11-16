@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface.Strings;
 
-namespace ProjectXyz.Data.Sql.Resources
+namespace ProjectXyz.Data.Resources.Sql
 {
-    public sealed class GraphicResourceRepository : IGraphicResourceRepository
+    public sealed class StringResourceRepository : IStringResourceRepository
     {
         #region Fields
         private readonly IDatabase _database;
-        private readonly IGraphicResourceFactory _factory;
+        private readonly IStringResourceFactory _factory;
         #endregion
 
         #region Constructors
-        private GraphicResourceRepository(
+        private StringResourceRepository(
             IDatabase database,
-            IGraphicResourceFactory factory)
+            IStringResourceFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(factory != null);
@@ -29,20 +28,20 @@ namespace ProjectXyz.Data.Sql.Resources
         #endregion
 
         #region Methods
-        public static IGraphicResourceRepository Create(
+        public static IStringResourceRepository Create(
             IDatabase database,
-            IGraphicResourceFactory factory)
+            IStringResourceFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IGraphicResourceRepository>() != null);
+            Contract.Ensures(Contract.Result<IStringResourceRepository>() != null);
 
-            return new GraphicResourceRepository(
+            return new StringResourceRepository(
                 database,
                 factory);
         }
 
-        public IGraphicResource Add(
+        public IStringResource Add(
             Guid id,
             Guid displayLanguageId,
             string value)
@@ -57,7 +56,7 @@ namespace ProjectXyz.Data.Sql.Resources
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    GraphicResources
+                    StringResources
                 (
                     Id,
                     DisplayLanguageId,
@@ -75,11 +74,11 @@ namespace ProjectXyz.Data.Sql.Resources
                 command.ExecuteNonQuery();
             }
             
-            var itemGraphicResource = _factory.Create(
+            var itemStringResource = _factory.Create(
                 id,
                 displayLanguageId,
                 value);
-            return itemGraphicResource;
+            return itemStringResource;
         }
 
         public void RemoveById(Guid id)
@@ -87,7 +86,7 @@ namespace ProjectXyz.Data.Sql.Resources
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    GraphicResources
+                    StringResources
                 WHERE
                     Id = @id
                 ;",
@@ -98,14 +97,14 @@ namespace ProjectXyz.Data.Sql.Resources
             }
         }
 
-        public IGraphicResource GetById(Guid id)
+        public IStringResource GetById(Guid id)
         {
             using (var command = _database.CreateCommand(
                 @"
                 SELECT 
                     *
                 FROM
-                    GraphicResources
+                    StringResources
                 WHERE
                     Id = @Id
                 LIMIT 1
@@ -125,14 +124,14 @@ namespace ProjectXyz.Data.Sql.Resources
             }
         }
 
-        public IEnumerable<IGraphicResource> GetAll()
+        public IEnumerable<IStringResource> GetAll()
         {
             using (var command = _database.CreateCommand(
                 @"
                 SELECT 
                     *
                 FROM
-                    GraphicResources
+                    StringResources
                 ;"))
             {
                 using (var reader = command.ExecuteReader())
@@ -145,11 +144,11 @@ namespace ProjectXyz.Data.Sql.Resources
             }
         }
 
-        private IGraphicResource GetFromReader(IDataReader reader, IGraphicResourceFactory factory)
+        private IStringResource GetFromReader(IDataReader reader, IStringResourceFactory factory)
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IGraphicResource>() != null);
+            Contract.Ensures(Contract.Result<IStringResource>() != null);
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),

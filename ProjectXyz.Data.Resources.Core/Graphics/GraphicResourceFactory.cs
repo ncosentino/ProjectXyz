@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface.Graphics;
 
-namespace ProjectXyz.Data.Core.Resources
+namespace ProjectXyz.Data.Resources.Core.Graphics
 {
     public sealed class GraphicResourceFactory : IGraphicResourceFactory
     {

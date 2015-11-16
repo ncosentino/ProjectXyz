@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E424C78A-DA58-47D2-B003-DBB902CB92E7}</ProjectGuid>
+    <ProjectGuid>{52A899A0-D385-4833-9EF6-ABA09CA4759B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Data.Sql</RootNamespace>
-    <AssemblyName>ProjectXyz.Data.Sql</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <RootNamespace>ProjectXyz.Data.Resources.Interface</RootNamespace>
+    <AssemblyName>ProjectXyz.Data.Resources.Interface</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,7 +59,7 @@
     <CodeContractsBaseLineFile />
     <CodeContractsCacheAnalysisResults>False</CodeContractsCacheAnalysisResults>
     <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
-    <CodeContractsFailBuildOnWarnings>True</CodeContractsFailBuildOnWarnings>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
     <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
     <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
     <CodeContractsReferenceAssembly>%28none%29</CodeContractsReferenceAssembly>
@@ -119,7 +118,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -127,100 +125,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\ActorStoreRepository.cs" />
-    <Compile Include="Diseases\DiseaseSpreadTypeRepository.cs" />
-    <Compile Include="Diseases\DiseaseDefinitionRepository.cs" />
-    <Compile Include="Enchantments\EnchantmentStatusRepository.cs" />
-    <Compile Include="Enchantments\EnchantmentDefinitionWeatherTypeGroupingRepository.cs" />
-    <Compile Include="Enchantments\EnchantmentDefinitionRepository.cs" />
-    <Compile Include="Enchantments\EnchantmentPluginRepository.cs" />
-    <Compile Include="Enchantments\SqlEnchantmentsDataManager.cs" />
-    <Compile Include="Enchantments\StatusNegationRepository.cs" />
-    <Compile Include="Enchantments\EnchantmentTypeRepository.cs" />
-    <Compile Include="Enchantments\EnchantmentTriggerRepository.cs" />
-    <Compile Include="Items\Affixes\ItemAffixDefinitionMagicTypeGroupingRepository.cs" />
-    <Compile Include="Items\Affixes\MagicTypesRandomAffixesRepository.cs" />
-    <Compile Include="Items\Affixes\ItemAffixDefinitionEnchantmentRepository.cs" />
-    <Compile Include="Items\ItemTypeGeneratorPluginRepository.cs" />
-    <Compile Include="Items\ItemTypeGroupingRepository.cs" />
-    <Compile Include="Items\Names\ItemNameAffixFilter.cs" />
-    <Compile Include="Items\Names\ItemNamePartRepository.cs" />
-    <Compile Include="Items\MagicTypes\MagicTypeGroupingRepository.cs" />
-    <Compile Include="Items\Names\ItemNameAffixRepository.cs" />
-    <Compile Include="Items\Sockets\ItemSocketPatternFilter.cs" />
-    <Compile Include="Items\Sockets\SocketPatternDefinitionRepository.cs" />
-    <Compile Include="Items\Sockets\SocketPatternDefinitionEnchantmentRepository.cs" />
-    <Compile Include="Items\Sockets\SocketPatternDefinitionStatRepository.cs" />
-    <Compile Include="Items\SqlItemDataManager.cs" />
-    <Compile Include="Items\ItemDefinitionStatRepository.cs" />
-    <Compile Include="Items\ItemDefinitionRepository.cs" />
-    <Compile Include="Items\EquipSlots\ItemTypeEquipSlotTypeRepository.cs" />
-    <Compile Include="Items\EquipSlots\EquipSlotTypeRepository.cs" />
-    <Compile Include="Items\ItemEnchantmentRepository.cs" />
-    <Compile Include="Items\ItemStatRepository.cs" />
-    <Compile Include="Items\Materials\MaterialTypeRepository.cs" />
-    <Compile Include="Items\ItemTypeRepository.cs" />
-    <Compile Include="Items\Affixes\ItemAffixDefinitionFilterRepository.cs" />
-    <Compile Include="Items\Affixes\ItemAffixDefinitionRepository.cs" />
-    <Compile Include="Items\ItemStoreRepository.cs" />
-    <Compile Include="Items\MagicTypes\MagicTypeRepository.cs" />
-    <Compile Include="Items\Requirements\ItemDefinitionMiscRequirementsRepository.cs" />
-    <Compile Include="Items\Requirements\ItemDefinitionStatRequirementsRepository.cs" />
-    <Compile Include="Items\Requirements\ItemStatRequirementsRepository.cs" />
-    <Compile Include="Items\Requirements\ItemMiscRequirementsRepository.cs" />
-    <Compile Include="Items\Sockets\StatSocketTypeRepository.cs" />
-    <Compile Include="Items\Sockets\SocketedItemRepository.cs" />
-    <Compile Include="Items\Sockets\SocketTypeRepository.cs" />
-    <Compile Include="Maps\MapStoreRepository.cs" />
-    <Compile Include="SqlDatabaseUpgrader.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SqlDataManager.cs" />
-    <Compile Include="SqlDatabase.cs" />
-    <Compile Include="Enchantments\EnchantmentStoreRepository.cs" />
+    <Compile Include="Languages\IDisplayLanguage.cs" />
+    <Compile Include="Languages\IDisplayLanguageFactory.cs" />
+    <Compile Include="Languages\IDisplayLanguageRepository.cs" />
+    <Compile Include="Graphics\IGraphicResource.cs" />
+    <Compile Include="Graphics\IGraphicResourceFactory.cs" />
+    <Compile Include="Graphics\IGraphicResourceRepository.cs" />
+    <Compile Include="IResourcesDataManager.cs" />
+    <Compile Include="Strings\IStringResource.cs" />
+    <Compile Include="Strings\IStringResourceFactory.cs" />
+    <Compile Include="Strings\IStringResourceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stats\StatDefinitionRepository.cs" />
-    <Compile Include="Stats\SqlStatsDataManager.cs" />
-    <Compile Include="Stats\StatRepository.cs" />
-    <Compile Include="Weather\WeatherRepository.cs" />
-    <Compile Include="Weather\SqlWeatherDataManager.cs" />
-    <Compile Include="Weather\WeatherTypeGroupingRepository.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Data.Core\ProjectXyz.Data.Core.csproj">
-      <Project>{fa14c733-df45-4e7b-b61f-497d032fc0b1}</Project>
-      <Name>ProjectXyz.Data.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Interface\ProjectXyz.Data.Interface.csproj">
-      <Project>{d84ca25f-a1f8-4efc-ad09-906d786c3094}</Project>
-      <Name>ProjectXyz.Data.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Resources.Interface\ProjectXyz.Data.Resources.Interface.csproj">
-      <Project>{52a899a0-d385-4833-9ef6-aba09ca4759b}</Project>
-      <Name>ProjectXyz.Data.Resources.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Data.Resources.Sql\ProjectXyz.Data.Resources.Sql.csproj">
-      <Project>{04f7f4d2-cecb-46c2-9864-2ec91f9a933c}</Project>
-      <Name>ProjectXyz.Data.Resources.Sql</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\create_schema_1.sql" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

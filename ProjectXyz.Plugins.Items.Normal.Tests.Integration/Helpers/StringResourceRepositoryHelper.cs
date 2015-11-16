@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Items;
-using ProjectXyz.Data.Interface.Items.EquipSlots;
-using ProjectXyz.Data.Interface.Items.Requirements;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface.Strings;
 
 namespace ProjectXyz.Plugins.Items.Normal.Tests.Integration.Helpers
 {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace ProjectXyz.Data.Interface.Resources
+namespace ProjectXyz.Data.Resources.Interface.Languages
 {
     public interface IDisplayLanguageRepository
     {

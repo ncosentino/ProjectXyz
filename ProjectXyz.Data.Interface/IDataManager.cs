@@ -10,7 +10,7 @@ using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Maps;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Weather;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface;
 
 namespace ProjectXyz.Data.Interface
 {

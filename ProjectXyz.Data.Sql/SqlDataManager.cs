@@ -8,14 +8,14 @@ using ProjectXyz.Data.Interface.Diseases;
 using ProjectXyz.Data.Interface.Enchantments;
 using ProjectXyz.Data.Interface.Items;
 using ProjectXyz.Data.Interface.Maps;
-using ProjectXyz.Data.Interface.Resources;
 using ProjectXyz.Data.Interface.Stats;
 using ProjectXyz.Data.Interface.Weather;
+using ProjectXyz.Data.Resources.Interface;
+using ProjectXyz.Data.Resources.Sql;
 using ProjectXyz.Data.Sql.Actors;
 using ProjectXyz.Data.Sql.Enchantments;
 using ProjectXyz.Data.Sql.Items;
 using ProjectXyz.Data.Sql.Maps;
-using ProjectXyz.Data.Sql.Resources;
 using ProjectXyz.Data.Sql.Stats;
 using ProjectXyz.Data.Sql.Weather;
 

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface.Languages;
 
-namespace ProjectXyz.Data.Core.Resources
+namespace ProjectXyz.Data.Resources.Core.Languages
 {
     public sealed class DisplayLanguage : IDisplayLanguage
     {

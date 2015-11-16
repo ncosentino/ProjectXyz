@@ -73,6 +73,18 @@
       <Project>{D84CA25F-A1F8-4EFC-AD09-906D786C3094}</Project>
       <Name>ProjectXyz.Data.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Resources.Core\ProjectXyz.Data.Resources.Core.csproj">
+      <Project>{a106f1c5-acf4-4c20-a41b-6d03e40da07a}</Project>
+      <Name>ProjectXyz.Data.Resources.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Resources.Interface\ProjectXyz.Data.Resources.Interface.csproj">
+      <Project>{52a899a0-d385-4833-9ef6-aba09ca4759b}</Project>
+      <Name>ProjectXyz.Data.Resources.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Data.Resources.Sql\ProjectXyz.Data.Resources.Sql.csproj">
+      <Project>{04f7f4d2-cecb-46c2-9864-2ec91f9a933c}</Project>
+      <Name>ProjectXyz.Data.Resources.Sql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Data.Sql\ProjectXyz.Data.Sql.csproj">
       <Project>{E424C78A-DA58-47D2-B003-DBB902CB92E7}</Project>
       <Name>ProjectXyz.Data.Sql</Name>

@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Data.Core.Resources;
-using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Resources;
+﻿using ProjectXyz.Data.Interface;
+using ProjectXyz.Data.Resources.Core.Graphics;
+using ProjectXyz.Data.Resources.Core.Languages;
+using ProjectXyz.Data.Resources.Core.Strings;
+using ProjectXyz.Data.Resources.Interface;
+using ProjectXyz.Data.Resources.Interface.Graphics;
+using ProjectXyz.Data.Resources.Interface.Languages;
+using ProjectXyz.Data.Resources.Interface.Strings;
 
-namespace ProjectXyz.Data.Sql.Resources
+namespace ProjectXyz.Data.Resources.Sql
 {
     public sealed class SqlResourcesDataManager : IResourcesDataManager
     {

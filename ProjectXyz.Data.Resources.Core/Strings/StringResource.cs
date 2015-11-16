@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Linq;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface.Strings;
 
-namespace ProjectXyz.Data.Core.Resources
+namespace ProjectXyz.Data.Resources.Core.Strings
 {
     public sealed class StringResource : IStringResource
     {

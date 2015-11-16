@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ProjectXyz.Data.Resources.Interface.Graphics;
+using ProjectXyz.Data.Resources.Interface.Languages;
+using ProjectXyz.Data.Resources.Interface.Strings;
 
-namespace ProjectXyz.Data.Interface.Resources
+namespace ProjectXyz.Data.Resources.Interface
 {
     public interface IResourcesDataManager
     {

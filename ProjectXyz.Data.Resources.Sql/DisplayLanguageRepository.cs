@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using ProjectXyz.Data.Interface;
-using ProjectXyz.Data.Interface.Resources;
+using ProjectXyz.Data.Resources.Interface.Languages;
 
-namespace ProjectXyz.Data.Sql.Resources
+namespace ProjectXyz.Data.Resources.Sql
 {
-    public sealed class StringResourceRepository : IStringResourceRepository
+    public sealed class DisplayLanguageRepository : IDisplayLanguageRepository
     {
         #region Fields
         private readonly IDatabase _database;
-        private readonly IStringResourceFactory _factory;
+        private readonly IDisplayLanguageFactory _factory;
         #endregion
 
         #region Constructors
-        private StringResourceRepository(
+        private DisplayLanguageRepository(
             IDatabase database,
-            IStringResourceFactory factory)
+            IDisplayLanguageFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(factory != null);
@@ -29,45 +28,41 @@ namespace ProjectXyz.Data.Sql.Resources
         #endregion
 
         #region Methods
-        public static IStringResourceRepository Create(
+        public static IDisplayLanguageRepository Create(
             IDatabase database,
-            IStringResourceFactory factory)
+            IDisplayLanguageFactory factory)
         {
             Contract.Requires<ArgumentNullException>(database != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IStringResourceRepository>() != null);
+            Contract.Ensures(Contract.Result<IDisplayLanguageRepository>() != null);
 
-            return new StringResourceRepository(
+            return new DisplayLanguageRepository(
                 database,
                 factory);
         }
 
-        public IStringResource Add(
+        public IDisplayLanguage Add(
             Guid id,
-            Guid displayLanguageId,
-            string value)
+            string name)
         {
             var namedParameters = new Dictionary<string, object>()
             {
                 { "Id", id },
-                { "DisplayLanguageId", displayLanguageId },
-                { "Value", value},
+                { "Name", name},
             };
 
             using (var command = _database.CreateCommand(
                 @"
                 INSERT INTO
-                    StringResources
+                    DisplayLanguages
                 (
                     Id,
-                    DisplayLanguageId,
-                    Value
+                    Name
                 )
                 VALUES
                 (
                     @Id,
-                    @DisplayLanguageId,
-                    @Value
+                    @Name
                 )
                 ;",
                 namedParameters))
@@ -75,11 +70,10 @@ namespace ProjectXyz.Data.Sql.Resources
                 command.ExecuteNonQuery();
             }
             
-            var itemStringResource = _factory.Create(
+            var itemDisplayLanguage = _factory.Create(
                 id,
-                displayLanguageId,
-                value);
-            return itemStringResource;
+                name);
+            return itemDisplayLanguage;
         }
 
         public void RemoveById(Guid id)
@@ -87,7 +81,7 @@ namespace ProjectXyz.Data.Sql.Resources
             using (var command = _database.CreateCommand(
                 @"
                 DELETE FROM
-                    StringResources
+                    DisplayLanguages
                 WHERE
                     Id = @id
                 ;",
@@ -98,14 +92,14 @@ namespace ProjectXyz.Data.Sql.Resources
             }
         }
 
-        public IStringResource GetById(Guid id)
+        public IDisplayLanguage GetById(Guid id)
         {
             using (var command = _database.CreateCommand(
                 @"
                 SELECT 
                     *
                 FROM
-                    StringResources
+                    DisplayLanguages
                 WHERE
                     Id = @Id
                 LIMIT 1
@@ -117,7 +111,7 @@ namespace ProjectXyz.Data.Sql.Resources
                 {
                     if (!reader.Read())
                     {
-                        throw new InvalidOperationException("No string resource with Id '" + id + "' was found.");
+                        throw new InvalidOperationException("No display language with Id '" + id + "' was found.");
                     }
 
                     return GetFromReader(reader, _factory);
@@ -125,14 +119,14 @@ namespace ProjectXyz.Data.Sql.Resources
             }
         }
 
-        public IEnumerable<IStringResource> GetAll()
+        public IEnumerable<IDisplayLanguage> GetAll()
         {
             using (var command = _database.CreateCommand(
                 @"
                 SELECT 
                     *
                 FROM
-                    StringResources
+                    DisplayLanguages
                 ;"))
             {
                 using (var reader = command.ExecuteReader())
@@ -145,16 +139,15 @@ namespace ProjectXyz.Data.Sql.Resources
             }
         }
 
-        private IStringResource GetFromReader(IDataReader reader, IStringResourceFactory factory)
+        private IDisplayLanguage GetFromReader(IDataReader reader, IDisplayLanguageFactory factory)
         {
             Contract.Requires<ArgumentNullException>(reader != null);
             Contract.Requires<ArgumentNullException>(factory != null);
-            Contract.Ensures(Contract.Result<IStringResource>() != null);
+            Contract.Ensures(Contract.Result<IDisplayLanguage>() != null);
 
             return factory.Create(
                 reader.GetGuid(reader.GetOrdinal("Id")),
-                reader.GetGuid(reader.GetOrdinal("DisplayLanguageId")),
-                reader.GetString(reader.GetOrdinal("Value")));
+                reader.GetString(reader.GetOrdinal("Name")));
         }
 
         [ContractInvariantMethod]
