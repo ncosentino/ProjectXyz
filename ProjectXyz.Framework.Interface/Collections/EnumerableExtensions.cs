@@ -27,5 +27,15 @@ namespace ProjectXyz.Framework.Interface.Collections
                 x => x.Key,
                 x => x.Value);
         }
+
+        public static IEnumerable<T> Yield<T>(this T obj)
+        {
+            yield return obj;
+        }
+
+        public static T[] AsArray<T>(this T obj)
+        {
+            return obj.Yield().ToArray();
+        }
     }
 }
