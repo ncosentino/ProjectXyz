@@ -1,0 +1,6 @@
+**/obj/**
+**/bin/**
+*.suo
+*.bak
+*.cache
+_ReSharper*/
