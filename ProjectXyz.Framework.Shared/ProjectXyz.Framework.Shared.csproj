@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomNumberGenerator.cs" />
     <Compile Include="Try.cs" />
+    <Compile Include="TryAndFailOnError.cs" />
     <Compile Include="TryInReleaseMode.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -33,6 +33,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Enchantm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Enchantments.OneShotNegation", "ProjectXyz.Plugins.Enchantments.OneShotNegation\ProjectXyz.Plugins.Enchantments.OneShotNegation.csproj", "{2B602C00-8F57-4633-AB26-A13E7BC6DAF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Tests", "ProjectXyz.Application.Tests\ProjectXyz.Application.Tests.csproj", "{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{DAB1F3EB-AD06-4CA0-BE64-7F7267ECCBFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Game.Tests", "ProjectXyz.Game.Tests\ProjectXyz.Game.Tests.csproj", "{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Game.Core", "ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj", "{E2A76532-FDAD-4E30-9DA7-096C71B04C68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Testing", "ProjectXyz.Framework.Testing\ProjectXyz.Framework.Testing.csproj", "{9910FE87-56F3-453D-899D-46415D56FB9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +93,22 @@ Global
 		{2B602C00-8F57-4633-AB26-A13E7BC6DAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B602C00-8F57-4633-AB26-A13E7BC6DAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B602C00-8F57-4633-AB26-A13E7BC6DAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A76532-FDAD-4E30-9DA7-096C71B04C68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A76532-FDAD-4E30-9DA7-096C71B04C68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A76532-FDAD-4E30-9DA7-096C71B04C68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A76532-FDAD-4E30-9DA7-096C71B04C68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9910FE87-56F3-453D-899D-46415D56FB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9910FE87-56F3-453D-899D-46415D56FB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9910FE87-56F3-453D-899D-46415D56FB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9910FE87-56F3-453D-899D-46415D56FB9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +125,9 @@ Global
 		{37D6C046-024B-43DC-A426-F08336B508E9} = {15BDBEA4-4170-4040-9C45-C392D6098151}
 		{F9DCB243-E322-46EE-961F-91ABCAE472AE} = {37D6C046-024B-43DC-A426-F08336B508E9}
 		{2B602C00-8F57-4633-AB26-A13E7BC6DAF9} = {37D6C046-024B-43DC-A426-F08336B508E9}
+		{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58} = {49001EEA-4C5C-4456-856B-9238F849881B}
+		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38} = {DAB1F3EB-AD06-4CA0-BE64-7F7267ECCBFC}
+		{E2A76532-FDAD-4E30-9DA7-096C71B04C68} = {DAB1F3EB-AD06-4CA0-BE64-7F7267ECCBFC}
+		{9910FE87-56F3-453D-899D-46415D56FB9C} = {2E9E6598-5746-4968-AB8F-240FED1139D3}
 	EndGlobalSection
 EndGlobal

@@ -17,6 +17,6 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         public IStatCollection Stats { get; }
 
-        public IEnumerable<IEnchantment> Enchantments { get; }
+        public IReadOnlyCollection<IEnchantment> Enchantments { get; }
     }
 }

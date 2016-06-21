@@ -49,7 +49,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                     .ToArray();
 
                 activeEnchantments = activeEnchantments
-                    .Except(result.RemovedEnchantments)
+                    .Where(x => !result.RemovedEnchantments.Contains(x))
                     .ToArray();
 
                 newStats = result.Stats;

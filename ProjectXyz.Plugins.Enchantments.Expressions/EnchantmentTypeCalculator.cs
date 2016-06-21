@@ -4,6 +4,7 @@ using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Application.Interface.Weather;
+using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
 namespace ProjectXyz.Plugins.Enchantments.Expressions
@@ -61,7 +62,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
             IStatCollection stats)
         {
             var processedEnchantments = new List<IEnchantment>();
-            var newStats = new List<IStat>();
+            var newStats = stats.ToDictionary();
 
             var activeEnchantments = GetActiveExpressionEnchantments(
                 enchantmentContext,
@@ -71,18 +72,18 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
             {
                 var newValue = _expressionEvaluator.Evaluate(
                     enchantment,
-                    stats);
+                    newStats);
                 var newStat = _statFactory.Create(
                     enchantment.StatDefinitionId,
                     newValue);
 
-                newStats.Add(newStat);
+                newStats[newStat.StatDefinitionId] = newStat;
                 processedEnchantments.Add(enchantment);
             }
 
             return new Tuple<List<IEnchantment>, List<IStat>>(
                 processedEnchantments,
-                newStats);
+                newStats.Values.ToList());
         }
 
         private IEnumerable<IExpressionEnchantment> GetActiveExpressionEnchantments(

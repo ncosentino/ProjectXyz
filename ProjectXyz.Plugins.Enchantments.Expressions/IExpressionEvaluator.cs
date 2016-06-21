@@ -1,4 +1,7 @@
-﻿using ProjectXyz.Application.Interface.Stats;
+﻿using System.Collections;
+using System.Collections.Generic;
+using ProjectXyz.Application.Interface.Stats;
+using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Plugins.Enchantments.Expressions
 {
@@ -7,7 +10,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
         #region Methods
         double Evaluate(
             IExpressionEnchantment expressionEnchantment, 
-            IStatCollection stats);
+            IReadOnlyDictionary<IIdentifier, IStat> stats);
         #endregion
     }
 }

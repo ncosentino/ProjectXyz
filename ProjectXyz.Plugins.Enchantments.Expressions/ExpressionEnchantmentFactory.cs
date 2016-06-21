@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Framework.Interface.Collections;
 
 namespace ProjectXyz.Plugins.Enchantments.Expressions
 {
@@ -9,8 +10,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
         public IExpressionEnchantment Create(
             IIdentifier statusTypeId,
             IIdentifier triggerId,
-            IIdentifier statDefinitionId,
             IIdentifier weatherGroupingId,
+            IIdentifier statDefinitionId,
             string expression,
             int calculationPriority,
             IEnumerable<KeyValuePair<string, IIdentifier>> expressionStatDefinitionIds,

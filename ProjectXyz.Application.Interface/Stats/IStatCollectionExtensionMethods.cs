@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Interface.Stats
@@ -7,7 +8,7 @@ namespace ProjectXyz.Application.Interface.Stats
     {
         #region Methods
         public static double GetValueOrDefault(
-            this IStatCollection dictionary,
+            this IReadOnlyDictionary<IIdentifier, IStat> dictionary,
             IIdentifier identifier,
             Func<double> defaultValueCallback)
         {
@@ -17,7 +18,7 @@ namespace ProjectXyz.Application.Interface.Stats
         }
 
         public static double GetValueOrDefault(
-            this IStatCollection dictionary,
+            this IReadOnlyDictionary<IIdentifier, IStat> dictionary,
             IIdentifier identifier,
             double defaultValue)
         {

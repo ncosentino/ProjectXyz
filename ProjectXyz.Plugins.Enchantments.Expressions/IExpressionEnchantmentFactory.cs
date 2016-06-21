@@ -8,8 +8,8 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
         IExpressionEnchantment Create(
             IIdentifier statusTypeId,
             IIdentifier triggerId,
-            IIdentifier statDefinitionId,
             IIdentifier weatherGroupingId,
+            IIdentifier statDefinitionId,
             string expression,
             int calculationPriority,
             IEnumerable<KeyValuePair<string, IIdentifier>> expressionStatDefinitionIds,

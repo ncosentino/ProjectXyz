@@ -43,6 +43,7 @@
     <Compile Include="DataTableExpressionEvaluator.cs" />
     <Compile Include="EnchantmentTypeCalculator.cs" />
     <Compile Include="ExpressionEnchantment.cs" />
+    <Compile Include="ExpressionEnchantmentFactoryExtensions.cs" />
     <Compile Include="ExpressionEnchantmentFactory.cs" />
     <Compile Include="ExpressionEvaluator.cs" />
     <Compile Include="IExpressionEnchantment.cs" />

@@ -8,7 +8,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
         #region Properties
         IStatCollection Stats { get; }
 
-        IEnumerable<IEnchantment> Enchantments { get; }
+        IReadOnlyCollection<IEnchantment> Enchantments { get; }
         #endregion
     }
 }

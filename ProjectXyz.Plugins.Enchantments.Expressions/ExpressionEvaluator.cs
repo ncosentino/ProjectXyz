@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using ProjectXyz.Application.Interface.Stats;
+using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Plugins.Enchantments.Expressions
 {
@@ -20,7 +22,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
         #region Methods
         public double Evaluate(
             IExpressionEnchantment expressionEnchantment,
-            IStatCollection stats)
+            IReadOnlyDictionary<IIdentifier, IStat> stats)
         {
             var expression = expressionEnchantment.Expression;
 
