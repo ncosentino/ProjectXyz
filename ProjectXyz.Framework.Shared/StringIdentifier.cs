@@ -2,18 +2,23 @@ using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Framework.Shared
 {
-    public sealed class Identifier<T> : IIdentifier
+    public sealed class StringIdentifier : IIdentifier
     {
-        private readonly T _identifier;
+        private readonly IIdentifier _identifier;
 
-        public Identifier(T identifier)
+        public StringIdentifier(Identifier<string> identifier)
         {
             _identifier = identifier;
         }
 
+        public StringIdentifier(string identifier)
+            : this(new Identifier<string>(identifier))
+        {
+        }
+
         public override string ToString()
         {
-            return $"Identifier<{typeof(T).FullName}>: {_identifier}";
+            return _identifier.ToString();
         }
 
         public override bool Equals(object obj)
@@ -28,12 +33,7 @@ namespace ProjectXyz.Framework.Shared
 
         public override int GetHashCode()
         {
-            return _identifier.GetHashCode() ^ 7;
+            return _identifier.GetHashCode();
         }
-    }
-
-    public static class Identifier
-    {
-        public static IIdentifier None { get; } = new Identifier<object>(new object());
     }
 }

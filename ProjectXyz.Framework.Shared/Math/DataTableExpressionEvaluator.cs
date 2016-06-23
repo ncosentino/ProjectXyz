@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ProjectXyz.Framework.Interface.Math;
 
-namespace ProjectXyz.Plugins.Enchantments.Expressions
+namespace ProjectXyz.Framework.Shared.Math
 {
     public sealed class DataTableExpressionEvaluator : IStringExpressionEvaluator
     {
@@ -11,9 +16,9 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
         #endregion
 
         #region Constructors
-        public DataTableExpressionEvaluator()
+        public DataTableExpressionEvaluator(DataTable dataTable)
         {
-            _dataTable = new DataTable();
+            _dataTable = dataTable;
         }
         #endregion
 
@@ -28,11 +33,11 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
             }
             catch (SyntaxErrorException ex)
             {
-                throw new FormatException(string.Format("The expression '{0}' was in an invalid format and could not be evaulated.", expression), ex);
+                throw new FormatException($"The expression '{expression}' was in an invalid format and could not be evaulated.", ex);
             }
 
             return Convert.ToDouble(
-                value, 
+                value,
                 CultureInfo.InvariantCulture);
         }
 

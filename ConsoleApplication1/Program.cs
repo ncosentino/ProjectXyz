@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Core.Weather;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Stats;
+using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Application.Shared.Stats;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
+using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Plugins.Api.Enchantments;
 using ProjectXyz.Plugins.Core;
 using ProjectXyz.Plugins.Core.Enchantments;
@@ -23,9 +28,6 @@ namespace ConsoleApplication1
         #region Methods
         private static int Main(string[] args)
         {
-            var huehue = new Class1();
-            huehue.DoTheThing();
-
             return 0;
         }
         #endregion

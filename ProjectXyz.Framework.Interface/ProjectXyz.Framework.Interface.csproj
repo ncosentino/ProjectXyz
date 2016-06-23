@@ -46,6 +46,7 @@
     <Compile Include="IRandomNumberGenerator.cs" />
     <Compile Include="IRandomNumberGeneratorExtensions.cs" />
     <Compile Include="ITry.cs" />
+    <Compile Include="Math\IStringExpressionEvaluator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

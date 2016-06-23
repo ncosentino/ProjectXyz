@@ -1,6 +1,8 @@
-﻿using ProjectXyz.Application.Interface.Enchantments;
+﻿using System.Data;
+using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Shared.Enchantments;
 using ProjectXyz.Application.Shared.Stats;
+using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Plugins.Api.Enchantments;
 
 namespace ProjectXyz.Plugins.Enchantments.Expressions
@@ -12,7 +14,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
         {
             var statFactory = new StatFactory();
             var statCollectionFactory = new StatCollectionFactory();
-            var expressionEvaluator = new ExpressionEvaluator(new DataTableExpressionEvaluator().Evaluate);
+            var expressionEvaluator = new ExpressionEvaluator(new DataTableExpressionEvaluator(new DataTable()).Evaluate);
             var enchantmentTypeCalculatorResultFactory = new EnchantmentTypeCalculatorResultFactory();
 
             EnchantmentTypeCalculator = new EnchantmentTypeCalculator(

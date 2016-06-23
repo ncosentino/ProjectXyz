@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTableExpressionEvaluator.cs" />
     <Compile Include="EnchantmentTypeCalculator.cs" />
     <Compile Include="ExpressionEnchantment.cs" />
     <Compile Include="ExpressionEnchantmentFactoryExtensions.cs" />
@@ -65,6 +64,10 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
+      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
+      <Name>ProjectXyz.Framework.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>

@@ -50,11 +50,16 @@
     <Compile Include="Enchantments\IEnchantmentTypeCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\IStatusNegation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\Calculations\IStatCalculator.cs" />
     <Compile Include="Stats\IStat.cs" />
+    <Compile Include="Stats\Calculations\IStatCalculationNode.cs" />
+    <Compile Include="Stats\Calculations\IStatCalculationNodeFactory.cs" />
     <Compile Include="Stats\IStatCollection.cs" />
     <Compile Include="Stats\IStatCollectionExtensionMethods.cs" />
+    <Compile Include="Stats\IStatCollectionFactoryExtensions.cs" />
     <Compile Include="Stats\IStatCollectionFactory.cs" />
     <Compile Include="Stats\IStatFactory.cs" />
+    <Compile Include="Stats\Calculations\IStringExpressionEvaluator.cs" />
     <Compile Include="Weather\IWeather.cs" />
     <Compile Include="Weather\IWeatherManager.cs" />
   </ItemGroup>

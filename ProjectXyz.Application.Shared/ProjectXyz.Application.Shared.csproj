@@ -44,6 +44,7 @@
     <Compile Include="Enchantments\EnchantmentTypeCalculatorResultFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Stat.cs" />
+    <Compile Include="Stats\StatCollection.cs" />
     <Compile Include="Stats\StatCollectionFactory.cs" />
     <Compile Include="Stats\StatFactory.cs" />
   </ItemGroup>

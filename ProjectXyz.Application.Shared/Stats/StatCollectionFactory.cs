@@ -25,15 +25,5 @@ namespace ProjectXyz.Application.Shared.Stats
         {
             return Create(stats.Select(x => x.Value));
         }
-
-        private sealed class StatCollection : 
-            ReadOnlyDictionary<IIdentifier, IStat>,
-            IStatCollection
-        {
-            public StatCollection(IDictionary<IIdentifier, IStat> dictionary) 
-                : base(dictionary)
-            {
-            }
-        }
     }
 }

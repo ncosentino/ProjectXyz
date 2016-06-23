@@ -45,11 +45,15 @@
     <Compile Include="Enchantments\EnchantmentCalculatorResultFactory.cs" />
     <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
+    <Compile Include="Stats\Calculations\StatCalculationNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StatCalculator.cs" />
+    <Compile Include="Stats\Calculations\StatDefinitionToCalculationNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />
+    <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
     <Compile Include="Weather\WeatherManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Stats\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}</Project>
