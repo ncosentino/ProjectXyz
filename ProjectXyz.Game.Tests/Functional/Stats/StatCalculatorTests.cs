@@ -57,15 +57,27 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         #endregion
 
         #region Methods
-        private void TestEvaluateExpression(IIdentifier statDefinitionId, double expectedValue)
+        private static IEnumerable<object[]> GetEvaluateExpressionTheoryData()
         {
-            var result = _statCalculator.Calculate(
-                statDefinitionId,
-                StatCollection.Empty);
-            Assert.Equal(expectedValue, result);
+            yield return new object[] { CONSTANT_VALUE_STAT_ID, 123 };
+            yield return new object[] { NON_DEPENDENT_EXPRESSION_STAT_ID, 5 };
+            yield return new object[] { SINGLE_DEPENDENT_EXPRESSION_STAT_ID, 246 };
+            yield return new object[] { EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID, 49 };
         }
 
-        private void TestUsesBaseStat(IIdentifier statDefinitionId)
+        private static IEnumerable<object[]> GetUseBaseStatsTheoryData()
+        {
+            yield return new object[] { CONSTANT_VALUE_STAT_ID };
+            yield return new object[] { NON_DEPENDENT_EXPRESSION_STAT_ID };
+            yield return new object[] { SINGLE_DEPENDENT_EXPRESSION_STAT_ID };
+            yield return new object[] { EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID };
+        }
+        #endregion
+
+        #region Tests
+        [Theory,
+         MemberData("GetUseBaseStatsTheoryData")]
+        private void Calculate_StatPresent_BaseStatUsed(IIdentifier statDefinitionId)
         {
             var rng = new RandomNumberGenerator(new Random());
             var expectedValue = rng.NextInRange(int.MinValue, int.MaxValue);
@@ -76,63 +88,17 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 baseStats);
             Assert.Equal(baseStat.Value, result);
         }
-        #endregion
-
-        #region Tests
-        [Fact]
-        private void Calculate_ConstantValueNoBaseStats_ExpressionEvaluated()
+        
+        [Theory,
+         MemberData("GetEvaluateExpressionTheoryData")]
+        private void Calculate_NoBaseStats_ExpressionEvaluated(
+            IIdentifier statDefinitionId,
+            double expectedValue)
         {
-            TestEvaluateExpression(
-                CONSTANT_VALUE_STAT_ID, 
-                123);
-        }
-
-        [Fact]
-        private void Calculate_ConstantValueBaseStatPresent_BaseStatUsed()
-        {
-            TestUsesBaseStat(CONSTANT_VALUE_STAT_ID);
-        }
-
-        [Fact]
-        private void Calculate_NonDependentExpressionNoBaseStats_ExpressionEvaluated()
-        {
-            TestEvaluateExpression(
-                NON_DEPENDENT_EXPRESSION_STAT_ID,
-                5);
-        }
-
-        [Fact]
-        private void Calculate_NonDependentExpressionBaseStatPresent_BaseStatUsed()
-        {
-            TestUsesBaseStat(NON_DEPENDENT_EXPRESSION_STAT_ID);
-        }
-
-        [Fact]
-        private void Calculate_SingleDependentExpressionNoBaseStats_ExpressionEvaluated()
-        {
-            TestEvaluateExpression(
-                SINGLE_DEPENDENT_EXPRESSION_STAT_ID,
-                246);
-        }
-
-        [Fact]
-        private void Calculate_SingleDependentExpressionBaseStatPresent_BaseStatUsed()
-        {
-            TestUsesBaseStat(SINGLE_DEPENDENT_EXPRESSION_STAT_ID);
-        }
-
-        [Fact]
-        private void Calculate_ExpressionDependentExpressionNoBaseStats_ExpressionEvaluated()
-        {
-            TestEvaluateExpression(
-                EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID,
-                49);
-        }
-
-        [Fact]
-        private void Calculate_ExpressionDependentExpressionBaseStatPresent_BaseStatUsed()
-        {
-            TestUsesBaseStat(EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID);
+            var result = _statCalculator.Calculate(
+                statDefinitionId,
+                StatCollection.Empty);
+            Assert.Equal(expectedValue, result);
         }
         #endregion
     }
