@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ProjectXyz.Application.Interface.Stats.Calculations;
@@ -10,13 +11,22 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 {
     public sealed class StatCalculationNodeFactory : IStatCalculationNodeFactory
     {
+        private readonly Func<IIdentifier, IStatCalculationNode, IStatCalculationNode> _wrapperCallback;
         private readonly IStringExpressionEvaluator _stringExpressionEvaluator;
-        private readonly Dictionary<IIdentifier, IStatCalculationNode> _statDefinitionToNodeCache;
+        private readonly IReadOnlyList<TryMakeStatCalculationNodeDelegate> _tryMakeStatCalculationNodeMethods;
 
-        public StatCalculationNodeFactory(IStringExpressionEvaluator stringExpressionEvaluator)
+        public StatCalculationNodeFactory(
+            IStringExpressionEvaluator stringExpressionEvaluator,
+            Func<IIdentifier, IStatCalculationNode, IStatCalculationNode> wrapperCallback)
         {
             _stringExpressionEvaluator = stringExpressionEvaluator;
-            _statDefinitionToNodeCache = new Dictionary<IIdentifier, IStatCalculationNode>();
+            _wrapperCallback = wrapperCallback;
+
+            _tryMakeStatCalculationNodeMethods = new List<TryMakeStatCalculationNodeDelegate>()
+            {
+                TryMakeValueNode,
+                TryMakeExpressionNode
+            };
         }
 
         public IStatCalculationNode Create(
@@ -25,12 +35,33 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
             IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping)
         {
-            IStatCalculationNode cachedNode;
-            if (_statDefinitionToNodeCache.TryGetValue(statDefinitionId, out cachedNode))
+            foreach (var tryMakeStatCalculationNodeDelegate in _tryMakeStatCalculationNodeMethods)
             {
-                return cachedNode;
+                IStatCalculationNode statCalculationNode;
+                if (tryMakeStatCalculationNodeDelegate(
+                    statDefinitionId,
+                    expression,
+                    statDefinitionToTermMapping,
+                    statDefinitionToCalculationMapping,
+                    out statCalculationNode))
+                {
+                    statCalculationNode = _wrapperCallback(
+                        statDefinitionId, 
+                        statCalculationNode);
+                    return statCalculationNode;
+                }
             }
 
+            throw new InvalidOperationException();
+        }
+
+        private bool TryMakeValueNode(
+            IIdentifier statDefinitionId,
+            string expression,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping,
+            out IStatCalculationNode statCalculationNode)
+        {
             double expressionValue;
             if (double.TryParse(
                 expression,
@@ -38,11 +69,21 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                 CultureInfo.InvariantCulture,
                 out expressionValue))
             {
-                var node = new ValueStatCalculationNode(expressionValue);
-                _statDefinitionToNodeCache[statDefinitionId] = node;
-                return node;
+                statCalculationNode = new ValueStatCalculationNode(expressionValue);
+                return true;
             }
 
+            statCalculationNode = null;
+            return false;
+        }
+
+        private bool TryMakeExpressionNode(
+            IIdentifier statDefinitionId,
+            string expression,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping,
+            out IStatCalculationNode statCalculationNode)
+        {
             var newNodeStatDefinitionToTermMapping = statDefinitionToTermMapping
                 .Where(x => expression.Contains(x.Value))
                 .ToDictionary();
@@ -56,13 +97,20 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                         statDefinitionToCalculationMapping)))
                 .ToDictionary();
 
-            var expressionNode = new ExpressionStatCalculationNode(
+            statCalculationNode = new ExpressionStatCalculationNode(
                 _stringExpressionEvaluator,
                 expression,
                 newNodeStatDefinitionToTermMapping,
-                newNodeStatDefinitionToNodeMapping);
-            _statDefinitionToNodeCache[statDefinitionId] = expressionNode;
-            return expressionNode;
+                newNodeStatDefinitionToNodeMapping,
+                _wrapperCallback);
+            return true;
         }
+
+        private delegate bool TryMakeStatCalculationNodeDelegate(
+            IIdentifier statDefinitionId,
+            string expression,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping,
+            out IStatCalculationNode statCalculationNode);
     }
 }

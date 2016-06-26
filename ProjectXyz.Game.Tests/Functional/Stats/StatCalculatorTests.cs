@@ -19,12 +19,16 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         private static readonly IIdentifier NON_DEPENDENT_EXPRESSION_STAT_ID = new StringIdentifier("Non-dependent Expression Stat");
         private static readonly IIdentifier SINGLE_DEPENDENT_EXPRESSION_STAT_ID = new StringIdentifier("Single Dependent Expression Stat");
         private static readonly IIdentifier EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID = new StringIdentifier("Expression Dependent Expression Stat");
+        private static readonly IIdentifier ALWAYS_OVERRIDDEN_VALUE_STAT_ID = new StringIdentifier("Always Overridden Value Stat");
+        private static readonly IIdentifier ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID = new StringIdentifier("Always Overridden Expression Stat");
+        private static readonly IIdentifier EXPRESSION_WITH_OVERRIDDEN_STAT_ID = new StringIdentifier("Expression With Overridden Stat");
 
         private static readonly IReadOnlyDictionary<IIdentifier, string> STAT_DEFINITION_TO_TERM_MAPPING = new Dictionary<IIdentifier, string>()
         {
             { CONSTANT_VALUE_STAT_ID, "STR" },
             { NON_DEPENDENT_EXPRESSION_STAT_ID, "PHYS_DMG" },
-            { SINGLE_DEPENDENT_EXPRESSION_STAT_ID, "SIMPLE_EXPRESSION" }
+            { SINGLE_DEPENDENT_EXPRESSION_STAT_ID, "SIMPLE_EXPRESSION" },
+            { ALWAYS_OVERRIDDEN_VALUE_STAT_ID, "OVERRIDDEN" }
         };
 
         private static readonly IReadOnlyDictionary<IIdentifier, string> STAT_DEFINITION_TO_CALCULATION_MAPPING = new Dictionary<IIdentifier, string>()
@@ -33,6 +37,10 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             { NON_DEPENDENT_EXPRESSION_STAT_ID, "(1 + 2 + 3 + 4) / 2" },
             { SINGLE_DEPENDENT_EXPRESSION_STAT_ID, "STR * 2" },
             { EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID, "(SIMPLE_EXPRESSION - 1) / 5" },
+
+            { ALWAYS_OVERRIDDEN_VALUE_STAT_ID, "10" },
+            { ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID, "STR * 10" },
+            { EXPRESSION_WITH_OVERRIDDEN_STAT_ID, "OVERRIDDEN * 10" },
         };
         #endregion
 
@@ -47,7 +55,22 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             _statCollectionFactory = new StatCollectionFactory();
 
             var stringExpressionEvaluator = new DataTableExpressionEvaluator(new DataTable());
-            var statCalculationNodeFactory = new StatCalculationNodeFactory(new StringExpressionEvaluatorWrapper(stringExpressionEvaluator, true));
+            var statCalculationNodeFactory = new StatCalculationNodeFactory(
+                new StringExpressionEvaluatorWrapper(stringExpressionEvaluator, true),
+                (statDefinitionId, node) =>
+                {
+                    if (statDefinitionId == ALWAYS_OVERRIDDEN_VALUE_STAT_ID)
+                    {
+                        return new ValueStatCalculationNode(111);
+                    }
+
+                    if (statDefinitionId == ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID)
+                    {
+                        return new ValueStatCalculationNode(222);
+                    }
+                    
+                    return node;
+                });
             var statDefinitionToCalculationNodeFactory = new StatDefinitionToCalculationNodeFactory(statCalculationNodeFactory);
             var statDefinitionToCalculationNodeMapping = statDefinitionToCalculationNodeFactory.CreateMapping(
                 STAT_DEFINITION_TO_TERM_MAPPING,
@@ -63,6 +86,9 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             yield return new object[] { NON_DEPENDENT_EXPRESSION_STAT_ID, 5 };
             yield return new object[] { SINGLE_DEPENDENT_EXPRESSION_STAT_ID, 246 };
             yield return new object[] { EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID, 49 };
+            yield return new object[] { ALWAYS_OVERRIDDEN_VALUE_STAT_ID, 111 };
+            yield return new object[] { ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID, 222 };
+            yield return new object[] { EXPRESSION_WITH_OVERRIDDEN_STAT_ID, 1110 };
         }
 
         private static IEnumerable<object[]> GetUseBaseStatsTheoryData()
@@ -71,6 +97,9 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             yield return new object[] { NON_DEPENDENT_EXPRESSION_STAT_ID };
             yield return new object[] { SINGLE_DEPENDENT_EXPRESSION_STAT_ID };
             yield return new object[] { EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID };
+            yield return new object[] { ALWAYS_OVERRIDDEN_VALUE_STAT_ID };
+            yield return new object[] { ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID };
+            yield return new object[] { EXPRESSION_WITH_OVERRIDDEN_STAT_ID };
         }
         #endregion
 
