@@ -11,20 +11,17 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         private readonly string _expression;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionToTermMapping;
         private readonly IReadOnlyDictionary<IIdentifier, IStatCalculationNode> _statDefinitionToNodeMapping;
-        private readonly Func<IIdentifier, IStatCalculationNode, IStatCalculationNode> _wrapperCallback;
 
         public ExpressionStatCalculationNode(
             IStringExpressionEvaluator stringExpressionEvaluator,
             string expression,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
-            IReadOnlyDictionary<IIdentifier, IStatCalculationNode> statDefinitionToNodeMapping,
-            Func<IIdentifier, IStatCalculationNode, IStatCalculationNode> wrapperCallback)
+            IReadOnlyDictionary<IIdentifier, IStatCalculationNode> statDefinitionToNodeMapping)
         {
             _stringExpressionEvaluator = stringExpressionEvaluator;
             _expression = expression;
             _statDefinitionToTermMapping = statDefinitionToTermMapping;
             _statDefinitionToNodeMapping = statDefinitionToNodeMapping;
-            _wrapperCallback = wrapperCallback;
         }
 
         public double GetValue()
@@ -33,7 +30,6 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
             foreach (var statDefinitionToTerm in _statDefinitionToTermMapping)
             {
                 var node = _statDefinitionToNodeMapping[statDefinitionToTerm.Key];
-                node = _wrapperCallback(statDefinitionToTerm.Key, node);
                 var termValue = node.GetValue();
                 expression = expression.Replace(
                     statDefinitionToTerm.Value,

@@ -46,7 +46,10 @@
     <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
-    <Compile Include="Stats\Calculations\StatCalculationNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StatCalculationNodeFactoryProvider.cs" />
+    <Compile Include="Stats\Calculations\StatCalculationExpressionNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StatCalculationValueNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StatCalculationNodeFactoryWrapper.cs" />
     <Compile Include="Stats\Calculations\StatCalculator.cs" />
     <Compile Include="Stats\Calculations\StatDefinitionToCalculationNodeFactory.cs" />
     <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />

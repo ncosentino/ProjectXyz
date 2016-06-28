@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface.Stats.Calculations;
@@ -15,9 +16,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
             _statCalculationNodeFactory = statCalculationNodeFactory;
         }
 
-        public IReadOnlyDictionary<IIdentifier, IStatCalculationNode> CreateMapping(
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping)
+        public IReadOnlyDictionary<IIdentifier, IStatCalculationNode> CreateMapping(IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping)
         {
             return statDefinitionToCalculationMapping
                 .Select(x =>
@@ -25,9 +24,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                         x.Key,
                         _statCalculationNodeFactory.Create(
                             x.Key,
-                            x.Value,
-                            statDefinitionToTermMapping,
-                            statDefinitionToCalculationMapping)))
+                            x.Value)))
                 .ToDictionary();
         }
     }
