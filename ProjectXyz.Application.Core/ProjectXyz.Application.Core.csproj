@@ -51,7 +51,7 @@
     <Compile Include="Stats\Calculations\StatCalculationValueNodeFactory.cs" />
     <Compile Include="Stats\Calculations\StatCalculationNodeFactoryWrapper.cs" />
     <Compile Include="Stats\Calculations\StatCalculator.cs" />
-    <Compile Include="Stats\Calculations\StatDefinitionToCalculationNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StatDefinitionToCalculationLookup.cs" />
     <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />
     <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
     <Compile Include="Weather\WeatherManager.cs" />

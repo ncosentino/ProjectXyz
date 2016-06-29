@@ -54,6 +54,7 @@
     <Compile Include="Stats\Calculations\IStatCalculationNodeFactoryProvider.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeWrapper.cs" />
     <Compile Include="Stats\Calculations\IStatCalculator.cs" />
+    <Compile Include="Stats\Calculations\IStatDefinitionToCalculationLookup.cs" />
     <Compile Include="Stats\IStat.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNode.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeFactory.cs" />

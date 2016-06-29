@@ -7,11 +7,11 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 {
     public sealed class StatCalculator : IStatCalculator
     {
-        private readonly IReadOnlyDictionary<IIdentifier, IStatCalculationNode> _statDefinitionToNodeMapping;
+        private readonly IStatDefinitionToCalculationLookup _statDefinitionToCalculationLookup;
 
-        public StatCalculator(IReadOnlyDictionary<IIdentifier, IStatCalculationNode> statDefinitionToNodeMapping)
+        public StatCalculator(IStatDefinitionToCalculationLookup statDefinitionToCalculationLookup)
         {
-            _statDefinitionToNodeMapping = statDefinitionToNodeMapping;
+            _statDefinitionToCalculationLookup = statDefinitionToCalculationLookup;
         }
 
         public double Calculate(
@@ -32,9 +32,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
             IStatCalculationNode node;
             return baseStats.ContainsKey(statDefinitionId)
                 ? new ValueStatCalculationNode(baseStats[statDefinitionId].Value)
-                : _statDefinitionToNodeMapping.TryGetValue(statDefinitionId, out node)
-                    ? node
-                    : new ValueStatCalculationNode(0);
+                : _statDefinitionToCalculationLookup.GetCalculationNode(statDefinitionId);
         }
     }
 }

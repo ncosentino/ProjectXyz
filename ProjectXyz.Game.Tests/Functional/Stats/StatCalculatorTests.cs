@@ -116,9 +116,10 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             statCalculationNodeFactoryProvider.Add(statCalculationValueNodeFactory);
             statCalculationNodeFactoryProvider.Add(statCalculationExpressionNodeFactory);
 
-            var statDefinitionToCalculationNodeFactory = new StatDefinitionToCalculationNodeFactory(statCalculationNodeFactory);
-            var statDefinitionToCalculationNodeMapping = statDefinitionToCalculationNodeFactory.CreateMapping(STAT_DEFINITION_TO_CALCULATION_MAPPING);
-            _statCalculator = new StatCalculator(statDefinitionToCalculationNodeMapping);
+            var statDefinitionToCalculationLookup = new StatDefinitionToCalculationLookup(
+                statCalculationNodeFactory,
+                STAT_DEFINITION_TO_CALCULATION_MAPPING);
+            _statCalculator = new StatCalculator(statDefinitionToCalculationLookup);
         }
         #endregion
 
