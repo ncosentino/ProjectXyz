@@ -11,20 +11,17 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
     public sealed class StatCalculationExpressionNodeFactory : IStatCalculationNodeFactory
     {
         private readonly IStringExpressionEvaluator _stringExpressionEvaluator;
-        private readonly IStatCalculationNodeFactory _statCalculationNodeFactory;
+        private readonly IStatDefinitionToCalculationLookup _statDefinitionToCalculationLookup;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionToTermMapping;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionToCalculationMapping;
 
         public StatCalculationExpressionNodeFactory(
-            IStatCalculationNodeFactory statCalculationNodeFactory,
             IStringExpressionEvaluator stringExpressionEvaluator,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionToCalculationMapping)
+            IStatDefinitionToCalculationLookup statDefinitionToCalculationLookup,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping)
         {
-            _statCalculationNodeFactory = statCalculationNodeFactory;
             _stringExpressionEvaluator = stringExpressionEvaluator;
+            _statDefinitionToCalculationLookup = statDefinitionToCalculationLookup;
             _statDefinitionToTermMapping = statDefinitionToTermMapping;
-            _statDefinitionToCalculationMapping = statDefinitionToCalculationMapping;
         }
 
         public bool TryCreate(
@@ -34,20 +31,15 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         {
             var newNodeStatDefinitionToTermMapping = _statDefinitionToTermMapping
                 .Where(x => expression.Contains(x.Value))
-                .ToDictionary();
-            var newNodeStatDefinitionToNodeMapping = newNodeStatDefinitionToTermMapping
                 .Select(x => KeyValuePair.Create(
-                    x.Key,
-                    _statCalculationNodeFactory.Create(
-                        x.Key,
-                        _statDefinitionToCalculationMapping.GetValueOrDefault(x.Key, "0"))))
+                    x.Value, 
+                    _statDefinitionToCalculationLookup.GetCalculationNode(x.Key)))
                 .ToDictionary();
 
             statCalculationNode = new ExpressionStatCalculationNode(
                 _stringExpressionEvaluator,
                 expression,
-                newNodeStatDefinitionToTermMapping,
-                newNodeStatDefinitionToNodeMapping);
+                newNodeStatDefinitionToTermMapping);
             return true;
         }
     }

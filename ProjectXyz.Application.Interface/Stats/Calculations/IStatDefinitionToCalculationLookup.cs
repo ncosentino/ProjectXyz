@@ -1,3 +1,4 @@
+using System;
 using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Interface.Stats.Calculations

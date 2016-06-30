@@ -29,7 +29,6 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
             IIdentifier statDefinitionId,
             IReadOnlyDictionary<IIdentifier, IStat> baseStats)
         {
-            IStatCalculationNode node;
             return baseStats.ContainsKey(statDefinitionId)
                 ? new ValueStatCalculationNode(baseStats[statDefinitionId].Value)
                 : _statDefinitionToCalculationLookup.GetCalculationNode(statDefinitionId);

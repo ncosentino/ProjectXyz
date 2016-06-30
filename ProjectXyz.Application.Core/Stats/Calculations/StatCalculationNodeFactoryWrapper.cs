@@ -8,14 +8,10 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
     public sealed class StatCalculationNodeFactoryWrapper : IStatCalculationNodeFactory
     {
         private readonly IStatCalculationNodeFactoryProvider _statCalculationNodeFactoryProvider;
-        private readonly IStatCalculationNodeWrapper _statCalculationNodeWrapper;
-
-        public StatCalculationNodeFactoryWrapper(
-            IStatCalculationNodeFactoryProvider statCalculationNodeFactoryProvider,
-            IStatCalculationNodeWrapper statCalculationNodeWrapper)
+        
+        public StatCalculationNodeFactoryWrapper(IStatCalculationNodeFactoryProvider statCalculationNodeFactoryProvider)
         {
             _statCalculationNodeFactoryProvider = statCalculationNodeFactoryProvider;
-            _statCalculationNodeWrapper = statCalculationNodeWrapper;
         }
 
         public bool TryCreate(
@@ -30,9 +26,6 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                     expression,
                     out statCalculationNode))
                 {
-                    statCalculationNode = _statCalculationNodeWrapper.Wrap(
-                        statDefinitionId,
-                        statCalculationNode);
                     return true;
                 }
             }

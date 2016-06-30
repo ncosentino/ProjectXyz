@@ -102,23 +102,22 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 
             var statCalculationNodeFactoryProvider = new StatCalculationNodeFactoryProvider();
 
+            var statCalculationNodeFactory = new StatCalculationNodeFactoryWrapper(statCalculationNodeFactoryProvider);
             var statCalculationNodeWrapper = new TestNodeWrapper(statCalculationNodeFactoryProvider);
-            var statCalculationNodeFactory = new StatCalculationNodeFactoryWrapper(
-                statCalculationNodeFactoryProvider,
-                statCalculationNodeWrapper);
+            var statDefinitionToCalculationLookup = new StatDefinitionToCalculationLookup(
+                statCalculationNodeFactory,
+                statCalculationNodeWrapper,
+                STAT_DEFINITION_TO_CALCULATION_MAPPING);
+
             var statCalculationValueNodeFactory = new StatCalculationValueNodeFactory();
             var statCalculationExpressionNodeFactory = new StatCalculationExpressionNodeFactory(
-                statCalculationNodeFactory,
                 new StringExpressionEvaluatorWrapper(stringExpressionEvaluator, true),
-                STAT_DEFINITION_TO_TERM_MAPPING,
-                STAT_DEFINITION_TO_CALCULATION_MAPPING);
+                statDefinitionToCalculationLookup,
+                STAT_DEFINITION_TO_TERM_MAPPING);
 
             statCalculationNodeFactoryProvider.Add(statCalculationValueNodeFactory);
             statCalculationNodeFactoryProvider.Add(statCalculationExpressionNodeFactory);
 
-            var statDefinitionToCalculationLookup = new StatDefinitionToCalculationLookup(
-                statCalculationNodeFactory,
-                STAT_DEFINITION_TO_CALCULATION_MAPPING);
             _statCalculator = new StatCalculator(statDefinitionToCalculationLookup);
         }
         #endregion

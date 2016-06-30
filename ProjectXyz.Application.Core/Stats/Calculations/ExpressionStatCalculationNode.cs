@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using ProjectXyz.Application.Interface.Stats.Calculations;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Core.Stats.Calculations
 {
@@ -9,30 +8,27 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
     {
         private readonly IStringExpressionEvaluator _stringExpressionEvaluator;
         private readonly string _expression;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionToTermMapping;
-        private readonly IReadOnlyDictionary<IIdentifier, IStatCalculationNode> _statDefinitionToNodeMapping;
+        private readonly IReadOnlyDictionary<string, IStatCalculationNode> _termToNodeMapping;
 
         public ExpressionStatCalculationNode(
             IStringExpressionEvaluator stringExpressionEvaluator,
             string expression,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionToTermMapping,
-            IReadOnlyDictionary<IIdentifier, IStatCalculationNode> statDefinitionToNodeMapping)
+            IReadOnlyDictionary<string, IStatCalculationNode> termToNodeMapping)
         {
             _stringExpressionEvaluator = stringExpressionEvaluator;
             _expression = expression;
-            _statDefinitionToTermMapping = statDefinitionToTermMapping;
-            _statDefinitionToNodeMapping = statDefinitionToNodeMapping;
+            _termToNodeMapping = termToNodeMapping;
         }
 
         public double GetValue()
         {
             var expression = _expression;
-            foreach (var statDefinitionToTerm in _statDefinitionToTermMapping)
+            foreach (var termToNode in _termToNodeMapping)
             {
-                var node = _statDefinitionToNodeMapping[statDefinitionToTerm.Key];
+                var node = termToNode.Value;
                 var termValue = node.GetValue();
                 expression = expression.Replace(
-                    statDefinitionToTerm.Value,
+                    termToNode.Key,
                     $"({termValue})");
             }
 
