@@ -7,31 +7,24 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 {
     public sealed class StatCalculator : IStatCalculator
     {
-        private readonly IStatDefinitionToCalculationLookup _statDefinitionToCalculationLookup;
+        private readonly IStatCalculationNodeCreator _statCalculationNodeCreator;
 
-        public StatCalculator(IStatDefinitionToCalculationLookup statDefinitionToCalculationLookup)
+        public StatCalculator(IStatCalculationNodeCreator statCalculationNodeCreator)
         {
-            _statDefinitionToCalculationLookup = statDefinitionToCalculationLookup;
+            _statCalculationNodeCreator = statCalculationNodeCreator;
         }
 
         public double Calculate(
-            IIdentifier statDefinitionId,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats)
+            IStatExpressionInterceptor statExpressionInterceptor,
+            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IIdentifier statDefinitionId)
         {
-            var node = GetStatCalculationNode(
-                statDefinitionId,
-                baseStats);
-            var value = node.GetValue();
+            var statCalculationNode = _statCalculationNodeCreator.Create(
+                statExpressionInterceptor,
+                baseStats,
+                statDefinitionId);
+            var value = statCalculationNode.GetValue();
             return value;
-        }
-
-        private IStatCalculationNode GetStatCalculationNode(
-            IIdentifier statDefinitionId,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats)
-        {
-            return baseStats.ContainsKey(statDefinitionId)
-                ? new ValueStatCalculationNode(baseStats[statDefinitionId].Value)
-                : _statDefinitionToCalculationLookup.GetCalculationNode(statDefinitionId);
         }
     }
 }

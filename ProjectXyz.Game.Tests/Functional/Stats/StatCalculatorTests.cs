@@ -47,78 +47,53 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             { EXPRESSION_WITH_OVERRIDDEN_STAT_ID, "OVERRIDDEN * 10" },
             { EXPRESSION_OVERRIDDEN_BY_OVERRIDE_EXPRESSION_STAT_ID, "STR * 10" },
         };
-
-        private sealed class TestNodeWrapper : IStatCalculationNodeWrapper
-        {
-            private readonly IStatCalculationNodeFactoryProvider _statCalculationNodeFactoryProvider;
-
-            public TestNodeWrapper(IStatCalculationNodeFactoryProvider statCalculationNodeFactoryProvider)
-            {
-                _statCalculationNodeFactoryProvider = statCalculationNodeFactoryProvider;
-            }
-
-            public IStatCalculationNode Wrap(
-                IIdentifier statDefinitionId,
-                IStatCalculationNode statCalculationNode)
-            {
-                if (statDefinitionId == ALWAYS_OVERRIDDEN_VALUE_STAT_ID)
-                {
-                    return new ValueStatCalculationNode(111);
-                }
-
-                if (statDefinitionId == ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID)
-                {
-                    return new ValueStatCalculationNode(222);
-                }
-
-                if (statDefinitionId == EXPRESSION_OVERRIDDEN_BY_OVERRIDE_EXPRESSION_STAT_ID)
-                {
-                    return _statCalculationNodeFactoryProvider.Factories.Select(factory =>
-                    {
-                        IStatCalculationNode attemptedNode;
-                        return factory.TryCreate(
-                            statDefinitionId,
-                            "EXPR_OVERRIDE * 2",
-                            out attemptedNode)
-                            ? attemptedNode
-                            : null;
-                    })
-                    .First(x => x != null);
-                }
-
-                return statCalculationNode;
-            }
-        }
         #endregion
 
         #region Fields
         private readonly IStatCalculator _statCalculator;
+        private readonly IStatExpressionInterceptor _statExpressionInterceptor;
         #endregion
 
         #region Constructors
         public StatCalculatorTests()
         {
             var stringExpressionEvaluator = new DataTableExpressionEvaluator(new DataTable());
+            var statCalculationExpressionNodeFactory = new StatCalculationExpressionNodeFactory(new StringExpressionEvaluatorWrapper(stringExpressionEvaluator, true));
+            var statCalculationValueNodeFactory = new StatCalculationValueNodeFactory();
+            var statCalculationNodeFactory = new StatCalculationNodeFactoryWrapper(new IStatCalculationNodeFactory[]
+            {
+                statCalculationValueNodeFactory,
+                statCalculationExpressionNodeFactory,
+            });
 
-            var statCalculationNodeFactoryProvider = new StatCalculationNodeFactoryProvider();
+            var expressionStatDefinitionDependencyFinder = new ExpressionStatDefinitionDependencyFinder();
 
-            var statCalculationNodeFactory = new StatCalculationNodeFactoryWrapper(statCalculationNodeFactoryProvider);
-            var statCalculationNodeWrapper = new TestNodeWrapper(statCalculationNodeFactoryProvider);
-            var statDefinitionToCalculationLookup = new StatDefinitionToCalculationLookup(
+            var statCalculationNodeCreator = new StatCalculationNodeCreator(
                 statCalculationNodeFactory,
-                statCalculationNodeWrapper,
+                expressionStatDefinitionDependencyFinder,
+                STAT_DEFINITION_TO_TERM_MAPPING,
                 STAT_DEFINITION_TO_CALCULATION_MAPPING);
 
-            var statCalculationValueNodeFactory = new StatCalculationValueNodeFactory();
-            var statCalculationExpressionNodeFactory = new StatCalculationExpressionNodeFactory(
-                new StringExpressionEvaluatorWrapper(stringExpressionEvaluator, true),
-                statDefinitionToCalculationLookup,
-                STAT_DEFINITION_TO_TERM_MAPPING);
+            _statCalculator = new StatCalculator(statCalculationNodeCreator);
+            _statExpressionInterceptor = new StatExpressionInterceptor((statDefinitionId, expression) =>
+            {
+                if (statDefinitionId == ALWAYS_OVERRIDDEN_VALUE_STAT_ID)
+                {
+                    return "111";
+                }
 
-            statCalculationNodeFactoryProvider.Add(statCalculationValueNodeFactory);
-            statCalculationNodeFactoryProvider.Add(statCalculationExpressionNodeFactory);
+                if (statDefinitionId == ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID)
+                {
+                    return "222";
+                }
 
-            _statCalculator = new StatCalculator(statDefinitionToCalculationLookup);
+                if (statDefinitionId == EXPRESSION_OVERRIDDEN_BY_OVERRIDE_EXPRESSION_STAT_ID)
+                {
+                    return "EXPR_OVERRIDE * 2";
+                }
+
+                return expression;
+            });
         }
         #endregion
 
@@ -141,10 +116,14 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             yield return new object[] { NON_DEPENDENT_EXPRESSION_STAT_ID };
             yield return new object[] { SINGLE_DEPENDENT_EXPRESSION_STAT_ID };
             yield return new object[] { EXPRESSION_DEPENDENT_EXPRESSION_STAT_ID };
-            yield return new object[] { ALWAYS_OVERRIDDEN_VALUE_STAT_ID };
-            yield return new object[] { ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID };
             yield return new object[] { EXPRESSION_WITH_OVERRIDDEN_STAT_ID };
-            yield return new object[] { EXPRESSION_OVERRIDDEN_BY_OVERRIDE_EXPRESSION_STAT_ID };
+        }
+
+        private static IEnumerable<object[]> GetOverrideBaseStatsTheoryData()
+        {
+            yield return new object[] { ALWAYS_OVERRIDDEN_VALUE_STAT_ID, 111 };
+            yield return new object[] { ALWAYS_OVERRIDDEN_EXPRESSION_STAT_ID, 222 };
+            yield return new object[] { EXPRESSION_OVERRIDDEN_BY_OVERRIDE_EXPRESSION_STAT_ID, 2220 };
         }
         #endregion
 
@@ -158,11 +137,27 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var baseStat = new Stat(statDefinitionId, expectedValue);
             var baseStats = new StatCollectionFactory().Create(baseStat);
             var result = _statCalculator.Calculate(
-                baseStat.StatDefinitionId,
-                baseStats);
+                _statExpressionInterceptor,
+                baseStats,
+                statDefinitionId);
             Assert.Equal(baseStat.Value, result);
         }
-        
+
+        [Theory,
+         MemberData("GetOverrideBaseStatsTheoryData")]
+        private void Calculate_StatPresent_BaseStatOverridden(IIdentifier statDefinitionId, double expectedValue)
+        {
+            var rng = new RandomNumberGenerator(new Random());
+            var baseValue = rng.NextInRange(int.MinValue, int.MaxValue);
+            var baseStat = new Stat(statDefinitionId, baseValue);
+            var baseStats = new StatCollectionFactory().Create(baseStat);
+            var result = _statCalculator.Calculate(
+                _statExpressionInterceptor,
+                baseStats,
+                statDefinitionId);
+            Assert.Equal(expectedValue, result);
+        }
+
         [Theory,
          MemberData("GetEvaluateExpressionTheoryData")]
         private void Calculate_NoBaseStats_ExpressionEvaluated(
@@ -170,8 +165,9 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             double expectedValue)
         {
             var result = _statCalculator.Calculate(
-                statDefinitionId,
-                StatCollection.Empty);
+                _statExpressionInterceptor,
+                StatCollection.Empty,
+                statDefinitionId);
             Assert.Equal(expectedValue, result);
         }
         #endregion

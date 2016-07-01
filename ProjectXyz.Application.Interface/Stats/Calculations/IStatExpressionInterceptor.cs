@@ -2,10 +2,10 @@ using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Interface.Stats.Calculations
 {
-    public interface IStatCalculationNodeWrapper
+    public interface IStatExpressionInterceptor
     {
-        IStatCalculationNode Wrap(
+        string Intercept(
             IIdentifier statDefinitionId,
-            IStatCalculationNode statCalculationNode);
+            string expression);
     }
 }

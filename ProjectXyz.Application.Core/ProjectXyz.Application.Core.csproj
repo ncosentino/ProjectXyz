@@ -46,12 +46,14 @@
     <Compile Include="Enchantments\EnchantmentContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
-    <Compile Include="Stats\Calculations\StatCalculationNodeFactoryProvider.cs" />
+    <Compile Include="Stats\Calculations\ExpressionStatDefinitionDependencyFinder.cs" />
+    <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
     <Compile Include="Stats\Calculations\StatCalculationExpressionNodeFactory.cs" />
+    <Compile Include="Stats\Calculations\StatCalculationNodeCreator.cs" />
     <Compile Include="Stats\Calculations\StatCalculationValueNodeFactory.cs" />
     <Compile Include="Stats\Calculations\StatCalculationNodeFactoryWrapper.cs" />
     <Compile Include="Stats\Calculations\StatCalculator.cs" />
-    <Compile Include="Stats\Calculations\StatDefinitionToCalculationLookup.cs" />
+    <Compile Include="Stats\Calculations\StatExpressionInterceptor.cs" />
     <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />
     <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
     <Compile Include="Weather\WeatherManager.cs" />

@@ -3,9 +3,9 @@ using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Interface.Stats.Calculations
 {
-    public interface IStatCalculator
+    public interface IStatCalculationNodeCreator
     {
-        double Calculate(
+        IStatCalculationNode Create(
             IStatExpressionInterceptor statExpressionInterceptor,
             IReadOnlyDictionary<IIdentifier, IStat> baseStats,
             IIdentifier statDefinitionId);
