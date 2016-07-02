@@ -91,7 +91,7 @@ namespace ProjectXyz.Plugins.Enchantments.Expressions
             IEnumerable<IEnchantment> enchantments)
         {
             return enchantments
-                .TakeTypes<IEnchantment, IExpressionEnchantment>()
+                .TakeTypes<IExpressionEnchantment>()
                 .Where(x => _weatherManager.WeatherGroupingContainsWeatherDefinition(
                     x.WeatherGroupingId,
                     enchantmentContext.ActiveWeatherDefinitionId))

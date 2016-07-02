@@ -78,7 +78,7 @@ namespace ProjectXyz.Plugins.Enchantments.OneShotNegation
         private IEnumerable<IOneShotNegateEnchantment> GetActiveOneShotNegateEnchantments(IEnumerable<IEnchantment> enchantments)
         {
             return enchantments
-                .TakeTypes<IEnchantment, IOneShotNegateEnchantment>();
+                .TakeTypes<IOneShotNegateEnchantment>();
         }
         #endregion
     }

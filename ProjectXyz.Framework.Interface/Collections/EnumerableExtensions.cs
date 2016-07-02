@@ -16,7 +16,7 @@ namespace ProjectXyz.Framework.Interface.Collections
             }
         }
 
-        public static IEnumerable<T2> TakeTypes<T1, T2>(this IEnumerable<T1> enumerable)
+        public static IEnumerable<T2> TakeTypes<T2>(this IEnumerable<object> enumerable)
         {
             return enumerable.Where(x => x is T2).Cast<T2>();
         }
@@ -36,6 +36,19 @@ namespace ProjectXyz.Framework.Interface.Collections
         public static T[] AsArray<T>(this T obj)
         {
             return obj.Yield().ToArray();
+        }
+
+        public static IEnumerable<T> Repeat<T>(this T obj, int times)
+        {
+            for (var i = 0; i < times; ++i)
+            {
+                yield return obj;
+            }
+        }
+
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> enumerable, T obj)
+        {
+            return enumerable.Concat(obj.Yield());
         }
     }
 }
