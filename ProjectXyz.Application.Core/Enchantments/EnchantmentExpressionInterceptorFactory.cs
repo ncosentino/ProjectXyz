@@ -9,13 +9,19 @@ namespace ProjectXyz.Application.Core.Enchantments
     public sealed class EnchantmentExpressionInterceptorFactory : IEnchantmentExpressionInterceptorFactory
     {
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
+        private readonly IStateValueInjector _stateValueInjector;
 
-        public EnchantmentExpressionInterceptorFactory(IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping)
+        public EnchantmentExpressionInterceptorFactory(
+            IStateValueInjector stateValueInjector,
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping)
         {
+            _stateValueInjector = stateValueInjector;
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
         }
 
-        public IEnchantmentExpressionInterceptor Create(IReadOnlyCollection<IEnchantment> enchantments)
+        public IEnchantmentExpressionInterceptor Create(
+            IStateContextProvider stateContextProvider,
+            IReadOnlyCollection<IEnchantment> enchantments)
         {
             var statDefinitionToEnchantmentMapping = enchantments
                 .TakeTypes<IExpressionEnchantment>()
@@ -27,8 +33,10 @@ namespace ProjectXyz.Application.Core.Enchantments
                     x => (IReadOnlyCollection<IExpressionEnchantment>)x.Select(g => g).OrderBy(e => e.CalculationPriority).ToArray());
 
             var interceptor = new ExpressionEnchantmentExpressionInterceptor(
+                _stateValueInjector,
                 _statDefinitionIdToTermMapping,
-                statDefinitionToEnchantmentMapping);
+                statDefinitionToEnchantmentMapping,
+                stateContextProvider);
             return interceptor;
         }
     }

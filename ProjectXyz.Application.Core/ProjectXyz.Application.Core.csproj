@@ -45,6 +45,9 @@
     <Compile Include="Enchantments\EnchantmentExpressionInterceptorFactory.cs" />
     <Compile Include="Enchantments\ExpressionEnchantment.cs" />
     <Compile Include="Enchantments\ExpressionEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\ConstantValueStateContext.cs" />
+    <Compile Include="Enchantments\StateContextProvider.cs" />
+    <Compile Include="Enchantments\StateValueInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatDefinitionDependencyFinder.cs" />

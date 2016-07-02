@@ -31,7 +31,7 @@ namespace ProjectXyz.Framework.Shared.Math
             {
                 value = _dataTable.Compute(expression, string.Empty);
             }
-            catch (SyntaxErrorException ex)
+            catch (Exception ex) when (ex is EvaluateException || ex is SyntaxErrorException)
             {
                 throw new FormatException($"The expression '{expression}' was in an invalid format and could not be evaulated.", ex);
             }

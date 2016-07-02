@@ -19,11 +19,14 @@ namespace ProjectXyz.Application.Core.Enchantments
         }
 
         public double Calculate(
+            IStateContextProvider stateContextProvider,
             IReadOnlyDictionary<IIdentifier, IStat> baseStats,
             IReadOnlyCollection<IEnchantment> enchantments,
             IIdentifier statDefinitionId)
         {
-            var interceptor = _enchantmentExpressionInterceptorFactory.Create(enchantments);
+            var interceptor = _enchantmentExpressionInterceptorFactory.Create(
+                stateContextProvider,
+                enchantments);
             var value = _enchantmentStatCalculator.Calculate(
                 interceptor,
                 baseStats,
