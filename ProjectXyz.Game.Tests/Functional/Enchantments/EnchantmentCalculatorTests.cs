@@ -71,8 +71,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         {
             yield return new object[] { FIXTURE.Enchantments.StatABuff, 5 };
             yield return new object[] { FIXTURE.Enchantments.StatADebuff, -5 };
+            yield return new object[] { FIXTURE.Enchantments.StatBBuff, 5 };
             yield return new object[] { FIXTURE.Enchantments.PreNullifyStatA, -1 };
             yield return new object[] { FIXTURE.Enchantments.PostNullifyStatA, -1 };
+            yield return new object[] { FIXTURE.Enchantments.RecursiveStatA, 0 };
         }
 
         private static IEnumerable<object[]> GetMultipleEnchantmentsNoBaseStatsTheoryData()
@@ -117,6 +119,19 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             Assert.Equal(expectedResult, result);
         }
+
+        [Fact]
+        private void Calculate_BadExpression_ThrowsFormatException()
+        {
+            var baseStats = StatCollection.Empty;
+
+            Action method = () => _enchantmentCalculator.Calculate(
+                baseStats,
+                FIXTURE.Enchantments.BadExpression.AsArray(),
+                FIXTURE.Enchantments.BadExpression.StatDefinitionId);
+
+            Assert.Throws<FormatException>(method);
+        }
         #endregion
 
         #region Classes
@@ -125,12 +140,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             private static readonly CalculationPriorities CALC_PRIORITIES = new CalculationPriorities();
             private static readonly StatDefinitionIds STAT_DEFINITION_IDS = new StatDefinitionIds();
             
-            public TestFixture()
-            {
-                Enchantments = new ExampleEnchantments(Stats);
-            }
-
-            public ExampleEnchantments Enchantments { get; }
+            public ExampleEnchantments Enchantments { get; } = new ExampleEnchantments();
 
             public StatDefinitionIds Stats { get; } = STAT_DEFINITION_IDS;
 
@@ -147,24 +157,19 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             public class ExampleEnchantments
             {
-                public ExampleEnchantments(StatDefinitionIds stats)
-                {
-                    StatADebuff = new ExpressionEnchantment(stats.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
-                    StatABuff = new ExpressionEnchantment(stats.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
-                    StatBBuff = new ExpressionEnchantment(stats.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
-                    PreNullifyStatA = new ExpressionEnchantment(stats.StatA, "-1", CALC_PRIORITIES.Lowest);
-                    PostNullifyStatA = new ExpressionEnchantment(stats.StatA, "-1", CALC_PRIORITIES.Highest);
-                }
+                public IEnchantment StatABuff { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatABuff { get; }
+                public IEnchantment StatBBuff { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatBBuff { get; }
+                public IEnchantment StatADebuff { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatADebuff { get; }
+                public IEnchantment PreNullifyStatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Lowest);
 
-                public IEnchantment PreNullifyStatA { get; }
+                public IEnchantment PostNullifyStatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Highest);
 
-                public IEnchantment PostNullifyStatA { get; }
+                public IEnchantment RecursiveStatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A", CALC_PRIORITIES.Highest);
+
+                public IEnchantment BadExpression { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "Can't actually be evaluated", CALC_PRIORITIES.Highest);
             }
 
             public class StatDefinitionIds
