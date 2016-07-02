@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Jace;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
@@ -32,7 +33,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var statDefinitionIdToTermMapping = FIXTURE.StatDefinitionIdToTermMapping;
             var statDefinitionIdToCalculationMapping = FIXTURE.StatDefinitionIdToCalculationMapping;
 
-            var stringExpressionEvaluator = new StringExpressionEvaluatorWrapper(new DataTableExpressionEvaluator(new DataTable()), true);
+            var jaceCalculationEngine = new CalculationEngine();
+            var stringExpressionEvaluator = new StringExpressionEvaluatorWrapper(new GenericExpressionEvaluator(jaceCalculationEngine.Calculate), true);
 
             var statCalculationValueNodeFactory = new StatCalculationValueNodeFactory();
             var statCalculationExpressionNodeFactory = new StatCalculationExpressionNodeFactory(stringExpressionEvaluator);
@@ -93,8 +95,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         private static IEnumerable<object[]> GetTimeOfDayEnchantmentsTheoryData()
         {
             yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatABinary, 0, 0 };
-            yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatABinary, 0.5, 5 };
-            yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatABinary, 1, 5 };
+            yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatABinary, 0.5, 10 };
+            yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatABinary, 1, 10 };
             yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatAPeak, 0, 0 };
             yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatAPeak, 0.5, 5 };
             yield return new object[] { FIXTURE.Enchantments.DayTimeBuffs.StatAPeak, 1, 10 };
@@ -247,7 +249,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 {
                     public IEnchantment StatAPeak { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * TOD_DAY", CALC_PRIORITIES.Middle);
 
-                    public IEnchantment StatABinary { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * (IIF TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
+                    public IEnchantment StatABinary { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
                 }
             }
 

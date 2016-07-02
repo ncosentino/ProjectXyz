@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Identifier.cs" />
     <Compile Include="KeyValuePair.cs" />
+    <Compile Include="Math\GenericExpressionEvaluator.cs" />
     <Compile Include="Math\DataTableExpressionEvaluator.cs" />
     <Compile Include="StringIdentifier.cs" />
     <Compile Include="IntIdentifier.cs" />
