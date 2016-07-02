@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\EnchantmentTypeCalculatorResult.cs" />
-    <Compile Include="Enchantments\EnchantmentTypeCalculatorResultFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Stat.cs" />
     <Compile Include="Stats\StatCollection.cs" />

@@ -97,6 +97,10 @@
       <Project>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</Project>
       <Name>ProjectXyz.Game.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
+      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
+      <Name>ProjectXyz.Game.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884a0b-6975-4811-ae50-0ee01139550b}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>
@@ -104,14 +108,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
       <Project>{1b0dc326-68af-47a8-991f-64d70d1d6d2e}</Project>
       <Name>ProjectXyz.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Expressions\ProjectXyz.Plugins.Enchantments.Expressions.csproj">
-      <Project>{f9dcb243-e322-46ee-961f-91abcae472ae}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Expressions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.OneShotNegation\ProjectXyz.Plugins.Enchantments.OneShotNegation.csproj">
-      <Project>{2b602c00-8f57-4633-ab26-a13e7bc6daf9}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.OneShotNegation</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
       <Project>{1d313fc4-7092-48df-a266-002045abab3a}</Project>

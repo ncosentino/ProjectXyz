@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</ProjectGuid>
+    <ProjectGuid>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Game.Core</RootNamespace>
-    <AssemblyName>ProjectXyz.Game.Core</AssemblyName>
+    <RootNamespace>ProjectXyz.Game.Interface</RootNamespace>
+    <AssemblyName>ProjectXyz.Game.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,49 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\EnchantmentExpressionInterceptorConverter.cs" />
-    <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
-    <Compile Include="Plugins\AssemblyPluginProviderFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentExpressionInterceptorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
-      <Project>{0E56D372-31CF-48BD-94A2-67D4622C270A}</Project>
-      <Name>ProjectXyz.Application.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{caf704d5-0f07-47c5-a1e5-d0bcbefca5c3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Shared\ProjectXyz.Application.Shared.csproj">
-      <Project>{628dca46-eec0-419f-acfb-2052381960c6}</Project>
-      <Name>ProjectXyz.Application.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
+      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
-      <Project>{8878cd88-b979-4af3-9510-2fa949060088}</Project>
-      <Name>ProjectXyz.Framework.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
-      <Project>{63884a0b-6975-4811-ae50-0ee01139550b}</Project>
-      <Name>ProjectXyz.Plugins.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
-      <Project>{1B0DC326-68AF-47A8-991F-64D70D1D6D2E}</Project>
-      <Name>ProjectXyz.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
-      <Project>{1D313FC4-7092-48DF-A266-002045ABAB3A}</Project>
-      <Name>ProjectXyz.Plugins.Interface</Name>
-    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

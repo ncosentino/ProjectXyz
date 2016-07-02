@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using ProjectXyz.Application.Core.Weather;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Plugins.Core;
-using ProjectXyz.Plugins.Core.Enchantments;
 using ProjectXyz.Plugins.Interface;
 
 namespace ProjectXyz.Game.Core.Plugins
@@ -31,6 +29,7 @@ namespace ProjectXyz.Game.Core.Plugins
 
         public IPluginProvider Create()
         {
+            throw new NotImplementedException();
             var assemblyPluginRepositoryFactory = new AssemblyPluginRepositoryFactory(
                 _try,
                 x => Directory.GetFiles(
@@ -41,17 +40,11 @@ namespace ProjectXyz.Game.Core.Plugins
                         : SearchOption.TopDirectoryOnly),
                 Assembly.LoadFrom,
                 _pluginDirectories);
-
-            var weatherManager = new WeatherManager();
-            var enchantmentPluginInitializationProvider = new EnchantmentPluginInitializationProvider(weatherManager);
-            var enchantmentPluginLoader = new EnchantmentPluginAssemblyLoader(enchantmentPluginInitializationProvider);
-
-            var pluginRepositories = new[]
+            
+            var pluginProvider = new PluginProvider(new IPluginRepository[]
             {
-                assemblyPluginRepositoryFactory.Create(enchantmentPluginLoader.LoadFromAssembly),
-            };
-
-            var pluginProvider = new PluginProvider(pluginRepositories);
+                
+            });
             return pluginProvider;
         }
     }

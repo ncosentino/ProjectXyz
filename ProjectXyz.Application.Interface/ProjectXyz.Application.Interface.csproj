@@ -40,15 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enchantments\ICalculationPriority.cs" />
     <Compile Include="Enchantments\IEnchantment.cs" />
     <Compile Include="Enchantments\IEnchantmentCalculator.cs" />
-    <Compile Include="Enchantments\IEnchantmentCalculatorResult.cs" />
-    <Compile Include="Enchantments\IEnchantmentCalculatorResultFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentContext.cs" />
-    <Compile Include="Enchantments\IEnchantmentTypeCalculator.cs" />
-    <Compile Include="Enchantments\IEnchantmentTypeCalculatorResult.cs" />
-    <Compile Include="Enchantments\IEnchantmentTypeCalculatorResultFactory.cs" />
-    <Compile Include="Enchantments\IStatusNegation.cs" />
+    <Compile Include="Enchantments\IEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\IEnchantmentExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentStatCalculator.cs" />
+    <Compile Include="Enchantments\IExpressionEnchantment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeCreator.cs" />
@@ -73,6 +71,7 @@
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

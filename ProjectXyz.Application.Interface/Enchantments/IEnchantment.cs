@@ -4,8 +4,8 @@ namespace ProjectXyz.Application.Interface.Enchantments
 {
     public interface IEnchantment
     {
-        IIdentifier StatusTypeId { get; }
+        IIdentifier StatDefinitionId { get; }
 
-        IIdentifier TriggerId { get; }
+        ICalculationPriority CalculationPriority { get; }
     }
 }

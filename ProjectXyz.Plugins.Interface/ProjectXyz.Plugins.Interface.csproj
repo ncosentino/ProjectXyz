@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\IEnchantmentPluginAssemblyLoader.cs" />
     <Compile Include="IPluginProvider.cs" />
     <Compile Include="IPluginRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

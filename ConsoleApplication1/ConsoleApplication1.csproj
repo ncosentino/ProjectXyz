@@ -78,14 +78,6 @@
       <Project>{1B0DC326-68AF-47A8-991F-64D70D1D6D2E}</Project>
       <Name>ProjectXyz.Plugins.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Expressions\ProjectXyz.Plugins.Enchantments.Expressions.csproj">
-      <Project>{f9dcb243-e322-46ee-961f-91abcae472ae}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Expressions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.OneShotNegation\ProjectXyz.Plugins.Enchantments.OneShotNegation.csproj">
-      <Project>{2b602c00-8f57-4633-ab26-a13e7bc6daf9}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.OneShotNegation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
       <Project>{1D313FC4-7092-48DF-A266-002045ABAB3A}</Project>
       <Name>ProjectXyz.Plugins.Interface</Name>
