@@ -69,19 +69,20 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #region Methods
         private static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
-            yield return new object[] { FIXTURE.Enchantments.StatBuff, 5 };
-            yield return new object[] { FIXTURE.Enchantments.StatDebuff, -5 };
-            yield return new object[] { FIXTURE.Enchantments.PreNullifyStat, -1 };
-            yield return new object[] { FIXTURE.Enchantments.PostNullifyStat, -1 };
+            yield return new object[] { FIXTURE.Enchantments.StatABuff, 5 };
+            yield return new object[] { FIXTURE.Enchantments.StatADebuff, -5 };
+            yield return new object[] { FIXTURE.Enchantments.PreNullifyStatA, -1 };
+            yield return new object[] { FIXTURE.Enchantments.PostNullifyStatA, -1 };
         }
 
         private static IEnumerable<object[]> GetMultipleEnchantmentsNoBaseStatsTheoryData()
         {
-            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatBuff.Yield().Append(FIXTURE.Enchantments.StatBuff), 10 };
-            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatDebuff.Yield().Append(FIXTURE.Enchantments.StatDebuff), -10 };
-            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatBuff.Yield().Append(FIXTURE.Enchantments.StatDebuff), 0 };
-            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatBuff.Yield().Append(FIXTURE.Enchantments.PreNullifyStat), 4 };
-            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.PostNullifyStat.Yield().Append(FIXTURE.Enchantments.StatBuff), -1 };
+            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatABuff.Yield().Append(FIXTURE.Enchantments.StatABuff), 10 };
+            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatADebuff.Yield().Append(FIXTURE.Enchantments.StatADebuff), -10 };
+            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatABuff.Yield().Append(FIXTURE.Enchantments.StatADebuff), 0 };
+            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.StatABuff.Yield().Append(FIXTURE.Enchantments.PreNullifyStatA), 4 };
+            yield return new object[] { FIXTURE.Stats.StatA, FIXTURE.Enchantments.PostNullifyStatA.Yield().Append(FIXTURE.Enchantments.StatABuff), -1 };
+            yield return new object[] { FIXTURE.Stats.StatB, FIXTURE.Enchantments.StatBBuff.Yield().Append(FIXTURE.Enchantments.StatABuff), 5 };
         }
         #endregion
 
@@ -135,7 +136,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToTermMapping { get; } = new Dictionary<IIdentifier, string>()
             {
-                { STAT_DEFINITION_IDS.StatA, "STAT_A" }
+                { STAT_DEFINITION_IDS.StatA, "STAT_A" },
+                { STAT_DEFINITION_IDS.StatB, "STAT_B" },
             };
 
             public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToCalculationMapping { get; } = new Dictionary<IIdentifier, string>()
@@ -147,24 +149,29 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             {
                 public ExampleEnchantments(StatDefinitionIds stats)
                 {
-                    StatDebuff = new ExpressionEnchantment(stats.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
-                    StatBuff = new ExpressionEnchantment(stats.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
-                    PreNullifyStat = new ExpressionEnchantment(stats.StatA, "-1", CALC_PRIORITIES.Lowest);
-                    PostNullifyStat = new ExpressionEnchantment(stats.StatA, "-1", CALC_PRIORITIES.Highest);
+                    StatADebuff = new ExpressionEnchantment(stats.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
+                    StatABuff = new ExpressionEnchantment(stats.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
+                    StatBBuff = new ExpressionEnchantment(stats.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
+                    PreNullifyStatA = new ExpressionEnchantment(stats.StatA, "-1", CALC_PRIORITIES.Lowest);
+                    PostNullifyStatA = new ExpressionEnchantment(stats.StatA, "-1", CALC_PRIORITIES.Highest);
                 }
 
-                public IEnchantment StatBuff { get; }
+                public IEnchantment StatABuff { get; }
 
-                public IEnchantment StatDebuff { get; }
+                public IEnchantment StatBBuff { get; }
 
-                public IEnchantment PreNullifyStat { get; }
+                public IEnchantment StatADebuff { get; }
 
-                public IEnchantment PostNullifyStat { get; }
+                public IEnchantment PreNullifyStatA { get; }
+
+                public IEnchantment PostNullifyStatA { get; }
             }
 
             public class StatDefinitionIds
             {
                 public IIdentifier StatA { get; } = new StringIdentifier("Stat A");
+
+                public IIdentifier StatB { get; } = new StringIdentifier("Stat B");
             }
 
             private class CalculationPriorities
