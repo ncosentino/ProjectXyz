@@ -11,6 +11,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 {
     public sealed class StatCalculationNodeCreator : IStatCalculationNodeCreator
     {
+        private readonly IStatExpressionInterceptor _statBoundsExpressionInterceptor;
         private readonly IStatCalculationNodeFactory _statCalculationNodeFactory;
         private readonly IExpressionStatDefinitionDependencyFinder _expressionStatDefinitionDependencyFinder;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
@@ -19,11 +20,13 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         public StatCalculationNodeCreator(
             IStatCalculationNodeFactory statCalculationNodeFactory,
             IExpressionStatDefinitionDependencyFinder expressionStatDefinitionDependencyFinder,
+            IStatExpressionInterceptor statBoundsExpressionInterceptor,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToCalculationMapping)
         {
             _statCalculationNodeFactory = statCalculationNodeFactory;
             _expressionStatDefinitionDependencyFinder = expressionStatDefinitionDependencyFinder;
+            _statBoundsExpressionInterceptor = statBoundsExpressionInterceptor;
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
             _statDefinitionIdToCalculationMapping = statDefinitionIdToCalculationMapping;
         }
@@ -46,12 +49,10 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                     : _statDefinitionIdToCalculationMapping.ContainsKey(currentStatDefinitionId)
                         ? _statDefinitionIdToCalculationMapping[currentStatDefinitionId]
                         : "0";
-
-                // TODO: if something from enchanting domain wants to inject 
-                // an interceptor here, how will it replace things in the 
-                // expression with other variables? OR... does it have to pass 
-                // in numeric values that are NOT stats at this point?
                 expression = statExpressionInterceptor.Intercept(
+                    currentStatDefinitionId,
+                    expression);
+                expression = _statBoundsExpressionInterceptor.Intercept(
                     currentStatDefinitionId,
                     expression);
 

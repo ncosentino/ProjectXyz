@@ -52,6 +52,9 @@
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatDefinitionDependencyFinder.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
+    <Compile Include="Stats\Calculations\IReadOnlyDictionary.cs" />
+    <Compile Include="Stats\Calculations\StatBounds.cs" />
+    <Compile Include="Stats\Calculations\StatBoundsExpressionInterceptor.cs" />
     <Compile Include="Stats\Calculations\StatCalculationExpressionNodeFactory.cs" />
     <Compile Include="Stats\Calculations\StatCalculationNodeCreator.cs" />
     <Compile Include="Stats\Calculations\StatCalculationValueNodeFactory.cs" />

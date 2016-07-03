@@ -46,9 +46,12 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             var expressionStatDefinitionDependencyFinder = new ExpressionStatDefinitionDependencyFinder();
 
+            var statBoundsExpressionInterceptor = FIXTURE.StatBoundsExpressionInterceptor;
+
             var statCalculationNodeCreator = new StatCalculationNodeCreator(
                 statCalculationNodeFactory,
                 expressionStatDefinitionDependencyFinder,
+                statBoundsExpressionInterceptor,
                 statDefinitionIdToTermMapping,
                 statDefinitionIdToCalculationMapping);
 
@@ -77,6 +80,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             yield return new object[] { FIXTURE.Enchantments.Buffs.StatA, 5 };
             yield return new object[] { FIXTURE.Enchantments.Debuffs.StatA, -5 };
             yield return new object[] { FIXTURE.Enchantments.Buffs.StatB, 5 };
+            yield return new object[] { FIXTURE.Enchantments.Buffs.StatC, 10 };
+            yield return new object[] { FIXTURE.Enchantments.Debuffs.StatC, 5 };
             yield return new object[] { FIXTURE.Enchantments.PreNullifyStatA, -1 };
             yield return new object[] { FIXTURE.Enchantments.PostNullifyStatA, -1 };
             yield return new object[] { FIXTURE.Enchantments.RecursiveStatA, 0 };
@@ -197,12 +202,18 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             {
                 { STAT_DEFINITION_IDS.StatA, "STAT_A" },
                 { STAT_DEFINITION_IDS.StatB, "STAT_B" },
+                { STAT_DEFINITION_IDS.StatC, "STAT_C" },
             };
 
             public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToCalculationMapping { get; } = new Dictionary<IIdentifier, string>()
             {
 
             };
+
+            public IStatExpressionInterceptor StatBoundsExpressionInterceptor { get; } = new StatBoundsExpressionInterceptor(new Dictionary<IIdentifier, IStatBounds>()
+            {
+                { STAT_DEFINITION_IDS.StatC, new StatBounds("5", "10") },
+            });
 
             public IReadOnlyDictionary<IIdentifier, IReadOnlyDictionary<IIdentifier, string>> StateIdToTermMapping = new Dictionary<IIdentifier, IReadOnlyDictionary<IIdentifier, string>>()
             {
@@ -238,11 +249,15 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                     public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
 
                     public IEnchantment StatB { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
+
+                    public IEnchantment StatC { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C + 100", CALC_PRIORITIES.Middle);
                 }
 
                 public sealed class DebuffEnchantments
                 {
                     public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
+
+                    public IEnchantment StatC { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C - 100", CALC_PRIORITIES.Middle);
                 }
 
                 public sealed class DayTimeBuffEnchantments
@@ -256,8 +271,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             public sealed class StatDefinitionIds
             {
                 public IIdentifier StatA { get; } = new StringIdentifier("Stat A");
-
                 public IIdentifier StatB { get; } = new StringIdentifier("Stat B");
+                public IIdentifier StatC { get; } = new StringIdentifier("Stat C");
             }
 
             public sealed class StateInfo

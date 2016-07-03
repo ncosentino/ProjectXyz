@@ -33,7 +33,7 @@ namespace ProjectXyz.Framework.Shared.Math
             }
             catch (Exception ex) when (ex is EvaluateException || ex is SyntaxErrorException)
             {
-                throw new FormatException($"The expression '{expression}' was in an invalid format and could not be evaulated.", ex);
+                throw new FormatException($"The expression '{expression}' was in an invalid format and could not be evaluated.", ex);
             }
 
             return Convert.ToDouble(

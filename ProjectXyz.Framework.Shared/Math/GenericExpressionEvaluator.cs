@@ -7,12 +7,21 @@ namespace ProjectXyz.Framework.Shared.Math
     {
         #region Fields
         private readonly Func<string, double> _calculateCallback;
+        private readonly Action _disposeCallback;
         #endregion
 
         #region Constructors
         public GenericExpressionEvaluator(Func<string, double> calculateCallback)
+            : this(calculateCallback, null)
+        {
+        }
+
+        public GenericExpressionEvaluator(
+            Func<string, double> calculateCallback,
+            Action disposeCallback)
         {
             _calculateCallback = calculateCallback;
+            _disposeCallback = disposeCallback;
         }
         #endregion
 
@@ -26,12 +35,16 @@ namespace ProjectXyz.Framework.Shared.Math
             }
             catch (Exception ex)
             {
-                throw new FormatException($"The expression '{expression}' was in an invalid format and could not be evaulated.", ex);
+                throw new FormatException($"The expression '{expression}' was in an invalid format and could not be evaluated.", ex);
             }
         }
 
         public void Dispose()
         {
+            if (_disposeCallback != null)
+            {
+                _disposeCallback();
+            }
         }
         #endregion
     }

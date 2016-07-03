@@ -52,6 +52,7 @@
     <Compile Include="Enchantments\IStateValueInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
+    <Compile Include="Stats\Calculations\IStatBounds.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeCreator.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeFactoryExtensions.cs" />
     <Compile Include="Stats\Calculations\IStatCalculator.cs" />
