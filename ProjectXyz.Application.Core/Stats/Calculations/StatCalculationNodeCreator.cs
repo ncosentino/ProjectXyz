@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
@@ -33,7 +32,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 
         public IStatCalculationNode Create(
             IStatExpressionInterceptor statExpressionInterceptor,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId)
         {
             var cache = new Dictionary<IIdentifier, IStatCalculationNode>();
@@ -45,7 +44,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                 var currentStatDefinitionId = stack.Pop();
 
                 var expression = baseStats.ContainsKey(currentStatDefinitionId)
-                    ? baseStats[currentStatDefinitionId].Value.ToString(CultureInfo.InvariantCulture)
+                    ? baseStats[currentStatDefinitionId].ToString(CultureInfo.InvariantCulture)
                     : _statDefinitionIdToCalculationMapping.ContainsKey(currentStatDefinitionId)
                         ? _statDefinitionIdToCalculationMapping[currentStatDefinitionId]
                         : "0";

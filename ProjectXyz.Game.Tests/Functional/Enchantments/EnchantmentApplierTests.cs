@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Shared.Stats;
+using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using Xunit;
 
@@ -34,13 +34,14 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             IEnchantment enchantment,
             double expectedValue)
         {
+            var baseStats = new Dictionary<IIdentifier, double>();
             var result = FIXTURE.EnchantmentApplier.ApplyEnchantments(
                 StateContextProvider.Empty,
-                StatCollection.Empty,
+                baseStats,
                 enchantment.AsArray());
 
             Assert.Equal(1, result.Count);
-            Assert.Equal(expectedValue, result[enchantment.StatDefinitionId].Value);
+            Assert.Equal(expectedValue, result[enchantment.StatDefinitionId]);
         }
         #endregion
     }

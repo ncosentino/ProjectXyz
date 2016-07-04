@@ -7,7 +7,7 @@ namespace ProjectXyz.Application.Interface.Stats.Calculations
     {
         IStatCalculationNode Create(
             IStatExpressionInterceptor statExpressionInterceptor,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId);
     }
 }

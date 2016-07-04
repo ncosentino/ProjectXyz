@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
     public interface IEnchantmentApplier
     {
-        IReadOnlyDictionary<IIdentifier, IStat> ApplyEnchantments(
+        IReadOnlyDictionary<IIdentifier, double> ApplyEnchantments(
             IStateContextProvider stateContextProvider,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IReadOnlyCollection<IEnchantment> enchantments);
     }
 }

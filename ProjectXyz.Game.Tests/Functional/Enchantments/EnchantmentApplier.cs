@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
@@ -9,19 +8,15 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
     public sealed class EnchantmentApplier : IEnchantmentApplier
     {
         private readonly IEnchantmentCalculator _enchantmentCalculator;
-        private readonly IStatFactory _statFactory;
 
-        public EnchantmentApplier(
-            IStatFactory statFactory,
-            IEnchantmentCalculator enchantmentCalculator)
+        public EnchantmentApplier(IEnchantmentCalculator enchantmentCalculator)
         {
-            _statFactory = statFactory;
             _enchantmentCalculator = enchantmentCalculator;
         }
 
-        public IReadOnlyDictionary<IIdentifier, IStat> ApplyEnchantments(
+        public IReadOnlyDictionary<IIdentifier, double> ApplyEnchantments(
             IStateContextProvider stateContextProvider,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IReadOnlyCollection<IEnchantment> enchantments)
         {
             var newStats = baseStats.ToDictionary();
@@ -34,9 +29,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                     newStats,
                     enchantment.AsArray(),
                     statDefinitionId);
-                newStats[statDefinitionId] = _statFactory.Create(
-                    statDefinitionId,
-                    value);
+                newStats[statDefinitionId] = value;
             }
 
             return newStats;

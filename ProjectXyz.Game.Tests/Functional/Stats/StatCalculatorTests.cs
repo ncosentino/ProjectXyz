@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jace;
 using ProjectXyz.Application.Core.Stats.Calculations;
-using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Application.Shared.Stats;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Shared.Math;
 using Xunit;
@@ -95,7 +96,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var rng = new RandomNumberGenerator(new Random());
             var expectedValue = rng.NextInRange(int.MinValue, int.MaxValue);
             var baseStat = new Stat(statDefinitionId, expectedValue);
-            var baseStats = new StatCollectionFactory().Create(baseStat);
+            var baseStats = baseStat.Yield().ToDictionary(x => x.StatDefinitionId, x => x.Value);
             var result = _statCalculator.Calculate(
                 _statExpressionInterceptor,
                 baseStats,
@@ -110,7 +111,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var rng = new RandomNumberGenerator(new Random());
             var baseValue = rng.NextInRange(int.MinValue, int.MaxValue);
             var baseStat = new Stat(statDefinitionId, baseValue);
-            var baseStats = new StatCollectionFactory().Create(baseStat);
+            var baseStats = baseStat.Yield().ToDictionary(x => x.StatDefinitionId, x => x.Value);
             var result = _statCalculator.Calculate(
                 _statExpressionInterceptor,
                 baseStats,
@@ -126,7 +127,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         {
             var result = _statCalculator.Calculate(
                 _statExpressionInterceptor,
-                StatCollection.Empty,
+                new Dictionary<IIdentifier, double>(), 
                 statDefinitionId);
             Assert.Equal(expectedValue, result);
         }

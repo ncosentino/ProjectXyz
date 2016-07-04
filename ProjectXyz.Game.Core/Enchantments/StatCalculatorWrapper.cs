@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Interface.Enchantments;
@@ -22,7 +21,7 @@ namespace ProjectXyz.Game.Core.Enchantments
 
         public double Calculate(
             IEnchantmentExpressionInterceptor enchantmentExpressionInterceptor,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId)
         {
             var statExpressionInterceptor = _enchantmentExpressionInterceptorConverter.Convert(enchantmentExpressionInterceptor);

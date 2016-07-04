@@ -16,7 +16,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 
         public double Calculate(
             IStatExpressionInterceptor statExpressionInterceptor,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId)
         {
             var statCalculationNode = _statCalculationNodeCreator.Create(

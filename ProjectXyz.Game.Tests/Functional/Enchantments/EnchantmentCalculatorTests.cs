@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Shared.Stats;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using Xunit;
@@ -57,7 +56,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             IEnchantment enchantment,
             double expectedResult)
         {
-            var baseStats = StatCollection.Empty;
+            var baseStats = new Dictionary<IIdentifier, double>();
             var result = FIXTURE.EnchantmentCalculator.Calculate(
                 StateContextProvider.Empty,
                 baseStats,
@@ -74,10 +73,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             IEnumerable<IEnchantment> enchantments,
             double expectedResult)
         {
-            var baseStats = StatCollection.Empty;
+            var baseStats = new Dictionary<IIdentifier, double>();
             var result = FIXTURE.EnchantmentCalculator.Calculate(
                 StateContextProvider.Empty,
-                baseStats,
+                baseStats, 
                 enchantments.ToArray(),
                 statDefinitionId);
 
@@ -102,7 +101,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 },
             });
 
-            var baseStats = StatCollection.Empty;
+            var baseStats = new Dictionary<IIdentifier, double>();
             var result = FIXTURE.EnchantmentCalculator.Calculate(
                 stateContextProvider,
                 baseStats,
@@ -115,7 +114,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         [Fact]
         private void Calculate_BadExpression_ThrowsFormatException()
         {
-            var baseStats = StatCollection.Empty;
+            var baseStats = new Dictionary<IIdentifier, double>();
 
             Action method = () => FIXTURE.EnchantmentCalculator.Calculate(
                 StateContextProvider.Empty,

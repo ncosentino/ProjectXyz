@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Core.Enchantments
@@ -20,7 +19,7 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         public double Calculate(
             IStateContextProvider stateContextProvider,
-            IReadOnlyDictionary<IIdentifier, IStat> baseStats,
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
             IReadOnlyCollection<IEnchantment> enchantments,
             IIdentifier statDefinitionId)
         {

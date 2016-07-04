@@ -4,7 +4,6 @@ using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Stats.Calculations;
-using ProjectXyz.Application.Shared.Stats;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Shared.Math;
@@ -64,12 +63,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             EnchantmentCalculator = new EnchantmentCalculator(
                 enchantmentExpressionInterceptorFactory,
                 enchantmentStatCalculator);
-
-            var statFactory = new StatFactory();
-
-            EnchantmentApplier = new EnchantmentApplier(
-                statFactory,
-                EnchantmentCalculator);
+            
+            EnchantmentApplier = new EnchantmentApplier(EnchantmentCalculator);
         }
         #endregion
 
