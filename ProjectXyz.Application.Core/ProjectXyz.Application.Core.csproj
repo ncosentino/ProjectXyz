@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enchantments\CalculationPriority.cs" />
+    <Compile Include="Enchantments\EnchantmentApplier.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentExpressionInterceptorFactory.cs" />
     <Compile Include="Enchantments\ExpressionEnchantment.cs" />

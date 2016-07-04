@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using Jace;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Interface.Stats;
