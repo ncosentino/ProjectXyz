@@ -6,7 +6,7 @@ namespace ProjectXyz.Application.Interface.Stats.Calculations
     public interface IStatCalculator
     {
         double Calculate(
-            IStatExpressionInterceptor statExpressionInterceptor,
+            IReadOnlyCollection<IStatExpressionInterceptor> statExpressionInterceptors,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId);
     }

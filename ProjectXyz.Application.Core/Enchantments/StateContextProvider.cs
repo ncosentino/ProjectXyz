@@ -10,9 +10,6 @@ namespace ProjectXyz.Application.Core.Enchantments
 {
     public sealed class StateContextProvider : IStateContextProvider
     {
-        #region Constants
-        #endregion
-
         #region Fields
         private readonly IReadOnlyDictionary<IIdentifier, IStateContext> _states;
         #endregion

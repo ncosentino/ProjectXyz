@@ -6,7 +6,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantmentStatCalculator
     {
         double Calculate(
-            IEnchantmentExpressionInterceptor enchantmentExpressionInterceptor,
+            IReadOnlyCollection<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId);
     }

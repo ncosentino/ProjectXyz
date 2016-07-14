@@ -68,7 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functional\Enchantments\EnchantmentApplier.cs" />
     <Compile Include="Functional\Enchantments\EnchantmentApplierTests.cs" />
     <Compile Include="Functional\Enchantments\EnchantmentCalculatorTests.cs" />
     <Compile Include="Functional\Enchantments\TestFixture.cs" />

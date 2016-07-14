@@ -6,8 +6,7 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantmentApplier
     {
         IReadOnlyDictionary<IIdentifier, double> ApplyEnchantments(
-            IStateContextProvider stateContextProvider,
-            IReadOnlyDictionary<IIdentifier, double> baseStats,
-            IReadOnlyCollection<IEnchantment> enchantments);
+            IEnchantmentCalculatorContext enchantmentCalculatorContext,
+            IReadOnlyDictionary<IIdentifier, double> baseStats);
     }
 }

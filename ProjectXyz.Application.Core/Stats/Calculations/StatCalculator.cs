@@ -15,12 +15,12 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         }
 
         public double Calculate(
-            IStatExpressionInterceptor statExpressionInterceptor,
+            IReadOnlyCollection<IStatExpressionInterceptor> statExpressionInterceptors,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId)
         {
             var statCalculationNode = _statCalculationNodeCreator.Create(
-                statExpressionInterceptor,
+                statExpressionInterceptors,
                 baseStats,
                 statDefinitionId);
             var value = statCalculationNode.GetValue();

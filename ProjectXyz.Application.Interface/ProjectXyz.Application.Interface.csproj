@@ -44,8 +44,10 @@
     <Compile Include="Enchantments\IEnchantment.cs" />
     <Compile Include="Enchantments\IEnchantmentApplier.cs" />
     <Compile Include="Enchantments\IEnchantmentCalculator.cs" />
+    <Compile Include="Enchantments\IEnchantmentCalculatorContext.cs" />
     <Compile Include="Enchantments\IEnchantmentExpressionInterceptor.cs" />
-    <Compile Include="Enchantments\IEnchantmentExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\IStateEnchantmentExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\IEnchantmentExpressionInterceptorJoiner.cs" />
     <Compile Include="Enchantments\IEnchantmentStatCalculator.cs" />
     <Compile Include="Enchantments\IExpressionEnchantment.cs" />
     <Compile Include="Enchantments\IStateContext.cs" />

@@ -6,9 +6,8 @@ namespace ProjectXyz.Application.Interface.Enchantments
     public interface IEnchantmentCalculator
     {
         double Calculate(
-            IStateContextProvider stateContextProvider,
+            IEnchantmentCalculatorContext enchantmentCalculatorContext,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
-            IReadOnlyCollection<IEnchantment> enchantments,
             IIdentifier statDefinitionId);
     }
 }

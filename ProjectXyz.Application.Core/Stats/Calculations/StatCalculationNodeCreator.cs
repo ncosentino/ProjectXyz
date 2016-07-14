@@ -31,7 +31,7 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         }
 
         public IStatCalculationNode Create(
-            IStatExpressionInterceptor statExpressionInterceptor,
+            IReadOnlyCollection<IStatExpressionInterceptor> statExpressionInterceptors,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId)
         {
@@ -48,12 +48,14 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                     : _statDefinitionIdToCalculationMapping.ContainsKey(currentStatDefinitionId)
                         ? _statDefinitionIdToCalculationMapping[currentStatDefinitionId]
                         : "0";
-                expression = statExpressionInterceptor.Intercept(
-                    currentStatDefinitionId,
-                    expression);
-                expression = _statBoundsExpressionInterceptor.Intercept(
-                    currentStatDefinitionId,
-                    expression);
+
+                expression = statExpressionInterceptors
+                    .Append(_statBoundsExpressionInterceptor)
+                    .Aggregate(
+                        expression, 
+                        (c, interceptor) => interceptor.Intercept(
+                            currentStatDefinitionId, 
+                            c));
 
                 var dependentStatDefinitionIds = _expressionStatDefinitionDependencyFinder.FindDependencies(
                     _statDefinitionIdToTermMapping,

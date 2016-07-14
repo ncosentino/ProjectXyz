@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;

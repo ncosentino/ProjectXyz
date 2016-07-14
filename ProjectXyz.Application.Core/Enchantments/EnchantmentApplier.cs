@@ -9,25 +9,25 @@ namespace ProjectXyz.Application.Core.Enchantments
     {
         private readonly IEnchantmentCalculator _enchantmentCalculator;
 
+
         public EnchantmentApplier(IEnchantmentCalculator enchantmentCalculator)
         {
             _enchantmentCalculator = enchantmentCalculator;
         }
 
         public IReadOnlyDictionary<IIdentifier, double> ApplyEnchantments(
-            IStateContextProvider stateContextProvider,
-            IReadOnlyDictionary<IIdentifier, double> baseStats,
-            IReadOnlyCollection<IEnchantment> enchantments)
+            IEnchantmentCalculatorContext enchantmentCalculatorContext,
+            IReadOnlyDictionary<IIdentifier, double> baseStats)
         {
             var newStats = baseStats.ToDictionary();
 
-            foreach (var enchantment in enchantments)
+            foreach (var enchantment in enchantmentCalculatorContext.Enchantments)
             {
                 var statDefinitionId = enchantment.StatDefinitionId;
+                
                 var value = _enchantmentCalculator.Calculate(
-                    stateContextProvider,
+                    enchantmentCalculatorContext,
                     newStats,
-                    enchantment.AsArray(),
                     statDefinitionId);
                 newStats[statDefinitionId] = value;
             }

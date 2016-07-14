@@ -17,6 +17,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         private static readonly CalculationPriorities CALC_PRIORITIES = new CalculationPriorities();
         private static readonly StatDefinitionIds STAT_DEFINITION_IDS = new StatDefinitionIds();
         private static readonly StateInfo STATES = new StateInfo();
+        private static readonly IInterval UNIT_INTERVAL = new Interval<double>(1);
         #endregion
 
         #region Constructors
@@ -52,7 +53,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentExpressionInterceptorConverter = new EnchantmentExpressionInterceptorConverter();
 
             var stateValueInjector = new StateValueInjector(StateIdToTermMapping);
-            var enchantmentExpressionInterceptorFactory = new EnchantmentExpressionInterceptorFactory(
+            var stateEnchantmentExpressionInterceptorFactory = new StateEnchantmentExpressionInterceptorFactory(
                 stateValueInjector,
                 statDefinitionIdToTermMapping);
 
@@ -60,15 +61,30 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 statCalculator,
                 enchantmentExpressionInterceptorConverter);
 
+            //////var intervalStateContextFactory = new IntervalStateContextFactory(STATES.ElapsedTime.ElapsedTimeUnits);
+
+            //////var stateContextProviderCombiner = new StateContextProviderCombiner();
+
+            //////var intervalStateContextInjector = new IntervalStateContextInjector(
+            //////    intervalStateContextFactory,
+            //////    stateContextProviderCombiner,
+            //////    STATES.States.ElapsedTime);
+
+            var contextToInterceptorsConverter = new ContextToInterceptorsConverter(
+                stateEnchantmentExpressionInterceptorFactory,
+                UNIT_INTERVAL);
+
             EnchantmentCalculator = new EnchantmentCalculator(
-                enchantmentExpressionInterceptorFactory,
-                enchantmentStatCalculator);
-            
+                enchantmentStatCalculator,
+                contextToInterceptorsConverter);
+
             EnchantmentApplier = new EnchantmentApplier(EnchantmentCalculator);
         }
         #endregion
 
         #region Properties
+        public IInterval UnitInterval { get; } = UNIT_INTERVAL;
+
         public IEnchantmentCalculator EnchantmentCalculator { get; }
 
         public IEnchantmentApplier EnchantmentApplier { get; }
@@ -127,6 +143,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             public DayTimeBuffEnchantments DayTimeBuffs { get; } = new DayTimeBuffEnchantments();
 
+            public BuffOverTimeEnchantments BuffsOverTime { get; } = new BuffOverTimeEnchantments();
+
             public sealed class BuffEnchantments
             {
                 public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
@@ -149,6 +167,11 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
                 public IEnchantment StatABinary { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
             }
+
+            public sealed class BuffOverTimeEnchantments
+            {
+                public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
+            }
         }
 
         public sealed class StatDefinitionIds
@@ -164,9 +187,13 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             public TimeOfDayIds TimeOfDay { get; } = new TimeOfDayIds();
 
+            public ElapsedTimeInfo ElapsedTime { get; } = new ElapsedTimeInfo();
+
             public sealed class StateTypeIds
             {
                 public IIdentifier TimeOfDay { get; } = new StringIdentifier("Time of Day");
+
+                public IIdentifier ElapsedTime { get; } = new StringIdentifier("Elapsed Time");
             }
 
             public sealed class TimeOfDayIds
@@ -174,6 +201,11 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 public IIdentifier Day { get; } = new StringIdentifier("Day");
 
                 public IIdentifier Night { get; } = new StringIdentifier("Night");
+            }
+
+            public sealed class ElapsedTimeInfo
+            {
+                public IIdentifier ElapsedTimeUnits { get; } = new StringIdentifier("Elapsed Time Units");
             }
         }
 

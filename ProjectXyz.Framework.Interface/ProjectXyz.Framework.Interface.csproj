@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
+    <Compile Include="IConvert.cs" />
     <Compile Include="IIdentifier.cs" />
+    <Compile Include="IInterval.cs" />
     <Compile Include="IRandomNumberGenerator.cs" />
     <Compile Include="IRandomNumberGeneratorExtensions.cs" />
     <Compile Include="ITry.cs" />

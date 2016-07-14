@@ -21,7 +21,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 
         #region Fields
         private readonly IStatCalculator _statCalculator;
-        private readonly IStatExpressionInterceptor _statExpressionInterceptor;
+        private readonly IReadOnlyCollection<IStatExpressionInterceptor> _statExpressionInterceptors;
         #endregion
 
         #region Constructors
@@ -49,7 +49,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 TEST_FIXTURE.StatDefinitionIdToCalculationMapping);
 
             _statCalculator = new StatCalculator(statCalculationNodeCreator);
-            _statExpressionInterceptor = TEST_FIXTURE.StatExpressionInterceptor;
+            _statExpressionInterceptors = TEST_FIXTURE.StatExpressionInterceptor.AsArray();
         }
         #endregion
 
@@ -90,7 +90,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 
         #region Tests
         [Theory,
-         MemberData("GetUseBaseStatsTheoryData")]
+         MemberData(nameof(GetUseBaseStatsTheoryData))]
         private void Calculate_StatPresent_BaseStatUsed(IIdentifier statDefinitionId)
         {
             var rng = new RandomNumberGenerator(new Random());
@@ -98,14 +98,14 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var baseStat = new Stat(statDefinitionId, expectedValue);
             var baseStats = baseStat.Yield().ToDictionary(x => x.StatDefinitionId, x => x.Value);
             var result = _statCalculator.Calculate(
-                _statExpressionInterceptor,
+                _statExpressionInterceptors,
                 baseStats,
                 statDefinitionId);
             Assert.Equal(baseStat.Value, result);
         }
 
         [Theory,
-         MemberData("GetOverrideBaseStatsTheoryData")]
+         MemberData(nameof(GetOverrideBaseStatsTheoryData))]
         private void Calculate_StatPresent_BaseStatOverridden(IIdentifier statDefinitionId, double expectedValue)
         {
             var rng = new RandomNumberGenerator(new Random());
@@ -113,20 +113,20 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var baseStat = new Stat(statDefinitionId, baseValue);
             var baseStats = baseStat.Yield().ToDictionary(x => x.StatDefinitionId, x => x.Value);
             var result = _statCalculator.Calculate(
-                _statExpressionInterceptor,
+                _statExpressionInterceptors,
                 baseStats,
                 statDefinitionId);
             Assert.Equal(expectedValue, result);
         }
 
         [Theory,
-         MemberData("GetEvaluateExpressionTheoryData")]
+         MemberData(nameof(GetEvaluateExpressionTheoryData))]
         private void Calculate_NoBaseStats_ExpressionEvaluated(
             IIdentifier statDefinitionId,
             double expectedValue)
         {
             var result = _statCalculator.Calculate(
-                _statExpressionInterceptor,
+                _statExpressionInterceptors,
                 new Dictionary<IIdentifier, double>(), 
                 statDefinitionId);
             Assert.Equal(expectedValue, result);

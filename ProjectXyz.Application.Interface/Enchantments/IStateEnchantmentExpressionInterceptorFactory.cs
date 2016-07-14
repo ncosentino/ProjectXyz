@@ -2,7 +2,7 @@
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public interface IEnchantmentExpressionInterceptorFactory
+    public interface IStateEnchantmentExpressionInterceptorFactory
     {
         IEnchantmentExpressionInterceptor Create(
             IStateContextProvider stateContextProvider,

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Framework.Interface;
 
@@ -6,28 +7,25 @@ namespace ProjectXyz.Application.Core.Enchantments
 {
     public sealed class EnchantmentCalculator : IEnchantmentCalculator
     {
-        private readonly IEnchantmentExpressionInterceptorFactory _enchantmentExpressionInterceptorFactory;
         private readonly IEnchantmentStatCalculator _enchantmentStatCalculator;
+        private readonly IConvert<IEnchantmentCalculatorContext, IReadOnlyCollection<IEnchantmentExpressionInterceptor>> _contextToInterceptorsConverter;
 
         public EnchantmentCalculator(
-            IEnchantmentExpressionInterceptorFactory enchantmentExpressionInterceptorFactory,
-            IEnchantmentStatCalculator enchantmentStatCalculator)
+            IEnchantmentStatCalculator enchantmentStatCalculator,
+            IConvert<IEnchantmentCalculatorContext, IReadOnlyCollection<IEnchantmentExpressionInterceptor>> contextToInterceptorsConverter)
         {
-            _enchantmentExpressionInterceptorFactory = enchantmentExpressionInterceptorFactory;
             _enchantmentStatCalculator = enchantmentStatCalculator;
+            _contextToInterceptorsConverter = contextToInterceptorsConverter;
         }
 
         public double Calculate(
-            IStateContextProvider stateContextProvider,
+            IEnchantmentCalculatorContext enchantmentCalculatorContext,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
-            IReadOnlyCollection<IEnchantment> enchantments,
             IIdentifier statDefinitionId)
         {
-            var interceptor = _enchantmentExpressionInterceptorFactory.Create(
-                stateContextProvider,
-                enchantments);
+            var enchantmentExpressionInterceptors = _contextToInterceptorsConverter.Convert(enchantmentCalculatorContext);
             var value = _enchantmentStatCalculator.Calculate(
-                interceptor,
+                enchantmentExpressionInterceptors,
                 baseStats,
                 statDefinitionId);
             return value;

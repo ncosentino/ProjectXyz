@@ -41,12 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enchantments\CalculationPriority.cs" />
+    <Compile Include="Enchantments\ContextToInterceptorsConverter.cs" />
     <Compile Include="Enchantments\EnchantmentApplier.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
-    <Compile Include="Enchantments\EnchantmentExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\EnchantmentCalculatorContext.cs" />
+    <Compile Include="Enchantments\StateEnchantmentExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\EnchantmentExpressionInterceptorJoiner.cs" />
     <Compile Include="Enchantments\ExpressionEnchantment.cs" />
-    <Compile Include="Enchantments\ExpressionEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\ValueMappingExpressionEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\StateExpressionEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Enchantments\ConstantValueStateContext.cs" />
+    <Compile Include="Enchantments\MultiEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Enchantments\StateContextProvider.cs" />
     <Compile Include="Enchantments\StateValueInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

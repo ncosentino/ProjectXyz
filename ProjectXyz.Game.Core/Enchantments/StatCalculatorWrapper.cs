@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
@@ -20,13 +21,15 @@ namespace ProjectXyz.Game.Core.Enchantments
         }
 
         public double Calculate(
-            IEnchantmentExpressionInterceptor enchantmentExpressionInterceptor,
+            IReadOnlyCollection<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId)
         {
-            var statExpressionInterceptor = _enchantmentExpressionInterceptorConverter.Convert(enchantmentExpressionInterceptor);
+            var statExpressionInterceptors = enchantmentExpressionInterceptors
+                .Select(_enchantmentExpressionInterceptorConverter.Convert)
+                .ToArray();
             var value = _statCalculator.Calculate(
-                statExpressionInterceptor,
+                statExpressionInterceptors,
                 baseStats,
                 statDefinitionId);
             return value;
