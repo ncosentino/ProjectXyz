@@ -6,14 +6,14 @@ using ProjectXyz.Framework.Interface.Collections;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
-    public sealed class StateExpressionEnchantmentExpressionInterceptor : IEnchantmentExpressionInterceptor
+    public sealed class StateExpressionInterceptor : IEnchantmentExpressionInterceptor
     {
         private readonly IStateContextProvider _stateContextProvider;
         private readonly IStateValueInjector _stateValueInjector;
         private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IExpressionEnchantment>> _statDefinitionToEnchantmentMapping;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
 
-        public StateExpressionEnchantmentExpressionInterceptor(
+        public StateExpressionInterceptor(
             IStateValueInjector stateValueInjector,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
             IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IExpressionEnchantment>> statDefinitionToEnchantmentMapping,

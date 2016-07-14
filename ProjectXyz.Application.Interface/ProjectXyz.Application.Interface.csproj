@@ -46,13 +46,13 @@
     <Compile Include="Enchantments\IEnchantmentCalculator.cs" />
     <Compile Include="Enchantments\IEnchantmentCalculatorContext.cs" />
     <Compile Include="Enchantments\IEnchantmentExpressionInterceptor.cs" />
-    <Compile Include="Enchantments\IStateEnchantmentExpressionInterceptorFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentExpressionInterceptorJoiner.cs" />
+    <Compile Include="Enchantments\IStateExpressionInterceptorFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentStatCalculator.cs" />
     <Compile Include="Enchantments\IExpressionEnchantment.cs" />
     <Compile Include="Enchantments\IStateContext.cs" />
     <Compile Include="Enchantments\IStateContextProvider.cs" />
     <Compile Include="Enchantments\IStateValueInjector.cs" />
+    <Compile Include="Enchantments\IValueMappingExpressionInterceptorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
     <Compile Include="Stats\Calculations\IStatBounds.cs" />

@@ -6,12 +6,12 @@ using ProjectXyz.Framework.Interface.Collections;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
-    public sealed class StateEnchantmentExpressionInterceptorFactory : IStateEnchantmentExpressionInterceptorFactory
+    public sealed class StateExpressionInterceptorFactory : IStateExpressionInterceptorFactory
     {
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
         private readonly IStateValueInjector _stateValueInjector;
 
-        public StateEnchantmentExpressionInterceptorFactory(
+        public StateExpressionInterceptorFactory(
             IStateValueInjector stateValueInjector,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping)
         {
@@ -32,7 +32,7 @@ namespace ProjectXyz.Application.Core.Enchantments
                     x => x.Key,
                     x => (IReadOnlyCollection<IExpressionEnchantment>)x.Select(g => g).OrderBy(e => e.CalculationPriority).ToArray());
 
-            var interceptor = new StateExpressionEnchantmentExpressionInterceptor(
+            var interceptor = new StateExpressionInterceptor(
                 _stateValueInjector,
                 _statDefinitionIdToTermMapping,
                 statDefinitionToEnchantmentMapping,

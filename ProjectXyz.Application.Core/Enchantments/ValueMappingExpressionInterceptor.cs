@@ -5,11 +5,11 @@ using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Core.Enchantments
 {
-    public sealed class ValueMappingExpressionEnchantmentExpressionInterceptor : IEnchantmentExpressionInterceptor
+    public sealed class ValueMappingExpressionInterceptor : IEnchantmentExpressionInterceptor
     {
         private readonly IReadOnlyDictionary<string, double> _termToValueMapping;
 
-        public ValueMappingExpressionEnchantmentExpressionInterceptor(IReadOnlyDictionary<string, double> termToValueMapping)
+        public ValueMappingExpressionInterceptor(IReadOnlyDictionary<string, double> termToValueMapping)
         {
             _termToValueMapping = termToValueMapping;
         }

@@ -42,18 +42,19 @@
   <ItemGroup>
     <Compile Include="Enchantments\CalculationPriority.cs" />
     <Compile Include="Enchantments\ContextToInterceptorsConverter.cs" />
+    <Compile Include="Enchantments\ContextToTermValueMappingConverter.cs" />
     <Compile Include="Enchantments\EnchantmentApplier.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCalculatorContext.cs" />
-    <Compile Include="Enchantments\StateEnchantmentExpressionInterceptorFactory.cs" />
-    <Compile Include="Enchantments\EnchantmentExpressionInterceptorJoiner.cs" />
+    <Compile Include="Enchantments\StateExpressionInterceptorFactory.cs" />
     <Compile Include="Enchantments\ExpressionEnchantment.cs" />
-    <Compile Include="Enchantments\ValueMappingExpressionEnchantmentExpressionInterceptor.cs" />
-    <Compile Include="Enchantments\StateExpressionEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\ValueMappingExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\StateExpressionInterceptor.cs" />
     <Compile Include="Enchantments\ConstantValueStateContext.cs" />
     <Compile Include="Enchantments\MultiEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Enchantments\StateContextProvider.cs" />
     <Compile Include="Enchantments\StateValueInjector.cs" />
+    <Compile Include="Enchantments\ValueMappingExpressionInterceptorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatDefinitionDependencyFinder.cs" />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Jace;
 using ProjectXyz.Application.Core.Enchantments;
@@ -18,6 +19,11 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         private static readonly StatDefinitionIds STAT_DEFINITION_IDS = new StatDefinitionIds();
         private static readonly StateInfo STATES = new StateInfo();
         private static readonly IInterval UNIT_INTERVAL = new Interval<double>(1);
+
+        private static readonly IReadOnlyCollection<Func<IEnchantmentCalculatorContext, KeyValuePair<string, double>>> CONTEXT_TO_VALUE_MAPPING  = new Func<IEnchantmentCalculatorContext, KeyValuePair<string, double>>[]
+        {
+            context => new KeyValuePair<string, double>("INTERVAL", context.Elapsed.Divide(UNIT_INTERVAL)),
+        };
         #endregion
 
         #region Constructors
@@ -53,26 +59,22 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentExpressionInterceptorConverter = new EnchantmentExpressionInterceptorConverter();
 
             var stateValueInjector = new StateValueInjector(StateIdToTermMapping);
-            var stateEnchantmentExpressionInterceptorFactory = new StateEnchantmentExpressionInterceptorFactory(
+            var stateEnchantmentExpressionInterceptorFactory = new StateExpressionInterceptorFactory(
                 stateValueInjector,
                 statDefinitionIdToTermMapping);
+
+            var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory();
 
             var enchantmentStatCalculator = new StatCalculatorWrapper(
                 statCalculator,
                 enchantmentExpressionInterceptorConverter);
 
-            //////var intervalStateContextFactory = new IntervalStateContextFactory(STATES.ElapsedTime.ElapsedTimeUnits);
-
-            //////var stateContextProviderCombiner = new StateContextProviderCombiner();
-
-            //////var intervalStateContextInjector = new IntervalStateContextInjector(
-            //////    intervalStateContextFactory,
-            //////    stateContextProviderCombiner,
-            //////    STATES.States.ElapsedTime);
+            var contextToTermValueMappingConverter = new ContextToTermValueMappingConverter(CONTEXT_TO_VALUE_MAPPING);
 
             var contextToInterceptorsConverter = new ContextToInterceptorsConverter(
                 stateEnchantmentExpressionInterceptorFactory,
-                UNIT_INTERVAL);
+                valueMappingExpressionInterceptorFactory,
+                contextToTermValueMappingConverter);
 
             EnchantmentCalculator = new EnchantmentCalculator(
                 enchantmentStatCalculator,

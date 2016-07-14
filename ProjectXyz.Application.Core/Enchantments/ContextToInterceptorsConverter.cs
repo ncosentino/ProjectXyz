@@ -6,34 +6,33 @@ namespace ProjectXyz.Application.Core.Enchantments
 {
     public sealed class ContextToInterceptorsConverter : IConvert<IEnchantmentCalculatorContext, IReadOnlyCollection<IEnchantmentExpressionInterceptor>>
     {
-        private readonly IStateEnchantmentExpressionInterceptorFactory _stateEnchantmentExpressionInterceptorFactory;
-        private readonly IInterval _unitInterval;
+        private readonly IStateExpressionInterceptorFactory _stateExpressionInterceptorFactory;
+        private readonly IValueMappingExpressionInterceptorFactory _valueMappingExpressionInterceptorFactory;
+        private readonly IConvert<IEnchantmentCalculatorContext, IReadOnlyDictionary<string, double>> _contextToTermValueMappingConverter;
 
         public ContextToInterceptorsConverter(
-            IStateEnchantmentExpressionInterceptorFactory stateEnchantmentExpressionInterceptorFactory,
-            IInterval unitInterval)
+            IStateExpressionInterceptorFactory stateEnchantmentExpressionInterceptorFactory,
+            IValueMappingExpressionInterceptorFactory valueMappingExpressionInterceptorFactory,
+            IConvert<IEnchantmentCalculatorContext, IReadOnlyDictionary<string, double>> contextToTermValueMappingConverter)
         {
-            _stateEnchantmentExpressionInterceptorFactory = stateEnchantmentExpressionInterceptorFactory;
-            _unitInterval = unitInterval;
+            _stateExpressionInterceptorFactory = stateEnchantmentExpressionInterceptorFactory;
+            _valueMappingExpressionInterceptorFactory = valueMappingExpressionInterceptorFactory;
+            _contextToTermValueMappingConverter = contextToTermValueMappingConverter;
         }
 
         public IReadOnlyCollection<IEnchantmentExpressionInterceptor> Convert(IEnchantmentCalculatorContext enchantmentCalculatorContext)
         {
-            var stateEnchantmentExpressionInterceptor = _stateEnchantmentExpressionInterceptorFactory.Create(
+            var stateEnchantmentExpressionInterceptor = _stateExpressionInterceptorFactory.Create(
                 enchantmentCalculatorContext.StateContextProvider,
                 enchantmentCalculatorContext.Enchantments);
 
-            // FIXME: this is narsty that this happens in here... dem "hardcoded" feelz.
-            var termToValueMapping = new Dictionary<string, double>()
-            {
-                { "INTERVAL", enchantmentCalculatorContext.Elapsed.Divide(_unitInterval) }
-            };
-            var valueMappingExpressionEnchantmentExpressionInterceptor = new ValueMappingExpressionEnchantmentExpressionInterceptor(termToValueMapping);
+            var termToValueMapping = _contextToTermValueMappingConverter.Convert(enchantmentCalculatorContext);
+            var valueMappingExpressionInterceptor = _valueMappingExpressionInterceptorFactory.Create(termToValueMapping);
 
             return new[]
             {
                 stateEnchantmentExpressionInterceptor,
-                valueMappingExpressionEnchantmentExpressionInterceptor,
+                valueMappingExpressionInterceptor,
             };
         }
     }
