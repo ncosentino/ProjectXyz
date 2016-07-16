@@ -50,5 +50,10 @@ namespace ProjectXyz.Framework.Interface.Collections
         {
             return enumerable.Concat(obj.Yield());
         }
+
+        public static IReadOnlyCollection<T> ToReadOnlyCollection<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.ToArray();
+        }
     }
 }

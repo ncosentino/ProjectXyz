@@ -23,19 +23,21 @@ namespace ProjectXyz.Application.Core.Enchantments
             IStateContextProvider stateContextProvider,
             IReadOnlyCollection<IEnchantment> enchantments)
         {
-            var statDefinitionToEnchantmentMapping = enchantments
-                .TakeTypes<IExpressionEnchantment>()
+            var statDefinitionToComponentMapping = enchantments
                 .GroupBy(
-                    x => x.StatDefinitionId,
-                    x => x)
+                    enchantment => enchantment.StatDefinitionId,
+                    enchantment => enchantment)
                 .ToDictionary(
-                    x => x.Key,
-                    x => (IReadOnlyCollection<IExpressionEnchantment>)x.Select(g => g).OrderBy(e => e.CalculationPriority).ToArray());
+                    group => group.Key,
+                    group => group
+                        .SelectMany(enchantment => enchantment.Components.Get<IEnchantmentExpressionComponent>())
+                        .OrderBy(component => component.CalculationPriority)
+                        .ToReadOnlyCollection());
 
             var interceptor = new StateExpressionInterceptor(
                 _stateValueInjector,
                 _statDefinitionIdToTermMapping,
-                statDefinitionToEnchantmentMapping,
+                statDefinitionToComponentMapping,
                 stateContextProvider);
             return interceptor;
         }

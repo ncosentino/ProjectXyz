@@ -10,18 +10,18 @@ namespace ProjectXyz.Application.Core.Enchantments
     {
         private readonly IStateContextProvider _stateContextProvider;
         private readonly IStateValueInjector _stateValueInjector;
-        private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IExpressionEnchantment>> _statDefinitionToEnchantmentMapping;
+        private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> _statDefinitionToComponentMapping;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
 
         public StateExpressionInterceptor(
             IStateValueInjector stateValueInjector,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
-            IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IExpressionEnchantment>> statDefinitionToEnchantmentMapping,
+            IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> statDefinitionToComponentMapping,
             IStateContextProvider stateContextProvider)
         {
             _stateValueInjector = stateValueInjector;
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
-            _statDefinitionToEnchantmentMapping = statDefinitionToEnchantmentMapping;
+            _statDefinitionToComponentMapping = statDefinitionToComponentMapping;
             _stateContextProvider = stateContextProvider;
         }
 
@@ -29,9 +29,9 @@ namespace ProjectXyz.Application.Core.Enchantments
             IIdentifier statDefinitionId,
             string expression)
         {
-            var applicableEnchantments = _statDefinitionToEnchantmentMapping.GetValueOrDefault(
+            var applicableEnchantments = _statDefinitionToComponentMapping.GetValueOrDefault(
                 statDefinitionId,
-                () => new IExpressionEnchantment[0]);
+                () => new IEnchantmentExpressionComponent[0]);
 
             var term = _statDefinitionIdToTermMapping[statDefinitionId];
 

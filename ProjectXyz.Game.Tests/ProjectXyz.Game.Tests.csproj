@@ -83,6 +83,10 @@
       <Project>{caf704d5-0f07-47c5-a1e5-d0bcbefca5c3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
+      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
+      <Name>ProjectXyz.Framework.Entities.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>

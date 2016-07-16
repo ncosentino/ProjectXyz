@@ -45,10 +45,10 @@
     <Compile Include="Enchantments\IEnchantmentApplier.cs" />
     <Compile Include="Enchantments\IEnchantmentCalculator.cs" />
     <Compile Include="Enchantments\IEnchantmentCalculatorContext.cs" />
+    <Compile Include="Enchantments\IEnchantmentExpressionComponent.cs" />
     <Compile Include="Enchantments\IEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Enchantments\IStateExpressionInterceptorFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentStatCalculator.cs" />
-    <Compile Include="Enchantments\IExpressionEnchantment.cs" />
     <Compile Include="Enchantments\IStateContext.cs" />
     <Compile Include="Enchantments\IStateContextProvider.cs" />
     <Compile Include="Enchantments\IStateValueInjector.cs" />
@@ -73,6 +73,10 @@
     <Compile Include="Weather\IWeatherManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
+      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
+      <Name>ProjectXyz.Framework.Entities.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>

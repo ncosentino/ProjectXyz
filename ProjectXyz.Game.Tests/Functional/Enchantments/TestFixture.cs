@@ -6,6 +6,7 @@ using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Enchantments;
@@ -15,6 +16,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
     public sealed class TestFixture
     {
         #region Constants
+        private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory();
         private static readonly CalculationPriorities CALC_PRIORITIES = new CalculationPriorities();
         private static readonly StatDefinitionIds STAT_DEFINITION_IDS = new StatDefinitionIds();
         private static readonly StateInfo STATES = new StateInfo();
@@ -131,13 +133,13 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         public sealed class ExampleEnchantments
         {
 
-            public IEnchantment PreNullifyStatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Lowest);
+            public IEnchantment PreNullifyStatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Lowest);
 
-            public IEnchantment PostNullifyStatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Highest);
+            public IEnchantment PostNullifyStatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Highest);
 
-            public IEnchantment RecursiveStatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A", CALC_PRIORITIES.Highest);
+            public IEnchantment RecursiveStatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A", CALC_PRIORITIES.Highest);
 
-            public IEnchantment BadExpression { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "Can't actually be evaluated", CALC_PRIORITIES.Highest);
+            public IEnchantment BadExpression { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "Can't actually be evaluated", CALC_PRIORITIES.Highest);
 
             public BuffEnchantments Buffs { get; } = new BuffEnchantments();
 
@@ -149,30 +151,30 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             public sealed class BuffEnchantments
             {
-                public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatB { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatB { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatC { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C + 100", CALC_PRIORITIES.Middle);
+                public IEnchantment StatC { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C + 100", CALC_PRIORITIES.Middle);
             }
 
             public sealed class DebuffEnchantments
             {
-                public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatC { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C - 100", CALC_PRIORITIES.Middle);
+                public IEnchantment StatC { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C - 100", CALC_PRIORITIES.Middle);
             }
 
             public sealed class DayTimeBuffEnchantments
             {
-                public IEnchantment StatAPeak { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * TOD_DAY", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAPeak { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * TOD_DAY", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatABinary { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
+                public IEnchantment StatABinary { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
             }
 
             public sealed class BuffOverTimeEnchantments
             {
-                public IEnchantment StatA { get; } = new ExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
+                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
             }
         }
 
@@ -220,5 +222,21 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             public ICalculationPriority Highest { get; } = new CalculationPriority<int>(int.MaxValue);
         }
         #endregion
+    }
+
+    public sealed class EnchantmentFactory
+    {
+        public IEnchantment CreateExpressionEnchantment(
+            IIdentifier statDefinitionId,
+            string expression,
+            ICalculationPriority calculationPriority)
+        {
+            return new Enchantment(
+                statDefinitionId,
+                new EnchantmentExpressionComponent(
+                    calculationPriority,
+                    expression)
+                .Yield());
+        }
     }
 }

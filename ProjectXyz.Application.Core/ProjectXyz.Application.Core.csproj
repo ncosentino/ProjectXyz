@@ -46,8 +46,9 @@
     <Compile Include="Enchantments\EnchantmentApplier.cs" />
     <Compile Include="Enchantments\EnchantmentCalculator.cs" />
     <Compile Include="Enchantments\EnchantmentCalculatorContext.cs" />
+    <Compile Include="Enchantments\EnchantmentExpressionComponent.cs" />
     <Compile Include="Enchantments\StateExpressionInterceptorFactory.cs" />
-    <Compile Include="Enchantments\ExpressionEnchantment.cs" />
+    <Compile Include="Enchantments\Enchantment.cs" />
     <Compile Include="Enchantments\ValueMappingExpressionInterceptor.cs" />
     <Compile Include="Enchantments\StateExpressionInterceptor.cs" />
     <Compile Include="Enchantments\ConstantValueStateContext.cs" />
@@ -79,6 +80,14 @@
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
+      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
+      <Name>ProjectXyz.Framework.Entities.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
+      <Project>{3ff8799d-1850-46dc-bd5e-632485e89058}</Project>
+      <Name>ProjectXyz.Framework.Entities.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
