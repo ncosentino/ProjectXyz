@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jace;
+using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Interface.Stats.Calculations;
-using ProjectXyz.Application.Shared.Stats;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;

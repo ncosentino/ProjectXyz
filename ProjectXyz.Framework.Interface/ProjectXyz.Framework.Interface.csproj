@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
+    <Compile Include="EventHandlerExtensionMethods.cs" />
     <Compile Include="IConvert.cs" />
     <Compile Include="IIdentifier.cs" />
     <Compile Include="IInterval.cs" />

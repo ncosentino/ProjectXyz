@@ -40,6 +40,22 @@ namespace ProjectXyz.Framework.Shared
             throw new ArgumentException($"Object is not of type '{GetType()}'.");
         }
 
+        public int CompareTo(IInterval other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+
+            var casted = other as IInterval<T>;
+            if (casted != null)
+            {
+                return CompareTo(casted);
+            }
+
+            throw new ArgumentException($"Object is not of type '{GetType()}'.");
+        }
+
         public IInterval Add(IInterval<T> other)
         {
             return new Interval<T>((dynamic)Value + (dynamic)other.Value);

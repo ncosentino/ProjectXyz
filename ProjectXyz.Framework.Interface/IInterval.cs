@@ -3,7 +3,8 @@ using System;
 namespace ProjectXyz.Framework.Interface
 {
     public interface IInterval<T> :
-        IInterval
+        IInterval,
+        IComparable<IInterval<T>>
         where T : IComparable<T>
     {
         T Value { get; }
@@ -17,7 +18,7 @@ namespace ProjectXyz.Framework.Interface
         double Divide(IInterval<T> other);
     }
 
-    public interface IInterval
+    public interface IInterval : IComparable<IInterval>
     {
         IInterval Add(IInterval other);
 

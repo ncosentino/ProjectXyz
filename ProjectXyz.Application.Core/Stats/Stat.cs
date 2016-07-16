@@ -2,7 +2,7 @@
 using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Shared.Stats
+namespace ProjectXyz.Application.Core.Stats
 {
     public sealed class Stat : IStat
     {

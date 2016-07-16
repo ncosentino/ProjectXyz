@@ -70,6 +70,8 @@
     <Compile Include="Stats\Calculations\StatExpressionInterceptor.cs" />
     <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />
     <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
+    <Compile Include="Stats\Stat.cs" />
+    <Compile Include="Stats\StatFactory.cs" />
     <Compile Include="Weather\WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup />

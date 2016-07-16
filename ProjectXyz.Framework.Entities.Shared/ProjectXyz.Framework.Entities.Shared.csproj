@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B33EE9D3-EF98-4400-A528-67CD385747E7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{3FF8799D-1850-46DC-BD5E-632485E89058}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication1</RootNamespace>
-    <AssemblyName>ConsoleApplication1</AssemblyName>
+    <RootNamespace>ProjectXyz.Framework.Entities.Shared</RootNamespace>
+    <AssemblyName>ProjectXyz.Framework.Entities.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,56 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ComponentCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
-      <Project>{0E56D372-31CF-48BD-94A2-67D4622C270A}</Project>
-      <Name>ProjectXyz.Application.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
-      <Project>{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}</Project>
-      <Name>ProjectXyz.Application.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
-      <Project>{3ff8799d-1850-46dc-bd5e-632485e89058}</Project>
-      <Name>ProjectXyz.Framework.Entities.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
+      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
-      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
+      <Project>{8878cd88-b979-4af3-9510-2fa949060088}</Project>
       <Name>ProjectXyz.Framework.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj">
-      <Project>{e2a76532-fdad-4e30-9da7-096c71b04c68}</Project>
-      <Name>ProjectXyz.Game.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ecd308-648e-4ac6-a37a-a868df43ca6c}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
-      <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
-      <Name>ProjectXyz.Plugins.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
-      <Project>{1B0DC326-68AF-47A8-991F-64D70D1D6D2E}</Project>
-      <Name>ProjectXyz.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
-      <Project>{1D313FC4-7092-48DF-A266-002045ABAB3A}</Project>
-      <Name>ProjectXyz.Plugins.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
