@@ -43,6 +43,7 @@
     <Compile Include="IComponent.cs" />
     <Compile Include="IComponentCollection.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="IMechanic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

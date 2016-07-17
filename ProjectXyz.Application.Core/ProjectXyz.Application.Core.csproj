@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\Calculations\CalculationPriority.cs" />
     <Compile Include="Enchantments\Calculations\ContextToInterceptorsConverter.cs" />
     <Compile Include="Enchantments\Calculations\ContextToTermValueMappingConverter.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Enchantments\Calculations\StateContextProvider.cs" />
     <Compile Include="Enchantments\Calculations\StateValueInjector.cs" />
     <Compile Include="Enchantments\Calculations\ValueMappingExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\Expiration\ExpiryTriggerComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatDefinitionDependencyFinder.cs" />
@@ -73,6 +75,12 @@
     <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
     <Compile Include="Stats\Stat.cs" />
     <Compile Include="Stats\StatFactory.cs" />
+    <Compile Include="Triggering\TriggerMechanicRegistrar.cs" />
+    <Compile Include="Triggering\Triggers\Duration\DurationTriggerComponent.cs" />
+    <Compile Include="Triggering\Triggers\Duration\DurationTriggerMechanicFactory.cs" />
+    <Compile Include="Triggering\Triggers\Elapsed\ElapsedTimeTriggerSourceMechanic.cs" />
+    <Compile Include="Triggering\Triggers\Duration\DurationTriggerMechanic.cs" />
+    <Compile Include="Enchantments\Expiration\ExpiryTriggerMechanicFactory.cs" />
     <Compile Include="Weather\WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup />
