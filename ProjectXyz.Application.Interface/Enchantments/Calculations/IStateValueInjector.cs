@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Application.Interface.Enchantments
+﻿namespace ProjectXyz.Application.Interface.Enchantments.Calculations
 {
     public interface IStateValueInjector
     {

@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 
-namespace ProjectXyz.Application.Core.Enchantments
+namespace ProjectXyz.Application.Core.Enchantments.Calculations
 {
     public sealed class EnchantmentCalculatorContext : IEnchantmentCalculatorContext
     {
         #region Constants
         private static readonly Lazy<IEnchantmentCalculatorContext> NONE = new Lazy<IEnchantmentCalculatorContext>(() => new EnchantmentCalculatorContext(
-            Core.Enchantments.StateContextProvider.Empty,
+            Calculations.StateContextProvider.Empty,
             new Interval<double>(0),
             new IEnchantment[0]));
         #endregion

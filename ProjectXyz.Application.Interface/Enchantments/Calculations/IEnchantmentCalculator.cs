@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Interface.Enchantments
+namespace ProjectXyz.Application.Interface.Enchantments.Calculations
 {
-    public interface IEnchantmentStatCalculator
+    public interface IEnchantmentCalculator
     {
         double Calculate(
-            IReadOnlyCollection<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors,
+            IEnchantmentCalculatorContext enchantmentCalculatorContext,
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IIdentifier statDefinitionId);
     }

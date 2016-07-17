@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
-namespace ProjectXyz.Application.Core.Enchantments
+namespace ProjectXyz.Application.Core.Enchantments.Calculations
 {
     public sealed class StateContextProvider : IStateContextProvider
     {

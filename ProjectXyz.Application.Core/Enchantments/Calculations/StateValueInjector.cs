@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Core.Enchantments
+namespace ProjectXyz.Application.Core.Enchantments.Calculations
 {
     public sealed class StateValueInjector : IStateValueInjector
     {

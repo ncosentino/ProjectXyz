@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using Xunit;

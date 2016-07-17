@@ -40,19 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\ICalculationPriority.cs" />
+    <Compile Include="Enchantments\Calculations\ICalculationPriority.cs" />
     <Compile Include="Enchantments\IEnchantment.cs" />
-    <Compile Include="Enchantments\IEnchantmentApplier.cs" />
-    <Compile Include="Enchantments\IEnchantmentCalculator.cs" />
-    <Compile Include="Enchantments\IEnchantmentCalculatorContext.cs" />
-    <Compile Include="Enchantments\IEnchantmentExpressionComponent.cs" />
-    <Compile Include="Enchantments\IEnchantmentExpressionInterceptor.cs" />
-    <Compile Include="Enchantments\IStateExpressionInterceptorFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentStatCalculator.cs" />
-    <Compile Include="Enchantments\IStateContext.cs" />
-    <Compile Include="Enchantments\IStateContextProvider.cs" />
-    <Compile Include="Enchantments\IStateValueInjector.cs" />
-    <Compile Include="Enchantments\IValueMappingExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentApplier.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentCalculator.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentCalculatorContext.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentExpressionComponent.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Enchantments\Calculations\IStateExpressionInterceptorFactory.cs" />
+    <Compile Include="Enchantments\Calculations\IEnchantmentStatCalculator.cs" />
+    <Compile Include="Enchantments\Calculations\IStateContext.cs" />
+    <Compile Include="Enchantments\Calculations\IStateContextProvider.cs" />
+    <Compile Include="Enchantments\Calculations\IStateValueInjector.cs" />
+    <Compile Include="Enchantments\Calculations\IValueMappingExpressionInterceptorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
     <Compile Include="Stats\Calculations\IStatBounds.cs" />

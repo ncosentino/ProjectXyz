@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Application.Core.Enchantments;
+using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Interface.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 using Xunit;
 
