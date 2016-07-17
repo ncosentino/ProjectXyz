@@ -26,6 +26,11 @@ namespace ProjectXyz.Application.Core.Enchantments
 
         public void Add(IEnchantment enchantment)
         {
+            if (!_activeEnchantments.ContainsKey(enchantment))
+            {
+                _activeEnchantments[enchantment] = new List<ITriggerMechanic>();
+            }
+
             foreach (var expiryTrigger in enchantment
                 .Components
                 .Get<IExpiryTriggerComponent>()
@@ -33,11 +38,6 @@ namespace ProjectXyz.Application.Core.Enchantments
                     x,
                     t => HandleEnchantmentExpired(enchantment, t))))
             {
-                if (!_activeEnchantments.ContainsKey(enchantment))
-                {
-                    _activeEnchantments[enchantment] = new List<ITriggerMechanic>();
-                }
-
                 _activeEnchantments[enchantment].Add(expiryTrigger);
                 _triggerMechanicRegistrar.RegisterTrigger(expiryTrigger);
             }

@@ -1,12 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jace;
 using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
+using ProjectXyz.Application.Core.Enchantments.Expiration;
 using ProjectXyz.Application.Core.Stats.Calculations;
+using ProjectXyz.Application.Core.Triggering;
+using ProjectXyz.Application.Core.Triggering.Triggers.Duration;
+using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Interface.Enchantments.Expiration;
 using ProjectXyz.Application.Interface.Stats.Calculations;
+using ProjectXyz.Application.Interface.Triggering;
+using ProjectXyz.Application.Interface.Triggering.Triggers.Elapsed;
+using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;
@@ -85,10 +94,24 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 contextToInterceptorsConverter);
 
             EnchantmentApplier = new EnchantmentApplier(EnchantmentCalculator);
+
+            ElapsedTimeTriggerSourceMechanic = new ElapsedTimeTriggerSourceMechanic();
+
+            var registrar = new TriggerMechanicRegistrar(ElapsedTimeTriggerSourceMechanic.AsArray());
+
+            var durationTriggerMechanicFactory = new DurationTriggerMechanicFactory();
+            var expiryTriggerMechanicFactory = new ExpiryTriggerMechanicFactory(durationTriggerMechanicFactory);
+            ActiveEnchantmentManager = new ActiveEnchantmentManager(
+                expiryTriggerMechanicFactory,
+                registrar);
         }
         #endregion
 
         #region Properties
+        public ElapsedTimeTriggerSourceMechanic ElapsedTimeTriggerSourceMechanic { get; }
+
+        public IActiveEnchantmentManager ActiveEnchantmentManager { get; }
+
         public IInterval UnitInterval { get; } = UNIT_INTERVAL;
 
         public IEnchantmentCalculator EnchantmentCalculator { get; }
@@ -151,6 +174,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             public BuffOverTimeEnchantments BuffsOverTime { get; } = new BuffOverTimeEnchantments();
 
+            public BuffsThatExpireEnchantments BuffsThatExpire { get; } = new BuffsThatExpireEnchantments();
+
             public sealed class BuffEnchantments
             {
                 public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
@@ -177,6 +202,15 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             public sealed class BuffOverTimeEnchantments
             {
                 public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
+            }
+
+            public sealed class BuffsThatExpireEnchantments
+            {
+                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA, 
+                    "STAT_A + 5", 
+                    CALC_PRIORITIES.Middle,
+                    new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(10))));
             }
         }
 
@@ -231,14 +265,22 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         public IEnchantment CreateExpressionEnchantment(
             IIdentifier statDefinitionId,
             string expression,
-            ICalculationPriority calculationPriority)
+            ICalculationPriority calculationPriority,
+            params IExpiryComponent[] expiry)
         {
+            IEnumerable<IComponent> components = new EnchantmentExpressionComponent(
+                calculationPriority,
+                expression)
+                .Yield();
+
+            if (expiry != null)
+            {
+                components = components.Concat(expiry);
+            }
+
             return new Enchantment(
                 statDefinitionId,
-                new EnchantmentExpressionComponent(
-                    calculationPriority,
-                    expression)
-                .Yield());
+                components);
         }
     }
 }
