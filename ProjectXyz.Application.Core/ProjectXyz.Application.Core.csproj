@@ -73,14 +73,17 @@
     <Compile Include="Stats\Calculations\StatExpressionInterceptor.cs" />
     <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />
     <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
+    <Compile Include="Stats\ImmutableStatsProvider.cs" />
+    <Compile Include="Stats\MutableStatsProvider.cs" />
     <Compile Include="Stats\Stat.cs" />
-    <Compile Include="Stats\StatFactory.cs" />
     <Compile Include="Triggering\TriggerMechanicRegistrar.cs" />
     <Compile Include="Triggering\Triggers\Duration\DurationTriggerComponent.cs" />
     <Compile Include="Triggering\Triggers\Duration\DurationTriggerMechanicFactory.cs" />
+    <Compile Include="Triggering\Triggers\Elapsed\ElapsedTimeTriggerMechanic.cs" />
     <Compile Include="Triggering\Triggers\Elapsed\ElapsedTimeTriggerSourceMechanic.cs" />
     <Compile Include="Triggering\Triggers\Duration\DurationTriggerMechanic.cs" />
     <Compile Include="Enchantments\Expiration\ExpiryTriggerMechanicFactory.cs" />
+    <Compile Include="Triggering\Triggers\Elapsed\ElapsedTimeTriggerComponent.cs" />
     <Compile Include="Weather\WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup />

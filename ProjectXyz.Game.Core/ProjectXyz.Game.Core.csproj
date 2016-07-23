@@ -44,6 +44,10 @@
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
     <Compile Include="Plugins\AssemblyPluginProviderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stats\ContextConverter.cs" />
+    <Compile Include="Stats\StatCalculationContext.cs" />
+    <Compile Include="Stats\StatManager.cs" />
+    <Compile Include="Stats\StatUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj">
@@ -53,6 +57,10 @@
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{caf704d5-0f07-47c5-a1e5-d0bcbefca5c3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
+      <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
+      <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>

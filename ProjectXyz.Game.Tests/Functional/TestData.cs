@@ -1,30 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Jace;
-using ProjectXyz.Application.Core.Enchantments;
 using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Enchantments.Expiration;
 using ProjectXyz.Application.Core.Stats.Calculations;
-using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Core.Triggering.Triggers.Duration;
-using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
 using ProjectXyz.Application.Interface.Enchantments;
 using ProjectXyz.Application.Interface.Enchantments.Calculations;
-using ProjectXyz.Application.Interface.Enchantments.Expiration;
 using ProjectXyz.Application.Interface.Stats.Calculations;
-using ProjectXyz.Application.Interface.Triggering;
-using ProjectXyz.Application.Interface.Triggering.Triggers.Elapsed;
-using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Interface;
-using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;
-using ProjectXyz.Framework.Shared.Math;
-using ProjectXyz.Game.Core.Enchantments;
+using ProjectXyz.Game.Tests.Functional.Enchantments;
 
-namespace ProjectXyz.Game.Tests.Functional.Enchantments
+namespace ProjectXyz.Game.Tests.Functional
 {
-    public sealed class TestFixture
+    public sealed class TestData
     {
         #region Constants
         private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory();
@@ -32,92 +21,13 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         private static readonly StatDefinitionIds STAT_DEFINITION_IDS = new StatDefinitionIds();
         private static readonly StateInfo STATES = new StateInfo();
         private static readonly IInterval UNIT_INTERVAL = new Interval<double>(1);
-
-        private static readonly IReadOnlyCollection<Func<IEnchantmentCalculatorContext, KeyValuePair<string, double>>> CONTEXT_TO_VALUE_MAPPING  = new Func<IEnchantmentCalculatorContext, KeyValuePair<string, double>>[]
-        {
-            context => new KeyValuePair<string, double>("INTERVAL", context.Elapsed.Divide(UNIT_INTERVAL)),
-        };
-        #endregion
-
-        #region Constructors
-        public TestFixture()
-        {
-            var statDefinitionIdToTermMapping = StatDefinitionIdToTermMapping;
-            var statDefinitionIdToCalculationMapping = StatDefinitionIdToCalculationMapping;
-
-            var jaceCalculationEngine = new CalculationEngine();
-            var stringExpressionEvaluator = new StringExpressionEvaluatorWrapper(new GenericExpressionEvaluator(jaceCalculationEngine.Calculate), true);
-
-            var statCalculationValueNodeFactory = new StatCalculationValueNodeFactory();
-            var statCalculationExpressionNodeFactory = new StatCalculationExpressionNodeFactory(stringExpressionEvaluator);
-            var statCalculationNodeFactory = new StatCalculationNodeFactoryWrapper(new IStatCalculationNodeFactory[]
-            {
-                statCalculationValueNodeFactory,
-                statCalculationExpressionNodeFactory
-            });
-
-            var expressionStatDefinitionDependencyFinder = new ExpressionStatDefinitionDependencyFinder();
-
-            var statBoundsExpressionInterceptor = StatBoundsExpressionInterceptor;
-
-            var statCalculationNodeCreator = new StatCalculationNodeCreator(
-                statCalculationNodeFactory,
-                expressionStatDefinitionDependencyFinder,
-                statBoundsExpressionInterceptor,
-                statDefinitionIdToTermMapping,
-                statDefinitionIdToCalculationMapping);
-
-            var statCalculator = new StatCalculator(statCalculationNodeCreator);
-
-            var enchantmentExpressionInterceptorConverter = new EnchantmentExpressionInterceptorConverter();
-
-            var stateValueInjector = new StateValueInjector(StateIdToTermMapping);
-            var stateEnchantmentExpressionInterceptorFactory = new StateExpressionInterceptorFactory(
-                stateValueInjector,
-                statDefinitionIdToTermMapping);
-
-            var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory();
-
-            var enchantmentStatCalculator = new StatCalculatorWrapper(
-                statCalculator,
-                enchantmentExpressionInterceptorConverter);
-
-            var contextToTermValueMappingConverter = new ContextToTermValueMappingConverter(CONTEXT_TO_VALUE_MAPPING);
-
-            var contextToInterceptorsConverter = new ContextToInterceptorsConverter(
-                stateEnchantmentExpressionInterceptorFactory,
-                valueMappingExpressionInterceptorFactory,
-                contextToTermValueMappingConverter);
-
-            EnchantmentCalculator = new EnchantmentCalculator(
-                enchantmentStatCalculator,
-                contextToInterceptorsConverter);
-
-            EnchantmentApplier = new EnchantmentApplier(EnchantmentCalculator);
-
-            ElapsedTimeTriggerSourceMechanic = new ElapsedTimeTriggerSourceMechanic();
-
-            var registrar = new TriggerMechanicRegistrar(ElapsedTimeTriggerSourceMechanic.AsArray());
-
-            var durationTriggerMechanicFactory = new DurationTriggerMechanicFactory();
-            var expiryTriggerMechanicFactory = new ExpiryTriggerMechanicFactory(durationTriggerMechanicFactory);
-            ActiveEnchantmentManager = new ActiveEnchantmentManager(
-                expiryTriggerMechanicFactory,
-                registrar);
-        }
         #endregion
 
         #region Properties
-        public ElapsedTimeTriggerSourceMechanic ElapsedTimeTriggerSourceMechanic { get; }
-
-        public IActiveEnchantmentManager ActiveEnchantmentManager { get; }
-
         public IInterval UnitInterval { get; } = UNIT_INTERVAL;
 
-        public IEnchantmentCalculator EnchantmentCalculator { get; }
-
-        public IEnchantmentApplier EnchantmentApplier { get; }
-
+        public IInterval ZeroInterval { get; } = UNIT_INTERVAL.Subtract(UNIT_INTERVAL);
+        
         public ExampleEnchantments Enchantments { get; } = new ExampleEnchantments();
 
         public StatDefinitionIds Stats { get; } = STAT_DEFINITION_IDS;
@@ -136,10 +46,6 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
         };
 
-        public IStatExpressionInterceptor StatBoundsExpressionInterceptor { get; } = new StatBoundsExpressionInterceptor(new Dictionary<IIdentifier, IStatBounds>()
-        {
-            { STAT_DEFINITION_IDS.StatC, new StatBounds("5", "10") },
-        });
 
         public IReadOnlyDictionary<IIdentifier, IReadOnlyDictionary<IIdentifier, string>> StateIdToTermMapping = new Dictionary<IIdentifier, IReadOnlyDictionary<IIdentifier, string>>()
         {
@@ -151,6 +57,16 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                     { STATES.TimeOfDay.Night, "TOD_NIGHT" },
                 }
             },
+        };
+
+        public IReadOnlyDictionary<IIdentifier, IStatBounds> StatBounds { get; } = new Dictionary<IIdentifier, IStatBounds>()
+        {
+            { STAT_DEFINITION_IDS.StatC, new StatBounds("5", "10") },
+        };
+
+        public IReadOnlyCollection<Func<IEnchantmentCalculatorContext, KeyValuePair<string, double>>> ContextToValueMapping { get; } = new Func<IEnchantmentCalculatorContext, KeyValuePair<string, double>>[]
+        {
+            context => new KeyValuePair<string, double>("INTERVAL", context.Elapsed.Divide(UNIT_INTERVAL)),
         };
         #endregion
 
@@ -207,8 +123,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             public sealed class BuffsThatExpireEnchantments
             {
                 public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
-                    STAT_DEFINITION_IDS.StatA, 
-                    "STAT_A + 5", 
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
                     new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(10))));
             }
@@ -258,29 +174,5 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             public ICalculationPriority Highest { get; } = new CalculationPriority<int>(int.MaxValue);
         }
         #endregion
-    }
-
-    public sealed class EnchantmentFactory
-    {
-        public IEnchantment CreateExpressionEnchantment(
-            IIdentifier statDefinitionId,
-            string expression,
-            ICalculationPriority calculationPriority,
-            params IExpiryComponent[] expiry)
-        {
-            IEnumerable<IComponent> components = new EnchantmentExpressionComponent(
-                calculationPriority,
-                expression)
-                .Yield();
-
-            if (expiry != null)
-            {
-                components = components.Concat(expiry);
-            }
-
-            return new Enchantment(
-                statDefinitionId,
-                components);
-        }
     }
 }

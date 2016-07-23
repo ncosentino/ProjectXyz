@@ -55,5 +55,27 @@ namespace ProjectXyz.Framework.Interface.Collections
         {
             return enumerable.ToArray();
         }
+
+        public static IEnumerable<TProperty> SingleOrDefault<T, TProperty>(
+            this IEnumerable<T> enumerable,
+            Func<T, IEnumerable<TProperty>> selector)
+        {
+            return SingleOrDefault(
+                enumerable,
+                _ => true,
+                selector);
+            ;
+        }
+
+        public static IEnumerable<TProperty> SingleOrDefault<T, TProperty>(
+            this IEnumerable<T> enumerable,
+            Func<T, bool> predicate,
+            Func<T, IEnumerable<TProperty>> selector)
+        {
+            var item = enumerable.SingleOrDefault(predicate);
+            return item == null
+                ? Enumerable.Empty<TProperty>()
+                : selector(item);
+        }
     }
 }

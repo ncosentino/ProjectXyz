@@ -2,10 +2,8 @@ using System.Collections.Generic;
 
 namespace ProjectXyz.Application.Interface.Enchantments
 {
-    public interface IActiveEnchantmentManager
+    public interface IActiveEnchantmentManager : IEnchantmentProvider
     {
-        IReadOnlyCollection<IEnchantment> Enchantments { get; }
-
         void Add(IEnchantment enchantment);
 
         void Remove(IEnchantment enchantment);

@@ -68,10 +68,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functional\TestData.cs" />
+    <Compile Include="Functional\Stats\StatUpdaterTests.cs" />
+    <Compile Include="Functional\Stats\StatManagerTests.cs" />
     <Compile Include="Functional\Enchantments\ActiveEnchantmentManagerTests.cs" />
     <Compile Include="Functional\Enchantments\EnchantmentApplierTests.cs" />
     <Compile Include="Functional\Enchantments\EnchantmentCalculatorTests.cs" />
-    <Compile Include="Functional\Enchantments\TestFixture.cs" />
+    <Compile Include="Functional\TestFixture.cs" />
     <Compile Include="Functional\Stats\StatCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
