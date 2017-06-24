@@ -9,15 +9,20 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.Multiple
     {
         private readonly IReadOnlyCollection<IEnchantmentExpressionInterceptor> _enchantmentExpressionInterceptors;
 
-        public MultiEnchantmentExpressionInterceptor(IEnumerable<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors)
-            : this(enchantmentExpressionInterceptors.ToArray())
+        public MultiEnchantmentExpressionInterceptor(IEnumerable<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors, int priority)
+            : this(enchantmentExpressionInterceptors.ToArray(), priority)
         {
         }
 
-        public MultiEnchantmentExpressionInterceptor(IReadOnlyCollection<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors)
+        public MultiEnchantmentExpressionInterceptor(
+            IReadOnlyCollection<IEnchantmentExpressionInterceptor> enchantmentExpressionInterceptors,
+            int priority)
         {
             _enchantmentExpressionInterceptors = enchantmentExpressionInterceptors;
+            Priority = priority;
         }
+
+        public int Priority { get; }
 
         public string Intercept(IIdentifier statDefinitionId, string expression)
         {

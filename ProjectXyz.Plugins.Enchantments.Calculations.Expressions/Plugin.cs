@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Plugins.Api;
@@ -18,7 +16,7 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
                 .ToArray();
 
             var contextToTermValueMappingConverter = new ContextToTermValueMappingConverter(valueMappers);
-            var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory();
+            var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory(2);
 
             ContextToExpressionInterceptorConverter = new ContextToExpressionInterceptorConverter(
                 contextToTermValueMappingConverter,

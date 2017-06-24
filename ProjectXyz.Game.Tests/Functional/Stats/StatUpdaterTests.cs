@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
 using ProjectXyz.Application.Enchantments.Api;
-using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData;
@@ -31,7 +30,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         #region Methods
         public static IEnumerable<object[]> GetTimeElapsedSingleEnchantmentTestData()
         {
-            ////yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.ZeroInterval, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.ZeroInterval, 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
         }

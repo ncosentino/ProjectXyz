@@ -10,15 +10,18 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
 {
     public sealed class StateExpressionInterceptorFactory : IStateExpressionInterceptorFactory
     {
+        private readonly int _priority;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
         private readonly IStateValueInjector _stateValueInjector;
 
         public StateExpressionInterceptorFactory(
             IStateValueInjector stateValueInjector,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping)
+            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
+            int priority)
         {
             _stateValueInjector = stateValueInjector;
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
+            _priority = priority;
         }
 
         public IEnchantmentExpressionInterceptor Create(
@@ -40,7 +43,8 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
                 _stateValueInjector,
                 _statDefinitionIdToTermMapping,
                 statDefinitionToComponentMapping,
-                stateContextProvider);
+                stateContextProvider,
+                _priority);
             return interceptor;
         }
     }

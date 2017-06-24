@@ -9,10 +9,15 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
     {
         private readonly IReadOnlyDictionary<string, double> _termToValueMapping;
 
-        public ValueMappingExpressionInterceptor(IReadOnlyDictionary<string, double> termToValueMapping)
+        public ValueMappingExpressionInterceptor(
+            IReadOnlyDictionary<string, double> termToValueMapping,
+            int priority)
         {
             _termToValueMapping = termToValueMapping;
+            Priority = priority;
         }
+
+        public int Priority { get; }
 
         public string Intercept(
             IIdentifier statDefinitionId,

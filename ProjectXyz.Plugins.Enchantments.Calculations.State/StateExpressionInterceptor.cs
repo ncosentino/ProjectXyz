@@ -18,13 +18,17 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
             IStateValueInjector stateValueInjector,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
             IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> statDefinitionToComponentMapping,
-            IStateContextProvider stateContextProvider)
+            IStateContextProvider stateContextProvider,
+            int priority)
         {
             _stateValueInjector = stateValueInjector;
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
             _statDefinitionToComponentMapping = statDefinitionToComponentMapping;
             _stateContextProvider = stateContextProvider;
+            Priority = priority;
         }
+
+        public int Priority { get; }
 
         public string Intercept(
             IIdentifier statDefinitionId,

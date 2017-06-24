@@ -18,6 +18,7 @@ namespace ProjectXyz.Application.Enchantments.Core.Calculations
         {
             return _converters
                 .Select(x => x.Convert(enchantmentCalculatorContext))
+                .OrderBy(x => x.Priority)
                 .ToArray();
         }
 

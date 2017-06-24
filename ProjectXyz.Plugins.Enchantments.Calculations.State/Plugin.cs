@@ -30,7 +30,8 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
             var stateValueInjector = new StateValueInjector(stateIdToTermMapping);
             var stateExpressionInterceptorFactory = new StateExpressionInterceptorFactory(
                 stateValueInjector,
-                statDefinitionIdToTermMapping);
+                statDefinitionIdToTermMapping,
+                1);
 
             ContextToExpressionInterceptorConverter = new ContextToExpressionInterceptorConverter(stateExpressionInterceptorFactory);
         }
