@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
-using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Plugins.Enchantments.Calculations.State;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Enchantments
@@ -125,8 +126,9 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 },
             });
 
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None
-                .WithStateContextProvider(stateContextProvider)
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
+                .WithComponent(stateContextProvider)
                 .WithEnchantments(enchantment);
 
             var baseStats = new Dictionary<IIdentifier, double>();
@@ -146,7 +148,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             double expectedValue)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
                 .WithElapsed(elapsed)
                 .WithEnchantments(enchantment);
             var result = _fixture.EnchantmentCalculator.Calculate(

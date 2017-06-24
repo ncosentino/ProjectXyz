@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
-using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Interface;
 using Xunit;
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.Stats
@@ -8,15 +9,15 @@ namespace ProjectXyz.Game.Core.Stats
     public sealed class StatCalculationContext : IStatCalculationContext
     {
         public StatCalculationContext(
-            IStateContextProvider stateContextProvider,
+            IEnumerable<IComponent> components,
             IReadOnlyCollection<IEnchantment> enchantments)
         {
-            StateContextProvider = stateContextProvider;
+            Components = new ComponentCollection(components);
             Enchantments = enchantments;
         }
 
-        public IStateContextProvider StateContextProvider { get; }
-
         public IReadOnlyCollection<IEnchantment> Enchantments { get; }
+
+        public IComponentCollection Components { get; }
     }
 }

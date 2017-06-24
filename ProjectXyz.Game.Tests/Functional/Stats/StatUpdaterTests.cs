@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
-using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Stats;
-using ProjectXyz.Game.Tests.Functional.Enchantments;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -50,7 +48,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var mutableStatsProvider = new MutableStatsProvider();
 
             var statUpdater = new StatUpdater(
-                StateContextProvider.Empty,
+                ComponentCollection.Empty,
                 mutableStatsProvider,
                 _fixture.ActiveEnchantmentManager,
                 _fixture.EnchantmentApplier);

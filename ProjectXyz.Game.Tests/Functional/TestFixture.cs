@@ -1,23 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jace;
-using ProjectXyz.Application.Core.Enchantments;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
-using ProjectXyz.Application.Core.Enchantments.Expiration;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Core.Triggering.Triggers.Duration;
 using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
-using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
-using ProjectXyz.Application.Interface.Enchantments.Expiration;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Application.Enchantments.Core;
+using ProjectXyz.Application.Enchantments.Core.Calculations;
+using ProjectXyz.Application.Enchantments.Core.Expiration;
+using ProjectXyz.Application.Enchantments.Interface;
+using ProjectXyz.Application.Enchantments.Interface.Calculations;
+using ProjectXyz.Application.Enchantments.Interface.Expiration;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Application.Interface.Triggering;
 using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Enchantments;
+using ProjectXyz.Plugins.Core;
 
 namespace ProjectXyz.Game.Tests.Functional
 {
@@ -56,23 +60,27 @@ namespace ProjectXyz.Game.Tests.Functional
 
             var enchantmentExpressionInterceptorConverter = new EnchantmentExpressionInterceptorConverter();
 
-            var stateValueInjector = new StateValueInjector(testData.StateIdToTermMapping);
-            var stateEnchantmentExpressionInterceptorFactory = new StateExpressionInterceptorFactory(
-                stateValueInjector,
-                statDefinitionIdToTermMapping);
-
-            var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory();
-
             var enchantmentStatCalculator = new StatCalculatorWrapper(
                 statCalculator,
                 enchantmentExpressionInterceptorConverter);
 
-            var contextToTermValueMappingConverter = new ContextToTermValueMappingConverter(testData.ContextToValueMapping);
+            ////var stateValueInjector = new StateValueInjector(testData.StateIdToTermMapping);
+            ////var stateEnchantmentExpressionInterceptorFactory = new StateExpressionInterceptorFactory(
+            ////    stateValueInjector,
+            ////    statDefinitionIdToTermMapping);
 
-            var contextToInterceptorsConverter = new ContextToInterceptorsConverter(
-                stateEnchantmentExpressionInterceptorFactory,
-                valueMappingExpressionInterceptorFactory,
-                contextToTermValueMappingConverter);
+            ////var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory();
+
+            ////var contextToTermValueMappingConverter = new ContextToTermValueMappingConverter(testData.ContextToValueMapping);
+
+            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
+            
+            var pluginArgs = new PluginArgs(ComponentCollection.Empty);
+            var p1 = new Plugins.Enchantments.Calculations.Expressions.Plugin(pluginArgs);
+            var p2 = new Plugins.Enchantments.Calculations.State.Plugin(pluginArgs);
+
+            contextToInterceptorsConverter.Register(p1.ContextToExpressionInterceptorConverter);
+            contextToInterceptorsConverter.Register(p2.ContextToExpressionInterceptorConverter);
 
             EnchantmentCalculator = new EnchantmentCalculator(
                 enchantmentStatCalculator,

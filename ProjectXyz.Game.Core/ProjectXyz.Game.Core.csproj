@@ -32,12 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enchantments\EnchantmentExpressionInterceptorConverter.cs" />
@@ -54,6 +48,18 @@
       <Project>{0E56D372-31CF-48BD-94A2-67D4622C270A}</Project>
       <Name>ProjectXyz.Application.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Application.Enchantments.Api.csproj">
+      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
+      <Name>ProjectXyz.Application.Enchantments.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Core\ProjectXyz.Application.Enchantments.Core.csproj">
+      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
+      <Name>ProjectXyz.Application.Enchantments.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj">
+      <Project>{1165093F-4337-403C-A4EC-A936EA91ACDC}</Project>
+      <Name>ProjectXyz.Application.Enchantments.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{caf704d5-0f07-47c5-a1e5-d0bcbefca5c3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
@@ -62,13 +68,13 @@
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
+      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
+      <Name>ProjectXyz.Framework.Entities.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
-      <Project>{8878cd88-b979-4af3-9510-2fa949060088}</Project>
-      <Name>ProjectXyz.Framework.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>

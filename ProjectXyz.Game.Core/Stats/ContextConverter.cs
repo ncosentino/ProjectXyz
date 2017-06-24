@@ -1,5 +1,5 @@
-using ProjectXyz.Application.Core.Enchantments.Calculations;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Interface.Stats;
 
@@ -17,7 +17,7 @@ namespace ProjectXyz.Game.Core.Stats
         public IEnchantmentCalculatorContext Convert(IStatCalculationContext input)
         {
             return new EnchantmentCalculatorContext(
-                input.StateContextProvider,
+                input.Components,
                 _zeroElapsedTime,
                 input.Enchantments);
         }

@@ -1,5 +1,4 @@
-﻿using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
+﻿using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 
 namespace ProjectXyz.Game.Interface.Enchantments

@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Interface.Enchantments;
-using ProjectXyz.Application.Interface.Enchantments.Calculations;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Framework.Entities.Interface;
 
 namespace ProjectXyz.Game.Interface.Stats
 {
-    public interface IStatCalculationContext
+    public interface IStatCalculationContext : IEntity
     {
-        IStateContextProvider StateContextProvider { get; }
-
         IReadOnlyCollection<IEnchantment> Enchantments { get; }
     }
 }

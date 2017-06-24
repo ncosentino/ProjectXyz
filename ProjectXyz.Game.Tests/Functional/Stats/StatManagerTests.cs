@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Application.Core.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Stats;
-using ProjectXyz.Application.Interface.Enchantments;
+using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Game.Core.Stats;
-using ProjectXyz.Game.Tests.Functional.Enchantments;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -51,7 +49,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 new ContextConverter(TEST_DATA.ZeroInterval));
 
             var statCalculationContext = new StatCalculationContext(
-                StateContextProvider.Empty,
+                ComponentCollection.Empty,
                 new IEnchantment[0]);
 
             // Execute
