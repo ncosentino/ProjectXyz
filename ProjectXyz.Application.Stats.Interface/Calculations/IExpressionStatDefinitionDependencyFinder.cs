@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Interface.Calculations
 {
     public interface IExpressionStatDefinitionDependencyFinder
     {

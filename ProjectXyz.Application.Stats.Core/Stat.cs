@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
-using ProjectXyz.Application.Interface.Stats;
+using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Core.Stats
+namespace ProjectXyz.Application.Stats.Core
 {
     public sealed class Stat : IStat
     {

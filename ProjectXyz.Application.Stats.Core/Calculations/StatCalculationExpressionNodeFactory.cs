@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ProjectXyz.Application.Interface.Stats.Calculations;
-using ProjectXyz.Framework.Interface;
+﻿using System.Collections.Generic;
+using ProjectXyz.Application.Stats.Interface.Calculations;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Core.Calculations
 {
     public sealed class StatCalculationExpressionNodeFactory : IStatCalculationNodeFactory
     {

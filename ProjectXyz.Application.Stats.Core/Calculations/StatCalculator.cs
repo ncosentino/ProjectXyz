@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Interface.Stats.Calculations;
+using ProjectXyz.Application.Stats.Interface.Calculations;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Core.Calculations
 {
     public sealed class StatCalculator : IStatCalculator
     {

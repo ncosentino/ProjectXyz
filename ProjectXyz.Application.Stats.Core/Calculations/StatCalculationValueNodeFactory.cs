@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using ProjectXyz.Application.Interface.Stats.Calculations;
+using ProjectXyz.Application.Stats.Interface.Calculations;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Core.Calculations
 {
     public sealed class StatCalculationValueNodeFactory : IStatCalculationNodeFactory
     {

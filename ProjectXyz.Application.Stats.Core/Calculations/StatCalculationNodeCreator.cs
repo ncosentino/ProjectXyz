@@ -2,12 +2,12 @@
 using System.Globalization;
 using System.Linq;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Interface.Stats.Calculations;
+using ProjectXyz.Application.Stats.Interface.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Core.Calculations
 {
     public sealed class StatCalculationNodeCreator : IStatCalculationNodeCreator
     {

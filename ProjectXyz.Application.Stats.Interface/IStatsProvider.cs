@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Interface.Stats
+namespace ProjectXyz.Application.Stats.Interface
 {
     public interface IStatsProvider
     {

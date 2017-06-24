@@ -2,7 +2,7 @@
 using System.Linq;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Core.Calculations
 {
     public sealed class ExpressionStatDefinitionDependencyFinder : IExpressionStatDefinitionDependencyFinder
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProjectXyz.Application.Interface.Stats.Calculations
+namespace ProjectXyz.Application.Stats.Interface.Calculations
 {
     public static class IStatCalculationNodeFactoryExtensions
     {

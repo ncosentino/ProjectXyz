@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Game.Core.Stats;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
 using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData;

@@ -67,6 +67,10 @@
       <Project>{caf704d5-0f07-47c5-a1e5-d0bcbefca5c3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
+      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
+      <Name>ProjectXyz.Application.Stats.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>

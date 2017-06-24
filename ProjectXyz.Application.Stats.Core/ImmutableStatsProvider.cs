@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Interface.Stats;
+using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
-namespace ProjectXyz.Application.Core.Stats
+namespace ProjectXyz.Application.Stats.Core
 {
     public sealed class ImmutableStatsProvider : IStatsProvider
     {
