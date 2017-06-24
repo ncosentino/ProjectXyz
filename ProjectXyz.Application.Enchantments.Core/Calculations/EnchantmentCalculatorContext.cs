@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Application.Enchantments.Api;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;

@@ -9,8 +9,10 @@ namespace ProjectXyz.Plugins.Core
     {
         public PluginArgs(IEnumerable<IComponent> components)
         {
-            Components = new ComponentCollection(components);;
+            Components = new ComponentCollection(components);
         }
+
+        public static IPluginArgs None { get; } = new PluginArgs(ComponentCollection.Empty);
 
         public IComponentCollection Components { get; }
     }

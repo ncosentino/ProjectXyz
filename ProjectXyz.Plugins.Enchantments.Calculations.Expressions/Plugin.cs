@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Enchantments.Calculations.Api;

@@ -38,15 +38,11 @@
     <Compile Include="Stats\Calculations\ExpressionStatCalculationNode.cs" />
     <Compile Include="Stats\Calculations\ExpressionStatDefinitionDependencyFinder.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
-    <Compile Include="Stats\Calculations\IReadOnlyDictionary.cs" />
-    <Compile Include="Stats\Calculations\StatBounds.cs" />
-    <Compile Include="Stats\Calculations\StatBoundsExpressionInterceptor.cs" />
     <Compile Include="Stats\Calculations\StatCalculationExpressionNodeFactory.cs" />
     <Compile Include="Stats\Calculations\StatCalculationNodeCreator.cs" />
     <Compile Include="Stats\Calculations\StatCalculationValueNodeFactory.cs" />
     <Compile Include="Stats\Calculations\StatCalculationNodeFactoryWrapper.cs" />
     <Compile Include="Stats\Calculations\StatCalculator.cs" />
-    <Compile Include="Stats\Calculations\StatExpressionInterceptor.cs" />
     <Compile Include="Stats\Calculations\StringExpressionEvaluatorWrapper.cs" />
     <Compile Include="Stats\Calculations\ValueStatCalculationNode.cs" />
     <Compile Include="Stats\ImmutableStatsProvider.cs" />
@@ -63,6 +59,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
+      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
       <Project>{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}</Project>
       <Name>ProjectXyz.Application.Interface</Name>

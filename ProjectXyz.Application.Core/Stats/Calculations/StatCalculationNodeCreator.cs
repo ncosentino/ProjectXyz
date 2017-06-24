@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Interface.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
@@ -10,7 +11,6 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
 {
     public sealed class StatCalculationNodeCreator : IStatCalculationNodeCreator
     {
-        private readonly IStatExpressionInterceptor _statBoundsExpressionInterceptor;
         private readonly IStatCalculationNodeFactory _statCalculationNodeFactory;
         private readonly IExpressionStatDefinitionDependencyFinder _expressionStatDefinitionDependencyFinder;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
@@ -19,13 +19,11 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         public StatCalculationNodeCreator(
             IStatCalculationNodeFactory statCalculationNodeFactory,
             IExpressionStatDefinitionDependencyFinder expressionStatDefinitionDependencyFinder,
-            IStatExpressionInterceptor statBoundsExpressionInterceptor,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToCalculationMapping)
         {
             _statCalculationNodeFactory = statCalculationNodeFactory;
             _expressionStatDefinitionDependencyFinder = expressionStatDefinitionDependencyFinder;
-            _statBoundsExpressionInterceptor = statBoundsExpressionInterceptor;
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
             _statDefinitionIdToCalculationMapping = statDefinitionIdToCalculationMapping;
         }
@@ -50,7 +48,6 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
                         : "0";
 
                 expression = statExpressionInterceptors
-                    .Append(_statBoundsExpressionInterceptor)
                     .Aggregate(
                         expression, 
                         (c, interceptor) => interceptor.Intercept(

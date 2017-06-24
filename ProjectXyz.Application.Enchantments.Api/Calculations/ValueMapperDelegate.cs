@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ProjectXyz.Application.Enchantments.Api.Calculations
+namespace ProjectXyz.Api.Enchantments.Calculations
 {
     public delegate KeyValuePair<string, double> ValueMapperDelegate(IEnchantmentCalculatorContext enchantmentCalculatorContext);
 }

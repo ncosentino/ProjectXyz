@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ProjectXyz.Framework.Entities.Interface;
 
-namespace ProjectXyz.Application.Enchantments.Api.Calculations
+namespace ProjectXyz.Api.Enchantments.Calculations
 {
     public interface IValueMapperRepository : IComponent
     {

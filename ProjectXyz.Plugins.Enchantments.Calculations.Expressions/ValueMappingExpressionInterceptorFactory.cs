@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Api.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
 {

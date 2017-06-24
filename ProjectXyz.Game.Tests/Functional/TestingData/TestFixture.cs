@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jace;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Core.Triggering.Triggers.Duration;
 using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
 using ProjectXyz.Application.Enchantments.Api;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Enchantments.Core.Expiration;
@@ -20,6 +20,7 @@ using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Enchantments;
+using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
 using ProjectXyz.Plugins.Core;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
@@ -50,32 +51,35 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             var expressionStatDefinitionDependencyFinder = new ExpressionStatDefinitionDependencyFinder();
 
-            StatBoundsExpressionInterceptor = new StatBoundsExpressionInterceptor(testData.StatBounds);
-            var statBoundsExpressionInterceptor = StatBoundsExpressionInterceptor;
-
             var statCalculationNodeCreator = new StatCalculationNodeCreator(
                 statCalculationNodeFactory,
                 expressionStatDefinitionDependencyFinder,
-                statBoundsExpressionInterceptor,
                 statDefinitionIdToTermMapping,
                 statDefinitionIdToCalculationMapping);
 
             var statCalculator = new StatCalculator(statCalculationNodeCreator);
 
-            var enchantmentExpressionInterceptorConverter = new EnchantmentExpressionInterceptorConverter();
-
-            var enchantmentStatCalculator = new StatCalculatorWrapper(
-                statCalculator,
-                enchantmentExpressionInterceptorConverter);
-            
-            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
-            
             var pluginArgs = new PluginArgs(new IComponent[]
             {
                 testData.StatsPlugin.StatDefinitionToTermMappingRepository,
                 testData.StatesPlugin.StateIdToTermRepository,
-                new ValueMapperRepository(testData.UnitInterval), 
+                new ValueMapperRepository(testData.UnitInterval),
+                new StatDefinitionIdToBoundsMappingRepository(testData.Stats),
             });
+
+            var enchantmentsAndStatsDcPlugin = new ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.Plugin(pluginArgs);
+            var enchantmentExpressionInterceptorConverters = enchantmentsAndStatsDcPlugin.EnchantmentExpressionInterceptorConverters;
+
+            var statBoundsPlugin = new ProjectXyz.Plugins.Stats.Calculations.Bounded.Plugin(pluginArgs);
+            var statExpressionInterceptors = statBoundsPlugin.StatExpressionInterceptors;
+
+            var enchantmentStatCalculator = new StatCalculatorWrapper(
+                statCalculator,
+                statExpressionInterceptors,
+                enchantmentExpressionInterceptorConverters);
+            
+            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
+            
             var p1 = new Plugins.Enchantments.Calculations.Expressions.Plugin(pluginArgs);
             var p2 = new Plugins.Enchantments.Calculations.State.Plugin(pluginArgs);
 
@@ -110,8 +114,6 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IEnchantmentCalculator EnchantmentCalculator { get; }
 
         public IEnchantmentApplier EnchantmentApplier { get; }
-
-        public IStatExpressionInterceptor StatBoundsExpressionInterceptor { get; }
         #endregion
     }
 

@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functional\TestingData\Stats\StatBounds.cs" />
     <Compile Include="Functional\TestingData\TestData.cs" />
     <Compile Include="Functional\Stats\StatUpdaterTests.cs" />
     <Compile Include="Functional\Stats\StatManagerTests.cs" />
@@ -80,6 +81,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins.csproj">
+      <Project>{f103b384-de12-4947-9a2a-645b5b181bc3}</Project>
+      <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.csproj">
+      <Project>{2c772806-3c50-468c-8a13-cfa42592322a}</Project>
+      <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndStats</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.States.Plugins\ProjectXyz.Api.States.Plugins.csproj">
       <Project>{0F88E846-8A78-4F25-8494-AAC9C8EFB837}</Project>
       <Name>ProjectXyz.Api.States.Plugins</Name>
@@ -87,6 +96,18 @@
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
       <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
       <Name>ProjectXyz.Api.States</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Api.Stats.Bounded.csproj">
+      <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
+      <Name>ProjectXyz.Api.Stats.Bounded</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations.Plugins\ProjectXyz.Api.Stats.Calculations.Plugins.csproj">
+      <Project>{7fe10253-fb8c-4d94-baa4-1569c7d38b2f}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
+      <Project>{4e6b441b-337a-4987-a50e-ce203d4929c1}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Plugins\ProjectXyz.Api.Stats.Plugins.csproj">
       <Project>{0370F1B5-E4E6-4355-B7C8-6DC510C1EFD0}</Project>
@@ -152,6 +173,10 @@
       <Project>{1b0dc326-68af-47a8-991f-64d70d1d6d2e}</Project>
       <Name>ProjectXyz.Plugins.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.csproj">
+      <Project>{bf07fb51-d73c-49b7-8632-b2a58f9bf17f}</Project>
+      <Name>ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Api\ProjectXyz.Api.Enchantments.Plugins.csproj">
       <Project>{029ef2b5-f54e-4051-b62a-de231e322bc1}</Project>
       <Name>ProjectXyz.Api.Enchantments.Plugins</Name>
@@ -164,9 +189,17 @@
       <Project>{18E59339-25CA-46BF-B6FA-8D992A303050}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.State</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
+      <Project>{1d313fc4-7092-48df-a266-002045abab3a}</Project>
+      <Name>ProjectXyz.Plugins.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Plugins.States.Simple.csproj">
       <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>
       <Name>ProjectXyz.Plugins.States.Simple</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Stats.Calculations.Bounded.csproj">
+      <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
+      <Name>ProjectXyz.Plugins.Stats.Calculations.Bounded</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Enchantments.Interface.Calculations

@@ -34,7 +34,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\IEnchantmentExpressionInterceptorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\IStatCalculationContext.cs" />
     <Compile Include="Stats\IStatManager.cs" />
@@ -58,7 +57,9 @@
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Enchantments\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,5 @@
 ﻿using System;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Api.Enchantments.Calculations;
 
 namespace ProjectXyz.Application.Enchantments.Core.Calculations
 {

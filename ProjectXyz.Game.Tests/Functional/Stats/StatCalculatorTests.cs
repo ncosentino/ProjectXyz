@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jace;
+using ProjectXyz.Api.Stats.Bounded;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Core.Stats;
 using ProjectXyz.Application.Core.Stats.Calculations;
 using ProjectXyz.Application.Interface.Stats.Calculations;
@@ -9,6 +11,9 @@ using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Shared.Math;
+using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
+using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats;
+using ProjectXyz.Plugins.Stats.Calculations.Bounded;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -39,17 +44,20 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 
             var expressionStatDefinitionDependencyFinder = new ExpressionStatDefinitionDependencyFinder();
 
-            var statBoundsExpressionInterceptor = TEST_FIXTURE.StatBoundsExpressionInterceptor;
-
             var statCalculationNodeCreator = new StatCalculationNodeCreator(
                 statCalculationNodeFactory,
                 expressionStatDefinitionDependencyFinder,
-                statBoundsExpressionInterceptor,
                 TEST_FIXTURE.StatDefinitionIdToTermMapping,
                 TEST_FIXTURE.StatDefinitionIdToCalculationMapping);
 
             _statCalculator = new StatCalculator(statCalculationNodeCreator);
-            _statExpressionInterceptors = TEST_FIXTURE.StatExpressionInterceptor.AsArray();
+            _statExpressionInterceptors = new[]
+            {
+                TEST_FIXTURE.StatBoundsExpressionInterceptor,
+                TEST_FIXTURE.StatExpressionInterceptor,
+            }
+            .OrderBy(x => x.Priority)
+            .ToArray();
         }
         #endregion
 
@@ -140,25 +148,27 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             
             public StatDefinitionIds Stats { get; } = STAT_DEFINITION_IDS;
 
-            public IStatExpressionInterceptor StatExpressionInterceptor { get; } = new StatExpressionInterceptor((statDefinitionId, expression) =>
-            {
-                if (statDefinitionId == STAT_DEFINITION_IDS.Override.ConstantValue)
+            public IStatExpressionInterceptor StatExpressionInterceptor { get; } = new StatExpressionInterceptor(
+                (statDefinitionId, expression) =>
                 {
-                    return "111";
-                }
+                    if (statDefinitionId == STAT_DEFINITION_IDS.Override.ConstantValue)
+                    {
+                        return "111";
+                    }
 
-                if (statDefinitionId == STAT_DEFINITION_IDS.Override.ExpressionDependentOnConstantValue)
-                {
-                    return "222";
-                }
+                    if (statDefinitionId == STAT_DEFINITION_IDS.Override.ExpressionDependentOnConstantValue)
+                    {
+                        return "222";
+                    }
 
-                if (statDefinitionId == STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenExpression)
-                {
-                    return "EXPR_OVERRIDE * 2";
-                }
+                    if (statDefinitionId == STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenExpression)
+                    {
+                        return "EXPR_OVERRIDE * 2";
+                    }
 
-                return expression;
-            });
+                    return expression;
+                },
+                1);
 
             public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToTermMapping { get; } = new Dictionary<IIdentifier, string>()
             {
@@ -182,14 +192,16 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 { STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenExpression, "STR * 10" },
             };
 
-            public IStatExpressionInterceptor StatBoundsExpressionInterceptor { get; } = new StatBoundsExpressionInterceptor(new Dictionary<IIdentifier, IStatBounds>()
-            {
-                { STAT_DEFINITION_IDS.Bounded.ByLowerLimit, StatBounds.Min("5") },
-                { STAT_DEFINITION_IDS.Bounded.ByUpperLimit, StatBounds.Max("10") },
-                { STAT_DEFINITION_IDS.Bounded.ByUpperAndLowerLimit, new StatBounds("5", "10") },
-                { STAT_DEFINITION_IDS.Bounded.ByDependentConstantValue, new StatBounds("STR", "STR") },
-                { STAT_DEFINITION_IDS.Bounded.ByDependentExpression, new StatBounds("SIMPLE_EXPRESSION", "SIMPLE_EXPRESSION") },
-            });
+            public IStatExpressionInterceptor StatBoundsExpressionInterceptor { get; } = new StatBoundsExpressionInterceptor(
+                new Dictionary<IIdentifier, IStatBounds>()
+                {
+                    { STAT_DEFINITION_IDS.Bounded.ByLowerLimit, StatBounds.Min("5") },
+                    { STAT_DEFINITION_IDS.Bounded.ByUpperLimit, StatBounds.Max("10") },
+                    { STAT_DEFINITION_IDS.Bounded.ByUpperAndLowerLimit, new StatBounds("5", "10") },
+                    { STAT_DEFINITION_IDS.Bounded.ByDependentConstantValue, new StatBounds("STR", "STR") },
+                    { STAT_DEFINITION_IDS.Bounded.ByDependentExpression, new StatBounds("SIMPLE_EXPRESSION", "SIMPLE_EXPRESSION") },
+                },
+                int.MaxValue);
 
             public sealed class StatDefinitionIds
             {

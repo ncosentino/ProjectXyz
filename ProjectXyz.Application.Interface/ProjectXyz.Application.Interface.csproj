@@ -36,11 +36,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\Calculations\IExpressionStatDefinitionDependencyFinder.cs" />
-    <Compile Include="Stats\Calculations\IStatBounds.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeCreator.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNodeFactoryExtensions.cs" />
     <Compile Include="Stats\Calculations\IStatCalculator.cs" />
-    <Compile Include="Stats\Calculations\IStatExpressionInterceptor.cs" />
     <Compile Include="Stats\IMutableStatsProvider.cs" />
     <Compile Include="Stats\IStat.cs" />
     <Compile Include="Stats\Calculations\IStatCalculationNode.cs" />
@@ -59,6 +57,10 @@
     <Compile Include="Weather\IWeatherManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
+      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
       <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>

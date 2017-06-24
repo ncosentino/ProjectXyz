@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Application.Enchantments.Api;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Tests.Functional.TestingData;

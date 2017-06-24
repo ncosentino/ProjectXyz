@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
-using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 

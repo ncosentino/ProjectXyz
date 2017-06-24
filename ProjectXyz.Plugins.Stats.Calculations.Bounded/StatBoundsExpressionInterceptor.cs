@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Application.Interface.Stats.Calculations;
+using ProjectXyz.Api.Stats.Bounded;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
-namespace ProjectXyz.Application.Core.Stats.Calculations
+namespace ProjectXyz.Plugins.Stats.Calculations.Bounded
 {
     public sealed class StatBoundsExpressionInterceptor : IStatExpressionInterceptor
     {
@@ -13,22 +13,25 @@ namespace ProjectXyz.Application.Core.Stats.Calculations
         #endregion
 
         #region Constructors
-        public StatBoundsExpressionInterceptor(IEnumerable<KeyValuePair<IIdentifier, IStatBounds>> statDefinitionIdToBoundsMapping)
-            : this(statDefinitionIdToBoundsMapping.ToDictionary())
+        public StatBoundsExpressionInterceptor(
+            IEnumerable<KeyValuePair<IIdentifier, IStatBounds>> statDefinitionIdToBoundsMapping,
+            int priority)
+            : this(statDefinitionIdToBoundsMapping.ToDictionary(), priority)
         {
         }
 
-        public StatBoundsExpressionInterceptor(IReadOnlyDictionary<IIdentifier, IStatBounds> statDefinitionIdToBoundsMapping)
+        public StatBoundsExpressionInterceptor(
+            IReadOnlyDictionary<IIdentifier, IStatBounds> statDefinitionIdToBoundsMapping,
+            int priority)
         {
             _statDefinitionIdToBoundsMapping = statDefinitionIdToBoundsMapping;
+            Priority = priority;
         }
-        #endregion
-
-        #region Properties
-        public static IStatExpressionInterceptor None { get; } = new StatBoundsExpressionInterceptor(Enumerable.Empty<KeyValuePair<IIdentifier, IStatBounds>>());
         #endregion
 
         #region Methods
+        public int Priority { get; }
+
         public string Intercept(
             IIdentifier statDefinitionId, 
             string expression)

@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Framework.Entities.Interface;
 
-namespace ProjectXyz.Application.Enchantments.Api.Calculations
+namespace ProjectXyz.Api.Enchantments.Calculations
 {
     public interface IEnchantmentExpressionComponent : IComponent
     {

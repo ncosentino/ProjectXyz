@@ -1,6 +1,6 @@
 using System;
 
-namespace ProjectXyz.Application.Enchantments.Api.Calculations
+namespace ProjectXyz.Api.Enchantments.Calculations
 {
     public interface ICalculationPriority<T> :
         ICalculationPriority,
