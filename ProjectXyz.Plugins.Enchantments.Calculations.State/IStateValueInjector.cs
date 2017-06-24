@@ -1,4 +1,6 @@
-﻿namespace ProjectXyz.Plugins.Enchantments.Calculations.State
+﻿using ProjectXyz.Api.States;
+
+namespace ProjectXyz.Plugins.Enchantments.Calculations.State
 {
     public interface IStateValueInjector
     {

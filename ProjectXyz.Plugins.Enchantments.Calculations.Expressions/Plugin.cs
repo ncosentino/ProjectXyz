@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Application.Enchantments.Api.Calculations;
+using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Enchantments.Calculations.Api;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
 {
-    public sealed class Plugin : IEnchantmentCalculationPlugin
+    public sealed class Plugin : IEnchantmentPlugin
     {
         public Plugin(IPluginArgs pluginArgs)
         {
-            // TODO: how to get value mappers?
-            var valueMappers = new List<ValueMapperDelegate>();
+            var valueMappers = pluginArgs
+                .GetFirst<IValueMapperRepository>()
+                .GetValueMappers()
+                .ToArray();
 
             var contextToTermValueMappingConverter = new ContextToTermValueMappingConverter(valueMappers);
             var valueMappingExpressionInterceptorFactory = new ValueMappingExpressionInterceptorFactory();

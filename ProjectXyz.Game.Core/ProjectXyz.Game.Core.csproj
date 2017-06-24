@@ -48,9 +48,9 @@
       <Project>{0E56D372-31CF-48BD-94A2-67D4622C270A}</Project>
       <Name>ProjectXyz.Application.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Application.Enchantments.Api.csproj">
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Application.Enchantments.Api</Name>
+      <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Core\ProjectXyz.Application.Enchantments.Core.csproj">
       <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>

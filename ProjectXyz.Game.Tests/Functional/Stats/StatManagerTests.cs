@@ -5,6 +5,7 @@ using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Game.Core.Stats;
+using ProjectXyz.Game.Tests.Functional.TestingData;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -27,11 +28,11 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         #endregion
 
         #region Methods
-        private static IEnumerable<object[]> GetNoStateTestData()
+        public static IEnumerable<object[]> GetNoStateTestData()
         {
-            yield return new object[] { TEST_DATA.Stats.StatA, -100 };
-            yield return new object[] { TEST_DATA.Stats.StatA, 0 };
-            yield return new object[] { TEST_DATA.Stats.StatA, 100 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, -100 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, 0 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, 100 };
         }
         #endregion
 
@@ -49,7 +50,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 new ContextConverter(TEST_DATA.ZeroInterval));
 
             var statCalculationContext = new StatCalculationContext(
-                ComponentCollection.Empty,
+                new[] { TEST_DATA.StatesPlugin.StateContextProvider },
                 new IEnchantment[0]);
 
             // Execute

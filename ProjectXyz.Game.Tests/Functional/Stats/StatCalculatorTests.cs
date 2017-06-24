@@ -54,7 +54,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         #endregion
 
         #region Methods
-        private static IEnumerable<object[]> GetEvaluateExpressionTheoryData()
+        public static IEnumerable<object[]> GetEvaluateExpressionTheoryData()
         {
             yield return new object[] { TEST_FIXTURE.Stats.ConstantValue, 123 };
             yield return new object[] { TEST_FIXTURE.Stats.NonDependentExpression, 5 };
@@ -71,7 +71,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             yield return new object[] { TEST_FIXTURE.Stats.Bounded.ByDependentExpression, 246 };
         }
 
-        private static IEnumerable<object[]> GetUseBaseStatsTheoryData()
+        public static IEnumerable<object[]> GetUseBaseStatsTheoryData()
         {
             yield return new object[] { TEST_FIXTURE.Stats.ConstantValue };
             yield return new object[] { TEST_FIXTURE.Stats.NonDependentExpression };
@@ -80,7 +80,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             yield return new object[] { TEST_FIXTURE.Stats.Override.ExpressionDependentOnOverridenConstantValue };
         }
 
-        private static IEnumerable<object[]> GetOverrideBaseStatsTheoryData()
+        public static IEnumerable<object[]> GetOverrideBaseStatsTheoryData()
         {
             yield return new object[] { TEST_FIXTURE.Stats.Override.ConstantValue, 111 };
             yield return new object[] { TEST_FIXTURE.Stats.Override.ExpressionDependentOnConstantValue, 222 };

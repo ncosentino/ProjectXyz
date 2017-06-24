@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Enchantments.Interface;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
 using ProjectXyz.Application.Interface.Stats;
 using ProjectXyz.Application.Interface.Triggering.Triggers.Elapsed;
 using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.Stats
@@ -16,12 +18,12 @@ namespace ProjectXyz.Game.Core.Stats
         private readonly IMutableStatsProvider _mutableStatsProvider;
 
         public StatUpdater(
-            IComponentCollection components,
+            IEnumerable<IComponent> components,
             IMutableStatsProvider mutableStatsProvider,
             IEnchantmentProvider enchantmentProvider,
             IEnchantmentApplier enchantmentApplier)
         {
-            _components = components;
+            _components = new ComponentCollection(components);
             _mutableStatsProvider = mutableStatsProvider;
             _enchantmentProvider = enchantmentProvider;
             _enchantmentApplier = enchantmentApplier;

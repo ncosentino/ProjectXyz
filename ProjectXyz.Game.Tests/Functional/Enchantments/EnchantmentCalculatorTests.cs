@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Calculations.State;
+using ProjectXyz.Plugins.States.Simple;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Enchantments
@@ -28,7 +31,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #endregion
 
         #region Methods
-        private static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
+        public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, 5 };
             yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatA, -5 };
@@ -40,17 +43,17 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             yield return new object[] { TEST_DATA.Enchantments.RecursiveStatA, 0 };
         }
 
-        private static IEnumerable<object[]> GetMultipleEnchantmentsNoBaseStatsTheoryData()
+        public static IEnumerable<object[]> GetMultipleEnchantmentsNoBaseStatsTheoryData()
         {
-            yield return new object[] { TEST_DATA.Stats.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), 10 };
-            yield return new object[] { TEST_DATA.Stats.StatA, TEST_DATA.Enchantments.Debuffs.StatA.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatA), -10 };
-            yield return new object[] { TEST_DATA.Stats.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatA), 0 };
-            yield return new object[] { TEST_DATA.Stats.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.PreNullifyStatA), 4 };
-            yield return new object[] { TEST_DATA.Stats.StatA, TEST_DATA.Enchantments.PostNullifyStatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), -1 };
-            yield return new object[] { TEST_DATA.Stats.StatB, TEST_DATA.Enchantments.Buffs.StatB.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), 5 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), 10 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Debuffs.StatA.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatA), -10 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatA), 0 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.PreNullifyStatA), 4 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.PostNullifyStatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), -1 };
+            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatB, TEST_DATA.Enchantments.Buffs.StatB.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), 5 };
         }
 
-        private static IEnumerable<object[]> GetTimeOfDayEnchantmentsTheoryData()
+        public static IEnumerable<object[]> GetTimeOfDayEnchantmentsTheoryData()
         {
             yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 0, 0 };
             yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 0.5, 10 };
@@ -60,7 +63,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 1, 10 };
         }
 
-        private static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
+        public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
         {
             var doubleDuration = TEST_DATA.UnitInterval.Multiply(2);
             var halfDuration = TEST_DATA.UnitInterval.Divide(2);
@@ -82,7 +85,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             double expectedResult)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None.WithEnchantments(enchantment);
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
+                .WithEnchantments(enchantment)
+                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
@@ -99,7 +105,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             double expectedResult)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None.WithEnchantments(enchantments);
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
+                .WithEnchantments(enchantments)
+                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats, 
@@ -151,7 +160,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
                 .WithElapsed(elapsed)
-                .WithEnchantments(enchantment);
+                .WithEnchantments(enchantment)
+                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
@@ -164,7 +174,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         private void Calculate_BadExpression_ThrowsFormatException()
         {
             var baseStats = new Dictionary<IIdentifier, double>();
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None.WithEnchantments(TEST_DATA.Enchantments.BadExpression);
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
+                .WithEnchantments(TEST_DATA.Enchantments.BadExpression)
+                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
 
             Action method = () => _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,

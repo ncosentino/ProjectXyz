@@ -3,6 +3,7 @@ using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Game.Tests.Functional.TestingData;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Enchantments
@@ -25,7 +26,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #endregion
 
         #region Methods
-        private static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
+        public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, 5 };
             yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatA, -5 };
@@ -37,7 +38,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             yield return new object[] { TEST_DATA.Enchantments.RecursiveStatA, 0 };
         }
 
-        private static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
+        public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
         {
             var doubleDuration = TEST_DATA.UnitInterval.Multiply(2);
             var halfDuration = TEST_DATA.UnitInterval.Divide(2);
@@ -59,7 +60,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             double expectedValue)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None.WithEnchantments(enchantment);
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
+                .WithEnchantments(enchantment)
+                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
             var result = _fixture.EnchantmentApplier.ApplyEnchantments(
                 enchantmentCalculatorContext,
                 baseStats);
@@ -76,9 +80,11 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             double expectedValue)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
-            var enchantmentCalculatorContext = EnchantmentCalculatorContext.None
+            var enchantmentCalculatorContext = EnchantmentCalculatorContext
+                .None
                 .WithElapsed(elapsed)
-                .WithEnchantments(enchantment);
+                .WithEnchantments(enchantment)
+                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
             var result = _fixture.EnchantmentApplier.ApplyEnchantments(
                 enchantmentCalculatorContext,
                 baseStats);

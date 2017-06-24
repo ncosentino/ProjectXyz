@@ -6,6 +6,7 @@ using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Stats;
+using ProjectXyz.Game.Tests.Functional.TestingData;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -28,9 +29,9 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         #endregion
 
         #region Methods
-        private static IEnumerable<object[]> GetTimeElapsedSingleEnchantmentTestData()
+        public static IEnumerable<object[]> GetTimeElapsedSingleEnchantmentTestData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.ZeroInterval, 5 };
+            ////yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.ZeroInterval, 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
         }
@@ -48,7 +49,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var mutableStatsProvider = new MutableStatsProvider();
 
             var statUpdater = new StatUpdater(
-                ComponentCollection.Empty,
+                new[] { TEST_DATA.StatesPlugin.StateContextProvider },
                 mutableStatsProvider,
                 _fixture.ActiveEnchantmentManager,
                 _fixture.EnchantmentApplier);

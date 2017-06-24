@@ -1,4 +1,5 @@
-﻿using ProjectXyz.Application.Enchantments.Api.Calculations;
+﻿using ProjectXyz.Api.States;
+using ProjectXyz.Application.Enchantments.Api.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.State

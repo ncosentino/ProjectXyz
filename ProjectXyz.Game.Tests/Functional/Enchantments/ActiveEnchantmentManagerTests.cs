@@ -4,6 +4,7 @@ using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Testing;
+using ProjectXyz.Game.Tests.Functional.TestingData;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Enchantments
@@ -26,7 +27,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #endregion
 
         #region Methods
-        private static IEnumerable<object[]> GetSingleEnchantmentTheoryData()
+        public static IEnumerable<object[]> GetSingleEnchantmentTheoryData()
         {
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, new Interval<double>(0), true };
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, new Interval<double>(10), true };
