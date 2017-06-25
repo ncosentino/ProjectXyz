@@ -38,10 +38,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.csproj">
-      <Project>{D983C81B-5E86-4D85-83F9-487032C91765}</Project>
-      <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>

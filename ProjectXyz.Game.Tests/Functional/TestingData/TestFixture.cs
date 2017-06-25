@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Jace;
+using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
+using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.States;
+using ProjectXyz.Api.Stats;
+using ProjectXyz.Api.Stats.Bounded;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
@@ -14,6 +19,7 @@ using ProjectXyz.Application.Enchantments.Interface.Calculations;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared.Math;
@@ -25,7 +31,6 @@ using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Core;
 using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 using ProjectXyz.Plugins.Triggers.Elapsed;
-using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
@@ -34,9 +39,33 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         #region Constructors
         public TestFixture(TestData testData)
         {
-            var statDefinitionIdToTermMapping = testData
-                .StatsPlugin
-                .StatDefinitionToTermMappingRepository
+            var pluginArgs = new PluginArgs(new IComponent[]
+            {
+                new GenericComponent<IValueMapperRepository>(new ValueMapperRepository(testData.UnitInterval)),
+                new GenericComponent<IStatDefinitionIdToBoundsMappingRepository>(new StatDefinitionIdToBoundsMappingRepository(testData.Stats)),
+            });
+            var pluginTypes = new[]
+            {
+                typeof(StatsPlugin),
+                typeof(StatesPlugin),
+                typeof(Plugins.Triggers.Elapsed.Plugin),
+                typeof(Plugins.DomainConversion.EnchantmentsAndStats.Plugin),
+                typeof(Plugins.DomainConversion.EnchantmentsAndTriggers.Plugin),
+                typeof(Plugins.Stats.Calculations.Bounded.Plugin),
+                typeof(Plugins.Enchantments.Calculations.Expressions.Plugin),
+                typeof(Plugins.Enchantments.Calculations.State.Plugin),
+
+            };
+            var pluginLoader = new PluginLoader();
+            var pluginLoadResult = pluginLoader.LoadPlugins(
+                pluginArgs,
+                pluginTypes);
+
+            var statDefinitionIdToTermMapping = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<IStatDefinitionToTermMappingRepository>>()
+                .Single()
+                .Value
                 .GetStatDefinitionIdToTermMappings()
                 .ToDictionary(x => x.StateDefinitionId, x => x.Term);
 
@@ -63,33 +92,28 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             var statCalculator = new StatCalculator(statCalculationNodeCreator);
 
-            var pluginArgs = new PluginArgs(new IComponent[]
-            {
-                testData.StatsPlugin.StatDefinitionToTermMappingRepository,
-                testData.StatesPlugin.StateIdToTermRepository,
-                new ValueMapperRepository(testData.UnitInterval),
-                new StatDefinitionIdToBoundsMappingRepository(testData.Stats),
-            });
-            var elapsedTriggerPlugin = new ProjectXyz.Plugins.Triggers.Elapsed.Plugin(pluginArgs);
-            pluginArgs = new PluginArgs(pluginArgs.Components.Concat(elapsedTriggerPlugin.SharedComponents));
-            var enchantmentsAndStatsDcPlugin = new ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.Plugin(pluginArgs);
-            var enchantmentExpressionInterceptorConverters = enchantmentsAndStatsDcPlugin.EnchantmentExpressionInterceptorConverters;
-
-            var statBoundsPlugin = new ProjectXyz.Plugins.Stats.Calculations.Bounded.Plugin(pluginArgs);
-            var statExpressionInterceptors = statBoundsPlugin.StatExpressionInterceptors;
-
+            var enchantmentExpressionInterceptorConverters = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<IEnchantmentExpressionInterceptorConverter>>()
+                .Select(x => x.Value);
+            var statExpressionInterceptors = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<IStatExpressionInterceptor>>()
+                .Select(x => x.Value);
             var enchantmentStatCalculator = new StatCalculatorWrapper(
                 statCalculator,
                 statExpressionInterceptors,
                 enchantmentExpressionInterceptorConverters);
-            
-            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
-            
-            var p1 = new Plugins.Enchantments.Calculations.Expressions.Plugin(pluginArgs);
-            var p2 = new Plugins.Enchantments.Calculations.State.Plugin(pluginArgs);
 
-            contextToInterceptorsConverter.Register(p1.ContextToExpressionInterceptorConverter);
-            contextToInterceptorsConverter.Register(p2.ContextToExpressionInterceptorConverter);
+            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
+
+            foreach (var contextToExpressionInterceptorConverter in pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<IContextToExpressionInterceptorConverter>>()
+                .Select(x => x.Value))
+            {
+                contextToInterceptorsConverter.Register(contextToExpressionInterceptorConverter);
+            }
 
             EnchantmentCalculator = new EnchantmentCalculator(
                 enchantmentStatCalculator,
@@ -97,20 +121,32 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             EnchantmentApplier = new EnchantmentApplier(EnchantmentCalculator);
 
-            var triggerSourceMechanics = elapsedTriggerPlugin.TriggerSourceMechanics;
-            var triggerSourceMechanicRegistrars = elapsedTriggerPlugin.TriggerMechanicRegistrars;
+            var triggerSourceMechanics = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<ITriggerSourceMechanic>>()
+                .Select(x => x.Value);
+            var triggerSourceMechanicRegistrars = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<ITriggerMechanicRegistrar>>()
+                .Select(x => x.Value);
 
             ElapsedTimeTriggerSourceMechanic = (ElapsedTimeTriggerSourceMechanic)triggerSourceMechanics.Single();
 
             TriggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerSourceMechanicRegistrars);
 
-            var enchantmentsAndTriggersPlugin = new Plugins.DomainConversion.EnchantmentsAndTriggers.Plugin(pluginArgs);
-
-            var enchantmentTriggerMechanicRegistrars = enchantmentsAndTriggersPlugin.EnchantmentTriggerMechanicRegistrars;
-
+            var enchantmentTriggerMechanicRegistrars = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<IEnchantmentTriggerMechanicRegistrar>>()
+                .Select(x => x.Value);
             ActiveEnchantmentManager = new ActiveEnchantmentManager(
                 TriggerMechanicRegistrar,
                 enchantmentTriggerMechanicRegistrars);
+
+            StateContextProvider = pluginLoadResult
+                .Components
+                .TakeTypes<IComponent<IStateContextProvider>>()
+                .Single()
+                .Value;
         }
         #endregion
 
@@ -124,7 +160,63 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IEnchantmentCalculator EnchantmentCalculator { get; }
 
         public IEnchantmentApplier EnchantmentApplier { get; }
+
+        public IStateContextProvider StateContextProvider { get; }
         #endregion
+    }
+
+    public sealed class PluginLoader
+    {
+        public PluginLoaderResult LoadPlugins(
+            IPluginArgs pluginArgs,
+            IEnumerable<Type> pluginTypes)
+        {
+            var plugins = new List<IPlugin>();
+
+            foreach (var pluginType in pluginTypes)
+            {
+                IPlugin plugin;
+                try
+                {
+                    plugin = (IPlugin)pluginType
+                        .GetConstructors()
+                        .Single()
+                        .Invoke(new object[] { pluginArgs });
+                    ////plugin = (IPlugin)Activator.CreateInstance(
+                    ////    pluginType,
+                    ////    BindingFlags.Public | BindingFlags.CreateInstance,
+                    ////    null,
+                    ////    new object[] { pluginArgs });
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+
+                plugins.Add(plugin);
+
+                pluginArgs = new PluginArgs(pluginArgs.Components.Concat(plugin.SharedComponents));
+            }
+
+            return new PluginLoaderResult(
+                plugins,
+                pluginArgs.Components);
+        }
+    }
+
+    public sealed class PluginLoaderResult
+    {
+        public PluginLoaderResult(
+            IEnumerable<IPlugin> plugins,
+            IEnumerable<IComponent> components)
+        {
+            Plugins = plugins.ToArray();
+            Components = new ComponentCollection(components);
+        }
+
+        public IReadOnlyCollection<IPlugin> Plugins { get; }
+
+        public IComponentCollection Components { get; }
     }
 
     public sealed class ValueMapperRepository : IValueMapperRepository

@@ -8,9 +8,9 @@ namespace ProjectXyz.Application.Core.Triggering
     {
         private readonly IReadOnlyCollection<ITriggerMechanicRegistrar> _triggerMechanicRegistrars;
 
-        public TriggerMechanicRegistrar(IReadOnlyCollection<ITriggerMechanicRegistrar> triggerMechanicRegistrars)
+        public TriggerMechanicRegistrar(IEnumerable<ITriggerMechanicRegistrar> triggerMechanicRegistrars)
         {
-            _triggerMechanicRegistrars = triggerMechanicRegistrars;
+            _triggerMechanicRegistrars = triggerMechanicRegistrars.ToArray();
         }
 
         public bool CanRegister(ITriggerMechanic triggerMechanic)

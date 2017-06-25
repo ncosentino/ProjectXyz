@@ -38,14 +38,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
-      <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
-      <Name>ProjectXyz.Api.States</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
-      <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
-      <Name>ProjectXyz.Framework.Entities.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>

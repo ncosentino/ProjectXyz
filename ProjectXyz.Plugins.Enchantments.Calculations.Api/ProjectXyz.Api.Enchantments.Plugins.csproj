@@ -38,14 +38,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>

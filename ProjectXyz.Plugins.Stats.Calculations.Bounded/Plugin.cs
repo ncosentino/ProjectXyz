@@ -4,7 +4,7 @@ using ProjectXyz.Api.Stats.Bounded;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Api.Stats.Calculations.Plugins;
 using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Plugins.Api;
 
 namespace ProjectXyz.Plugins.Stats.Calculations.Bounded
@@ -14,16 +14,18 @@ namespace ProjectXyz.Plugins.Stats.Calculations.Bounded
         public Plugin(IPluginArgs pluginArgs)
         {
             var statDefinitionIdToBoundsMapping = pluginArgs
-                .GetFirst<IStatDefinitionIdToBoundsMappingRepository>()
+                .GetFirst<IComponent<IStatDefinitionIdToBoundsMappingRepository>>()
+                .Value
                 .GetStatDefinitionIdToBoundsMappings()
                 .ToDictionary(x => x.StatDefinitiondId, x => x.StatBounds);
 
-            StatExpressionInterceptors = new IStatExpressionInterceptor[]
+            SharedComponents = new ComponentCollection(new[]
             {
-                new StatBoundsExpressionInterceptor(statDefinitionIdToBoundsMapping, int.MaxValue),
-            };
+                new GenericComponent<IStatExpressionInterceptor>(new StatBoundsExpressionInterceptor(statDefinitionIdToBoundsMapping, int.MaxValue)),
+            });
         }
 
-        public IReadOnlyCollection<IStatExpressionInterceptor> StatExpressionInterceptors { get; }
+
+        public IComponentCollection SharedComponents { get; }
     }
 }

@@ -5,6 +5,5 @@ namespace ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins
 {
     public interface IEnchantmentsAndStatsPlugin : IPlugin
     {
-        IReadOnlyCollection<IEnchantmentExpressionInterceptorConverter> EnchantmentExpressionInterceptorConverters { get; }
     }
 }

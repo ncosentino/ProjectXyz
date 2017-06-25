@@ -129,6 +129,10 @@
       <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
       <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Plugins\ProjectXyz.Api.Triggering.Plugins.csproj">
+      <Project>{FAD3DF39-7750-4E32-A46E-0AC6159AF0CA}</Project>
+      <Name>ProjectXyz.Api.Triggering.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
       <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
       <Name>ProjectXyz.Api.Triggering</Name>

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using Xunit;
@@ -63,7 +65,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
                 .WithEnchantments(enchantment)
-                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
+                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentApplier.ApplyEnchantments(
                 enchantmentCalculatorContext,
                 baseStats);
@@ -84,7 +86,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 .None
                 .WithElapsed(elapsed)
                 .WithEnchantments(enchantment)
-                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
+                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentApplier.ApplyEnchantments(
                 enchantmentCalculatorContext,
                 baseStats);

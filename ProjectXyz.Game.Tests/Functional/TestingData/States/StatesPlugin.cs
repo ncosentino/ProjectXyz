@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.States.Plugins;
+using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Plugins.Api;
 
@@ -12,12 +14,14 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.States
     {
         public StatesPlugin(IPluginArgs pluginArgs)
         {
-            
+            SharedComponents = new ComponentCollection(new IComponent[]
+            {
+                new GenericComponent<IStateIdToTermRepository>(new StateIdToTermRepo()),
+                new GenericComponent<IStateContextProvider>(new StateContextProv()),
+            });
         }
 
-        public IStateIdToTermRepository StateIdToTermRepository { get; } = new StateIdToTermRepo();
-
-        public IStateContextProvider StateContextProvider { get; } = new StateContextProv();
+        public IComponentCollection SharedComponents { get; }
 
         private sealed class StateContextProv : IStateContextProvider
         {

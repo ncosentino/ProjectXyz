@@ -6,6 +6,5 @@ namespace ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.Plugins
 {
     public interface IEnchantmentsAndTriggersPlugin : IPlugin
     {
-        IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> EnchantmentTriggerMechanicRegistrars { get; }
     }
 }

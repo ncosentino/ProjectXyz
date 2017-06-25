@@ -3,6 +3,7 @@ using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.Plugins;
 using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Plugins.Api;
 
 namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers
@@ -11,15 +12,17 @@ namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers
     {
         public Plugin(IPluginArgs pluginArgs)
         {
-            var durationTriggerMechanicFactory = pluginArgs.GetFirst<IDurationTriggerMechanicFactory>();
+            var durationTriggerMechanicFactory = pluginArgs
+                .GetFirst<IComponent<IDurationTriggerMechanicFactory>>()
+                .Value;
             var expiryTriggerMechanicFactory = new ExpiryTriggerMechanicFactory(durationTriggerMechanicFactory);
 
-            EnchantmentTriggerMechanicRegistrars = new[]
+            SharedComponents = new ComponentCollection(new[]
             {
-                new EnchantmentExpiryTriggerMechanicRegistrar(expiryTriggerMechanicFactory)
-            };
+                new GenericComponent<IEnchantmentTriggerMechanicRegistrar>(new EnchantmentExpiryTriggerMechanicRegistrar(expiryTriggerMechanicFactory)),
+            });
         }
 
-        public IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> EnchantmentTriggerMechanicRegistrars { get; }
+        public IComponentCollection SharedComponents { get; }
     }
 }

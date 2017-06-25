@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectXyz.Api.Triggering;
+using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Api.Triggering.Plugins;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
@@ -17,18 +18,11 @@ namespace ProjectXyz.Plugins.Triggers.Elapsed
         {
             var elapsedTimeTriggerSourceMechanic = new ElapsedTimeTriggerSourceMechanic();
 
-            TriggerSourceMechanics = new[]
+            SharedComponents = new ComponentCollection(new IComponent[]
             {
-                elapsedTimeTriggerSourceMechanic
-            };
-            TriggerMechanicRegistrars = new[]
-            {
-                elapsedTimeTriggerSourceMechanic
-            };
-
-            SharedComponents = new ComponentCollection(new[]
-            {
-                new DurationTriggerMechanicFactory(),
+                new GenericComponent<IDurationTriggerMechanicFactory>(new DurationTriggerMechanicFactory()),
+                new GenericComponent<ITriggerSourceMechanic>(elapsedTimeTriggerSourceMechanic), 
+                new GenericComponent<ITriggerMechanicRegistrar>(elapsedTimeTriggerSourceMechanic), 
             });
         }
 

@@ -4,6 +4,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Game.Tests.Functional.TestingData;
@@ -88,7 +89,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
                 .WithEnchantments(enchantment)
-                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
+                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
@@ -108,7 +109,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
                 .WithEnchantments(enchantments)
-                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
+                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats, 
@@ -137,7 +138,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithComponent(stateContextProvider)
+                .WithComponent(new GenericComponent<IStateContextProvider>(stateContextProvider))
                 .WithEnchantments(enchantment);
 
             var baseStats = new Dictionary<IIdentifier, double>();
@@ -161,7 +162,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 .None
                 .WithElapsed(elapsed)
                 .WithEnchantments(enchantment)
-                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
+                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
@@ -177,7 +178,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
                 .WithEnchantments(TEST_DATA.Enchantments.BadExpression)
-                .WithComponent(TEST_DATA.StatesPlugin.StateContextProvider);
+                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
 
             Action method = () => _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,

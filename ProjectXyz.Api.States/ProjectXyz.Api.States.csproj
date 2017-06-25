@@ -42,10 +42,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
-      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
-      <Name>ProjectXyz.Framework.Entities.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>

@@ -52,6 +52,10 @@
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
+      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
+      <Name>ProjectXyz.Framework.Entities.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>

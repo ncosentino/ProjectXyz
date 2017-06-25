@@ -77,5 +77,10 @@ namespace ProjectXyz.Framework.Interface.Collections
                 ? Enumerable.Empty<TProperty>()
                 : selector(item);
         }
+
+        public static TResult Single<TResult>(this IEnumerable<object> enumerable)
+        {
+            return enumerable.TakeTypes<TResult>().Single();
+        }
     }
 }

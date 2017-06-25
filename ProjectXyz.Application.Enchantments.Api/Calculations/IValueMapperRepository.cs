@@ -3,7 +3,7 @@ using ProjectXyz.Framework.Entities.Interface;
 
 namespace ProjectXyz.Api.Enchantments.Calculations
 {
-    public interface IValueMapperRepository : IComponent
+    public interface IValueMapperRepository
     {
         IEnumerable<ValueMapperDelegate> GetValueMappers();
     }

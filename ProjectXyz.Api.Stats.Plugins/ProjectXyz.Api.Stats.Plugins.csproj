@@ -38,10 +38,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats\ProjectXyz.Api.Stats.csproj">
-      <Project>{A3B8D906-34C9-4395-9D19-B1C8355BA5E7}</Project>
-      <Name>ProjectXyz.Api.Stats</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>

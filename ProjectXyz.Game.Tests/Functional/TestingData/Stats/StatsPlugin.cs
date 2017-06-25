@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Plugins;
+using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Plugins.Api;
 
@@ -10,10 +12,13 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
     {
         public StatsPlugin(IPluginArgs pluginArgs)
         {
-
+            SharedComponents = new ComponentCollection(new[]
+            {
+                new GenericComponent<IStatDefinitionToTermMappingRepository>(new StatDefinitionToTermMappingRepo()), 
+            });
         }
 
-        public IStatDefinitionToTermMappingRepository StatDefinitionToTermMappingRepository { get; } = new StatDefinitionToTermMappingRepo();
+        public IComponentCollection SharedComponents { get; }
 
         private sealed class StatDefinitionToTermMappingRepo : IStatDefinitionToTermMappingRepository
         {

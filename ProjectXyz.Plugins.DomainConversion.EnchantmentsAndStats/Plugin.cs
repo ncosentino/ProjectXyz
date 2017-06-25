@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins;
+using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Plugins.Api;
 
 namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats
@@ -12,12 +14,13 @@ namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats
     {
         public Plugin(IPluginArgs pluginArgs)
         {
-            EnchantmentExpressionInterceptorConverters = new[]
+            SharedComponents = new ComponentCollection(new[]
             {
-                new EnchantmentExpressionInterceptorConverter(),
-            };
+                new GenericComponent<IEnchantmentExpressionInterceptorConverter>(new EnchantmentExpressionInterceptorConverter()), 
+            });
         }
 
-        public IReadOnlyCollection<IEnchantmentExpressionInterceptorConverter> EnchantmentExpressionInterceptorConverters { get; }
+
+        public IComponentCollection SharedComponents { get; }
     }
 }

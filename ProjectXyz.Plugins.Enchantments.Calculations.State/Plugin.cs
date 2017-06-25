@@ -4,6 +4,7 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Enchantments.Calculations.Api;
@@ -15,13 +16,15 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
         public Plugin(IPluginArgs pluginArgs)
         {
             var stateIdToTermMapping = pluginArgs
-                .GetFirst<IStateIdToTermRepository>()
+                .GetFirst<IComponent<IStateIdToTermRepository>>()
+                .Value
                 .GetStateIdToTermMappings()
                 .ToDictionary(
                     x => x.StateIdentifier, 
                     x => (IReadOnlyDictionary<IIdentifier, string>)x.TermMapping);
             var statDefinitionIdToTermMapping = pluginArgs
-                .GetFirst<IStatDefinitionToTermMappingRepository>()
+                .GetFirst<IComponent<IStatDefinitionToTermMappingRepository>>()
+                .Value
                 .GetStatDefinitionIdToTermMappings()
                 .ToDictionary(
                     x => x.StateDefinitionId,
@@ -33,9 +36,12 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
                 statDefinitionIdToTermMapping,
                 1);
 
-            ContextToExpressionInterceptorConverter = new ContextToExpressionInterceptorConverter(stateExpressionInterceptorFactory);
+            SharedComponents = new ComponentCollection(new[]
+            {
+                new GenericComponent<IContextToExpressionInterceptorConverter>(new ContextToExpressionInterceptorConverter(stateExpressionInterceptorFactory)),
+            });
         }
 
-        public IContextToExpressionInterceptorConverter ContextToExpressionInterceptorConverter { get; }
+        public IComponentCollection SharedComponents { get; }
     }
 }
