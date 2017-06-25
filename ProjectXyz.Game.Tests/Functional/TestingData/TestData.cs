@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Application.Core.Triggering.Triggers.Duration;
-using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Application.Enchantments.Core.Expiration;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Game.Tests.Functional.TestingData.States;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
+using ProjectXyz.Plugins.Core;
+using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
+using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
@@ -22,9 +23,9 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         #endregion
 
         #region Properties
-        public StatesPlugin StatesPlugin { get; } = new StatesPlugin();
+        public StatesPlugin StatesPlugin { get; } = new StatesPlugin(PluginArgs.None);
 
-        public StatsPlugin StatsPlugin { get; } = new StatsPlugin();
+        public StatsPlugin StatsPlugin { get; } = new StatsPlugin(PluginArgs.None);
 
         public StatInfo Stats { get; } = new StatInfo();
 

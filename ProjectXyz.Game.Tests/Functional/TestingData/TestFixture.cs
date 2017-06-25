@@ -1,18 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Jace;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Triggering;
+using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Application.Core.Triggering;
-using ProjectXyz.Application.Core.Triggering.Triggers.Duration;
-using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
-using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Application.Enchantments.Core.Expiration;
-using ProjectXyz.Application.Enchantments.Interface;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Application.Enchantments.Interface.Expiration;
-using ProjectXyz.Application.Interface.Triggering;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
@@ -20,8 +18,14 @@ using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Enchantments;
+using ProjectXyz.Game.Interface.Enchantments;
+using ProjectXyz.Game.Tests.Functional.TestingData.States;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
+using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Core;
+using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
+using ProjectXyz.Plugins.Triggers.Elapsed;
+using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
@@ -66,7 +70,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
                 new ValueMapperRepository(testData.UnitInterval),
                 new StatDefinitionIdToBoundsMappingRepository(testData.Stats),
             });
-
+            var elapsedTriggerPlugin = new ProjectXyz.Plugins.Triggers.Elapsed.Plugin(pluginArgs);
+            pluginArgs = new PluginArgs(pluginArgs.Components.Concat(elapsedTriggerPlugin.SharedComponents));
             var enchantmentsAndStatsDcPlugin = new ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.Plugin(pluginArgs);
             var enchantmentExpressionInterceptorConverters = enchantmentsAndStatsDcPlugin.EnchantmentExpressionInterceptorConverters;
 
@@ -92,15 +97,20 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             EnchantmentApplier = new EnchantmentApplier(EnchantmentCalculator);
 
-            ElapsedTimeTriggerSourceMechanic = new ElapsedTimeTriggerSourceMechanic();
+            var triggerSourceMechanics = elapsedTriggerPlugin.TriggerSourceMechanics;
+            var triggerSourceMechanicRegistrars = elapsedTriggerPlugin.TriggerMechanicRegistrars;
 
-            TriggerMechanicRegistrar = new TriggerMechanicRegistrar(ElapsedTimeTriggerSourceMechanic.AsArray());
+            ElapsedTimeTriggerSourceMechanic = (ElapsedTimeTriggerSourceMechanic)triggerSourceMechanics.Single();
 
-            var durationTriggerMechanicFactory = new DurationTriggerMechanicFactory();
-            var expiryTriggerMechanicFactory = new ExpiryTriggerMechanicFactory(durationTriggerMechanicFactory);
+            TriggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerSourceMechanicRegistrars);
+
+            var enchantmentsAndTriggersPlugin = new Plugins.DomainConversion.EnchantmentsAndTriggers.Plugin(pluginArgs);
+
+            var enchantmentTriggerMechanicRegistrars = enchantmentsAndTriggersPlugin.EnchantmentTriggerMechanicRegistrars;
+
             ActiveEnchantmentManager = new ActiveEnchantmentManager(
-                expiryTriggerMechanicFactory,
-                TriggerMechanicRegistrar);
+                TriggerMechanicRegistrar,
+                enchantmentTriggerMechanicRegistrars);
         }
         #endregion
 

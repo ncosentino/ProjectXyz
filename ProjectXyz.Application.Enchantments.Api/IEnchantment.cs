@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Application.Enchantments.Api
+namespace ProjectXyz.Api.Enchantments
 {
     public interface IEnchantment : IEntity
     {

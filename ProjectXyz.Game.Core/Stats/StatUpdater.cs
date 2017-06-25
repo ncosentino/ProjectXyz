@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Application.Enchantments.Interface;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Application.Interface.Triggering.Triggers.Elapsed;
 using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
+using ProjectXyz.Framework.Interface;
+using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.Stats
@@ -16,26 +15,27 @@ namespace ProjectXyz.Game.Core.Stats
         private readonly IEnchantmentApplier _enchantmentApplier;
         private readonly IEnchantmentProvider _enchantmentProvider;
         private readonly IMutableStatsProvider _mutableStatsProvider;
+        private readonly IEnchantmentCalculatorContextFactory _enchantmentCalculatorContextFactory;
 
         public StatUpdater(
             IEnumerable<IComponent> components,
             IMutableStatsProvider mutableStatsProvider,
             IEnchantmentProvider enchantmentProvider,
-            IEnchantmentApplier enchantmentApplier)
+            IEnchantmentApplier enchantmentApplier,
+            IEnchantmentCalculatorContextFactory enchantmentCalculatorContextFactory)
         {
             _components = new ComponentCollection(components);
             _mutableStatsProvider = mutableStatsProvider;
             _enchantmentProvider = enchantmentProvider;
             _enchantmentApplier = enchantmentApplier;
+            _enchantmentCalculatorContextFactory = enchantmentCalculatorContextFactory;
         }
 
-        public void Update(
-            IElapsedTimeTriggerMechanic elapsedTimeTriggerMechanic,
-            IElapsedTimeTriggerComponent elapsedTimeTriggerComponent)
+        public void Update(IInterval elapsed)
         {
-            var enchantmentCalculatorContext = new EnchantmentCalculatorContext(
+            var enchantmentCalculatorContext = _enchantmentCalculatorContextFactory.CreateEnchantmentCalculatorContext(
                 _components,
-                elapsedTimeTriggerComponent.Elapsed,
+                elapsed,
                 _enchantmentProvider.Enchantments);
 
             var updatedStats = _enchantmentApplier.ApplyEnchantments(

@@ -4,11 +4,17 @@ using System.Linq;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.States.Plugins;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Plugins.Api;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {
     public sealed class StatesPlugin : IStatePlugin
     {
+        public StatesPlugin(IPluginArgs pluginArgs)
+        {
+            
+        }
+
         public IStateIdToTermRepository StateIdToTermRepository { get; } = new StateIdToTermRepo();
 
         public IStateContextProvider StateContextProvider { get; } = new StateContextProv();

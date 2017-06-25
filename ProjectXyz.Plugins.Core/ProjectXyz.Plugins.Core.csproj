@@ -37,7 +37,7 @@
     <Compile Include="AssemblyPluginRepositoryFactory.cs" />
     <Compile Include="PluginArgs.cs" />
     <Compile Include="PluginProvider.cs" />
-    <Compile Include="PluginRepository.cs" />
+    <Compile Include="DirectoryScanPluginRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -34,16 +34,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveEnchantmentManager.cs" />
     <Compile Include="Calculations\CalculationPriority.cs" />
     <Compile Include="Calculations\ContextToInterceptorsConverter.cs" />
     <Compile Include="Calculations\EnchantmentApplier.cs" />
     <Compile Include="Calculations\EnchantmentCalculator.cs" />
     <Compile Include="Calculations\EnchantmentCalculatorContext.cs" />
+    <Compile Include="Calculations\EnchantmentCalculatorContextFactory.cs" />
     <Compile Include="Calculations\EnchantmentExpressionComponent.cs" />
     <Compile Include="Enchantment.cs" />
-    <Compile Include="Expiration\ExpiryTriggerComponent.cs" />
-    <Compile Include="Expiration\ExpiryTriggerMechanicFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,10 +52,6 @@
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj">
       <Project>{1165093F-4337-403C-A4EC-A936EA91ACDC}</Project>
       <Name>ProjectXyz.Application.Enchantments.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj">
-      <Project>{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}</Project>
-      <Name>ProjectXyz.Application.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
       <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>

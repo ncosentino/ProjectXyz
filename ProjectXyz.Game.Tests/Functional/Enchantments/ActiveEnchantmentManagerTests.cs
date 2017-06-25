@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Testing;

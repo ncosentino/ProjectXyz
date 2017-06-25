@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Application.Interface.Triggering;
+using ProjectXyz.Api.Triggering;
 
 namespace ProjectXyz.Application.Core.Triggering
 {

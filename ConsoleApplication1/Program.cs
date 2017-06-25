@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;

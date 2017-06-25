@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Application.Core.Triggering.Triggers.Elapsed;
-using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData;
+using ProjectXyz.Plugins.Triggers.Elapsed;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -47,15 +48,18 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             // Setup
             var mutableStatsProvider = new MutableStatsProvider();
 
+            var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory();
+
             var statUpdater = new StatUpdater(
                 new[] { TEST_DATA.StatesPlugin.StateContextProvider },
                 mutableStatsProvider,
                 _fixture.ActiveEnchantmentManager,
-                _fixture.EnchantmentApplier);
+                _fixture.EnchantmentApplier,
+                enchantmentCalculatorContextFactory);
 
             _fixture.ActiveEnchantmentManager.Add(enchantment);
 
-            var elapsedTimeTriggerMechanic = new ElapsedTimeTriggerMechanic(statUpdater.Update);
+            var elapsedTimeTriggerMechanic = new ElapsedTimeTriggerMechanic((_, x) => statUpdater.Update(x.Elapsed));
             _fixture.TriggerMechanicRegistrar.RegisterTrigger(elapsedTimeTriggerMechanic);
 
 

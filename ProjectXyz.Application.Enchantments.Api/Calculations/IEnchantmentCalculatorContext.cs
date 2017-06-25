@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Enchantments.Api;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Interface;
 

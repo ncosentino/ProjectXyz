@@ -2,11 +2,17 @@
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Plugins;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Plugins.Api;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
 {
     public sealed class StatsPlugin : IStatPlugin
     {
+        public StatsPlugin(IPluginArgs pluginArgs)
+        {
+
+        }
+
         public IStatDefinitionToTermMappingRepository StatDefinitionToTermMappingRepository { get; } = new StatDefinitionToTermMappingRepo();
 
         private sealed class StatDefinitionToTermMappingRepo : IStatDefinitionToTermMappingRepository

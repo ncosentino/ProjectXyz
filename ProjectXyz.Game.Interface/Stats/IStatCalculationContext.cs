@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProjectXyz.Application.Enchantments.Api;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Framework.Entities.Interface;
 
 namespace ProjectXyz.Game.Interface.Stats
