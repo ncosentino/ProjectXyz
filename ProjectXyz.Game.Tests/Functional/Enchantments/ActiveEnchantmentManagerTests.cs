@@ -4,6 +4,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Testing;
+using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using Xunit;
 

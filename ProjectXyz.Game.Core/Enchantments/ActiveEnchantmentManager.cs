@@ -25,42 +25,48 @@ namespace ProjectXyz.Game.Core.Enchantments
 
         public IReadOnlyCollection<IEnchantment> Enchantments => _activeEnchantments.Keys;
 
-        public void Add(IEnchantment enchantment)
+        public void Add(IEnumerable<IEnchantment> enchantments)
         {
-            if (!_activeEnchantments.ContainsKey(enchantment))
+            foreach (var enchantment in enchantments)
             {
-                _activeEnchantments[enchantment] = new List<ITriggerMechanic>();
-            }
-
-            foreach (var enchantmentTriggerMechanicRegistrar in _enchantmentTriggerMechanicRegistrars)
-            {
-                var triggers = enchantmentTriggerMechanicRegistrar.RegisterToEnchantment(
-                    enchantment,
-                    RemoveTriggerMechanicFromEnchantment);
-                foreach (var trigger in triggers)
+                if (!_activeEnchantments.ContainsKey(enchantment))
                 {
-                    _activeEnchantments[enchantment].Add(trigger);
+                    _activeEnchantments[enchantment] = new List<ITriggerMechanic>();
+                }
 
-                    if (_triggerMechanicRegistrar.CanRegister(trigger))
+                foreach (var enchantmentTriggerMechanicRegistrar in _enchantmentTriggerMechanicRegistrars)
+                {
+                    var triggers = enchantmentTriggerMechanicRegistrar.RegisterToEnchantment(
+                        enchantment,
+                        RemoveTriggerMechanicFromEnchantment);
+                    foreach (var trigger in triggers)
                     {
-                        _triggerMechanicRegistrar.RegisterTrigger(trigger);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException($"Could not register '{trigger}' to '{_triggerMechanicRegistrar}'.");   
+                        _activeEnchantments[enchantment].Add(trigger);
+
+                        if (_triggerMechanicRegistrar.CanRegister(trigger))
+                        {
+                            _triggerMechanicRegistrar.RegisterTrigger(trigger);
+                        }
+                        else
+                        {
+                            throw new InvalidOperationException($"Could not register '{trigger}' to '{_triggerMechanicRegistrar}'.");
+                        }
                     }
                 }
             }
         }
 
-        public void Remove(IEnchantment enchantment)
+        public void Remove(IEnumerable<IEnchantment> enchantments)
         {
-            foreach (var triggerMechanic in _activeEnchantments[enchantment])
+            foreach (var enchantment in enchantments)
             {
-                _triggerMechanicRegistrar.UnregisterTrigger(triggerMechanic);
-            }
+                foreach (var triggerMechanic in _activeEnchantments[enchantment])
+                {
+                    _triggerMechanicRegistrar.UnregisterTrigger(triggerMechanic);
+                }
 
-            _activeEnchantments.Remove(enchantment);
+                _activeEnchantments.Remove(enchantment);
+            }
         }
 
         private void RemoveTriggerMechanicFromEnchantment(IEnchantment enchantment, ITriggerMechanic triggerMechanic)

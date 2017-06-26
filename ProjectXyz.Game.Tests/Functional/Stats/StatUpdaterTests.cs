@@ -10,6 +10,7 @@ using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Triggers.Elapsed;
 using Xunit;
+using ProjectXyz.Game.Interface.Enchantments;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
 {
@@ -50,10 +51,12 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             // Setup
             var mutableStatsProvider = new MutableStatsProvider();
 
-            var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory();
+            var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(new[]
+            {
+                new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider)
+            });
 
             var statUpdater = new StatUpdater(
-                new[] { new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider) },
                 mutableStatsProvider,
                 _fixture.ActiveEnchantmentManager,
                 _fixture.EnchantmentApplier,
