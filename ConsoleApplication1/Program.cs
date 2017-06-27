@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Threading;
+using System.Threading.Tasks;
 using Jace;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
@@ -10,14 +14,21 @@ using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
+using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Shared.Math;
+using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Enchantments;
 using ProjectXyz.Game.Core.Stats;
+using ProjectXyz.Game.Core.Systems;
+using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
-using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Game.Interface.GameObjects;
+using ProjectXyz.Game.Interface.Systems;
 
 namespace ConsoleApplication1
 {
@@ -57,72 +68,130 @@ namespace ConsoleApplication1
             var enchantmentCalculator = new EnchantmentCalculator(
                 enchantmentStatCalculator,
                 contextToInterceptorsConverter);
+            var statManager = new StatManager(
+                enchantmentCalculator,
+                mutableStatsProvider,
+                new ContextConverter(new Interval<int>(0)));
             var enchantmentApplier = new EnchantmentApplier(enchantmentCalculator);
             var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(enchantmentCalculatorContextFactoryComponents);
+
+            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+            var buffable = new Buffable(activeEnchantmentManager);
+            var hasMutableStats = new HasMutableStats(mutableStatsProvider, statManager);
+            var actor = new Actor(
+                hasEnchantments,
+                buffable,
+                hasMutableStats);
+
             var statUpdater = new StatUpdater(
-                mutableStatsProvider,
-                activeEnchantmentManager,
                 enchantmentApplier,
                 enchantmentCalculatorContextFactory);
-            var buffable = new Buffable(activeEnchantmentManager);
+            var behaviorFinder = new BehaviorFinder();
+            var statUpdaterSystem = new StatUpdaterSystem(
+                behaviorFinder,
+                statUpdater);
+
+            var elapsedTimeComponentCreator = new ElapsedTimeComponentCreator();
+
+            var cancellationTokenSource = new CancellationTokenSource();
+            var engine = new Engine(
+                statUpdaterSystem.Yield(),
+                elapsedTimeComponentCreator.Yield());
+            engine.Start(cancellationTokenSource.Token);
 
             Console.ReadLine();
         }
     }
 
-    public sealed class Actor
+    public sealed class Engine
     {
-        public Actor()
+        private readonly IReadOnlyCollection<ISystem> _systems;
+        private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
+
+        public Engine(
+            IEnumerable<ISystem> systems,
+            IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators)
         {
+            _systems = systems.ToArray();
+            _systemUpdateComponentCreators = systemUpdateComponentCreators.ToArray();
+        }
+
+        public async Task Start(CancellationToken cancellationToken)
+        {
+            await Task.Factory.StartNew(
+                GameLoop,
+                new StartArgs(cancellationToken),
+                cancellationToken);
+        }
+
+        private void GameLoop(object args)
+        {
+            var startArgs = (StartArgs)args;
+            var cancellationToken = startArgs.CancellationToken;
+
+            var gameObjects = new List<IGameObject>();
+
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var systemUpdateComponents = _systemUpdateComponentCreators.Select(x => x.CreateNext());
+                var systemUpdateContext = new SystemUpdateContext(systemUpdateComponents);
+
+                foreach (var system in _systems)
+                {
+                    system.Update(
+                        systemUpdateContext,
+                        gameObjects);
+                }
+            }
+        }
+
+        private sealed class StartArgs
+        {
+            public StartArgs(CancellationToken cancellationToken)
+            {
+                CancellationToken = cancellationToken;
+            }
+
+            public CancellationToken CancellationToken { get; }
         }
     }
 
-    public interface IBehavior
+    public interface ISystemUpdateComponentCreator
     {
-        
+        IComponent CreateNext();
     }
 
-    public interface IHasEnchantments : IBehavior
+    public sealed class ElapsedTimeComponentCreator : ISystemUpdateComponentCreator
     {
-        IReadOnlyCollection<IEnchantment> Enchantments { get; }
+        private DateTime? _lastUpdateTime;
+
+        public IComponent CreateNext()
+        {
+            var elapsedMilliseconds = _lastUpdateTime.HasValue
+                ? (DateTime.UtcNow - _lastUpdateTime.Value).TotalMilliseconds
+                : 0;
+            _lastUpdateTime = DateTime.UtcNow;
+            var elapsedInterval = new Interval<double>(elapsedMilliseconds);
+
+            return new GenericComponent<IElapsedTime>(new ElapsedTime(elapsedInterval));
+        }
     }
 
-    public interface IBuffable : IBehavior
+    public sealed class Actor : IGameObject
     {
-        void AddEnchantments(IEnumerable<IEnchantment> enchantments);
-
-        void RemoveEnchantments(IEnumerable<IEnchantment> enchantments);
-    }
-
-    public sealed class HasEnchantments : IHasEnchantments
-    {
-        private readonly IActiveEnchantmentManager _activeEnchantmentManager;
-
-        public HasEnchantments(IActiveEnchantmentManager activeEnchantmentManager)
+        public Actor(
+            IHasEnchantments hasEnchantments,
+            IBuffable buffable,
+            IHasMutableStats hasStats)
         {
-            _activeEnchantmentManager = activeEnchantmentManager;
+            Behaviors = new IBehavior[]
+            {
+                hasEnchantments,
+                buffable,
+                hasStats,
+            };
         }
 
-        public IReadOnlyCollection<IEnchantment> Enchantments => _activeEnchantmentManager.Enchantments;
-    }
-
-    public sealed class Buffable : IBuffable
-    {
-        private readonly IActiveEnchantmentManager _activeEnchantmentManager;
-
-        public Buffable(IActiveEnchantmentManager activeEnchantmentManager)
-        {
-            _activeEnchantmentManager = activeEnchantmentManager;
-        }
-
-        public void AddEnchantments(IEnumerable<IEnchantment> enchantments)
-        {
-            _activeEnchantmentManager.Add(enchantments);
-        }
-
-        public void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
-        {
-            _activeEnchantmentManager.Remove(enchantments);
-        }
+        public IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

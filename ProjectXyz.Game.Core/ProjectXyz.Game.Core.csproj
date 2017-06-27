@@ -34,6 +34,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BehaviorFinder.cs" />
+    <Compile Include="Behaviors\HasEnchantments.cs" />
+    <Compile Include="Behaviors\HasMutableStats.cs" />
+    <Compile Include="Behaviors\HasStats.cs" />
+    <Compile Include="Behaviors\Buffable.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
     <Compile Include="Plugins\AssemblyPluginProviderFactory.cs" />
@@ -42,6 +47,9 @@
     <Compile Include="Stats\StatCalculationContext.cs" />
     <Compile Include="Stats\StatManager.cs" />
     <Compile Include="Stats\StatUpdater.cs" />
+    <Compile Include="Systems\ElapsedTime.cs" />
+    <Compile Include="Systems\StatUpdaterSystem.cs" />
+    <Compile Include="Systems\SystemUpdateContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.csproj">
@@ -105,6 +113,7 @@
       <Name>ProjectXyz.Plugins.Interface</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

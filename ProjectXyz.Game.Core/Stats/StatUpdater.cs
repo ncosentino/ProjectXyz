@@ -1,7 +1,8 @@
+using System;
+using System.Collections.Generic;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Framework.Interface;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.Stats
@@ -9,33 +10,31 @@ namespace ProjectXyz.Game.Core.Stats
     public sealed class StatUpdater : IStatUpdater
     {
         private readonly IEnchantmentApplier _enchantmentApplier;
-        private readonly IEnchantmentProvider _enchantmentProvider;
-        private readonly IMutableStatsProvider _mutableStatsProvider;
         private readonly IEnchantmentCalculatorContextFactory _enchantmentCalculatorContextFactory;
 
         public StatUpdater(
-            IMutableStatsProvider mutableStatsProvider,
-            IEnchantmentProvider enchantmentProvider,
             IEnchantmentApplier enchantmentApplier,
             IEnchantmentCalculatorContextFactory enchantmentCalculatorContextFactory)
         {
-            _mutableStatsProvider = mutableStatsProvider;
-            _enchantmentProvider = enchantmentProvider;
             _enchantmentApplier = enchantmentApplier;
             _enchantmentCalculatorContextFactory = enchantmentCalculatorContextFactory;
         }
 
-        public void Update(IInterval elapsed)
+        public void Update(
+            IReadOnlyDictionary<IIdentifier, double> baseStats,
+            IReadOnlyCollection<IEnchantment> enchantments,
+            Action<Action<IDictionary<IIdentifier, double>>> mutateStatsCallback,
+            IInterval elapsed)
         {
             var enchantmentCalculatorContext = _enchantmentCalculatorContextFactory.CreateEnchantmentCalculatorContext(
                 elapsed,
-                _enchantmentProvider.Enchantments);
+                enchantments);
 
             var updatedStats = _enchantmentApplier.ApplyEnchantments(
                 enchantmentCalculatorContext,
-                _mutableStatsProvider.Stats);
+                baseStats);
 
-            _mutableStatsProvider.UsingMutableStats(mutableStats =>
+            mutateStatsCallback(mutableStats =>
             {
                 foreach (var statToValueMapping in updatedStats)
                 {
