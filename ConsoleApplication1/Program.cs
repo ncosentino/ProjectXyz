@@ -8,10 +8,18 @@ using Jace;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Stats;
+using ProjectXyz.Api.Stats.Bounded;
 using ProjectXyz.Api.Stats.Calculations;
+using ProjectXyz.Api.Stats.Calculations.Plugins;
+using ProjectXyz.Api.Stats.Plugins;
 using ProjectXyz.Api.Triggering;
+using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Application.Core.Triggering;
+using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
+using ProjectXyz.Application.Enchantments.Interface.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface;
@@ -29,6 +37,12 @@ using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.Systems;
+using ProjectXyz.Plugins.Api;
+using ProjectXyz.Plugins.Core;
+using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
+using ProjectXyz.Plugins.Interface;
+using ProjectXyz.Plugins.Stats.Calculations.Bounded;
+using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 
 namespace ConsoleApplication1
 {
@@ -36,19 +50,41 @@ namespace ConsoleApplication1
     {
         public static void Main()
         {
-            var enchantmentTriggerMechanicRegistrars = new IEnchantmentTriggerMechanicRegistrar[0];
-            var triggerMechanicRegistrars = new ITriggerMechanicRegistrar[0];
-            var statDefinitionIdToTermMapping = new Dictionary<IIdentifier, string>();
             var statDefinitionIdToCalculationMapping = new Dictionary<IIdentifier, string>();
-            var statExpressionInterceptors = new IStatExpressionInterceptor[0];
-            var enchantmentExpressionInterceptorConverters = new IEnchantmentExpressionInterceptorConverter[0];
             var enchantmentCalculatorContextFactoryComponents = new IComponent[0];
 
-            var mutableStatsProvider = new MutableStatsProvider();
-            var triggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerMechanicRegistrars);
-            var activeEnchantmentManager = new ActiveEnchantmentManager(
-                triggerMechanicRegistrar,
-                enchantmentTriggerMechanicRegistrars);
+            var pluginLoaderResult = LoadPlugins();
+            var enchantmentExpressionInterceptorConverters = pluginLoaderResult
+                .Components
+                .TakeTypes<IComponent<IEnchantmentExpressionInterceptorConverter>>()
+                .Select(x => x.Value);
+            var statExpressionInterceptors = pluginLoaderResult
+                .Components
+                .TakeTypes<IComponent<IStatExpressionInterceptor>>()
+                .Select(x => x.Value);
+            var statDefinitionIdToTermMapping = pluginLoaderResult
+                .Components
+                .TakeTypes<IComponent<IStatDefinitionToTermMappingRepository>>()
+                .Single()
+                .Value
+                .GetStatDefinitionIdToTermMappings()
+                .ToDictionary(x => x.StateDefinitionId, x => x.Term);
+
+            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
+            foreach (var contextToExpressionInterceptorConverter in pluginLoaderResult
+                .Components
+                .TakeTypes<IComponent<IContextToExpressionInterceptorConverter>>()
+                .Select(x => x.Value))
+            {
+                contextToInterceptorsConverter.Register(contextToExpressionInterceptorConverter);
+            }
+
+            var elapsedTimeTriggerSourceMechanic = (IElapsedTimeTriggerSourceMechanic)pluginLoaderResult
+                .Components
+                .Get<IComponent<ITriggerSourceMechanic>>()
+                .First(x => x.Value is IElapsedTimeTriggerSourceMechanic)
+                .Value;
+
             var jaceCalculationEngine = new CalculationEngine();
             Func<string, double> calculateCallback = jaceCalculationEngine.Calculate;
             var stringExpressionEvaluator = new StringExpressionEvaluatorWrapper(new GenericExpressionEvaluator(calculateCallback), true);
@@ -64,24 +100,12 @@ namespace ConsoleApplication1
                 statCalculator,
                 statExpressionInterceptors,
                 enchantmentExpressionInterceptorConverters);
-            var contextToInterceptorsConverter = new ContextToInterceptorsConverter();
             var enchantmentCalculator = new EnchantmentCalculator(
                 enchantmentStatCalculator,
                 contextToInterceptorsConverter);
-            var statManager = new StatManager(
-                enchantmentCalculator,
-                mutableStatsProvider,
-                new ContextConverter(new Interval<int>(0)));
+
             var enchantmentApplier = new EnchantmentApplier(enchantmentCalculator);
             var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(enchantmentCalculatorContextFactoryComponents);
-
-            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
-            var buffable = new Buffable(activeEnchantmentManager);
-            var hasMutableStats = new HasMutableStats(mutableStatsProvider, statManager);
-            var actor = new Actor(
-                hasEnchantments,
-                buffable,
-                hasMutableStats);
 
             var statUpdater = new StatUpdater(
                 enchantmentApplier,
@@ -95,23 +119,105 @@ namespace ConsoleApplication1
 
             var cancellationTokenSource = new CancellationTokenSource();
             var engine = new Engine(
-                statUpdaterSystem.Yield(),
+                pluginLoaderResult.Components,
+                new ISystem[]
+                {
+                    statUpdaterSystem,
+                    new StatPrinterSystem(),
+                    new ElapsedTimeTriggerMechanicSystem(elapsedTimeTriggerSourceMechanic), 
+                },
                 elapsedTimeComponentCreator.Yield());
             engine.Start(cancellationTokenSource.Token);
 
+
             Console.ReadLine();
+
+            ////var value = hasMutableStats.Stats[new StringIdentifier("stat1")];
+        }
+
+        private static IPluginLoaderResult LoadPlugins()
+        {
+            var pluginArgs = new PluginArgs(new IComponent[]
+            {
+                new GenericComponent<IValueMapperRepository>(new ValueMapperRepository(new Interval<double>(1))),
+                ////new GenericComponent<IStatDefinitionIdToBoundsMappingRepository>(new StatDefinitionIdToBoundsMappingRepository(testData.Stats)),
+            });
+            var pluginTypes = new Type[]
+            {
+                typeof(StatsPlugin),
+                ////typeof(StatesPlugin),
+                typeof(ProjectXyz.Plugins.Triggers.Elapsed.Plugin),
+                typeof(ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.Plugin),
+                typeof(ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers.Plugin),
+                ////typeof(ProjectXyz.Plugins.Stats.Calculations.Bounded.Plugin),
+                typeof(ProjectXyz.Plugins.Enchantments.StatToTerm.Plugin),
+                typeof(ProjectXyz.Plugins.Enchantments.Calculations.Expressions.Plugin),
+                ////typeof(ProjectXyz.Plugins.Enchantments.Calculations.State.Plugin),
+
+            };
+            var pluginLoader = new PluginLoader();
+            var pluginLoaderResult = pluginLoader.LoadPlugins(
+               pluginArgs,
+               pluginTypes);
+            return pluginLoaderResult;
+        }
+    }
+
+    public sealed class StatsPlugin : IStatPlugin
+    {
+        public StatsPlugin(IPluginArgs pluginArgs)
+        {
+            SharedComponents = new ComponentCollection(new[]
+            {
+                new GenericComponent<IStatDefinitionToTermMappingRepository>(new StatDefinitionToTermMappingRepo()),
+            });
+        }
+
+        public IComponentCollection SharedComponents { get; }
+
+        private sealed class StatDefinitionToTermMappingRepo : IStatDefinitionToTermMappingRepository
+        {
+            public IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings()
+            {
+                yield return new StatDefinitionToTermMapping() { StateDefinitionId = new StringIdentifier("stat1"), Term = "stat1" };
+            }
+
+            private sealed class StatDefinitionToTermMapping : IStatDefinitionToTermMapping
+            {
+                public IIdentifier StateDefinitionId { get; set; }
+
+                public string Term { get; set; }
+            }
+        }
+    }
+
+    public sealed class ValueMapperRepository : IValueMapperRepository
+    {
+        private readonly IInterval _unitInterval;
+
+        public ValueMapperRepository(IInterval unitInterval)
+        {
+            _unitInterval = unitInterval;
+        }
+
+        public IEnumerable<ValueMapperDelegate> GetValueMappers()
+        {
+            yield break;
         }
     }
 
     public sealed class Engine
     {
+        private readonly IComponentCollection _loadedGameComponents;
         private readonly IReadOnlyCollection<ISystem> _systems;
         private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
 
         public Engine(
+            IEnumerable<IComponent> loadedGameComponents,
             IEnumerable<ISystem> systems,
             IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators)
         {
+            _loadedGameComponents = new ComponentCollection(loadedGameComponents);
             _systems = systems.ToArray();
             _systemUpdateComponentCreators = systemUpdateComponentCreators.ToArray();
         }
@@ -130,6 +236,7 @@ namespace ConsoleApplication1
             var cancellationToken = startArgs.CancellationToken;
 
             var gameObjects = new List<IGameObject>();
+            gameObjects.Add(CreateActor(_loadedGameComponents));
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -154,6 +261,53 @@ namespace ConsoleApplication1
 
             public CancellationToken CancellationToken { get; }
         }
+
+
+
+
+
+
+
+
+
+
+        private Actor CreateActor(IComponentCollection loadedGameComponents)
+        {
+            var enchantmentTriggerMechanicRegistrars = loadedGameComponents
+                .TakeTypes<IComponent<IEnchantmentTriggerMechanicRegistrar>>()
+                .Select(x => x.Value);
+            var triggerMechanicRegistrars = loadedGameComponents
+                .TakeTypes<IComponent<ITriggerMechanicRegistrar>>()
+                .Select(x => x.Value);
+
+            var mutableStatsProvider = new MutableStatsProvider();
+            var triggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerMechanicRegistrars);
+            var activeEnchantmentManager = new ActiveEnchantmentManager(
+                triggerMechanicRegistrar,
+                enchantmentTriggerMechanicRegistrars);
+
+            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+            var buffable = new Buffable(activeEnchantmentManager);
+            var hasMutableStats = new HasMutableStats(mutableStatsProvider);
+            var actor = new Actor(
+                hasEnchantments,
+                buffable,
+                hasMutableStats);
+
+            buffable.AddEnchantments(new IEnchantment[]
+            {
+                new Enchantment(
+                    new StringIdentifier("stat1"),
+                    new IComponent[]
+                    {
+                        new EnchantmentExpressionComponent(new CalculationPriority<int>(1), "stat1 + 1"),
+                        new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
+                    }),
+            });
+
+
+            return actor;
+        }
     }
 
     public interface ISystemUpdateComponentCreator
@@ -174,6 +328,46 @@ namespace ConsoleApplication1
             var elapsedInterval = new Interval<double>(elapsedMilliseconds);
 
             return new GenericComponent<IElapsedTime>(new ElapsedTime(elapsedInterval));
+        }
+    }
+
+    public sealed class StatPrinterSystem : ISystem
+    {
+        private readonly IBehaviorFinder _behaviorFinder = new BehaviorFinder();
+
+        public void Update(ISystemUpdateContext systemUpdateContext, IEnumerable<IHasBehaviors> hasBehaviors)
+        {
+            foreach (var hasBehavior in hasBehaviors)
+            {
+                Tuple<IHasStats> behaviours;
+                if (!_behaviorFinder.TryFind(hasBehavior, out behaviours))
+                {
+                    continue;
+                }
+
+                Console.WriteLine($"Stat 1: {behaviours.Item1.Stats[new StringIdentifier("stat1")]}");
+            }
+        }
+    }
+
+    public sealed class ElapsedTimeTriggerMechanicSystem : ISystem
+    {
+        private readonly IElapsedTimeTriggerSourceMechanic _elapsedTimeTriggerSourceMechanic;
+
+        public ElapsedTimeTriggerMechanicSystem(IElapsedTimeTriggerSourceMechanic elapsedTimeTriggerSourceMechanic)
+        {
+            _elapsedTimeTriggerSourceMechanic = elapsedTimeTriggerSourceMechanic;
+        }
+
+        public void Update(
+            ISystemUpdateContext systemUpdateContext,
+            IEnumerable<IHasBehaviors> hasBehaviors)
+        {
+            var elapsed = systemUpdateContext
+                .GetFirst<IComponent<IElapsedTime>>()
+                .Value
+                .Interval;
+            _elapsedTimeTriggerSourceMechanic.Update(elapsed);
         }
     }
 

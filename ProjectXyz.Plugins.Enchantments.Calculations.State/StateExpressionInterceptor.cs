@@ -11,19 +11,13 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
     {
         private readonly IStateContextProvider _stateContextProvider;
         private readonly IStateValueInjector _stateValueInjector;
-        private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> _statDefinitionToComponentMapping;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
 
         public StateExpressionInterceptor(
             IStateValueInjector stateValueInjector,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
-            IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> statDefinitionToComponentMapping,
             IStateContextProvider stateContextProvider,
             int priority)
         {
             _stateValueInjector = stateValueInjector;
-            _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
-            _statDefinitionToComponentMapping = statDefinitionToComponentMapping;
             _stateContextProvider = stateContextProvider;
             Priority = priority;
         }
@@ -34,17 +28,6 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
             IIdentifier statDefinitionId,
             string expression)
         {
-            var applicableEnchantments = _statDefinitionToComponentMapping.GetValueOrDefault(
-                statDefinitionId,
-                () => new IEnchantmentExpressionComponent[0]);
-
-            var term = _statDefinitionIdToTermMapping[statDefinitionId];
-
-            expression = applicableEnchantments.Aggregate(
-                expression,
-                (current, enchantment) => enchantment.Expression.Replace(
-                    term,
-                    $"({current})"));
             expression = _stateValueInjector.Inject(
                 _stateContextProvider,
                 expression);

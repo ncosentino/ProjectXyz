@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B0DC326-68AF-47A8-991F-64D70D1D6D2E}</ProjectGuid>
+    <ProjectGuid>{566FADA1-BCBC-41E4-9327-64214A1A6D30}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Core</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Core</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Enchantments.StatToTerm</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Enchantments.StatToTerm</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,19 +32,32 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyPluginRepositoryFactory.cs" />
-    <Compile Include="PluginArgs.cs" />
-    <Compile Include="PluginLoader.cs" />
-    <Compile Include="PluginLoaderResult.cs" />
-    <Compile Include="PluginProvider.cs" />
-    <Compile Include="DirectoryScanPluginRepository.cs" />
+    <Compile Include="ContextToExpressionInterceptorConverter.cs" />
+    <Compile Include="IStatToTermExpressionInterceptorFactory.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="StatToTermExpressionInterceptorFactory.cs" />
+    <Compile Include="StatToTermExpressionInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats\ProjectXyz.Api.Stats.csproj">
+      <Project>{A3B8D906-34C9-4395-9D19-B1C8355BA5E7}</Project>
+      <Name>ProjectXyz.Api.Stats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
+      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
+      <Name>ProjectXyz.Api.Enchantments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
-      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
+      <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
@@ -59,9 +72,9 @@
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
-      <Project>{1D313FC4-7092-48DF-A266-002045ABAB3A}</Project>
-      <Name>ProjectXyz.Plugins.Interface</Name>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Api\ProjectXyz.Api.Enchantments.Plugins.csproj">
+      <Project>{029EF2B5-F54E-4051-B62A-DE231E322BC1}</Project>
+      <Name>ProjectXyz.Api.Enchantments.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

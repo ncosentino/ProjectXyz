@@ -34,11 +34,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPluginLoader.cs" />
+    <Compile Include="IPluginLoaderResult.cs" />
     <Compile Include="IPluginProvider.cs" />
     <Compile Include="IPluginRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
+      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
+      <Name>ProjectXyz.Framework.Entities.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
       <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
       <Name>ProjectXyz.Plugins.Api</Name>

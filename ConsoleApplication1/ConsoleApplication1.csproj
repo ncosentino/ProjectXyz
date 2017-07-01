@@ -49,25 +49,57 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins.csproj">
+      <Project>{f103b384-de12-4947-9a2a-645b5b181bc3}</Project>
+      <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.csproj">
       <Project>{2c772806-3c50-468c-8a13-cfa42592322a}</Project>
       <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndStats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.Plugins\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.Plugins.csproj">
+      <Project>{016c3963-45b4-4951-99ce-8ae6d1f7fb1f}</Project>
+      <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers.csproj">
       <Project>{D983C81B-5E86-4D85-83F9-487032C91765}</Project>
       <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.States.Plugins\ProjectXyz.Api.States.Plugins.csproj">
+      <Project>{0f88e846-8a78-4f25-8494-aac9c8efb837}</Project>
+      <Name>ProjectXyz.Api.States.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
       <Project>{3456b356-20d3-43ce-92d1-1a84383afaf2}</Project>
       <Name>ProjectXyz.Api.States</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Api.Stats.Bounded.csproj">
+      <Project>{de382cf7-d84e-4a89-9c6d-3f2a7729b40c}</Project>
+      <Name>ProjectXyz.Api.Stats.Bounded</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations.Plugins\ProjectXyz.Api.Stats.Calculations.Plugins.csproj">
+      <Project>{7fe10253-fb8c-4d94-baa4-1569c7d38b2f}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations.Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4e6b441b-337a-4987-a50e-ce203d4929c1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Plugins\ProjectXyz.Api.Stats.Plugins.csproj">
+      <Project>{0370f1b5-e4e6-4355-b7c8-6dc510c1efd0}</Project>
+      <Name>ProjectXyz.Api.Stats.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats\ProjectXyz.Api.Stats.csproj">
       <Project>{a3b8d906-34c9-4395-9d19-b1c8355ba5e7}</Project>
       <Name>ProjectXyz.Api.Stats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Api.Triggering.Elapsed.csproj">
+      <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
+      <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Plugins\ProjectXyz.Api.Triggering.Plugins.csproj">
+      <Project>{fad3df39-7750-4e32-a46e-0ac6159af0ca}</Project>
+      <Name>ProjectXyz.Api.Triggering.Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
       <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
@@ -124,6 +156,58 @@
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
+      <Project>{63884a0b-6975-4811-ae50-0ee01139550b}</Project>
+      <Name>ProjectXyz.Plugins.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
+      <Project>{1B0DC326-68AF-47A8-991F-64D70D1D6D2E}</Project>
+      <Name>ProjectXyz.Plugins.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.csproj">
+      <Project>{bf07fb51-d73c-49b7-8632-b2a58f9bf17f}</Project>
+      <Name>ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers.csproj">
+      <Project>{b558ec5b-b983-4701-845f-00f7109a2cf9}</Project>
+      <Name>ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Api\ProjectXyz.Api.Enchantments.Plugins.csproj">
+      <Project>{029ef2b5-f54e-4051-b62a-de231e322bc1}</Project>
+      <Name>ProjectXyz.Api.Enchantments.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Enchantments.Expressions.csproj">
+      <Project>{d3de6090-306a-4c84-8ccb-86bbd50d7885}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.Expressions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj">
+      <Project>{c8d2af3c-c4c1-4d21-9e2c-1e56ba103b9a}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.Multiple</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.State\ProjectXyz.Plugins.Enchantments.State.csproj">
+      <Project>{18e59339-25ca-46bf-b6fa-8d992a303050}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.State</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj">
+      <Project>{566fada1-bcbc-41e4-9327-64214a1a6d30}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.StatToTerm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
+      <Project>{1d313fc4-7092-48df-a266-002045abab3a}</Project>
+      <Name>ProjectXyz.Plugins.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Plugins.States.Simple.csproj">
+      <Project>{9abfcbe9-d6f9-4c9e-b447-6a8f49a5a939}</Project>
+      <Name>ProjectXyz.Plugins.States.Simple</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Stats.Calculations.Bounded.csproj">
+      <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
+      <Name>ProjectXyz.Plugins.Stats.Calculations.Bounded</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Elapsed\ProjectXyz.Plugins.Triggers.Elapsed.csproj">
+      <Project>{b38223e4-8d33-4b80-ac15-2f715578b619}</Project>
+      <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

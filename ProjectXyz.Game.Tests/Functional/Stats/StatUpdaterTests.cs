@@ -38,6 +38,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.ZeroInterval, 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Multiply(2), 20 };
         }
         #endregion
 
@@ -51,14 +52,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         {
             // Setup
             var mutableStatsProvider = new MutableStatsProvider();
-
-            var statManager = new StatManager(
-                _fixture.EnchantmentCalculator,
-                mutableStatsProvider,
-                new ContextConverter(TEST_DATA.ZeroInterval));
-            var hasMutableStats = new HasMutableStats(
-                mutableStatsProvider,
-                statManager);
+            var hasMutableStats = new HasMutableStats(mutableStatsProvider);
             var hasEnchantments = new HasEnchantments(_fixture.ActiveEnchantmentManager);
 
             var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(new[]
@@ -73,7 +67,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             _fixture.ActiveEnchantmentManager.Add(enchantment);
 
             var elapsedTimeTriggerMechanic = new ElapsedTimeTriggerMechanic((_, x) => statUpdater.Update(
-                hasMutableStats.BaseStats,
+                hasMutableStats.Stats,
                 hasEnchantments.Enchantments,
                 hasMutableStats.MutateStats,
                 x.Elapsed));

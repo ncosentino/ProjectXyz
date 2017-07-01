@@ -24,12 +24,9 @@ using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Enchantments;
-using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Interface.Enchantments;
-using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData.States;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
-using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Core;
 using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 using ProjectXyz.Plugins.Triggers.Elapsed;
@@ -54,6 +51,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
                 typeof(Plugins.DomainConversion.EnchantmentsAndStats.Plugin),
                 typeof(Plugins.DomainConversion.EnchantmentsAndTriggers.Plugin),
                 typeof(Plugins.Stats.Calculations.Bounded.Plugin),
+                typeof(Plugins.Enchantments.StatToTerm.Plugin),
                 typeof(Plugins.Enchantments.Calculations.Expressions.Plugin),
                 typeof(Plugins.Enchantments.Calculations.State.Plugin),
 
@@ -167,59 +165,6 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         #endregion
     }
 
-    public sealed class PluginLoader
-    {
-        public PluginLoaderResult LoadPlugins(
-            IPluginArgs pluginArgs,
-            IEnumerable<Type> pluginTypes)
-        {
-            var plugins = new List<IPlugin>();
-
-            foreach (var pluginType in pluginTypes)
-            {
-                IPlugin plugin;
-                try
-                {
-                    plugin = (IPlugin)pluginType
-                        .GetConstructors()
-                        .Single()
-                        .Invoke(new object[] { pluginArgs });
-                    ////plugin = (IPlugin)Activator.CreateInstance(
-                    ////    pluginType,
-                    ////    BindingFlags.Public | BindingFlags.CreateInstance,
-                    ////    null,
-                    ////    new object[] { pluginArgs });
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-
-                plugins.Add(plugin);
-
-                pluginArgs = new PluginArgs(pluginArgs.Components.Concat(plugin.SharedComponents));
-            }
-
-            return new PluginLoaderResult(
-                plugins,
-                pluginArgs.Components);
-        }
-    }
-
-    public sealed class PluginLoaderResult
-    {
-        public PluginLoaderResult(
-            IEnumerable<IPlugin> plugins,
-            IEnumerable<IComponent> components)
-        {
-            Plugins = plugins.ToArray();
-            Components = new ComponentCollection(components);
-        }
-
-        public IReadOnlyCollection<IPlugin> Plugins { get; }
-
-        public IComponentCollection Components { get; }
-    }
 
     public sealed class ValueMapperRepository : IValueMapperRepository
     {

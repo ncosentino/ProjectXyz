@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Core
         #endregion
 
         #region Constructors
-        public PluginProvider(IReadOnlyCollection<IPluginRepository> pluginRepositories)
+        public PluginProvider(IEnumerable<IPluginRepository> pluginRepositories)
         {
             _pluginRepositories = new Dictionary<Type, IPluginRepository>();
 
