@@ -10,9 +10,7 @@ using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Stats.Bounded;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Api.Stats.Calculations.Plugins;
 using ProjectXyz.Api.Stats.Plugins;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Api.Triggering.Elapsed;
@@ -43,7 +41,6 @@ using ProjectXyz.Plugins.Api;
 using ProjectXyz.Plugins.Core;
 using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 using ProjectXyz.Plugins.Interface;
-using ProjectXyz.Plugins.Stats.Calculations.Bounded;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 
 namespace ConsoleApplication1
@@ -81,10 +78,9 @@ namespace ConsoleApplication1
                 contextToInterceptorsConverter.Register(contextToExpressionInterceptorConverter);
             }
 
-            var elapsedTimeTriggerSourceMechanic = (IElapsedTimeTriggerSourceMechanic)pluginLoaderResult
+            var elapsedTimeTriggerSourceMechanic = pluginLoaderResult
                 .Components
-                .Get<IComponent<ITriggerSourceMechanic>>()
-                .First(x => x.Value is IElapsedTimeTriggerSourceMechanic)
+                .GetFirst<IComponent<IElapsedTimeTriggerSourceMechanic>>()
                 .Value;
 
             var jaceCalculationEngine = new CalculationEngine();

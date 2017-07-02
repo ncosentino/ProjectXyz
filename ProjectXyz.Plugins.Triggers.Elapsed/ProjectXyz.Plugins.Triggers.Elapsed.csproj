@@ -39,7 +39,8 @@
     <Compile Include="Duration\DurationTriggerMechanicFactory.cs" />
     <Compile Include="ElapsedTimeTriggerComponent.cs" />
     <Compile Include="ElapsedTimeTriggerMechanic.cs" />
-    <Compile Include="ElapsedTimeTriggerSourceMechanic.cs" />
+    <Compile Include="ElapsedTimeTriggerSourceMechanicRegistrar.cs" />
+    <Compile Include="IElapsedTimeTriggerSourceMechanicRegistrar.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

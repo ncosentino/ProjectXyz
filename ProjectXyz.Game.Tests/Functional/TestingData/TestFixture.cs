@@ -130,7 +130,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
                 .TakeTypes<IComponent<ITriggerMechanicRegistrar>>()
                 .Select(x => x.Value);
 
-            ElapsedTimeTriggerSourceMechanic = (ElapsedTimeTriggerSourceMechanic)triggerSourceMechanics.Single();
+            ElapsedTimeTriggerSourceMechanic = (ElapsedTimeTriggerSourceMechanicRegistrar)triggerSourceMechanics.Single();
 
             TriggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerSourceMechanicRegistrars);
 
@@ -153,7 +153,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         #region Properties
         public ITriggerMechanicRegistrar TriggerMechanicRegistrar { get; }
 
-        public ElapsedTimeTriggerSourceMechanic ElapsedTimeTriggerSourceMechanic { get; }
+        public ElapsedTimeTriggerSourceMechanicRegistrar ElapsedTimeTriggerSourceMechanic { get; }
 
         public IActiveEnchantmentManager ActiveEnchantmentManager { get; }
 
