@@ -193,6 +193,10 @@
       <Project>{566fada1-bcbc-41e4-9327-64214a1a6d30}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.StatToTerm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.ValueMapping\ProjectXyz.Plugins.Enchantments.ValueMapping.csproj">
+      <Project>{05c8e161-cca5-47d2-83b3-9e0865170ce6}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.ValueMapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
       <Project>{1d313fc4-7092-48df-a266-002045abab3a}</Project>
       <Name>ProjectXyz.Plugins.Interface</Name>

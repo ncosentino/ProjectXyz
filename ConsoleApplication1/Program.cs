@@ -139,11 +139,11 @@ namespace ConsoleApplication1
         {
             var pluginArgs = new PluginArgs(new IComponent[]
             {
-                new GenericComponent<IValueMapperRepository>(new ValueMapperRepository(new Interval<double>(1))),
                 ////new GenericComponent<IStatDefinitionIdToBoundsMappingRepository>(new StatDefinitionIdToBoundsMappingRepository(testData.Stats)),
             });
             var pluginTypes = new Type[]
             {
+                typeof(ProjectXyz.Plugins.Enchantments.ValueMapping.Plugin),
                 typeof(StatsPlugin),
                 ////typeof(StatesPlugin),
                 typeof(ProjectXyz.Plugins.Triggers.Elapsed.Plugin),
@@ -226,21 +226,6 @@ namespace ConsoleApplication1
 
                 public string Term { get; set; }
             }
-        }
-    }
-
-    public sealed class ValueMapperRepository : IValueMapperRepository
-    {
-        private readonly IInterval _unitInterval;
-
-        public ValueMapperRepository(IInterval unitInterval)
-        {
-            _unitInterval = unitInterval;
-        }
-
-        public IEnumerable<ValueMapperDelegate> GetValueMappers()
-        {
-            yield break;
         }
     }
 

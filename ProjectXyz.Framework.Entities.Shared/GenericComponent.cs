@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectXyz.Framework.Entities.Interface;
+﻿using ProjectXyz.Framework.Entities.Interface;
 
 namespace ProjectXyz.Framework.Entities.Shared
 {
@@ -15,5 +10,13 @@ namespace ProjectXyz.Framework.Entities.Shared
         }
 
         public T Value { get; }
+    }
+
+    public static class GenericComponent
+    {
+        public static IComponent<T> Create<T>(T wrapped)
+        {
+            return new GenericComponent<T>(wrapped);
+        }
     }
 }
