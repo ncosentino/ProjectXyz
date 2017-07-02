@@ -42,7 +42,10 @@
     <Compile Include="Behaviors\IHasStats.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\IEnchantmentProvider.cs" />
+    <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="GameObjects\IGameObject.cs" />
+    <Compile Include="GameObjects\IGameObjectManager.cs" />
+    <Compile Include="GameObjects\IMutableGameObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\IStatCalculationContext.cs" />
     <Compile Include="Stats\IStatManager.cs" />
@@ -50,6 +53,7 @@
     <Compile Include="Behaviors\IBehaviorFinder.cs" />
     <Compile Include="Systems\IElapsedTime.cs" />
     <Compile Include="Systems\ISystem.cs" />
+    <Compile Include="Systems\ISystemUpdateComponentCreator.cs" />
     <Compile Include="Systems\ISystemUpdateContext.cs" />
   </ItemGroup>
   <ItemGroup>

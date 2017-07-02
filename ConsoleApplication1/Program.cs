@@ -31,6 +31,8 @@ using ProjectXyz.Framework.Shared;
 using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Enchantments;
+using ProjectXyz.Game.Core.Engine;
+using ProjectXyz.Game.Core.GameObjects;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Core.Systems;
 using ProjectXyz.Game.Interface.Behaviors;
@@ -117,22 +119,24 @@ namespace ConsoleApplication1
 
             var elapsedTimeComponentCreator = new ElapsedTimeComponentCreator();
 
+            var gameObjectManager = new GameObjectManager();
+
             var cancellationTokenSource = new CancellationTokenSource();
-            var engine = new Engine(
-                pluginLoaderResult.Components,
+            var gameEngine = new GameEngine(
+                gameObjectManager,
                 new ISystem[]
                 {
+                    new GameObjectManagerSystem(gameObjectManager), 
                     statUpdaterSystem,
                     new StatPrinterSystem(),
                     new ElapsedTimeTriggerMechanicSystem(elapsedTimeTriggerSourceMechanic), 
                 },
                 elapsedTimeComponentCreator.Yield());
-            engine.Start(cancellationTokenSource.Token);
+            gameEngine.Start(cancellationTokenSource.Token);
 
+            gameObjectManager.MarkForAddition(CreateActor(pluginLoaderResult.Components));
 
             Console.ReadLine();
-
-            ////var value = hasMutableStats.Stats[new StringIdentifier("stat1")];
         }
 
         private static IPluginLoaderResult LoadPlugins()
@@ -160,6 +164,44 @@ namespace ConsoleApplication1
                pluginArgs,
                pluginTypes);
             return pluginLoaderResult;
+        }
+
+        private static Actor CreateActor(IComponentCollection loadedGameComponents)
+        {
+            var enchantmentTriggerMechanicRegistrars = loadedGameComponents
+                .TakeTypes<IComponent<IEnchantmentTriggerMechanicRegistrar>>()
+                .Select(x => x.Value);
+            var triggerMechanicRegistrars = loadedGameComponents
+                .TakeTypes<IComponent<ITriggerMechanicRegistrar>>()
+                .Select(x => x.Value);
+
+            var mutableStatsProvider = new MutableStatsProvider();
+            var triggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerMechanicRegistrars);
+            var activeEnchantmentManager = new ActiveEnchantmentManager(
+                triggerMechanicRegistrar,
+                enchantmentTriggerMechanicRegistrars);
+
+            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+            var buffable = new Buffable(activeEnchantmentManager);
+            var hasMutableStats = new HasMutableStats(mutableStatsProvider);
+            var actor = new Actor(
+                hasEnchantments,
+                buffable,
+                hasMutableStats);
+
+            buffable.AddEnchantments(new IEnchantment[]
+            {
+                new Enchantment(
+                    new StringIdentifier("stat1"),
+                    new IComponent[]
+                    {
+                        new EnchantmentExpressionComponent(new CalculationPriority<int>(1), "stat1 + 1"),
+                        new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
+                    }),
+            });
+
+
+            return actor;
         }
     }
 
@@ -206,114 +248,16 @@ namespace ConsoleApplication1
         }
     }
 
-    public sealed class Engine
-    {
-        private readonly IComponentCollection _loadedGameComponents;
-        private readonly IReadOnlyCollection<ISystem> _systems;
-        private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
 
-        public Engine(
-            IEnumerable<IComponent> loadedGameComponents,
-            IEnumerable<ISystem> systems,
-            IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators)
-        {
-            _loadedGameComponents = new ComponentCollection(loadedGameComponents);
-            _systems = systems.ToArray();
-            _systemUpdateComponentCreators = systemUpdateComponentCreators.ToArray();
-        }
 
-        public async Task Start(CancellationToken cancellationToken)
-        {
-            await Task.Factory.StartNew(
-                GameLoop,
-                new StartArgs(cancellationToken),
-                cancellationToken);
-        }
-
-        private void GameLoop(object args)
-        {
-            var startArgs = (StartArgs)args;
-            var cancellationToken = startArgs.CancellationToken;
-
-            var gameObjects = new List<IGameObject>();
-            gameObjects.Add(CreateActor(_loadedGameComponents));
-
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                var systemUpdateComponents = _systemUpdateComponentCreators.Select(x => x.CreateNext());
-                var systemUpdateContext = new SystemUpdateContext(systemUpdateComponents);
-
-                foreach (var system in _systems)
-                {
-                    system.Update(
-                        systemUpdateContext,
-                        gameObjects);
-                }
-            }
-        }
-
-        private sealed class StartArgs
-        {
-            public StartArgs(CancellationToken cancellationToken)
-            {
-                CancellationToken = cancellationToken;
-            }
-
-            public CancellationToken CancellationToken { get; }
-        }
+    
 
 
 
 
+    
 
 
-
-
-
-
-        private Actor CreateActor(IComponentCollection loadedGameComponents)
-        {
-            var enchantmentTriggerMechanicRegistrars = loadedGameComponents
-                .TakeTypes<IComponent<IEnchantmentTriggerMechanicRegistrar>>()
-                .Select(x => x.Value);
-            var triggerMechanicRegistrars = loadedGameComponents
-                .TakeTypes<IComponent<ITriggerMechanicRegistrar>>()
-                .Select(x => x.Value);
-
-            var mutableStatsProvider = new MutableStatsProvider();
-            var triggerMechanicRegistrar = new TriggerMechanicRegistrar(triggerMechanicRegistrars);
-            var activeEnchantmentManager = new ActiveEnchantmentManager(
-                triggerMechanicRegistrar,
-                enchantmentTriggerMechanicRegistrars);
-
-            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
-            var buffable = new Buffable(activeEnchantmentManager);
-            var hasMutableStats = new HasMutableStats(mutableStatsProvider);
-            var actor = new Actor(
-                hasEnchantments,
-                buffable,
-                hasMutableStats);
-
-            buffable.AddEnchantments(new IEnchantment[]
-            {
-                new Enchantment(
-                    new StringIdentifier("stat1"),
-                    new IComponent[]
-                    {
-                        new EnchantmentExpressionComponent(new CalculationPriority<int>(1), "stat1 + 1"),
-                        new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
-                    }),
-            });
-
-
-            return actor;
-        }
-    }
-
-    public interface ISystemUpdateComponentCreator
-    {
-        IComponent CreateNext();
-    }
 
     public sealed class ElapsedTimeComponentCreator : ISystemUpdateComponentCreator
     {
@@ -370,6 +314,8 @@ namespace ConsoleApplication1
             _elapsedTimeTriggerSourceMechanic.Update(elapsed);
         }
     }
+
+
 
     public sealed class Actor : IGameObject
     {

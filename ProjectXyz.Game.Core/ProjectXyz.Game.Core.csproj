@@ -41,6 +41,8 @@
     <Compile Include="Behaviors\Buffable.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
+    <Compile Include="Engine\GameEngine.cs" />
+    <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Plugins\AssemblyPluginProviderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\ContextConverter.cs" />
@@ -48,6 +50,7 @@
     <Compile Include="Stats\StatManager.cs" />
     <Compile Include="Stats\StatUpdater.cs" />
     <Compile Include="Systems\ElapsedTime.cs" />
+    <Compile Include="Systems\GameObjectManagerSystem.cs" />
     <Compile Include="Systems\StatUpdaterSystem.cs" />
     <Compile Include="Systems\SystemUpdateContext.cs" />
   </ItemGroup>
