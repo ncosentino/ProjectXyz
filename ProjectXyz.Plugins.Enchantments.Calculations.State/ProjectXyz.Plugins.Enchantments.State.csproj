@@ -31,15 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autofac\DepencencyModule.cs" />
+    <Compile Include="Autofac\SharedComponentsModule.cs" />
     <Compile Include="ConstantValueStateContext.cs" />
     <Compile Include="ContextToExpressionInterceptorConverter.cs" />
     <Compile Include="IStateExpressionInterceptorFactory.cs" />
     <Compile Include="IStateValueInjector.cs" />
-    <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateExpressionInterceptor.cs" />
     <Compile Include="StateExpressionInterceptorFactory.cs" />
@@ -58,22 +63,13 @@
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
-      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
-      <Name>ProjectXyz.Framework.Entities.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
-      <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
-      <Name>ProjectXyz.Plugins.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Api\ProjectXyz.Api.Enchantments.Plugins.csproj">
-      <Project>{029EF2B5-F54E-4051-B62A-DE231E322BC1}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Plugins</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

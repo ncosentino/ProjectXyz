@@ -30,11 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Plugin.cs" />
+    <Compile Include="Autofac\DepencencyModule.cs" />
+    <Compile Include="Autofac\SharedComponentsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatBoundsExpressionInterceptor.cs" />
   </ItemGroup>
@@ -43,30 +48,17 @@
       <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
       <Name>ProjectXyz.Api.Stats.Bounded</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations.Plugins\ProjectXyz.Api.Stats.Calculations.Plugins.csproj">
-      <Project>{7FE10253-FB8C-4D94-BAA4-1569C7D38B2F}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
-      <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
-      <Name>ProjectXyz.Framework.Entities.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
-      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
-      <Name>ProjectXyz.Framework.Entities.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
-      <Project>{63884A0B-6975-4811-AE50-0EE01139550B}</Project>
-      <Name>ProjectXyz.Plugins.Api</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -43,7 +43,6 @@
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
-    <Compile Include="Plugins\AssemblyPluginProviderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\ContextConverter.cs" />
     <Compile Include="Stats\StatCalculationContext.cs" />
@@ -102,18 +101,6 @@
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Api\ProjectXyz.Plugins.Api.csproj">
-      <Project>{63884a0b-6975-4811-ae50-0ee01139550b}</Project>
-      <Name>ProjectXyz.Plugins.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Core\ProjectXyz.Plugins.Core.csproj">
-      <Project>{1B0DC326-68AF-47A8-991F-64D70D1D6D2E}</Project>
-      <Name>ProjectXyz.Plugins.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Interface\ProjectXyz.Plugins.Interface.csproj">
-      <Project>{1D313FC4-7092-48DF-A266-002045ABAB3A}</Project>
-      <Name>ProjectXyz.Plugins.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

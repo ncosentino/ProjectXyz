@@ -39,9 +39,9 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
     {
         private readonly StatInfo _statInfo;
 
-        public StatDefinitionIdToBoundsMappingRepository(StatInfo statInfo)
+        public StatDefinitionIdToBoundsMappingRepository(TestData testData)
         {
-            _statInfo = statInfo;
+            _statInfo = testData.Stats;
         }
 
         public IEnumerable<IStatDefinitionIdToBoundsMapping> GetStatDefinitionIdToBoundsMappings()

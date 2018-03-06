@@ -39,7 +39,6 @@
     <Compile Include="Calculations\IStatCalculationNodeCreator.cs" />
     <Compile Include="Calculations\IStatCalculationNodeFactory.cs" />
     <Compile Include="Calculations\IStatCalculationNodeFactoryExtensions.cs" />
-    <Compile Include="Calculations\IStatCalculator.cs" />
     <Compile Include="Calculations\IStringExpressionEvaluator.cs" />
     <Compile Include="IMutableStatsProvider.cs" />
     <Compile Include="IStat.cs" />

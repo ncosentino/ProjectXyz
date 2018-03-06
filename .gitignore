@@ -4,3 +4,4 @@
 *.bak
 *.cache
 _ReSharper*/
+/packages/*
