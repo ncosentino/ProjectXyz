@@ -30,12 +30,12 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #region Methods
         public static IEnumerable<object[]> GetSingleEnchantmentTheoryData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, new Interval<double>(0), true };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, new Interval<double>(10), true };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, new Interval<double>(0), true };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, new Interval<double>(5), true };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, new Interval<double>(10), false };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, new Interval<double>(11), false };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(0), true };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(10), true };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(0), true };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(5), true };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(10), false };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(11), false };
         }
         #endregion
 

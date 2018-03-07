@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats

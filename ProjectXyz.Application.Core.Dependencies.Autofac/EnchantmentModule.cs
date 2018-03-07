@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac

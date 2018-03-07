@@ -42,6 +42,7 @@
     <Compile Include="Calculations\IEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Calculations\IValueMapperRepository.cs" />
     <Compile Include="Calculations\ValueMapperDelegate.cs" />
+    <Compile Include="Calculations\IAppliesToBaseStat.cs" />
     <Compile Include="IEnchantment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

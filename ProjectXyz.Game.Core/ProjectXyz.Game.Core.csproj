@@ -45,8 +45,10 @@
     <Compile Include="GameObjects\GameObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\ContextConverter.cs" />
+    <Compile Include="Stats\IStatCalculationContextExtensions.cs" />
     <Compile Include="Stats\StatCalculationContext.cs" />
     <Compile Include="Stats\StatManager.cs" />
+    <Compile Include="Stats\StatManagerFactory.cs" />
     <Compile Include="Stats\StatUpdater.cs" />
     <Compile Include="Systems\ElapsedTime.cs" />
     <Compile Include="Systems\GameObjectManagerSystem.cs" />

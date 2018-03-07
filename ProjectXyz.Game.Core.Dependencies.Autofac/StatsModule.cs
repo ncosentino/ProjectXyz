@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Shared;
 using ProjectXyz.Game.Core.Stats;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
@@ -13,7 +14,14 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
                 .RegisterType<StatUpdater>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            
+            builder
+                .Register(x => new ContextConverter(new Interval<double>(0)))
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<StatManagerFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

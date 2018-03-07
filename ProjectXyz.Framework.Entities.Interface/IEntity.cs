@@ -12,5 +12,11 @@ namespace ProjectXyz.Framework.Entities.Interface
         {
             return entity.Components.GetFirst<TComponent>();
         }
+
+        public static bool Has<TComponent>(this IEntity entity)
+            where TComponent : IComponent
+        {
+            return entity.Components.Has<TComponent>();
+        }
     }
 }

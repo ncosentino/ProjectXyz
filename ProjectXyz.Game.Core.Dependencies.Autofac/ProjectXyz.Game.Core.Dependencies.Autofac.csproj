@@ -74,6 +74,14 @@
       <Project>{1165093f-4337-403c-a4ec-a936ea91acdc}</Project>
       <Name>ProjectXyz.Application.Enchantments.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
+      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
+      <Name>ProjectXyz.Framework.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
+      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
+      <Name>ProjectXyz.Framework.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj">
       <Project>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</Project>
       <Name>ProjectXyz.Game.Core</Name>

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
+using ProjectXyz.Framework.Interface.Collections;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData;
@@ -35,18 +35,15 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         #region Methods
         public static IEnumerable<object[]> GetTimeElapsedSingleEnchantmentTestData()
         {
-            yield return new object[] { "Addition zero interval", TEST_DATA.Enchantments.Buffs.StatAAdditive, TEST_DATA.ZeroInterval, 5 };
-            yield return new object[] { "Addition-over-time zero interval", TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.ZeroInterval, 0 };
-            yield return new object[] { "Addition-over-time half interval", TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
-            yield return new object[] { "Addition-over-time one interval", TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
-            yield return new object[] { "Addition-over-time two intervals", TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Multiply(2), 20 };
-            yield return new object[] { "Addition expires zero interval", TEST_DATA.Enchantments.BuffsThatExpire.StatA, TEST_DATA.ZeroInterval, 5 };
-            yield return new object[] { "Addition expires half interval", TEST_DATA.Enchantments.BuffsThatExpire.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
-
-            // FIXME: this buff says it's supposed to expire. it does. but the 
-            // BASE stat has been modified so the buff goes away but the effect
-            // of the buff is permanent
-            yield return new object[] { "Addition expires one interval", TEST_DATA.Enchantments.BuffsThatExpire.StatA, TEST_DATA.UnitInterval, 0 };
+            yield return new object[] { "Base stat addition zero interval", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, TEST_DATA.ZeroInterval, 5 };
+            yield return new object[] { "Base stat addition-over-time zero interval", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.ZeroInterval, 0 };
+            yield return new object[] { "Base stat addition-over-time half interval", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval.Divide(2), 5 };
+            yield return new object[] { "Base stat addition-over-time one interval", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval, 10 };
+            yield return new object[] { "Base stat addition-over-time two intervals", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval.Multiply(2), 20 };
+            yield return new object[] { "Base stat addition expires zero interval", TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, TEST_DATA.ZeroInterval, 5 };
+            yield return new object[] { "Base stat addition expires half interval", TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, TEST_DATA.UnitInterval.Divide(2), 5 };
+            yield return new object[] { "Base stat addition expires one interval", TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, TEST_DATA.UnitInterval, 5 };
+            yield return new object[] { "On-demand addition expires one interval", TEST_DATA.Enchantments.BuffsThatExpire.StatAOnDemand, TEST_DATA.UnitInterval, 0 };
         }
         #endregion
 
@@ -61,7 +58,8 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         {
             // Setup
             var mutableStatsProvider = new MutableStatsProvider();
-            var hasMutableStats = new HasMutableStats(mutableStatsProvider);
+            var statManager = _fixture.StatManagerFactory.Create(mutableStatsProvider);
+            var hasMutableStats = new HasMutableStats(statManager);
             var hasEnchantments = new HasEnchantments(_fixture.ActiveEnchantmentManager);
 
             var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(new[]
@@ -76,7 +74,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             _fixture.ActiveEnchantmentManager.Add(enchantment);
 
             var elapsedTimeTriggerMechanic = new ElapsedTimeTriggerMechanic((x, y) => statUpdater.Update(
-                hasMutableStats.Stats,
+                hasMutableStats.BaseStats,
                 hasEnchantments.Enchantments,
                 hasMutableStats.MutateStats,
                 y.Elapsed));
@@ -88,7 +86,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 expectedValue,
-                mutableStatsProvider.Stats[enchantment.StatDefinitionId]);
+                mutableStatsProvider.Stats.GetValueOrDefault(enchantment.StatDefinitionId));
         }
         #endregion
     }

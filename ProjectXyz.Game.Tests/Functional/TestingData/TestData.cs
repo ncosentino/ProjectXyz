@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
@@ -43,11 +42,11 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public sealed class ExampleEnchantments
         {
 
-            public IEnchantment PreNullifyStatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Lowest);
+            public IEnchantment PreNullifyStatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Lowest, new AppliesToBaseStat());
 
-            public IEnchantment PostNullifyStatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Highest);
+            public IEnchantment PostNullifyStatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "-1", CALC_PRIORITIES.Highest, new AppliesToBaseStat());
 
-            public IEnchantment RecursiveStatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A", CALC_PRIORITIES.Highest);
+            public IEnchantment RecursiveStatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A", CALC_PRIORITIES.Highest, new AppliesToBaseStat());
 
             public IEnchantment BadExpression { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "Can't actually be evaluated", CALC_PRIORITIES.Highest);
 
@@ -63,22 +62,24 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             public sealed class BuffEnchantments
             {
-                public IEnchantment StatAAdditive { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAAdditiveBaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
 
-                public IEnchantment StatAMultiplicative { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A * 2", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAAdditiveOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatB { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAMultiplicativeBaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A * 2", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
 
-                public IEnchantment StatC { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C + 100", CALC_PRIORITIES.Middle);
+                public IEnchantment StatBAdditiveBaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
+
+                public IEnchantment StatCAdditiveBaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C + 100", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
             }
 
             public sealed class DebuffEnchantments
             {
-                public IEnchantment StatAAdditive { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAAdditiveBaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
 
                 public IEnchantment StatAMultiplicative { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A * 0.5", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatC { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C - 100", CALC_PRIORITIES.Middle);
+                public IEnchantment StatCAdditiveBaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C - 100", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
             }
 
             public sealed class DayTimeBuffEnchantments
@@ -92,12 +93,21 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             public sealed class BuffOverTimeEnchantments
             {
-                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
+                public IEnchantment StatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
+
+                public IEnchantment StatAOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
             }
 
             public sealed class BuffsThatExpireEnchantments
             {
-                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                public IEnchantment StatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + 5",
+                    CALC_PRIORITIES.Middle,
+                    new AppliesToBaseStat(),
+                    new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(10))));
+
+                public IEnchantment StatAOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
                     STAT_DEFINITION_IDS.StatA,
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,

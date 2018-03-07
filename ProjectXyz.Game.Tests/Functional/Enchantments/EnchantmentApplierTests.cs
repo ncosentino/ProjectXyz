@@ -30,14 +30,14 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #region Methods
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatAAdditive, -5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatB, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatC, 10 };
-            yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatC, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.PreNullifyStatA, -1 };
-            yield return new object[] { TEST_DATA.Enchantments.PostNullifyStatA, -1 };
-            yield return new object[] { TEST_DATA.Enchantments.RecursiveStatA, 0 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Debuffs.StatAAdditiveBaseStat, -5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatBAdditiveBaseStat, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatCAdditiveBaseStat, 10 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Debuffs.StatCAdditiveBaseStat, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.PreNullifyStatABaseStat, -1 };
+            yield return new object[] { "", TEST_DATA.Enchantments.PostNullifyStatABaseStat, -1 };
+            yield return new object[] { "", TEST_DATA.Enchantments.RecursiveStatABaseStat, 0 };
         }
 
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
@@ -45,12 +45,12 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var doubleDuration = TEST_DATA.UnitInterval.Multiply(2);
             var halfDuration = TEST_DATA.UnitInterval.Divide(2);
 
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, TEST_DATA.UnitInterval, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, doubleDuration, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, halfDuration, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, doubleDuration, 20 };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, halfDuration, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, TEST_DATA.UnitInterval, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, doubleDuration, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, halfDuration, 5 };
+            yield return new object[] { "", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval, 10 };
+            yield return new object[] { "", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, doubleDuration, 20 };
+            yield return new object[] { "", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, halfDuration, 5 };
         }
         #endregion
 
@@ -58,6 +58,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         [Theory,
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsTheoryData))]
         private void ApplyEnchantments_SingleEnchantmentNoBaseStats_SingleStatExpectedValue(
+            string _,
             IEnchantment enchantment,
             double expectedValue)
         {
@@ -77,6 +78,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         [Theory,
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsOverTimeTheoryData))]
         private void ApplyEnchantments_SingleEnchantmentNoBaseStatsOverTime_SingleStatExpectedValue(
+            string _,
             IEnchantment enchantment,
             IInterval elapsed,
             double expectedValue)

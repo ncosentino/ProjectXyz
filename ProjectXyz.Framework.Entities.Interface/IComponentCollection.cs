@@ -25,5 +25,14 @@ namespace ProjectXyz.Framework.Entities.Interface
 
             return component;
         }
+
+        public static bool Has<TComponent>(this IComponentCollection components)
+            where TComponent : IComponent
+        {
+            var component = components
+                .Get<TComponent>()
+                .FirstOrDefault();
+            return component != null;
+        }
     }
 }

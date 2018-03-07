@@ -1,29 +1,12 @@
-using System;
 using System.Linq;
-using System.Reflection;
 using Autofac;
-using Jace;
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
-using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
-using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Stats.Bounded;
-using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Application.Stats.Core.Calculations;
-using ProjectXyz.Application.Stats.Interface.Calculations;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
-using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Game.Core.Enchantments;
+using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Interface.Enchantments;
-using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
-using ProjectXyz.Game.Tests.Functional.TestingData.States;
-using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
+using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Triggers.Elapsed;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
@@ -38,18 +21,21 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
                 .Concat(moduleDiscoverer
                 .Discover("*.Dependencies.Autofac.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
-            var dependencyContainer = dependencyContainerBuilder.Create(modules);
+            DependencyContainer = dependencyContainerBuilder.Create(modules);
 
-            EnchantmentCalculator = dependencyContainer.Resolve<IEnchantmentCalculator>();
-            EnchantmentApplier = dependencyContainer.Resolve<IEnchantmentApplier>();
-            ElapsedTimeTriggerSourceMechanic = dependencyContainer.Resolve<IElapsedTimeTriggerSourceMechanicRegistrar>();
-            TriggerMechanicRegistrar = dependencyContainer.Resolve<ITriggerMechanicRegistrar>();
-            ActiveEnchantmentManager = dependencyContainer.Resolve<IActiveEnchantmentManager>();
-            StateContextProvider = dependencyContainer.Resolve<IStateContextProvider>();
+            EnchantmentCalculator = DependencyContainer.Resolve<IEnchantmentCalculator>();
+            EnchantmentApplier = DependencyContainer.Resolve<IEnchantmentApplier>();
+            ElapsedTimeTriggerSourceMechanic = DependencyContainer.Resolve<IElapsedTimeTriggerSourceMechanicRegistrar>();
+            TriggerMechanicRegistrar = DependencyContainer.Resolve<ITriggerMechanicRegistrar>();
+            ActiveEnchantmentManager = DependencyContainer.Resolve<IActiveEnchantmentManager>();
+            StateContextProvider = DependencyContainer.Resolve<IStateContextProvider>();
+            StatManagerFactory = DependencyContainer.Resolve<IStatManagerFactory>();
         }
         #endregion
 
         #region Properties
+        public IStatManagerFactory StatManagerFactory { get; }
+
         public ITriggerMechanicRegistrar TriggerMechanicRegistrar { get; }
 
         public IElapsedTimeTriggerSourceMechanicRegistrar ElapsedTimeTriggerSourceMechanic { get; }
@@ -61,6 +47,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IEnchantmentApplier EnchantmentApplier { get; }
 
         public IStateContextProvider StateContextProvider { get; }
+
+        private IContainer DependencyContainer { get; }
         #endregion
     }
 }

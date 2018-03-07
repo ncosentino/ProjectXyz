@@ -7,7 +7,6 @@ using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
-using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
 {
@@ -17,16 +16,16 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
             IIdentifier statDefinitionId,
             string expression,
             ICalculationPriority calculationPriority,
-            params IExpiryComponent[] expiry)
+            params IComponent[] additionalComponents)
         {
             IEnumerable<IComponent> components = new EnchantmentExpressionComponent(
                     calculationPriority,
                     expression)
                 .Yield();
 
-            if (expiry != null)
+            if (additionalComponents != null)
             {
-                components = components.Concat(expiry);
+                components = components.Concat(additionalComponents);
             }
 
             return new Enchantment(

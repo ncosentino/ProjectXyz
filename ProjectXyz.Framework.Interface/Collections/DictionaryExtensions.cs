@@ -76,6 +76,20 @@ namespace ProjectXyz.Framework.Interface.Collections
                 ? value
                 : defaultValue;
         }
+
+        public static TValue GetValueOrDefault<TKey, TValue>(
+            this IDictionary<TKey, TValue> dictionary,
+            TKey key)
+        {
+            return GetValueOrDefault(dictionary, key, default(TValue));
+        }
+
+        public static TValue GetValueOrDefault<TKey, TValue>(
+            this IReadOnlyDictionary<TKey, TValue> dictionary,
+            TKey key)
+        {
+            return GetValueOrDefault(dictionary, key, default(TValue));
+        }
         #endregion
     }
 }

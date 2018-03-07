@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
@@ -66,6 +65,9 @@ namespace ConsoleApplication1.Modules
             yield return new StatDefinitionToTermMapping(
                 new StringIdentifier("stat1"),
                 "stat1");
+            yield return new StatDefinitionToTermMapping(
+                new StringIdentifier("stat2"),
+                "stat2");
         }
     }
 }

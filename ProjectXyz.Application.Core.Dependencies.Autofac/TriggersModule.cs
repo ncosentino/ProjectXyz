@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using ProjectXyz.Application.Core.Triggering;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac

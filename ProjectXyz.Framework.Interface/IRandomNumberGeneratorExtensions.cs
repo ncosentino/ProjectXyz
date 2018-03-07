@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ProjectXyz.Framework.Interface
+﻿namespace ProjectXyz.Framework.Interface
 {
     public static class IRandomNumberGeneratorExtensions
     {

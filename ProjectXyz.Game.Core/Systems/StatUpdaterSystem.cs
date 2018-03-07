@@ -38,7 +38,7 @@ namespace ProjectXyz.Game.Core.Systems
                 }
 
                 _statUpdater.Update(
-                    behaviours.Item2.Stats,
+                    behaviours.Item2.BaseStats,
                     behaviours.Item1.Enchantments,
                     behaviours.Item2.MutateStats,
                     elapsed);
