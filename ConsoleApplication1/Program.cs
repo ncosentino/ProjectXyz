@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Core;
 using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Application.Core.Triggering;
@@ -15,6 +16,7 @@ using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Framework.Entities.Shared;
+using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Core.Behaviors;
@@ -56,11 +58,11 @@ namespace ConsoleApplication1
 
             var gameEngine = dependencyContainer.Resolve<IGameEngine>();
 
-            ////dependencyContainer
-            ////    .Resolve<IMutableGameObjectManager>()
-            ////    .MarkForAddition(CreateActor(
-            ////        dependencyContainer.Resolve<IEnumerable<IEnchantmentTriggerMechanicRegistrar>>(),
-            ////        dependencyContainer.Resolve<IEnumerable<ITriggerMechanicRegistrar>>()));
+            dependencyContainer
+                .Resolve<IMutableGameObjectManager>()
+                .MarkForAddition(CreateActor(
+                    dependencyContainer.Resolve<IStatDefinitionToTermMappingRepository>(),
+                    dependencyContainer.Resolve<IActiveEnchantmentManager>()));
 
             var cancellationTokenSource = new CancellationTokenSource();
             gameEngine.Start(cancellationTokenSource.Token);
@@ -69,12 +71,15 @@ namespace ConsoleApplication1
         }
 
         private static Actor CreateActor(
-            ITriggerMechanicRegistrar triggerMechanicRegistrar,
+            IStatDefinitionToTermMappingRepository statDefinitionToTermMappingRepository,
             IActiveEnchantmentManager activeEnchantmentManager)
         {
             var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
             var buffable = new Buffable(activeEnchantmentManager);
-            var mutableStatsProvider = new MutableStatsProvider();
+            var mutableStatsProvider = new MutableStatsProvider(
+                statDefinitionToTermMappingRepository
+                .GetStatDefinitionIdToTermMappings()
+                .ToDictionary(x => x.StateDefinitionId, _ => 0d));
             var hasMutableStats = new HasMutableStats(mutableStatsProvider);
             var actor = new Actor(
                 hasEnchantments,
@@ -155,9 +160,29 @@ namespace ConsoleApplication1
     public sealed class StatPrinterSystem : ISystem
     {
         private readonly IBehaviorFinder _behaviorFinder = new BehaviorFinder();
+        private readonly IInterval _updateInterval = new Interval<double>(1000);
+        private IInterval _elapsed;
 
-        public void Update(ISystemUpdateContext systemUpdateContext, IEnumerable<IHasBehaviors> hasBehaviors)
+        public void Update(
+            ISystemUpdateContext systemUpdateContext,
+            IEnumerable<IHasBehaviors> hasBehaviors)
         {
+            var elapsed = systemUpdateContext
+                .Components
+                .Get<IComponent<IElapsedTime>>()
+                .First()
+                .Value
+                .Interval;
+            _elapsed = _elapsed == null
+                ? elapsed
+                : _elapsed.Add(elapsed);
+            if (_elapsed.CompareTo(_updateInterval) < 0)
+            {
+                return;
+            }
+
+            _elapsed = null;
+
             foreach (var hasBehavior in hasBehaviors)
             {
                 Tuple<IHasStats> behaviours;

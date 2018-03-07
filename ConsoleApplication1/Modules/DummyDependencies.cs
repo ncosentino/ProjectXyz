@@ -5,7 +5,8 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Bounded;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Application.Stats.Core;
+using ProjectXyz.Framework.Shared;
 
 namespace ConsoleApplication1.Modules
 {
@@ -17,10 +18,6 @@ namespace ConsoleApplication1.Modules
 
             builder
                 .RegisterType<StatDefinitionIdToBoundsMappingRepository>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
-                .RegisterType<ElapsedTimeComponentCreator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
@@ -66,7 +63,9 @@ namespace ConsoleApplication1.Modules
     {
         public IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings()
         {
-            yield break;
+            yield return new StatDefinitionToTermMapping(
+                new StringIdentifier("stat1"),
+                "stat1");
         }
     }
 }

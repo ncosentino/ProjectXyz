@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
+      <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
+      <Name>ProjectXyz.Api.States</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4e6b441b-337a-4987-a50e-ce203d4929c1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>
@@ -96,6 +100,10 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
+      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
+      <Name>ProjectXyz.Framework.Entities.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>

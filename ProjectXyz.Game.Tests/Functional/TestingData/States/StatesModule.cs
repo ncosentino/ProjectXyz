@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.States;
+using ProjectXyz.Application.States.Core;
 using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
@@ -83,32 +84,6 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.States
             public IIdentifier StateIdentifier { get; set; }
 
             public ITermMapping TermMapping { get; set; }
-        }
-
-        private sealed class TermMapping : ITermMapping
-        {
-            private readonly IReadOnlyDictionary<IIdentifier, string> _wrapped;
-
-            public TermMapping(IEnumerable<KeyValuePair<IIdentifier, string>> wrapped)
-            {
-                _wrapped = wrapped.ToDictionary(x => x.Key, x => x.Value);
-            }
-
-            public IEnumerator<KeyValuePair<IIdentifier, string>> GetEnumerator() => _wrapped.GetEnumerator();
-
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-            public int Count => _wrapped.Count;
-
-            public bool ContainsKey(IIdentifier key) => _wrapped.ContainsKey(key);
-
-            public bool TryGetValue(IIdentifier key, out string value) => _wrapped.TryGetValue(key, out value);
-
-            public string this[IIdentifier key] => _wrapped[key];
-
-            public IEnumerable<IIdentifier> Keys => _wrapped.Keys;
-
-            public IEnumerable<string> Values => _wrapped.Values;
         }
     }
 }

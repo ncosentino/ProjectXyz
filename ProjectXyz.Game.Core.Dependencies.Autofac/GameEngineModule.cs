@@ -17,8 +17,8 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
                     c.Resolve<IGameObjectManager>(),
                     c.Resolve<IEnumerable<ISystem>>(),
                     c.Resolve<IEnumerable<ISystemUpdateComponentCreator>>()))
-                .AsImplementedInterfaces();
-            ////.SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

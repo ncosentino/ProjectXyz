@@ -2,8 +2,10 @@
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Framework.Entities.Shared;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {
@@ -36,7 +38,15 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .Register(c => new EnchantmentCalculatorContextFactory(Enumerable.Empty<IComponent>()))
+                .Register(c =>
+                {
+                    var stateContextProvider = c.Resolve<IStateContextProvider>();
+                    var stateContextProviderComponent = new GenericComponent<IStateContextProvider>(stateContextProvider);
+                    return new EnchantmentCalculatorContextFactory(new[]
+                    {
+                        stateContextProviderComponent
+                    });
+                })
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
