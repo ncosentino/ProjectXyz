@@ -30,8 +30,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #region Methods
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatA, -5 };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatAAdditive, -5 };
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatB, 5 };
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatC, 10 };
             yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatC, 5 };
@@ -45,9 +45,9 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var doubleDuration = TEST_DATA.UnitInterval.Multiply(2);
             var halfDuration = TEST_DATA.UnitInterval.Divide(2);
 
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.UnitInterval, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, doubleDuration, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, halfDuration, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, TEST_DATA.UnitInterval, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, doubleDuration, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditive, halfDuration, 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, doubleDuration, 20 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, halfDuration, 5 };

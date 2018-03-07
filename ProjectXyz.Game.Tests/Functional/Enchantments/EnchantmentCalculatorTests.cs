@@ -34,34 +34,41 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
         #region Methods
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatA, -5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatB, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatC, 10 };
-            yield return new object[] { TEST_DATA.Enchantments.Debuffs.StatC, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.PreNullifyStatA, -1 };
-            yield return new object[] { TEST_DATA.Enchantments.PostNullifyStatA, -1 };
-            yield return new object[] { TEST_DATA.Enchantments.RecursiveStatA, 0 };
+            yield return new object[] { "Addition A", TEST_DATA.Enchantments.Buffs.StatAAdditive, 5 };
+            yield return new object[] { "Subtraction", TEST_DATA.Enchantments.Debuffs.StatAAdditive, -5 };
+            yield return new object[] { "Addition B", TEST_DATA.Enchantments.Buffs.StatB, 5 };
+            yield return new object[] { "Addition C", TEST_DATA.Enchantments.Buffs.StatC, 10 };
+            yield return new object[] { "Subtraction C", TEST_DATA.Enchantments.Debuffs.StatC, 5 };
+            yield return new object[] { "Pre-nullify", TEST_DATA.Enchantments.PreNullifyStatA, -1 };
+            yield return new object[] { "Post-nullify", TEST_DATA.Enchantments.PostNullifyStatA, -1 };
+            yield return new object[] { "Recursive", TEST_DATA.Enchantments.RecursiveStatA, 0 };
         }
 
         public static IEnumerable<object[]> GetMultipleEnchantmentsNoBaseStatsTheoryData()
         {
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), 10 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Debuffs.StatA.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatA), -10 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatA), 0 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatA.Yield().Append(TEST_DATA.Enchantments.PreNullifyStatA), 4 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.PostNullifyStatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), -1 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatB, TEST_DATA.Enchantments.Buffs.StatB.Yield().Append(TEST_DATA.Enchantments.Buffs.StatA), 5 };
+            yield return new object[] { "Two additions", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatAAdditive.Yield().Append(TEST_DATA.Enchantments.Buffs.StatAAdditive), 10 };
+            yield return new object[] { "Two subtractions", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Debuffs.StatAAdditive.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatAAdditive), -10 };
+            yield return new object[] { "Add then subtract", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatAAdditive.Yield().Append(TEST_DATA.Enchantments.Debuffs.StatAAdditive), 0 };
+            yield return new object[] { "Pre-nullify then add", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatAAdditive.Yield().Append(TEST_DATA.Enchantments.PreNullifyStatA), 4 };
+            yield return new object[] { "Add then pre-nullify", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.PreNullifyStatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatAAdditive), 4 };
+            yield return new object[] { "Post-nullify then add", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.PostNullifyStatA.Yield().Append(TEST_DATA.Enchantments.Buffs.StatAAdditive), -1 };
+            yield return new object[] { "Add then post-nullify", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatAAdditive.Yield().Append(TEST_DATA.Enchantments.PostNullifyStatA), -1 };
+            yield return new object[] { "Addition for two different stats", TEST_DATA.Stats.DefinitionIds.StatB, TEST_DATA.Enchantments.Buffs.StatB.Yield().Append(TEST_DATA.Enchantments.Buffs.StatAAdditive), 5 };
+            yield return new object[] { "Add then multiply", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatAAdditive.Yield().Append(TEST_DATA.Enchantments.Buffs.StatAMultiplicative), 10 };
+            yield return new object[] { "Multiply then add", TEST_DATA.Stats.DefinitionIds.StatA, TEST_DATA.Enchantments.Buffs.StatAMultiplicative.Yield().Append(TEST_DATA.Enchantments.Buffs.StatAAdditive), 5 };
         }
 
         public static IEnumerable<object[]> GetTimeOfDayEnchantmentsTheoryData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 0, 0 };
-            yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 0.5, 10 };
-            yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 1, 10 };
-            yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 0, 0 };
-            yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 0.5, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 1, 10 };
+            yield return new object[] { "Over zero 0% active", TEST_DATA.Enchantments.DayTimeBuffs.StatAOverZero, 0, 0 };
+            yield return new object[] { "Over zero 50% active", TEST_DATA.Enchantments.DayTimeBuffs.StatAOverZero, 0.5, 10 };
+            yield return new object[] { "Over zero 100% active", TEST_DATA.Enchantments.DayTimeBuffs.StatAOverZero, 1, 10 };
+            yield return new object[] { "Binary 0% active", TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 0, 0 };
+            yield return new object[] { "Binary 50% active", TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 0.5, 0 };
+            yield return new object[] { "Binary 100% active", TEST_DATA.Enchantments.DayTimeBuffs.StatABinary, 1, 10 };
+            yield return new object[] { "Peak 0% active", TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 0, 0 };
+            yield return new object[] { "Peak 50% active", TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 0.5, 5 };
+            yield return new object[] { "Peak 100% active", TEST_DATA.Enchantments.DayTimeBuffs.StatAPeak, 1, 10 };
         }
 
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
@@ -69,19 +76,22 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var doubleDuration = TEST_DATA.UnitInterval.Multiply(2);
             var halfDuration = TEST_DATA.UnitInterval.Divide(2);
 
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.UnitInterval, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, doubleDuration, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, halfDuration, 5 };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, doubleDuration, 20 };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, halfDuration, 5 };
+            yield return new object[] { "Additive zero interval", TEST_DATA.Enchantments.Buffs.StatAAdditive, TEST_DATA.ZeroInterval, 5 };
+            yield return new object[] { "Additive unit interval", TEST_DATA.Enchantments.Buffs.StatAAdditive, TEST_DATA.UnitInterval, 5 };
+            yield return new object[] { "Additve two unit intervals", TEST_DATA.Enchantments.Buffs.StatAAdditive, doubleDuration, 5 };
+            yield return new object[] { "Additive half unit interval", TEST_DATA.Enchantments.Buffs.StatAAdditive, halfDuration, 5 };
+            yield return new object[] { "Additive-over-time zero interval", TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.ZeroInterval, 0 };
+            yield return new object[] { "Additive-over-time unit interval", TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
+            yield return new object[] { "Additive-over-time two unit intervals", TEST_DATA.Enchantments.BuffsOverTime.StatA, doubleDuration, 20 };
+            yield return new object[] { "Additive-over-time half interval", TEST_DATA.Enchantments.BuffsOverTime.StatA, halfDuration, 5 };
         }
         #endregion
 
         #region Tests
         [Theory,
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsTheoryData))]
-        private void Calculate_SingleEnchantmentNoBaseStats_ExpectedResult(
+        private void Calculate_SingleEnchantmentNoBaseStats(
+            string _,
             IEnchantment enchantment,
             double expectedResult)
         {
@@ -100,7 +110,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
         [Theory,
          MemberData(nameof(GetMultipleEnchantmentsNoBaseStatsTheoryData))]
-        private void Calculate_MultipleEnchantmentsNoBaseStats_ExpectedResult(
+        private void Calculate_MultipleEnchantmentsNoBaseStats(
+            string _,
             IIdentifier statDefinitionId,
             IEnumerable<IEnchantment> enchantments,
             double expectedResult)
@@ -120,7 +131,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
         [Theory,
          MemberData(nameof(GetTimeOfDayEnchantmentsTheoryData))]
-        private void Calculate_TimeOfDayEnchantmentNoBaseStats_ExpectedResult(
+        private void Calculate_TimeOfDayEnchantmentNoBaseStats(
+            string _,
             IEnchantment enchantment,
             double percentActiveState,
             double expectedResult)
@@ -152,7 +164,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
         [Theory,
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsOverTimeTheoryData))]
-        private void ApplyEnchantments_SingleEnchantmentNoBaseStatsOverTime_SingleStatExpectedValue(
+        private void ApplyEnchantments_SingleEnchantmentNoBaseStatsOverTime(
+            string _,
             IEnchantment enchantment,
             IInterval elapsed,
             double expectedValue)

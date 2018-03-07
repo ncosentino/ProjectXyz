@@ -63,7 +63,9 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             public sealed class BuffEnchantments
             {
-                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAAdditive { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 5", CALC_PRIORITIES.Middle);
+
+                public IEnchantment StatAMultiplicative { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A * 2", CALC_PRIORITIES.Middle);
 
                 public IEnchantment StatB { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatB, "STAT_B + 5", CALC_PRIORITIES.Middle);
 
@@ -72,7 +74,9 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             public sealed class DebuffEnchantments
             {
-                public IEnchantment StatA { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAAdditive { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A - 5", CALC_PRIORITIES.Middle);
+
+                public IEnchantment StatAMultiplicative { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A * 0.5", CALC_PRIORITIES.Middle);
 
                 public IEnchantment StatC { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatC, "STAT_C - 100", CALC_PRIORITIES.Middle);
             }
@@ -81,7 +85,9 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             {
                 public IEnchantment StatAPeak { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * TOD_DAY", CALC_PRIORITIES.Middle);
 
-                public IEnchantment StatABinary { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
+                public IEnchantment StatABinary { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY >= 1, 1, 0)", CALC_PRIORITIES.Middle);
+
+                public IEnchantment StatAOverZero { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
             }
 
             public sealed class BuffOverTimeEnchantments
