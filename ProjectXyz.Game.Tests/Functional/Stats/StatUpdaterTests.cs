@@ -36,9 +36,17 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         public static IEnumerable<object[]> GetTimeElapsedSingleEnchantmentTestData()
         {
             yield return new object[] { TEST_DATA.Enchantments.Buffs.StatA, TEST_DATA.ZeroInterval, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.ZeroInterval, 0 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval, 10 };
             yield return new object[] { TEST_DATA.Enchantments.BuffsOverTime.StatA, TEST_DATA.UnitInterval.Multiply(2), 20 };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, TEST_DATA.ZeroInterval, 5 };
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, TEST_DATA.UnitInterval.Divide(2), 5 };
+
+            // FIXME: this buff says it's supposed to expire. it does. but the 
+            // BASE stat has been modified so the buff goes away but the effect
+            // of the buff is permanent
+            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatA, TEST_DATA.UnitInterval, 0 };
         }
         #endregion
 
@@ -72,7 +80,6 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 hasMutableStats.MutateStats,
                 x.Elapsed));
             _fixture.TriggerMechanicRegistrar.RegisterTrigger(elapsedTimeTriggerMechanic);
-
 
             // Execute
             _fixture.ElapsedTimeTriggerSourceMechanic.Update(elapsed);

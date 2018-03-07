@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using Autofac;
-using Autofac.Core;
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Elapsed;
-using ProjectXyz.Application.Core.Triggering;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Shared;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Core.Behaviors;
-using ProjectXyz.Game.Core.Enchantments;
-using ProjectXyz.Game.Core.Systems;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Engine;
@@ -29,7 +19,6 @@ using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.Systems;
 using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
-using Module = Autofac.Module;
 
 namespace ConsoleApplication1
 {
@@ -44,17 +33,6 @@ namespace ConsoleApplication1
                 .Discover("*.Dependencies.Autofac.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
-
-            ////var gameEngine = new GameEngine(
-            ////    gameObjectManager,
-            ////    new ISystem[]
-            ////    {
-            ////        new GameObjectManagerSystem(gameObjectManager), 
-            ////        statUpdaterSystem,
-            ////        new StatPrinterSystem(),
-            ////        new ElapsedTimeTriggerMechanicSystem(elapsedTimeTriggerSourceMechanic), 
-            ////    },
-            ////    elapsedTimeComponentCreator.Yield());
 
             var gameEngine = dependencyContainer.Resolve<IGameEngine>();
 
