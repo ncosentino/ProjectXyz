@@ -199,6 +199,10 @@
       <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
       <Name>ProjectXyz.Plugins.Stats.Calculations.Bounded</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Systems.ElapsedTime.csproj">
+      <Project>{c18d2ad8-69f0-4167-b407-ead386708730}</Project>
+      <Name>ProjectXyz.Plugins.Systems.ElapsedTime</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Elapsed\ProjectXyz.Plugins.Triggers.Elapsed.csproj">
       <Project>{b38223e4-8d33-4b80-ac15-2f715578b619}</Project>
       <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>

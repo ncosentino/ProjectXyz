@@ -60,9 +60,7 @@ namespace ConsoleApplication1
 
             dependencyContainer
                 .Resolve<IMutableGameObjectManager>()
-                .MarkForAddition(CreateActor(
-                    dependencyContainer.Resolve<IStatDefinitionToTermMappingRepository>(),
-                    dependencyContainer.Resolve<IActiveEnchantmentManager>()));
+                .MarkForAddition(CreateActor(dependencyContainer.Resolve<IActiveEnchantmentManager>()));
 
             var cancellationTokenSource = new CancellationTokenSource();
             gameEngine.Start(cancellationTokenSource.Token);
@@ -70,16 +68,11 @@ namespace ConsoleApplication1
             Console.ReadLine();
         }
 
-        private static Actor CreateActor(
-            IStatDefinitionToTermMappingRepository statDefinitionToTermMappingRepository,
-            IActiveEnchantmentManager activeEnchantmentManager)
+        private static Actor CreateActor(IActiveEnchantmentManager activeEnchantmentManager)
         {
             var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
             var buffable = new Buffable(activeEnchantmentManager);
-            var mutableStatsProvider = new MutableStatsProvider(
-                statDefinitionToTermMappingRepository
-                .GetStatDefinitionIdToTermMappings()
-                .ToDictionary(x => x.StateDefinitionId, _ => 0d));
+            var mutableStatsProvider = new MutableStatsProvider();
             var hasMutableStats = new HasMutableStats(mutableStatsProvider);
             var actor = new Actor(
                 hasEnchantments,
@@ -101,61 +94,11 @@ namespace ConsoleApplication1
             return actor;
         }
     }
-
-    ////public sealed class StatsPlugin : IStatPlugin
-    ////{
-    ////    public StatsPlugin()
-    ////    {
-    ////        SharedComponents = new ComponentCollection(new[]
-    ////        {
-    ////            new GenericComponent<IStatDefinitionToTermMappingRepository>(new StatDefinitionToTermMappingRepo()),
-    ////        });
-    ////    }
-
-    ////    public IComponentCollection SharedComponents { get; }
-
-    ////    private sealed class StatDefinitionToTermMappingRepo : IStatDefinitionToTermMappingRepository
-    ////    {
-    ////        public IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings()
-    ////        {
-    ////            yield return new StatDefinitionToTermMapping() { StateDefinitionId = new StringIdentifier("stat1"), Term = "stat1" };
-    ////        }
-
-    ////        private sealed class StatDefinitionToTermMapping : IStatDefinitionToTermMapping
-    ////        {
-    ////            public IIdentifier StateDefinitionId { get; set; }
-
-    ////            public string Term { get; set; }
-    ////        }
-    ////    }
-    ////}
-
-
-
     
 
 
 
 
-    
-
-
-
-    public sealed class ElapsedTimeComponentCreator : ISystemUpdateComponentCreator
-    {
-        private DateTime? _lastUpdateTime;
-
-        public IComponent CreateNext()
-        {
-            var elapsedMilliseconds = _lastUpdateTime.HasValue
-                ? (DateTime.UtcNow - _lastUpdateTime.Value).TotalMilliseconds
-                : 0;
-            _lastUpdateTime = DateTime.UtcNow;
-            var elapsedInterval = new Interval<double>(elapsedMilliseconds);
-
-            return new GenericComponent<IElapsedTime>(new ElapsedTime(elapsedInterval));
-        }
-    }
 
     public sealed class StatPrinterSystem : ISystem
     {
@@ -196,26 +139,7 @@ namespace ConsoleApplication1
         }
     }
 
-    public sealed class ElapsedTimeTriggerMechanicSystem : ISystem
-    {
-        private readonly IElapsedTimeTriggerSourceMechanic _elapsedTimeTriggerSourceMechanic;
 
-        public ElapsedTimeTriggerMechanicSystem(IElapsedTimeTriggerSourceMechanic elapsedTimeTriggerSourceMechanic)
-        {
-            _elapsedTimeTriggerSourceMechanic = elapsedTimeTriggerSourceMechanic;
-        }
-
-        public void Update(
-            ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IHasBehaviors> hasBehaviors)
-        {
-            var elapsed = systemUpdateContext
-                .GetFirst<IComponent<IElapsedTime>>()
-                .Value
-                .Interval;
-            _elapsedTimeTriggerSourceMechanic.Update(elapsed);
-        }
-    }
 
 
 
