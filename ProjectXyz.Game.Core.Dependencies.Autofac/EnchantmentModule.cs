@@ -20,7 +20,7 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<ActiveEnchantmentManager>()
+                .RegisterType<ActiveEnchantmentManagerFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

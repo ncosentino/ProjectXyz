@@ -40,6 +40,7 @@
     <Compile Include="Behaviors\HasStats.cs" />
     <Compile Include="Behaviors\Buffable.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
+    <Compile Include="Enchantments\ActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />

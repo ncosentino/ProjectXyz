@@ -41,6 +41,7 @@
     <Compile Include="Behaviors\IHasMutableStats.cs" />
     <Compile Include="Behaviors\IHasStats.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManager.cs" />
+    <Compile Include="Enchantments\IActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentProvider.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="GameObjects\IGameObject.cs" />

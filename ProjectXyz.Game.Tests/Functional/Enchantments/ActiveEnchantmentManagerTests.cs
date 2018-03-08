@@ -47,17 +47,20 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             IInterval elapsed,
             bool contains)
         {
-            _fixture.ActiveEnchantmentManager.Add(enchantment);
+            var activeEnchantmentManager = _fixture
+                .ActiveEnchantmentManagerFactory
+                .Create();
+            activeEnchantmentManager.Add(enchantment);
             Ensures.Equal(
                 true,
-                _fixture.ActiveEnchantmentManager.Enchantments.Contains(enchantment),
+                activeEnchantmentManager.Enchantments.Contains(enchantment),
                 "Expecting the enchantment to be contained before elapsing any time.");
 
             _fixture.ElapsedTimeTriggerSourceMechanic.Update(elapsed);
 
             AssertEx.Equal(
                 contains,
-                _fixture.ActiveEnchantmentManager.Enchantments.Contains(enchantment),
+                activeEnchantmentManager.Enchantments.Contains(enchantment),
                 $"{(contains ? "Expecting" : "Not expecting")} the enchantment to be contained.");
         }
         #endregion

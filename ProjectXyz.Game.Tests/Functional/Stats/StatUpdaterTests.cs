@@ -57,10 +57,13 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             double expectedValue)
         {
             // Setup
+            var activeEnchantmentManager = _fixture
+                .ActiveEnchantmentManagerFactory
+                .Create();
             var mutableStatsProvider = new MutableStatsProvider();
             var statManager = _fixture.StatManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStats(statManager);
-            var hasEnchantments = new HasEnchantments(_fixture.ActiveEnchantmentManager);
+            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
 
             var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(new[]
             {
@@ -71,7 +74,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 _fixture.EnchantmentApplier,
                 enchantmentCalculatorContextFactory);
 
-            _fixture.ActiveEnchantmentManager.Add(enchantment);
+            activeEnchantmentManager.Add(enchantment);
 
             var elapsedTimeTriggerMechanic = new ElapsedTimeTriggerMechanic((x, y) => statUpdater.Update(
                 hasMutableStats.BaseStats,

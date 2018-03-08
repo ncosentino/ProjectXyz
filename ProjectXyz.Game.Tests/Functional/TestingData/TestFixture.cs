@@ -27,7 +27,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             EnchantmentApplier = DependencyContainer.Resolve<IEnchantmentApplier>();
             ElapsedTimeTriggerSourceMechanic = DependencyContainer.Resolve<IElapsedTimeTriggerSourceMechanicRegistrar>();
             TriggerMechanicRegistrar = DependencyContainer.Resolve<ITriggerMechanicRegistrar>();
-            ActiveEnchantmentManager = DependencyContainer.Resolve<IActiveEnchantmentManager>();
+            ActiveEnchantmentManagerFactory = DependencyContainer.Resolve<IActiveEnchantmentManagerFactory>();
             StateContextProvider = DependencyContainer.Resolve<IStateContextProvider>();
             StatManagerFactory = DependencyContainer.Resolve<IStatManagerFactory>();
         }
@@ -40,7 +40,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
         public IElapsedTimeTriggerSourceMechanicRegistrar ElapsedTimeTriggerSourceMechanic { get; }
 
-        public IActiveEnchantmentManager ActiveEnchantmentManager { get; }
+        public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
 
         public IEnchantmentCalculator EnchantmentCalculator { get; }
 

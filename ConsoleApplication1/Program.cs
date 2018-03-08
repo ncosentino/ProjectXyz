@@ -41,32 +41,14 @@ namespace ConsoleApplication1
 
             var gameEngine = dependencyContainer.Resolve<IGameEngine>();
 
-            dependencyContainer
-                .Resolve<IMutableGameObjectManager>()
-                .MarkForAddition(CreateActor(
-                    dependencyContainer.Resolve<IActiveEnchantmentManager>(),
-                    dependencyContainer.Resolve<IStatManagerFactory>()));
+            var actorFactory = new ActorFactory(
+                dependencyContainer.Resolve<IStatManagerFactory>(),
+                dependencyContainer.Resolve<IActiveEnchantmentManagerFactory>());
+            var actor = actorFactory.Create();
 
-            var cancellationTokenSource = new CancellationTokenSource();
-            gameEngine.Start(cancellationTokenSource.Token);
-
-            Console.ReadLine();
-        }
-
-        private static Actor CreateActor(
-            IActiveEnchantmentManager activeEnchantmentManager,
-            IStatManagerFactory statManagerFactory)
-        {
-            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
-            var buffable = new Buffable(activeEnchantmentManager);
-            var mutableStatsProvider = new MutableStatsProvider();
-            var statManager = statManagerFactory.Create(mutableStatsProvider);
-            var hasMutableStats = new HasMutableStats(statManager);
-            var actor = new Actor(
-                hasEnchantments,
-                buffable,
-                hasMutableStats);
-
+            var buffable = (IBuffable)actor
+                .Behaviors
+                .FirstOrDefault(x => x is IBuffable);
             buffable.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
@@ -86,8 +68,44 @@ namespace ConsoleApplication1
                     }),
             });
 
+            dependencyContainer
+                .Resolve<IMutableGameObjectManager>()
+                .MarkForAddition(actor);
 
-            return actor;
+            var cancellationTokenSource = new CancellationTokenSource();
+            gameEngine.Start(cancellationTokenSource.Token);
+
+            Console.ReadLine();
+        }
+
+        public sealed class ActorFactory
+        {
+            private readonly IStatManagerFactory _statManagerFactory;
+            private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
+
+            public ActorFactory(
+                IStatManagerFactory statManagerFactory,
+                IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory)
+            {
+                _statManagerFactory = statManagerFactory;
+                _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
+            }
+
+            public Actor Create()
+            {
+                var mutableStatsProvider = new MutableStatsProvider();
+                var statManager = _statManagerFactory.Create(mutableStatsProvider);
+                var hasMutableStats = new HasMutableStats(statManager);
+
+                var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
+                var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+                var buffable = new Buffable(activeEnchantmentManager);
+                var actor = new Actor(
+                    hasEnchantments,
+                    buffable,
+                    hasMutableStats);
+                return actor;
+            }
         }
     }
 
