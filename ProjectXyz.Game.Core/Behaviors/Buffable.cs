@@ -5,7 +5,9 @@ using ProjectXyz.Game.Interface.Enchantments;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {
-    public sealed class Buffable : IBuffable
+    public sealed class Buffable :
+        BaseBehavior,
+        IBuffable
     {
         private readonly IActiveEnchantmentManager _activeEnchantmentManager;
 

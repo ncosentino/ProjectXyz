@@ -34,11 +34,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\BaseBehavior.cs" />
     <Compile Include="Behaviors\BehaviorFinder.cs" />
+    <Compile Include="Behaviors\BehaviorCollection.cs" />
     <Compile Include="Behaviors\HasEnchantments.cs" />
     <Compile Include="Behaviors\HasMutableStats.cs" />
     <Compile Include="Behaviors\HasStats.cs" />
     <Compile Include="Behaviors\Buffable.cs" />
+    <Compile Include="Behaviors\OwnedBehaviorCollection.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />

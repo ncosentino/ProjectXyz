@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Behaviors\IBuffable.cs" />
+    <Compile Include="Behaviors\IBehaviorCollection.cs" />
     <Compile Include="Behaviors\IHasBehaviors.cs" />
     <Compile Include="Behaviors\IHasEnchantments.cs" />
     <Compile Include="Behaviors\IHasMutableStats.cs" />

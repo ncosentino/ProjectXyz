@@ -77,36 +77,54 @@ namespace ConsoleApplication1
 
             Console.ReadLine();
         }
+    }
 
-        public sealed class ActorFactory
+    public sealed class ActorFactory
+    {
+        private readonly IStatManagerFactory _statManagerFactory;
+        private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
+
+        public ActorFactory(
+            IStatManagerFactory statManagerFactory,
+            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory)
         {
-            private readonly IStatManagerFactory _statManagerFactory;
-            private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
+            _statManagerFactory = statManagerFactory;
+            _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
+        }
 
-            public ActorFactory(
-                IStatManagerFactory statManagerFactory,
-                IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory)
-            {
-                _statManagerFactory = statManagerFactory;
-                _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
-            }
+        public Actor Create()
+        {
+            var mutableStatsProvider = new MutableStatsProvider();
+            var statManager = _statManagerFactory.Create(mutableStatsProvider);
+            var hasMutableStats = new HasMutableStats(statManager);
 
-            public Actor Create()
-            {
-                var mutableStatsProvider = new MutableStatsProvider();
-                var statManager = _statManagerFactory.Create(mutableStatsProvider);
-                var hasMutableStats = new HasMutableStats(statManager);
+            var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
+            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+            var buffable = new Buffable(activeEnchantmentManager);
+            var actor = new Actor(
+                hasEnchantments,
+                buffable,
+                hasMutableStats);
+            return actor;
+        }
+    }
 
-                var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
-                var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
-                var buffable = new Buffable(activeEnchantmentManager);
-                var actor = new Actor(
+    public sealed class Actor : IGameObject
+    {
+        public Actor(
+            IHasEnchantments hasEnchantments,
+            IBuffable buffable,
+            IHasMutableStats hasStats)
+        {
+            Behaviors = new OwnedBehaviorCollection(
+                this, 
+                new BehaviorCollection(
                     hasEnchantments,
                     buffable,
-                    hasMutableStats);
-                return actor;
-            }
+                    hasStats));
         }
+
+        public IBehaviorCollection Behaviors { get; }
     }
 
     public sealed class StatPrinterSystem : ISystem
@@ -149,7 +167,7 @@ namespace ConsoleApplication1
                     continue;
                 }
 
-                var statCalculationContext = 
+                var statCalculationContext =
                     new StatCalculationContext(
                         new GenericComponent<IStateContextProvider>(_stateContextProvider).Yield(),
                         behaviours.Item2.Enchantments)
@@ -163,27 +181,5 @@ namespace ConsoleApplication1
                 Console.WriteLine("----");
             }
         }
-    }
-
-
-
-
-
-    public sealed class Actor : IGameObject
-    {
-        public Actor(
-            IHasEnchantments hasEnchantments,
-            IBuffable buffable,
-            IHasMutableStats hasStats)
-        {
-            Behaviors = new IBehavior[]
-            {
-                hasEnchantments,
-                buffable,
-                hasStats,
-            };
-        }
-
-        public IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

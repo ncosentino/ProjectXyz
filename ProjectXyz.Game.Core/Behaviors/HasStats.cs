@@ -5,7 +5,9 @@ using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {
-    public sealed class HasStats : IHasStats
+    public sealed class HasStats :
+        BaseBehavior,
+        IHasStats
     {
         private readonly IStatManager _statManager;
 

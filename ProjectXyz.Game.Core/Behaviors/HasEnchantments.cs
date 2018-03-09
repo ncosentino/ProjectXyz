@@ -5,7 +5,9 @@ using ProjectXyz.Game.Interface.Enchantments;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {
-    public sealed class HasEnchantments : IHasEnchantments
+    public sealed class HasEnchantments :
+        BaseBehavior,
+        IHasEnchantments
     {
         private readonly IActiveEnchantmentManager _activeEnchantmentManager;
 
