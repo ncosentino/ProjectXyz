@@ -3,8 +3,8 @@ using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Stats.Bounded;
 using ProjectXyz.Application.Stats.Core;
+using ProjectXyz.Plugins.Api.Stats.Bounded;
 using ProjectXyz.Shared.Framework;
 
 namespace ConsoleApplication1.Modules

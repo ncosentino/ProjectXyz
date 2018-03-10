@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
-using ProjectXyz.Api.Stats.Bounded;
+using ProjectXyz.Plugins.Api.Stats.Bounded;
 
 namespace ProjectXyz.Plugins.Stats.Calculations.Bounded.Autofac
 {

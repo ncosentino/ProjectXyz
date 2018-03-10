@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectXyz.Api.Stats.Bounded
+namespace ProjectXyz.Plugins.Api.Stats.Bounded
 {
     public interface IStatDefinitionIdToBoundsMappingRepository
     {

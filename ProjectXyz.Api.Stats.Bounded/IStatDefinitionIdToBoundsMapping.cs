@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Api.Stats.Bounded
+namespace ProjectXyz.Plugins.Api.Stats.Bounded
 {
     public interface IStatDefinitionIdToBoundsMapping
     {

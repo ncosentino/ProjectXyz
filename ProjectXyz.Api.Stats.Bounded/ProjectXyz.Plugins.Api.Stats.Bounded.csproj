@@ -7,8 +7,8 @@
     <ProjectGuid>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Stats.Bounded</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Stats.Bounded</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Api.Stats.Bounded</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Api.Stats.Bounded</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

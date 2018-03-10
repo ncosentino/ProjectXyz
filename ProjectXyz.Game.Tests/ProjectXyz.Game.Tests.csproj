@@ -101,9 +101,9 @@
       <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
       <Name>ProjectXyz.Api.States</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Api.Stats.Bounded.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Api.Stats.Bounded.csproj">
       <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
-      <Name>ProjectXyz.Api.Stats.Bounded</Name>
+      <Name>ProjectXyz.Plugins.Api.Stats.Bounded</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4e6b441b-337a-4987-a50e-ce203d4929c1}</Project>
