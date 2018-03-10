@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Application.Enchantments.Interface.Calculations;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Application.Enchantments.Core.Calculations
 {
@@ -21,8 +22,19 @@ namespace ProjectXyz.Application.Enchantments.Core.Calculations
             IInterval elapsed,
             IReadOnlyCollection<IEnchantment> enchantments)
         {
+            return CreateEnchantmentCalculatorContext(
+                elapsed,
+                enchantments,
+                Enumerable.Empty<IComponent>());
+        }
+
+        public IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
+            IInterval elapsed,
+            IReadOnlyCollection<IEnchantment> enchantments,
+            IEnumerable<IComponent> additionalComponents)
+        {
             return new EnchantmentCalculatorContext(
-                _componentCollection,
+                _componentCollection.Concat(additionalComponents),
                 elapsed,
                 enchantments);
         }

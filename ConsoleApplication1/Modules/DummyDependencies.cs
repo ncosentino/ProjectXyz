@@ -5,7 +5,7 @@ using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Bounded;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Framework.Shared;
+using ProjectXyz.Shared.Framework;
 
 namespace ConsoleApplication1.Modules
 {

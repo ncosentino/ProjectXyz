@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Autofac;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.States.Core;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {

@@ -36,25 +36,32 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autofac\DepencencyModule.cs" />
     <Compile Include="Autofac\SharedComponentsModule.cs" />
+    <Compile Include="ElapsedTime.cs" />
     <Compile Include="ElapsedTimeComponentCreator.cs" />
     <Compile Include="ElapsedTimeTriggerMechanicSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
+      <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
+      <Name>ProjectXyz.Api.Framework.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj">
+      <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
+      <Name>ProjectXyz.Api.Systems</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Api.Triggering.Elapsed.csproj">
       <Project>{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}</Project>
       <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
@@ -67,25 +74,13 @@
       <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
       <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Framework.Entities.Shared.csproj">
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
-      <Name>ProjectXyz.Framework.Entities.Shared</Name>
+      <Name>ProjectXyz.Shared.Framework.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
-      <Name>ProjectXyz.Framework.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj">
-      <Project>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</Project>
-      <Name>ProjectXyz.Game.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
+      <Name>ProjectXyz.Shared.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

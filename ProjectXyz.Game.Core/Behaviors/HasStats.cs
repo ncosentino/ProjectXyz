@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Stats;
 

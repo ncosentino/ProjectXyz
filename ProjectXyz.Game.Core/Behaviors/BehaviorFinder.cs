@@ -1,4 +1,5 @@
 ﻿using System;
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 
 namespace ProjectXyz.Game.Core.Behaviors

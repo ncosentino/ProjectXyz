@@ -1,4 +1,4 @@
-namespace ProjectXyz.Framework.Entities.Interface
+namespace ProjectXyz.Api.Framework.Entities
 {
     public interface IComponent
     {

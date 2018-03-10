@@ -1,6 +1,6 @@
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Framework.Shared
+namespace ProjectXyz.Shared.Framework
 {
     public static class Try
     {

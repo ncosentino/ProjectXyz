@@ -1,7 +1,7 @@
-﻿using ProjectXyz.Framework.Interface;
-using ProjectXyz.Game.Interface.Systems;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Systems;
 
-namespace ProjectXyz.Game.Core.Systems
+namespace ProjectXyz.Plugins.Systems.ElapsedTime
 {
     public sealed class ElapsedTime : IElapsedTime
     {

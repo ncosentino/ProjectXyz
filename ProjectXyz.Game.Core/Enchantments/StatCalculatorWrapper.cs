@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Stats;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Game.Core.Enchantments
 {

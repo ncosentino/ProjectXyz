@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectXyz.Game.Interface.Behaviors
+namespace ProjectXyz.Api.Behaviors
 {
     public interface IBehaviorCollection : IReadOnlyCollection<IBehavior>
     {

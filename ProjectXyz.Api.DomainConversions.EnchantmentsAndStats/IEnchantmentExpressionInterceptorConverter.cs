@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Api.DomainConversions.EnchantmentsAndStats
+namespace ProjectXyz.Api.Enchantments.Stats
 {
     public interface IEnchantmentExpressionInterceptorConverter
     {

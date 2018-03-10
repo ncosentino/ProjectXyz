@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Systems;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Stats;
-using ProjectXyz.Game.Interface.Systems;
 
 namespace ProjectXyz.Game.Core.Systems
 {

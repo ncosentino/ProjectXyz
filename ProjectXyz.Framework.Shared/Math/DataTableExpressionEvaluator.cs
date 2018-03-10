@@ -3,7 +3,7 @@ using System.Data;
 using System.Globalization;
 using ProjectXyz.Framework.Interface.Math;
 
-namespace ProjectXyz.Framework.Shared.Math
+namespace ProjectXyz.Shared.Framework.Math
 {
     public sealed class DataTableExpressionEvaluator : IStringExpressionEvaluator
     {

@@ -1,8 +1,8 @@
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats
+namespace ProjectXyz.Plugins.Enchantments.Stats.StatExpressions
 {
     public sealed class EnchantmentExpressionInterceptorConverter : IEnchantmentExpressionInterceptorConverter
     {

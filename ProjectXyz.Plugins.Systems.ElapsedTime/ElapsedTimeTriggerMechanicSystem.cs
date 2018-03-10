@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Systems;
 using ProjectXyz.Api.Triggering.Elapsed;
 using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Game.Interface.Behaviors;
-using ProjectXyz.Game.Interface.Systems;
 
 namespace ProjectXyz.Plugins.Systems.ElapsedTime
 {
@@ -20,7 +20,7 @@ namespace ProjectXyz.Plugins.Systems.ElapsedTime
             IEnumerable<IHasBehaviors> hasBehaviors)
         {
             var elapsed = systemUpdateContext
-                .GetFirst<IComponent<IElapsedTime>>()
+                .GetFirst<Api.Framework.Entities.IComponent<IElapsedTime>>()
                 .Value
                 .Interval;
             _elapsedTimeTriggerSourceMechanic.Update(elapsed);

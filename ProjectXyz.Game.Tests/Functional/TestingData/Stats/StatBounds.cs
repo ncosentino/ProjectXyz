@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Bounded;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
 {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Framework.Interface.Collections;
-using ProjectXyz.Framework.Shared;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Application.Enchantments.Core.Calculations
 {

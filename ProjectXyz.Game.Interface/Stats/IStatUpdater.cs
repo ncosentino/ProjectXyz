@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Game.Interface.Stats
 {

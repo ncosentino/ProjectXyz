@@ -51,6 +51,14 @@
     <Compile Include="StateValueInjector.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
+      <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
+      <Name>ProjectXyz.Api.Framework.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
       <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
       <Name>ProjectXyz.Api.States</Name>

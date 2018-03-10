@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
 using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
 namespace ProjectXyz.Application.Enchantments.Core.Calculations

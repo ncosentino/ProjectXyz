@@ -1,7 +1,7 @@
 ﻿using System;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Framework.Shared
+namespace ProjectXyz.Shared.Framework
 {
     public sealed class TryInReleaseMode : ITry
     {

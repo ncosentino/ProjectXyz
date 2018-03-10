@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
+using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Shared.Framework.Entities;
 using Xunit;
 
 namespace ProjectXyz.Framework.Tests.Entities.Shared

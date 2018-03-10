@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers.Autofac
+namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac
 {
     public sealed class DepencencyModule : Module
     {

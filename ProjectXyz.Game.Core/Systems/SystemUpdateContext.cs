@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
-using ProjectXyz.Game.Interface.Systems;
+using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.Systems;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Game.Core.Systems
 {

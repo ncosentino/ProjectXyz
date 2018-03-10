@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Framework.Interface;
-using ProjectXyz.Framework.Shared;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {

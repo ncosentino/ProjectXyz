@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
 using Jace;
-using ProjectXyz.Framework.Shared.Math;
+using ProjectXyz.Shared.Framework.Math;
 
 namespace ProjectXyz.Framework.Core.Dependencies.Autofac
 {

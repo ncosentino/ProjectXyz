@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Autofac;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
-using ProjectXyz.Framework.Interface;
 using IExpressionStatDefinitionDependencyFinder =
     ProjectXyz.Application.Stats.Core.Calculations.IExpressionStatDefinitionDependencyFinder;
 

@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Framework.Interface;
-using ProjectXyz.Framework.Shared;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData.States;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
-using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
+using ProjectXyz.Plugins.Triggers.Enchantments;
+using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {

@@ -1,6 +1,6 @@
-using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers
+namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
 {
     public interface IExpiryComponent : IComponent
     {

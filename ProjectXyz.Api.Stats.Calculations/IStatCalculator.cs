@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Api.Stats.Calculations
 {

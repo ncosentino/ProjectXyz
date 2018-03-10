@@ -1,6 +1,6 @@
-﻿using ProjectXyz.Framework.Entities.Interface;
+﻿using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Game.Interface.Systems
+namespace ProjectXyz.Api.Systems
 {
     public interface ISystemUpdateComponentCreator
     {

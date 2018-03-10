@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats.Autofac
+namespace ProjectXyz.Plugins.Enchantments.Stats.StatExpressions.Autofac
 {
     public sealed class SharedComponentsModule : Module
     {

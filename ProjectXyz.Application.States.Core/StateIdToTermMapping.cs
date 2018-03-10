@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Api.States;
-using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.States;
 
 namespace ProjectXyz.Application.States.Core
 {

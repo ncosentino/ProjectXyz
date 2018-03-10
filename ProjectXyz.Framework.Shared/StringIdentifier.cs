@@ -1,6 +1,6 @@
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Framework.Shared
+namespace ProjectXyz.Shared.Framework
 {
     public sealed class StringIdentifier : IIdentifier
     {

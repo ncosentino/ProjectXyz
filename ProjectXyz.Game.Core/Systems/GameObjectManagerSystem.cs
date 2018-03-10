@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Game.Interface.Behaviors;
+using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Interface.GameObjects;
-using ProjectXyz.Game.Interface.Systems;
 
 namespace ProjectXyz.Game.Core.Systems
 {

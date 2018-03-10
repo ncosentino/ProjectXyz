@@ -1,7 +1,7 @@
-﻿using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats
+namespace ProjectXyz.Plugins.Enchantments.Stats.StatExpressions
 {
     public sealed class StatExpressionInterceptor : IStatExpressionInterceptor
     {

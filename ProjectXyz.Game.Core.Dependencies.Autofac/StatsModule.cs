@@ -1,6 +1,7 @@
 ﻿using Autofac;
-using ProjectXyz.Framework.Shared;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Game.Core.Stats;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
@@ -15,7 +16,9 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .Register(x => new ContextConverter(new Interval<double>(0)))
+                .Register(c => new ContextConverter(
+                    c.Resolve<IEnchantmentCalculatorContextFactory>(),
+                    new Interval<double>(0)))
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Autofac;
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.States;
+using ProjectXyz.Api.Systems;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
-using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
-using ProjectXyz.Framework.Shared;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Stats;
@@ -21,9 +21,11 @@ using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Engine;
 using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.Stats;
-using ProjectXyz.Game.Interface.Systems;
-using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
+using ProjectXyz.Plugins.Triggers.Enchantments;
+using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ConsoleApplication1
 {

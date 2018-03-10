@@ -44,6 +44,10 @@
     <Compile Include="StatBoundsExpressionInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Api.Stats.Bounded.csproj">
       <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
       <Name>ProjectXyz.Api.Stats.Bounded</Name>

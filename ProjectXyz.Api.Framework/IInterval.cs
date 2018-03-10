@@ -1,6 +1,6 @@
 using System;
 
-namespace ProjectXyz.Framework.Interface
+namespace ProjectXyz.Api.Framework
 {
     public interface IInterval<T> :
         IInterval,

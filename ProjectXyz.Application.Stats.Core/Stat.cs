@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Application.Stats.Interface;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.Stats.Core
 {

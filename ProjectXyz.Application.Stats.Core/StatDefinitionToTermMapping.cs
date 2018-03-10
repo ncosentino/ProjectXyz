@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Api.Stats;
-using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Application.Stats.Core
 {

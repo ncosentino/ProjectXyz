@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Application.Stats.Core.Calculations
 {

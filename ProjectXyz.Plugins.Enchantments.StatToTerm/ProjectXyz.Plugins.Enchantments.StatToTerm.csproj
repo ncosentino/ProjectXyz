@@ -47,6 +47,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
+      <Project>{427baf56-5faf-4b1c-9851-7474660f58ea}</Project>
+      <Name>ProjectXyz.Api.Framework.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats\ProjectXyz.Api.Stats.csproj">
       <Project>{A3B8D906-34C9-4395-9D19-B1C8355BA5E7}</Project>
       <Name>ProjectXyz.Api.Stats</Name>
@@ -54,10 +62,6 @@
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
-      <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
-      <Name>ProjectXyz.Framework.Entities.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>

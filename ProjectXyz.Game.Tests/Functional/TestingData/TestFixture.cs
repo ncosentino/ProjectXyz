@@ -1,10 +1,11 @@
 using System.Linq;
 using Autofac;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
+using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Triggers.Elapsed;
@@ -30,6 +31,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             ActiveEnchantmentManagerFactory = DependencyContainer.Resolve<IActiveEnchantmentManagerFactory>();
             StateContextProvider = DependencyContainer.Resolve<IStateContextProvider>();
             StatManagerFactory = DependencyContainer.Resolve<IStatManagerFactory>();
+            ContextConverter = DependencyContainer.Resolve<IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>>();
         }
         #endregion
 
@@ -43,6 +45,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
 
         public IEnchantmentCalculator EnchantmentCalculator { get; }
+
+        public IConvert<IStatCalculationContext, IEnchantmentCalculatorContext> ContextConverter { get; }
 
         public IEnchantmentApplier EnchantmentApplier { get; }
 

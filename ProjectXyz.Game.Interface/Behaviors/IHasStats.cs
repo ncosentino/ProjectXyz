@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Interface.Behaviors

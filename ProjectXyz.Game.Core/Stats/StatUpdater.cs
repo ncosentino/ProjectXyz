@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.Stats

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Jace;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Bounded;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Core;
@@ -9,11 +10,11 @@ using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
-using ProjectXyz.Framework.Shared;
-using ProjectXyz.Framework.Shared.Math;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
-using ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats;
+using ProjectXyz.Plugins.Enchantments.Stats.StatExpressions;
 using ProjectXyz.Plugins.Stats.Calculations.Bounded;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Framework.Math;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats

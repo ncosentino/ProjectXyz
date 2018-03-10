@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Triggering;
+using ProjectXyz.Api.Triggering.Enchantments;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers
+namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
 {
     public sealed class EnchantmentExpiryTriggerMechanicRegistrar : IEnchantmentTriggerMechanicRegistrar
     {

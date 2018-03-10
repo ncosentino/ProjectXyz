@@ -1,5 +1,5 @@
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Application.Enchantments.Core.Calculations;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Interface.Stats;
 
@@ -7,19 +7,23 @@ namespace ProjectXyz.Game.Core.Stats
 {
     public sealed class ContextConverter : IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>
     {
+        private readonly IEnchantmentCalculatorContextFactory _enchantmentCalculatorContextFactory;
         private readonly IInterval _zeroElapsedTime;
 
-        public ContextConverter(IInterval zeroElapsedTime)
+        public ContextConverter(
+            IEnchantmentCalculatorContextFactory enchantmentCalculatorContextFactory,
+            IInterval zeroElapsedTime)
         {
+            _enchantmentCalculatorContextFactory = enchantmentCalculatorContextFactory;
             _zeroElapsedTime = zeroElapsedTime;
         }
 
         public IEnchantmentCalculatorContext Convert(IStatCalculationContext input)
         {
-            return new EnchantmentCalculatorContext(
-                input.Components,
+            return _enchantmentCalculatorContextFactory.CreateEnchantmentCalculatorContext(
                 _zeroElapsedTime,
-                input.Enchantments);
+                input.Enchantments,
+                input.Components);
         }
     }
 }

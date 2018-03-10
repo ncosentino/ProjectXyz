@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using ProjectXyz.Game.Interface.Behaviors;
+using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {

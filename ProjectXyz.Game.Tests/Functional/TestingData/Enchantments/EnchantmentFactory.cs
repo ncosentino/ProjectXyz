@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments

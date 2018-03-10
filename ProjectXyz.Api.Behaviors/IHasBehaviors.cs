@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Game.Interface.Behaviors
+﻿namespace ProjectXyz.Api.Behaviors
 {
     public interface IHasBehaviors
     {

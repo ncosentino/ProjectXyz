@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Application.States.Core
 {

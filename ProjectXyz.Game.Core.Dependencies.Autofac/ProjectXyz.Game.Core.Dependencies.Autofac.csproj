@@ -37,16 +37,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BehaviorModule.cs" />
@@ -62,13 +52,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
       <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
-      <Name>ProjectXyz.Api.DomainConversions.EnchantmentsAndStats</Name>
+      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj">
+      <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
+      <Name>ProjectXyz.Api.Systems</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
+      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
+      <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj">
       <Project>{1165093f-4337-403c-a4ec-a936ea91acdc}</Project>
@@ -78,9 +80,9 @@
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
-      <Name>ProjectXyz.Framework.Shared</Name>
+      <Name>ProjectXyz.Shared.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj">
       <Project>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</Project>

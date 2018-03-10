@@ -2,7 +2,7 @@ using System;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Api.Triggering.Elapsed;
 
-namespace ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers
+namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
 {
     public sealed class ExpiryTriggerMechanicFactory : IExpiryTriggerMechanicFactory
     {

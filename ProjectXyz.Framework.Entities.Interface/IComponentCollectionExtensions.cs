@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Framework.Entities;
 
 namespace ProjectXyz.Framework.Entities.Interface
 {
-    public interface IComponentCollection : IReadOnlyCollection<IComponent>
-    {
-        IEnumerable<TComponent> Get<TComponent>()
-            where TComponent : IComponent;
-    }
-
     public static class IComponentCollectionExtensions
     {
         public static TComponent GetFirst<TComponent>(this IComponentCollection components)

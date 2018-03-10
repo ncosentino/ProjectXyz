@@ -3,7 +3,7 @@ using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Framework.Entities.Shared;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {

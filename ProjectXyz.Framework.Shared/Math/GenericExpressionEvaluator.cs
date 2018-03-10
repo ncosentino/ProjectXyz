@@ -1,7 +1,7 @@
 ﻿using System;
 using ProjectXyz.Framework.Interface.Math;
 
-namespace ProjectXyz.Framework.Shared.Math
+namespace ProjectXyz.Shared.Framework.Math
 {
     public sealed class GenericExpressionEvaluator : IStringExpressionEvaluator
     {

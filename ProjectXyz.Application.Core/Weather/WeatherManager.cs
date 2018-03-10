@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Application.Interface.Weather;
-using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Application.Interface.Weather;
 
 namespace ProjectXyz.Application.Core.Weather
 {

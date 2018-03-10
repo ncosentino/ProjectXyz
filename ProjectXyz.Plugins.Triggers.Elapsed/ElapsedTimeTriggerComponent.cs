@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Api.Triggering.Elapsed;
-using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Triggering.Elapsed;
 
 namespace ProjectXyz.Plugins.Triggers.Elapsed
 {

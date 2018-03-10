@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers
+namespace ProjectXyz.Api.Triggering.Enchantments
 {
     public interface IEnchantmentTriggerMechanicRegistrar
     {

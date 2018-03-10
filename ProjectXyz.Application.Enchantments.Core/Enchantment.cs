@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Application.Enchantments.Core
 {

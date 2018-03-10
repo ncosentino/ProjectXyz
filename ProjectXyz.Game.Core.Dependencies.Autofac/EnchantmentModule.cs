@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Autofac;
-using ProjectXyz.Api.DomainConversions.EnchantmentsAndStats;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Game.Core.Enchantments;
 

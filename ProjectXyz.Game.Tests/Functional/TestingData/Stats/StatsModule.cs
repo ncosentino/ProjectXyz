@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
 {

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Framework.Entities.Interface;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Framework.Interface.Collections;
 
-namespace ProjectXyz.Framework.Entities.Shared
+namespace ProjectXyz.Shared.Framework.Entities
 {
     public sealed class ComponentCollection : IComponentCollection
     {

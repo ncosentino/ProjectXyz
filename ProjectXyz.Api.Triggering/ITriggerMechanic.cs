@@ -1,4 +1,4 @@
-﻿using ProjectXyz.Framework.Entities.Interface;
+﻿using ProjectXyz.Api.Framework.Entities;
 
 namespace ProjectXyz.Api.Triggering
 {

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
-using ProjectXyz.Framework.Interface;
 using ProjectXyz.Framework.Interface.Collections;
-using ProjectXyz.Framework.Shared;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Application.Stats.Core.Calculations
 {

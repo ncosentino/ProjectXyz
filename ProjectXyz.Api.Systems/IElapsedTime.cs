@@ -1,6 +1,6 @@
-﻿using ProjectXyz.Framework.Interface;
+﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Game.Interface.Systems
+namespace ProjectXyz.Api.Systems
 {
     public interface IElapsedTime
     {

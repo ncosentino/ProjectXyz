@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Entities.Shared;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Game.Core.Stats
 {

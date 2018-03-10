@@ -1,4 +1,4 @@
-﻿using ProjectXyz.Api.Enchantments;
+﻿using ProjectXyz.Api.Enchantments.Calculations;
 
 namespace ProjectXyz.Application.Enchantments.Core.Calculations
 {

@@ -1,6 +1,6 @@
-﻿using ProjectXyz.Framework.Entities.Interface;
+﻿using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Framework.Entities.Shared
+namespace ProjectXyz.Shared.Framework.Entities
 {
     public sealed class GenericComponent<T> : IComponent<T>
     {

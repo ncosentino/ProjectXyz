@@ -1,6 +1,6 @@
-﻿using ProjectXyz.Framework.Entities.Interface;
+﻿using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Api.Enchantments
+namespace ProjectXyz.Api.Enchantments.Calculations
 {
     public interface IAppliesToBaseStat : IComponent
     {

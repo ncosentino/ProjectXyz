@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectXyz.Framework.Shared
+namespace ProjectXyz.Shared.Framework
 {
     public static class KeyValuePair
     {

@@ -1,4 +1,4 @@
-﻿using ProjectXyz.Game.Interface.Behaviors;
+﻿using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Game.Interface.GameObjects
 {

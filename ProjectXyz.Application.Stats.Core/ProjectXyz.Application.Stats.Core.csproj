@@ -51,6 +51,10 @@
     <Compile Include="StatDefinitionToTermMapping.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>
@@ -67,9 +71,9 @@
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Framework.Shared.csproj">
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878cd88-b979-4af3-9510-2fa949060088}</Project>
-      <Name>ProjectXyz.Framework.Shared</Name>
+      <Name>ProjectXyz.Shared.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
