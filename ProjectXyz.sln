@@ -156,6 +156,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bounded", "Bounded", "{44247516-4858-406C-B03B-91668FF5009C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Contracts", "ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj", "{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -342,6 +344,10 @@ Global
 		{427BAF56-5FAF-4B1C-9851-7474660F58EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{427BAF56-5FAF-4B1C-9851-7474660F58EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{427BAF56-5FAF-4B1C-9851-7474660F58EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -413,5 +419,6 @@ Global
 		{427BAF56-5FAF-4B1C-9851-7474660F58EA} = {A2DA07CA-C320-466A-8CFF-E4F21529034B}
 		{7F0E8840-224B-4473-89E6-1FE66EE93E8C} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{44247516-4858-406C-B03B-91668FF5009C} = {01F995AA-F6F9-4EC7-9C69-52C969F9B9DE}
+		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B} = {2E9E6598-5746-4968-AB8F-240FED1139D3}
 	EndGlobalSection
 EndGlobal
