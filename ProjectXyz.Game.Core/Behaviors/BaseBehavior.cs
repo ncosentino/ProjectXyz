@@ -1,5 +1,6 @@
 ﻿using System;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {
@@ -7,9 +8,11 @@ namespace ProjectXyz.Game.Core.Behaviors
     {
         public IHasBehaviors Owner { get; private set; }
 
-        public void RegisterTo(IHasBehaviors owner) => OnRegisterTo(owner);
+        public void RegisteringToOwner(IHasBehaviors owner) => OnRegisteringToOwner(owner);
 
-        protected virtual void OnRegisterTo(IHasBehaviors owner)
+        public void RegisteredToOwner(IHasBehaviors owner) => OnRegisteredToOwner(owner);
+
+        protected virtual void OnRegisteringToOwner(IHasBehaviors owner)
         {
             if (Owner != null && Owner != owner)
             {
@@ -17,6 +20,13 @@ namespace ProjectXyz.Game.Core.Behaviors
             }
 
             Owner = owner;
+        }
+
+        protected virtual void OnRegisteredToOwner(IHasBehaviors owner)
+        {
+            Contract.Requires(
+                Owner == owner,
+                $"Expecting Owner ({Owner}) == {nameof(owner)} ({owner}).");
         }
     }
 }

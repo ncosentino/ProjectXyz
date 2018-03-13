@@ -12,6 +12,14 @@ namespace ConsoleApplication1.Modules
                 .RegisterType<StatPrinterSystem>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<ActorFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ItemFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

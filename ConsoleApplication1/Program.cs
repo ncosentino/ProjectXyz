@@ -7,6 +7,7 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Application.Enchantments.Core;
@@ -43,14 +44,12 @@ namespace ConsoleApplication1
 
             var gameEngine = dependencyContainer.Resolve<IGameEngine>();
 
-            var actorFactory = new ActorFactory(
-                dependencyContainer.Resolve<IStatManagerFactory>(),
-                dependencyContainer.Resolve<IActiveEnchantmentManagerFactory>());
+            var actorFactory = dependencyContainer.Resolve<IActorFactory>();
             var actor = actorFactory.Create();
 
-            var buffable = (IBuffable)actor
+            var buffable = actor
                 .Behaviors
-                .FirstOrDefault(x => x is IBuffable);
+                .GetFirst<IBuffable>();
             buffable.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
@@ -61,6 +60,16 @@ namespace ConsoleApplication1
                         new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
                         new AppliesToBaseStat(),
                     }),
+            });
+
+            var itemFactory = dependencyContainer.Resolve<IItemFactory>();
+            var item = itemFactory.Create();
+
+            var buffableItem = actor
+                .Behaviors
+                .GetFirst<IBuffable>();
+            buffableItem.AddEnchantments(new IEnchantment[]
+            {
                 new Enchantment(
                     new StringIdentifier("stat2"),
                     new IComponent[]
@@ -69,6 +78,13 @@ namespace ConsoleApplication1
                         new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
                     }),
             });
+
+            var canEquip = actor
+                .Behaviors
+                .GetFirst<ICanEquip>();
+            canEquip.TryEquip(
+                new StringIdentifier("left hand"),
+                item.Behaviors.GetFirst<ICanBeEquipped>());
 
             dependencyContainer
                 .Resolve<IMutableGameObjectManager>()
@@ -81,17 +97,25 @@ namespace ConsoleApplication1
         }
     }
 
-    public sealed class ActorFactory
+    public interface IActorFactory
+    {
+        Actor Create();
+    }
+
+    public sealed class ActorFactory : IActorFactory
     {
         private readonly IStatManagerFactory _statManagerFactory;
         private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
+        private readonly IBehaviorManager _behaviorManager;
 
         public ActorFactory(
             IStatManagerFactory statManagerFactory,
-            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory)
+            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
+            IBehaviorManager behaviorManager)
         {
             _statManagerFactory = statManagerFactory;
             _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
+            _behaviorManager = behaviorManager;
         }
 
         public Actor Create()
@@ -103,27 +127,229 @@ namespace ConsoleApplication1
             var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
             var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
             var buffable = new Buffable(activeEnchantmentManager);
+            var canEquip = new CanEquipBehavior();
+            var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
             var actor = new Actor(
+                _behaviorManager,
                 hasEnchantments,
                 buffable,
-                hasMutableStats);
+                hasMutableStats,
+                canEquip,
+                applyEquipmentEnchantmentsBehavior);
             return actor;
         }
+    }
+
+    public interface IItemFactory
+    {
+        Item Create();
+    }
+
+    public sealed class ItemFactory : IItemFactory
+    {
+        private readonly IStatManagerFactory _statManagerFactory;
+        private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
+        private readonly IBehaviorManager _behaviorManager;
+
+        public ItemFactory(
+            IStatManagerFactory statManagerFactory,
+            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
+            IBehaviorManager behaviorManager)
+        {
+            _statManagerFactory = statManagerFactory;
+            _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
+            _behaviorManager = behaviorManager;
+        }
+
+        public Item Create()
+        {
+            var mutableStatsProvider = new MutableStatsProvider();
+            var statManager = _statManagerFactory.Create(mutableStatsProvider);
+            var hasMutableStats = new HasMutableStats(statManager);
+
+            var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
+            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+            var buffable = new Buffable(activeEnchantmentManager);
+            var canBeEquipped = new CanBeEquippedBehavior();
+            var item = new Item(
+                _behaviorManager,
+                hasEnchantments,
+                buffable,
+                hasMutableStats,
+                canBeEquipped);
+            return item;
+        }
+    }
+
+    public interface ICanBeEquipped : IBehavior
+    {
+        
+    }
+
+    public sealed class CanBeEquippedBehavior : 
+        BaseBehavior,
+        ICanBeEquipped
+    {
+        
+    }
+
+    public interface IHasEquipment : IBehavior
+    {
+        bool TryGet(
+            IIdentifier equipSlotId,
+            out ICanBeEquipped canBeEquipped);
+    }
+
+    public interface ICanEquip : IHasEquipment
+    {
+        event EventHandler<EventArgs<Tuple<ICanEquip, ICanBeEquipped>>> Equipped;
+
+        bool TryUnequip(
+            IIdentifier equipSlotId,
+            out ICanBeEquipped canBeEquipped);
+
+        bool CanEquip(
+            IIdentifier equipSlotId,
+            ICanBeEquipped canBeEquipped);
+
+        bool TryEquip(
+            IIdentifier equipSlotId,
+            ICanBeEquipped canBeEquipped);
+    }
+
+    public sealed class CanEquipBehavior :
+        BaseBehavior,
+        ICanEquip
+    {
+        private readonly Dictionary<IIdentifier, ICanBeEquipped> _equipment;
+
+        public CanEquipBehavior()
+        {
+            _equipment = new Dictionary<IIdentifier, ICanBeEquipped>();
+        }
+
+        public event EventHandler<EventArgs<Tuple<ICanEquip, ICanBeEquipped>>> Equipped;
+
+        public bool TryUnequip(
+            IIdentifier equipSlotId,
+            out ICanBeEquipped canBeEquipped)
+        {
+            return _equipment.TryGetValue(
+                equipSlotId,
+                out canBeEquipped) &&
+                _equipment.Remove(equipSlotId);
+        }
+
+        public bool TryGet(
+            IIdentifier equipSlotId,
+            out ICanBeEquipped canBeEquipped)
+        {
+            return _equipment.TryGetValue(
+                equipSlotId,
+                out canBeEquipped);
+        }
+
+        public bool CanEquip(
+            IIdentifier equipSlotId,
+            ICanBeEquipped canBeEquipped)
+        {
+            // TODO: check all the requirements...
+            return _equipment.ContainsKey(equipSlotId);
+        }
+
+        public bool TryEquip(
+            IIdentifier equipSlotId,
+            ICanBeEquipped canBeEquipped)
+        {
+            if (CanEquip(
+                equipSlotId,
+                canBeEquipped))
+            {
+                return false;
+            }
+
+            _equipment[equipSlotId] = canBeEquipped;
+
+            Equipped?.Invoke(
+                this,
+                new EventArgs<Tuple<ICanEquip, ICanBeEquipped>>(new Tuple<ICanEquip, ICanBeEquipped>(
+                    this,
+                    canBeEquipped)));
+            return true;
+        }
+    }
+
+    public interface IApplyEquipmentEnchantmentsBehavior : IBehavior
+    {
+    }
+
+    public sealed class ApplyEquipmentEnchantmentsBehavior :
+        BaseBehavior,
+        IApplyEquipmentEnchantmentsBehavior
+    {
+        private ICanEquip _canEquip;
+
+        protected override void OnRegisteredToOwner(IHasBehaviors owner)
+        {
+            base.OnRegisteredToOwner(owner);
+
+            if (owner.Behaviors.TryGetFirst(out _canEquip))
+            {
+                _canEquip.Equipped += CanEquip_Equipped;
+            }
+        }
+
+        private void CanEquip_Equipped(
+            object sender, 
+            EventArgs<Tuple<ICanEquip, ICanBeEquipped>> e)
+        {
+            IBuffable buffable;
+            IHasEnchantments hasEnchantments;
+            if (e.Data.Item1.Owner.Behaviors.TryGetFirst(out buffable) &&
+                e.Data.Item2.Owner.Behaviors.TryGetFirst(out hasEnchantments))
+            {
+                buffable.AddEnchantments(hasEnchantments.Enchantments);
+            }
+        }
+    }
+
+    public sealed class Item : IGameObject
+    {
+        public Item(
+            IBehaviorManager behaviorManager,
+            IHasEnchantments hasEnchantments,
+            IBuffable buffable,
+            IHasMutableStats hasStats,
+            ICanBeEquipped canBeEquipped)
+        {
+            Behaviors = new BehaviorCollection(
+                hasEnchantments,
+                buffable,
+                hasStats,
+                canBeEquipped);
+            behaviorManager.Register(this, Behaviors);
+        }
+
+        public IBehaviorCollection Behaviors { get; }
     }
 
     public sealed class Actor : IGameObject
     {
         public Actor(
+            IBehaviorManager behaviorManager,
             IHasEnchantments hasEnchantments,
             IBuffable buffable,
-            IHasMutableStats hasStats)
+            IHasMutableStats hasStats,
+            ICanEquip canEquip,
+            IApplyEquipmentEnchantmentsBehavior applyEquipmentEnchantmentsBehavior)
         {
-            Behaviors = new OwnedBehaviorCollection(
-                this, 
-                new BehaviorCollection(
-                    hasEnchantments,
-                    buffable,
-                    hasStats));
+            Behaviors = new BehaviorCollection(
+                hasEnchantments,
+                buffable,
+                hasStats,
+                canEquip,
+                applyEquipmentEnchantmentsBehavior);
+            behaviorManager.Register(this, Behaviors);
         }
 
         public IBehaviorCollection Behaviors { get; }

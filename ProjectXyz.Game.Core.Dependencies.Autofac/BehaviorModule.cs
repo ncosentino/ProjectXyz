@@ -13,6 +13,10 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
                 .RegisterType<BehaviorFinder>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<BehaviorManager>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

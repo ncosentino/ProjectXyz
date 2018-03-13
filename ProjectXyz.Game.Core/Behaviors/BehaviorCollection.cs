@@ -13,7 +13,9 @@ namespace ProjectXyz.Game.Core.Behaviors
         #endregion
 
         #region Constructors
-        public BehaviorCollection(IBehavior behavior, params IBehavior[] behaviors)
+        public BehaviorCollection(
+            IBehavior behavior, 
+            params IBehavior[] behaviors)
             : this(behavior.Yield().Concat(behaviors))
         {
         }
@@ -22,16 +24,9 @@ namespace ProjectXyz.Game.Core.Behaviors
         {
             _behaviors = new List<IBehavior>(behaviors);
         }
-
-        private BehaviorCollection()
-            : this(Enumerable.Empty<IBehavior>())
-        {
-        }
         #endregion
 
         #region Properties
-        public static IBehaviorCollection Empty { get; } = new BehaviorCollection();
-
         public int Count => _behaviors.Count;
         #endregion
 

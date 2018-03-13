@@ -4,6 +4,8 @@ namespace ProjectXyz.Api.Behaviors
     {
         IHasBehaviors Owner { get; }
 
-        void RegisterTo(IHasBehaviors owner);
+        void RegisteringToOwner(IHasBehaviors owner);
+
+        void RegisteredToOwner(IHasBehaviors owner);
     }
 }

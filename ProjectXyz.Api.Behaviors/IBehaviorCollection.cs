@@ -26,6 +26,17 @@ namespace ProjectXyz.Api.Behaviors
             return behavior;
         }
 
+        public static bool TryGetFirst<TBehavior>(
+            this IBehaviorCollection behaviors,
+            out TBehavior behavior)
+            where TBehavior : IBehavior
+        {
+            behavior = behaviors
+                .Get<TBehavior>()
+                .FirstOrDefault();
+            return behavior != null;
+        }
+
         public static bool Has<TBehavior>(this IBehaviorCollection behaviors)
             where TBehavior : IBehavior
         {

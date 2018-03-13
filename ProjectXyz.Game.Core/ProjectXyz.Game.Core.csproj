@@ -37,11 +37,11 @@
     <Compile Include="Behaviors\BaseBehavior.cs" />
     <Compile Include="Behaviors\BehaviorFinder.cs" />
     <Compile Include="Behaviors\BehaviorCollection.cs" />
+    <Compile Include="Behaviors\BehaviorManager.cs" />
     <Compile Include="Behaviors\HasEnchantments.cs" />
     <Compile Include="Behaviors\HasMutableStats.cs" />
     <Compile Include="Behaviors\HasStats.cs" />
     <Compile Include="Behaviors\Buffable.cs" />
-    <Compile Include="Behaviors\OwnedBehaviorCollection.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
@@ -102,6 +102,10 @@
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
       <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
       <Name>ProjectXyz.Application.Stats.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
+      <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
+      <Name>ProjectXyz.Framework.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
       <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
