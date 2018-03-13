@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\EventArgs.cs" />
     <Compile Include="IIdentifier.cs" />
     <Compile Include="IInterval.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
