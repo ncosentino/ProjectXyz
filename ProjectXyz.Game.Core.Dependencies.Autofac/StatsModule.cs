@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Game.Core.Stats;
+using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
@@ -25,6 +27,12 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
                 .RegisterType<StatManagerFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .Register(c => c
+                    .Resolve<IStatManagerFactory>()
+                    .Create(c.Resolve<IMutableStatsProvider>()))
+                .AsImplementedInterfaces();
+                ////.SingleInstance(); // *NOT* single instance
         }
     }
 }

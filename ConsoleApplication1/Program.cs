@@ -128,7 +128,7 @@ namespace ConsoleApplication1
             var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
             var buffable = new Buffable(activeEnchantmentManager);
             var canEquip = new CanEquipBehavior();
-            var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
+            var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantments();
             var actor = new Actor(
                 _behaviorManager,
                 hasEnchantments,
@@ -279,13 +279,13 @@ namespace ConsoleApplication1
         }
     }
 
-    public interface IApplyEquipmentEnchantmentsBehavior : IBehavior
+    public interface IApplyEquipmentEnchantments : IBehavior
     {
     }
 
-    public sealed class ApplyEquipmentEnchantmentsBehavior :
+    public sealed class ApplyEquipmentEnchantments :
         BaseBehavior,
-        IApplyEquipmentEnchantmentsBehavior
+        IApplyEquipmentEnchantments
     {
         private ICanEquip _canEquip;
 
@@ -341,14 +341,14 @@ namespace ConsoleApplication1
             IBuffable buffable,
             IHasMutableStats hasStats,
             ICanEquip canEquip,
-            IApplyEquipmentEnchantmentsBehavior applyEquipmentEnchantmentsBehavior)
+            IApplyEquipmentEnchantments applyEquipmentEnchantments)
         {
             Behaviors = new BehaviorCollection(
                 hasEnchantments,
                 buffable,
                 hasStats,
                 canEquip,
-                applyEquipmentEnchantmentsBehavior);
+                applyEquipmentEnchantments);
             behaviorManager.Register(this, Behaviors);
         }
 

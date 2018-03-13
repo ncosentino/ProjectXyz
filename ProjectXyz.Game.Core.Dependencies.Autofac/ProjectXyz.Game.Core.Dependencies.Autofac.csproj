@@ -76,6 +76,10 @@
       <Project>{1165093f-4337-403c-a4ec-a936ea91acdc}</Project>
       <Name>ProjectXyz.Application.Enchantments.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
+      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
+      <Name>ProjectXyz.Application.Stats.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>

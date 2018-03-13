@@ -87,8 +87,13 @@
     <Compile Include="Functional\TestingData\Stats\StatsModule.cs" />
     <Compile Include="Functional\TestingData\Enchantments\ValueMapperRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unit\Behaviors\BehaviorManagertests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
       <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
       <Name>ProjectXyz.Api.Framework.Entities</Name>

@@ -3,6 +3,7 @@ using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
+using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
 using IExpressionStatDefinitionDependencyFinder =
@@ -51,6 +52,10 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
                 .RegisterType<StatCalculator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<MutableStatsProvider>()
+                .AsImplementedInterfaces();
+                ////.SingleInstance(); // *NOT* a single instance
         }
     }
 }
