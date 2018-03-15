@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
 
-namespace ProjectXyz.Application.Stats.Core
+namespace Examples.Modules.Stats
 {
 
     public sealed class StatDefinitionToTermMapping : IStatDefinitionToTermMapping

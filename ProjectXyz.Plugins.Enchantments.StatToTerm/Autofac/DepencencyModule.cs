@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Stats;
 
@@ -13,11 +14,10 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm.Autofac
             builder
                 .Register(c =>
                 {
-                    var statDefinitionIdToTermMapping = c.Resolve<IStatDefinitionToTermMappingRepository>()
-                        .GetStatDefinitionIdToTermMappings()
-                        .ToDictionary(
-                            x => x.StateDefinitionId,
-                            x => x.Term);
+                    var statDefinitionIdToTermMapping = c
+                        .Resolve<IEnumerable<IStatDefinitionToTermMappingRepository>>()
+                        .SelectMany(x => x.GetStatDefinitionIdToTermMappings())
+                        .ToDictionary(x => x.StateDefinitionId, x => x.Term);
                     var statToTermExpressionInterceptorFactory = new StatToTermExpressionInterceptorFactory(
                         statDefinitionIdToTermMapping,
                         0);

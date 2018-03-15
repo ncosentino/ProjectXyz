@@ -178,6 +178,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.Modules.StateEnchantments", "Examples.Modules.StateEnchantments\Examples.Modules.StateEnchantments.csproj", "{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.Modules.Stats", "Examples.Modules.Stats\Examples.Modules.Stats.csproj", "{F4DB6337-D838-4347-9987-E0EE13EBD818}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -396,6 +398,10 @@ Global
 		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -478,5 +484,6 @@ Global
 		{347226E9-35EB-468E-9884-130B7D502E2A} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8} = {347226E9-35EB-468E-9884-130B7D502E2A}
 		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
+		{F4DB6337-D838-4347-9987-E0EE13EBD818} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 	EndGlobalSection
 EndGlobal

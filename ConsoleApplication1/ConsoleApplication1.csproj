@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Modules\WipDependencies.cs" />
-    <Compile Include="Modules\DummyDependencies.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +61,10 @@
     <ProjectReference Include="..\Examples.Modules.StateEnchantments\Examples.Modules.StateEnchantments.csproj">
       <Project>{bc946063-8ef9-4520-bceb-f13db6da4ff5}</Project>
       <Name>Examples.Modules.StateEnchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Examples.Modules.Stats\Examples.Modules.Stats.csproj">
+      <Project>{f4db6337-d838-4347-9987-e0ee13ebd818}</Project>
+      <Name>Examples.Modules.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>

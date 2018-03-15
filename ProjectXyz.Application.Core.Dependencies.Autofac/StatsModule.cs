@@ -6,8 +6,6 @@ using ProjectXyz.Api.Stats;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
-using IExpressionStatDefinitionDependencyFinder =
-    ProjectXyz.Application.Stats.Core.Calculations.IExpressionStatDefinitionDependencyFinder;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {
@@ -19,7 +17,7 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
 
             builder
                 .Register(c => new StringExpressionEvaluatorWrapper(
-                    c.Resolve<ProjectXyz.Framework.Interface.Math.IStringExpressionEvaluator>(),
+                    c.Resolve<Framework.Interface.Math.IStringExpressionEvaluator>(),
                     true))
                 .AsImplementedInterfaces()
                 .SingleInstance();
@@ -35,8 +33,8 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
                 .Register(c =>
                 {
                     var statDefinitionIdToTermMapping = c
-                        .Resolve<IStatDefinitionToTermMappingRepository>()
-                        .GetStatDefinitionIdToTermMappings()
+                        .Resolve<IEnumerable<IStatDefinitionToTermMappingRepository>>()
+                        .SelectMany(x => x.GetStatDefinitionIdToTermMappings())
                         .ToDictionary(x => x.StateDefinitionId, x => x.Term);
                     var statDefinitionIdToCalculationMapping = new Dictionary<IIdentifier, string>();
                     var statCalculationNodeCreator = new StatCalculationNodeCreator(
@@ -55,7 +53,11 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
             builder
                 .RegisterType<MutableStatsProvider>()
                 .AsImplementedInterfaces();
-                ////.SingleInstance(); // *NOT* a single instance
+            ////.SingleInstance(); // *NOT* a single instance
+            builder
+                .Register(c => StatDefinitionToTermMappingRepository.None)
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }
