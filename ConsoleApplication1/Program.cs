@@ -24,7 +24,6 @@ using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
-using ProjectXyz.Plugins.Triggers.Enchantments;
 using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
@@ -40,7 +39,9 @@ namespace ConsoleApplication1
             var modules =
                 moduleDiscoverer.Discover("*.exe")
                 .Concat(moduleDiscoverer
-                .Discover("*.Dependencies.Autofac.dll"));
+                .Discover("*.Dependencies.Autofac.dll"))
+                .Concat(moduleDiscoverer
+                .Discover("Examples.Modules.*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
 

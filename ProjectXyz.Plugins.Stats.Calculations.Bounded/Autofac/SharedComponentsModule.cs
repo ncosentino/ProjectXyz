@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Autofac;
-using ProjectXyz.Plugins.Api.Stats.Bounded;
+using ProjectXyz.Plugins.Features.BoundedStats.Api;
 
-namespace ProjectXyz.Plugins.Stats.Calculations.Bounded.Autofac
+namespace ProjectXyz.Plugins.Features.BoundedStats.Autofac
 {
     public sealed class SharedComponentsModule : Module
     {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{523BB036-1DDF-419E-851E-8685E4EC744F}</ProjectGuid>
+    <ProjectGuid>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Stats.Calculations.Bounded</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Stats.Calculations.Bounded</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.BoundedStats.Api</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.BoundedStats.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,39 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autofac\DepencencyModule.cs" />
-    <Compile Include="Autofac\SharedComponentsModule.cs" />
+    <Compile Include="IStatBounds.cs" />
+    <Compile Include="IStatDefinitionIdToBoundsMappingRepository.cs" />
+    <Compile Include="IStatDefinitionIdToBoundsMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatBoundsExpressionInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Api.Stats.Bounded.csproj">
-      <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
-      <Name>ProjectXyz.Plugins.Api.Stats.Bounded</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
-      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
-      <Name>ProjectXyz.Framework.Extensions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

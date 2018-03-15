@@ -4,7 +4,7 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Plugins.Api.Stats.Bounded;
+using ProjectXyz.Plugins.Features.BoundedStats.Api;
 using ProjectXyz.Shared.Framework;
 
 namespace ConsoleApplication1.Modules
@@ -15,10 +15,6 @@ namespace ConsoleApplication1.Modules
         {
             base.Load(builder);
 
-            builder
-                .RegisterType<StatDefinitionIdToBoundsMappingRepository>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
             builder
                 .RegisterType<StateIdToTermRepo>()
                 .AsImplementedInterfaces()
@@ -37,14 +33,6 @@ namespace ConsoleApplication1.Modules
     public sealed class ValueMapperRepository : IValueMapperRepository
     {
         public IEnumerable<ValueMapperDelegate> GetValueMappers()
-        {
-            yield break;
-        }
-    }
-
-    public sealed class StatDefinitionIdToBoundsMappingRepository : IStatDefinitionIdToBoundsMappingRepository
-    {
-        public IEnumerable<IStatDefinitionIdToBoundsMapping> GetStatDefinitionIdToBoundsMappings()
         {
             yield break;
         }

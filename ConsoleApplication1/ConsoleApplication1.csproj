@@ -51,6 +51,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Examples.Modules.BoundedStats\Examples.Modules.BoundedStats.csproj">
+      <Project>{a86581ca-18f6-4d03-9f7a-0657dec32a1a}</Project>
+      <Name>Examples.Modules.BoundedStats</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
@@ -67,9 +71,9 @@
       <Project>{3456b356-20d3-43ce-92d1-1a84383afaf2}</Project>
       <Name>ProjectXyz.Api.States</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Api.Stats.Bounded.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Features.BoundedStats.Api.csproj">
       <Project>{de382cf7-d84e-4a89-9c6d-3f2a7729b40c}</Project>
-      <Name>ProjectXyz.Plugins.Api.Stats.Bounded</Name>
+      <Name>ProjectXyz.Plugins.Features.BoundedStats.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4e6b441b-337a-4987-a50e-ce203d4929c1}</Project>
@@ -183,9 +187,9 @@
       <Project>{9abfcbe9-d6f9-4c9e-b447-6a8f49a5a939}</Project>
       <Name>ProjectXyz.Plugins.States.Simple</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Stats.Calculations.Bounded.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj">
       <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
-      <Name>ProjectXyz.Plugins.Stats.Calculations.Bounded</Name>
+      <Name>ProjectXyz.Plugins.Features.BoundedStats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Systems.ElapsedTime.csproj">
       <Project>{c18d2ad8-69f0-4167-b407-ead386708730}</Project>

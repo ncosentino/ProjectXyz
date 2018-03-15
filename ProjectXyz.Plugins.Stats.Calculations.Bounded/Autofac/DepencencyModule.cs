@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.Stats.Calculations.Bounded.Autofac
+namespace ProjectXyz.Plugins.Features.BoundedStats.Autofac
 {
     public sealed class DepencencyModule : Module
     {

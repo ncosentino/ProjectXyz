@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Plugins.Api.Stats.Bounded;
 using ProjectXyz.Framework.Extensions.Collections;
+using ProjectXyz.Plugins.Features.BoundedStats.Api;
 
-namespace ProjectXyz.Plugins.Stats.Calculations.Bounded
+namespace ProjectXyz.Plugins.Features.BoundedStats
 {
     public sealed class StatBoundsExpressionInterceptor : IStatExpressionInterceptor
     {

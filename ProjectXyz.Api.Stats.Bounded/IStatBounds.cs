@@ -1,4 +1,4 @@
-namespace ProjectXyz.Plugins.Api.Stats.Bounded
+namespace ProjectXyz.Plugins.Features.BoundedStats.Api
 {
     public interface IStatBounds
     {
