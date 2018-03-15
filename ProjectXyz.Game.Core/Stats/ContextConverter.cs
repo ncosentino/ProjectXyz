@@ -1,5 +1,6 @@
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Interface.Stats;
 

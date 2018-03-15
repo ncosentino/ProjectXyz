@@ -36,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Testin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Game.Interface", "ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj", "{66ECD308-648E-4AC6-A37A-A868DF43CA6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Entities.Interface", "ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj", "{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Entities.Extensions", "ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Extensions.csproj", "{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Framework.Entities", "ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj", "{3FF8799D-1850-46DC-BD5E-632485E89058}"
 EndProject
@@ -80,7 +80,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Stats.Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Enchantments.Stats", "ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj", "{2C772806-3C50-468C-8A13-CFA42592322A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainConversion", "DomainConversion", "{2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Enchantments.Stats.StatExpressions", "ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Enchantments.Stats.StatExpressions.csproj", "{BF07FB51-D73C-49B7-8632-B2A58F9BF17F}"
 EndProject
@@ -157,6 +157,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bounded", "Bounded", "{44247516-4858-406C-B03B-91668FF5009C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Contracts", "ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj", "{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaseStatEnchantments", "BaseStatEnchantments", "{FE222CC0-0A13-4B24-B56B-FE72CA48A22C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.BaseStatEnchantments.Api", "ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj", "{8FEB2DC5-BC36-47AA-A319-3C2263740808}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.BaseStatEnchantments", "ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj", "{B544856A-AB36-4A88-9441-67853074F33A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Extensions", "ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj", "{3DE7A97E-15F4-4770-A400-97D1462276CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -348,6 +356,18 @@ Global
 		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FEB2DC5-BC36-47AA-A319-3C2263740808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FEB2DC5-BC36-47AA-A319-3C2263740808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FEB2DC5-BC36-47AA-A319-3C2263740808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FEB2DC5-BC36-47AA-A319-3C2263740808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B544856A-AB36-4A88-9441-67853074F33A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B544856A-AB36-4A88-9441-67853074F33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B544856A-AB36-4A88-9441-67853074F33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B544856A-AB36-4A88-9441-67853074F33A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE7A97E-15F4-4770-A400-97D1462276CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE7A97E-15F4-4770-A400-97D1462276CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE7A97E-15F4-4770-A400-97D1462276CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE7A97E-15F4-4770-A400-97D1462276CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -420,5 +440,9 @@ Global
 		{7F0E8840-224B-4473-89E6-1FE66EE93E8C} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{44247516-4858-406C-B03B-91668FF5009C} = {01F995AA-F6F9-4EC7-9C69-52C969F9B9DE}
 		{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B} = {2E9E6598-5746-4968-AB8F-240FED1139D3}
+		{FE222CC0-0A13-4B24-B56B-FE72CA48A22C} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{8FEB2DC5-BC36-47AA-A319-3C2263740808} = {FE222CC0-0A13-4B24-B56B-FE72CA48A22C}
+		{B544856A-AB36-4A88-9441-67853074F33A} = {FE222CC0-0A13-4B24-B56B-FE72CA48A22C}
+		{3DE7A97E-15F4-4770-A400-97D1462276CF} = {2E9E6598-5746-4968-AB8F-240FED1139D3}
 	EndGlobalSection
 EndGlobal

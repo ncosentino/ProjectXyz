@@ -2,7 +2,7 @@
 using System.Linq;
 using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Framework.Entities.Interface
+namespace ProjectXyz.Framework.Entities.Extensions
 {
     public static class IComponentCollectionExtensions
     {

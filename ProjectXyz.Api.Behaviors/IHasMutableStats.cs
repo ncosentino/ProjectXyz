@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Game.Interface.Behaviors
+namespace ProjectXyz.Api.Behaviors
 {
     public interface IHasMutableStats : IHasStats
     {

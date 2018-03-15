@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Application.Stats.Interface;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 
 namespace ProjectXyz.Application.Stats.Core
 {

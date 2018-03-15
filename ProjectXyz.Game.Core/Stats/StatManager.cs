@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Enchantments.Interface.Calculations;
 using ProjectXyz.Application.Stats.Interface;
 using ProjectXyz.Framework.Interface;

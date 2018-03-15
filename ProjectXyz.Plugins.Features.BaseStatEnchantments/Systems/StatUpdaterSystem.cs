@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Systems;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Game.Interface.Behaviors;
-using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Api.Systems;
+using ProjectXyz.Framework.Entities.Extensions;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
 
-namespace ProjectXyz.Game.Core.Systems
+namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 {
     public sealed class StatUpdaterSystem : ISystem
     {

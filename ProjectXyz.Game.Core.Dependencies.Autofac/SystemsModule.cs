@@ -10,10 +10,6 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
             base.Load(builder);
 
             builder
-                .RegisterType<StatUpdaterSystem>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .RegisterType<GameObjectManagerSystem>()
                 .AsImplementedInterfaces();
             ////.SingleInstance();

@@ -162,6 +162,10 @@
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
       <Name>ProjectXyz.Shared.Framework.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
+      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
+      <Name>ProjectXyz.Framework.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
@@ -213,6 +217,14 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj">
       <Project>{566fada1-bcbc-41e4-9327-64214a1a6d30}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.StatToTerm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj">
+      <Project>{8feb2dc5-bc36-47aa-a319-3c2263740808}</Project>
+      <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj">
+      <Project>{B544856A-AB36-4A88-9441-67853074F33A}</Project>
+      <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Plugins.States.Simple.csproj">
       <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>

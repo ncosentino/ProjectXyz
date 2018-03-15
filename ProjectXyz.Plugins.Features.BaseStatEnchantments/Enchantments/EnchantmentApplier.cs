@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Framework.Entities.Interface;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Entities.Extensions;
+using ProjectXyz.Framework.Extensions.Collections;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 
-namespace ProjectXyz.Application.Enchantments.Core.Calculations
+namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments
 {
     public sealed class EnchantmentApplier : IEnchantmentApplier
     {

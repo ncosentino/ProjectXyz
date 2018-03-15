@@ -32,10 +32,6 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<EnchantmentApplier>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .Register(c =>
                 {
                     var stateContextProvider = c.Resolve<IStateContextProvider>();

@@ -5,7 +5,7 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Calculations.State;
 using ProjectXyz.Plugins.States.Simple;

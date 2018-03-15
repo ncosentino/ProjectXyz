@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Application.Enchantments.Interface.Calculations;
-using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 
-namespace ProjectXyz.Game.Core.Stats
+namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats
 {
     public sealed class StatUpdater : IStatUpdater
     {

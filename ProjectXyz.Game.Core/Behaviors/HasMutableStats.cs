@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Stats;
 

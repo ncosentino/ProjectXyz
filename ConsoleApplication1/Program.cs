@@ -13,7 +13,7 @@ using ProjectXyz.Api.Systems;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Stats;
@@ -22,11 +22,13 @@ using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Engine;
 using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 using ProjectXyz.Plugins.Triggers.Enchantments;
 using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
+using ProjectXyz.Framework.Entities.Extensions;
 
 namespace ConsoleApplication1
 {
@@ -58,7 +60,7 @@ namespace ConsoleApplication1
                     {
                         new EnchantmentExpressionComponent(new CalculationPriority<int>(1), "stat1 + 1"),
                         new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
-                        new AppliesToBaseStat(),
+                        dependencyContainer.Resolve<IAppliesToBaseStat>(),
                     }),
             });
 
@@ -398,8 +400,10 @@ namespace ConsoleApplication1
                 var statCalculationContext =
                     new StatCalculationContext(
                         new GenericComponent<IStateContextProvider>(_stateContextProvider).Yield(),
-                        behaviours.Item2.Enchantments)
-                    .WithoutBaseStatEnchantments();
+                        behaviours
+                            .Item2
+                            .Enchantments
+                            .Where(x => !x.Components.Has<IAppliesToBaseStat>()));
 
                 Console.WriteLine($"Base Stat 1: {behaviours.Item1.BaseStats.GetValueOrDefault(new StringIdentifier("stat1"))}");
                 Console.WriteLine($"Calc'd Stat 1: {behaviours.Item1.GetStatValue(statCalculationContext, new StringIdentifier("stat1"))}");

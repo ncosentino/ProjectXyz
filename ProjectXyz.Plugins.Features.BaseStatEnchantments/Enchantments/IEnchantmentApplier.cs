@@ -2,7 +2,7 @@
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Application.Enchantments.Interface.Calculations
+namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments
 {
     public interface IEnchantmentApplier
     {

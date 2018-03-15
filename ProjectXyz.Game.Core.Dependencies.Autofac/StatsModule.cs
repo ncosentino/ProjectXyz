@@ -14,10 +14,6 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
             base.Load(builder);
 
             builder
-                .RegisterType<StatUpdater>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .Register(c => new ContextConverter(
                     c.Resolve<IEnchantmentCalculatorContextFactory>(),
                     new Interval<double>(0)))

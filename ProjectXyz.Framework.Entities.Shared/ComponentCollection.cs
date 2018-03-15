@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 
 namespace ProjectXyz.Shared.Framework.Entities
 {

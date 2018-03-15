@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 
 namespace ProjectXyz.Plugins.States.Simple
 {

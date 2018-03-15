@@ -2,7 +2,7 @@
 using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 
 namespace ProjectXyz.Plugins.Enchantments.StatToTerm
 {

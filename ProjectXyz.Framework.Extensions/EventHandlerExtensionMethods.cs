@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ProjectXyz.Framework.Interface
+namespace ProjectXyz.Framework.Extensions
 {
     public static class EventHandlerExtensionMethods
     {

@@ -35,8 +35,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculations\IEnchantmentApplier.cs" />
-    <Compile Include="Calculations\IEnchantmentCalculator.cs" />
     <Compile Include="Calculations\IEnchantmentStatCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

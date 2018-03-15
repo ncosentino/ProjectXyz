@@ -70,9 +70,9 @@
       <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
       <Name>ProjectXyz.Api.Triggering</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Interface.csproj">
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Extensions.csproj">
       <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
-      <Name>ProjectXyz.Framework.Entities.Interface</Name>
+      <Name>ProjectXyz.Framework.Entities.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>

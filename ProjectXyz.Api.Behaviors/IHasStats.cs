@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Game.Interface.Behaviors
+namespace ProjectXyz.Api.Behaviors
 {
     public interface IHasStats : IBehavior
     {

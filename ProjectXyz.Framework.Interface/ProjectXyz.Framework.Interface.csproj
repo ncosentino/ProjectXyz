@@ -34,12 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\DictionaryExtensions.cs" />
-    <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="EventHandlerExtensionMethods.cs" />
     <Compile Include="IConvert.cs" />
     <Compile Include="IRandomNumberGenerator.cs" />
-    <Compile Include="IRandomNumberGeneratorExtensions.cs" />
     <Compile Include="ITry.cs" />
     <Compile Include="Math\IStringExpressionEvaluator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -43,9 +43,9 @@
       <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
       <Name>ProjectXyz.Api.Framework.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
+    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
+      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
+      <Name>ProjectXyz.Framework.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

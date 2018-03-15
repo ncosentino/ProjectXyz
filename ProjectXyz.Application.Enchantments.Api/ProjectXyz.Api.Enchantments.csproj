@@ -37,13 +37,13 @@
   <ItemGroup>
     <Compile Include="Calculations\ICalculationPriority.cs" />
     <Compile Include="Calculations\IContextToExpressionInterceptorConverter.cs" />
+    <Compile Include="Calculations\IEnchantmentCalculator.cs" />
     <Compile Include="Calculations\IEnchantmentCalculatorContext.cs" />
     <Compile Include="Calculations\IEnchantmentCalculatorContextFactory.cs" />
     <Compile Include="Calculations\IEnchantmentExpressionComponent.cs" />
     <Compile Include="Calculations\IEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Calculations\IValueMapperRepository.cs" />
     <Compile Include="Calculations\ValueMapperDelegate.cs" />
-    <Compile Include="Calculations\IAppliesToBaseStat.cs" />
     <Compile Include="IEnchantment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

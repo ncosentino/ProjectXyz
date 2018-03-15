@@ -4,7 +4,6 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Application.Enchantments.Core.Calculations

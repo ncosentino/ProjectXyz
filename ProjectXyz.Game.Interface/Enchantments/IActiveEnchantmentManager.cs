@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 
 namespace ProjectXyz.Game.Interface.Enchantments
 {

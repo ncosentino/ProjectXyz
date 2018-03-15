@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Game.Interface.Stats
+namespace ProjectXyz.Api.Stats.Calculations
 {
     public interface IStatCalculationContext : IEntity
     {

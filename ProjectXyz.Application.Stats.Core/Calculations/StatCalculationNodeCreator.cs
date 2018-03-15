@@ -4,7 +4,7 @@ using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
-using ProjectXyz.Framework.Interface.Collections;
+using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Application.Stats.Core.Calculations

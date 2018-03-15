@@ -7,8 +7,8 @@
     <ProjectGuid>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Framework.Entities.Interface</RootNamespace>
-    <AssemblyName>ProjectXyz.Framework.Entities.Interface</AssemblyName>
+    <RootNamespace>ProjectXyz.Framework.Entities.Extensions</RootNamespace>
+    <AssemblyName>ProjectXyz.Framework.Entities.Extensions</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

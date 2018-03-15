@@ -1,7 +1,6 @@
 ﻿using System;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Framework.Entities.Interface;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 
