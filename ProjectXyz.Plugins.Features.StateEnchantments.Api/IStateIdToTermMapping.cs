@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Api.States
+namespace ProjectXyz.Plugins.Features.StateEnchantments.Api
 {
     public interface IStateIdToTermMapping
     {

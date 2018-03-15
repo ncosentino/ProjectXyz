@@ -59,6 +59,10 @@
       <Project>{77d2cf94-450d-4b14-b5c3-1a7e48214784}</Project>
       <Name>Examples.Modules.ExpressionEnchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Examples.Modules.StateEnchantments\Examples.Modules.StateEnchantments.csproj">
+      <Project>{bc946063-8ef9-4520-bceb-f13db6da4ff5}</Project>
+      <Name>Examples.Modules.StateEnchantments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
@@ -171,9 +175,9 @@
       <Project>{c8d2af3c-c4c1-4d21-9e2c-1e56ba103b9a}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.Multiple</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.State\ProjectXyz.Plugins.Enchantments.State.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.State\ProjectXyz.Plugins.Features.StateEnchantments.csproj">
       <Project>{18e59339-25ca-46bf-b6fa-8d992a303050}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.State</Name>
+      <Name>ProjectXyz.Plugins.Features.StateEnchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj">
       <Project>{566fada1-bcbc-41e4-9327-64214a1a6d30}</Project>

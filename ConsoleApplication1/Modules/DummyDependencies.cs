@@ -16,21 +16,9 @@ namespace ConsoleApplication1.Modules
             base.Load(builder);
 
             builder
-                .RegisterType<StateIdToTermRepo>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .RegisterType<StatDefinitionToTermMappingRepo>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-        }
-    }
-
-    public sealed class StateIdToTermRepo : IStateIdToTermRepository
-    {
-        public IEnumerable<IStateIdToTermMapping> GetStateIdToTermMappings()
-        {
-            yield break;
         }
     }
 

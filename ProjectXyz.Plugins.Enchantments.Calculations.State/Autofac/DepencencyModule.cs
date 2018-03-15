@@ -2,7 +2,7 @@
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.States;
+using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.State.Autofac
 {

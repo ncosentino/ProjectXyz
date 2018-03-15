@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Application.States.Core")]
+[assembly: AssemblyTitle("ProjectXyz.Plugins.Features.StateEnchantments.Api")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Application.States.Core")]
+[assembly: AssemblyProduct("ProjectXyz.Plugins.Features.StateEnchantments.Api")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("de8856af-1e78-494a-9bff-48e42d25858a")]
+[assembly: Guid("5a0e7932-b9a9-4a10-a8ae-cf505d6569b8")]
 
 // Version information for an assembly consists of the following four values:
 //

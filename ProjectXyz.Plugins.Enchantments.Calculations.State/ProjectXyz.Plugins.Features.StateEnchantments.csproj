@@ -48,7 +48,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateExpressionInterceptor.cs" />
     <Compile Include="StateExpressionInterceptorFactory.cs" />
+    <Compile Include="StateIdToTermMapping.cs" />
     <Compile Include="StateValueInjector.cs" />
+    <Compile Include="TermMapping.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
@@ -78,6 +80,10 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj">
+      <Project>{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}</Project>
+      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

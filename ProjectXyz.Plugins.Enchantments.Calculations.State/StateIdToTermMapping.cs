@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.States;
+using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 
-namespace ProjectXyz.Application.States.Core
+namespace ProjectXyz.Plugins.Enchantments.Calculations.State
 {
     public sealed class StateIdToTermMapping : IStateIdToTermMapping
     {

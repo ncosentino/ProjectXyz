@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Application.States.Core;
+using ProjectXyz.Plugins.Enchantments.Calculations.State;
+using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {
