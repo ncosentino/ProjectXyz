@@ -50,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enchantments", "Enchantment
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Enchantments.Interface", "ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj", "{1165093F-4337-403C-A4EC-A936EA91ACDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Enchantments.Expressions", "ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Enchantments.Expressions.csproj", "{D3DE6090-306A-4C84-8CCB-86BBD50D7885}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.ExpressionEnchantments", "ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj", "{D3DE6090-306A-4C84-8CCB-86BBD50D7885}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Enchantments.Multiple", "ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj", "{C8D2AF3C-C4C1-4D21-9E2C-1E56BA103B9A}"
 EndProject
@@ -169,6 +169,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C6559E54-8743-4057-BD3D-7D499EAE1613}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.Modules.BoundedStats", "Examples.Modules.BoundedStats\Examples.Modules.BoundedStats.csproj", "{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExpressionEnchantments", "ExpressionEnchantments", "{082E360F-BD44-4AEF-BFA9-5BFDD278EE27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.ExpressionEnchantments.Api", "ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj", "{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.Modules.ExpressionEnchantments", "Examples.Modules.ExpressionEnchantments\Examples.Modules.ExpressionEnchantments.csproj", "{77D2CF94-450D-4B14-B5C3-1A7E48214784}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -376,6 +382,14 @@ Global
 		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -398,7 +412,7 @@ Global
 		{D9FC9425-991E-4D82-AD07-1F7E501CC27C} = {E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5}
 		{3B8C1B3F-6B07-4BE2-AB12-45F265E0FB01} = {49001EEA-4C5C-4456-856B-9238F849881B}
 		{1165093F-4337-403C-A4EC-A936EA91ACDC} = {3B8C1B3F-6B07-4BE2-AB12-45F265E0FB01}
-		{D3DE6090-306A-4C84-8CCB-86BBD50D7885} = {1AF9FEFF-E2BF-4CFB-A177-E67BBF083BA4}
+		{D3DE6090-306A-4C84-8CCB-86BBD50D7885} = {082E360F-BD44-4AEF-BFA9-5BFDD278EE27}
 		{C8D2AF3C-C4C1-4D21-9E2C-1E56BA103B9A} = {1AF9FEFF-E2BF-4CFB-A177-E67BBF083BA4}
 		{585F063F-E452-4A6B-B29E-36BA8BF14FBD} = {3B8C1B3F-6B07-4BE2-AB12-45F265E0FB01}
 		{E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}
@@ -454,5 +468,8 @@ Global
 		{32557D31-ACBC-4368-A147-389CB1006A8F} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{C6559E54-8743-4057-BD3D-7D499EAE1613} = {8A28C6A1-F2B2-47F9-BBBF-5C5DD182C237}
 		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
+		{082E360F-BD44-4AEF-BFA9-5BFDD278EE27} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76} = {082E360F-BD44-4AEF-BFA9-5BFDD278EE27}
+		{77D2CF94-450D-4B14-B5C3-1A7E48214784} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 	EndGlobalSection
 EndGlobal

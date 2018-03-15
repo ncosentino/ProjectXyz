@@ -55,6 +55,10 @@
       <Project>{a86581ca-18f6-4d03-9f7a-0657dec32a1a}</Project>
       <Name>Examples.Modules.BoundedStats</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Examples.Modules.ExpressionEnchantments\Examples.Modules.ExpressionEnchantments.csproj">
+      <Project>{77d2cf94-450d-4b14-b5c3-1a7e48214784}</Project>
+      <Name>Examples.Modules.ExpressionEnchantments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
@@ -159,9 +163,9 @@
       <Project>{b558ec5b-b983-4701-845f-00f7109a2cf9}</Project>
       <Name>ProjectXyz.Plugins.Triggers.Enchantments.Expiration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Enchantments.Expressions.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj">
       <Project>{d3de6090-306a-4c84-8ccb-86bbd50d7885}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Expressions</Name>
+      <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj">
       <Project>{c8d2af3c-c4c1-4d21-9e2c-1e56ba103b9a}</Project>

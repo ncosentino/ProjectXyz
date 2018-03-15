@@ -23,18 +23,6 @@ namespace ConsoleApplication1.Modules
                 .RegisterType<StatDefinitionToTermMappingRepo>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder
-                .RegisterType<ValueMapperRepository>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-        }
-    }
-
-    public sealed class ValueMapperRepository : IValueMapperRepository
-    {
-        public IEnumerable<ValueMapperDelegate> GetValueMappers()
-        {
-            yield break;
         }
     }
 

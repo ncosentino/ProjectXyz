@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Plugins.Features.ExpressionEnchantments")]
+[assembly: AssemblyTitle("ProjectXyz.Plugins.Features.ExpressionEnchantments.Api")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Plugins.Features.ExpressionEnchantments")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyProduct("ProjectXyz.Plugins.Features.ExpressionEnchantments.Api")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d3de6090-306a-4c84-8ccb-86bbd50d7885")]
+[assembly: Guid("b6a76b2d-7cb5-4584-8efa-b76aee3bdd76")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -3,7 +3,7 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
+namespace ProjectXyz.Plugins.Features.ExpressionEnchantments
 {
     public sealed class ValueMappingExpressionInterceptor : IEnchantmentExpressionInterceptor
     {

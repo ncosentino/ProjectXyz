@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments.Calculations;
 
-namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
+namespace ProjectXyz.Plugins.Features.ExpressionEnchantments
 {
     public sealed class ValueMappingExpressionInterceptorFactory : IValueMappingExpressionInterceptorFactory
     {

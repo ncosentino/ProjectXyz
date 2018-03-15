@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
 
-namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions.Autofac
+namespace ProjectXyz.Plugins.Features.ExpressionEnchantments.Autofac
 {
     public sealed class DepencencyModule : Module
     {

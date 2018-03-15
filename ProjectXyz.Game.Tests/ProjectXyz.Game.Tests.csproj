@@ -202,9 +202,9 @@
       <Project>{B558EC5B-B983-4701-845F-00F7109A2CF9}</Project>
       <Name>ProjectXyz.Plugins.Triggers.Enchantments.Expiration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Enchantments.Expressions.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj">
       <Project>{d3de6090-306a-4c84-8ccb-86bbd50d7885}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Expressions</Name>
+      <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj">
       <Project>{c8d2af3c-c4c1-4d21-9e2c-1e56ba103b9a}</Project>
@@ -225,6 +225,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj">
       <Project>{B544856A-AB36-4A88-9441-67853074F33A}</Project>
       <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj">
+      <Project>{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Plugins.States.Simple.csproj">
       <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
+namespace ProjectXyz.Plugins.Features.ExpressionEnchantments
 {
     public interface IContextToTermValueMappingConverter : IConvert<IEnchantmentCalculatorContext, IReadOnlyDictionary<string, double>>
     {

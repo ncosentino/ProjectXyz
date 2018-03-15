@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Framework.Extensions.Collections;
+using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
 
-namespace ProjectXyz.Plugins.Enchantments.Calculations.Expressions
+namespace ProjectXyz.Plugins.Features.ExpressionEnchantments
 {
     public sealed class ContextToTermValueMappingConverter : IContextToTermValueMappingConverter
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectXyz.Api.Enchantments.Calculations
+namespace ProjectXyz.Plugins.Features.ExpressionEnchantments.Api
 {
     public interface IValueMapperRepository
     {
