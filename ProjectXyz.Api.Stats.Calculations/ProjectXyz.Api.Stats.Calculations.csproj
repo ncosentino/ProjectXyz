@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="IStatCalculationContext.cs" />
     <Compile Include="IStatCalculator.cs" />
+    <Compile Include="IStatDefinitionToCalculationMapping.cs" />
+    <Compile Include="IStatDefinitionToCalculationMappingRepository.cs" />
     <Compile Include="IStatExpressionInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

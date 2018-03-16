@@ -41,6 +41,7 @@
     <Compile Include="Calculations\StatCalculationNodeFactoryWrapper.cs" />
     <Compile Include="Calculations\StatCalculationValueNodeFactory.cs" />
     <Compile Include="Calculations\StatCalculator.cs" />
+    <Compile Include="Calculations\StatDefinitionToCalculationMappingRepository.cs" />
     <Compile Include="Calculations\StringExpressionEvaluatorWrapper.cs" />
     <Compile Include="Calculations\ValueStatCalculationNode.cs" />
     <Compile Include="ImmutableStatsProvider.cs" />

@@ -3,6 +3,7 @@ using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
@@ -36,7 +37,10 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
                         .Resolve<IEnumerable<IStatDefinitionToTermMappingRepository>>()
                         .SelectMany(x => x.GetStatDefinitionIdToTermMappings())
                         .ToDictionary(x => x.StateDefinitionId, x => x.Term);
-                    var statDefinitionIdToCalculationMapping = new Dictionary<IIdentifier, string>();
+                    var statDefinitionIdToCalculationMapping = c
+                        .Resolve<IEnumerable<IStatDefinitionToCalculationMappingRepository>>()
+                        .SelectMany(x => x.GetStatDefinitionIdToCalculationMappings())
+                        .ToDictionary(x => x.StateDefinitionId, x => x.Calculation);
                     var statCalculationNodeCreator = new StatCalculationNodeCreator(
                         c.Resolve<IStatCalculationNodeFactory>(),
                         c.Resolve<IExpressionStatDefinitionDependencyFinder>(),
@@ -56,6 +60,10 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
             ////.SingleInstance(); // *NOT* a single instance
             builder
                 .Register(c => StatDefinitionToTermMappingRepository.None)
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .Register(c => StatDefinitionToCalculationMappingRepository.None)
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
