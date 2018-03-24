@@ -4,7 +4,7 @@ using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Api.Behaviors
 {
-    public interface IHasMutableStats : IHasStats
+    public interface IHasMutableStatsBehavior : IHasStatsBehavior
     {
         void MutateStats(Action<IDictionary<IIdentifier, double>> callback);
     }

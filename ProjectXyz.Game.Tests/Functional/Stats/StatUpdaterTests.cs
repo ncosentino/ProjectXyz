@@ -62,8 +62,8 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 .Create();
             var mutableStatsProvider = new MutableStatsProvider();
             var statManager = _fixture.StatManagerFactory.Create(mutableStatsProvider);
-            var hasMutableStats = new HasMutableStats(statManager);
-            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
+            var hasMutableStats = new HasMutableStatsBehavior(statManager);
+            var hasEnchantments = new HasEnchantmentsBehavior(activeEnchantmentManager);
 
             var enchantmentCalculatorContextFactory = new EnchantmentCalculatorContextFactory(new[]
             {

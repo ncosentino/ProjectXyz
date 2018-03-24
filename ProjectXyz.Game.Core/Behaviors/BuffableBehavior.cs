@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {
-    public sealed class Buffable :
+    public sealed class BuffableBehavior :
         BaseBehavior,
-        IBuffable
+        IBuffableBehavior
     {
         private readonly IActiveEnchantmentManager _activeEnchantmentManager;
 
-        public Buffable(IActiveEnchantmentManager activeEnchantmentManager)
+        public BuffableBehavior(IActiveEnchantmentManager activeEnchantmentManager)
         {
             _activeEnchantmentManager = activeEnchantmentManager;
         }

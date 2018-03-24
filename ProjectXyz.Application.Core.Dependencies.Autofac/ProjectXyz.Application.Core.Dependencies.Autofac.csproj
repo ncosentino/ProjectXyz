@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="EnchantmentModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatesModule.cs" />
     <Compile Include="TriggersModule.cs" />
     <Compile Include="StatsModule.cs" />
   </ItemGroup>
@@ -98,6 +99,10 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
       <Name>ProjectXyz.Framework.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Application.States.Core.csproj">
+      <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>
+      <Name>ProjectXyz.Application.States.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

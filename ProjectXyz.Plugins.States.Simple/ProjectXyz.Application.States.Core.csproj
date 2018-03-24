@@ -7,8 +7,8 @@
     <ProjectGuid>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.States.Simple</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.States.Simple</AssemblyName>
+    <RootNamespace>ProjectXyz.Application.States.Core</RootNamespace>
+    <AssemblyName>ProjectXyz.Application.States.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,16 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autofac\DepencencyModule.cs" />
-    <Compile Include="Autofac\SharedComponentsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateContextProvider.cs" />
   </ItemGroup>
@@ -56,9 +50,6 @@
       <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
       <Name>ProjectXyz.Framework.Extensions</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

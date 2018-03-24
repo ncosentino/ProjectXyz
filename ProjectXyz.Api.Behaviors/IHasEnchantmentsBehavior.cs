@@ -3,7 +3,7 @@ using ProjectXyz.Api.Enchantments;
 
 namespace ProjectXyz.Api.Behaviors
 {
-    public interface IHasEnchantments : IBehavior
+    public interface IHasEnchantmentsBehavior : IBehavior
     {
         IReadOnlyCollection<IEnchantment> Enchantments { get; }
     }

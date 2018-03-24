@@ -34,14 +34,25 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\IApplyEquipmentEnchantmentsBehavior.cs" />
+    <Compile Include="Behaviors\IApplySocketEnchantmentsBehavior.cs" />
     <Compile Include="Behaviors\IBehaviorManager.cs" />
+    <Compile Include="Behaviors\IBuffableBehavior.cs" />
+    <Compile Include="Behaviors\ICanBeEquippedBehavior.cs" />
+    <Compile Include="Behaviors\ICanBeSocketedBehavior.cs" />
+    <Compile Include="Behaviors\ICanEquipBehavior.cs" />
+    <Compile Include="Behaviors\ICanFitSocketBehavior.cs" />
+    <Compile Include="Behaviors\IHasEquipmentBehavior.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentProvider.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
+    <Compile Include="GameObjects\Actors\IActorFactory.cs" />
     <Compile Include="GameObjects\IGameObject.cs" />
     <Compile Include="GameObjects\IGameObjectManager.cs" />
     <Compile Include="GameObjects\IMutableGameObjectManager.cs" />
+    <Compile Include="GameObjects\IGameObjectFactory.cs" />
+    <Compile Include="GameObjects\Items\IItemFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\IStatManager.cs" />
     <Compile Include="Stats\IStatManagerFactory.cs" />
@@ -76,9 +87,7 @@
       <Name>ProjectXyz.Framework.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Systems\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

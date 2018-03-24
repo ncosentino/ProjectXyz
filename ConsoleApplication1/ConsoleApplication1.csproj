@@ -194,9 +194,9 @@
       <Project>{b544856a-ab36-4a88-9441-67853074f33a}</Project>
       <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Plugins.States.Simple.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Application.States.Core.csproj">
       <Project>{9abfcbe9-d6f9-4c9e-b447-6a8f49a5a939}</Project>
-      <Name>ProjectXyz.Plugins.States.Simple</Name>
+      <Name>ProjectXyz.Application.States.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj">
       <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>

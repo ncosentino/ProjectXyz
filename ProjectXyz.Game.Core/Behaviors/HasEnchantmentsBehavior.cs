@@ -6,13 +6,13 @@ using ProjectXyz.Game.Interface.Enchantments;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {
-    public sealed class HasEnchantments :
+    public sealed class HasEnchantmentsBehavior :
         BaseBehavior,
-        IHasEnchantments
+        IHasEnchantmentsBehavior
     {
         private readonly IActiveEnchantmentManager _activeEnchantmentManager;
 
-        public HasEnchantments(IActiveEnchantmentManager activeEnchantmentManager)
+        public HasEnchantmentsBehavior(IActiveEnchantmentManager activeEnchantmentManager)
         {
             _activeEnchantmentManager = activeEnchantmentManager;
         }

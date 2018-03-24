@@ -2,10 +2,11 @@
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
+using ProjectXyz.Application.States.Core;
 
-namespace ProjectXyz.Plugins.States.Simple.Autofac
+namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {
-    public sealed class SharedComponentsModule : Module
+    public sealed class StatesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

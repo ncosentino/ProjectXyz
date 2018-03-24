@@ -4,7 +4,7 @@ using ProjectXyz.Api.Stats.Calculations;
 
 namespace ProjectXyz.Api.Behaviors
 {
-    public interface IHasStats : IBehavior
+    public interface IHasStatsBehavior : IBehavior
     {
         IReadOnlyDictionary<IIdentifier, double> BaseStats { get; }
 

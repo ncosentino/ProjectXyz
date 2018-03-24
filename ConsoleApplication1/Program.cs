@@ -28,6 +28,9 @@ using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Framework.Entities.Extensions;
+using ProjectXyz.Game.Core.GameObjects.Actors;
+using ProjectXyz.Game.Interface.GameObjects.Actors;
+using ProjectXyz.Game.Interface.GameObjects.Items;
 
 namespace ConsoleApplication1
 {
@@ -52,7 +55,7 @@ namespace ConsoleApplication1
 
             var buffable = actor
                 .Behaviors
-                .GetFirst<IBuffable>();
+                .GetFirst<IBuffableBehavior>();
             buffable.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
@@ -70,7 +73,7 @@ namespace ConsoleApplication1
 
             var buffableItem = actor
                 .Behaviors
-                .GetFirst<IBuffable>();
+                .GetFirst<IBuffableBehavior>();
             buffableItem.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
@@ -84,10 +87,10 @@ namespace ConsoleApplication1
 
             var canEquip = actor
                 .Behaviors
-                .GetFirst<ICanEquip>();
+                .GetFirst<ICanEquipBehavior>();
             canEquip.TryEquip(
                 new StringIdentifier("left hand"),
-                item.Behaviors.GetFirst<ICanBeEquipped>());
+                item.Behaviors.GetFirst<ICanBeEquippedBehavior>());
 
             dependencyContainer
                 .Resolve<IMutableGameObjectManager>()
@@ -100,263 +103,7 @@ namespace ConsoleApplication1
         }
     }
 
-    public interface IActorFactory
-    {
-        Actor Create();
-    }
-
-    public sealed class ActorFactory : IActorFactory
-    {
-        private readonly IStatManagerFactory _statManagerFactory;
-        private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
-        private readonly IBehaviorManager _behaviorManager;
-
-        public ActorFactory(
-            IStatManagerFactory statManagerFactory,
-            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
-            IBehaviorManager behaviorManager)
-        {
-            _statManagerFactory = statManagerFactory;
-            _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
-            _behaviorManager = behaviorManager;
-        }
-
-        public Actor Create()
-        {
-            var mutableStatsProvider = new MutableStatsProvider();
-            var statManager = _statManagerFactory.Create(mutableStatsProvider);
-            var hasMutableStats = new HasMutableStats(statManager);
-
-            var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
-            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
-            var buffable = new Buffable(activeEnchantmentManager);
-            var canEquip = new CanEquipBehavior();
-            var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantments();
-            var actor = new Actor(
-                _behaviorManager,
-                hasEnchantments,
-                buffable,
-                hasMutableStats,
-                canEquip,
-                applyEquipmentEnchantmentsBehavior);
-            return actor;
-        }
-    }
-
-    public interface IItemFactory
-    {
-        Item Create();
-    }
-
-    public sealed class ItemFactory : IItemFactory
-    {
-        private readonly IStatManagerFactory _statManagerFactory;
-        private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
-        private readonly IBehaviorManager _behaviorManager;
-
-        public ItemFactory(
-            IStatManagerFactory statManagerFactory,
-            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
-            IBehaviorManager behaviorManager)
-        {
-            _statManagerFactory = statManagerFactory;
-            _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
-            _behaviorManager = behaviorManager;
-        }
-
-        public Item Create()
-        {
-            var mutableStatsProvider = new MutableStatsProvider();
-            var statManager = _statManagerFactory.Create(mutableStatsProvider);
-            var hasMutableStats = new HasMutableStats(statManager);
-
-            var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
-            var hasEnchantments = new HasEnchantments(activeEnchantmentManager);
-            var buffable = new Buffable(activeEnchantmentManager);
-            var canBeEquipped = new CanBeEquippedBehavior();
-            var item = new Item(
-                _behaviorManager,
-                hasEnchantments,
-                buffable,
-                hasMutableStats,
-                canBeEquipped);
-            return item;
-        }
-    }
-
-    public interface ICanBeEquipped : IBehavior
-    {
-        
-    }
-
-    public sealed class CanBeEquippedBehavior : 
-        BaseBehavior,
-        ICanBeEquipped
-    {
-        
-    }
-
-    public interface IHasEquipment : IBehavior
-    {
-        bool TryGet(
-            IIdentifier equipSlotId,
-            out ICanBeEquipped canBeEquipped);
-    }
-
-    public interface ICanEquip : IHasEquipment
-    {
-        event EventHandler<EventArgs<Tuple<ICanEquip, ICanBeEquipped>>> Equipped;
-
-        bool TryUnequip(
-            IIdentifier equipSlotId,
-            out ICanBeEquipped canBeEquipped);
-
-        bool CanEquip(
-            IIdentifier equipSlotId,
-            ICanBeEquipped canBeEquipped);
-
-        bool TryEquip(
-            IIdentifier equipSlotId,
-            ICanBeEquipped canBeEquipped);
-    }
-
-    public sealed class CanEquipBehavior :
-        BaseBehavior,
-        ICanEquip
-    {
-        private readonly Dictionary<IIdentifier, ICanBeEquipped> _equipment;
-
-        public CanEquipBehavior()
-        {
-            _equipment = new Dictionary<IIdentifier, ICanBeEquipped>();
-        }
-
-        public event EventHandler<EventArgs<Tuple<ICanEquip, ICanBeEquipped>>> Equipped;
-
-        public bool TryUnequip(
-            IIdentifier equipSlotId,
-            out ICanBeEquipped canBeEquipped)
-        {
-            return _equipment.TryGetValue(
-                equipSlotId,
-                out canBeEquipped) &&
-                _equipment.Remove(equipSlotId);
-        }
-
-        public bool TryGet(
-            IIdentifier equipSlotId,
-            out ICanBeEquipped canBeEquipped)
-        {
-            return _equipment.TryGetValue(
-                equipSlotId,
-                out canBeEquipped);
-        }
-
-        public bool CanEquip(
-            IIdentifier equipSlotId,
-            ICanBeEquipped canBeEquipped)
-        {
-            // TODO: check all the requirements...
-            return _equipment.ContainsKey(equipSlotId);
-        }
-
-        public bool TryEquip(
-            IIdentifier equipSlotId,
-            ICanBeEquipped canBeEquipped)
-        {
-            if (CanEquip(
-                equipSlotId,
-                canBeEquipped))
-            {
-                return false;
-            }
-
-            _equipment[equipSlotId] = canBeEquipped;
-
-            Equipped?.Invoke(
-                this,
-                new EventArgs<Tuple<ICanEquip, ICanBeEquipped>>(new Tuple<ICanEquip, ICanBeEquipped>(
-                    this,
-                    canBeEquipped)));
-            return true;
-        }
-    }
-
-    public interface IApplyEquipmentEnchantments : IBehavior
-    {
-    }
-
-    public sealed class ApplyEquipmentEnchantments :
-        BaseBehavior,
-        IApplyEquipmentEnchantments
-    {
-        private ICanEquip _canEquip;
-
-        protected override void OnRegisteredToOwner(IHasBehaviors owner)
-        {
-            base.OnRegisteredToOwner(owner);
-
-            if (owner.Behaviors.TryGetFirst(out _canEquip))
-            {
-                _canEquip.Equipped += CanEquip_Equipped;
-            }
-        }
-
-        private void CanEquip_Equipped(
-            object sender, 
-            EventArgs<Tuple<ICanEquip, ICanBeEquipped>> e)
-        {
-            IBuffable buffable;
-            IHasEnchantments hasEnchantments;
-            if (e.Data.Item1.Owner.Behaviors.TryGetFirst(out buffable) &&
-                e.Data.Item2.Owner.Behaviors.TryGetFirst(out hasEnchantments))
-            {
-                buffable.AddEnchantments(hasEnchantments.Enchantments);
-            }
-        }
-    }
-
-    public sealed class Item : IGameObject
-    {
-        public Item(
-            IBehaviorManager behaviorManager,
-            IHasEnchantments hasEnchantments,
-            IBuffable buffable,
-            IHasMutableStats hasStats,
-            ICanBeEquipped canBeEquipped)
-        {
-            Behaviors = new BehaviorCollection(
-                hasEnchantments,
-                buffable,
-                hasStats,
-                canBeEquipped);
-            behaviorManager.Register(this, Behaviors);
-        }
-
-        public IBehaviorCollection Behaviors { get; }
-    }
-
-    public sealed class Actor : IGameObject
-    {
-        public Actor(
-            IBehaviorManager behaviorManager,
-            IHasEnchantments hasEnchantments,
-            IBuffable buffable,
-            IHasMutableStats hasStats,
-            ICanEquip canEquip,
-            IApplyEquipmentEnchantments applyEquipmentEnchantments)
-        {
-            Behaviors = new BehaviorCollection(
-                hasEnchantments,
-                buffable,
-                hasStats,
-                canEquip,
-                applyEquipmentEnchantments);
-            behaviorManager.Register(this, Behaviors);
-        }
-
-        public IBehaviorCollection Behaviors { get; }
-    }
+    
 
     public sealed class StatPrinterSystem : ISystem
     {
@@ -392,7 +139,7 @@ namespace ConsoleApplication1
 
             foreach (var hasBehavior in hasBehaviors)
             {
-                Tuple<IHasStats, IHasEnchantments> behaviours;
+                Tuple<IHasStatsBehavior, IHasEnchantmentsBehavior> behaviours;
                 if (!_behaviorFinder.TryFind(hasBehavior, out behaviours))
                 {
                     continue;

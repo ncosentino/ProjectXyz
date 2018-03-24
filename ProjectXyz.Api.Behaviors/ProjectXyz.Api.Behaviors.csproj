@@ -37,11 +37,10 @@
     <Compile Include="IBehavior.cs" />
     <Compile Include="IBehaviorCollection.cs" />
     <Compile Include="IBehaviorFinder.cs" />
-    <Compile Include="IBuffable.cs" />
     <Compile Include="IHasBehaviors.cs" />
-    <Compile Include="IHasEnchantments.cs" />
-    <Compile Include="IHasMutableStats.cs" />
-    <Compile Include="IHasStats.cs" />
+    <Compile Include="IHasEnchantmentsBehavior.cs" />
+    <Compile Include="IHasMutableStatsBehavior.cs" />
+    <Compile Include="IHasStatsBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
