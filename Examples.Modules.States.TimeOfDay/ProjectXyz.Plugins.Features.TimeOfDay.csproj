@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{18E59339-25CA-46BF-B6FA-8D992A303050}</ProjectGuid>
+    <ProjectGuid>{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Enchantments.Calculations.State</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Enchantments.Calculations.State</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.TimeOfDay</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.TimeOfDay</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -37,20 +37,33 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autofac\DepencencyModule.cs" />
-    <Compile Include="Autofac\SharedComponentsModule.cs" />
-    <Compile Include="ConstantValueStateContext.cs" />
-    <Compile Include="ContextToExpressionInterceptorConverter.cs" />
-    <Compile Include="IStateExpressionInterceptorFactory.cs" />
-    <Compile Include="IStateValueInjector.cs" />
+    <Compile Include="ITimeOfDayItemGenerationContextComponent.cs" />
+    <Compile Include="ITimeOfDaySystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateExpressionInterceptor.cs" />
-    <Compile Include="StateExpressionInterceptorFactory.cs" />
-    <Compile Include="StateValueInjector.cs" />
+    <Compile Include="TimeOfDayItemGenerationContextComponent.cs" />
+    <Compile Include="TimeOfDayItemGenerationContextComponentProvider.cs" />
+    <Compile Include="TimeOfDayModule.cs" />
+    <Compile Include="StateIdToTermRepo.cs" />
+    <Compile Include="TimeOfDaySystem.cs" />
+    <Compile Include="TimesOfDay.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
       <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
       <Name>ProjectXyz.Api.Framework.Entities</Name>
@@ -59,29 +72,29 @@
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
-      <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
-      <Name>ProjectXyz.Api.States</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.Items.csproj">
+      <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
+      <Name>ProjectXyz.Api.Items</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj">
+      <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
+      <Name>ProjectXyz.Api.Systems</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Extensions.csproj">
-      <Project>{e100aa3f-6f54-428a-bd4c-b186bee0aa3b}</Project>
+      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
       <Name>ProjectXyz.Framework.Entities.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
-      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
-      <Name>ProjectXyz.Framework.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
+      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
+      <Name>ProjectXyz.Shared.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj">
       <Project>{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}</Project>
       <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj">
+      <Project>{F85CF10E-7CEC-42BD-8DBA-A76275F5060F}</Project>
+      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

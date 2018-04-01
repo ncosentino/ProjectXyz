@@ -5,6 +5,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Plugins.Enchantments.Calculations.State;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
+using ProjectXyz.Plugins.Features.StateEnchantments.Shared;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {
@@ -67,23 +68,14 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 
             public IEnumerable<IStateIdToTermMapping> GetStateIdToTermMappings()
             {
-                yield return new StateIdToTermMapping()
-                {
-                    StateIdentifier = _stateInfo.States.TimeOfDay,
-                    TermMapping = new TermMapping(new Dictionary<IIdentifier, string>()
+                yield return new StateIdToTermMapping(
+                    _stateInfo.States.TimeOfDay,
+                    new TermMapping(new Dictionary<IIdentifier, string>()
                     {
                         { _stateInfo.TimeOfDay.Day, "TOD_DAY" },
                         { _stateInfo.TimeOfDay.Night, "TOD_NIGHT" },
-                    })
-                };
+                    }));
             }
-        }
-
-        private sealed class StateIdToTermMapping : IStateIdToTermMapping
-        {
-            public IIdentifier StateIdentifier { get; set; }
-
-            public ITermMapping TermMapping { get; set; }
         }
     }
 }

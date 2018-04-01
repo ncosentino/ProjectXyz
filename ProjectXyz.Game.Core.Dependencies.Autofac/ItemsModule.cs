@@ -1,22 +1,20 @@
-﻿using System;
-using Autofac;
-using ProjectXyz.Shared.Framework;
+﻿using Autofac;
+using ProjectXyz.Game.Core.Items;
 
-namespace ConsoleApplication1.Modules
+namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
-    public sealed class WipDependencies : Module
+    public sealed class ItemsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
+            
             builder
-                .Register(c => new RandomNumberGenerator(new Random()))
+                .RegisterType<ItemGenerationContextFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-
             builder
-                .RegisterType<StatPrinterSystem>()
+                .RegisterType<ItemGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

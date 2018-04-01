@@ -4,7 +4,7 @@ using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 
-namespace ProjectXyz.Plugins.Enchantments.Calculations.State
+namespace ProjectXyz.Plugins.Features.StateEnchantments.Shared
 {
     public sealed class TermMapping : ITermMapping
     {

@@ -15,8 +15,9 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State.Autofac
             builder
                 .Register(c =>
                 {
-                    var stateIdToTermMapping = c.Resolve<IStateIdToTermRepository>()
-                        .GetStateIdToTermMappings()
+                    var stateIdToTermMapping = c
+                        .Resolve<IEnumerable<IStateIdToTermRepository>>()
+                        .SelectMany(x => x.GetStateIdToTermMappings())
                         .ToDictionary(
                             x => x.StateIdentifier,
                             x => (IReadOnlyDictionary<IIdentifier, string>)x.TermMapping);

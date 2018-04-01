@@ -62,6 +62,10 @@
       <Project>{bc946063-8ef9-4520-bceb-f13db6da4ff5}</Project>
       <Name>Examples.Modules.StateEnchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Examples.Modules.States.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj">
+      <Project>{1f1feb20-3e06-442e-9b5b-b9b96baafc54}</Project>
+      <Name>ProjectXyz.Plugins.Features.TimeOfDay</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Examples.Modules.Stats\Examples.Modules.Stats.csproj">
       <Project>{f4db6337-d838-4347-9987-e0ee13ebd818}</Project>
       <Name>Examples.Modules.Stats</Name>
@@ -77,6 +81,10 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.Items.csproj">
+      <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
+      <Name>ProjectXyz.Api.Items</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
       <Project>{3456b356-20d3-43ce-92d1-1a84383afaf2}</Project>
@@ -121,6 +129,10 @@
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
       <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
       <Name>ProjectXyz.Application.Stats.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
+      <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
+      <Name>ProjectXyz.Framework.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Framework.Core.Dependencies.Autofac.csproj">
       <Project>{abc9ad2e-c560-4b6f-ae17-3b0537cd9275}</Project>

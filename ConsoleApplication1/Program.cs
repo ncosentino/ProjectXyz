@@ -7,28 +7,24 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Application.Enchantments.Core;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
-using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Interface.Behaviors;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Engine;
 using ProjectXyz.Game.Interface.GameObjects;
-using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Framework.Entities.Extensions;
-using ProjectXyz.Game.Core.GameObjects.Actors;
+using ProjectXyz.Game.Core.Items;
 using ProjectXyz.Game.Interface.GameObjects.Actors;
 using ProjectXyz.Game.Interface.GameObjects.Items;
 
@@ -47,6 +43,18 @@ namespace ConsoleApplication1
                 .Discover("Examples.Modules.*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
+
+            var itemGenerationContextFactory = dependencyContainer.Resolve<IItemGenerationContextFactory>();
+            var itemGenerationContext = itemGenerationContextFactory.Merge(
+                itemGenerationContextFactory.Create(),
+                new []
+                {
+                    new ItemCountContextComponent(1, 1), 
+                });
+            var generatedItems = dependencyContainer
+                .Resolve<IItemGenerator>()
+                .GenerateItems(itemGenerationContext)
+                .ToArray();
 
             var gameEngine = dependencyContainer.Resolve<IGameEngine>();
 
@@ -68,10 +76,9 @@ namespace ConsoleApplication1
                     }),
             });
 
-            var itemFactory = dependencyContainer.Resolve<IItemFactory>();
-            var item = itemFactory.Create();
+            var item = generatedItems.First();
 
-            var buffableItem = actor
+            var buffableItem = item
                 .Behaviors
                 .GetFirst<IBuffableBehavior>();
             buffableItem.AddEnchantments(new IEnchantment[]
@@ -102,6 +109,8 @@ namespace ConsoleApplication1
             Console.ReadLine();
         }
     }
+
+    
 
     
 

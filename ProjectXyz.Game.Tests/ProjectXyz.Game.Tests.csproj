@@ -230,6 +230,10 @@
       <Project>{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}</Project>
       <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj">
+      <Project>{F85CF10E-7CEC-42BD-8DBA-A76275F5060F}</Project>
+      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Application.States.Core.csproj">
       <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>
       <Name>ProjectXyz.Application.States.Core</Name>
