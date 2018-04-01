@@ -35,12 +35,13 @@ namespace ConsoleApplication1
         public static void Main()
         {
             var moduleDiscoverer = new ModuleDiscoverer();
+            var moduleDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var modules =
-                moduleDiscoverer.Discover("*.exe")
+                moduleDiscoverer.Discover(moduleDirectory, "*.exe")
                 .Concat(moduleDiscoverer
-                .Discover("*.Dependencies.Autofac.dll"))
+                .Discover(moduleDirectory, "*.Dependencies.Autofac.dll"))
                 .Concat(moduleDiscoverer
-                .Discover("Examples.Modules.*.dll"));
+                .Discover(moduleDirectory, "Examples.Modules.*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
 

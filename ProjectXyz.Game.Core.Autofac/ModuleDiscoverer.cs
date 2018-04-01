@@ -4,27 +4,59 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Autofac.Core;
-using Module = Autofac.Module;
 
 namespace ProjectXyz.Game.Core.Autofac
 {
-    public sealed class ModuleDiscoverer
+    public sealed class ModuleDiscoverer : IModuleDiscoverer
     {
-        public IEnumerable<IModule> Discover(string filePattern)
+        public event EventHandler<AssemblyLoadFailedEventArgs> AssemblyLoadFailed;
+
+        public event EventHandler<AssemblyLoadedEventArgs> AssemblyLoaded;
+
+        public IEnumerable<IModule> Discover(Assembly assembly)
+        {
+            AssemblyLoaded?.Invoke(this, new AssemblyLoadedEventArgs(assembly));
+            var modules = assembly
+                .GetTypes()
+                .Where(type =>
+                    typeof(IModule).IsAssignableFrom(type) &&
+                    !type.IsAbstract &&
+                    !type.IsInterface)
+                .Select(x => (IModule)Activator.CreateInstance(x));
+            return modules;
+        }
+
+        public IEnumerable<IModule> Discover(
+            string moduleDirectory,
+            string filePattern)
         {
             var modules = Directory
                 .GetFiles(
-                    AppDomain.CurrentDomain.BaseDirectory,
+                    moduleDirectory,
                     filePattern,
                     SearchOption.TopDirectoryOnly)
-                .Select(Assembly.LoadFrom)
-                .SelectMany(x => x
-                    .GetTypes()
-                    .Where(type =>
-                        typeof(IModule).IsAssignableFrom(type) &&
-                        !type.IsAbstract &&
-                        !type.IsInterface))
-                .Select(x => (Module) Activator.CreateInstance(x));
+                .Select(assemblypath =>
+                {
+                    try
+                    {
+                        return Assembly.LoadFrom(assemblypath);
+                    }
+                    catch (Exception ex) when (AssemblyLoadFailed != null)
+                    {
+                        var args = new AssemblyLoadFailedEventArgs(
+                            assemblypath,
+                            ex);
+                        AssemblyLoadFailed.Invoke(this, args);
+                        if (!args.Handled)
+                        {
+                            throw;
+                        }
+
+                        return null;
+                    }
+                })
+                .Where(x => x != null)
+                .SelectMany(Discover);
             return modules;
         }
     }

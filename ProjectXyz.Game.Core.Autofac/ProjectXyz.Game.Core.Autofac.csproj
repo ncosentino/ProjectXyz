@@ -38,7 +38,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyLoadedEventArgs.cs" />
+    <Compile Include="AssemblyLoadFailedEventArgs.cs" />
     <Compile Include="DependencyContainerBuilder.cs" />
+    <Compile Include="IModuleDiscoverer.cs" />
     <Compile Include="ModuleDiscoverer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
