@@ -65,6 +65,10 @@
     <Compile Include="Items\ItemGenerationContext.cs" />
     <Compile Include="Items\ItemGenerationContextFactory.cs" />
     <Compile Include="Items\ItemGenerator.cs" />
+    <Compile Include="Mapping\Map.cs" />
+    <Compile Include="Mapping\MapLayer.cs" />
+    <Compile Include="Mapping\MapManager.cs" />
+    <Compile Include="Mapping\MapTile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\ContextConverter.cs" />
     <Compile Include="Stats\StatCalculationContext.cs" />

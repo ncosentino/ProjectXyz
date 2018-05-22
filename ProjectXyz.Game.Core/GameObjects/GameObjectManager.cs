@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProjectXyz.Game.Interface.GameObjects;
 
 namespace ProjectXyz.Game.Core.GameObjects
@@ -15,6 +16,8 @@ namespace ProjectXyz.Game.Core.GameObjects
             _gameObjectsToRemove = new HashSet<IGameObject>();
             _gameObjectsToAdd = new HashSet<IGameObject>();
         }
+
+        public event EventHandler<GameObjectsSynchronizedEventArgs> Synchronized;
 
         public IReadOnlyCollection<IGameObject> GameObjects => _gameObjects;
 
@@ -35,13 +38,18 @@ namespace ProjectXyz.Game.Core.GameObjects
                 _gameObjects.Add(gameObject);
             }
 
-            _gameObjectsToAdd.Clear();
-
             foreach (var gameObject in _gameObjectsToRemove)
             {
                 _gameObjects.Remove(gameObject);
             }
 
+            Synchronized?.Invoke(
+                this,
+                new GameObjectsSynchronizedEventArgs(
+                    _gameObjectsToAdd,
+                    _gameObjectsToRemove));
+
+            _gameObjectsToAdd.Clear();
             _gameObjectsToRemove.Clear();
         }
     }
