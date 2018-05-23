@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Reflection;
 using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
@@ -19,9 +21,9 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public TestFixture(TestData testData)
         {
             var moduleDiscoverer = new ModuleDiscoverer();
-            var modules = moduleDiscoverer.Discover("*.Tests.dll")
+            var modules = moduleDiscoverer.Discover(AppDomain.CurrentDomain.BaseDirectory, "*.Tests.dll")
                 .Concat(moduleDiscoverer
-                .Discover("*.Dependencies.Autofac.dll"));
+                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.Dependencies.Autofac.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             DependencyContainer = dependencyContainerBuilder.Create(modules);
 
