@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{175783B5-DBE5-491A-B365-CA1D1CC09375}</ProjectGuid>
+    <ProjectGuid>{45DBFFA4-242F-40BC-A1EB-7CCD690C84C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Behaviors</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Behaviors</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,28 +35,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBehavior.cs" />
-    <Compile Include="IBehaviorCollection.cs" />
-    <Compile Include="IBehaviorCollectionFactory.cs" />
-    <Compile Include="IBehaviorFinder.cs" />
-    <Compile Include="IHasBehaviors.cs" />
-    <Compile Include="IHasEnchantmentsBehavior.cs" />
-    <Compile Include="IHasMutableStatsBehavior.cs" />
-    <Compile Include="IHasStatsBehavior.cs" />
+    <Compile Include="IActorFactory.cs" />
+    <Compile Include="IAdditionalActorBehaviorsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
+    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
+      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
+      <Name>ProjectXyz.Game.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

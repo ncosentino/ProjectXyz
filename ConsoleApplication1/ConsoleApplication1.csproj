@@ -206,6 +206,26 @@
       <Project>{b544856a-ab36-4a88-9441-67853074f33a}</Project>
       <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj">
+      <Project>{b6a76b2d-7cb5-4584-8efa-b76aee3bdd76}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj">
+      <Project>{45dbffa4-242f-40bc-a1eb-7ccd690c84c9}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj">
+      <Project>{5e9c8b2b-94ed-4e9e-bb79-9ac38d2485cd}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Actors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj">
+      <Project>{5a0e7932-b9a9-4a10-a8ae-cf505d6569b8}</Project>
+      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj">
+      <Project>{f85cf10e-7cec-42bd-8dba-a76275f5060f}</Project>
+      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Application.States.Core.csproj">
       <Project>{9abfcbe9-d6f9-4c9e-b447-6a8f49a5a939}</Project>
       <Name>ProjectXyz.Application.States.Core</Name>

@@ -1,21 +1,19 @@
 ﻿using Autofac;
-using ProjectXyz.Game.Core.GameObjects;
-using ProjectXyz.Game.Core.GameObjects.Items;
 
-namespace ProjectXyz.Game.Core.Dependencies.Autofac
+namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
-    public sealed class GameObjectsModule : Module
+    public sealed class ActorsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
             builder
-                .RegisterType<GameObjectManager>()
+                .RegisterType<ActorFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<ItemFactory>()
+                .RegisterType<NoAdditionalActorBehaviorsProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

@@ -1,27 +1,36 @@
-﻿using ProjectXyz.Application.Stats.Core;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.GameObjects;
-using ProjectXyz.Game.Interface.GameObjects.Actors;
 using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 
-namespace ProjectXyz.Game.Core.GameObjects.Actors
+namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class ActorFactory : IActorFactory
     {
+        private readonly IBehaviorCollectionFactory _behaviorCollectionFactory;
         private readonly IStatManagerFactory _statManagerFactory;
         private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
         private readonly IBehaviorManager _behaviorManager;
+        private readonly IReadOnlyCollection<IAdditionalActorBehaviorsProvider> _additionalActorBehaviorsProviders;
 
         public ActorFactory(
+            IBehaviorCollectionFactory behaviorCollectionFactory,
             IStatManagerFactory statManagerFactory,
             IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
-            IBehaviorManager behaviorManager)
+            IBehaviorManager behaviorManager,
+            IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders)
         {
+            _behaviorCollectionFactory = behaviorCollectionFactory;
             _statManagerFactory = statManagerFactory;
             _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
             _behaviorManager = behaviorManager;
+            _additionalActorBehaviorsProviders = additionalActorBehaviorsProviders.ToArray();
         }
 
         public IGameObject Create()
@@ -36,12 +45,14 @@ namespace ProjectXyz.Game.Core.GameObjects.Actors
             var canEquip = new CanEquipBehavior();
             var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
             var actor = new Actor(
+                _behaviorCollectionFactory,
                 _behaviorManager,
                 hasEnchantments,
                 buffable,
                 hasMutableStats,
                 canEquip,
-                applyEquipmentEnchantmentsBehavior);
+                applyEquipmentEnchantmentsBehavior,
+                _additionalActorBehaviorsProviders.SelectMany(x => x.GetBehaviors()));
             return actor;
         }
     }

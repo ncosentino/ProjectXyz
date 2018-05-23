@@ -10,6 +10,10 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
             base.Load(builder);
 
             builder
+                .RegisterType<BehaviorCollectionFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<BehaviorFinder>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

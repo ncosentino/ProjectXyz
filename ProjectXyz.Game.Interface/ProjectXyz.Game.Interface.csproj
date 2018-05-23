@@ -47,7 +47,6 @@
     <Compile Include="Enchantments\IActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentProvider.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
-    <Compile Include="GameObjects\Actors\IActorFactory.cs" />
     <Compile Include="GameObjects\GameObjectsSynchronizedEventArgs.cs" />
     <Compile Include="GameObjects\IGameObject.cs" />
     <Compile Include="GameObjects\IGameObjectManager.cs" />

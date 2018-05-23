@@ -25,8 +25,7 @@ using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Framework.Entities.Extensions;
 using ProjectXyz.Game.Core.Items;
-using ProjectXyz.Game.Interface.GameObjects.Actors;
-using ProjectXyz.Game.Interface.GameObjects.Items;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 
 namespace ConsoleApplication1
 {
