@@ -34,21 +34,27 @@ namespace ProjectXyz.Game.Core.GameObjects
 
         public void Synchronize()
         {
+            var requiredSync = false;
             foreach (var gameObject in _gameObjectsToAdd)
             {
                 _gameObjects.Add(gameObject);
+                requiredSync = true;
             }
 
             foreach (var gameObject in _gameObjectsToRemove)
             {
                 _gameObjects.Remove(gameObject);
+                requiredSync = true;
             }
 
-            Synchronized?.Invoke(
-                this,
-                new GameObjectsSynchronizedEventArgs(
-                    _gameObjectsToAdd,
-                    _gameObjectsToRemove));
+            if (requiredSync)
+            {
+                Synchronized?.Invoke(
+                    this,
+                    new GameObjectsSynchronizedEventArgs(
+                        _gameObjectsToAdd,
+                        _gameObjectsToRemove));
+            }
 
             _gameObjectsToAdd.Clear();
             _gameObjectsToRemove.Clear();
