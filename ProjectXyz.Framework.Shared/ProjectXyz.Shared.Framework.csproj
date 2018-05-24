@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Cache.cs" />
     <Compile Include="Identifier.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="KeyValuePair.cs" />
@@ -54,6 +55,10 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
+      <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
+      <Name>ProjectXyz.Framework.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
       <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
