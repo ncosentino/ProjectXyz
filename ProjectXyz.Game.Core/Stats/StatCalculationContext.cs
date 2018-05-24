@@ -3,7 +3,6 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Game.Core.Stats

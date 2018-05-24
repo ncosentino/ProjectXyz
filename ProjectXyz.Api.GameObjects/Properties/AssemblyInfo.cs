@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Plugins.Features.StateEnchantments.Api")]
+[assembly: AssemblyTitle("ProjectXyz.Api.GameObjects")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Plugins.Features.StateEnchantments.Api")]
+[assembly: AssemblyProduct("ProjectXyz.Api.GameObjects")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5a0e7932-b9a9-4a10-a8ae-cf505d6569b8")]
+[assembly: Guid("c1c9d171-58f9-41e9-b816-c0f287d6f2ca")]
 
 // Version information for an assembly consists of the following four values:
 //

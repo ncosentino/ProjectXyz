@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Autofac;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Core;

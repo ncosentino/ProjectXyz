@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
-using ProjectXyz.Game.Interface.GameObjects;
 
 namespace ProjectXyz.Game.Core.GameObjects.Items
 {

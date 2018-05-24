@@ -2,7 +2,7 @@
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Framework.Contracts;
 
-namespace ProjectXyz.Game.Core.Behaviors
+namespace ProjectXyz.Shared.Game.Behaviors
 {
     public abstract class BaseBehavior : IBehavior
     {

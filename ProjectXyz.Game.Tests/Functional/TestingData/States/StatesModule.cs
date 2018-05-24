@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Plugins.Enchantments.Calculations.State;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 using ProjectXyz.Plugins.Features.StateEnchantments.Shared;
 

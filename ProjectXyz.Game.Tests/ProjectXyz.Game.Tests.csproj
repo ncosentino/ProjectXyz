@@ -246,6 +246,10 @@
       <Project>{B38223E4-8D33-4B80-AC15-2F715578B619}</Project>
       <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
+      <Project>{229057a2-508f-4cde-8f87-da3fab069d06}</Project>
+      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

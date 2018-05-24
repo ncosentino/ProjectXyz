@@ -34,7 +34,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\BaseBehavior.cs" />
     <Compile Include="Behaviors\BehaviorCollectionFactory.cs" />
     <Compile Include="Behaviors\BehaviorFinder.cs" />
     <Compile Include="Behaviors\BehaviorCollection.cs" />
@@ -97,6 +96,10 @@
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
+      <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
+      <Name>ProjectXyz.Api.GameObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.Items.csproj">
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Api.Items</Name>
@@ -152,6 +155,10 @@
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
+      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
+      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

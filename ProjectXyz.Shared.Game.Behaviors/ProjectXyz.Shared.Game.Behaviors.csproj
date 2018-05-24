@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</ProjectGuid>
+    <ProjectGuid>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Items</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Items</AssemblyName>
+    <RootNamespace>ProjectXyz.Shared.Game.Behaviors</RootNamespace>
+    <AssemblyName>ProjectXyz.Shared.Game.Behaviors</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,14 +35,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IItemGenerationContextComponent.cs" />
-    <Compile Include="IItemGenerationContextComponentProvider.cs" />
+    <Compile Include="BaseBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
-      <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
-      <Name>ProjectXyz.Api.Framework.Entities</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
+      <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
+      <Name>ProjectXyz.Framework.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Game.Interface.GameObjects
+﻿namespace ProjectXyz.Api.GameObjects
 {
     public interface IGameObjectFactory
     {

@@ -1,4 +1,4 @@
-﻿using ProjectXyz.Game.Interface.GameObjects;
+﻿using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
 {

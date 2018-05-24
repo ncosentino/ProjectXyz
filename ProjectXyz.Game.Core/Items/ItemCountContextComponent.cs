@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectXyz.Framework.Contracts;
+﻿using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Game.Core.Items
 {

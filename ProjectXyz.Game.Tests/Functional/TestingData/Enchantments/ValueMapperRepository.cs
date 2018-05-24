@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
 

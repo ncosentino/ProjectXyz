@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Interface.Behaviors;
-using ProjectXyz.Game.Interface.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {

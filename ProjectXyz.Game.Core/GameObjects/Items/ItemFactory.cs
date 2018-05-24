@@ -1,8 +1,8 @@
-﻿using ProjectXyz.Application.Stats.Core;
+﻿using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
-using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.GameObjects.Items;
 using ProjectXyz.Game.Interface.Stats;
 

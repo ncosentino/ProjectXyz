@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Framework.Entities.Extensions;
 using ProjectXyz.Framework.Extensions;
 using ProjectXyz.Framework.Interface;
-using ProjectXyz.Game.Interface.GameObjects;
 using ProjectXyz.Game.Interface.GameObjects.Items;
 
 namespace ProjectXyz.Game.Core.Items

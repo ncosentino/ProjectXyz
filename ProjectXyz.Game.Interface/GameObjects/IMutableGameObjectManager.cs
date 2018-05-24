@@ -1,4 +1,6 @@
-﻿namespace ProjectXyz.Game.Interface.GameObjects
+﻿using ProjectXyz.Api.GameObjects;
+
+namespace ProjectXyz.Game.Interface.GameObjects
 {
     public interface IMutableGameObjectManager : IGameObjectManager
     {

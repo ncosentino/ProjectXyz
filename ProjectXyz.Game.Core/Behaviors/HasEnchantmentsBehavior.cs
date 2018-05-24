@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
+using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {

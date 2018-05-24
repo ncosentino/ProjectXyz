@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Game.Interface.GameObjects
 {

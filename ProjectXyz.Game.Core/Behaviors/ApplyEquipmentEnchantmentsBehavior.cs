@@ -2,6 +2,7 @@
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Game.Interface.Behaviors;
+using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {

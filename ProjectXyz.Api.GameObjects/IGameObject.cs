@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Behaviors;
 
-namespace ProjectXyz.Game.Interface.GameObjects
+namespace ProjectXyz.Api.GameObjects
 {
     public interface IGameObject : IHasBehaviors
     {
