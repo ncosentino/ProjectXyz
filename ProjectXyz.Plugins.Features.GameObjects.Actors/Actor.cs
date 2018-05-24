@@ -9,6 +9,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
     public sealed class Actor : IGameObject
     {
         public Actor(
+            IIdentifierBehavior identifierBehavior,
             IBehaviorCollectionFactory behaviorCollectionFactory,
             IBehaviorManager behaviorManager,
             IHasEnchantmentsBehavior hasEnchantmentsBehavior,
@@ -20,6 +21,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         {
             Behaviors = behaviorCollectionFactory.Create(new IBehavior[]
                 {
+                    identifierBehavior,
                     hasEnchantmentsBehavior,
                     buffableBehavior,
                     hasStatsBehavior,

@@ -42,6 +42,8 @@
     <Compile Include="IHasEnchantmentsBehavior.cs" />
     <Compile Include="IHasMutableStatsBehavior.cs" />
     <Compile Include="IHasStatsBehavior.cs" />
+    <Compile Include="IIdentifierBehavior.cs" />
+    <Compile Include="IReadOnlyIdentifierBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

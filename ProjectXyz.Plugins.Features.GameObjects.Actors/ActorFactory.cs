@@ -8,6 +8,7 @@ using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
@@ -35,6 +36,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 
         public IGameObject Create()
         {
+            var identifierBehavior = new IdentifierBehavior();
+
             var mutableStatsProvider = new MutableStatsProvider();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStatsBehavior(statManager);
@@ -45,6 +48,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var canEquip = new CanEquipBehavior();
             var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
             var actor = new Actor(
+                identifierBehavior,
                 _behaviorCollectionFactory,
                 _behaviorManager,
                 hasEnchantments,
