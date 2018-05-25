@@ -2,6 +2,8 @@
 {
     public interface ICache<TKey, TValue> : IReadOnlyCache<TKey, TValue>
     {
-        void Add(TKey key, TValue item);
+        void AddOrUpdate(TKey key, TValue item);
+
+        void Invalidate(TKey key);
     }
 }

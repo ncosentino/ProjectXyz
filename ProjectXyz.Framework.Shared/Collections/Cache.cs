@@ -32,7 +32,12 @@ namespace ProjectXyz.Shared.Framework.Collections
 
         public int Limit { get; }
 
-        public void Add(TKey key, TValue item)
+        public void Invalidate(TKey key)
+        {
+            _cache.Remove(key);
+        }
+
+        public void AddOrUpdate(TKey key, TValue item)
         {
             while (_cache.Count >= Limit - 1)
             {
