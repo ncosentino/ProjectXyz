@@ -58,6 +58,14 @@
       <Project>{77d2cf94-450d-4b14-b5c3-1a7e48214784}</Project>
       <Name>Examples.Modules.ExpressionEnchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Examples.Modules.GameObjects\Examples.Modules.GameObjects.csproj">
+      <Project>{43d9f449-c568-4a39-80f8-11200c07814e}</Project>
+      <Name>Examples.Modules.GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Examples.Modules.Mapping\Examples.Modules.Mapping.csproj">
+      <Project>{11ff2c70-2c4f-403b-ac53-247bdb063777}</Project>
+      <Name>Examples.Modules.Mapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Examples.Modules.StateEnchantments\Examples.Modules.StateEnchantments.csproj">
       <Project>{bc946063-8ef9-4520-bceb-f13db6da4ff5}</Project>
       <Name>Examples.Modules.StateEnchantments</Name>

@@ -1,4 +1,5 @@
 ﻿using System;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Game.Interface.Mapping;
 
 namespace ProjectXyz.Game.Core.Mapping
@@ -16,9 +17,9 @@ namespace ProjectXyz.Game.Core.Mapping
 
         public IMap ActiveMap { get; private set; }
 
-        public void SwitchMap(string mapResourceId)
+        public void SwitchMap(IIdentifier mapId)
         {
-            ActiveMap = _mapRepository.LoadMap(mapResourceId);
+            ActiveMap = _mapRepository.LoadMap(mapId);
             MapChanged?.Invoke(this, EventArgs.Empty);
         }
     }

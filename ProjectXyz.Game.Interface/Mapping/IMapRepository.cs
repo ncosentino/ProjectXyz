@@ -1,7 +1,9 @@
-﻿namespace ProjectXyz.Game.Interface.Mapping
+﻿using ProjectXyz.Api.Framework;
+
+namespace ProjectXyz.Game.Interface.Mapping
 {
     public interface IMapRepository
     {
-        IMap LoadMap(string mapResourceId);
+        IMap LoadMap(IIdentifier mapId);
     }
 }

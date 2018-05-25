@@ -22,14 +22,26 @@ namespace ProjectXyz.Game.Core.GameObjects
 
         public IReadOnlyCollection<IGameObject> GameObjects => _gameObjects;
 
-        public void MarkForRemoval(IGameObject gameObject)
+        public void MarkForRemoval(params IGameObject[] gameObjects) =>
+            MarkForRemoval((IEnumerable<IGameObject>) gameObjects);
+
+        public void MarkForRemoval(IEnumerable<IGameObject> gameObjects)
         {
-            _gameObjectsToRemove.Add(gameObject);
+            foreach (var gameObject in gameObjects)
+            {
+                _gameObjectsToRemove.Add(gameObject);
+            }
         }
 
-        public void MarkForAddition(IGameObject gameObject)
+        public void MarkForAddition(params IGameObject[] gameObjects) =>
+            MarkForAddition((IEnumerable<IGameObject>)gameObjects);
+
+        public void MarkForAddition(IEnumerable<IGameObject> gameObjects)
         {
-            _gameObjectsToAdd.Add(gameObject);
+            foreach (var gameObject in gameObjects)
+            {
+                _gameObjectsToAdd.Add(gameObject);
+            }
         }
 
         public void Synchronize()

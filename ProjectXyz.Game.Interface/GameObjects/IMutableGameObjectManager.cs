@@ -1,12 +1,17 @@
-﻿using ProjectXyz.Api.GameObjects;
+﻿using System.Collections.Generic;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Game.Interface.GameObjects
 {
     public interface IMutableGameObjectManager : IGameObjectManager
     {
-        void MarkForRemoval(IGameObject gameObject);
+        void MarkForRemoval(params IGameObject[] gameObjects);
 
-        void MarkForAddition(IGameObject gameObject);
+        void MarkForRemoval(IEnumerable<IGameObject> gameObjects);
+
+        void MarkForAddition(params IGameObject[] gameObjects);
+
+        void MarkForAddition(IEnumerable<IGameObject> gameObjects);
 
         void Synchronize();
     }
