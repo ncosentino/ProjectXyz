@@ -1,7 +1,10 @@
+using System;
+using System.Diagnostics;
 using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Shared.Framework
 {
+    [DebuggerDisplay("Identifier<{typeof(T).FullName}>: {_identifier}")]
     public sealed class Identifier<T> : IIdentifier
     {
         private readonly T _identifier;
@@ -13,7 +16,7 @@ namespace ProjectXyz.Shared.Framework
 
         public override string ToString()
         {
-            return $"Identifier<{typeof(T).FullName}>: {_identifier}";
+            return _identifier.ToString();
         }
 
         public override bool Equals(object obj)
