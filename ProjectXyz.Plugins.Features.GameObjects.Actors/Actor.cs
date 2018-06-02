@@ -3,6 +3,7 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Interface.Behaviors;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
@@ -17,8 +18,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             IHasMutableStatsBehavior hasStatsBehavior,
             ICanEquipBehavior canEquipBehavior,
             IApplyEquipmentEnchantmentsBehavior applyEquipmentEnchantmentsBehavior,
-            IEnumerable<IBehavior> additionalBehaviors)
+            IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders)
         {
+            var additionalBehaviors = additionalActorBehaviorsProviders.SelectMany(x => x.GetBehaviors(this));
             Behaviors = behaviorCollectionFactory.Create(new IBehavior[]
                 {
                     identifierBehavior,

@@ -56,7 +56,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 hasMutableStats,
                 canEquip,
                 applyEquipmentEnchantmentsBehavior,
-                _additionalActorBehaviorsProviders.SelectMany(x => x.GetBehaviors()));
+                _additionalActorBehaviorsProviders);
             return actor;
         }
     }
