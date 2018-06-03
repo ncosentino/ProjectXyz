@@ -98,6 +98,10 @@
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Api.Items</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj">
+      <Project>{20d53cd6-10fd-4347-b5a3-c6a5b8fabf2d}</Project>
+      <Name>ProjectXyz.Api.Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
       <Project>{3456b356-20d3-43ce-92d1-1a84383afaf2}</Project>
       <Name>ProjectXyz.Api.States</Name>
