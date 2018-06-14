@@ -216,6 +216,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Logging", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{440A7AA9-5891-4505-898C-72E74B4EC02C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.Items.Generation.InMemory", "ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.Items.Generation.InMemory.csproj", "{68FB16F5-2C5C-4172-8277-70A4781DF6DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.Items.Generation", "ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.Items.Generation.csproj", "{FF377F10-928C-4281-8ADB-E40D9A664967}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -478,6 +482,14 @@ Global
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68FB16F5-2C5C-4172-8277-70A4781DF6DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68FB16F5-2C5C-4172-8277-70A4781DF6DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68FB16F5-2C5C-4172-8277-70A4781DF6DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68FB16F5-2C5C-4172-8277-70A4781DF6DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF377F10-928C-4281-8ADB-E40D9A664967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF377F10-928C-4281-8ADB-E40D9A664967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF377F10-928C-4281-8ADB-E40D9A664967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF377F10-928C-4281-8ADB-E40D9A664967}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -579,5 +591,7 @@ Global
 		{11FF2C70-2C4F-403B-AC53-247BDB063777} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D} = {440A7AA9-5891-4505-898C-72E74B4EC02C}
 		{440A7AA9-5891-4505-898C-72E74B4EC02C} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}
+		{68FB16F5-2C5C-4172-8277-70A4781DF6DB} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
+		{FF377F10-928C-4281-8ADB-E40D9A664967} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
 	EndGlobalSection
 EndGlobal

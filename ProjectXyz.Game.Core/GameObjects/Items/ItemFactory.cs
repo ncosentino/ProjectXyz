@@ -1,9 +1,9 @@
 ﻿using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Items;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
-using ProjectXyz.Game.Interface.GameObjects.Items;
 using ProjectXyz.Game.Interface.Stats;
 
 namespace ProjectXyz.Game.Core.GameObjects.Items

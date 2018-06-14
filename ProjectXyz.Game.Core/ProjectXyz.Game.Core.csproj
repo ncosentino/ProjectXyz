@@ -52,17 +52,10 @@
     <Compile Include="Behaviors\CanEquipBehavior.cs" />
     <Compile Include="Behaviors\CanFitSocketBehavior.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
+    <Compile Include="GameObjects\Items\Generation\ItemGeneratorContextFactory.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\ItemFactory.cs" />
     <Compile Include="Behaviors\CanBeEquippedBehavior.cs" />
-    <Compile Include="Items\ItemCountContextComponent.cs" />
-    <Compile Include="Items\IItemCountContextComponent.cs" />
-    <Compile Include="Items\IItemGenerationContext.cs" />
-    <Compile Include="Items\IItemGenerationContextFactory.cs" />
-    <Compile Include="Items\IItemGenerator.cs" />
-    <Compile Include="Items\ItemGenerationContext.cs" />
-    <Compile Include="Items\ItemGenerationContextFactory.cs" />
-    <Compile Include="Items\ItemGenerator.cs" />
     <Compile Include="Mapping\Map.cs" />
     <Compile Include="Mapping\MapLayer.cs" />
     <Compile Include="Mapping\MapManager.cs" />
@@ -159,6 +152,10 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
       <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
       <Name>ProjectXyz.Shared.Game.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.Items.Generation.csproj">
+      <Project>{FF377F10-928C-4281-8ADB-E40D9A664967}</Project>
+      <Name>ProjectXyz.Shared.Game.Items.Generation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

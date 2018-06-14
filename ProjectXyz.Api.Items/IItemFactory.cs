@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.GameObjects;
 
-namespace ProjectXyz.Game.Interface.GameObjects.Items
+namespace ProjectXyz.Api.Items
 {
     public interface IItemFactory : IGameObjectFactory
     {

@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</ProjectGuid>
+    <ProjectGuid>{FF377F10-928C-4281-8ADB-E40D9A664967}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Items</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Items</AssemblyName>
+    <RootNamespace>ProjectXyz.Shared.Game.Items.Generation</RootNamespace>
+    <AssemblyName>ProjectXyz.Shared.Game.Items.Generation</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,34 +35,26 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generation\Attributes\AttributeValueMatchDelegate.cs" />
-    <Compile Include="Generation\Attributes\GenericAttributeValueMatchDelegate.cs" />
-    <Compile Include="Generation\Attributes\IAttributeValueMatcher.cs" />
-    <Compile Include="Generation\Attributes\IAttributeValueMatchFacade.cs" />
-    <Compile Include="Generation\Attributes\IAttributeValueMatchRegistrar.cs" />
-    <Compile Include="Generation\Attributes\IItemGeneratorAttribute.cs" />
-    <Compile Include="Generation\Attributes\IItemGeneratorAttributeValue.cs" />
-    <Compile Include="Generation\IBaseItemGenerator.cs" />
-    <Compile Include="Generation\IItemGenerator.cs" />
-    <Compile Include="Generation\IItemGeneratorContext.cs" />
-    <Compile Include="Generation\Attributes\IItemGeneratorContextAttributeProviders.cs" />
-    <Compile Include="Generation\IItemGeneratorContextFactory.cs" />
-    <Compile Include="Generation\IItemGeneratorFilterer.cs" />
-    <Compile Include="IItemFactory.cs" />
+    <Compile Include="BaseItemGenerator.cs" />
+    <Compile Include="ItemGeneratorContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
-      <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
-      <Name>ProjectXyz.Api.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.Items.csproj">
+      <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
+      <Name>ProjectXyz.Api.Items</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
+      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
+      <Name>ProjectXyz.Framework.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
+      <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
+      <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

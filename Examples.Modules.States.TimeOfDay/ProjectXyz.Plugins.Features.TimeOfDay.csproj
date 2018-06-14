@@ -39,10 +39,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITimeOfDayItemGenerationContextComponent.cs" />
     <Compile Include="ITimeOfDaySystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeOfDayItemGenerationContextComponent.cs" />
     <Compile Include="TimeOfDayItemGenerationContextComponentProvider.cs" />
     <Compile Include="TimeOfDayModule.cs" />
     <Compile Include="StateIdToTermRepo.cs" />
@@ -85,6 +83,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj">
       <Project>{F85CF10E-7CEC-42BD-8DBA-A76275F5060F}</Project>
       <Name>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.Items.Generation.InMemory.csproj">
+      <Project>{68FB16F5-2C5C-4172-8277-70A4781DF6DB}</Project>
+      <Name>ProjectXyz.Shared.Game.Items.Generation.InMemory</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

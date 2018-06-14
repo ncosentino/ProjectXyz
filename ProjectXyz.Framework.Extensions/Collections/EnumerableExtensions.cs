@@ -6,6 +6,52 @@ namespace ProjectXyz.Framework.Extensions.Collections
 {
     public static class EnumerableExtensions
     {
+        public static T Random<T>(
+            this IEnumerable<T> source,
+            Random random)
+        {
+            var current = default(T);
+            var count = 0;
+            foreach (var element in source)
+            {
+                count++;
+                if (random.Next(count) == 0)
+                {
+                    current = element;
+                }
+            }
+
+            if (count == 0)
+            {
+                throw new InvalidOperationException("Sequence was empty");
+            }
+
+            return current;
+        }
+
+        public static T RandomOrDefault<T>(
+            this IEnumerable<T> source,
+            Random random)
+        {
+            var current = default(T);
+            var count = 0;
+            foreach (var element in source)
+            {
+                count++;
+                if (random.Next(count) == 0)
+                {
+                    current = element;
+                }
+            }
+
+            if (count == 0)
+            {
+                return default(T);
+            }
+
+            return current;
+        }
+
         public static void Foreach<T>(
             this IEnumerable<T> enumerable, 
             Action<T> perItemCallback)
@@ -26,6 +72,11 @@ namespace ProjectXyz.Framework.Extensions.Collections
             return enumerable.ToDictionary(
                 x => x.Key,
                 x => x.Value);
+        }
+
+        public static IReadOnlyDictionary<TKey, TValue> ToReadOnlyDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> enumerable)
+        {
+            return enumerable.ToDictionary();
         }
 
         public static IEnumerable<T> Yield<T>(this T obj)
@@ -52,6 +103,11 @@ namespace ProjectXyz.Framework.Extensions.Collections
         }
 
         public static IReadOnlyCollection<T> ToReadOnlyCollection<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable.ToArray();
+        }
+
+        public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> enumerable)
         {
             return enumerable.ToArray();
         }

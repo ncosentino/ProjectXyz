@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using ProjectXyz.Api.Items;
+using ProjectXyz.Api.Items.Generation.Attributes;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Game.Items.Generation.InMemory.Attributes;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
-    public sealed class TimeOfDayItemGenerationContextComponentProvider : IItemGenerationContextComponentProvider
+    public sealed class TimeOfDayItemGenerationContextComponentProvider : IItemGeneratorContextAttributeProvider
     {
         private readonly ITimeOfDaySystem _timeOfDaySystem;
 
@@ -12,9 +16,11 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
             _timeOfDaySystem = timeOfDaySystem;
         }
 
-        public IEnumerable<IItemGenerationContextComponent> CreateComponents()
+        public IEnumerable<IItemGeneratorAttribute> GetAttributes()
         {
-            yield return new TimeOfDayItemGenerationContextComponent(_timeOfDaySystem.TimeOfDay);
+            yield return new ItemGeneratorAttribute(
+                new StringIdentifier("time-of-day"),
+                new IdentifierItemGeneratorAttributeValue(_timeOfDaySystem.TimeOfDay));
         }
     }
 }

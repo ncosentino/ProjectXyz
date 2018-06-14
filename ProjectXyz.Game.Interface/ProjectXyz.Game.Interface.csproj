@@ -51,7 +51,6 @@
     <Compile Include="GameObjects\IGameObjectManager.cs" />
     <Compile Include="GameObjects\IGameObjectRepository.cs" />
     <Compile Include="GameObjects\IMutableGameObjectManager.cs" />
-    <Compile Include="GameObjects\Items\IItemFactory.cs" />
     <Compile Include="Mapping\IMap.cs" />
     <Compile Include="Mapping\IMapLayer.cs" />
     <Compile Include="Mapping\IMapManager.cs" />

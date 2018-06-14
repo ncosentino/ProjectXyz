@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using ProjectXyz.Game.Core.Items;
+using ProjectXyz.Game.Core.GameObjects.Items;
+using ProjectXyz.Game.Core.GameObjects.Items.Generation;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
@@ -10,11 +11,11 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
             base.Load(builder);
             
             builder
-                .RegisterType<ItemGenerationContextFactory>()
+                .RegisterType<ItemGeneratorContextFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<ItemGenerator>()
+                .RegisterType<ItemFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

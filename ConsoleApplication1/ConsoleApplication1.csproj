@@ -41,9 +41,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Wip\Items\Generation\Plugins\RandomRollItemGeneratorPlugin.cs" />
+    <Compile Include="Wip\Items\Generation\Plugins\AlwaysMatchItemGeneratorPlugin.cs" />
+    <Compile Include="Wip\Items\Generation\Plugins\MagicItemGeneratorPlugin.cs" />
     <Compile Include="Modules\WipDependencies.cs" />
+    <Compile Include="Wip\Items\Generation\Plugins\NormalItemGeneratorPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wip\StatPrinterSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -257,6 +262,14 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Elapsed\ProjectXyz.Plugins.Triggers.Elapsed.csproj">
       <Project>{b38223e4-8d33-4b80-ac15-2f715578b619}</Project>
       <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.Items.Generation.InMemory.csproj">
+      <Project>{68fb16f5-2c5c-4172-8277-70a4781df6db}</Project>
+      <Name>ProjectXyz.Shared.Game.Items.Generation.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.Items.Generation.csproj">
+      <Project>{ff377f10-928c-4281-8adb-e40d9a664967}</Project>
+      <Name>ProjectXyz.Shared.Game.Items.Generation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
