@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Framework.Interface
+﻿namespace ProjectXyz.Api.Framework
 {
     public interface IConvert<in T1, out T2>
     {

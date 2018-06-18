@@ -6,6 +6,7 @@ using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
+using IStringExpressionEvaluator = ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {
@@ -17,7 +18,7 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
 
             builder
                 .Register(c => new StringExpressionEvaluatorWrapper(
-                    c.Resolve<Framework.Interface.Math.IStringExpressionEvaluator>(),
+                    c.Resolve<IStringExpressionEvaluator>(),
                     true))
                 .AsImplementedInterfaces()
                 .SingleInstance();

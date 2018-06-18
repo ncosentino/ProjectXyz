@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Api.Triggering.Elapsed;
-using ProjectXyz.Framework.Entities.Extensions;
 
 namespace ProjectXyz.Plugins.Systems.ElapsedTime
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Framework.Extensions.Collections;
+using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
 
 namespace ProjectXyz.Plugins.Features.ExpressionEnchantments

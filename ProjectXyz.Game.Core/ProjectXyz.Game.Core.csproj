@@ -129,14 +129,6 @@
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
       <Name>ProjectXyz.Shared.Framework.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
-      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
-      <Name>ProjectXyz.Framework.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
       <Name>ProjectXyz.Game.Interface</Name>

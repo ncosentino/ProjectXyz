@@ -3,9 +3,9 @@ using Autofac;
 using Jace;
 using ProjectXyz.Shared.Framework.Math;
 
-namespace ProjectXyz.Framework.Core.Dependencies.Autofac
+namespace ProjectXyz.Plugins.Framework.Math.Jace
 {
-    public sealed class FrameworkModule : Module
+    public sealed class JaceModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

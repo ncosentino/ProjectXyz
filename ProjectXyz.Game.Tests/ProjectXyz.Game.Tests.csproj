@@ -150,21 +150,13 @@
       <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
       <Name>ProjectXyz.Application.Stats.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Framework.Core.Dependencies.Autofac.csproj">
+    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj">
       <Project>{abc9ad2e-c560-4b6f-ae17-3b0537cd9275}</Project>
-      <Name>ProjectXyz.Framework.Core.Dependencies.Autofac</Name>
+      <Name>ProjectXyz.Plugins.Framework.Math.Jace</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
       <Name>ProjectXyz.Shared.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Extensions\ProjectXyz.Framework.Extensions.csproj">
-      <Project>{3DE7A97E-15F4-4770-A400-97D1462276CF}</Project>
-      <Name>ProjectXyz.Framework.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878cd88-b979-4af3-9510-2fa949060088}</Project>

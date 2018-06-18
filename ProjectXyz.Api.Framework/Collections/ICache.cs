@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Framework.Interface.Collections
+﻿namespace ProjectXyz.Api.Framework.Collections
 {
     public interface ICache<TKey, TValue> : IReadOnlyCache<TKey, TValue>
     {

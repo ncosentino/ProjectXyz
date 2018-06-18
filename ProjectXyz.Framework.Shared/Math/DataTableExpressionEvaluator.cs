@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Globalization;
-using ProjectXyz.Framework.Interface.Math;
+using ProjectXyz.Api.Framework.Math;
 
 namespace ProjectXyz.Shared.Framework.Math
 {

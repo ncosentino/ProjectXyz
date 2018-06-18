@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Items.Generation;
 using ProjectXyz.Api.Items.Generation.Attributes;
-using ProjectXyz.Framework.Extensions.Collections;
 
 namespace ProjectXyz.Shared.Game.Items.Generation.InMemory.Attributes
 {

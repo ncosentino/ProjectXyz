@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
 using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Triggers.Elapsed;

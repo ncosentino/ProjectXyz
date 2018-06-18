@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectXyz.Framework.Interface.Collections
+namespace ProjectXyz.Api.Framework.Collections
 {
     public interface IReadOnlyCache<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {

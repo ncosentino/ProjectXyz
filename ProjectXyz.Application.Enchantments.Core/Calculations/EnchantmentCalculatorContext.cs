@@ -4,8 +4,8 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 

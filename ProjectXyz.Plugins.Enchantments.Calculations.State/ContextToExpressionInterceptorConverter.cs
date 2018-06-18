@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.States;
-using ProjectXyz.Framework.Entities.Extensions;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.State
 {

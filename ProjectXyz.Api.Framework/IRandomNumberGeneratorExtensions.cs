@@ -1,6 +1,4 @@
-﻿using ProjectXyz.Framework.Interface;
-
-namespace ProjectXyz.Framework.Extensions
+﻿namespace ProjectXyz.Api.Framework
 {
     public static class IRandomNumberGeneratorExtensions
     {

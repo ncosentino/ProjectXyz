@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectXyz.Framework.Interface.Math
+namespace ProjectXyz.Api.Framework.Math
 {
     public interface IStringExpressionEvaluator : IDisposable
     {

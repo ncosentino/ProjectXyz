@@ -1,4 +1,4 @@
-using ProjectXyz.Framework.Interface;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Shared.Framework
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-using ProjectXyz.Framework.Interface.Math;
+using ProjectXyz.Api.Framework.Math;
 
 namespace ProjectXyz.Shared.Framework.Math
 {

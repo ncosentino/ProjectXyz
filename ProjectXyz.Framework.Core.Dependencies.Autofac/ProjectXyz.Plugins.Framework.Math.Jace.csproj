@@ -7,8 +7,8 @@
     <ProjectGuid>{ABC9AD2E-C560-4B6F-AE17-3B0537CD9275}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Framework.Core.Dependencies.Autofac</RootNamespace>
-    <AssemblyName>ProjectXyz.Framework.Core.Dependencies.Autofac</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Framework.Math.Jace</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Framework.Math.Jace</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,17 +42,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrameworkModule.cs" />
+    <Compile Include="JaceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3ea64b23-830b-4699-93ee-a8fee88ea631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
       <Name>ProjectXyz.Shared.Framework</Name>

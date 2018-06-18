@@ -60,10 +60,6 @@
       <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
       <Name>ProjectXyz.Framework.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Interface\ProjectXyz.Framework.Interface.csproj">
-      <Project>{3EA64B23-830B-4699-93EE-A8FEE88EA631}</Project>
-      <Name>ProjectXyz.Framework.Interface</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

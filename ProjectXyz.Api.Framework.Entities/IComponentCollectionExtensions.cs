@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using ProjectXyz.Api.Framework.Entities;
 
-namespace ProjectXyz.Framework.Entities.Extensions
+namespace ProjectXyz.Api.Framework.Entities
 {
     public static class IComponentCollectionExtensions
     {

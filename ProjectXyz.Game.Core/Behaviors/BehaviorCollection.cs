@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Framework.Extensions.Collections;
+using ProjectXyz.Api.Framework.Collections;
 
 namespace ProjectXyz.Game.Core.Behaviors
 {

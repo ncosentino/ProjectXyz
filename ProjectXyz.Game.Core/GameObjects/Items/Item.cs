@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Framework.Entities.Extensions;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems

@@ -3,7 +3,6 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Framework.Entities.Extensions;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay

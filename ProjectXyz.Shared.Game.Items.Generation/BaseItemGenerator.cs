@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Items;
 using ProjectXyz.Api.Items.Generation;
-using ProjectXyz.Framework.Extensions;
-using ProjectXyz.Framework.Extensions.Collections;
-using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Shared.Game.Items.Generation
 {

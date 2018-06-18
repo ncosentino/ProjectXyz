@@ -36,7 +36,9 @@
   <ItemGroup>
     <Compile Include="IComponent.cs" />
     <Compile Include="IComponentCollection.cs" />
+    <Compile Include="IComponentCollectionExtensions.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="IEntityExtensions.cs" />
     <Compile Include="IMechanic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

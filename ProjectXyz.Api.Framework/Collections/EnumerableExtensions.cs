@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Framework.Interface;
 
-namespace ProjectXyz.Framework.Extensions.Collections
+namespace ProjectXyz.Api.Framework.Collections
 {
     public static class EnumerableExtensions
     {
