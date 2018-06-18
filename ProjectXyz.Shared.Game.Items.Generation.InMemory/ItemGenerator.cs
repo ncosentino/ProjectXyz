@@ -11,19 +11,19 @@ namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
     public sealed class ItemGeneratorFacade : IItemGenerator
     {
         private readonly IReadOnlyCollection<IItemGenerator> _itemGenerators;
-        private readonly IItemGeneratorFilterer _itemGeneratorFilterer;
+        private readonly IAttributeFilterer _attributeFilterer;
 
         public ItemGeneratorFacade(
-            IItemGeneratorFilterer itemGeneratorFilterer,
+            IAttributeFilterer attributeFilterer,
             IEnumerable<IItemGenerator> itemGenerators)
         {
-            _itemGeneratorFilterer = itemGeneratorFilterer;
+            _attributeFilterer = attributeFilterer;
             _itemGenerators = itemGenerators.ToArray();
         }
 
         public IEnumerable<IGameObject> GenerateItems(IItemGeneratorContext itemGeneratorContext)
         {
-            var filteredGenerators = _itemGeneratorFilterer.Filter(
+            var filteredGenerators = _attributeFilterer.Filter(
                 _itemGenerators,
                 itemGeneratorContext);
             var generator = filteredGenerators.RandomOrDefault(new Random());

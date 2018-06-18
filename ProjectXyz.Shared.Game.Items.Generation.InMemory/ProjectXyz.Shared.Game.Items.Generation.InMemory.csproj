@@ -42,8 +42,10 @@
     <Compile Include="Attributes\DoubleItemGeneratorAttributeValue.cs" />
     <Compile Include="Attributes\StringItemGeneratorAttributeValue.cs" />
     <Compile Include="AttributeValueMatchFacade.cs" />
-    <Compile Include="InMemoryItemGeneratorFilterer.cs" />
-    <Compile Include="ItemGeneratorFacade.cs" />
+    <Compile Include="Attributes\InMemoryAttributeFilterer.cs" />
+    <Compile Include="InMemoryItemDefinitionRepository.cs" />
+    <Compile Include="ItemDefinition.cs" />
+    <Compile Include="ItemGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

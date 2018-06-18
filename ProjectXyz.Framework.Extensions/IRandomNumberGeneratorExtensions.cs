@@ -9,7 +9,8 @@ namespace ProjectXyz.Framework.Extensions
             int minInclusive,
             int maxInclusive)
         {
-            return minInclusive + (int)System.Math.Round(randomNumberGenerator.NextDouble() * (maxInclusive - minInclusive));
+            var value = minInclusive + (int)System.Math.Round(randomNumberGenerator.NextDouble() * (maxInclusive - minInclusive), 0);
+            return value;
         }
 
         public static double NextInRange(

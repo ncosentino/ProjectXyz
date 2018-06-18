@@ -36,10 +36,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseItemGenerator.cs" />
+    <Compile Include="ItemGeneratorComponentToBehaviorConverterFacade.cs" />
     <Compile Include="ItemGeneratorContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>

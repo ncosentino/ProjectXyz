@@ -4,10 +4,8 @@ using ProjectXyz.Api.Items.Generation.Attributes;
 
 namespace ProjectXyz.Api.Items.Generation
 {
-    public interface IItemGenerator
+    public interface IItemGenerator : IHasItemGeneratorAttributes
     {
         IEnumerable<IGameObject> GenerateItems(IItemGeneratorContext itemGeneratorContext);
-
-        IEnumerable<IItemGeneratorAttribute> SupportedAttributes { get; }
     }
 }

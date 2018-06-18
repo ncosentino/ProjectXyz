@@ -125,14 +125,6 @@
       <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
       <Name>ProjectXyz.Application.Stats.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
-      <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
-      <Name>ProjectXyz.Framework.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Interface\ProjectXyz.Framework.Entities.Extensions.csproj">
-      <Project>{E100AA3F-6F54-428A-BD4C-B186BEE0AA3B}</Project>
-      <Name>ProjectXyz.Framework.Entities.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
       <Name>ProjectXyz.Shared.Framework.Entities</Name>

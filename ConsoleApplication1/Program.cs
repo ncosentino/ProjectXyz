@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Linq;
 using Autofac;
+using ConsoleApplication1.Wip.Items.Generation;
 using ConsoleApplication1.Wip.Items.Generation.Plugins;
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Items;
+using ProjectXyz.Api.Items.Generation;
 using ProjectXyz.Api.Items.Generation.Attributes;
 using ProjectXyz.Framework.Interface;
 using ProjectXyz.Game.Core.Autofac;
+using ProjectXyz.Game.Core.Behaviors;
+using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.Items.Generation;
 using ProjectXyz.Shared.Game.Items.Generation.InMemory;
@@ -122,24 +127,57 @@ namespace ConsoleApplication1
                     return isAttrtMatch;
                 });
 
-            var itemGeneratorFilterer = new InMemoryItemGeneratorFilterer(attributeValueMatchFacade);
+            var activeEnchantmentManagerFactory = dependencyContainer.Resolve<IActiveEnchantmentManagerFactory>();
+            var attributeFilterer = new InMemoryAttributeFilterer(attributeValueMatchFacade);
+
+            var itemGeneratorComponentToBehaviorConverterFacade = new ItemGeneratorComponentToBehaviorConverterFacade();
+            itemGeneratorComponentToBehaviorConverterFacade.Register<ItemGeneratorComponent>(_ =>
+            {
+                var activeEnchantmentManager = activeEnchantmentManagerFactory.Create();
+
+                return new IBehavior[]
+                {
+                    new CanBeEquippedBehavior(),
+                    new BuffableBehavior(activeEnchantmentManager),
+                    new HasEnchantmentsBehavior(activeEnchantmentManager),
+                };
+            });
+
+            var itemDefinitionRepository = new InMemoryItemDefinitionRepository(
+                attributeFilterer,
+                new IItemDefinition[]
+                {
+                    new ItemDefinition(
+                        new[]
+                        {
+                            new ItemGeneratorAttribute(
+                                new StringIdentifier("item-level"),
+                                new RangeItemGeneratorAttributeValue(40, 50)),
+                        },
+                        new[]
+                        {
+                            new ItemGeneratorComponent(),
+                        }),
+                });
 
             var baseItemGenerator = new BaseItemGenerator(
                 dependencyContainer.Resolve<IItemFactory>(),
-                dependencyContainer.Resolve<IRandomNumberGenerator>());
+                dependencyContainer.Resolve<IRandomNumberGenerator>(),
+                itemDefinitionRepository,
+                itemGeneratorComponentToBehaviorConverterFacade);
 
             var itemGenerators = new IItemGenerator[]
             {
                 new NormalItemGeneratorPlugin(baseItemGenerator), 
-                new MagicItemGeneratorPlugin(baseItemGenerator),
-                new AlwaysMatchItemGeneratorPlugin(),
-                new RandomRollItemGeneratorPlugin(
-                    new StringIdentifier("random-roll"),
-                    0.80), 
+                ////new MagicItemGeneratorPlugin(baseItemGenerator),
+                ////new AlwaysMatchItemGeneratorPlugin(),
+                ////new RandomRollItemGeneratorPlugin(
+                ////    new StringIdentifier("random-roll"),
+                ////    0.80), 
             };
 
             var itemGeneratorFacade = new ItemGeneratorFacade(
-                itemGeneratorFilterer,
+                attributeFilterer,
                 itemGenerators);
 
             var itemGeneratorContext = new ItemGeneratorContext(
@@ -149,10 +187,13 @@ namespace ConsoleApplication1
                 {
                     new ItemGeneratorAttribute(
                         new StringIdentifier("affix-type"), 
-                        new StringCollectionItemGeneratorAttributeValue("magic")),
+                        new StringCollectionItemGeneratorAttributeValue("normal")),
                     new ItemGeneratorAttribute(
                         new StringIdentifier("random-roll"),
                         new DoubleItemGeneratorAttributeValue(dependencyContainer.Resolve<IRandomNumberGenerator>().NextDouble())),
+                    new ItemGeneratorAttribute(
+                        new StringIdentifier("item-level"),
+                        new DoubleItemGeneratorAttributeValue(45)),
                 });
 
             var items = itemGeneratorFacade

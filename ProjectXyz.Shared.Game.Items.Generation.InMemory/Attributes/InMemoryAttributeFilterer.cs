@@ -4,20 +4,21 @@ using ProjectXyz.Api.Items.Generation;
 using ProjectXyz.Api.Items.Generation.Attributes;
 using ProjectXyz.Framework.Extensions.Collections;
 
-namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
+namespace ProjectXyz.Shared.Game.Items.Generation.InMemory.Attributes
 {
-    public sealed class InMemoryItemGeneratorFilterer : IItemGeneratorFilterer
+    public sealed class InMemoryAttributeFilterer : IAttributeFilterer
     {
         private readonly IAttributeValueMatcher _attributeValueMatcher;
 
-        public InMemoryItemGeneratorFilterer(IAttributeValueMatcher attributeValueMatcher)
+        public InMemoryAttributeFilterer(IAttributeValueMatcher attributeValueMatcher)
         {
             _attributeValueMatcher = attributeValueMatcher;
         }
 
-        public IEnumerable<IItemGenerator> Filter(
-            IEnumerable<IItemGenerator> itemGenerators, 
+        public IEnumerable<T> Filter<T>(
+            IEnumerable<T> source, 
             IItemGeneratorContext itemGeneratorContext)
+            where T : IHasItemGeneratorAttributes
         {
             var attributeToContextMapping = itemGeneratorContext
                 .Attributes
@@ -27,10 +28,23 @@ namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
                     x => x
                         .Select(key => key.Value)
                         .ToReadOnlyCollection());
-            var matchingGenerators = itemGenerators
-                .Where(generator =>
+            var matching = source
+                .Where(s=>
                 {
-                    var matchingAttributes = generator
+                    var requiredAttributes = s.
+                        SupportedAttributes
+                        .ToDictionary(
+                            x => x.Id,
+                            x => x.Value);
+                    var missingRequiredAttributes = requiredAttributes
+                        .Keys
+                        .Any(x => !attributeToContextMapping.ContainsKey(x));
+                    if (missingRequiredAttributes)
+                    {
+                        return false;
+                    }
+
+                    var matchingAttributes = s
                         .SupportedAttributes
                         .Where(attr => attributeToContextMapping.ContainsKey(attr.Id))
                         .ToArray();
@@ -50,7 +64,7 @@ namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
                             }));
                     return isGeneratorMatch;
                 });
-            return matchingGenerators;
+            return matching;
         }
     }
 }

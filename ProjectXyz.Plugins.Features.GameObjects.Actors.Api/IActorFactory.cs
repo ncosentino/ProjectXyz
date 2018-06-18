@@ -2,7 +2,8 @@
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
 {
-    public interface IActorFactory : IGameObjectFactory
+    public interface IActorFactory
     {
+        IGameObject Create();
     }
 }

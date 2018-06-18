@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="IGameObject.cs" />
     <Compile Include="IGameObjectExtensionMethods.cs" />
-    <Compile Include="IGameObjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

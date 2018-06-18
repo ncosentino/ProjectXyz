@@ -1,11 +1,58 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Framework.Interface;
 
 namespace ProjectXyz.Framework.Extensions.Collections
 {
     public static class EnumerableExtensions
     {
+        public static T Random<T>(
+            this IEnumerable<T> source,
+            IRandomNumberGenerator random)
+        {
+            var current = default(T);
+            var count = 0;
+            foreach (var element in source)
+            {
+                count++;
+                if (random.NextInRange(0, count) == 0)
+                {
+                    current = element;
+                }
+            }
+
+            if (count == 0)
+            {
+                throw new InvalidOperationException("Sequence was empty");
+            }
+
+            return current;
+        }
+
+        public static T RandomOrDefault<T>(
+            this IEnumerable<T> source,
+            IRandomNumberGenerator random)
+        {
+            var current = default(T);
+            var count = 0;
+            foreach (var element in source)
+            {
+                count++;
+                if (random.NextInRange(0, count) == 0)
+                {
+                    current = element;
+                }
+            }
+
+            if (count == 0)
+            {
+                return default(T);
+            }
+
+            return current;
+        }
+
         public static T Random<T>(
             this IEnumerable<T> source,
             Random random)

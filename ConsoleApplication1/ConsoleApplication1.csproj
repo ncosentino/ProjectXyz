@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Wip\Items\Generation\ItemGeneratorComponent.cs" />
     <Compile Include="Wip\Items\Generation\Plugins\RandomRollItemGeneratorPlugin.cs" />
     <Compile Include="Wip\Items\Generation\Plugins\AlwaysMatchItemGeneratorPlugin.cs" />
     <Compile Include="Wip\Items\Generation\Plugins\MagicItemGeneratorPlugin.cs" />
@@ -262,6 +263,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Elapsed\ProjectXyz.Plugins.Triggers.Elapsed.csproj">
       <Project>{b38223e4-8d33-4b80-ac15-2f715578b619}</Project>
       <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
+      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
+      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.Items.Generation.InMemory.csproj">
       <Project>{68fb16f5-2c5c-4172-8277-70a4781df6db}</Project>

@@ -1,5 +1,7 @@
-﻿using ProjectXyz.Api.Behaviors;
+﻿using System.Collections.Generic;
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Framework.Extensions.Collections;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 
@@ -9,16 +11,10 @@ namespace ProjectXyz.Game.Core.GameObjects.Items
     {
         public Item(
             IBehaviorManager behaviorManager,
-            IHasEnchantmentsBehavior hasEnchantmentsBehavior,
-            IBuffableBehavior buffableBehavior,
             IHasMutableStatsBehavior hasStatsBehavior,
-            ICanBeEquippedBehavior canBeEquippedBehavior)
+            IEnumerable<IBehavior> behaviors)
         {
-            Behaviors = new BehaviorCollection(
-                hasEnchantmentsBehavior,
-                buffableBehavior,
-                hasStatsBehavior,
-                canBeEquippedBehavior);
+            Behaviors = new BehaviorCollection(behaviors.Append(hasStatsBehavior));
             behaviorManager.Register(this, Behaviors);
         }
 
