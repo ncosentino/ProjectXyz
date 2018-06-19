@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Items.Generation.Attributes;
+using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Api.Items.Generation
 {
-    public interface IItemGenerator : IHasItemGeneratorAttributes
+    public interface IItemGenerator : IHasGeneratorAttributes
     {
-        IEnumerable<IGameObject> GenerateItems(IItemGeneratorContext itemGeneratorContext);
+        IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext);
     }
 }

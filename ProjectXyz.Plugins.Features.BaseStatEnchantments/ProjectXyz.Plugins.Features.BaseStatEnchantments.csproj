@@ -73,6 +73,10 @@
       <Project>{8FEB2DC5-BC36-47AA-A319-3C2263740808}</Project>
       <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
+      <Project>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</Project>
+      <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

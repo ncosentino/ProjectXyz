@@ -214,6 +214,10 @@
       <Project>{B544856A-AB36-4A88-9441-67853074F33A}</Project>
       <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj">
+      <Project>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</Project>
+      <Name>ProjectXyz.Plugins.Features.CommonBehaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj">
       <Project>{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}</Project>
       <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</Name>

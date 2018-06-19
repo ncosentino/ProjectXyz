@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectXyz.Plugins.Features.CommonBehaviors.Api</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.CommonBehaviors.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IEnchantableBehavior.cs" />
+    <Compile Include="IHasEnchantmentsBehavior.cs" />
+    <Compile Include="IHasMutableStatsBehavior.cs" />
+    <Compile Include="IHasStatsBehavior.cs" />
+    <Compile Include="IIdentifierBehavior.cs" />
+    <Compile Include="IReadOnlyIdentifierBehavior.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
+      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
+      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
+      <Name>ProjectXyz.Api.Enchantments</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

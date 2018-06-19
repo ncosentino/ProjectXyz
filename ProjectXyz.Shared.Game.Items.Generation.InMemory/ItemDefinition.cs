@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Api.Items.Generation;
-using ProjectXyz.Api.Items.Generation.Attributes;
 
-namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
+namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory
 {
     public sealed class ItemDefinition : IItemDefinition
     {
         public ItemDefinition(
-            IEnumerable<IItemGeneratorAttribute> attributes,
-            IEnumerable<IItemGeneratorComponent> generatorComponents)
+            IEnumerable<IGeneratorAttribute> attributes,
+            IEnumerable<IGeneratorComponent> generatorComponents)
         {
             SupportedAttributes = attributes.ToArray();
             GeneratorComponents = generatorComponents.ToArray();
         }
 
-        public IEnumerable<IItemGeneratorAttribute> SupportedAttributes { get; }
+        public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; }
 
-        public IEnumerable<IItemGeneratorComponent> GeneratorComponents { get; }
+        public IEnumerable<IGeneratorComponent> GeneratorComponents { get; }
     }
 }

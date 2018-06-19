@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Api.Items.Generation;
-using ProjectXyz.Api.Items.Generation.Attributes;
 
-namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
+namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory
 {
     public sealed class InMemoryItemDefinitionRepository : IItemDefinitionRepository
     {
@@ -21,11 +22,11 @@ namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
 
         private IReadOnlyCollection<IItemDefinition> ItemDefinitions => _lazyItemDefinitions.Value;
 
-        public IEnumerable<IItemDefinition> LoadItemDefinitions(IItemGeneratorContext itemGeneratorContext)
+        public IEnumerable<IItemDefinition> LoadItemDefinitions(IGeneratorContext generatorContext)
         {
             var filteredItemDefinitions = _attributeFilterer.Filter(
                 ItemDefinitions,
-                itemGeneratorContext);
+                generatorContext);
             foreach (var filteredItemDefinition in filteredItemDefinitions)
             {
                 // TODO: ensure we have all of the item generation components
@@ -37,7 +38,7 @@ namespace ProjectXyz.Shared.Game.Items.Generation.InMemory
             }
         }
 
-        public IEnumerable<IItemGeneratorAttribute> SupportedAttributes => ItemDefinitions
+        public IEnumerable<IGeneratorAttribute> SupportedAttributes => ItemDefinitions
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
     }

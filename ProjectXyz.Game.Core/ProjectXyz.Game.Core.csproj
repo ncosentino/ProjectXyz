@@ -38,24 +38,14 @@
     <Compile Include="Behaviors\BehaviorFinder.cs" />
     <Compile Include="Behaviors\BehaviorCollection.cs" />
     <Compile Include="Behaviors\BehaviorManager.cs" />
-    <Compile Include="Behaviors\HasEnchantmentsBehavior.cs" />
-    <Compile Include="Behaviors\HasMutableStatsBehavior.cs" />
-    <Compile Include="Behaviors\HasStatsBehavior.cs" />
-    <Compile Include="Behaviors\BuffableBehavior.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\ActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
     <Compile Include="Engine\GameEngine.cs" />
-    <Compile Include="Behaviors\ApplyEquipmentEnchantmentsBehavior.cs" />
-    <Compile Include="Behaviors\ApplySocketEnchantmentsBehavior.cs" />
-    <Compile Include="Behaviors\CanBeSocketedBehavior.cs" />
-    <Compile Include="Behaviors\CanEquipBehavior.cs" />
-    <Compile Include="Behaviors\CanFitSocketBehavior.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
-    <Compile Include="GameObjects\Items\Generation\ItemGeneratorContextFactory.cs" />
+    <Compile Include="GameObjects\Items\Generation\GeneratorContextFactory.cs" />
     <Compile Include="GameObjects\Items\Item.cs" />
     <Compile Include="GameObjects\Items\ItemFactory.cs" />
-    <Compile Include="Behaviors\CanBeEquippedBehavior.cs" />
     <Compile Include="Mapping\Map.cs" />
     <Compile Include="Mapping\MapLayer.cs" />
     <Compile Include="Mapping\MapManager.cs" />
@@ -89,6 +79,10 @@
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
@@ -113,6 +107,10 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Core\ProjectXyz.Application.Enchantments.Core.csproj">
+      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
+      <Name>ProjectXyz.Application.Enchantments.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj">
       <Project>{1165093F-4337-403C-A4EC-A936EA91ACDC}</Project>
       <Name>ProjectXyz.Application.Enchantments.Interface</Name>
@@ -133,13 +131,21 @@
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
+      <Project>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</Project>
+      <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj">
+      <Project>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</Project>
+      <Name>ProjectXyz.Plugins.Features.CommonBehaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
       <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
       <Name>ProjectXyz.Shared.Game.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.Items.Generation.csproj">
-      <Project>{FF377F10-928C-4281-8ADB-E40D9A664967}</Project>
-      <Name>ProjectXyz.Shared.Game.Items.Generation</Name>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
+      <Project>{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -48,10 +48,6 @@
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,17 +4,21 @@ using Autofac;
 using ConsoleApplication1.Wip.Items.Generation;
 using ConsoleApplication1.Wip.Items.Generation.Plugins;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Api.Items;
 using ProjectXyz.Api.Items.Generation;
-using ProjectXyz.Api.Items.Generation.Attributes;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.Items.Generation;
-using ProjectXyz.Shared.Game.Items.Generation.InMemory;
-using ProjectXyz.Shared.Game.Items.Generation.InMemory.Attributes;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory;
+using ProjectXyz.Shared.Game.GameObjects.Generation;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Game.GameObjects.Items.Generation;
+using ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory;
 using IItemGenerator = ProjectXyz.Api.Items.Generation.IItemGenerator;
 
 namespace ConsoleApplication1
@@ -99,8 +103,8 @@ namespace ConsoleApplication1
             var attributeValueMatchFacade = new AttributeValueMatchFacade();
 
             attributeValueMatchFacade.Register<
-                StringItemGeneratorAttributeValue,
-                StringCollectionItemGeneratorAttributeValue>(
+                StringGeneratorAttributeValue,
+                StringCollectionGeneratorAttributeValue>(
                 (v1, v2) =>
                 {
                     var isAttrtMatch = v2
@@ -109,16 +113,16 @@ namespace ConsoleApplication1
                     return isAttrtMatch;
                 });
             attributeValueMatchFacade.Register<
-                StringItemGeneratorAttributeValue,
-                StringItemGeneratorAttributeValue>(
+                StringGeneratorAttributeValue,
+                StringGeneratorAttributeValue>(
                 (v1, v2) =>
                 {
                     var isAttrtMatch = v2.Value.Equals(v1.Value);
                     return isAttrtMatch;
                 });
             attributeValueMatchFacade.Register<
-                RangeItemGeneratorAttributeValue,
-                DoubleItemGeneratorAttributeValue> (
+                RangeGeneratorAttributeValue,
+                DoubleGeneratorAttributeValue> (
                 (v1, v2) =>
                 {
                     var isAttrtMatch = 
@@ -130,8 +134,8 @@ namespace ConsoleApplication1
             var activeEnchantmentManagerFactory = dependencyContainer.Resolve<IActiveEnchantmentManagerFactory>();
             var attributeFilterer = new InMemoryAttributeFilterer(attributeValueMatchFacade);
 
-            var itemGeneratorComponentToBehaviorConverterFacade = new ItemGeneratorComponentToBehaviorConverterFacade();
-            itemGeneratorComponentToBehaviorConverterFacade.Register<ItemGeneratorComponent>(_ =>
+            var itemGeneratorComponentToBehaviorConverterFacade = new GeneratorComponentToBehaviorConverterFacade();
+            itemGeneratorComponentToBehaviorConverterFacade.Register<GeneratorComponent>(_ =>
             {
                 var activeEnchantmentManager = activeEnchantmentManagerFactory.Create();
 
@@ -140,6 +144,7 @@ namespace ConsoleApplication1
                     new CanBeEquippedBehavior(),
                     new BuffableBehavior(activeEnchantmentManager),
                     new HasEnchantmentsBehavior(activeEnchantmentManager),
+                    new EnchantableBehavior(activeEnchantmentManager), 
                 };
             });
 
@@ -150,13 +155,13 @@ namespace ConsoleApplication1
                     new ItemDefinition(
                         new[]
                         {
-                            new ItemGeneratorAttribute(
+                            new GeneratorAttribute(
                                 new StringIdentifier("item-level"),
-                                new RangeItemGeneratorAttributeValue(40, 50)),
+                                new RangeGeneratorAttributeValue(40, 50)),
                         },
                         new[]
                         {
-                            new ItemGeneratorComponent(),
+                            new GeneratorComponent(),
                         }),
                 });
 
@@ -166,10 +171,20 @@ namespace ConsoleApplication1
                 itemDefinitionRepository,
                 itemGeneratorComponentToBehaviorConverterFacade);
 
+            var enchantmentGenerators = new IEnchantmentGenerator[]
+            { 
+            };
+
+            var enchantmentGenerator = new EnchantmentGeneratorFacade(
+                attributeFilterer,
+                enchantmentGenerators);
+
             var itemGenerators = new IItemGenerator[]
             {
-                new NormalItemGeneratorPlugin(baseItemGenerator), 
-                ////new MagicItemGeneratorPlugin(baseItemGenerator),
+                ////new NormalItemGeneratorPlugin(baseItemGenerator), 
+                new MagicItemGeneratorPlugin(
+                    baseItemGenerator,
+                    enchantmentGenerator),
                 ////new AlwaysMatchItemGeneratorPlugin(),
                 ////new RandomRollItemGeneratorPlugin(
                 ////    new StringIdentifier("random-roll"),
@@ -180,20 +195,20 @@ namespace ConsoleApplication1
                 attributeFilterer,
                 itemGenerators);
 
-            var itemGeneratorContext = new ItemGeneratorContext(
+            var itemGeneratorContext = new GeneratorContext(
                 1,
                 1,
-                new IItemGeneratorAttribute[]
+                new IGeneratorAttribute[]
                 {
-                    new ItemGeneratorAttribute(
+                    new GeneratorAttribute(
                         new StringIdentifier("affix-type"), 
-                        new StringCollectionItemGeneratorAttributeValue("normal")),
-                    new ItemGeneratorAttribute(
+                        new StringCollectionGeneratorAttributeValue("magic")),
+                    new GeneratorAttribute(
                         new StringIdentifier("random-roll"),
-                        new DoubleItemGeneratorAttributeValue(dependencyContainer.Resolve<IRandomNumberGenerator>().NextDouble())),
-                    new ItemGeneratorAttribute(
+                        new DoubleGeneratorAttributeValue(dependencyContainer.Resolve<IRandomNumberGenerator>().NextDouble())),
+                    new GeneratorAttribute(
                         new StringIdentifier("item-level"),
-                        new DoubleItemGeneratorAttributeValue(45)),
+                        new DoubleGeneratorAttributeValue(45)),
                 });
 
             var items = itemGeneratorFacade

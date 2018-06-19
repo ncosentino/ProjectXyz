@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Shared.Game.Items.Generation")]
+[assembly: AssemblyTitle("ProjectXyz.Shared.Game.GameObjects.Items.Generation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Shared.Game.Items.Generation")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("Nexus Labs")]
+[assembly: AssemblyProduct("ProjectXyz.Shared.Game.GameObjects.Items.Generation")]
+[assembly: AssemblyCopyright("Copyright © Nexus Labs 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

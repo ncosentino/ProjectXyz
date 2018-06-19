@@ -6,6 +6,7 @@ using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 
 namespace ProjectXyz.Game.Core.GameObjects.Items
 {
@@ -24,6 +25,7 @@ namespace ProjectXyz.Game.Core.GameObjects.Items
 
         public IGameObject Create(IEnumerable<IBehavior> behaviors)
         {
+            // FIXME: this probably shouldn't even be here...
             var mutableStatsProvider = new MutableStatsProvider();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStatsBehavior(statManager);

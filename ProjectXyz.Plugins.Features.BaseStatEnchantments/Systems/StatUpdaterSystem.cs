@@ -4,6 +4,7 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 {

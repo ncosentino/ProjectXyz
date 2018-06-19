@@ -11,7 +11,7 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
             base.Load(builder);
             
             builder
-                .RegisterType<ItemGeneratorContextFactory>()
+                .RegisterType<GeneratorContextFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

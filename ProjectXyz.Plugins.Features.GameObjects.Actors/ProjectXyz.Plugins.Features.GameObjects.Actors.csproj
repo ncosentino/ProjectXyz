@@ -62,13 +62,17 @@
       <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
       <Name>ProjectXyz.Application.Stats.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj">
-      <Project>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</Project>
-      <Name>ProjectXyz.Game.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
+      <Project>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</Project>
+      <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj">
+      <Project>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</Project>
+      <Name>ProjectXyz.Plugins.Features.CommonBehaviors</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj">
       <Project>{45DBFFA4-242F-40BC-A1EB-7CCD690C84C9}</Project>

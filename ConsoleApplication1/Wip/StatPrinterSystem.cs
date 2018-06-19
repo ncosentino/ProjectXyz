@@ -10,6 +10,7 @@ using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 

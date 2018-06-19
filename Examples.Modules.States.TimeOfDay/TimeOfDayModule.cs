@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<TimeOfDayItemGenerationContextComponentProvider>()
+                .RegisterType<TimeOfDayGenerationContextAttributeProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

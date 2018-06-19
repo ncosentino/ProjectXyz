@@ -210,11 +210,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Logging", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{440A7AA9-5891-4505-898C-72E74B4EC02C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.Items.Generation.InMemory", "ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.Items.Generation.InMemory.csproj", "{68FB16F5-2C5C-4172-8277-70A4781DF6DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory", "ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory.csproj", "{68FB16F5-2C5C-4172-8277-70A4781DF6DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.Items.Generation", "ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.Items.Generation.csproj", "{FF377F10-928C-4281-8ADB-E40D9A664967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Items.Generation", "ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.GameObjects.Items.Generation.csproj", "{FF377F10-928C-4281-8ADB-E40D9A664967}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{B369DF7D-3FE2-417A-9C69-E8FFECBBBF6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.GameObjects.Generation", "ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj", "{BC5887BD-4022-497A-A792-F3CEDFFEA874}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Generation", "ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj", "{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Enchantments.Generation", "ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj", "{A578219F-0115-4536-AE85-9B6496E1D21D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameObjects", "GameObjects", "{06036003-2B25-42BD-8074-AB45DDD4B40E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{3873E97E-C3C2-4C0D-9196-8450354967CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enchantments", "Enchantments", "{DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory", "ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory.csproj", "{2D540693-B997-48E2-A5F9-D36973033075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation", "ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.csproj", "{C87767ED-6D08-4710-9E45-BA47A9184BF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonBehaviors", "CommonBehaviors", "{23813F2B-B24A-463A-989F-97E74EDFE87C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.CommonBehaviors.Api", "ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj", "{8B3C197A-E87B-424A-A21E-15B84A5E5054}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.CommonBehaviors", "ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj", "{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -474,6 +496,34 @@ Global
 		{FF377F10-928C-4281-8ADB-E40D9A664967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF377F10-928C-4281-8ADB-E40D9A664967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF377F10-928C-4281-8ADB-E40D9A664967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5887BD-4022-497A-A792-F3CEDFFEA874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5887BD-4022-497A-A792-F3CEDFFEA874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5887BD-4022-497A-A792-F3CEDFFEA874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5887BD-4022-497A-A792-F3CEDFFEA874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A578219F-0115-4536-AE85-9B6496E1D21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A578219F-0115-4536-AE85-9B6496E1D21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A578219F-0115-4536-AE85-9B6496E1D21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A578219F-0115-4536-AE85-9B6496E1D21D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D540693-B997-48E2-A5F9-D36973033075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D540693-B997-48E2-A5F9-D36973033075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D540693-B997-48E2-A5F9-D36973033075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D540693-B997-48E2-A5F9-D36973033075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87767ED-6D08-4710-9E45-BA47A9184BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87767ED-6D08-4710-9E45-BA47A9184BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87767ED-6D08-4710-9E45-BA47A9184BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87767ED-6D08-4710-9E45-BA47A9184BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B3C197A-E87B-424A-A21E-15B84A5E5054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3C197A-E87B-424A-A21E-15B84A5E5054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3C197A-E87B-424A-A21E-15B84A5E5054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3C197A-E87B-424A-A21E-15B84A5E5054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -572,8 +622,19 @@ Global
 		{11FF2C70-2C4F-403B-AC53-247BDB063777} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D} = {440A7AA9-5891-4505-898C-72E74B4EC02C}
 		{440A7AA9-5891-4505-898C-72E74B4EC02C} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}
-		{68FB16F5-2C5C-4172-8277-70A4781DF6DB} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
-		{FF377F10-928C-4281-8ADB-E40D9A664967} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
+		{68FB16F5-2C5C-4172-8277-70A4781DF6DB} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
+		{FF377F10-928C-4281-8ADB-E40D9A664967} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{B369DF7D-3FE2-417A-9C69-E8FFECBBBF6D} = {15BDBEA4-4170-4040-9C45-C392D6098151}
+		{BC5887BD-4022-497A-A792-F3CEDFFEA874} = {0F769E14-559C-4A23-BA23-20CECD2636A6}
+		{6F7166A4-5BC3-4C1E-A014-AE37A8392A88} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
+		{A578219F-0115-4536-AE85-9B6496E1D21D} = {E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5}
+		{06036003-2B25-42BD-8074-AB45DDD4B40E} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
+		{3873E97E-C3C2-4C0D-9196-8450354967CE} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
+		{DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
+		{2D540693-B997-48E2-A5F9-D36973033075} = {DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85}
+		{C87767ED-6D08-4710-9E45-BA47A9184BF1} = {DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85}
+		{23813F2B-B24A-463A-989F-97E74EDFE87C} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{8B3C197A-E87B-424A-A21E-15B84A5E5054} = {23813F2B-B24A-463A-989F-97E74EDFE87C}
+		{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A} = {23813F2B-B24A-463A-989F-97E74EDFE87C}
 	EndGlobalSection
 EndGlobal

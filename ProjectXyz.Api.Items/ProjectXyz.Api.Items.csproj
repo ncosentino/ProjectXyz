@@ -34,27 +34,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generation\Attributes\AttributeValueMatchDelegate.cs" />
-    <Compile Include="Generation\Attributes\GenericAttributeValueMatchDelegate.cs" />
-    <Compile Include="Generation\Attributes\IAttributeValueMatcher.cs" />
-    <Compile Include="Generation\Attributes\IAttributeValueMatchFacade.cs" />
-    <Compile Include="Generation\Attributes\IAttributeValueMatchRegistrar.cs" />
-    <Compile Include="Generation\Attributes\IItemGeneratorAttribute.cs" />
-    <Compile Include="Generation\Attributes\IItemGeneratorAttributeValue.cs" />
-    <Compile Include="Generation\ConvertItemGeneratorComponentToBehaviorDelegate.cs" />
     <Compile Include="Generation\IBaseItemGenerator.cs" />
-    <Compile Include="Generation\Attributes\IHasItemGeneratorAttributes.cs" />
     <Compile Include="Generation\IItemDefinition.cs" />
     <Compile Include="Generation\IItemDefinitionRepository.cs" />
-    <Compile Include="Generation\IItemGenerationComponent.cs" />
     <Compile Include="Generation\IItemGenerator.cs" />
-    <Compile Include="Generation\IItemGeneratorComponentToBehaviorConverter.cs" />
-    <Compile Include="Generation\IItemGeneratorComponentToBehaviorConverterFacade.cs" />
-    <Compile Include="Generation\IItemGeneratorComponentToBehaviorConverterRegistrar.cs" />
-    <Compile Include="Generation\IItemGeneratorContext.cs" />
-    <Compile Include="Generation\Attributes\IItemGeneratorContextAttributeProviders.cs" />
-    <Compile Include="Generation\IItemGeneratorContextFactory.cs" />
-    <Compile Include="Generation\Attributes\IAttributeFilterer.cs" />
     <Compile Include="IItemFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,9 +46,9 @@
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>

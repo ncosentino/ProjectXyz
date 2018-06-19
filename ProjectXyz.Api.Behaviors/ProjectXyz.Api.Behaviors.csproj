@@ -39,26 +39,7 @@
     <Compile Include="IBehaviorCollectionFactory.cs" />
     <Compile Include="IBehaviorFinder.cs" />
     <Compile Include="IHasBehaviors.cs" />
-    <Compile Include="IHasEnchantmentsBehavior.cs" />
-    <Compile Include="IHasMutableStatsBehavior.cs" />
-    <Compile Include="IHasStatsBehavior.cs" />
-    <Compile Include="IIdentifierBehavior.cs" />
-    <Compile Include="IReadOnlyIdentifierBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
