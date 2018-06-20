@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.Items.Generation;
+using ProjectXyz.Api.GameObjects.Items.Generation;
 
 namespace ConsoleApplication1.Wip.Items.Generation.Plugins
 {

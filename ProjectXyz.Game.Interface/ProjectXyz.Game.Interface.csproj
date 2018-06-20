@@ -34,24 +34,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\IApplyEquipmentEnchantmentsBehavior.cs" />
-    <Compile Include="Behaviors\IApplySocketEnchantmentsBehavior.cs" />
-    <Compile Include="Behaviors\IBehaviorManager.cs" />
-    <Compile Include="Behaviors\IBuffableBehavior.cs" />
-    <Compile Include="Behaviors\ICanBeEquippedBehavior.cs" />
-    <Compile Include="Behaviors\ICanBeSocketedBehavior.cs" />
-    <Compile Include="Behaviors\ICanEquipBehavior.cs" />
-    <Compile Include="Behaviors\ICanFitSocketBehavior.cs" />
-    <Compile Include="Behaviors\IHasEquipmentBehavior.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManager.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManagerExtensions.cs" />
     <Compile Include="Enchantments\IActiveEnchantmentManagerFactory.cs" />
     <Compile Include="Enchantments\IEnchantmentProvider.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
-    <Compile Include="GameObjects\GameObjectsSynchronizedEventArgs.cs" />
-    <Compile Include="GameObjects\IGameObjectManager.cs" />
-    <Compile Include="GameObjects\IGameObjectRepository.cs" />
-    <Compile Include="GameObjects\IMutableGameObjectManager.cs" />
     <Compile Include="Mapping\IMap.cs" />
     <Compile Include="Mapping\IMapLayer.cs" />
     <Compile Include="Mapping\IMapManager.cs" />

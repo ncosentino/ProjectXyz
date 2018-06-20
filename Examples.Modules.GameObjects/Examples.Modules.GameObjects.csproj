@@ -52,10 +52,6 @@
       <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

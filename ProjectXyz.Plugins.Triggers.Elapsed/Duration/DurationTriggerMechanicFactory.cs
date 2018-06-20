@@ -7,11 +7,11 @@ namespace ProjectXyz.Plugins.Triggers.Elapsed.Duration
     public sealed class DurationTriggerMechanicFactory : IDurationTriggerMechanicFactory
     {
         public ITriggerMechanic Create(
-            IDurationTriggerComponent elapsedTimeExpiryTriggerComponent,
+            IDurationTriggerBehavior elapsedTimeExpiryTriggerBehavior,
             Action<ITriggerMechanic> triggeredCallback)
         {
             var trigger = new DurationTriggerMechanic(
-                elapsedTimeExpiryTriggerComponent,
+                elapsedTimeExpiryTriggerBehavior,
                 (t, _) => triggeredCallback(t));
             return trigger;
         }

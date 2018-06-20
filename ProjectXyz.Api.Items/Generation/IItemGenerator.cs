@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
-namespace ProjectXyz.Api.Items.Generation
+namespace ProjectXyz.Api.GameObjects.Items.Generation
 {
     public interface IItemGenerator : IHasGeneratorAttributes
     {

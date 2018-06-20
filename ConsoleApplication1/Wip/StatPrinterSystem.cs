@@ -5,12 +5,13 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Shared.Behaviors;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 
@@ -62,7 +63,7 @@ namespace ConsoleApplication1.Wip
                         behaviours
                             .Item2
                             .Enchantments
-                            .Where(x => !x.Components.Has<IAppliesToBaseStat>()));
+                            .Where(x => !x.Has<IAppliesToBaseStat>()));
 
                 Console.WriteLine($"Base Stat 1: {behaviours.Item1.BaseStats.GetValueOrDefault(new StringIdentifier("stat1"))}");
                 Console.WriteLine($"Calc'd Stat 1: {behaviours.Item1.GetStatValue(statCalculationContext, new StringIdentifier("stat1"))}");

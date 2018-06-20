@@ -2,21 +2,22 @@ using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData.States;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Triggers.Elapsed.Duration;
 using ProjectXyz.Plugins.Triggers.Enchantments.Expiration;
+using ProjectXyz.Shared.Behaviors;
 using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
     public sealed class TestData
     {
         #region Constants
-        private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory();
+        private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory(new BehaviorCollectionFactory());
         private static readonly CalculationPriorities CALC_PRIORITIES = new CalculationPriorities();
         private static readonly StatInfo.StatDefinitionIds STAT_DEFINITION_IDS = new StatInfo.StatDefinitionIds();
         private static readonly IInterval UNIT_INTERVAL = new Interval<double>(1);
@@ -106,13 +107,13 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
                     new AppliesToBaseStat(),
-                    new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(10))));
+                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(10))));
 
                 public IEnchantment StatAOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
                     STAT_DEFINITION_IDS.StatA,
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
-                    new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(10))));
+                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(10))));
             }
         }
 

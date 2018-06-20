@@ -5,7 +5,7 @@ namespace ProjectXyz.Api.Triggering.Elapsed
     public interface IDurationTriggerMechanicFactory
     {
         ITriggerMechanic Create(
-            IDurationTriggerComponent elapsedTimeExpiryTriggerComponent,
+            IDurationTriggerBehavior elapsedTimeExpiryTriggerBehavior,
             Action<ITriggerMechanic> triggeredCallback);
     }
 }

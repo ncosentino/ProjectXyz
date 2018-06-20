@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Core.Systems;
 using ProjectXyz.Game.Interface.Engine;
-using ProjectXyz.Game.Interface.GameObjects;
 
 namespace ProjectXyz.Game.Core.Engine
 {

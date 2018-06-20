@@ -5,7 +5,7 @@ using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.Items.Generation;
+using ProjectXyz.Api.GameObjects.Items.Generation;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory
 {

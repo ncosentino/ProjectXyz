@@ -36,8 +36,10 @@
   <ItemGroup>
     <Compile Include="IBehavior.cs" />
     <Compile Include="IBehaviorCollection.cs" />
+    <Compile Include="IBehaviorCollectionExtensions.cs" />
     <Compile Include="IBehaviorCollectionFactory.cs" />
     <Compile Include="IBehaviorFinder.cs" />
+    <Compile Include="IBehaviorManager.cs" />
     <Compile Include="IHasBehaviors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

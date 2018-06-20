@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments
 {

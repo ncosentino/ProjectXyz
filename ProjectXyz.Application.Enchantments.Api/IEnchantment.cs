@@ -1,9 +1,9 @@
 ﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Api.Enchantments
 {
-    public interface IEnchantment : IEntity
+    public interface IEnchantment : IGameObject
     {
         IIdentifier StatDefinitionId { get; }
     }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Api.Triggering.Enchantments;
 
@@ -20,8 +21,7 @@ namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
             RemoveTriggerMechanicDelegate removeTriggerMechanicCallback)
         {
             foreach (var expiryTrigger in enchantment
-                .Components
-                .Get<IExpiryTriggerComponent>()
+                .Get<IExpiryTriggerBehavior>()
                 .Select(x => _expiryTriggerMechanicFactory.Create(
                     x,
                     t => removeTriggerMechanicCallback(enchantment, t))))

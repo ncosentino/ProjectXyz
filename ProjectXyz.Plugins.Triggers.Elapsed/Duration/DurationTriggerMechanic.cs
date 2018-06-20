@@ -7,19 +7,19 @@ namespace ProjectXyz.Plugins.Triggers.Elapsed.Duration
 {
     public sealed class DurationTriggerMechanic : IElapsedTimeTriggerMechanic
     {
-        private readonly Action<IElapsedTimeTriggerMechanic, IDurationTriggerComponent> _triggerCallback;
+        private readonly Action<IElapsedTimeTriggerMechanic, IDurationTriggerBehavior> _triggerCallback;
         private readonly IInterval _target;
-        private readonly IDurationTriggerComponent _elapsedTimeExpiryTriggerComponent;
+        private readonly IDurationTriggerBehavior _elapsedTimeExpiryTriggerBehavior;
 
         private IInterval _elapsed;
 
         public DurationTriggerMechanic(
-            IDurationTriggerComponent elapsedTimeExpiryTriggerComponent,
-            Action<IElapsedTimeTriggerMechanic, IDurationTriggerComponent> triggerCallback)
+            IDurationTriggerBehavior elapsedTimeExpiryTriggerBehavior,
+            Action<IElapsedTimeTriggerMechanic, IDurationTriggerBehavior> triggerCallback)
         {
             _triggerCallback = triggerCallback;
-            _elapsedTimeExpiryTriggerComponent = elapsedTimeExpiryTriggerComponent;
-            _target = elapsedTimeExpiryTriggerComponent.Duration;
+            _elapsedTimeExpiryTriggerBehavior = elapsedTimeExpiryTriggerBehavior;
+            _target = elapsedTimeExpiryTriggerBehavior.Duration;
         }
 
         public bool CanBeRegisteredTo(ITriggerMechanicRegistrar triggerMechanicRegistrar)
@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Triggers.Elapsed.Duration
 
             _triggerCallback(
                 this,
-                _elapsedTimeExpiryTriggerComponent);
+                _elapsedTimeExpiryTriggerBehavior);
             return false;
         }
     }

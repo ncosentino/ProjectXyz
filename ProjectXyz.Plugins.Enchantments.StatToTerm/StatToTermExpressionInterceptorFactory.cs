@@ -4,6 +4,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Enchantments.StatToTerm
 {
@@ -29,7 +30,7 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
                 .ToDictionary(
                     group => group.Key,
                     group => group
-                        .SelectMany(enchantment => enchantment.Components.Get<IEnchantmentExpressionComponent>())
+                        .SelectMany(enchantment => enchantment.Get<IEnchantmentExpressionBehavior>())
                         .OrderBy(component => component.CalculationPriority)
                         .ToReadOnlyCollection());
 

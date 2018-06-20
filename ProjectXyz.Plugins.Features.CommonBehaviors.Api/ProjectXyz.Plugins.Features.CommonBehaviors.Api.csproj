@@ -35,8 +35,16 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IApplyEquipmentEnchantmentsBehavior.cs" />
+    <Compile Include="IApplySocketEnchantmentsBehavior.cs" />
+    <Compile Include="IBuffableBehavior.cs" />
+    <Compile Include="ICanBeEquippedBehavior.cs" />
+    <Compile Include="ICanBeSocketedBehavior.cs" />
+    <Compile Include="ICanEquipBehavior.cs" />
+    <Compile Include="ICanFitSocketBehavior.cs" />
     <Compile Include="IEnchantableBehavior.cs" />
     <Compile Include="IHasEnchantmentsBehavior.cs" />
+    <Compile Include="IHasEquipmentBehavior.cs" />
     <Compile Include="IHasMutableStatsBehavior.cs" />
     <Compile Include="IHasStatsBehavior.cs" />
     <Compile Include="IIdentifierBehavior.cs" />

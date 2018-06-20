@@ -2,7 +2,6 @@
 using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 

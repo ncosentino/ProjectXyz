@@ -14,14 +14,14 @@ namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
         }
 
         public ITriggerMechanic Create(
-            IExpiryTriggerComponent expiryTriggerComponent,
+            IExpiryTriggerBehavior expiryTriggerBehavior,
             Action<ITriggerMechanic> triggeredCallback)
         {
-            var triggerComponent = expiryTriggerComponent.TriggerComponent;
-            if (triggerComponent is IDurationTriggerComponent)
+            var triggerComponent = expiryTriggerBehavior.TriggerBehavior;
+            if (triggerComponent is IDurationTriggerBehavior)
             {
                 return _durationTriggerMechanicFactory.Create(
-                    (IDurationTriggerComponent)triggerComponent,
+                    (IDurationTriggerBehavior)triggerComponent,
                     triggeredCallback);
             }
 

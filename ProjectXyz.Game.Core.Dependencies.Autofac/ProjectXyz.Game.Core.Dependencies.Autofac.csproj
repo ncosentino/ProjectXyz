@@ -39,7 +39,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BehaviorModule.cs" />
     <Compile Include="EnchantmentModule.cs" />
     <Compile Include="GameEngineModule.cs" />
     <Compile Include="GameObjectsModule.cs" />
@@ -54,10 +53,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
       <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
       <Name>ProjectXyz.Api.Enchantments.Stats</Name>
@@ -65,6 +60,10 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
+      <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
+      <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
@@ -77,10 +76,6 @@
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj">
-      <Project>{1165093f-4337-403c-a4ec-a936ea91acdc}</Project>
-      <Name>ProjectXyz.Application.Enchantments.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
       <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
@@ -97,6 +92,10 @@
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ecd308-648e-4ac6-a37a-a868df43ca6c}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
+      <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
+      <Name>ProjectXyz.Shared.Behaviors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

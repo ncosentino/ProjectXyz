@@ -7,9 +7,9 @@ namespace ProjectXyz.Plugins.Triggers.Elapsed
 {
     public sealed class ElapsedTimeTriggerMechanic : IElapsedTimeTriggerMechanic
     {
-        private readonly Action<IElapsedTimeTriggerMechanic, IElapsedTimeTriggerComponent> _triggerCallback;
+        private readonly Action<IElapsedTimeTriggerMechanic, IElapsedTimeTriggerBehavior> _triggerCallback;
         
-        public ElapsedTimeTriggerMechanic(Action<IElapsedTimeTriggerMechanic, IElapsedTimeTriggerComponent> triggerCallback)
+        public ElapsedTimeTriggerMechanic(Action<IElapsedTimeTriggerMechanic, IElapsedTimeTriggerBehavior> triggerCallback)
         {
             _triggerCallback = triggerCallback;
         }
@@ -21,7 +21,7 @@ namespace ProjectXyz.Plugins.Triggers.Elapsed
 
         public bool Update(IInterval elapsed)
         {
-            _triggerCallback(this, new ElapsedTimeTriggerComponent(elapsed));
+            _triggerCallback(this, new ElapsedTimeTriggerBehavior(elapsed));
             return false;
         }
     }

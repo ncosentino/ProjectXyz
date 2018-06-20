@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 

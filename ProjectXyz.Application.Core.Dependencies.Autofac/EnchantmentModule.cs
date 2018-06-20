@@ -2,8 +2,8 @@
 using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.States;
-using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Shared.Framework.Entities;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {

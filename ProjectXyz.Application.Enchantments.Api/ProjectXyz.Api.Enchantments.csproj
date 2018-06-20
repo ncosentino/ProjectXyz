@@ -40,8 +40,9 @@
     <Compile Include="Calculations\IEnchantmentCalculator.cs" />
     <Compile Include="Calculations\IEnchantmentCalculatorContext.cs" />
     <Compile Include="Calculations\IEnchantmentCalculatorContextFactory.cs" />
-    <Compile Include="Calculations\IEnchantmentExpressionComponent.cs" />
+    <Compile Include="Calculations\IEnchantmentExpressionBehavior.cs" />
     <Compile Include="Calculations\IEnchantmentExpressionInterceptor.cs" />
+    <Compile Include="Calculations\IEnchantmentStatCalculator.cs" />
     <Compile Include="IEnchantment.cs" />
     <Compile Include="IEnchantmentFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

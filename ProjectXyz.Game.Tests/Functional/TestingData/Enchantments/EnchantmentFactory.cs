@@ -1,36 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Application.Enchantments.Core;
-using ProjectXyz.Application.Enchantments.Core.Calculations;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
 {
     public sealed class EnchantmentFactory
     {
+        private readonly IBehaviorCollectionFactory _behaviorCollectionFactory;
+
+        public EnchantmentFactory(IBehaviorCollectionFactory behaviorCollectionFactory)
+        {
+            _behaviorCollectionFactory = behaviorCollectionFactory;
+        }
+
         public IEnchantment CreateExpressionEnchantment(
             IIdentifier statDefinitionId,
             string expression,
             ICalculationPriority calculationPriority,
-            params IComponent[] additionalComponents)
+            params IBehavior[] additionalBehaviors)
         {
-            IEnumerable<IComponent> components = new EnchantmentExpressionComponent(
+            IEnumerable<IBehavior> behaviors = new EnchantmentExpressionBehavior(
                     calculationPriority,
                     expression)
                 .Yield();
 
-            if (additionalComponents != null)
+            if (additionalBehaviors != null)
             {
-                components = components.Concat(additionalComponents);
+                behaviors = behaviors.Concat(additionalBehaviors);
             }
 
             return new Enchantment(
+                _behaviorCollectionFactory,
                 statDefinitionId,
-                components);
+                behaviors);
         }
     }
 }

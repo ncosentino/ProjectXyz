@@ -40,22 +40,29 @@
   <ItemGroup>
     <Compile Include="Autofac\DepencencyModule.cs" />
     <Compile Include="Autofac\SharedComponentsModule.cs" />
-    <Compile Include="Duration\DurationTriggerComponent.cs" />
+    <Compile Include="Duration\DurationTriggerBehavior.cs" />
     <Compile Include="Duration\DurationTriggerMechanic.cs" />
     <Compile Include="Duration\DurationTriggerMechanicFactory.cs" />
-    <Compile Include="ElapsedTimeTriggerComponent.cs" />
+    <Compile Include="ElapsedTimeTriggerBehavior.cs" />
     <Compile Include="ElapsedTimeTriggerMechanic.cs" />
     <Compile Include="ElapsedTimeTriggerSourceMechanicRegistrar.cs" />
     <Compile Include="IElapsedTimeTriggerSourceMechanicRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
       <Project>{427baf56-5faf-4b1c-9851-7474660f58ea}</Project>
       <Name>ProjectXyz.Api.Framework.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Api.Triggering.Elapsed.csproj">
@@ -63,12 +70,13 @@
       <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
-      <Project>{9DEE41C0-A702-420A-9E5F-7D3D01886660}</Project>
+      <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
       <Name>ProjectXyz.Api.Triggering</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
+      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
+      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

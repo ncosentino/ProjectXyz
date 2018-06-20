@@ -6,7 +6,7 @@ namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
     public interface IExpiryTriggerMechanicFactory
     {
         ITriggerMechanic Create(
-            IExpiryTriggerComponent expiryTriggerComponent,
+            IExpiryTriggerBehavior expiryTriggerBehavior,
             Action<ITriggerMechanic> triggeredCallback);
     }
 }

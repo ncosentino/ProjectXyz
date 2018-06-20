@@ -34,14 +34,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDurationTriggerComponent.cs" />
+    <Compile Include="IDurationTriggerBehavior.cs" />
     <Compile Include="IDurationTriggerMechanicFactory.cs" />
-    <Compile Include="IElapsedTimeTriggerComponent.cs" />
+    <Compile Include="IElapsedTimeTriggerBehavior.cs" />
     <Compile Include="IElapsedTimeTriggerMechanic.cs" />
     <Compile Include="IElapsedTimeTriggerSourceMechanic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
       <Project>{427baf56-5faf-4b1c-9851-7474660f58ea}</Project>
       <Name>ProjectXyz.Api.Framework.Entities</Name>

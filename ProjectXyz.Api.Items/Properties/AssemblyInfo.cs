@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Api.Items")]
+[assembly: AssemblyTitle("ProjectXyz.Api.GameObjects.Items")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Api.Items")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("Nexus Labs")]
+[assembly: AssemblyProduct("ProjectXyz.Api.GameObjects.Items")]
+[assembly: AssemblyCopyright("Copyright © Nexus Labs 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -7,10 +7,9 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.Items;
-using ProjectXyz.Api.Items.Generation;
+using ProjectXyz.Api.GameObjects.Items;
+using ProjectXyz.Api.GameObjects.Items.Generation;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Game.Core.Behaviors;
 using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Shared.Framework;
@@ -19,7 +18,7 @@ using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Shared.Game.GameObjects.Items.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory;
-using IItemGenerator = ProjectXyz.Api.Items.Generation.IItemGenerator;
+using IItemGenerator = ProjectXyz.Api.GameObjects.Items.Generation.IItemGenerator;
 
 namespace ConsoleApplication1
 {
@@ -32,7 +31,7 @@ namespace ConsoleApplication1
             var modules =
                 moduleDiscoverer.Discover(moduleDirectory, "*.exe")
                 .Concat(moduleDiscoverer
-                .Discover(moduleDirectory, "*.Dependencies.Autofac.dll"))
+                .Discover(moduleDirectory, "*.Autofac.dll"))
                 .Concat(moduleDiscoverer
                 .Discover(moduleDirectory, "Examples.Modules.*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();

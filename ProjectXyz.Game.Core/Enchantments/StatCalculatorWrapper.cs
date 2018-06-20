@@ -5,7 +5,6 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Enchantments.Interface.Calculations;
 
 namespace ProjectXyz.Game.Core.Enchantments
 {

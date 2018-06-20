@@ -55,7 +55,7 @@
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.Items.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.GameObjects.Items.csproj">
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Api.Items</Name>
     </ProjectReference>

@@ -102,6 +102,10 @@
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
+      <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
+      <Name>ProjectXyz.Api.GameObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
       <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
       <Name>ProjectXyz.Api.States</Name>
@@ -134,13 +138,13 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Core\ProjectXyz.Application.Enchantments.Core.csproj">
-      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
-      <Name>ProjectXyz.Application.Enchantments.Core</Name>
+    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
+      <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
+      <Name>ProjectXyz.Shared.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Interface\ProjectXyz.Application.Enchantments.Interface.csproj">
-      <Project>{1165093f-4337-403c-a4ec-a936ea91acdc}</Project>
-      <Name>ProjectXyz.Application.Enchantments.Interface</Name>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
+      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Application.Stats.Core.csproj">
       <Project>{B051F375-1F9F-4A03-BDC2-EB4FA3807B2E}</Project>

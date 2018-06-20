@@ -3,7 +3,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.Items.Generation;
+using ProjectXyz.Api.GameObjects.Items.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ConsoleApplication1.Wip.Items.Generation.Plugins

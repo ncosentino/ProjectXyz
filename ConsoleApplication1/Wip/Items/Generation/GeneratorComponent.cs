@@ -2,7 +2,6 @@
 using System.Linq;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.Items.Generation;
 
 namespace ConsoleApplication1.Wip.Items.Generation
 {

@@ -2,9 +2,8 @@
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Game.Core.Behaviors;
-using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Shared.Behaviors;
 
 namespace ProjectXyz.Game.Core.GameObjects.Items
 {

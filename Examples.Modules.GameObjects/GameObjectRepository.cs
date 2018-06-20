@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Game.Interface.GameObjects;
 
 namespace Examples.Modules.GameObjects
 {

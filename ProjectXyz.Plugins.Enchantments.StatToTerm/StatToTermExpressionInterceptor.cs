@@ -8,12 +8,12 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
 {
     public sealed class StatToTermExpressionInterceptor : IEnchantmentExpressionInterceptor
     {
-        private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> _statDefinitionToComponentMapping;
+        private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionBehavior>> _statDefinitionToComponentMapping;
         private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
 
         public StatToTermExpressionInterceptor(
             IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
-            IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionComponent>> statDefinitionToComponentMapping,
+            IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionBehavior>> statDefinitionToComponentMapping,
             int priority)
         {
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
@@ -29,7 +29,7 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
         {
             var applicableEnchantments = _statDefinitionToComponentMapping.GetValueOrDefault(
                 statDefinitionId,
-                () => new IEnchantmentExpressionComponent[0]);
+                () => new IEnchantmentExpressionBehavior[0]);
 
             var term = _statDefinitionIdToTermMapping[statDefinitionId];
 

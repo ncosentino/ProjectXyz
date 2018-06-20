@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Autofac;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Core.Engine;
-using ProjectXyz.Game.Interface.GameObjects;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {

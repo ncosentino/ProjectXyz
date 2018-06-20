@@ -1,8 +1,8 @@
-﻿using ProjectXyz.Api.Framework.Entities;
+﻿using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Api
 {
-    public interface IAppliesToBaseStat : IComponent
+    public interface IAppliesToBaseStat : IBehavior
     {
     }
 }

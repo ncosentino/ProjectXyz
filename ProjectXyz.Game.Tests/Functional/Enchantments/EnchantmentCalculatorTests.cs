@@ -5,11 +5,11 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
-using ProjectXyz.Application.Enchantments.Core.Calculations;
 using ProjectXyz.Application.States.Core;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Calculations.State;
 using ProjectXyz.Shared.Framework.Entities;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Enchantments

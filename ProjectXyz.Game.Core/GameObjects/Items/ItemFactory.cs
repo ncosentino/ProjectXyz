@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Items;
+using ProjectXyz.Api.GameObjects.Items;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Game.Core.Behaviors;
-using ProjectXyz.Game.Interface.Behaviors;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 
