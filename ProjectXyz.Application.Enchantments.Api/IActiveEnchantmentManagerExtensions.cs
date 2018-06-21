@@ -1,7 +1,6 @@
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Collections;
 
-namespace ProjectXyz.Game.Interface.Enchantments
+namespace ProjectXyz.Api.Enchantments
 {
     public static class IActiveEnchantmentManagerExtensions
     {

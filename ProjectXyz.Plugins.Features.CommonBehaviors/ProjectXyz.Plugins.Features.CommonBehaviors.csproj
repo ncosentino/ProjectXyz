@@ -46,6 +46,7 @@
     <Compile Include="HasEnchantmentsBehavior.cs" />
     <Compile Include="HasMutableStatsBehavior.cs" />
     <Compile Include="HasStatsBehavior.cs" />
+    <Compile Include="HasStatDefinitionIdBehavior.cs" />
     <Compile Include="IdentifierBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -6,7 +6,7 @@ using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 
-namespace ProjectXyz.Game.Core.GameObjects.Items
+namespace ProjectXyz.Shared.Game.GameObjects.Items
 {
     public sealed class ItemFactory : IItemFactory
     {
@@ -23,7 +23,7 @@ namespace ProjectXyz.Game.Core.GameObjects.Items
 
         public IGameObject Create(IEnumerable<IBehavior> behaviors)
         {
-            // FIXME: this probably shouldn't even be here...
+            // FIXME: this probably shouldn't even be here... causes dependency on a feature
             var mutableStatsProvider = new MutableStatsProvider();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStatsBehavior(statManager);

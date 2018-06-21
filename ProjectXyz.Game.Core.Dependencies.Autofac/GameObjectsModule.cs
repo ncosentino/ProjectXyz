@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using ProjectXyz.Game.Core.GameObjects;
-using ProjectXyz.Game.Core.GameObjects.Items;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
@@ -12,10 +11,6 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
 
             builder
                 .RegisterType<GameObjectManager>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
-                .RegisterType<ItemFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

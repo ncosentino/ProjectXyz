@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C87767ED-6D08-4710-9E45-BA47A9184BF1}</ProjectGuid>
+    <ProjectGuid>{FC1D1ED4-7264-4614-8400-F55AF6E1CAA1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation</RootNamespace>
-    <AssemblyName>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation</AssemblyName>
+    <RootNamespace>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</RootNamespace>
+    <AssemblyName>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,42 +31,52 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEnchantmentGenerator.cs" />
-    <Compile Include="GeneratorContextFactory.cs" />
+    <Compile Include="EnchantmentModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
+      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
+      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
-      <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
+      <Project>{a578219f-0115-4536-ae85-9b6496e1d21d}</Project>
       <Name>ProjectXyz.Api.Enchantments.Generation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
-      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
+      <Project>{bc5887bd-4022-497a-a792-f3cedffea874}</Project>
       <Name>ProjectXyz.Api.GameObjects.Generation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
-      <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
-      <Name>ProjectXyz.Api.GameObjects</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
+      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
+      <Name>ProjectXyz.Api.Stats.Calculations</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
+      <Project>{d9fc9425-991e-4d82-ad07-1f7e501cc27c}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
-      <Project>{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
+    <ProjectReference Include="..\ProjectXyz.Game.Tests\ProjectXyz.Game.Tests.csproj">
+      <Project>{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}</Project>
+      <Name>ProjectXyz.Game.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.csproj">
+      <Project>{C87767ED-6D08-4710-9E45-BA47A9184BF1}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
+      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

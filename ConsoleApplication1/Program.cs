@@ -4,15 +4,16 @@ using Autofac;
 using ConsoleApplication1.Wip.Items.Generation;
 using ConsoleApplication1.Wip.Items.Generation.Plugins;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Api.GameObjects.Items;
 using ProjectXyz.Api.GameObjects.Items.Generation;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory;
 using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
@@ -147,11 +148,40 @@ namespace ConsoleApplication1
                 };
             });
 
+            var enchantmentGeneratorComponentToBehaviorConverterFacade = new GeneratorComponentToBehaviorConverterFacade();
+            enchantmentGeneratorComponentToBehaviorConverterFacade.Register<GeneratorComponent>(_ =>
+            {
+                return new IBehavior[]
+                {
+                    new HasStatDefinitionIdBehavior()
+                    {
+                        StatDefinitionId = new StringIdentifier("life-stat"),
+                    },
+                };
+            });
+
             var itemDefinitionRepository = new InMemoryItemDefinitionRepository(
                 attributeFilterer,
                 new IItemDefinition[]
                 {
                     new ItemDefinition(
+                        new[]
+                        {
+                            new GeneratorAttribute(
+                                new StringIdentifier("item-level"),
+                                new RangeGeneratorAttributeValue(40, 50)),
+                        },
+                        new[]
+                        {
+                            new GeneratorComponent(),
+                        }),
+                });
+
+            var enchantmentDefinitionRepository = new InMemoryEnchantmentDefinitionRepository(
+                attributeFilterer,
+                new IEnchantmentDefinition[]
+                {
+                    new EnchantmentDefinition(
                         new[]
                         {
                             new GeneratorAttribute(
@@ -172,6 +202,11 @@ namespace ConsoleApplication1
 
             var enchantmentGenerators = new IEnchantmentGenerator[]
             { 
+                new MagicEnchantmentGeneratorPlugin(new BaseEnchantmentGenerator(
+                    dependencyContainer.Resolve<IEnchantmentFactory>(),
+                    dependencyContainer.Resolve<IRandomNumberGenerator>(),
+                    enchantmentDefinitionRepository,
+                    enchantmentGeneratorComponentToBehaviorConverterFacade)), 
             };
 
             var enchantmentGenerator = new EnchantmentGeneratorFacade(

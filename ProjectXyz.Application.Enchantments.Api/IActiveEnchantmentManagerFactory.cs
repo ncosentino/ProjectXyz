@@ -1,4 +1,4 @@
-namespace ProjectXyz.Game.Interface.Enchantments
+namespace ProjectXyz.Api.Enchantments
 {
     public interface IActiveEnchantmentManagerFactory
     {

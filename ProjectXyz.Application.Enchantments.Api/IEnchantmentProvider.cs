@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using ProjectXyz.Api.Enchantments;
 
-namespace ProjectXyz.Game.Interface.Enchantments
+namespace ProjectXyz.Api.Enchantments
 {
     public interface IEnchantmentProvider
     {

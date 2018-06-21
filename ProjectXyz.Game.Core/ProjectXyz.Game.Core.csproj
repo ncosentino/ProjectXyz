@@ -34,14 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\ActiveEnchantmentManager.cs" />
-    <Compile Include="Enchantments\ActiveEnchantmentManagerFactory.cs" />
-    <Compile Include="Enchantments\StatCalculatorWrapper.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="GameObjects\GameObjectManager.cs" />
-    <Compile Include="GameObjects\Items\Generation\GeneratorContextFactory.cs" />
-    <Compile Include="GameObjects\Items\Item.cs" />
-    <Compile Include="GameObjects\Items\ItemFactory.cs" />
     <Compile Include="Mapping\Map.cs" />
     <Compile Include="Mapping\MapLayer.cs" />
     <Compile Include="Mapping\MapManager.cs" />

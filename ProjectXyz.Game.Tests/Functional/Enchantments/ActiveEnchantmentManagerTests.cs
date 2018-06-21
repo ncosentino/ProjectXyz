@@ -3,7 +3,6 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Framework.Testing;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Shared.Framework;
 using Xunit;

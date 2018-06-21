@@ -43,8 +43,12 @@
     <Compile Include="Calculations\IEnchantmentExpressionBehavior.cs" />
     <Compile Include="Calculations\IEnchantmentExpressionInterceptor.cs" />
     <Compile Include="Calculations\IEnchantmentStatCalculator.cs" />
+    <Compile Include="IActiveEnchantmentManager.cs" />
+    <Compile Include="IActiveEnchantmentManagerExtensions.cs" />
+    <Compile Include="IActiveEnchantmentManagerFactory.cs" />
     <Compile Include="IEnchantment.cs" />
     <Compile Include="IEnchantmentFactory.cs" />
+    <Compile Include="IEnchantmentProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,7 @@
 ﻿using Autofac;
-using ProjectXyz.Game.Core.GameObjects.Items;
-using ProjectXyz.Game.Core.GameObjects.Items.Generation;
+using ProjectXyz.Shared.Game.GameObjects.Items.Generation;
 
-namespace ProjectXyz.Game.Core.Dependencies.Autofac
+namespace ProjectXyz.Shared.Game.GameObjects.Items.Autofac
 {
     public sealed class ItemsModule : Module
     {
@@ -10,8 +9,14 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
         {
             base.Load(builder);
             
+            // TODO: should this be in the other project for shared "generation" classes?
             builder
                 .RegisterType<GeneratorContextFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            // TODO: should this be in the other project for shared "generation" classes?
+            builder
+                .RegisterType<BaseItemGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

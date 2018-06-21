@@ -39,12 +39,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnchantmentModule.cs" />
     <Compile Include="GameEngineModule.cs" />
     <Compile Include="GameObjectsModule.cs" />
     <Compile Include="PluginModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ItemsModule.cs" />
     <Compile Include="MappingModule.cs" />
     <Compile Include="StatsModule.cs" />
     <Compile Include="SystemsModule.cs" />

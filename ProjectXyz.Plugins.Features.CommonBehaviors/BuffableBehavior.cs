@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 

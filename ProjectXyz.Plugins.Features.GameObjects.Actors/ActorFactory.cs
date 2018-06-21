@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;

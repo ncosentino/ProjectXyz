@@ -157,6 +157,14 @@
       <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
       <Name>ProjectXyz.Shared.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac.csproj">
+      <Project>{fc1d1ed4-7264-4614-8400-f55af6e1caa1}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.csproj">
+      <Project>{C87767ED-6D08-4710-9E45-BA47A9184BF1}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
       <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
@@ -288,6 +296,10 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
       <Project>{6f7166a4-5bc3-4c1e-a014-ae37a8392a88}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Shared.Game.GameObjects.Items.Autofac.csproj">
+      <Project>{76e07dca-60bd-44a1-9599-cadde6a0b850}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Items.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory.csproj">
       <Project>{68fb16f5-2c5c-4172-8277-70a4781df6db}</Project>

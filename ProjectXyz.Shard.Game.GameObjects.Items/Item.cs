@@ -5,13 +5,13 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Behaviors;
 
-namespace ProjectXyz.Game.Core.GameObjects.Items
+namespace ProjectXyz.Shared.Game.GameObjects.Items
 {
     public sealed class Item : IGameObject
     {
         public Item(
             IBehaviorManager behaviorManager,
-            IHasMutableStatsBehavior hasStatsBehavior,
+            IHasMutableStatsBehavior hasStatsBehavior, // FIXME: this seems bad because it depends on a feature...
             IEnumerable<IBehavior> behaviors)
         {
             Behaviors = new BehaviorCollection(behaviors.Append(hasStatsBehavior));

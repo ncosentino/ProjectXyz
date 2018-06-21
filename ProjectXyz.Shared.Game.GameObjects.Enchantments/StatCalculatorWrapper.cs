@@ -6,7 +6,7 @@ using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Game.Core.Enchantments
+namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 {
     public sealed class StatCalculatorWrapper : IEnchantmentStatCalculator
     {

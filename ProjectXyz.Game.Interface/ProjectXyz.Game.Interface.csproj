@@ -34,10 +34,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enchantments\IActiveEnchantmentManager.cs" />
-    <Compile Include="Enchantments\IActiveEnchantmentManagerExtensions.cs" />
-    <Compile Include="Enchantments\IActiveEnchantmentManagerFactory.cs" />
-    <Compile Include="Enchantments\IEnchantmentProvider.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="Mapping\IMap.cs" />
     <Compile Include="Mapping\IMapLayer.cs" />

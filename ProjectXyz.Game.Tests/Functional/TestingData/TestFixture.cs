@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
 using Autofac;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Game.Interface.Enchantments;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Triggers.Elapsed;
