@@ -10,7 +10,7 @@ using ProjectXyz.Game.Interface.Engine;
 
 namespace ProjectXyz.Game.Core.Engine
 {
-    public sealed class GameEngine : IGameEngine
+    public sealed class GameEngine : IAsyncGameEngine
     {
         private readonly ILogger _logger;
         private readonly IGameObjectManager _gameObjectManager;
@@ -36,7 +36,7 @@ namespace ProjectXyz.Game.Core.Engine
             _systemUpdateComponentCreators = systemUpdateComponentCreators.ToArray();
         }
 
-        public async Task Start(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
             await Task.Factory.StartNew(
                 GameLoop,
@@ -58,6 +58,11 @@ namespace ProjectXyz.Game.Core.Engine
 
                 foreach (var system in _systems)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
                     system.Update(
                         systemUpdateContext,
                         _gameObjectManager.GameObjects);

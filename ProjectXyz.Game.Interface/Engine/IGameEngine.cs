@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace ProjectXyz.Game.Interface.Engine
 {
-    public interface IGameEngine
+    public interface IAsyncGameEngine
     {
-        Task Start(CancellationToken cancellationToken);
+        Task RunAsync(CancellationToken cancellationToken);
     }
 }

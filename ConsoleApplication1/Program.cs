@@ -50,7 +50,7 @@ namespace ConsoleApplication1
             ////    .GenerateItems(itemGenerationContext)
             ////    .ToArray();
 
-            ////var gameEngine = dependencyContainer.Resolve<IGameEngine>();
+            ////var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();
 
             ////var actorFactory = dependencyContainer.Resolve<IActorFactory>();
             ////var actor = actorFactory.Create();
