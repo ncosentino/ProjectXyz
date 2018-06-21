@@ -11,8 +11,8 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
 
             builder
                 .RegisterType<GameObjectManagerSystem>()
-                .AsImplementedInterfaces();
-            ////.SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

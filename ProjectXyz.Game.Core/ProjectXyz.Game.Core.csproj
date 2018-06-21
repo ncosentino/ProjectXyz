@@ -81,6 +81,10 @@
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Api.GameObjects.Items</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj">
+      <Project>{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}</Project>
+      <Name>ProjectXyz.Api.Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>

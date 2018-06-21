@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Autofac;
-using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Systems;
+﻿using Autofac;
 using ProjectXyz.Game.Core.Engine;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
@@ -13,10 +10,7 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
             base.Load(builder);
 
             builder
-                .Register(c => new GameEngine(
-                    c.Resolve<IGameObjectManager>(),
-                    c.Resolve<IEnumerable<ISystem>>(),
-                    c.Resolve<IEnumerable<ISystemUpdateComponentCreator>>()))
+                .RegisterType<GameEngine>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

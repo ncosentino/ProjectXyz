@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Logging;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Core.Systems;
 using ProjectXyz.Game.Interface.Engine;
@@ -11,6 +12,7 @@ namespace ProjectXyz.Game.Core.Engine
 {
     public sealed class GameEngine : IGameEngine
     {
+        private readonly ILogger _logger;
         private readonly IGameObjectManager _gameObjectManager;
         private readonly IReadOnlyCollection<ISystem> _systems;
         private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
@@ -18,10 +20,19 @@ namespace ProjectXyz.Game.Core.Engine
         public GameEngine(
             IGameObjectManager gameObjectManager,
             IEnumerable<ISystem> systems,
-            IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators)
+            IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators,
+            ILogger logger)
         {
             _gameObjectManager = gameObjectManager;
+            _logger = logger;
             _systems = systems.ToArray();
+
+            _logger.Debug($"Registered systems for '{this}':");
+            foreach (var system in _systems)
+            {
+                _logger.Debug($"\t{system}");
+            }
+
             _systemUpdateComponentCreators = systemUpdateComponentCreators.ToArray();
         }
 
@@ -35,6 +46,8 @@ namespace ProjectXyz.Game.Core.Engine
 
         private void GameLoop(object args)
         {
+            _logger.Debug($"Game loop started for '{this}'.");
+
             var startArgs = (StartArgs)args;
             var cancellationToken = startArgs.CancellationToken;
 

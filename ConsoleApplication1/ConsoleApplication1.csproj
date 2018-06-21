@@ -149,6 +149,10 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj">
+      <Project>{0d155cb4-1e5e-4a72-9a81-37bee19746c9}</Project>
+      <Name>ProjectXyz.Plugins.Features.UnhandledExceptionHandling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj">
       <Project>{49801e3a-3c81-4aa1-b2da-8ded706b3155}</Project>
       <Name>ProjectXyz.Shared.Behaviors.Autofac</Name>
