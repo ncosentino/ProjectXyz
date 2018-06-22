@@ -49,7 +49,9 @@
     <Compile Include="IHasStatDefinitionIdBehavior.cs" />
     <Compile Include="IHasStatsBehavior.cs" />
     <Compile Include="IIdentifierBehavior.cs" />
+    <Compile Include="IItemContainerBehavior.cs" />
     <Compile Include="IReadOnlyIdentifierBehavior.cs" />
+    <Compile Include="IReadOnlyItemContainerBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +62,10 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
+      <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
+      <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
