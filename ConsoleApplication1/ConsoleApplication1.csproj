@@ -41,13 +41,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Wip\Items\Generation\GeneratorComponent.cs" />
-    <Compile Include="Wip\Items\Generation\Plugins\MagicEnchantmentGeneratorPlugin.cs" />
     <Compile Include="Wip\Items\Generation\Plugins\RandomRollItemGeneratorPlugin.cs" />
     <Compile Include="Wip\Items\Generation\Plugins\AlwaysMatchItemGeneratorPlugin.cs" />
-    <Compile Include="Wip\Items\Generation\Plugins\MagicItemGeneratorPlugin.cs" />
     <Compile Include="Modules\WipDependencies.cs" />
-    <Compile Include="Wip\Items\Generation\Plugins\NormalItemGeneratorPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wip\StatPrinterSystem.cs" />

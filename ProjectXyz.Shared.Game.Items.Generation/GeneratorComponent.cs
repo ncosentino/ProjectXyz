@@ -3,7 +3,7 @@ using System.Linq;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
-namespace ConsoleApplication1.Wip.Items.Generation
+namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation
 {
     public sealed class GeneratorComponent : IGeneratorComponent
     {
