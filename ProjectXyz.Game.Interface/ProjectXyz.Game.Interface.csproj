@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\IAsyncGameEngine.cs" />
     <Compile Include="Engine\IGameEngine.cs" />
     <Compile Include="Mapping\IMap.cs" />
     <Compile Include="Mapping\IMapLayer.cs" />

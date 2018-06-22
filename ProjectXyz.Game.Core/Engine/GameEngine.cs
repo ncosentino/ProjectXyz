@@ -10,7 +10,9 @@ using ProjectXyz.Game.Interface.Engine;
 
 namespace ProjectXyz.Game.Core.Engine
 {
-    public sealed class GameEngine : IAsyncGameEngine
+    public sealed class GameEngine : 
+        IAsyncGameEngine,
+        IGameEngine
     {
         private readonly ILogger _logger;
         private readonly IGameObjectManager _gameObjectManager;
@@ -44,6 +46,26 @@ namespace ProjectXyz.Game.Core.Engine
                 cancellationToken);
         }
 
+        public void Update() => Update(CancellationToken.None);
+
+        private void Update(CancellationToken cancellationToken)
+        {
+            var systemUpdateComponents = _systemUpdateComponentCreators.Select(x => x.CreateNext());
+            var systemUpdateContext = new SystemUpdateContext(systemUpdateComponents);
+
+            foreach (var system in _systems)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                system.Update(
+                    systemUpdateContext,
+                    _gameObjectManager.GameObjects);
+            }
+        }
+
         private void GameLoop(object args)
         {
             _logger.Debug($"Game loop started for '{this}'.");
@@ -53,20 +75,7 @@ namespace ProjectXyz.Game.Core.Engine
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                var systemUpdateComponents = _systemUpdateComponentCreators.Select(x => x.CreateNext());
-                var systemUpdateContext = new SystemUpdateContext(systemUpdateComponents);
-
-                foreach (var system in _systems)
-                {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        break;
-                    }
-
-                    system.Update(
-                        systemUpdateContext,
-                        _gameObjectManager.GameObjects);
-                }
+                Update(cancellationToken);
             }
         }
 

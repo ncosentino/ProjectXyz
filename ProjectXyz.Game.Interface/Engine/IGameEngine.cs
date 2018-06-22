@@ -1,10 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace ProjectXyz.Game.Interface.Engine
+﻿namespace ProjectXyz.Game.Interface.Engine
 {
-    public interface IAsyncGameEngine
+    public interface IGameEngine
     {
-        Task RunAsync(CancellationToken cancellationToken);
+        void Update();
     }
 }
