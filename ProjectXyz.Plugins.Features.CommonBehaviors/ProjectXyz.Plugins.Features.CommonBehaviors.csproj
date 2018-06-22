@@ -49,6 +49,7 @@
     <Compile Include="HasStatDefinitionIdBehavior.cs" />
     <Compile Include="IdentifierBehavior.cs" />
     <Compile Include="ItemContainerBehavior.cs" />
+    <Compile Include="LightRadiusBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
