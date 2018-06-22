@@ -2,7 +2,7 @@
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 {
-    public interface IItemContainerBehavior : IReadOnlyItemContainerBehavior
+    public interface IItemContainerBehavior : IObservableItemContainerBehavior
     {
         bool CanAddItem(IGameObject gameObject);
 
