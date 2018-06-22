@@ -9,17 +9,15 @@ using ProjectXyz.Api.Enchantments.Generation;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 {
-    public sealed class EnchantmentGeneratorFacade : IEnchantmentGenerator
+    public sealed class EnchantmentGeneratorFacade : IEnchantmentGeneratorFacade
     {
-        private readonly IReadOnlyCollection<IEnchantmentGenerator> _enchantmentGenerators;
+        private readonly List<IEnchantmentGenerator> _enchantmentGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
 
-        public EnchantmentGeneratorFacade(
-            IAttributeFilterer attributeFilterer,
-            IEnumerable<IEnchantmentGenerator> enchantmentGenerators)
+        public EnchantmentGeneratorFacade(IAttributeFilterer attributeFilterer)
         {
             _attributeFilterer = attributeFilterer;
-            _enchantmentGenerators = enchantmentGenerators.ToArray();
+            _enchantmentGenerators = new List<IEnchantmentGenerator>();
         }
 
         public IEnumerable<IEnchantment> GenerateEnchantments(IGeneratorContext generatorContext)
@@ -40,5 +38,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
         public IEnumerable<IGeneratorAttribute> SupportedAttributes => _enchantmentGenerators
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
+
+        public void Register(IEnchantmentGenerator enchantmentGenerator)
+        {
+            _enchantmentGenerators.Add(enchantmentGenerator);
+        }
     }
 }

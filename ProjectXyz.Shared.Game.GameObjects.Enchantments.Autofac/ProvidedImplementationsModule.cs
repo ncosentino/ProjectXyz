@@ -3,10 +3,11 @@ using Autofac;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
 {
-    public sealed class EnchantmentModule : Module
+    public sealed class ProvidedImplementationsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -22,6 +23,12 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
                 .RegisterType<BaseEnchantmentGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            // TODO: should this be in the other project for shared "generation" classes?
+            builder
+                .RegisterType<EnchantmentGeneratorFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
             builder
                 .RegisterType<EnchantmentFactory>()
                 .AsImplementedInterfaces()

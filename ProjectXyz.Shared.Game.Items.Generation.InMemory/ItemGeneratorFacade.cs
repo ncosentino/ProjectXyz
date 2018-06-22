@@ -9,17 +9,15 @@ using ProjectXyz.Api.GameObjects.Items.Generation;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory
 {
-    public sealed class ItemGeneratorFacade : IItemGenerator
+    public sealed class ItemGeneratorFacade : IItemGeneratorFacade
     {
-        private readonly IReadOnlyCollection<IItemGenerator> _itemGenerators;
+        private readonly List<IItemGenerator> _itemGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
 
-        public ItemGeneratorFacade(
-            IAttributeFilterer attributeFilterer,
-            IEnumerable<IItemGenerator> itemGenerators)
+        public ItemGeneratorFacade(IAttributeFilterer attributeFilterer)
         {
             _attributeFilterer = attributeFilterer;
-            _itemGenerators = itemGenerators.ToArray();
+            _itemGenerators = new List<IItemGenerator>();
         }
 
         public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
@@ -40,5 +38,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory
         public IEnumerable<IGeneratorAttribute> SupportedAttributes => _itemGenerators
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
+
+        public void Register(IItemGenerator itemGenerator)
+        {
+            _itemGenerators.Add(itemGenerator);
+        }
     }
 }

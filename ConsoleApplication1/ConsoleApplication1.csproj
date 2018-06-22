@@ -293,6 +293,10 @@
       <Project>{2D540693-B997-48E2-A5F9-D36973033075}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj">
+      <Project>{7fc318ca-ff3a-4e07-ad82-01fbe4b357be}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
       <Project>{6f7166a4-5bc3-4c1e-a014-ae37a8392a88}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>

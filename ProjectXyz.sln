@@ -252,6 +252,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnhandledExceptionHandling"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.UnhandledExceptionHandling", "ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj", "{0D155CB4-1E5E-4A72-9A81-37BEE19746C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Generation.Autofac", "ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj", "{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -558,6 +560,10 @@ Global
 		{0D155CB4-1E5E-4A72-9A81-37BEE19746C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D155CB4-1E5E-4A72-9A81-37BEE19746C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D155CB4-1E5E-4A72-9A81-37BEE19746C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -677,5 +683,6 @@ Global
 		{76E07DCA-60BD-44A1-9599-CADDE6A0B850} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{A961E96A-CD60-4D17-ACA1-E8446BF08ABC} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{0D155CB4-1E5E-4A72-9A81-37BEE19746C9} = {A961E96A-CD60-4D17-ACA1-E8446BF08ABC}
+		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
 	EndGlobalSection
 EndGlobal

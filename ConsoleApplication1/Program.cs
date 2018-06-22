@@ -3,12 +3,11 @@ using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Api.GameObjects.Items.Generation;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
-using ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory;
-using IItemGenerator = ProjectXyz.Api.GameObjects.Items.Generation.IItemGenerator;
 
 namespace ConsoleApplication1
 {
@@ -89,38 +88,6 @@ namespace ConsoleApplication1
             ////var cancellationTokenSource = new CancellationTokenSource();
             ////gameEngine.Start(cancellationTokenSource.Token);
             
-            var attributeValueMatchFacade = new AttributeValueMatchFacade();
-
-            attributeValueMatchFacade.Register<
-                StringGeneratorAttributeValue,
-                StringCollectionGeneratorAttributeValue>(
-                (v1, v2) =>
-                {
-                    var isAttrtMatch = v2
-                        .Values
-                        .Contains(v1.Value);
-                    return isAttrtMatch;
-                });
-            attributeValueMatchFacade.Register<
-                StringGeneratorAttributeValue,
-                StringGeneratorAttributeValue>(
-                (v1, v2) =>
-                {
-                    var isAttrtMatch = v2.Value.Equals(v1.Value);
-                    return isAttrtMatch;
-                });
-            attributeValueMatchFacade.Register<
-                RangeGeneratorAttributeValue,
-                DoubleGeneratorAttributeValue> (
-                (v1, v2) =>
-                {
-                    var isAttrtMatch = 
-                        v1.Minimum <= v2.Value &&
-                        v1.Maximum >= v2.Value;
-                    return isAttrtMatch;
-                });
-            var attributeFilterer = new InMemoryAttributeFilterer(attributeValueMatchFacade);
-            
 
             var itemGenerators = new IItemGenerator[]
             {
@@ -130,9 +97,7 @@ namespace ConsoleApplication1
                 ////    0.80), 
             };
 
-            var itemGeneratorFacade = new ItemGeneratorFacade(
-                attributeFilterer,
-                itemGenerators);
+            var itemGeneratorFacade = dependencyContainer.Resolve<IItemGeneratorFacade>();
 
             var itemGeneratorContext = new GeneratorContext(
                 1,

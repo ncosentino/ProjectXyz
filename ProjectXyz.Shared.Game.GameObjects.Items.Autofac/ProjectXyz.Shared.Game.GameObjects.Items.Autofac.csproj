@@ -39,16 +39,28 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ItemsModule.cs" />
+    <Compile Include="ProvidedImplementationsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+      <Project>{bc5887bd-4022-497a-a792-f3cedffea874}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.GameObjects.Items.csproj">
+      <Project>{4ac90e8c-b0ba-4907-ac9d-03e878c0e8e4}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Items</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Shared.Game.GameObjects.Items.csproj">
       <Project>{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Items</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory.csproj">
+      <Project>{68FB16F5-2C5C-4172-8277-70A4781DF6DB}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.GameObjects.Items.Generation.csproj">
       <Project>{FF377F10-928C-4281-8ADB-E40D9A664967}</Project>

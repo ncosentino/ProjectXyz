@@ -39,7 +39,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnchantmentModule.cs" />
+    <Compile Include="ProvidedImplementationsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +66,9 @@
       <Project>{d9fc9425-991e-4d82-ad07-1f7e501cc27c}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Tests\ProjectXyz.Game.Tests.csproj">
-      <Project>{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}</Project>
-      <Name>ProjectXyz.Game.Tests</Name>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory.csproj">
+      <Project>{2D540693-B997-48E2-A5F9-D36973033075}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.csproj">
       <Project>{C87767ED-6D08-4710-9E45-BA47A9184BF1}</Project>

@@ -39,6 +39,8 @@
     <Compile Include="IEnchantmentDefinition.cs" />
     <Compile Include="IEnchantmentDefinitionRepository.cs" />
     <Compile Include="IEnchantmentGenerator.cs" />
+    <Compile Include="IEnchantmentGeneratorFacade.cs" />
+    <Compile Include="IEnchantmentGeneratorRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

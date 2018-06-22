@@ -38,6 +38,8 @@
     <Compile Include="Generation\IItemDefinition.cs" />
     <Compile Include="Generation\IItemDefinitionRepository.cs" />
     <Compile Include="Generation\IItemGenerator.cs" />
+    <Compile Include="Generation\IItemGeneratorFacade.cs" />
+    <Compile Include="Generation\IItemGeneratorRegistrar.cs" />
     <Compile Include="IItemFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
