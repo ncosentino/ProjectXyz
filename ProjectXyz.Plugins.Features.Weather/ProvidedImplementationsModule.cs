@@ -1,19 +1,19 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.Features.TimeOfDay
+namespace ProjectXyz.Plugins.Features.Weather
 {
-    public sealed class TimeOfDayModule : Module
+    public sealed class ProvidedImplementationsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
             builder
-                .RegisterType<TimeOfDaySystem>()
+                .RegisterType<WeatherSystem>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<TimeOfDayGenerationContextAttributeProvider>()
+                .RegisterType<WeatherGenerationContextAttributeProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

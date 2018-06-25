@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{15BD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Core", "ProjectXyz.Application.Core\ProjectXyz.Application.Core.csproj", "{0E56D372-31CF-48BD-94A2-67D4622C270A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Interface", "ProjectXyz.Application.Interface\ProjectXyz.Application.Interface.csproj", "{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Framework", "ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj", "{8878CD88-B979-4AF3-9510-2FA949060088}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Application.Tests", "ProjectXyz.Application.Tests\ProjectXyz.Application.Tests.csproj", "{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58}"
@@ -254,6 +252,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Generation.Autofac", "ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj", "{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Weather", "Weather", "{C31A48B7-7CEE-45D8-8669-27C796A047DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Weather", "ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj", "{6CDE69E6-0824-4F12-8152-24739B8DBD89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -268,10 +270,6 @@ Global
 		{0E56D372-31CF-48BD-94A2-67D4622C270A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E56D372-31CF-48BD-94A2-67D4622C270A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E56D372-31CF-48BD-94A2-67D4622C270A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8878CD88-B979-4AF3-9510-2FA949060088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8878CD88-B979-4AF3-9510-2FA949060088}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8878CD88-B979-4AF3-9510-2FA949060088}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -564,6 +562,10 @@ Global
 		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -571,7 +573,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B33EE9D3-EF98-4400-A528-67CD385747E7} = {8A28C6A1-F2B2-47F9-BBBF-5C5DD182C237}
 		{0E56D372-31CF-48BD-94A2-67D4622C270A} = {49001EEA-4C5C-4456-856B-9238F849881B}
-		{CAF704D5-0F07-47C5-A1E5-D0BCBEFCA5C3} = {49001EEA-4C5C-4456-856B-9238F849881B}
 		{8878CD88-B979-4AF3-9510-2FA949060088} = {7F0E8840-224B-4473-89E6-1FE66EE93E8C}
 		{53B6ACAA-2C8A-4D5C-80A6-4007518F0A58} = {A8D16300-EFDF-4976-8AF3-1D7E1D043FF8}
 		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38} = {E639114B-F4A2-487E-AFE3-DE176DB4C127}
@@ -684,5 +685,7 @@ Global
 		{A961E96A-CD60-4D17-ACA1-E8446BF08ABC} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{0D155CB4-1E5E-4A72-9A81-37BEE19746C9} = {A961E96A-CD60-4D17-ACA1-E8446BF08ABC}
 		{7FC318CA-FF3A-4E07-AD82-01FBE4B357BE} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
+		{C31A48B7-7CEE-45D8-8669-27C796A047DD} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{6CDE69E6-0824-4F12-8152-24739B8DBD89} = {C31A48B7-7CEE-45D8-8669-27C796A047DD}
 	EndGlobalSection
 EndGlobal

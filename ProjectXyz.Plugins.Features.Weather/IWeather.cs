@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Application.Interface.Weather
+namespace ProjectXyz.Plugins.Features.Weather
 {
     public interface IWeather
     {

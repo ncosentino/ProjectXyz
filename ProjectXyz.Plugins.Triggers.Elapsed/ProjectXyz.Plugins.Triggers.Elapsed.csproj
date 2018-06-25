@@ -57,10 +57,6 @@
       <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
-      <Project>{427baf56-5faf-4b1c-9851-7474660f58ea}</Project>
-      <Name>ProjectXyz.Api.Framework.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>

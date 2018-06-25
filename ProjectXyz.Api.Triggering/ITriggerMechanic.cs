@@ -1,8 +1,6 @@
-﻿using ProjectXyz.Api.Framework.Entities;
-
-namespace ProjectXyz.Api.Triggering
+﻿namespace ProjectXyz.Api.Triggering
 {
-    public interface ITriggerMechanic : IMechanic
+    public interface ITriggerMechanic
     {
         bool CanBeRegisteredTo(ITriggerMechanicRegistrar triggerMechanicRegistrar);
     }

@@ -1,5 +1,4 @@
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration

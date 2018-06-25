@@ -39,7 +39,6 @@
     <Compile Include="IComponentCollectionExtensions.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IEntityExtensions.cs" />
-    <Compile Include="IMechanic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

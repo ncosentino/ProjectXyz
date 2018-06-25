@@ -51,10 +51,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
-      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
@@ -90,10 +86,6 @@
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ecd308-648e-4ac6-a37a-a868df43ca6c}</Project>
       <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
-      <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
-      <Name>ProjectXyz.Shared.Behaviors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

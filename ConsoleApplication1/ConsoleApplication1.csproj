@@ -149,6 +149,10 @@
       <Project>{0d155cb4-1e5e-4a72-9a81-37bee19746c9}</Project>
       <Name>ProjectXyz.Plugins.Features.UnhandledExceptionHandling</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj">
+      <Project>{6cde69e6-0824-4f12-8152-24739b8dbd89}</Project>
+      <Name>ProjectXyz.Plugins.Features.Weather</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj">
       <Project>{49801e3a-3c81-4aa1-b2da-8ded706b3155}</Project>
       <Name>ProjectXyz.Shared.Behaviors.Autofac</Name>
