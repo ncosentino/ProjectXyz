@@ -54,9 +54,21 @@
       <Project>{a578219f-0115-4536-ae85-9b6496e1d21d}</Project>
       <Name>ProjectXyz.Api.Enchantments.Generation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
+      <Project>{427baf56-5faf-4b1c-9851-7474660f58ea}</Project>
+      <Name>ProjectXyz.Api.Framework.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
       <Project>{bc5887bd-4022-497a-a792-f3cedffea874}</Project>
       <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
+      <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
+      <Name>ProjectXyz.Api.States</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
@@ -65,6 +77,10 @@
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{d9fc9425-991e-4d82-ad07-1f7e501cc27c}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
+      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
+      <Name>ProjectXyz.Shared.Framework.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory.csproj">
       <Project>{2D540693-B997-48E2-A5F9-D36973033075}</Project>

@@ -2,9 +2,8 @@
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Application.States.Core;
 
-namespace ProjectXyz.Application.Core.Dependencies.Autofac
+namespace ProjectXyz.Shared.States.Autofac
 {
     public sealed class StatesModule : Module
     {

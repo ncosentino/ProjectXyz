@@ -1,7 +1,6 @@
 ﻿using Autofac;
-using ProjectXyz.Application.Core.Triggering;
 
-namespace ProjectXyz.Application.Core.Dependencies.Autofac
+namespace ProjectXyz.Shared.Triggering.Autofac
 {
     public sealed class TriggersModule : Module
     {

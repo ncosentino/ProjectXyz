@@ -281,9 +281,9 @@
       <Project>{f85cf10e-7cec-42bd-8dba-a76275f5060f}</Project>
       <Name>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Application.States.Core.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj">
       <Project>{9abfcbe9-d6f9-4c9e-b447-6a8f49a5a939}</Project>
-      <Name>ProjectXyz.Application.States.Core</Name>
+      <Name>ProjectXyz.Shared.States</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj">
       <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
@@ -320,6 +320,14 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.GameObjects.Items.Generation.csproj">
       <Project>{ff377f10-928c-4281-8adb-e40d9a664967}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Items.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.States.Autofac\ProjectXyz.Shared.States.Autofac.csproj">
+      <Project>{baf626a6-9b22-4815-b54e-3ebc992bbac9}</Project>
+      <Name>ProjectXyz.Shared.States.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Triggering.Autofac\ProjectXyz.Shared.Triggering.Autofac.csproj">
+      <Project>{6aea32ed-169f-4d10-bf9a-7f2d1a2f416f}</Project>
+      <Name>ProjectXyz.Shared.Triggering.Autofac</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -5,7 +5,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
 
-namespace ProjectXyz.Application.States.Core
+namespace ProjectXyz.Shared.States
 {
     public sealed class StateContextProvider : IStateContextProvider
     {

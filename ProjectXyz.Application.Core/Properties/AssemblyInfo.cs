@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Application.Core")]
+[assembly: AssemblyTitle("ProjectXyz.Shared.Triggering")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Application.Core")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Nexus Labs")]
+[assembly: AssemblyProduct("ProjectXyz.Shared.Triggering")]
+[assembly: AssemblyCopyright("Copyright © Nexus Labs 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

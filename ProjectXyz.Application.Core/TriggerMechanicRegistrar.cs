@@ -2,7 +2,7 @@
 using System.Linq;
 using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Application.Core.Triggering
+namespace ProjectXyz.Shared.Triggering
 {
     public sealed class TriggerMechanicRegistrar : ITriggerMechanicRegistrar
     {

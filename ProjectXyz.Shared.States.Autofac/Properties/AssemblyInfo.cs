@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Shared.States")]
+[assembly: AssemblyTitle("ProjectXyz.Shared.States.Autofac")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Nexus Labs")]
-[assembly: AssemblyProduct("ProjectXyz.Shared.States")]
-[assembly: AssemblyCopyright("Copyright © Nexus Labs 2017")]
+[assembly: AssemblyProduct("ProjectXyz.Shared.States.Autofac")]
+[assembly: AssemblyCopyright("Copyright © Nexus Labs 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9abfcbe9-d6f9-4c9e-b447-6a8f49a5a939")]
+[assembly: Guid("baf626a6-9b22-4815-b54e-3ebc992bbac9")]
 
 // Version information for an assembly consists of the following four values:
 //
