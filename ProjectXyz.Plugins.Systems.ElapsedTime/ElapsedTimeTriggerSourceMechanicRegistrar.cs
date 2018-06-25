@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Elapsed;
+using ProjectXyz.Plugins.Features.ElapsedTime.Api;
 
-namespace ProjectXyz.Plugins.Triggers.Elapsed
+namespace ProjectXyz.Plugins.Features.ElapsedTime
 {
     public sealed class ElapsedTimeTriggerSourceMechanicRegistrar : IElapsedTimeTriggerSourceMechanicRegistrar
     {

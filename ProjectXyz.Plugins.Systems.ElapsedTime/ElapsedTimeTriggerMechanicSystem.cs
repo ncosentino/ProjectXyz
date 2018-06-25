@@ -2,9 +2,9 @@
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Api.Triggering.Elapsed;
+using ProjectXyz.Plugins.Features.ElapsedTime.Api;
 
-namespace ProjectXyz.Plugins.Systems.ElapsedTime
+namespace ProjectXyz.Plugins.Features.ElapsedTime
 {
     public sealed class ElapsedTimeTriggerMechanicSystem : ISystem
     {
@@ -20,7 +20,7 @@ namespace ProjectXyz.Plugins.Systems.ElapsedTime
             IEnumerable<IHasBehaviors> hasBehaviors)
         {
             var elapsed = systemUpdateContext
-                .GetFirst<Api.Framework.Entities.IComponent<IElapsedTime>>()
+                .GetFirst<IComponent<IElapsedTime>>()
                 .Value
                 .Interval;
             _elapsedTimeTriggerSourceMechanic.Update(elapsed);

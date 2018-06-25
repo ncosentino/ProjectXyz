@@ -1,7 +1,7 @@
 using System;
 using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
+namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
     public interface IExpiryTriggerMechanicFactory
     {

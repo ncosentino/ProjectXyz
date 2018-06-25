@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B38223E4-8D33-4B80-AC15-2F715578B619}</ProjectGuid>
+    <ProjectGuid>{CDD03413-EE57-401D-BB36-177579561E94}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Triggers.Elapsed</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Triggers.Elapsed</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,40 +39,21 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autofac\DepencencyModule.cs" />
-    <Compile Include="Autofac\SharedComponentsModule.cs" />
-    <Compile Include="Duration\DurationTriggerBehavior.cs" />
-    <Compile Include="Duration\DurationTriggerMechanic.cs" />
-    <Compile Include="Duration\DurationTriggerMechanicFactory.cs" />
-    <Compile Include="ElapsedTimeTriggerBehavior.cs" />
-    <Compile Include="ElapsedTimeTriggerMechanic.cs" />
-    <Compile Include="ElapsedTimeTriggerSourceMechanicRegistrar.cs" />
-    <Compile Include="IElapsedTimeTriggerSourceMechanicRegistrar.cs" />
+    <Compile Include="InternalDependenciesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProvidedImplementationsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj">
+      <Project>{d983c81b-5e86-4d85-83f9-487032c91765}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Api.Triggering.Elapsed.csproj">
-      <Project>{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}</Project>
-      <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
-      <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
-      <Name>ProjectXyz.Api.Triggering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
-      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
-      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj">
+      <Project>{B558EC5B-B983-4701-845F-00F7109A2CF9}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

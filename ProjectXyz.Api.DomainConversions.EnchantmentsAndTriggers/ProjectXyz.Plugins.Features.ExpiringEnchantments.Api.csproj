@@ -7,8 +7,8 @@
     <ProjectGuid>{D983C81B-5E86-4D85-83F9-487032C91765}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Triggering.Enchantments</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Triggering.Enchantments</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Enchantments;
+using ProjectXyz.Plugins.Features.ExpiringEnchantments.Api;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 {

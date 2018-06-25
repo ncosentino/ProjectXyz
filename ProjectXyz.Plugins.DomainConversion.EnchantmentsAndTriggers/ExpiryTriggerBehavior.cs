@@ -1,7 +1,7 @@
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
+namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
     public sealed class ExpiryTriggerBehavior :
         BaseBehavior,

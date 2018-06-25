@@ -133,9 +133,9 @@
       <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
       <Name>ProjectXyz.Api.Systems</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Api.Triggering.Elapsed.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj">
       <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
-      <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
+      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Core.Dependencies.Autofac\ProjectXyz.Application.Core.Dependencies.Autofac.csproj">
       <Project>{59de295e-c5d0-4bb9-b393-bbe1831a0cfa}</Project>
@@ -145,6 +145,10 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj">
+      <Project>{f8f47e92-7e70-433f-8333-7c2b12b21f35}</Project>
+      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj">
       <Project>{0d155cb4-1e5e-4a72-9a81-37bee19746c9}</Project>
       <Name>ProjectXyz.Plugins.Features.UnhandledExceptionHandling</Name>
@@ -152,6 +156,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj">
       <Project>{6cde69e6-0824-4f12-8152-24739b8dbd89}</Project>
       <Name>ProjectXyz.Plugins.Features.Weather</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac\ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac.csproj">
+      <Project>{cdd03413-ee57-401d-bb36-177579561e94}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj">
       <Project>{49801e3a-3c81-4aa1-b2da-8ded706b3155}</Project>
@@ -217,9 +225,9 @@
       <Project>{bf07fb51-d73c-49b7-8632-b2a58f9bf17f}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.Stats.StatExpressions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj">
       <Project>{b558ec5b-b983-4701-845f-00f7109a2cf9}</Project>
-      <Name>ProjectXyz.Plugins.Triggers.Enchantments.Expiration</Name>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj">
       <Project>{d3de6090-306a-4c84-8ccb-86bbd50d7885}</Project>
@@ -281,13 +289,9 @@
       <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
       <Name>ProjectXyz.Plugins.Features.BoundedStats</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Systems.ElapsedTime.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj">
       <Project>{c18d2ad8-69f0-4167-b407-ead386708730}</Project>
-      <Name>ProjectXyz.Plugins.Systems.ElapsedTime</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Elapsed\ProjectXyz.Plugins.Triggers.Elapsed.csproj">
-      <Project>{b38223e4-8d33-4b80-ac15-2f715578b619}</Project>
-      <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>
+      <Name>ProjectXyz.Plugins.Features.ElapsedTime</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
       <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>

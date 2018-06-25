@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Enchantments;
+using ProjectXyz.Plugins.Features.ExpiringEnchantments.Api;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 {
@@ -33,6 +33,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
                     _activeEnchantments[enchantment] = new List<ITriggerMechanic>();
                 }
 
+                // TODO: this should be registered up as some sort of
+                // "interceptor". all of this code belongs in the plugin/feature
+                // domain. please see:
+                // https://bitbucket.org/nexuslabs/projectxyz/issues/49
                 foreach (var enchantmentTriggerMechanicRegistrar in _enchantmentTriggerMechanicRegistrars)
                 {
                     var triggers = enchantmentTriggerMechanicRegistrar.RegisterToEnchantment(

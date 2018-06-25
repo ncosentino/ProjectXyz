@@ -1,6 +1,6 @@
 using ProjectXyz.Api.Behaviors;
 
-namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
+namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
     public interface IExpiryTriggerBehavior : IExpiryBehavior
     {

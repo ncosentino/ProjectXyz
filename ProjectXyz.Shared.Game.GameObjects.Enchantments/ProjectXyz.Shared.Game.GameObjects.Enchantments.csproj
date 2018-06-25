@@ -56,9 +56,9 @@
       <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
       <Name>ProjectXyz.Api.Enchantments.Stats</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Api.Triggering.Enchantments.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj">
       <Project>{D983C81B-5E86-4D85-83F9-487032C91765}</Project>
-      <Name>ProjectXyz.Api.Triggering.Enchantments</Name>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
       <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>

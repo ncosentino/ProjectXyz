@@ -7,8 +7,8 @@
     <ProjectGuid>{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Triggering.Elapsed</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Triggering.Elapsed</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.ElapsedTime.Api</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.ElapsedTime.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,8 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDurationTriggerBehavior.cs" />
-    <Compile Include="IDurationTriggerMechanicFactory.cs" />
+    <Compile Include="Duration\IDurationTriggerBehavior.cs" />
+    <Compile Include="Duration\IDurationTriggerMechanicFactory.cs" />
     <Compile Include="IElapsedTimeTriggerBehavior.cs" />
     <Compile Include="IElapsedTimeTriggerMechanic.cs" />
     <Compile Include="IElapsedTimeTriggerSourceMechanic.cs" />

@@ -1,15 +1,15 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac
+namespace ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac
 {
-    public sealed class SharedComponentsModule : Module
+    public sealed class InternalDependenciesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
             builder
-                .RegisterType<EnchantmentExpiryTriggerMechanicRegistrar>()
+                .RegisterType<ExpiryTriggerMechanicFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

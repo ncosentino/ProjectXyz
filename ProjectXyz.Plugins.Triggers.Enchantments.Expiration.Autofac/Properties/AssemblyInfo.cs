@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectXyz.Plugins.Triggers.Elapsed")]
+[assembly: AssemblyTitle("ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectXyz.Plugins.Triggers.Elapsed")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCompany("Nexus Labs")]
+[assembly: AssemblyProduct("ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac")]
+[assembly: AssemblyCopyright("Copyright © Nexus Labs 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b38223e4-8d33-4b80-ac15-2f715578b619")]
+[assembly: Guid("cdd03413-ee57-401d-bb36-177579561e94")]
 
 // Version information for an assembly consists of the following four values:
 //

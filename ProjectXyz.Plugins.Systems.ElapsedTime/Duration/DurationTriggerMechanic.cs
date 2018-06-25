@@ -1,9 +1,10 @@
 using System;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Elapsed;
+using ProjectXyz.Plugins.Features.ElapsedTime.Api;
+using ProjectXyz.Plugins.Features.ElapsedTime.Api.Duration;
 
-namespace ProjectXyz.Plugins.Triggers.Elapsed.Duration
+namespace ProjectXyz.Plugins.Features.ElapsedTime.Duration
 {
     public sealed class DurationTriggerMechanic : IElapsedTimeTriggerMechanic
     {

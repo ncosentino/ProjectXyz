@@ -3,9 +3,9 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Enchantments;
+using ProjectXyz.Plugins.Features.ExpiringEnchantments.Api;
 
-namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
+namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
     public sealed class EnchantmentExpiryTriggerMechanicRegistrar : IEnchantmentTriggerMechanicRegistrar
     {

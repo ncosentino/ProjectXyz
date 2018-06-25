@@ -4,7 +4,7 @@ using ProjectXyz.Api.Systems;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 
-namespace ProjectXyz.Plugins.Systems.ElapsedTime
+namespace ProjectXyz.Plugins.Features.ElapsedTime
 {
     public sealed class ElapsedTimeComponentCreator : ISystemUpdateComponentCreator
     {

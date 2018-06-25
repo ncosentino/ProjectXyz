@@ -1,8 +1,8 @@
 using System;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Api.Triggering.Elapsed;
+using ProjectXyz.Plugins.Features.ElapsedTime.Api.Duration;
 
-namespace ProjectXyz.Plugins.Triggers.Enchantments.Expiration
+namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
     public sealed class ExpiryTriggerMechanicFactory : IExpiryTriggerMechanicFactory
     {

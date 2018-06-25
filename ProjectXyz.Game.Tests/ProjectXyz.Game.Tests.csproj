@@ -122,9 +122,9 @@
       <Project>{A3B8D906-34C9-4395-9D19-B1C8355BA5E7}</Project>
       <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Api.Triggering.Elapsed.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj">
       <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
-      <Name>ProjectXyz.Api.Triggering.Elapsed</Name>
+      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
       <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
@@ -137,6 +137,10 @@
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj">
+      <Project>{C18D2AD8-69F0-4167-B407-EAD386708730}</Project>
+      <Name>ProjectXyz.Plugins.Features.ElapsedTime</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
       <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
@@ -190,9 +194,9 @@
       <Project>{bf07fb51-d73c-49b7-8632-b2a58f9bf17f}</Project>
       <Name>ProjectXyz.Plugins.Enchantments.Stats.StatExpressions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.csproj">
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj">
       <Project>{B558EC5B-B983-4701-845F-00F7109A2CF9}</Project>
-      <Name>ProjectXyz.Plugins.Triggers.Enchantments.Expiration</Name>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj">
       <Project>{d3de6090-306a-4c84-8ccb-86bbd50d7885}</Project>
@@ -241,10 +245,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj">
       <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
       <Name>ProjectXyz.Plugins.Features.BoundedStats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Elapsed\ProjectXyz.Plugins.Triggers.Elapsed.csproj">
-      <Project>{B38223E4-8D33-4B80-AC15-2F715578B619}</Project>
-      <Name>ProjectXyz.Plugins.Triggers.Elapsed</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
       <Project>{229057a2-508f-4cde-8f87-da3fab069d06}</Project>

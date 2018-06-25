@@ -1,6 +1,7 @@
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Api.Triggering.Elapsed
+namespace ProjectXyz.Plugins.Features.ElapsedTime.Api
 {
     public interface IElapsedTimeTriggerSourceMechanic : ITriggerSourceMechanic
     {

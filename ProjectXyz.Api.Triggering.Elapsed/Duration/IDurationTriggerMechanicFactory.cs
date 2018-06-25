@@ -1,6 +1,7 @@
 using System;
+using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Api.Triggering.Elapsed
+namespace ProjectXyz.Plugins.Features.ElapsedTime.Api.Duration
 {
     public interface IDurationTriggerMechanicFactory
     {

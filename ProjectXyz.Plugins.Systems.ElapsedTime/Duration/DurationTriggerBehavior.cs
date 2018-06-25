@@ -1,8 +1,8 @@
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Triggering.Elapsed;
+using ProjectXyz.Plugins.Features.ElapsedTime.Api.Duration;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Plugins.Triggers.Elapsed.Duration
+namespace ProjectXyz.Plugins.Features.ElapsedTime.Duration
 {
     public sealed class DurationTriggerBehavior :
         BaseBehavior,

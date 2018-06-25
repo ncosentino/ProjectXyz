@@ -10,7 +10,7 @@ using ProjectXyz.Api.Triggering;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
-using ProjectXyz.Plugins.Triggers.Elapsed;
+using ProjectXyz.Plugins.Features.ElapsedTime;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
