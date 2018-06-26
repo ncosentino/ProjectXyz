@@ -260,6 +260,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Triggering", "Triggering", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Triggering.Autofac", "ProjectXyz.Shared.Triggering.Autofac\ProjectXyz.Shared.Triggering.Autofac.csproj", "{6AEA32ED-169F-4D10-BF9A-7F2D1A2F416F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.TimeOfDay.Autofac", "PojectXyz.Plugins.Features.TimeOfDay.Autofac\ProjectXyz.Plugins.Features.TimeOfDay.Autofac.csproj", "{8530346A-66A4-4BE7-A8F8-815C4CA5EB15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Weather.Autofac", "ProjectXyz.Plugins.Features.Weather.Autofac\ProjectXyz.Plugins.Features.Weather.Autofac.csproj", "{0FE3C1D9-266A-44D6-8F8D-CDD7EF5A6C8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -582,6 +586,14 @@ Global
 		{6AEA32ED-169F-4D10-BF9A-7F2D1A2F416F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AEA32ED-169F-4D10-BF9A-7F2D1A2F416F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AEA32ED-169F-4D10-BF9A-7F2D1A2F416F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8530346A-66A4-4BE7-A8F8-815C4CA5EB15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8530346A-66A4-4BE7-A8F8-815C4CA5EB15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8530346A-66A4-4BE7-A8F8-815C4CA5EB15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8530346A-66A4-4BE7-A8F8-815C4CA5EB15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE3C1D9-266A-44D6-8F8D-CDD7EF5A6C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE3C1D9-266A-44D6-8F8D-CDD7EF5A6C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE3C1D9-266A-44D6-8F8D-CDD7EF5A6C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE3C1D9-266A-44D6-8F8D-CDD7EF5A6C8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -705,5 +717,7 @@ Global
 		{BAF626A6-9B22-4815-B54E-3EBC992BBAC9} = {64B76D05-65D1-4AA8-B453-3C1BC400B2A4}
 		{37003CAC-D461-4B18-8208-76EA9C6D8262} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{6AEA32ED-169F-4D10-BF9A-7F2D1A2F416F} = {37003CAC-D461-4B18-8208-76EA9C6D8262}
+		{8530346A-66A4-4BE7-A8F8-815C4CA5EB15} = {02E99FD1-9946-4B2E-9D7E-8173648EC9BC}
+		{0FE3C1D9-266A-44D6-8F8D-CDD7EF5A6C8D} = {C31A48B7-7CEE-45D8-8669-27C796A047DD}
 	EndGlobalSection
 EndGlobal

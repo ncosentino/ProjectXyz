@@ -9,7 +9,7 @@ namespace ProjectXyz.Plugins.Features.Weather
 
         public static IIdentifier Snow { get; } = new StringIdentifier("snow");
 
-        public static IIdentifier Sunny { get; } = new StringIdentifier("sunny");
+        public static IIdentifier Clear { get; } = new StringIdentifier("clear");
 
         public static IIdentifier Overcast { get; } = new StringIdentifier("overcast");
     }

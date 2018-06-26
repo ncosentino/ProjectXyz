@@ -7,18 +7,18 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
     public sealed class TimeOfDayGenerationContextAttributeProvider : IGeneratorContextAttributeProvider
     {
-        private readonly ITimeOfDaySystem _timeOfDaySystem;
+        private readonly IReadOnlyTimeOfDayManager _readOnlyTimeOfDayManager;
 
-        public TimeOfDayGenerationContextAttributeProvider(ITimeOfDaySystem timeOfDaySystem)
+        public TimeOfDayGenerationContextAttributeProvider(IReadOnlyTimeOfDayManager readOnlyTimeOfDayManager)
         {
-            _timeOfDaySystem = timeOfDaySystem;
+            _readOnlyTimeOfDayManager = readOnlyTimeOfDayManager;
         }
 
         public IEnumerable<IGeneratorAttribute> GetAttributes()
         {
             yield return new GeneratorAttribute(
                 new StringIdentifier("time-of-day"),
-                new IdentifierGeneratorAttributeValue(_timeOfDaySystem.TimeOfDay));
+                new IdentifierGeneratorAttributeValue(_readOnlyTimeOfDayManager.TimeOfDay));
         }
     }
 }

@@ -81,6 +81,10 @@
       <Project>{f4db6337-d838-4347-9987-e0ee13ebd818}</Project>
       <Name>Examples.Modules.Stats</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PojectXyz.Plugins.Features.TimeOfDay.Autofac\ProjectXyz.Plugins.Features.TimeOfDay.Autofac.csproj">
+      <Project>{8530346a-66a4-4be7-a8f8-815c4ca5eb15}</Project>
+      <Name>ProjectXyz.Plugins.Features.TimeOfDay.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
@@ -152,6 +156,10 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj">
       <Project>{0d155cb4-1e5e-4a72-9a81-37bee19746c9}</Project>
       <Name>ProjectXyz.Plugins.Features.UnhandledExceptionHandling</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Autofac\ProjectXyz.Plugins.Features.Weather.Autofac.csproj">
+      <Project>{0fe3c1d9-266a-44d6-8f8d-cdd7ef5a6c8d}</Project>
+      <Name>ProjectXyz.Plugins.Features.Weather.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj">
       <Project>{6cde69e6-0824-4f12-8152-24739b8dbd89}</Project>

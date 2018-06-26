@@ -5,6 +5,5 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
     public interface ITimeOfDaySystem : ISystem
     {
-        IIdentifier TimeOfDay { get; }
     }
 }

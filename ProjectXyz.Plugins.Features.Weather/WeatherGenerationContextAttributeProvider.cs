@@ -7,18 +7,18 @@ namespace ProjectXyz.Plugins.Features.Weather
 {
     public sealed class WeatherGenerationContextAttributeProvider : IGeneratorContextAttributeProvider
     {
-        private readonly IWeatherSystem _weatherSystem;
+        private readonly IReadOnlyWeatherManager _readOnlyWeatherManager;
 
-        public WeatherGenerationContextAttributeProvider(IWeatherSystem weatherSystem)
+        public WeatherGenerationContextAttributeProvider(IReadOnlyWeatherManager readOnlyWeatherManager)
         {
-            _weatherSystem = weatherSystem;
+            _readOnlyWeatherManager = readOnlyWeatherManager;
         }
 
         public IEnumerable<IGeneratorAttribute> GetAttributes()
         {
             yield return new GeneratorAttribute(
                 new StringIdentifier("weather"),
-                new IdentifierGeneratorAttributeValue(_weatherSystem.Weather));
+                new IdentifierGeneratorAttributeValue(_readOnlyWeatherManager.WeatherId));
         }
     }
 }

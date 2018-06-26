@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.Features.Weather
+namespace ProjectXyz.Plugins.Features.Weather.Autofac
 {
     public sealed class ProvidedImplementationsModule : Module
     {
@@ -10,6 +10,10 @@ namespace ProjectXyz.Plugins.Features.Weather
 
             builder
                 .RegisterType<WeatherSystem>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<WeatherManager>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

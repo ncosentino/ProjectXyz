@@ -2,10 +2,8 @@ using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
-    public interface IWeatherManager
+    public interface IWeatherManager : IReadOnlyWeatherManager
     {
-        bool WeatherGroupingContainsWeatherDefinition(
-            IIdentifier weatherGroupingId,
-            IIdentifier weatherDefinitionid);
+        new IIdentifier WeatherId { get; set; }
     }
 }

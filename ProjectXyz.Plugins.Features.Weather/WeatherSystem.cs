@@ -9,14 +9,14 @@ namespace ProjectXyz.Plugins.Features.Weather
 {
     public sealed class WeatherSystem : IWeatherSystem
     {
+        private readonly IWeatherManager _weatherManager;
         private IInterval _current;
 
-        public WeatherSystem()
+        public WeatherSystem(IWeatherManager weatherManager)
         {
+            _weatherManager = weatherManager;
             _current = new Interval<double>(0);
         }
-
-        public IIdentifier Weather { get; private set; }
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
@@ -28,8 +28,8 @@ namespace ProjectXyz.Plugins.Features.Weather
                 .Interval;
             _current = _current.Add(elapsed);
 
-            // TODO: actually calculate the time of day
-            Weather = WeatherIds.Rain;
+            // TODO: actually calculate the weather
+            _weatherManager.WeatherId = WeatherIds.Rain;
         }
     }
 }

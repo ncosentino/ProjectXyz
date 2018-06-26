@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace ProjectXyz.Plugins.Features.TimeOfDay
+namespace ProjectXyz.Plugins.Features.TimeOfDay.Autofac
 {
     public sealed class ProvidedImplementationsModule : Module
     {
@@ -10,6 +10,10 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 
             builder
                 .RegisterType<TimeOfDaySystem>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<TimeOfDayManager>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

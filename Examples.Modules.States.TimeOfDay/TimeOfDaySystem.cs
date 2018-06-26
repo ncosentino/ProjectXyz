@@ -9,14 +9,14 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
     public sealed class TimeOfDaySystem : ITimeOfDaySystem
     {
+        private readonly ITimeOfDayManager _timeOfDayManager;
         private IInterval _current;
 
-        public TimeOfDaySystem()
+        public TimeOfDaySystem(ITimeOfDayManager timeOfDayManager)
         {
+            _timeOfDayManager = timeOfDayManager;
             _current = new Interval<double>(0);
         }
-
-        public IIdentifier TimeOfDay { get; private set; }
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
@@ -29,7 +29,7 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
             _current = _current.Add(elapsed);
 
             // TODO: actually calculate the time of day
-            TimeOfDay = TimesOfDay.Day;
+            _timeOfDayManager.TimeOfDay = TimesOfDay.Day;
         }
     }
 }

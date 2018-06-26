@@ -22,7 +22,7 @@ namespace ProjectXyz.Plugins.Features.Weather
                             WeatherIds.Snow,
                             "weather_snow"),
                         new KeyValuePair<IIdentifier, string>(
-                            WeatherIds.Sunny,
+                            WeatherIds.Clear,
                             "weather_sunny"),
                         new KeyValuePair<IIdentifier, string>(
                             WeatherIds.Overcast,
