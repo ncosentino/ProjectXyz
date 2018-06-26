@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="ITriggerMechanic.cs" />
     <Compile Include="ITriggerMechanicRegistrar.cs" />
+    <Compile Include="ITriggerMechanicRegistrarFacade.cs" />
     <Compile Include="ITriggerSourceMechanic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

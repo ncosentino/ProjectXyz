@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using ProjectXyz.Api.Triggering;
 
 namespace ProjectXyz.Shared.Triggering.Autofac
 {
-    public sealed class TriggersModule : Module
+    public sealed class ProvidedImplementationsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -10,7 +11,7 @@ namespace ProjectXyz.Shared.Triggering.Autofac
 
             builder
                 .RegisterType<TriggerMechanicRegistrar>()
-                .AsImplementedInterfaces()
+                .As<ITriggerMechanicRegistrarFacade>() // specifically the facade to avoid circular dependencies
                 .SingleInstance();
         }
     }

@@ -12,10 +12,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
         private readonly IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> _enchantmentTriggerMechanicRegistrars;
 
         public ActiveEnchantmentManagerFactory(
-            ITriggerMechanicRegistrar triggerMechanicRegistrar,
+            ITriggerMechanicRegistrarFacade triggerMechanicRegistrarFacade,
             IEnumerable<IEnchantmentTriggerMechanicRegistrar> enchantmentTriggerMechanicRegistrars)
         {
-            _triggerMechanicRegistrar = triggerMechanicRegistrar;;
+            _triggerMechanicRegistrar = triggerMechanicRegistrarFacade;
             _enchantmentTriggerMechanicRegistrars = enchantmentTriggerMechanicRegistrars.ToArray();
         }
 

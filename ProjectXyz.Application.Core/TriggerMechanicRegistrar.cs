@@ -4,7 +4,7 @@ using ProjectXyz.Api.Triggering;
 
 namespace ProjectXyz.Shared.Triggering
 {
-    public sealed class TriggerMechanicRegistrar : ITriggerMechanicRegistrar
+    public sealed class TriggerMechanicRegistrar : ITriggerMechanicRegistrarFacade
     {
         private readonly IReadOnlyCollection<ITriggerMechanicRegistrar> _triggerMechanicRegistrars;
 

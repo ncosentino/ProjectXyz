@@ -40,12 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TriggersModule.cs" />
+    <Compile Include="ProvidedImplementationsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
+      <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
+      <Name>ProjectXyz.Api.Triggering</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Shared.Triggering.csproj">
       <Project>{0E56D372-31CF-48BD-94A2-67D4622C270A}</Project>
       <Name>ProjectXyz.Shared.Triggering</Name>
