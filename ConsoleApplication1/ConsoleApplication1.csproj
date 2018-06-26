@@ -149,6 +149,10 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Autofac\ProjectXyz.Framework.ViewWelding.Autofac.csproj">
+      <Project>{457ac8cb-c325-41e2-b6c3-625c680b2ac1}</Project>
+      <Name>ProjectXyz.Framework.ViewWelding.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj">
       <Project>{f8f47e92-7e70-433f-8333-7c2b12b21f35}</Project>
       <Name>ProjectXyz.Plugins.Features.ElapsedTime.Autofac</Name>
