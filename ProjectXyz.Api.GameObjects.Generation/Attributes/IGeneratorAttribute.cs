@@ -7,5 +7,7 @@ namespace ProjectXyz.Api.GameObjects.Generation.Attributes
         IIdentifier Id { get; }
 
         IGeneratorAttributeValue Value { get; }
+
+        bool Required { get; }
     }
 }

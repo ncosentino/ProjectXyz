@@ -22,7 +22,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             var moduleDiscoverer = new ModuleDiscoverer();
             var modules = moduleDiscoverer.Discover(AppDomain.CurrentDomain.BaseDirectory, "*.Tests.dll")
                 .Concat(moduleDiscoverer
-                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.Dependencies.Autofac.dll"));
+                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             DependencyContainer = dependencyContainerBuilder.Create(modules);
 

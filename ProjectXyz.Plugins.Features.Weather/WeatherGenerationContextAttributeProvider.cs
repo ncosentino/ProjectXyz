@@ -18,7 +18,8 @@ namespace ProjectXyz.Plugins.Features.Weather
         {
             yield return new GeneratorAttribute(
                 new StringIdentifier("weather"),
-                new IdentifierGeneratorAttributeValue(_readOnlyWeatherManager.WeatherId));
+                new IdentifierGeneratorAttributeValue(_readOnlyWeatherManager.WeatherId),
+                false);
         }
     }
 }

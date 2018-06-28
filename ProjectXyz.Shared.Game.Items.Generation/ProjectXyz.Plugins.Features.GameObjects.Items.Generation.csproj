@@ -36,7 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseItemGenerator.cs" />
-    <Compile Include="GeneratorComponent.cs" />
     <Compile Include="GeneratorContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

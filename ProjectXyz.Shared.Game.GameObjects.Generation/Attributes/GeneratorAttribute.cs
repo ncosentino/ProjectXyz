@@ -7,14 +7,18 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
     {
         public GeneratorAttribute(
             IIdentifier id,
-            IGeneratorAttributeValue value)
+            IGeneratorAttributeValue value,
+            bool required)
         {
             Id = id;
             Value = value;
+            Required = required;
         }
 
         public IIdentifier Id { get; }
 
         public IGeneratorAttributeValue Value { get; }
+
+        public bool Required { get; }
     }
 }

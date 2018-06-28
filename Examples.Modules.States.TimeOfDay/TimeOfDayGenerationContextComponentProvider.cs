@@ -18,7 +18,8 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
         {
             yield return new GeneratorAttribute(
                 new StringIdentifier("time-of-day"),
-                new IdentifierGeneratorAttributeValue(_readOnlyTimeOfDayManager.TimeOfDay));
+                new IdentifierGeneratorAttributeValue(_readOnlyTimeOfDayManager.TimeOfDay),
+                false);
         }
     }
 }

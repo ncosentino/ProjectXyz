@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Autofac;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
@@ -49,11 +45,25 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
                                 v1.Maximum >= v2.Value;
                             return isAttrtMatch;
                         });
+                    attributeValueMatchFacade.Register<
+                        DoubleGeneratorAttributeValue,
+                        RangeGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch =
+                                v2.Minimum <= v1.Value &&
+                                v2.Maximum >= v1.Value;
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        DoubleGeneratorAttributeValue,
+                        DoubleGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v1.Value == v2.Value;
+                            return isAttrtMatch;
+                        });
                 });
-            builder
-                .RegisterType<InMemoryAttributeFilterer>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
         }
     }
 }

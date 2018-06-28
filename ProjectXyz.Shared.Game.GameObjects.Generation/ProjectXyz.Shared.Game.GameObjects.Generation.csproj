@@ -39,10 +39,10 @@
     <Compile Include="Attributes\DoubleGeneratorAttributeValue.cs" />
     <Compile Include="Attributes\GeneratorAttribute.cs" />
     <Compile Include="Attributes\IdentifierGeneratorAttributeValue.cs" />
-    <Compile Include="Attributes\InMemoryAttributeFilterer.cs" />
     <Compile Include="Attributes\RangeGeneratorAttributeValue.cs" />
     <Compile Include="Attributes\StringCollectionGeneratorAttributeValue.cs" />
     <Compile Include="Attributes\StringGeneratorAttributeValue.cs" />
+    <Compile Include="GeneratorComponent.cs" />
     <Compile Include="GeneratorComponentToBehaviorConverterFacade.cs" />
     <Compile Include="GeneratorContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

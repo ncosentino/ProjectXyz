@@ -106,13 +106,16 @@ namespace ConsoleApplication1
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("affix-type"), 
-                        new StringCollectionGeneratorAttributeValue("magic")),
+                        new StringCollectionGeneratorAttributeValue("magic"),
+                        false),
                     new GeneratorAttribute(
                         new StringIdentifier("random-roll"),
-                        new DoubleGeneratorAttributeValue(dependencyContainer.Resolve<IRandomNumberGenerator>().NextDouble())),
+                        new DoubleGeneratorAttributeValue(dependencyContainer.Resolve<IRandomNumberGenerator>().NextDouble()),
+                        false),
                     new GeneratorAttribute(
                         new StringIdentifier("item-level"),
-                        new DoubleGeneratorAttributeValue(45)),
+                        new DoubleGeneratorAttributeValue(45),
+                        false),
                 });
 
             var items = itemGeneratorFacade
