@@ -56,6 +56,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 yield return CreateMultipleComponentNoSupportedAttributesEmptyFilter();
                 yield return CreateMatchingDoubleComponent();
                 yield return CreateMatchingDoubleComponentIncludesAttributeless();
+                yield return CreateSupportedComponentsNotInContextNotRequired();
+                yield return CreateSupportedComponentsNotInContextRequired();
+                yield return CreateRequiredMatchingDoubleComponentExcludesAttributeless();
                 yield return CreateInRangeComponent();
                 yield return CreateInRangeComponentIncludesAttributeless();
                 yield return CreateMatchInRangeComponent();
@@ -186,7 +189,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
                 return new object[]
                 {
-                    "Filter With Double Match, Includes Match Plus Attributeless",
+                    "Filter With Double Match, Includes Attributeless",
                     new IHasGeneratorAttributes[]
                     {
                         expectedComponent,
@@ -204,6 +207,128 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     {
                         expectedComponent,
                         expectedComponent2,
+                        expectedComponent3
+                    },
+                };
+            }
+
+            private object[] CreateSupportedComponentsNotInContextNotRequired()
+            {
+                var expectedComponent = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(1),
+                        false)
+                });
+                var expectedComponent2 = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(2),
+                        false)
+                });
+                var expectedComponent3 = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(3),
+                        false)
+                });
+
+                return new object[]
+                {
+                    "Supported Components Not In Context, Not Required",
+                    new IHasGeneratorAttributes[]
+                    {
+                        expectedComponent,
+                        expectedComponent2,
+                        expectedComponent3,
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
+                        expectedComponent,
+                        expectedComponent2,
+                        expectedComponent3,
+                    },
+                };
+            }
+
+            private object[] CreateSupportedComponentsNotInContextRequired()
+            {
+                var component = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(1),
+                        true)
+                });
+                var component2 = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(2),
+                        true)
+                });
+                var component3 = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(3),
+                        true)
+                });
+
+                return new object[]
+                {
+                    "Supported Components Not In Context, Required",
+                    new IHasGeneratorAttributes[]
+                    {
+                        component,
+                        component2,
+                        component3,
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
+                    },
+                };
+            }
+
+            private object[] CreateRequiredMatchingDoubleComponentExcludesAttributeless()
+            {
+                var component = new GeneratorComponent();
+                var component2 = new GeneratorComponent();
+                var expectedComponent3 = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new DoubleGeneratorAttributeValue(3),
+                        false)
+                });
+
+                return new object[]
+                {
+                    "Filter With Required Double Match, Excludes Attributeless",
+                    new IHasGeneratorAttributes[]
+                    {
+                        component,
+                        component2,
+                        expectedComponent3
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                        new GeneratorAttribute(
+                            new StringIdentifier("id"),
+                            new DoubleGeneratorAttributeValue(3),
+                            true)
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
                         expectedComponent3
                     },
                 };

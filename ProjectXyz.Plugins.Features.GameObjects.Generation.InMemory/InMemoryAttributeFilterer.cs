@@ -31,15 +31,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
             var matching = source
                 .Where(s=>
                 {
-                    var requiredAttributes = s.
+                    var supportedAttributes = s.
                         SupportedAttributes
                         .ToDictionary(
                             x => x.Id,
-                            x => x.Value);
-                    var missingRequiredAttributes = requiredAttributes
-                        .Keys
-                        .Any(x => !attributeToContextMapping.ContainsKey(x));
-                    if (missingRequiredAttributes)
+                            x => x);
+                    var missingSupportedAttributes = supportedAttributes
+                        .Any(x => x.Value.Required && !attributeToContextMapping.ContainsKey(x.Value.Id));
+                    if (missingSupportedAttributes)
                     {
                         return false;
                     }
@@ -50,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
                         .ToArray();
                     if (!matchingAttributes.Any())
                     {
-                        return true;
+                        return !generatorContext.Attributes.Any(x => x.Required);
                     }
 
                     var isGeneratorMatch = matchingAttributes
