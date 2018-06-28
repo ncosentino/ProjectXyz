@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Items;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Items
+namespace ProjectXyz.Plugins.Features.GameObjects.Items
 {
     public sealed class ItemFactory : IItemFactory
     {

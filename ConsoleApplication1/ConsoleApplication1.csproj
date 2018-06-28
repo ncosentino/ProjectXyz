@@ -109,9 +109,9 @@
       <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.GameObjects.Items.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj">
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
-      <Name>ProjectXyz.Api.GameObjects.Items</Name>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj">
       <Project>{20d53cd6-10fd-4347-b5a3-c6a5b8fabf2d}</Project>
@@ -321,17 +321,17 @@
       <Project>{6f7166a4-5bc3-4c1e-a014-ae37a8392a88}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Shared.Game.GameObjects.Items.Autofac.csproj">
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.csproj">
       <Project>{76e07dca-60bd-44a1-9599-cadde6a0b850}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Items.Autofac</Name>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Autofac</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory.csproj">
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj">
       <Project>{68fb16f5-2c5c-4172-8277-70a4781df6db}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory</Name>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.GameObjects.Items.Generation.csproj">
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj">
       <Project>{ff377f10-928c-4281-8adb-e40d9a664967}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Items.Generation</Name>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Generation</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.States.Autofac\ProjectXyz.Shared.States.Autofac.csproj">
       <Project>{baf626a6-9b22-4815-b54e-3ebc992bbac9}</Project>

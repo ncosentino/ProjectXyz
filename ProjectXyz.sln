@@ -168,9 +168,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeOfDay", "TimeOfDay", "{02E99FD1-9946-4B2E-9D7E-8173648EC9BC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{ABBF076C-AA85-4BBF-A47D-1C86845D8682}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.GameObjects.Items", "ProjectXyz.Api.Items\ProjectXyz.Api.GameObjects.Items.csproj", "{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Api", "ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj", "{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameObjects", "GameObjects", "{FB14DEEE-1016-4430-A24C-184F87992BC9}"
 EndProject
@@ -196,9 +194,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Logging", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{440A7AA9-5891-4505-898C-72E74B4EC02C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory", "ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory.csproj", "{68FB16F5-2C5C-4172-8277-70A4781DF6DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory", "ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj", "{68FB16F5-2C5C-4172-8277-70A4781DF6DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Items.Generation", "ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Shared.Game.GameObjects.Items.Generation.csproj", "{FF377F10-928C-4281-8ADB-E40D9A664967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Generation", "ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj", "{FF377F10-928C-4281-8ADB-E40D9A664967}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{B369DF7D-3FE2-417A-9C69-E8FFECBBBF6D}"
 EndProject
@@ -232,9 +230,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Behaviors
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac", "ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac.csproj", "{FC1D1ED4-7264-4614-8400-F55AF6E1CAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Items", "ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Shared.Game.GameObjects.Items.csproj", "{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items", "ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj", "{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.GameObjects.Items.Autofac", "ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Shared.Game.GameObjects.Items.Autofac.csproj", "{76E07DCA-60BD-44A1-9599-CADDE6A0B850}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Autofac", "ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.csproj", "{76E07DCA-60BD-44A1-9599-CADDE6A0B850}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnhandledExceptionHandling", "UnhandledExceptionHandling", "{A961E96A-CD60-4D17-ACA1-E8446BF08ABC}"
 EndProject
@@ -691,8 +689,7 @@ Global
 		{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54} = {02E99FD1-9946-4B2E-9D7E-8173648EC9BC}
 		{F85CF10E-7CEC-42BD-8DBA-A76275F5060F} = {347226E9-35EB-468E-9884-130B7D502E2A}
 		{02E99FD1-9946-4B2E-9D7E-8173648EC9BC} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
-		{ABBF076C-AA85-4BBF-A47D-1C86845D8682} = {0F769E14-559C-4A23-BA23-20CECD2636A6}
-		{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4} = {ABBF076C-AA85-4BBF-A47D-1C86845D8682}
+		{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{FB14DEEE-1016-4430-A24C-184F87992BC9} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{0E152BC5-ABA6-46E1-978A-7216D57320C6} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
 		{5E9C8B2B-94ED-4E9E-BB79-9AC38D2485CD} = {0E152BC5-ABA6-46E1-978A-7216D57320C6}
@@ -712,7 +709,7 @@ Global
 		{6F7166A4-5BC3-4C1E-A014-AE37A8392A88} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
 		{A578219F-0115-4536-AE85-9B6496E1D21D} = {E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5}
 		{06036003-2B25-42BD-8074-AB45DDD4B40E} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
-		{3873E97E-C3C2-4C0D-9196-8450354967CE} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
+		{3873E97E-C3C2-4C0D-9196-8450354967CE} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
 		{DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
 		{2D540693-B997-48E2-A5F9-D36973033075} = {DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85}
 		{C87767ED-6D08-4710-9E45-BA47A9184BF1} = {DC9F0F05-B8C2-48EC-BE6E-5F4C3F2B7E85}

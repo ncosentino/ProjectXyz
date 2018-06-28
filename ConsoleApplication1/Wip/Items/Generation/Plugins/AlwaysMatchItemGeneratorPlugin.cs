@@ -2,7 +2,7 @@
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.GameObjects.Items.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
 namespace ConsoleApplication1.Wip.Items.Generation.Plugins
 {

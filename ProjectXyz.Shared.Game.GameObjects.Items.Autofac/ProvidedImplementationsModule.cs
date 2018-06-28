@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using ProjectXyz.Shared.Game.GameObjects.Items.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Items.Autofac
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac
 {
     public sealed class ProvidedImplementationsModule : Module
     {

@@ -2,7 +2,7 @@
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
-namespace ProjectXyz.Api.GameObjects.Items.Generation
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation
 {
     public interface IItemDefinition : IHasGeneratorAttributes
     {

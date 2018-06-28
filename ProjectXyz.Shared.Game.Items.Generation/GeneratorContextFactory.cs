@@ -4,7 +4,7 @@ using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Shared.Game.GameObjects.Generation;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 {
     public sealed class GeneratorContextFactory : IGeneratorContextFactory
     {

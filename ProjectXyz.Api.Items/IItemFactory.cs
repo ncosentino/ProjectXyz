@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects;
 
-namespace ProjectXyz.Api.GameObjects.Items
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api
 {
     public interface IItemFactory
     {

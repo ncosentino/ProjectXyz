@@ -5,7 +5,7 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Behaviors;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Items
+namespace ProjectXyz.Plugins.Features.GameObjects.Items
 {
     public sealed class Item : IGameObject
     {

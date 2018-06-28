@@ -2,9 +2,9 @@
 using System.Linq;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.GameObjects.Items.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation.InMemory
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 {
     public sealed class ItemDefinition : IItemDefinition
     {

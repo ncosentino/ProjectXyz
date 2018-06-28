@@ -5,10 +5,10 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Items;
-using ProjectXyz.Api.GameObjects.Items.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Items.Generation
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 {
     public sealed class BaseItemGenerator : IBaseItemGenerator
     {

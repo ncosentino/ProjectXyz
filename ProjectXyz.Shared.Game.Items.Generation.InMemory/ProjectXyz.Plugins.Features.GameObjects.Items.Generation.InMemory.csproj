@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}</ProjectGuid>
+    <ProjectGuid>{68FB16F5-2C5C-4172-8277-70A4781DF6DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Shared.Game.GameObjects.Items</RootNamespace>
-    <AssemblyName>ProjectXyz.Shared.Game.GameObjects.Items</AssemblyName>
+    <RootNamespace>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -35,54 +35,27 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Item.cs" />
-    <Compile Include="ItemFactory.cs" />
+    <Compile Include="InMemoryItemDefinitionRepository.cs" />
+    <Compile Include="ItemDefinition.cs" />
+    <Compile Include="ItemGeneratorFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
       <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Api.GameObjects.Items.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj">
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
-      <Name>ProjectXyz.Api.GameObjects.Items</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Application.Stats.Core.csproj">
-      <Project>{B051F375-1F9F-4A03-BDC2-EB4FA3807B2E}</Project>
-      <Name>ProjectXyz.Application.Stats.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
-      <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
-      <Name>ProjectXyz.Application.Stats.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
-      <Project>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</Project>
-      <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj">
-      <Project>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</Project>
-      <Name>ProjectXyz.Plugins.Features.CommonBehaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
-      <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
-      <Name>ProjectXyz.Shared.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
-      <Project>{229057a2-508f-4cde-8f87-da3fab069d06}</Project>
-      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
