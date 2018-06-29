@@ -78,11 +78,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
         {
             // TODO: should this be in the other project for shared "generation" classes?
             builder
-                .RegisterType<GeneratorContextFactory>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            // TODO: should this be in the other project for shared "generation" classes?
-            builder
                 .RegisterType<BaseEnchantmentGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

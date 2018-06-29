@@ -52,6 +52,7 @@
     <Compile Include="IGeneratorComponentToBehaviorConverterRegistrar.cs" />
     <Compile Include="IGeneratorContext.cs" />
     <Compile Include="IGeneratorContextFactory.cs" />
+    <Compile Include="IGeneratorContextProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

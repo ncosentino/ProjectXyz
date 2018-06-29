@@ -39,7 +39,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
             {
                 // pick the random item definition that meets the context conditions
                 var itemDefinitionCandidates = _itemDefinitionRepository.LoadItemDefinitions(generatorContext);
-                var itemDefinition = itemDefinitionCandidates.RandomOrDefault(new Random()); //.RandomOrDefault(_randomNumberGenerator);
+                var itemDefinition = itemDefinitionCandidates.RandomOrDefault(_randomNumberGenerator);
                 if (itemDefinition == null)
                 {
                     throw new InvalidOperationException("Could not generate an item for the provided context.");

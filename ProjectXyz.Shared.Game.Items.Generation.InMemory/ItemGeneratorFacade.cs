@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
@@ -13,10 +14,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
     {
         private readonly List<IItemGenerator> _itemGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
+        private readonly IRandomNumberGenerator _randomNumberGenerator;
 
-        public ItemGeneratorFacade(IAttributeFilterer attributeFilterer)
+        public ItemGeneratorFacade(
+            IAttributeFilterer attributeFilterer,
+            IRandomNumberGenerator randomNumberGenerator)
         {
             _attributeFilterer = attributeFilterer;
+            _randomNumberGenerator = randomNumberGenerator;
             _itemGenerators = new List<IItemGenerator>();
         }
 
@@ -25,10 +30,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             var filteredGenerators = _attributeFilterer.Filter(
                 _itemGenerators,
                 generatorContext);
-            var generator = filteredGenerators.RandomOrDefault(new Random());
+            var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
             if (generator == null)
             {
-                return Enumerable.Empty<IGameObject>();
+                throw new InvalidOperationException(
+                    $"There are no item generators that match the context '{generatorContext}'.");
             }
 
             var generatedItems = generator.GenerateItems(generatorContext);

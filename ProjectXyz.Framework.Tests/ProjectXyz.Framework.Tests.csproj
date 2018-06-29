@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Entities\Shared\ComponentCollectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Collections\EnumerableExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -85,6 +86,10 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
       <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
       <Name>ProjectXyz.Api.Framework.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>

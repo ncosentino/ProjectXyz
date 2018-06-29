@@ -1,4 +1,7 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
+using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 
@@ -9,12 +12,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
-            // TODO: should this be in the other project for shared "generation" classes?
-            builder
-                .RegisterType<GeneratorContextFactory>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
+
             // TODO: should this be in the other project for shared "generation" classes?
             builder
                 .RegisterType<BaseItemGenerator>()
@@ -24,7 +22,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac
             builder
                 .RegisterType<ItemGeneratorFacade>()
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .OnActivated(x =>
+                {
+                    x
+                     .Context
+                     .Resolve<IEnumerable<IDiscoverableItemGenerator>>()
+                     .Foreach(x.Instance.Register);
+                });
 
             builder
                 .RegisterType<ItemFactory>()

@@ -11,6 +11,14 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
             base.Load(builder);
 
             builder
+                .RegisterType<GeneratorContextProvider>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<GeneratorContextFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<AttributeValueMatchFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance()

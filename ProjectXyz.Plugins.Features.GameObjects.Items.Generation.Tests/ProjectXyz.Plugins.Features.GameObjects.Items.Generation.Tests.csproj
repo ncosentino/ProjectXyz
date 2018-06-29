@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B7B4246E-0624-42DF-AB84-BB41C912B81E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests</RootNamespace>
+    <AssemblyName>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.8.3\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.3.1.3858, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.3.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>..\packages\xunit.extensibility.core.2.3.1\lib\netstandard1.1\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.3.1.3858, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.3.1\lib\net452\xunit.execution.desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DropTables\LootGeneratorFunctionalTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
+      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
+      <Name>ProjectXyz.Api.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
+      <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
+      <Name>ProjectXyz.Api.GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj">
+      <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
+      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
+      <Name>ProjectXyz.Shared.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj">
+      <Project>{5BBDFF60-4159-4321-84F0-A2E668657CFC}</Project>
+      <Name>ProjectXyz.Game.Core.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac.csproj">
+      <Project>{a64b788e-6599-45b8-b3e0-24f0078641d7}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Framework.Autofac\ProjectXyz.Shared.Framework.Autofac.csproj">
+      <Project>{b2c366a4-d245-44e7-affc-641a7da029e1}</Project>
+      <Name>ProjectXyz.Shared.Framework.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj">
+      <Project>{7fc318ca-ff3a-4e07-ad82-01fbe4b357be}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
+      <Project>{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.csproj">
+      <Project>{76e07dca-60bd-44a1-9599-cadde6a0b850}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj">
+      <Project>{68FB16F5-2C5C-4172-8277-70A4781DF6DB}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj">
+      <Project>{FF377F10-928C-4281-8ADB-E40D9A664967}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Generation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\xunit.analyzers.0.9.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.props'))" />
+    <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.targets'))" />
+  </Target>
+  <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

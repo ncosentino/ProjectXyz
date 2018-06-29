@@ -15,7 +15,9 @@ namespace ProjectXyz.Api.Framework.Collections
             foreach (var element in source)
             {
                 count++;
-                if (random.NextInRange(0, count) == 0)
+                
+                // subtract 1 because we need EXCLUSIVE upper bound
+                if (random.NextInRange(0, count - 1) == 0)
                 {
                     current = element;
                 }
@@ -38,7 +40,9 @@ namespace ProjectXyz.Api.Framework.Collections
             foreach (var element in source)
             {
                 count++;
-                if (random.NextInRange(0, count) == 0)
+
+                // subtract 1 because we need EXCLUSIVE upper bound
+                if (random.NextInRange(0, count - 1) == 0)
                 {
                     current = element;
                 }
@@ -106,6 +110,11 @@ namespace ProjectXyz.Api.Framework.Collections
             {
                 perItemCallback(item);
             }
+        }
+
+        public static void Consume<T>(this IEnumerable<T> enumerable)
+        {
+            enumerable.Foreach(_ => { });
         }
 
         public static IEnumerable<T2> TakeTypes<T2>(this IEnumerable<object> enumerable)

@@ -6,6 +6,7 @@ using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Api.Enchantments.Generation;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 {
@@ -13,10 +14,14 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
     {
         private readonly List<IEnchantmentGenerator> _enchantmentGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
+        private readonly IRandomNumberGenerator _randomNumberGenerator;
 
-        public EnchantmentGeneratorFacade(IAttributeFilterer attributeFilterer)
+        public EnchantmentGeneratorFacade(
+            IAttributeFilterer attributeFilterer,
+            IRandomNumberGenerator randomNumberGenerator)
         {
             _attributeFilterer = attributeFilterer;
+            _randomNumberGenerator = randomNumberGenerator;
             _enchantmentGenerators = new List<IEnchantmentGenerator>();
         }
 
@@ -25,7 +30,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
             var filteredGenerators = _attributeFilterer.Filter(
                 _enchantmentGenerators,
                 generatorContext);
-            var generator = filteredGenerators.RandomOrDefault(new Random());
+            var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
             if (generator == null)
             {
                 return Enumerable.Empty<IEnchantment>();

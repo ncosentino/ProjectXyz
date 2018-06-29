@@ -45,6 +45,8 @@
     <Compile Include="GeneratorComponent.cs" />
     <Compile Include="GeneratorComponentToBehaviorConverterFacade.cs" />
     <Compile Include="GeneratorContext.cs" />
+    <Compile Include="GeneratorContextFactory.cs" />
+    <Compile Include="GeneratorContextProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

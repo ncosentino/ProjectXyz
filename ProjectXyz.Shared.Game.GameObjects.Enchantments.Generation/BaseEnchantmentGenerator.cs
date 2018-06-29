@@ -38,7 +38,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation
             {
                 // pick the random enchantment definition that meets the context conditions
                 var enchantmentDefinitionCandidates = _enchantmentDefinitionRepository.LoadEnchantmentDefinitions(generatorContext);
-                var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(new Random()); //.RandomOrDefault(_randomNumberGenerator);
+                var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_randomNumberGenerator);
                 if (enchantmentDefinition == null)
                 {
                     throw new InvalidOperationException("Could not generate an enchantment for the provided context.");

@@ -12,11 +12,6 @@ namespace ConsoleApplication1.Modules
             base.Load(builder);
 
             builder
-                .Register(c => new RandomNumberGenerator(new Random()))
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
-            builder
                 .RegisterType<StatPrinterSystem>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
