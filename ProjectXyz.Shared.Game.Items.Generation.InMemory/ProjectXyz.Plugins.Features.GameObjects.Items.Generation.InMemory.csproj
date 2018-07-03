@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="DropTables\InMemoryDropTableRepository.cs" />
     <Compile Include="InMemoryItemDefinitionRepository.cs" />
-    <Compile Include="ItemDefinition.cs" />
     <Compile Include="ItemGeneratorFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

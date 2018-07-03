@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Framework;
@@ -8,6 +9,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json;
 
 namespace ConsoleApplication1
 {
@@ -20,9 +22,10 @@ namespace ConsoleApplication1
             var modules =
                 moduleDiscoverer.Discover(moduleDirectory, "*.exe")
                 .Concat(moduleDiscoverer
-                .Discover(moduleDirectory, "*.Autofac.dll"))
-                .Concat(moduleDiscoverer
-                .Discover(moduleDirectory, "Examples.Modules.*.dll"));
+                ////.Discover(moduleDirectory, "*.Autofac.dll"))
+                ////.Concat(moduleDiscoverer
+                ////.Discover(moduleDirectory, "Examples.Modules.*.dll"));
+                .Discover(moduleDirectory, "*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
             
@@ -87,41 +90,14 @@ namespace ConsoleApplication1
 
             ////var cancellationTokenSource = new CancellationTokenSource();
             ////gameEngine.Start(cancellationTokenSource.Token);
+
+            var serializerFacade = dependencyContainer.Resolve<IGeneratorAttributeValueSerializerFacade>();
+            var serializedStream = serializerFacade.Serialize(new StringGeneratorAttributeValue("my string value"));
+
+            var deserializer = dependencyContainer.Resolve<IDeserializer>();
+            var deserialized = deserializer.Deserialize<IGeneratorAttributeValue>(serializedStream);
             
-
-            var itemGenerators = new IItemGenerator[]
-            {
-                ////new AlwaysMatchItemGeneratorPlugin(),
-                ////new RandomRollItemGeneratorPlugin(
-                ////    new StringIdentifier("random-roll"),
-                ////    0.80), 
-            };
-
-            var itemGeneratorFacade = dependencyContainer.Resolve<IItemGeneratorFacade>();
-
-            var itemGeneratorContext = new GeneratorContext(
-                1,
-                1,
-                new IGeneratorAttribute[]
-                {
-                    new GeneratorAttribute(
-                        new StringIdentifier("affix-type"), 
-                        new StringCollectionGeneratorAttributeValue("magic"),
-                        false),
-                    new GeneratorAttribute(
-                        new StringIdentifier("random-roll"),
-                        new DoubleGeneratorAttributeValue(dependencyContainer.Resolve<IRandomNumberGenerator>().NextDouble()),
-                        false),
-                    new GeneratorAttribute(
-                        new StringIdentifier("item-level"),
-                        new DoubleGeneratorAttributeValue(45),
-                        false),
-                });
-
-            var items = itemGeneratorFacade
-                .GenerateItems(itemGeneratorContext)
-                .ToArray();
-
+            
             Console.ReadLine();
         }
     }

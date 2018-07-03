@@ -4,7 +4,7 @@ using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
-namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 {
     public sealed class ItemDefinition : IItemDefinition
     {

@@ -46,6 +46,7 @@
     <Compile Include="DropTables\Implementations\Linked\LinkedDropTableHandlerGenerator.cs" />
     <Compile Include="DropTables\Implementations\Linked\WightedEntry.cs" />
     <Compile Include="DropTables\LootGenerator.cs" />
+    <Compile Include="ItemDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

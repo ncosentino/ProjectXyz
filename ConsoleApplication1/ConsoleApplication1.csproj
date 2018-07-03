@@ -333,6 +333,10 @@
       <Project>{7fc318ca-ff3a-4e07-ad82-01fbe4b357be}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Generation.Autofac</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json\ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.csproj">
+      <Project>{88061da1-7027-4857-8896-50c9dfd891b4}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
       <Project>{6f7166a4-5bc3-4c1e-a014-ae37a8392a88}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
