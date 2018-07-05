@@ -1,9 +1,11 @@
 using System;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
+namespace ProjectXyz.Api.Data.Serialization
 {
     public interface IDiscoverableSerializableConverter : ISerializableConverter
     {
+        Type Type { get; }
+
         Type DtoType { get; }
     }
 }

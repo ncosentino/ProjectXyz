@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Autofac;
+using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Game.Core.Autofac;
@@ -9,7 +10,6 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json;
 
 namespace ConsoleApplication1
 {
@@ -91,13 +91,6 @@ namespace ConsoleApplication1
             ////var cancellationTokenSource = new CancellationTokenSource();
             ////gameEngine.Start(cancellationTokenSource.Token);
 
-            var serializerFacade = dependencyContainer.Resolve<IGeneratorAttributeValueSerializerFacade>();
-            var serializedStream = serializerFacade.Serialize(new StringGeneratorAttributeValue("my string value"));
-
-            var deserializer = dependencyContainer.Resolve<IDeserializer>();
-            var deserialized = deserializer.Deserialize<IGeneratorAttributeValue>(serializedStream);
-            
-            
             Console.ReadLine();
         }
     }

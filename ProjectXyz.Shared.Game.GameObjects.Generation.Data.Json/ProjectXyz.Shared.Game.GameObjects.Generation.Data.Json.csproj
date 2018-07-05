@@ -45,40 +45,28 @@
   <ItemGroup>
     <Compile Include="Autofac\InternalDependenciesModule.cs" />
     <Compile Include="Autofac\ProvidedImplementationsModule.cs" />
-    <Compile Include="Attributes\DtoJsonSerializer.cs" />
+    <Compile Include="DtoJsonSerializer.cs" />
+    <Compile Include="ISerializableDto.cs" />
     <Compile Include="SerializableConverter.cs" />
     <Compile Include="SerializableDto.cs" />
     <Compile Include="SerializableConverterFacade.cs" />
-    <Compile Include="GeneratorAttributeValueDeserializerFacade.cs" />
+    <Compile Include="Deserializer.cs" />
     <Compile Include="SerializableDtoDataConverterService.cs" />
-    <Compile Include="GeneratorAttributeValueSerializerFacade.cs" />
-    <Compile Include="Api\IDiscoverableSerializableConverter.cs" />
-    <Compile Include="Api\IDiscoverableSerializableDtoDataConverter.cs" />
-    <Compile Include="Api\IDiscoverableGeneratorAttributeValueSerializer.cs" />
-    <Compile Include="Attributes\IDtoSerializer.cs" />
-    <Compile Include="IGenerationAttributeDataDto.cs" />
-    <Compile Include="ISerializableDto.cs" />
-    <Compile Include="ISerializableConverter.cs" />
-    <Compile Include="ISerializableConverterFacade.cs" />
-    <Compile Include="IGeneratorAttributeValueConverterRegistrar.cs" />
-    <Compile Include="IDeserializer.cs" />
-    <Compile Include="ISerializableDtoDataConverter.cs" />
-    <Compile Include="ISerializableDtoDataConverterProvider.cs" />
-    <Compile Include="ISerializableDtoDataConverterRegistrar.cs" />
-    <Compile Include="ISerializableDtoDataConverterService.cs" />
-    <Compile Include="Api\IGeneratorAttributeValueSerializer.cs" />
-    <Compile Include="Api\IGeneratorAttributeValueSerializerFacade.cs" />
-    <Compile Include="Api\IGeneratorAttributeValueSerializerRegistrar.cs" />
+    <Compile Include="IDtoSerializer.cs" />
     <Compile Include="Attributes\StringSerializableConverter.cs" />
     <Compile Include="Attributes\StringGeneratorAttributeValueDto.cs" />
     <Compile Include="Attributes\StringSerializableDtoDataConverter.cs" />
-    <Compile Include="Attributes\StringGeneratorAttributeValueSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj">
+      <Project>{37E43C15-CE90-455B-A9D8-EB6354006339}</Project>
+      <Name>ProjectXyz.Api.Data.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>

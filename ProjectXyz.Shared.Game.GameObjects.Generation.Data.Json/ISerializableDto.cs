@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectXyz.Api.Data.Serialization;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {

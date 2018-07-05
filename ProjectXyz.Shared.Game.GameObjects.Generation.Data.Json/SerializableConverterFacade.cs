@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.Data.Serialization;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {
@@ -27,10 +28,27 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             return converted;
         }
 
+        public ISerializableDtoData ConvertBack<TSerializable>(TSerializable serializable)
+        {
+            ISerializableConverter converter;
+            if (!_mapping.TryGetValue(
+                serializable.GetType(),
+                out converter))
+            {
+                throw new InvalidOperationException(
+                    $"No converter was able to handle serializable type '{serializable.GetType()}'.");
+            }
+
+            var converted = converter.ConvertBack(serializable);
+            return converted;
+        }
+
         public void Register(
+            Type type,
             Type dtoType,
             ISerializableConverter converter)
         {
+            _mapping.Add(type, converter);
             _mapping.Add(dtoType, converter);
         }
     }

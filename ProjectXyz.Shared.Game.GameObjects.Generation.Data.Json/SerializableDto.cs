@@ -1,3 +1,5 @@
+using ProjectXyz.Api.Data.Serialization;
+
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {
     public sealed class SerializableDto : ISerializableDto

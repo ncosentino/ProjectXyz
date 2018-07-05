@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}</ProjectGuid>
+    <ProjectGuid>{37E43C15-CE90-455B-A9D8-EB6354006339}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Examples.Modules.StateEnchantments</RootNamespace>
-    <AssemblyName>Examples.Modules.StateEnchantments</AssemblyName>
+    <RootNamespace>ProjectXyz.Api.Data.Serialization</RootNamespace>
+    <AssemblyName>ProjectXyz.Api.Data.Serialization</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,26 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StateEnchantmentsModule.cs" />
+    <Compile Include="IDeserializer.cs" />
+    <Compile Include="IDiscoverableSerializableConverter.cs" />
+    <Compile Include="IDiscoverableSerializableDtoDataConverter.cs" />
+    <Compile Include="ISerializableConverter.cs" />
+    <Compile Include="ISerializableConverterFacade.cs" />
+    <Compile Include="ISerializableConverterRegistrar.cs" />
+    <Compile Include="ISerializableDtoData.cs" />
+    <Compile Include="ISerializableDtoDataConverter.cs" />
+    <Compile Include="ISerializableDtoDataConverterProvider.cs" />
+    <Compile Include="ISerializableDtoDataConverterRegistrar.cs" />
+    <Compile Include="ISerializableDtoDataConverterService.cs" />
+    <Compile Include="ISerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateIdToTermRepo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj">
-      <Project>{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}</Project>
-      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ProjectXyz.Api.Data.Serialization;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {

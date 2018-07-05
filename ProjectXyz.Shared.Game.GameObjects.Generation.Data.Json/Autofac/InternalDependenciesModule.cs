@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Autofac;
+using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
 {
@@ -12,10 +14,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
 
             builder
                 .RegisterType<DtoJsonSerializer>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
-                .RegisterType<StringGeneratorAttributeValueSerializer>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
@@ -45,6 +43,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
                      .Context
                      .Resolve<IEnumerable<IDiscoverableSerializableConverter>>()
                      .Foreach(d => x.Instance.Register(
+                         d.Type,
                          d.DtoType,
                          d));
                 });

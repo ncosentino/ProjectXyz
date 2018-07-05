@@ -97,6 +97,10 @@
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj">
+      <Project>{37E43C15-CE90-455B-A9D8-EB6354006339}</Project>
+      <Name>ProjectXyz.Api.Data.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
       <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
       <Name>ProjectXyz.Api.Enchantments.Generation</Name>

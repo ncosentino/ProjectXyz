@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ProjectXyz.Api.Data.Serialization;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {
@@ -15,14 +16,18 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             return objectType == typeof(ISerializableDto);
         }
 
-        public override void WriteJson(JsonWriter writer,
-            object value, JsonSerializer serializer)
+        public override void WriteJson(
+            JsonWriter writer,
+            object value,
+            JsonSerializer serializer)
         {
-            throw new InvalidOperationException("Use default serialization.");
+            throw new NotSupportedException("Writing is not supported.");
         }
 
-        public override object ReadJson(JsonReader reader,
-            Type objectType, object existingValue,
+        public override object ReadJson(
+            JsonReader reader,
+            Type objectType,
+            object existingValue,
             JsonSerializer serializer)
         {
             var jsonObject = JObject.Load(reader);
