@@ -24,13 +24,16 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Attributes
             return casted;
         }
 
-        public ISerializableDtoData ConvertBack<TSerializable>(TSerializable serializable)
+        public ISerializableDtoData ConvertBack<TSerializable>(
+            TSerializable serializable,
+            out string serializableId)
         {
             Contract.Requires(
                 serializable is StringGeneratorAttributeValue,
                 $"'{this}' expects to only convert '{typeof(StringGeneratorAttributeValue)}' " +
                 $"but '{serializable.GetType()}' was provided.");
 
+            serializableId = typeof(StringGeneratorAttributeValue).FullName;
             var converted = Convert((StringGeneratorAttributeValue)(object)serializable);
             return converted;
         }

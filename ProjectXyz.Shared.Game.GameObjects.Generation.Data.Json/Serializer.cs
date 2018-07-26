@@ -20,9 +20,12 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             Stream stream,
             TSerializable serializable)
         {
-            var dtoData = _serializableConverterFacade.ConvertBack(serializable);
+            string serializableId;
+            var dtoData = _serializableConverterFacade.ConvertBack(
+                serializable,
+                out serializableId);
             var dto = new SerializableDto(
-                serializable.GetType().FullName, // FIXME: this feels wrong for us to decide this here...
+                serializableId,
                 dtoData);
 
             using (var writer = new JsonTextWriter(new StreamWriter(stream, Encoding.UTF8, 4096, true)))

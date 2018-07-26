@@ -2,12 +2,13 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ProjectXyz.Api.Data.Serialization;
+using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {
     public class SerializableConverter : JsonConverter
     {
-        public override bool CanWrite => false;
+        public override bool CanWrite => true;
 
         public override bool CanRead => true;
 
@@ -21,7 +22,20 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             object value,
             JsonSerializer serializer)
         {
-            throw new NotSupportedException("Writing is not supported.");
+            Contract.Requires(
+                value is ISerializableDto,
+                $"{nameof(value)} must be of type '{typeof(ISerializableDto)}'.");
+            var serializableDto = (ISerializableDto)value;
+
+            writer.WriteStartObject();
+
+            writer.WritePropertyName("SerializableId");
+            serializer.Serialize(writer, serializableDto.SerializableId);
+
+            writer.WritePropertyName("Data");
+            serializer.Serialize(writer, serializableDto.Data);
+
+            writer.WriteEndObject();
         }
 
         public override object ReadJson(

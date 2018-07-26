@@ -28,7 +28,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             return converted;
         }
 
-        public ISerializableDtoData ConvertBack<TSerializable>(TSerializable serializable)
+        public ISerializableDtoData ConvertBack<TSerializable>(
+            TSerializable serializable,
+            out string serializableId)
         {
             ISerializableConverter converter;
             if (!_mapping.TryGetValue(
@@ -39,7 +41,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
                     $"No converter was able to handle serializable type '{serializable.GetType()}'.");
             }
 
-            var converted = converter.ConvertBack(serializable);
+            var converted = converter.ConvertBack(
+                serializable,
+                out serializableId);
             return converted;
         }
 

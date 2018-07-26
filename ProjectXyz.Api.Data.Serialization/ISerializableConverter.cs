@@ -4,6 +4,8 @@ namespace ProjectXyz.Api.Data.Serialization
     {
         TSerializable Convert<TSerializable>(ISerializableDtoData dto);
 
-        ISerializableDtoData ConvertBack<TSerializable>(TSerializable serializable);
+        ISerializableDtoData ConvertBack<TSerializable>(
+            TSerializable serializable,
+            out string serializableId);
     }
 }
