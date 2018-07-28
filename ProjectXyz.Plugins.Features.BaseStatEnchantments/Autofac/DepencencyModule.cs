@@ -1,10 +1,11 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Autofac
 {
-    public sealed class DepencencyModule : Module
+    public sealed class DepencencyModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

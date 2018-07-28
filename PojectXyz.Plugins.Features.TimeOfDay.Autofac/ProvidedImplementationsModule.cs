@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay.Autofac
 {
-    public sealed class ProvidedImplementationsModule : Module
+    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

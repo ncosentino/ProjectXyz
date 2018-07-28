@@ -1,9 +1,10 @@
 ﻿using Autofac;
 using ProjectXyz.Api.Triggering;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Shared.Triggering.Autofac
 {
-    public sealed class ProvidedImplementationsModule : Module
+    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

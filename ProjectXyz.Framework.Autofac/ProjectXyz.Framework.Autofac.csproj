@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{457AC8CB-C325-41E2-B6C3-625C680B2AC1}</ProjectGuid>
+    <ProjectGuid>{30231E66-8E48-4C1C-A170-4E52166057FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Framework.ViewWelding.Autofac</RootNamespace>
-    <AssemblyName>ProjectXyz.Framework.ViewWelding.Autofac</AssemblyName>
+    <RootNamespace>ProjectXyz.Framework.Autofac</RootNamespace>
+    <AssemblyName>ProjectXyz.Framework.Autofac</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -39,22 +39,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProvidedImplementationsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
-      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
-      <Name>ProjectXyz.Framework.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Api\ProjectXyz.Framework.ViewWelding.Api.csproj">
-      <Project>{e0d4bf12-9866-4263-9b83-2bbd6b561574}</Project>
-      <Name>ProjectXyz.Framework.ViewWelding.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding\ProjectXyz.Framework.ViewWelding.csproj">
-      <Project>{5C9B0F7B-7976-406C-B910-AC75B6C8F925}</Project>
-      <Name>ProjectXyz.Framework.ViewWelding</Name>
-    </ProjectReference>
+    <Compile Include="SinglerRegistrationModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

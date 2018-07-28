@@ -2,11 +2,12 @@
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.State.Autofac
 {
-    public sealed class DepencencyModule : Module
+    public sealed class DepencencyModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

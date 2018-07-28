@@ -97,6 +97,10 @@
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
       <Name>ProjectXyz.Shared.Framework</Name>

@@ -51,6 +51,10 @@
       <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
       <Name>ProjectXyz.Api.States</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj">
       <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>
       <Name>ProjectXyz.Shared.States</Name>

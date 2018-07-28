@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using Autofac;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
 {
-    public sealed class ProvidedImplementationsModule : Module
+    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

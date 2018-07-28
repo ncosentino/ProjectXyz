@@ -48,6 +48,10 @@
       <Project>{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}</Project>
       <Name>ProjectXyz.Api.Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

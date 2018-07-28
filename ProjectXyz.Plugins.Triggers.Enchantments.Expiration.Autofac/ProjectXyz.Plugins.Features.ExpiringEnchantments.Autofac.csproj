@@ -48,6 +48,10 @@
       <Project>{d983c81b-5e86-4d85-83f9-487032c91765}</Project>
       <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj">
       <Project>{B558EC5B-B983-4701-845F-00F7109A2CF9}</Project>
       <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments</Name>

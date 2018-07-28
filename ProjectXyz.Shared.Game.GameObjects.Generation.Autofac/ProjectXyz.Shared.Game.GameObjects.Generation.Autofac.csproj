@@ -47,6 +47,10 @@
       <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
       <Name>ProjectXyz.Api.GameObjects.Generation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
       <Project>{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>

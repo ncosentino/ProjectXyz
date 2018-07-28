@@ -58,6 +58,10 @@
       <Project>{4ac90e8c-b0ba-4907-ac9d-03e878c0e8e4}</Project>
       <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj">
       <Project>{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}</Project>
       <Name>ProjectXyz.Plugins.Features.GameObjects.Items</Name>

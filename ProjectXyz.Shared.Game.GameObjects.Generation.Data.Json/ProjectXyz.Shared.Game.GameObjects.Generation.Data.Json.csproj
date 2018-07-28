@@ -75,6 +75,10 @@
       <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
       <Name>ProjectXyz.Api.GameObjects.Generation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
       <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>
       <Name>ProjectXyz.Framework.Contracts</Name>

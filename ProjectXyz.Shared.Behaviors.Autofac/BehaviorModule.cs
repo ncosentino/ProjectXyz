@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Shared.Behaviors.Autofac
 {
-    public sealed class BehaviorModule : Module
+    public sealed class BehaviorModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

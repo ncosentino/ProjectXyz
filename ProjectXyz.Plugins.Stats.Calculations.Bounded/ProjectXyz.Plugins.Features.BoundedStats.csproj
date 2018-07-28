@@ -56,6 +56,10 @@
       <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
       <Name>ProjectXyz.Api.Stats.Calculations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

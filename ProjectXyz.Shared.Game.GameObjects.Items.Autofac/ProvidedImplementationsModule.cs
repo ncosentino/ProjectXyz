@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac
 {
-    public sealed class ProvidedImplementationsModule : Module
+    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

@@ -43,6 +43,10 @@
     <Compile Include="ValueMapperRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj">
       <Project>{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}</Project>
       <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</Name>

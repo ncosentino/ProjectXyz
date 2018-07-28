@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked;
 
@@ -7,7 +8,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables.Imple
     //
     // TODO: split this up and into different projects
     //
-    public sealed class ProvidedImplementationsModule : Module
+    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

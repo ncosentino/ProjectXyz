@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using Autofac;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.BoundedStats.Api;
 
 namespace ProjectXyz.Plugins.Features.BoundedStats.Autofac
 {
-    public sealed class SharedComponentsModule : Module
+    public sealed class SharedComponentsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

@@ -1,11 +1,12 @@
 ﻿using System;
 using Autofac;
 using Jace;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Framework.Math;
 
 namespace ProjectXyz.Plugins.Framework.Math.Jace
 {
-    public sealed class JaceModule : Module
+    public sealed class JaceModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

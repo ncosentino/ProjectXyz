@@ -52,6 +52,10 @@
       <Project>{A3B8D906-34C9-4395-9D19-B1C8355BA5E7}</Project>
       <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
       <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
       <Name>ProjectXyz.Shared.Framework</Name>

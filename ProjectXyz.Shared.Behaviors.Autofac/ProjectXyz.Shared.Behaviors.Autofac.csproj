@@ -47,6 +47,10 @@
       <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
       <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
       <Name>ProjectXyz.Shared.Behaviors</Name>

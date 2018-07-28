@@ -2,11 +2,12 @@
 using Autofac;
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
 {
-    public sealed class InternalDependenciesModule : Module
+    public sealed class InternalDependenciesModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

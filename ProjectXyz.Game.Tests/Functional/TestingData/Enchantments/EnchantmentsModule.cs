@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
 {
-    public sealed class EnchantmentsModule : Module
+    public sealed class EnchantmentsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

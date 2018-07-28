@@ -1,9 +1,10 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
 
 namespace ProjectXyz.Plugins.Features.ExpressionEnchantments.Autofac
 {
-    public sealed class DepencencyModule : Module
+    public sealed class DepencencyModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

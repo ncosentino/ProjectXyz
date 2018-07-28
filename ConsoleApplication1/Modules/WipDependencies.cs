@@ -2,11 +2,12 @@
 using Autofac;
 using ConsoleApplication1.Wip;
 using ProjectXyz.Api.Logging;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Framework;
 
 namespace ConsoleApplication1.Modules
 {
-    public sealed class WipDependencies : Module
+    public sealed class WipDependencies : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

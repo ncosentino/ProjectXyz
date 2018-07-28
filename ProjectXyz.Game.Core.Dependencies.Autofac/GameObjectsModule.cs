@@ -1,9 +1,10 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Game.Core.GameObjects;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
-    public sealed class GameObjectsModule : Module
+    public sealed class GameObjectsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

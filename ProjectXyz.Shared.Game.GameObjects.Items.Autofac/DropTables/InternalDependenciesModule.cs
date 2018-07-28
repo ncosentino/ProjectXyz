@@ -3,10 +3,11 @@ using Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables
 {
-    public sealed class InternalDependenciesModule : Module
+    public sealed class InternalDependenciesModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

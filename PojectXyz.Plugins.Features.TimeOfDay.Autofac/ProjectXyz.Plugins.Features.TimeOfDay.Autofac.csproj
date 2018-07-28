@@ -55,6 +55,10 @@
       <Project>{c4b48455-7596-49e1-9443-b2e4accd1e80}</Project>
       <Name>ProjectXyz.Api.Systems</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj">
       <Project>{5a0e7932-b9a9-4a10-a8ae-cf505d6569b8}</Project>
       <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>

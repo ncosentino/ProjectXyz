@@ -2,10 +2,11 @@
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.Stats;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Enchantments.StatToTerm.Autofac
 {
-    public sealed class DepencencyModule : Module
+    public sealed class DepencencyModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

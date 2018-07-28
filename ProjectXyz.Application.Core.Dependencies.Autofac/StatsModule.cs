@@ -6,11 +6,12 @@ using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Application.Stats.Core.Calculations;
 using ProjectXyz.Application.Stats.Interface.Calculations;
+using ProjectXyz.Framework.Autofac;
 using IStringExpressionEvaluator = ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator;
 
 namespace ProjectXyz.Application.Core.Dependencies.Autofac
 {
-    public sealed class StatsModule : Module
+    public sealed class StatsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

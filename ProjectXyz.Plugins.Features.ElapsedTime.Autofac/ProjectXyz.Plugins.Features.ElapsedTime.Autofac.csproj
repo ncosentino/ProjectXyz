@@ -43,6 +43,10 @@
     <Compile Include="ProvidedImplementationsModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj">
       <Project>{C18D2AD8-69F0-4167-B407-EAD386708730}</Project>
       <Name>ProjectXyz.Plugins.Features.ElapsedTime</Name>

@@ -52,6 +52,10 @@
       <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

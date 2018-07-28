@@ -20,9 +20,11 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public TestFixture(TestData testData)
         {
             var moduleDiscoverer = new ModuleDiscoverer();
-            var modules = moduleDiscoverer.Discover(AppDomain.CurrentDomain.BaseDirectory, "*.Tests.dll")
-                .Concat(moduleDiscoverer
-                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.dll"));
+            var modules = moduleDiscoverer
+                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+                .Where(x => !x.GetType().FullName.Equals("ProjectXyz.Game.Core.Dependencies.Autofac.PluginModule"))
+                .OrderBy(x => x.GetType().FullName)
+                .ToArray();
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             DependencyContainer = dependencyContainerBuilder.Create(modules);
 

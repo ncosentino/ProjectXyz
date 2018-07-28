@@ -1,8 +1,9 @@
 ﻿using Autofac;
+using ProjectXyz.Framework.Autofac;
 
 namespace Examples.Modules.Stats
 {
-    public sealed class StateEnchantmentsModule : Module
+    public sealed class StateEnchantmentsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

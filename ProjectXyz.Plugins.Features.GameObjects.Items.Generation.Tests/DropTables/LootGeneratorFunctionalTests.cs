@@ -8,6 +8,7 @@ using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
@@ -136,7 +137,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
-        private sealed class TestDataModule : Module
+        private sealed class TestDataModule : SingleRegistrationModule
         {
             protected override void Load(ContainerBuilder builder)
             {

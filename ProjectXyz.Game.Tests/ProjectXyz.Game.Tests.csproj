@@ -150,13 +150,41 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Autofac\ProjectXyz.Framework.ViewWelding.Autofac.csproj">
+      <Project>{457ac8cb-c325-41e2-b6c3-625c680b2ac1}</Project>
+      <Name>ProjectXyz.Framework.ViewWelding.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj">
+      <Project>{f8f47e92-7e70-433f-8333-7c2b12b21f35}</Project>
+      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac.csproj">
+      <Project>{a64b788e-6599-45b8-b3e0-24f0078641d7}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj">
       <Project>{C18D2AD8-69F0-4167-B407-EAD386708730}</Project>
       <Name>ProjectXyz.Plugins.Features.ElapsedTime</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac\ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac.csproj">
+      <Project>{cdd03413-ee57-401d-bb36-177579561e94}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj">
+      <Project>{49801e3a-3c81-4aa1-b2da-8ded706b3155}</Project>
+      <Name>ProjectXyz.Shared.Behaviors.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
       <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
       <Name>ProjectXyz.Shared.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Framework.Autofac\ProjectXyz.Shared.Framework.Autofac.csproj">
+      <Project>{b2c366a4-d245-44e7-affc-641a7da029e1}</Project>
+      <Name>ProjectXyz.Shared.Framework.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac.csproj">
       <Project>{fc1d1ed4-7264-4614-8400-f55af6e1caa1}</Project>
@@ -265,6 +293,22 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
       <Project>{229057a2-508f-4cde-8f87-da3fab069d06}</Project>
       <Name>ProjectXyz.Shared.Game.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj">
+      <Project>{7fc318ca-ff3a-4e07-ad82-01fbe4b357be}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.csproj">
+      <Project>{76e07dca-60bd-44a1-9599-cadde6a0b850}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.States.Autofac\ProjectXyz.Shared.States.Autofac.csproj">
+      <Project>{baf626a6-9b22-4815-b54e-3ebc992bbac9}</Project>
+      <Name>ProjectXyz.Shared.States.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Triggering.Autofac\ProjectXyz.Shared.Triggering.Autofac.csproj">
+      <Project>{6aea32ed-169f-4d10-bf9a-7f2d1a2f416f}</Project>
+      <Name>ProjectXyz.Shared.Triggering.Autofac</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

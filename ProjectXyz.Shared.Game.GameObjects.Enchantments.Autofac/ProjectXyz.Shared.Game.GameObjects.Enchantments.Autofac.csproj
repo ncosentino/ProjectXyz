@@ -75,6 +75,10 @@
       <Project>{d9fc9425-991e-4d82-ad07-1f7e501cc27c}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
       <Name>ProjectXyz.Shared.Framework.Entities</Name>

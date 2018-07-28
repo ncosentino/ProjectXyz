@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 using ProjectXyz.Plugins.Features.StateEnchantments.Shared;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {
-    public sealed class StatesModule : Module
+    public sealed class StatesModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

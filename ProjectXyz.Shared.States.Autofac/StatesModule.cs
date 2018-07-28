@@ -2,10 +2,11 @@
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Shared.States.Autofac
 {
-    public sealed class StatesModule : Module
+    public sealed class StatesModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

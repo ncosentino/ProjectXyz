@@ -3,11 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Autofac;
-using Module = Autofac.Module;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
-    public sealed class PluginModule : Module
+    public sealed class PluginModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

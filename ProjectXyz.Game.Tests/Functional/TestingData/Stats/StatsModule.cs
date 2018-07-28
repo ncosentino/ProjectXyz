@@ -2,10 +2,11 @@
 using Autofac;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
 {
-    public sealed class StatsModule : Module
+    public sealed class StatsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

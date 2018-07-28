@@ -47,6 +47,10 @@
       <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
       <Name>ProjectXyz.Plugins.Features.BoundedStats.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

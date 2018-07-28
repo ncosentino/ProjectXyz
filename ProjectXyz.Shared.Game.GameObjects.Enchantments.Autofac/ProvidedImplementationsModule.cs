@@ -4,6 +4,7 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats.Calculations;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation;
@@ -11,7 +12,7 @@ using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
 {
-    public sealed class ProvidedImplementationsModule : Module
+    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {

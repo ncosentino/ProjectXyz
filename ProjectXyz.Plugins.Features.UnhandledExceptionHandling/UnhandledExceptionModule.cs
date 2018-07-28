@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Autofac;
+using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.UnhandledExceptionHandling
 {
-    public sealed class UnhandledExceptionModule : Module
+    public sealed class UnhandledExceptionModule : SingleRegistrationModule
     {
         protected override void Load(ContainerBuilder builder)
         {
