@@ -24,7 +24,7 @@ namespace ProjectXyz.Framework.Tests.Entities.Shared
                 .ToArray();
 
             // Assert
-            Assert.Equal(1, results.Length);
+            Assert.Single(results);
             Assert.Equal(components[0], results.Single());
         }
 
@@ -68,7 +68,7 @@ namespace ProjectXyz.Framework.Tests.Entities.Shared
                 .ToArray();
 
             // Assert
-            Assert.Equal(1, results.Length);
+            Assert.Single(results);
             Assert.Equal(components[0], results.Single());
         }
 

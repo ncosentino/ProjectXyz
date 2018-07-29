@@ -20,14 +20,30 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
         public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Equipped;
 
+        public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Unequipped;
+
         public bool TryUnequip(
             IIdentifier equipSlotId,
             out ICanBeEquippedBehavior canBeEquipped)
         {
-            return _equipment.TryGetValue(
-                       equipSlotId,
-                       out canBeEquipped) &&
-                   _equipment.Remove(equipSlotId);
+            if (!_equipment.TryGetValue(
+                equipSlotId,
+                out canBeEquipped))
+            {
+                return false;
+            }
+
+            if (!_equipment.Remove(equipSlotId))
+            {
+                return false;
+            }
+
+            Unequipped?.Invoke(
+                this,
+                new EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>(new Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>(
+                    this,
+                    canBeEquipped)));
+            return true;
         }
 
         public bool TryGet(

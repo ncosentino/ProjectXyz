@@ -8,6 +8,8 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
     {
         event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Equipped;
 
+        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Unequipped;
+
         bool TryUnequip(
             IIdentifier equipSlotId,
             out ICanBeEquippedBehavior canBeEquipped);

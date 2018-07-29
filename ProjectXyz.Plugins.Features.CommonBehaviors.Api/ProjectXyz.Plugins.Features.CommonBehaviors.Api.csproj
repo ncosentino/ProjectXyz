@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IApplyEquipmentEnchantmentsBehavior.cs" />
+    <Compile Include="IApplyItemContainerEnchantmentsBehavior.cs" />
     <Compile Include="IApplySocketEnchantmentsBehavior.cs" />
     <Compile Include="IBuffableBehavior.cs" />
     <Compile Include="ICanBeEquippedBehavior.cs" />

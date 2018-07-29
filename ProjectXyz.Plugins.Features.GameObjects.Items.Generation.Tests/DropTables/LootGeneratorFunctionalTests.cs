@@ -32,10 +32,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         {
             var moduleDiscoverer = new ModuleDiscoverer();
             var modules = moduleDiscoverer
-                .Discover(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "*.dll")
-                .Append(new TestDataModule());
+                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
+                .Where(x => !x.GetType().FullName.Equals("ProjectXyz.Game.Core.Dependencies.Autofac.PluginModule"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             _container = dependencyContainerBuilder.Create(modules);
             _generatorContextFactory = _container.Resolve<IGeneratorContextFactory>();

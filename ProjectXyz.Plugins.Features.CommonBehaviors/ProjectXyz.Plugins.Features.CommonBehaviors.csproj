@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyItemContainerEnchantmentsBehavior.cs" />
     <Compile Include="ApplyEquipmentEnchantmentsBehavior.cs" />
     <Compile Include="ApplySocketEnchantmentsBehavior.cs" />
     <Compile Include="BuffableBehavior.cs" />

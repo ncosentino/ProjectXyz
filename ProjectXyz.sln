@@ -288,6 +288,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Game.Game
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Framework.Autofac", "ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj", "{30231E66-8E48-4C1C-A170-4E52166057FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.CommonBehaviors.Tests", "ProjectXyz.Plugins.Features.CommonBehaviors.Tests\ProjectXyz.Plugins.Features.CommonBehaviors.Tests.csproj", "{D09925AA-BFCB-42A0-A998-589AE6D03148}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -662,6 +664,10 @@ Global
 		{30231E66-8E48-4C1C-A170-4E52166057FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30231E66-8E48-4C1C-A170-4E52166057FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30231E66-8E48-4C1C-A170-4E52166057FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09925AA-BFCB-42A0-A998-589AE6D03148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09925AA-BFCB-42A0-A998-589AE6D03148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09925AA-BFCB-42A0-A998-589AE6D03148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09925AA-BFCB-42A0-A998-589AE6D03148}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -799,5 +805,6 @@ Global
 		{37E43C15-CE90-455B-A9D8-EB6354006339} = {117CF347-F02B-4792-B596-4C6D94AA007A}
 		{285A7876-8D58-4B60-8394-139711B84DC3} = {06036003-2B25-42BD-8074-AB45DDD4B40E}
 		{30231E66-8E48-4C1C-A170-4E52166057FE} = {2E9E6598-5746-4968-AB8F-240FED1139D3}
+		{D09925AA-BFCB-42A0-A998-589AE6D03148} = {23813F2B-B24A-463A-989F-97E74EDFE87C}
 	EndGlobalSection
 EndGlobal

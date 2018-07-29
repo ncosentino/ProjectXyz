@@ -20,5 +20,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         {
             _activeEnchantmentManager.Add(enchantments);
         }
+
+        public void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
+        {
+            _activeEnchantmentManager.Remove(enchantments);
+        }
     }
 }
