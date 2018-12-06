@@ -43,9 +43,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
+      <Project>{175783b5-dbe5-491a-b365-ca1d1cc09375}</Project>
+      <Name>ProjectXyz.Api.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
       <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
       <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj">
+      <Project>{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}</Project>
+      <Name>ProjectXyz.Api.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
       <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>

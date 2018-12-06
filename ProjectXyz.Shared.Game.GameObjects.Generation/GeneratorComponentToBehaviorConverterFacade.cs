@@ -16,7 +16,14 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation
 
         public void Register<T>(ConvertGeneratorComponentToBehaviorDelegate callback)
         {
-            _mapping.Add(typeof(T), callback);
+            Register(typeof(T), callback);
+        }
+
+        public void Register(
+            Type t,
+            ConvertGeneratorComponentToBehaviorDelegate callback)
+        {
+            _mapping.Add(t, callback);
         }
 
         public IEnumerable<IBehavior> Convert(IGeneratorComponent generatorComponent)

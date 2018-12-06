@@ -46,6 +46,7 @@
     <Compile Include="Attributes\IGeneratorAttributeValue.cs" />
     <Compile Include="Attributes\IGeneratorContextAttributeProviders.cs" />
     <Compile Include="ConvertGeneratorComponentToBehaviorDelegate.cs" />
+    <Compile Include="IDiscoverableGeneratorComponentToBehaviorConverter.cs" />
     <Compile Include="IGenerationComponent.cs" />
     <Compile Include="IGeneratorComponentToBehaviorConverter.cs" />
     <Compile Include="IGeneratorComponentToBehaviorConverterFacade.cs" />
