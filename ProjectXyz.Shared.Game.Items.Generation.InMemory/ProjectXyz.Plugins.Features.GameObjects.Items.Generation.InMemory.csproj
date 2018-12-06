@@ -57,6 +57,10 @@
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj">
+      <Project>{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}</Project>
+      <Name>ProjectXyz.Shared.Game.GameObjects.Generation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

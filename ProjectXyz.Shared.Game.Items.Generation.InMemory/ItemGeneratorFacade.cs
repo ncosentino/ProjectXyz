@@ -7,6 +7,7 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
+using ProjectXyz.Shared.Game.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 {
@@ -27,18 +28,36 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 
         public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
         {
-            var filteredGenerators = _attributeFilterer.Filter(
-                _itemGenerators,
-                generatorContext);
-            var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
-            if (generator == null)
+            var filteredGenerators = _attributeFilterer
+                .Filter(
+                    _itemGenerators,
+                    generatorContext)
+                .ToArray();
+            if (!filteredGenerators.Any())
             {
                 throw new InvalidOperationException(
                     $"There are no item generators that match the context '{generatorContext}'.");
             }
 
-            var generatedItems = generator.GenerateItems(generatorContext);
-            return generatedItems;
+            var totalCount = GetCount(
+                generatorContext.MinimumGenerateCount,
+                generatorContext.MaximumGenerateCount);
+            var generatedCount = 0;
+            while (generatedCount < totalCount)
+            {
+                var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
+                var currentContext = new GeneratorContext(
+                    1,
+                    totalCount - generatedCount,
+                    generatorContext.Attributes);
+
+                var generatedItems = generator.GenerateItems(currentContext);
+                foreach (var generatedItem in generatedItems)
+                {
+                    generatedCount++;
+                    yield return generatedItem;
+                }
+            }
         }
 
         public IEnumerable<IGeneratorAttribute> SupportedAttributes => _itemGenerators
@@ -48,6 +67,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
         public void Register(IItemGenerator itemGenerator)
         {
             _itemGenerators.Add(itemGenerator);
+        }
+
+        private int GetCount(
+            int itemCountMinimum,
+            int itemCountMaximum)
+        {
+            var count = _randomNumberGenerator.NextInRange(
+                itemCountMinimum,
+                itemCountMaximum);
+            return count;
         }
     }
 }
