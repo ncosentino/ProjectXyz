@@ -14,11 +14,6 @@ namespace ProjectXyz.Shared.Game.Behaviors
 
         protected virtual void OnRegisteringToOwner(IHasBehaviors owner)
         {
-            if (Owner != null && Owner != owner)
-            {
-                throw new InvalidOperationException("An owner is already assigned.");
-            }
-
             Owner = owner;
         }
 
