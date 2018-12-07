@@ -7,6 +7,7 @@ using ProjectXyz.Application.Stats.Core;
 using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
@@ -43,7 +44,25 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
             var hasEnchantments = new HasEnchantmentsBehavior(activeEnchantmentManager);
             var buffable = new BuffableBehavior(activeEnchantmentManager);
-            var canEquip = new CanEquipBehavior();
+            
+            // TODO: where should these come from? not here...
+            var canEquip = new CanEquipBehavior(new[]
+            {
+                new StringIdentifier("head"),
+                new StringIdentifier("body"),
+                new StringIdentifier("left hand"),
+                new StringIdentifier("right hand"),
+                new StringIdentifier("amulet"),
+                new StringIdentifier("ring1"),
+                new StringIdentifier("ring2"),
+                new StringIdentifier("shoulders"),
+                new StringIdentifier("gloves"),
+                new StringIdentifier("belt"),
+                new StringIdentifier("boots"),
+                new StringIdentifier("legs"),
+                new StringIdentifier("cloak"),
+            });
+
             var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
             var actor = new Actor(
                 identifierBehavior,

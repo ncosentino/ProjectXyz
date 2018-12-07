@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using Moq;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Framework;
 using Xunit;
@@ -10,12 +12,17 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
         private readonly MockRepository _mockRepository;
         private readonly CanEquipBehavior _canEquipBehavior;
         private readonly Mock<ICanBeEquippedBehavior> _mockCanBeEquipped;
+        private readonly IReadOnlyCollection<IIdentifier> _supportedEquipSlotIds;
 
         public CanEquipBehaviorTests()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
             _mockCanBeEquipped = _mockRepository.Create<ICanBeEquippedBehavior>();
-            _canEquipBehavior = new CanEquipBehavior();
+            _supportedEquipSlotIds = new[]
+            {
+                new StringIdentifier("body")
+            };
+            _canEquipBehavior = new CanEquipBehavior(_supportedEquipSlotIds);
         }
 
         [Fact]
@@ -34,6 +41,25 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
                 result,
                 "Unexpected result for TryEquip().");
             Assert.Equal(1, equippedCount);
+            _mockRepository.VerifyAll();
+        }
+
+        [Fact]
+        private void TryEquip_NotSupported_ReturnFalse()
+        {
+            var equipSlotId = new StringIdentifier("not supported slot");
+
+            var equippedCount = 0;
+            _canEquipBehavior.Equipped += (_, __) => equippedCount++;
+
+            var result = _canEquipBehavior.TryEquip(
+                equipSlotId,
+                _mockCanBeEquipped.Object);
+
+            Assert.False(
+                result,
+                "Unexpected result for TryEquip().");
+            Assert.Equal(0, equippedCount);
             _mockRepository.VerifyAll();
         }
 

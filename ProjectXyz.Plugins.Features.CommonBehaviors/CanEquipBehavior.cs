@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -13,14 +14,17 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
     {
         private readonly Dictionary<IIdentifier, ICanBeEquippedBehavior> _equipment;
 
-        public CanEquipBehavior()
+        public CanEquipBehavior(IEnumerable<IIdentifier> supportedEquipSlotIds)
         {
             _equipment = new Dictionary<IIdentifier, ICanBeEquippedBehavior>();
+            SupportedEquipSlotIds = supportedEquipSlotIds.ToArray();
         }
 
         public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Equipped;
 
         public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Unequipped;
+
+        public IReadOnlyCollection<IIdentifier> SupportedEquipSlotIds { get; }
 
         public bool TryUnequip(
             IIdentifier equipSlotId,
@@ -59,8 +63,19 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
             IIdentifier equipSlotId,
             ICanBeEquippedBehavior canBeEquipped)
         {
+            // already occupied
+            if (_equipment.ContainsKey(equipSlotId))
+            {
+                return false;
+            }
+
             // TODO: check all the requirements...
-            return _equipment.ContainsKey(equipSlotId);
+            if (!SupportedEquipSlotIds.Contains(equipSlotId))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool TryEquip(
