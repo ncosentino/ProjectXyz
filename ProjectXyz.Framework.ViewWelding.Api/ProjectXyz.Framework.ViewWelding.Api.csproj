@@ -37,12 +37,20 @@
   <ItemGroup>
     <Compile Include="CanWeldDelegate.cs" />
     <Compile Include="CreateWelderDelegate.cs" />
+    <Compile Include="Welders\IInsetWelder.cs" />
+    <Compile Include="Welders\IInsetWeldOptions.cs" />
+    <Compile Include="Welders\IMarginWelder.cs" />
+    <Compile Include="Welders\IMarginWeldOptions.cs" />
+    <Compile Include="Welders\InsetWeldOptions.cs" />
+    <Compile Include="Welders\ISimpleWelder.cs" />
     <Compile Include="IViewWelder.cs" />
     <Compile Include="IViewWelderFactory.cs" />
     <Compile Include="IViewWelderFactoryFacade.cs" />
     <Compile Include="IViewWelderFactoryRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Welders\MarginWeldOptions.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
