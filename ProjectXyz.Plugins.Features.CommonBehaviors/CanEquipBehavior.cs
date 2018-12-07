@@ -69,12 +69,19 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
                 return false;
             }
 
-            // TODO: check all the requirements...
+            // does our set of equipment support the asked-for slot?
             if (!SupportedEquipSlotIds.Contains(equipSlotId))
             {
                 return false;
             }
 
+            // not even valid based on the item!
+            if (!canBeEquipped.AllowedEquipSlots.Contains(equipSlotId))
+            {
+                return false;
+            }
+
+            // TODO: check all the requirements...
             return true;
         }
 
@@ -82,7 +89,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
             IIdentifier equipSlotId,
             ICanBeEquippedBehavior canBeEquipped)
         {
-            if (CanEquip(
+            if (!CanEquip(
                 equipSlotId,
                 canBeEquipped))
             {

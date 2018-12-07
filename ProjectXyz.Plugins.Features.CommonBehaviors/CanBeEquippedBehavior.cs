@@ -1,4 +1,7 @@
-﻿using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors
@@ -7,6 +10,11 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         BaseBehavior,
         ICanBeEquippedBehavior
     {
+        public CanBeEquippedBehavior(IEnumerable<IIdentifier> allowedEquipSlots)
+        {
+            AllowedEquipSlots = allowedEquipSlots.ToArray();
+        }
 
+        public IReadOnlyCollection<IIdentifier> AllowedEquipSlots { get; }
     }
 }
