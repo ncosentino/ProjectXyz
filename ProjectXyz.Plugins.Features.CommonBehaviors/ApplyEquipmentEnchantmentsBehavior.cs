@@ -1,5 +1,6 @@
 ﻿using System;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
@@ -31,7 +32,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
         private void CanEquip_Unequipped(
             object sender,
-            EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>> e)
+            EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>> e)
         {
             IBuffableBehavior buffable;
             IHasEnchantmentsBehavior hasEnchantments;
@@ -44,7 +45,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
         private void CanEquip_Equipped(
             object sender,
-            EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>> e)
+            EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>> e)
         {
             IBuffableBehavior buffable;
             IHasEnchantmentsBehavior hasEnchantments;

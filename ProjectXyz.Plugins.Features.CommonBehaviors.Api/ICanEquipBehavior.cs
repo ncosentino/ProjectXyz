@@ -6,9 +6,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 {
     public interface ICanEquipBehavior : IHasEquipmentBehavior
     {
-        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Equipped;
+        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>> Equipped;
 
-        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Unequipped;
+        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>> Unequipped;
 
         bool TryUnequip(
             IIdentifier equipSlotId,

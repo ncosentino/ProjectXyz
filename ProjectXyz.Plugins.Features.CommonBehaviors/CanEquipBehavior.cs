@@ -20,9 +20,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
             SupportedEquipSlotIds = supportedEquipSlotIds.ToArray();
         }
 
-        public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Equipped;
+        public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>> Equipped;
 
-        public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>> Unequipped;
+        public event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>> Unequipped;
 
         public IReadOnlyCollection<IIdentifier> SupportedEquipSlotIds { get; }
 
@@ -44,9 +44,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
             Unequipped?.Invoke(
                 this,
-                new EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>(new Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>(
+                new EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>(new Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>(
                     this,
-                    canBeEquipped)));
+                    canBeEquipped,
+                    equipSlotId)));
             return true;
         }
 
@@ -100,9 +101,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
             Equipped?.Invoke(
                 this,
-                new EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>>(new Tuple<ICanEquipBehavior, ICanBeEquippedBehavior>(
+                new EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>(new Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>(
                     this,
-                    canBeEquipped)));
+                    canBeEquipped,
+                    equipSlotId)));
             return true;
         }
     }

@@ -56,11 +56,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 new StringIdentifier("ring1"),
                 new StringIdentifier("ring2"),
                 new StringIdentifier("shoulders"),
-                new StringIdentifier("gloves"),
-                new StringIdentifier("belt"),
-                new StringIdentifier("boots"),
+                new StringIdentifier("hands"),
+                new StringIdentifier("waist"),
+                new StringIdentifier("feet"),
                 new StringIdentifier("legs"),
-                new StringIdentifier("cloak"),
+                new StringIdentifier("back"),
             });
 
             var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
