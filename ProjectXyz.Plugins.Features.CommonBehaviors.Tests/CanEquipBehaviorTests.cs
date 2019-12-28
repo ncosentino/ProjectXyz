@@ -30,6 +30,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
         {
             var equipSlotId = new StringIdentifier("body");
 
+            _mockCanBeEquipped
+                .Setup(x => x.AllowedEquipSlots)
+                .Returns(_supportedEquipSlotIds);
+
             var equippedCount = 0;
             _canEquipBehavior.Equipped += (_, __) => equippedCount++;
 
@@ -67,6 +71,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
         private void TryEquip_AlreadyEquipped_FailsToEquip()
         {
             var equipSlotId = new StringIdentifier("body");
+
+            _mockCanBeEquipped
+                .Setup(x => x.AllowedEquipSlots)
+                .Returns(_supportedEquipSlotIds);
 
             _canEquipBehavior.TryEquip(
                 equipSlotId,
@@ -111,6 +119,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
         private void TryUnequip_HasEquipment_InvokesEventReturnsTrue()
         {
             var equipSlotId = new StringIdentifier("body");
+
+            _mockCanBeEquipped
+                .Setup(x => x.AllowedEquipSlots)
+                .Returns(_supportedEquipSlotIds);
 
             _canEquipBehavior.TryEquip(
                 equipSlotId,

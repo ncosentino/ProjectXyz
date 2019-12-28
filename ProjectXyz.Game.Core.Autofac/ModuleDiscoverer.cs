@@ -16,8 +16,18 @@ namespace ProjectXyz.Game.Core.Autofac
         public IEnumerable<IModule> Discover(Assembly assembly)
         {
             AssemblyLoaded?.Invoke(this, new AssemblyLoadedEventArgs(assembly));
-            var modules = assembly
-                .GetTypes()
+            IReadOnlyCollection<Type> types;
+
+            try
+            {
+                types = assembly.GetTypes();
+            }
+            catch
+            {
+                return Enumerable.Empty<IModule>();
+            }
+
+            var modules = types
                 .Where(type =>
                     typeof(IModule).IsAssignableFrom(type) &&
                     !type.IsAbstract &&
