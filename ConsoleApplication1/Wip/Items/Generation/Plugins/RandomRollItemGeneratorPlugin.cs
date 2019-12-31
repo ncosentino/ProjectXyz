@@ -19,7 +19,7 @@ namespace ConsoleApplication1.Wip.Items.Generation.Plugins
                 new GeneratorAttribute(
                     rollIdentifier,
                     new RangeGeneratorAttributeValue(0, rollChance),
-                    true), 
+                    true),
             };
         }
 

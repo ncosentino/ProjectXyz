@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
-using ProjectXyz.Api.Enchantments.Stats;
-using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items
 {
@@ -30,7 +30,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items
             var mutableStatsProvider = _mutableStatsProviderFactory.Create();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStatsBehavior(statManager);
-            
+
             var item = new Item(
                 _behaviorManager,
                 hasMutableStats,

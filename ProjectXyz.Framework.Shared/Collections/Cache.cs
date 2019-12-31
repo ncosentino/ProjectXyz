@@ -60,7 +60,7 @@ namespace ProjectXyz.Shared.Framework.Collections
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => Keys
-            .Select(x => new KeyValuePair<TKey,TValue>(x, this[x]))
+            .Select(x => new KeyValuePair<TKey, TValue>(x, this[x]))
             .GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -4,7 +4,7 @@ using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors
 {
-    public sealed class IdentifierBehavior : 
+    public sealed class IdentifierBehavior :
         BaseBehavior,
         IIdentifierBehavior
     {

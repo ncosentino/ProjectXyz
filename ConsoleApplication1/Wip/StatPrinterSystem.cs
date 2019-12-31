@@ -51,8 +51,7 @@ namespace ConsoleApplication1.Wip
 
             foreach (var hasBehavior in hasBehaviors)
             {
-                Tuple<IHasStatsBehavior, IHasEnchantmentsBehavior> behaviours;
-                if (!_behaviorFinder.TryFind(hasBehavior, out behaviours))
+                if (!_behaviorFinder.TryFind(hasBehavior, out Tuple<IHasStatsBehavior, IHasEnchantmentsBehavior> behaviours))
                 {
                     continue;
                 }

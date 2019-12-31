@@ -1,15 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using Autofac;
-using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
-using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ConsoleApplication1
 {
@@ -28,7 +19,7 @@ namespace ConsoleApplication1
                 .Discover(moduleDirectory, "*.dll"));
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
-            
+
             ////var itemGenerationContextFactory = dependencyContainer.Resolve<IItemGenerationContextFactory>();
             ////var itemGenerationContext = itemGenerationContextFactory.Merge(
             ////    itemGenerationContextFactory.Create(),

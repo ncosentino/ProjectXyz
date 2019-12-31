@@ -15,10 +15,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 
         public TSerializable Convert<TSerializable>(ISerializableDtoData dto)
         {
-            ISerializableConverter converter;
             if (!_mapping.TryGetValue(
                 dto.GetType(),
-                out converter))
+                out var converter))
             {
                 throw new InvalidOperationException(
                     $"No converter was able to handle DTO type '{dto.GetType()}'.");
@@ -32,10 +31,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             TSerializable serializable,
             out string serializableId)
         {
-            ISerializableConverter converter;
             if (!_mapping.TryGetValue(
                 serializable.GetType(),
-                out converter))
+                out var converter))
             {
                 throw new InvalidOperationException(
                     $"No converter was able to handle serializable type '{serializable.GetType()}'.");

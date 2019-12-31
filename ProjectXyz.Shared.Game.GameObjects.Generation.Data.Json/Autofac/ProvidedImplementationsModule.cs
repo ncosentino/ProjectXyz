@@ -8,7 +8,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder
                 .RegisterType<Deserializer>()
                 .AsImplementedInterfaces()

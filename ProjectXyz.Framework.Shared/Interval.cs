@@ -3,7 +3,7 @@ using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Shared.Framework
 {
-    public sealed class Interval<T> : 
+    public sealed class Interval<T> :
         IInterval<T>
         where T : IComparable<T>
     {

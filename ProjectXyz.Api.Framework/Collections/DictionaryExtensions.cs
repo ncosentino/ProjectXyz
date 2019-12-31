@@ -16,8 +16,7 @@ namespace ProjectXyz.Api.Framework.Collections
             TKey key,
             Func<TValue> defaultValueCallback)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value)
+            return dictionary.TryGetValue(key, out var value)
                 ? value
                 : defaultValueCallback();
         }
@@ -27,8 +26,7 @@ namespace ProjectXyz.Api.Framework.Collections
             TKey key,
             Func<TValue> defaultValueCallback)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value)
+            return dictionary.TryGetValue(key, out var value)
                 ? value
                 : defaultValueCallback();
         }
@@ -38,8 +36,7 @@ namespace ProjectXyz.Api.Framework.Collections
             TKey key,
             Func<TValue> defaultValueCallback)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value)
+            return dictionary.TryGetValue(key, out var value)
                 ? value
                 : defaultValueCallback();
         }
@@ -49,8 +46,7 @@ namespace ProjectXyz.Api.Framework.Collections
             TKey key,
             TValue defaultValue)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value)
+            return dictionary.TryGetValue(key, out var value)
                 ? value
                 : defaultValue;
         }
@@ -60,8 +56,7 @@ namespace ProjectXyz.Api.Framework.Collections
             TKey key,
             TValue defaultValue)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value)
+            return dictionary.TryGetValue(key, out var value)
                 ? value
                 : defaultValue;
         }
@@ -71,8 +66,7 @@ namespace ProjectXyz.Api.Framework.Collections
             TKey key,
             TValue defaultValue)
         {
-            TValue value;
-            return dictionary.TryGetValue(key, out value)
+            return dictionary.TryGetValue(key, out var value)
                 ? value
                 : defaultValue;
         }

@@ -33,10 +33,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         {
             var owner = _itemContainerBehavior.Owner;
 
-            IBuffableBehavior buffable;
-            IHasEnchantmentsBehavior hasEnchantments;
-            if (!owner.Behaviors.TryGetFirst(out buffable) ||
-                !owner.Behaviors.TryGetFirst(out hasEnchantments))
+            if (!owner.Behaviors.TryGetFirst(out
+            IBuffableBehavior buffable) ||
+                !owner.Behaviors.TryGetFirst(out
+            IHasEnchantmentsBehavior hasEnchantments))
             {
                 return;
             }

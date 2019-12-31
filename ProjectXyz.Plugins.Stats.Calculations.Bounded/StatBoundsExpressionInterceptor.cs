@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Plugins.Features.BoundedStats.Api;
 using ProjectXyz.Api.Stats.Calculations;
+using ProjectXyz.Plugins.Features.BoundedStats.Api;
 
 namespace ProjectXyz.Plugins.Features.BoundedStats
 {
@@ -33,11 +33,10 @@ namespace ProjectXyz.Plugins.Features.BoundedStats
         public int Priority { get; }
 
         public string Intercept(
-            IIdentifier statDefinitionId, 
+            IIdentifier statDefinitionId,
             string expression)
         {
-            IStatBounds statBounds;
-            if (!_statDefinitionIdToBoundsMapping.TryGetValue(statDefinitionId, out statBounds))
+            if (!_statDefinitionIdToBoundsMapping.TryGetValue(statDefinitionId, out var statBounds))
             {
                 return expression;
             }

@@ -15,7 +15,7 @@ namespace ProjectXyz.Api.Framework.Collections
             foreach (var element in source)
             {
                 count++;
-                
+
                 // subtract 1 because we need EXCLUSIVE upper bound
                 if (random.NextInRange(0, count - 1) == 0)
                 {
@@ -103,7 +103,7 @@ namespace ProjectXyz.Api.Framework.Collections
         }
 
         public static void Foreach<T>(
-            this IEnumerable<T> enumerable, 
+            this IEnumerable<T> enumerable,
             Action<T> perItemCallback)
         {
             foreach (var item in enumerable)

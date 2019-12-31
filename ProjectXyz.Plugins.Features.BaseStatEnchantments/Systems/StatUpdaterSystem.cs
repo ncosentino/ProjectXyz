@@ -32,8 +32,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 
             foreach (var hasBehavior in hasBehaviors)
             {
-                Tuple<IHasEnchantmentsBehavior, IHasMutableStatsBehavior> behaviours;
-                if (!_behaviorFinder.TryFind(hasBehavior, out behaviours))
+                if (!_behaviorFinder.TryFind(hasBehavior, out Tuple<IHasEnchantmentsBehavior, IHasMutableStatsBehavior> behaviours))
                 {
                     continue;
                 }

@@ -93,7 +93,7 @@ namespace ProjectXyz.Framework.Tests.Entities.Shared
         }
 
         private interface ITypeA
-        {   
+        {
         }
 
         private interface ITypeB : ITypeA

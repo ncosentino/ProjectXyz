@@ -22,7 +22,7 @@ namespace ProjectXyz.Game.Core.GameObjects
         public IReadOnlyCollection<IGameObject> GameObjects => _gameObjects;
 
         public void MarkForRemoval(params IGameObject[] gameObjects) =>
-            MarkForRemoval((IEnumerable<IGameObject>) gameObjects);
+            MarkForRemoval((IEnumerable<IGameObject>)gameObjects);
 
         public void MarkForRemoval(IEnumerable<IGameObject> gameObjects)
         {

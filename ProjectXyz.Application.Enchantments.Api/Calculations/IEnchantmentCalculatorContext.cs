@@ -9,7 +9,7 @@ namespace ProjectXyz.Api.Enchantments.Calculations
         IReadOnlyCollection<IEnchantment> Enchantments { get; }
 
         IInterval Elapsed { get; }
-        
+
         IEnchantmentCalculatorContext WithEnchantments(IEnumerable<IEnchantment> enchantments);
 
         IEnchantmentCalculatorContext WithComponent(IComponent component);

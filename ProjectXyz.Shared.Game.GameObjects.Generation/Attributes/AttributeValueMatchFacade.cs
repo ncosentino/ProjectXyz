@@ -26,10 +26,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
             IGeneratorAttributeValue v1,
             IGeneratorAttributeValue v2)
         {
-            AttributeValueMatchDelegate matchCallback;
             if (!_mapping.TryGetValue(
                 new Tuple<Type, Type>(v1.GetType(), v2.GetType()),
-                out matchCallback))
+                out var matchCallback))
             {
                 throw new InvalidOperationException(
                     $"There is no attribute matching callback for types '{v1.GetType()}' and '{v2.GetType()}'.");

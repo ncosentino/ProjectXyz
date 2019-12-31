@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments
 {
@@ -29,7 +29,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments
                 .Where(x => x.Has<IAppliesToBaseStat>()))
             {
                 var statDefinitionId = enchantment.StatDefinitionId;
-                
+
                 var value = _enchantmentCalculator.Calculate(
                     enchantmentCalculatorContext,
                     newStats,

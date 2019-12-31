@@ -102,10 +102,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
             var unequippedCount = 0;
             _canEquipBehavior.Unequipped += (_, __) => unequippedCount++;
 
-            ICanBeEquippedBehavior output;
             var result = _canEquipBehavior.TryUnequip(
                 equipSlotId,
-                out output);
+                out var output);
 
             Assert.False(
                 result,
@@ -131,10 +130,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
             var unequippedCount = 0;
             _canEquipBehavior.Unequipped += (_, __) => unequippedCount++;
 
-            ICanBeEquippedBehavior output;
             var result = _canEquipBehavior.TryUnequip(
                 equipSlotId,
-                out output);
+                out var output);
 
             Assert.True(
                 result,

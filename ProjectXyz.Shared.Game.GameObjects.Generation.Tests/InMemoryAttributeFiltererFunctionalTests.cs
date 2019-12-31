@@ -371,7 +371,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     {
                         new GeneratorAttribute(
                             new StringIdentifier("id"),
-                            new RangeGeneratorAttributeValue(2, 3), 
+                            new RangeGeneratorAttributeValue(2, 3),
                             false)
                     },
                     new IHasGeneratorAttributes[]
@@ -456,7 +456,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     {
                         new GeneratorAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(10), 
+                            new DoubleGeneratorAttributeValue(10),
                             false)
                     },
                     new IHasGeneratorAttributes[]
@@ -492,7 +492,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     {
                         new GeneratorAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(10), 
+                            new DoubleGeneratorAttributeValue(10),
                             false)
                     },
                     new IHasGeneratorAttributes[]

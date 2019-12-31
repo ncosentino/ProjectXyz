@@ -31,7 +31,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
             {
                 throw new InvalidOperationException($"Missing required '{typeof(IHasStatDefinitionIdBehavior)}'.");
             }
-            
+
             var enchantment = new Enchantment(
                 _behaviorCollectionFactory,
                 hasStatDefinitionIdBehavior.StatDefinitionId,

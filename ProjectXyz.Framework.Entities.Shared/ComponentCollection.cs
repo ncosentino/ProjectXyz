@@ -36,7 +36,7 @@ namespace ProjectXyz.Shared.Framework.Entities
         #endregion
 
         #region Methods
-        public IEnumerable<TComponent> Get<TComponent>() 
+        public IEnumerable<TComponent> Get<TComponent>()
             where TComponent : IComponent
         {
             return _components.TakeTypes<TComponent>();

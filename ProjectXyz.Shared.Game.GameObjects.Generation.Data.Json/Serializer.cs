@@ -20,10 +20,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             Stream stream,
             TSerializable serializable)
         {
-            string serializableId;
             var dtoData = _serializableConverterFacade.ConvertBack(
                 serializable,
-                out serializableId);
+                out var serializableId);
             var dto = new SerializableDto(
                 serializableId,
                 dtoData);

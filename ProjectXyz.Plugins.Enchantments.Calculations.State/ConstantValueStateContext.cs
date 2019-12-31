@@ -21,8 +21,7 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
 
         public double GetStateValue(IIdentifier stateId)
         {
-            double value;
-            return _stateToValueMapping.TryGetValue(stateId, out value)
+            return _stateToValueMapping.TryGetValue(stateId, out var value)
                 ? value
                 : 0;
         }

@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Plugins.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
-using Autofac;
-
+using ProjectXyz.Plugins.Stats.Calculations;
 using IStringExpressionEvaluator = ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator;
 
 namespace ProjectXyz.Plugins.Stats.Autofac

@@ -125,7 +125,7 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
-                baseStats, 
+                baseStats,
                 statDefinitionId);
 
             Assert.Equal(expectedResult, result);

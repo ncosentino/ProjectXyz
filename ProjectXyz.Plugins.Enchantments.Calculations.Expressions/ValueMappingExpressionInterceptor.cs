@@ -25,9 +25,9 @@ namespace ProjectXyz.Plugins.Features.ExpressionEnchantments
         {
             expression = _termToValueMapping
                 .Aggregate(
-                    expression, 
+                    expression,
                     (current, termToValue) => current.Replace(
-                        termToValue.Key, 
+                        termToValue.Key,
                         $"({termToValue.Value})"));
             return expression;
         }

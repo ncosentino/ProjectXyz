@@ -6,7 +6,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
 {
     public sealed class SerializableDtoDataConverterService : ISerializableDtoDataConverterService
     {
-        private static Lazy<ISerializableDtoDataConverterService> LAZY_INSTANCE = new Lazy<ISerializableDtoDataConverterService>(
+        private static readonly Lazy<ISerializableDtoDataConverterService> LAZY_INSTANCE = new Lazy<ISerializableDtoDataConverterService>(
             () => new SerializableDtoDataConverterService());
 
         private readonly Dictionary<string, ISerializableDtoDataConverter> _mapping;

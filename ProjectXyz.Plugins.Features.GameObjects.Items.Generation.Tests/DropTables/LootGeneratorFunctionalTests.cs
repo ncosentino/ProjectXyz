@@ -42,7 +42,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         public LootGeneratorFunctionalTests()
         {
             _lootGenerator = _container.Resolve<ILootGenerator>();
-            
+
         }
 
         [ClassData(typeof(TestData))]
@@ -166,13 +166,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                             2,
                             new IWeightedEntry[]
                             {
-                                new WightedEntry(1, new StringIdentifier("Table B")), 
+                                new WightedEntry(1, new StringIdentifier("Table B")),
                             },
                             new GeneratorAttribute(
                                 new StringIdentifier("id"),
                                 new StringGeneratorAttributeValue("Table C"),
                                 true).Yield(),
-                            Enumerable.Empty<IGeneratorAttribute>()), 
+                            Enumerable.Empty<IGeneratorAttribute>()),
                     }))
                     .AsImplementedInterfaces()
                     .SingleInstance();

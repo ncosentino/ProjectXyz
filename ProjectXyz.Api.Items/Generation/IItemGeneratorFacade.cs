@@ -4,6 +4,6 @@
         IItemGenerator,
         IItemGeneratorRegistrar
     {
-        
+
     }
 }

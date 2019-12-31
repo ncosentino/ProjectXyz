@@ -22,7 +22,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Attributes
                 .Value<string>();
             var dto = new StringSerializableDtoValue()
             {
-                Value =  value,
+                Value = value,
             };
             return dto;
         }

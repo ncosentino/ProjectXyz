@@ -26,10 +26,8 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
             object sender,
             EventArgs<Tuple<ICanBeSocketedBehavior, ICanFitSocketBehavior>> e)
         {
-            IBuffableBehavior buffable;
-            IHasEnchantmentsBehavior hasEnchantments;
-            if (e.Data.Item1.Owner.Behaviors.TryGetFirst(out buffable) &&
-                e.Data.Item2.Owner.Behaviors.TryGetFirst(out hasEnchantments))
+            if (e.Data.Item1.Owner.Behaviors.TryGetFirst(out IBuffableBehavior buffable) &&
+                e.Data.Item2.Owner.Behaviors.TryGetFirst(out IHasEnchantmentsBehavior hasEnchantments))
             {
                 buffable.AddEnchantments(hasEnchantments.Enchantments);
             }

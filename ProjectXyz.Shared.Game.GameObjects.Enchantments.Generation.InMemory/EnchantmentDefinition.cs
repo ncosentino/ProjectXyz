@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Api.Enchantments.Generation;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 {

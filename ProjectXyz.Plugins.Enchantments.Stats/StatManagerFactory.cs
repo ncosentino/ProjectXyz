@@ -1,7 +1,7 @@
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Enchantments.Stats;
 
 namespace ProjectXyz.Plugins.Enchantments.Stats
 {
@@ -11,7 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.Stats
         private readonly IConvert<IStatCalculationContext, IEnchantmentCalculatorContext> _statToEnchantmentContextConverter;
 
         public StatManagerFactory(
-            IEnchantmentCalculator enchantmentCalculator, 
+            IEnchantmentCalculator enchantmentCalculator,
             IConvert<IStatCalculationContext, IEnchantmentCalculatorContext> statToEnchantmentContextConverter)
         {
             _enchantmentCalculator = enchantmentCalculator;

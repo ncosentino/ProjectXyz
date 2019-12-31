@@ -10,11 +10,10 @@ namespace ProjectXyz.Api.Stats.Calculations
             string expression,
             IReadOnlyDictionary<string, IStatCalculationNode> termToCalculationNodeMapping)
         {
-            IStatCalculationNode statCalculationNode;
             if (statCalculationNodeFactory.TryCreate(
                 expression,
                 termToCalculationNodeMapping,
-                out statCalculationNode))
+                out var statCalculationNode))
             {
                 return statCalculationNode;
             }

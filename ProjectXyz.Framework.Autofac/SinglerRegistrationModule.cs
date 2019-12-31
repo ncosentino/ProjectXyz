@@ -6,7 +6,7 @@ namespace ProjectXyz.Framework.Autofac
     public abstract class SingleRegistrationModule : Module
     {
         private static readonly string PREFIX = $"{Guid.NewGuid()}_RegistrationCount_";
-        
+
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);

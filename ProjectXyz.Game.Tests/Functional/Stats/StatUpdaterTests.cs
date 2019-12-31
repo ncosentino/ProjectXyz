@@ -4,13 +4,13 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
 using ProjectXyz.Game.Tests.Functional.TestingData;
-using Xunit;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.ElapsedTime;
+using ProjectXyz.Plugins.Stats;
 using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
-using ProjectXyz.Plugins.Stats;
+using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
 {

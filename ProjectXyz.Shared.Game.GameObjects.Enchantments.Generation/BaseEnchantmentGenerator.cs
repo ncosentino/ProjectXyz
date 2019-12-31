@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Enchantments.Generation;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation
 {
@@ -48,7 +48,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation
                 var enchantmentBehaviors = enchantmentDefinition
                     .GeneratorComponents
                     .SelectMany(_generatorComponentToBehaviorConverter.Convert);
-                
+
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);
                 yield return enchantment;
             }

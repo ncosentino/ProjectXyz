@@ -47,7 +47,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             // Setup
             var statManager = new StatManager(
                 _fixture.EnchantmentCalculator,
-                new MutableStatsProvider(new KeyValuePair<IIdentifier, double>(statDefinitionId, baseValue).Yield()), 
+                new MutableStatsProvider(new KeyValuePair<IIdentifier, double>(statDefinitionId, baseValue).Yield()),
                 _fixture.ContextConverter);
 
             var statCalculationContext = new StatCalculationContext(

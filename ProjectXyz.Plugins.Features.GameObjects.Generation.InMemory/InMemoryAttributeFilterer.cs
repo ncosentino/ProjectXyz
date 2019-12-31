@@ -16,7 +16,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
         }
 
         public IEnumerable<T> Filter<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             IGeneratorContext generatorContext)
             where T : IHasGeneratorAttributes
         {
@@ -29,7 +29,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
                         .Select(key => key.Value)
                         .ToReadOnlyCollection());
             var matching = source
-                .Where(s=>
+                .Where(s =>
                 {
                     var supportedAttributes = s.
                         SupportedAttributes

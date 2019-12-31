@@ -28,10 +28,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation
 
         public IEnumerable<IBehavior> Convert(IGeneratorComponent generatorComponent)
         {
-            ConvertGeneratorComponentToBehaviorDelegate convertCallback;
             if (!_mapping.TryGetValue(
                 generatorComponent.GetType(),
-                out convertCallback))
+                out var convertCallback))
             {
                 throw new InvalidOperationException(
                     "There was no registered mapping to convert " +

@@ -14,7 +14,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
         private readonly IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> _enchantmentTriggerMechanicRegistrars;
 
         public ActiveEnchantmentManager(
-            ITriggerMechanicRegistrar triggerMechanicRegistrar, 
+            ITriggerMechanicRegistrar triggerMechanicRegistrar,
             IEnumerable<IEnchantmentTriggerMechanicRegistrar> enchantmentTriggerMechanicRegistrars)
         {
             _activeEnchantments = new Dictionary<IEnchantment, List<ITriggerMechanic>>();

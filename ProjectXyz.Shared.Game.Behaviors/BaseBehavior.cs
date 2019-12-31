@@ -1,5 +1,4 @@
-﻿using System;
-using ProjectXyz.Api.Behaviors;
+﻿using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Shared.Game.Behaviors

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors

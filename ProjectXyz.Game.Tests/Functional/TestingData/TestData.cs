@@ -31,7 +31,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IInterval UnitInterval { get; } = UNIT_INTERVAL;
 
         public IInterval ZeroInterval { get; } = UNIT_INTERVAL.Subtract(UNIT_INTERVAL);
-        
+
         public ExampleEnchantments Enchantments { get; } = new ExampleEnchantments();
 
         public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToCalculationMapping { get; } = new Dictionary<IIdentifier, string>()

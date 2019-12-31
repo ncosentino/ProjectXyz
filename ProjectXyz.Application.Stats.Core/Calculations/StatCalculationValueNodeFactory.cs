@@ -19,12 +19,11 @@ namespace ProjectXyz.Plugins.Stats.Calculations
                 return false;
             }
 
-            double expressionValue;
             if (!double.TryParse(
                 expression,
                 NumberStyles.Any,
                 CultureInfo.InvariantCulture,
-                out expressionValue))
+                out var expressionValue))
             {
                 return false;
             }

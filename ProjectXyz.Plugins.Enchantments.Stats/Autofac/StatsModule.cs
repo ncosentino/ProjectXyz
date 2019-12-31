@@ -1,9 +1,9 @@
-﻿using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Shared.Framework;
+﻿using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Enchantments.Stats;
-using Autofac;
+using ProjectXyz.Api.Stats;
+using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
 {
@@ -28,7 +28,7 @@ namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
                     .Resolve<IStatManagerFactory>()
                     .Create(c.Resolve<IMutableStatsProvider>()))
                 .AsImplementedInterfaces();
-                ////.SingleInstance(); // *NOT* single instance
+            ////.SingleInstance(); // *NOT* single instance
         }
     }
 }

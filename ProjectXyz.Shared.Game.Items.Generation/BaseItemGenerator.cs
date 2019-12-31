@@ -49,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
                 var itemBehaviors = itemDefinition
                     .GeneratorComponents
                     .SelectMany(_generatorComponentToBehaviorConverter.Convert);
-                
+
                 var item = _itemFactory.Create(itemBehaviors);
                 yield return item;
             }

@@ -14,7 +14,7 @@ namespace ProjectXyz.Shared.Behaviors
 
         #region Constructors
         public BehaviorCollection(
-            IBehavior behavior, 
+            IBehavior behavior,
             params IBehavior[] behaviors)
             : this(behavior.Yield().Concat(behaviors))
         {
@@ -31,7 +31,7 @@ namespace ProjectXyz.Shared.Behaviors
         #endregion
 
         #region Methods
-        public IEnumerable<TBehavior> Get<TBehavior>() 
+        public IEnumerable<TBehavior> Get<TBehavior>()
             where TBehavior : IBehavior
         {
             return _behaviors.TakeTypes<TBehavior>();

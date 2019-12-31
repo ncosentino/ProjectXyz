@@ -2,11 +2,11 @@
 using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Api.Enchantments.Stats;
-using ProjectXyz.Api.Stats;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
@@ -47,7 +47,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
             var hasEnchantments = new HasEnchantmentsBehavior(activeEnchantmentManager);
             var buffable = new BuffableBehavior(activeEnchantmentManager);
-            
+
             // TODO: where should these come from? not here...
             var canEquip = new CanEquipBehavior(new[]
             {

@@ -12,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.Drop
 
         public InMemoryDropTableRepository(IEnumerable<IDropTable> dropTables)
         {
-            _lazyDropTables = new Lazy<IReadOnlyDictionary<IIdentifier,IDropTable>>(() => dropTables.ToDictionary(x => x.DropTableId, x => x));
+            _lazyDropTables = new Lazy<IReadOnlyDictionary<IIdentifier, IDropTable>>(() => dropTables.ToDictionary(x => x.DropTableId, x => x));
         }
 
         private IReadOnlyDictionary<IIdentifier, IDropTable> DropTables => _lazyDropTables.Value;

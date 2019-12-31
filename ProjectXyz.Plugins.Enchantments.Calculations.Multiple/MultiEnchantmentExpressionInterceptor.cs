@@ -27,7 +27,7 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.Multiple
         public string Intercept(IIdentifier statDefinitionId, string expression)
         {
             return _enchantmentExpressionInterceptors.Aggregate(
-                expression, 
+                expression,
                 (c, interceptor) => interceptor.Intercept(statDefinitionId, c));
         }
     }

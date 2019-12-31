@@ -19,10 +19,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
             IDropTable dropTable,
             IGeneratorContext generatorContext)
         {
-            IDropTableHandlerGenerator dropTableHandlerGenerator;
             if (!_mapping.TryGetValue(
                 dropTable.GetType(),
-                out dropTableHandlerGenerator))
+                out var dropTableHandlerGenerator))
             {
                 throw new InvalidOperationException(
                     $"No supported dorp table handler generator for type '{dropTable.GetType()}'.");

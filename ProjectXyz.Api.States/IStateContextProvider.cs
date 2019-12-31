@@ -5,6 +5,6 @@ namespace ProjectXyz.Api.States
 {
     public interface IStateContextProvider : IReadOnlyDictionary<IIdentifier, IStateContext>
     {
-        
+
     }
 }

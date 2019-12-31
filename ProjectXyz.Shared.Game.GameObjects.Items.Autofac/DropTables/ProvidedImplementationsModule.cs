@@ -9,7 +9,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder
                 .RegisterType<LootGenerator>()
                 .AsImplementedInterfaces()

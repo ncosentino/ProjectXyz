@@ -1,7 +1,6 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
@@ -48,17 +47,16 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
             var attributeTypeId = jsonObject["SerializableId"].Value<string>();
             var dataObject = jsonObject["Data"].Value<JObject>();
 
-            ISerializableDtoDataConverter dataConverter;
             if (!SerializableDtoDataConverterService.Instance.TryGet(
                 attributeTypeId,
-                out dataConverter))
+                out var dataConverter))
             {
                 throw new InvalidOperationException(
                     $"There was no serializable data converter for '{attributeTypeId}'.");
             }
 
             var dataDto = dataConverter.Convert(dataObject);
-            
+
             var generatorAttributeDto = new SerializableDto(
                 attributeTypeId,
                 dataDto);

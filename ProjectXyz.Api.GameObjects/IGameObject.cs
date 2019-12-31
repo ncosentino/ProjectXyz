@@ -4,6 +4,6 @@ namespace ProjectXyz.Api.GameObjects
 {
     public interface IGameObject : IHasBehaviors
     {
-        
+
     }
 }

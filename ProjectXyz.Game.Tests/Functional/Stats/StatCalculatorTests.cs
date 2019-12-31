@@ -4,12 +4,12 @@ using System.Linq;
 using Jace;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
 using ProjectXyz.Plugins.Enchantments.Stats.StatExpressions;
 using ProjectXyz.Plugins.Features.BoundedStats;
 using ProjectXyz.Plugins.Features.BoundedStats.Api;
 using ProjectXyz.Plugins.Stats;
-using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Plugins.Stats.Calculations;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Math;
@@ -134,7 +134,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         {
             var result = _statCalculator.Calculate(
                 _statExpressionInterceptors,
-                new Dictionary<IIdentifier, double>(), 
+                new Dictionary<IIdentifier, double>(),
                 statDefinitionId);
             Assert.Equal(expectedValue, result);
         }
@@ -144,7 +144,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
         private sealed class TestFixture
         {
             private static readonly StatDefinitionIds STAT_DEFINITION_IDS = new StatDefinitionIds();
-            
+
             public StatDefinitionIds Stats { get; } = STAT_DEFINITION_IDS;
 
             public IStatExpressionInterceptor StatExpressionInterceptor { get; } = new StatExpressionInterceptor(

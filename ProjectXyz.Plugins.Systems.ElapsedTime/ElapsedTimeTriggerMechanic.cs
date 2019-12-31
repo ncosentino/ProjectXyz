@@ -8,7 +8,7 @@ namespace ProjectXyz.Plugins.Features.ElapsedTime
     public sealed class ElapsedTimeTriggerMechanic : IElapsedTimeTriggerMechanic
     {
         private readonly Action<IElapsedTimeTriggerMechanic, IElapsedTimeTriggerBehavior> _triggerCallback;
-        
+
         public ElapsedTimeTriggerMechanic(Action<IElapsedTimeTriggerMechanic, IElapsedTimeTriggerBehavior> triggerCallback)
         {
             _triggerCallback = triggerCallback;

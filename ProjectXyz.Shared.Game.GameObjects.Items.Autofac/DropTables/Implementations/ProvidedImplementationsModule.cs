@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables.Imple
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder
                 .RegisterType<ItemDropTableHandlerGenerator>()
                 .AsImplementedInterfaces()

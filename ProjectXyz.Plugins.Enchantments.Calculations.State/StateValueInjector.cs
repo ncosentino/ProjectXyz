@@ -25,8 +25,7 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
                     var stateId = stateIdToTermMapping.Key;
                     var term = stateIdToTermMapping.Value;
 
-                    IStateContext stateContext;
-                    if (!stateContextProvider.TryGetValue(stateTypeId, out stateContext))
+                    if (!stateContextProvider.TryGetValue(stateTypeId, out var stateContext))
                     {
                         continue;
                     }

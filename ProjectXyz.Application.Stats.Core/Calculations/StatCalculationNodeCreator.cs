@@ -48,9 +48,9 @@ namespace ProjectXyz.Plugins.Stats.Calculations
 
                 expression = statExpressionInterceptors
                     .Aggregate(
-                        expression, 
+                        expression,
                         (c, interceptor) => interceptor.Intercept(
-                            currentStatDefinitionId, 
+                            currentStatDefinitionId,
                             c));
 
                 var dependentStatDefinitionIds = _expressionStatDefinitionDependencyFinder.FindDependencies(

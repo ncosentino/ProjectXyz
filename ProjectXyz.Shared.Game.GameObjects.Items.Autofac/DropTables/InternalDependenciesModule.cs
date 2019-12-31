@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables
 {
@@ -12,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            
+
             builder
                 .RegisterType<DropTableHandlerGeneratorFacade>()
                 .AsImplementedInterfaces()

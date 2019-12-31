@@ -11,7 +11,7 @@ namespace ProjectXyz.Api.Framework.Events
             TEventArgs eventArgs)
         {
             handler?.Invoke(
-                sender, 
+                sender,
                 eventArgs);
         }
 
@@ -21,7 +21,7 @@ namespace ProjectXyz.Api.Framework.Events
             Func<TEventArgs> createArgsCallback)
         {
             handler?.Invoke(
-                sender, 
+                sender,
                 createArgsCallback());
         }
 

@@ -10,7 +10,7 @@ using ProjectXyz.Game.Interface.Engine;
 
 namespace ProjectXyz.Game.Core.Engine
 {
-    public sealed class GameEngine : 
+    public sealed class GameEngine :
         IAsyncGameEngine,
         IGameEngine
     {
