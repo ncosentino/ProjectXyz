@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Application.Stats.Interface;
+using ProjectXyz.Api.Stats;
 
-namespace ProjectXyz.Application.Stats.Core
+namespace ProjectXyz.Plugins.Stats
 {
+
     public sealed class MutableStatsProvider : IMutableStatsProvider
     {
         private readonly Dictionary<IIdentifier, double> _stats;

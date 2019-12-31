@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Game.Interface.Stats
+namespace ProjectXyz.Api.Enchantments.Stats
 {
     public interface IStatManager
     {

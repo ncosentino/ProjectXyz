@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Stats;
 
-namespace ProjectXyz.Application.Stats.Core
+namespace ProjectXyz.Plugins.Stats
 {
     public sealed class StatDefinitionToTermMappingRepository : IStatDefinitionToTermMappingRepository
     {

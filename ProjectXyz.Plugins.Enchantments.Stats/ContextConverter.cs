@@ -1,8 +1,8 @@
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Game.Core.Stats
+namespace ProjectXyz.Plugins.Enchantments.Stats
 {
     public sealed class ContextConverter : IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>
     {

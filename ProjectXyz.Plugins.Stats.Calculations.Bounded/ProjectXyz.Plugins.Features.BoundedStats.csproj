@@ -30,9 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,9 +51,9 @@
       <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
       <Name>ProjectXyz.Plugins.Features.BoundedStats.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
+      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
+      <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
       <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>

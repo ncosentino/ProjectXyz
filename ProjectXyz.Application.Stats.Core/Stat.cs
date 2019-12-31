@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Application.Stats.Interface;
+using ProjectXyz.Api.Stats;
 
-namespace ProjectXyz.Application.Stats.Core
+namespace ProjectXyz.Plugins.Stats
 {
     public sealed class Stat : IStat
     {

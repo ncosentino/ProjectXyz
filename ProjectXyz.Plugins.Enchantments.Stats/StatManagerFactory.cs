@@ -1,10 +1,9 @@
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Stats.Interface;
-using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Api.Stats;
+using ProjectXyz.Api.Enchantments.Stats;
 
-namespace ProjectXyz.Game.Core.Stats
+namespace ProjectXyz.Plugins.Enchantments.Stats
 {
     public sealed class StatManagerFactory : IStatManagerFactory
     {

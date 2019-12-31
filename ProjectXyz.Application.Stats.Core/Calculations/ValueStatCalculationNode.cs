@@ -1,6 +1,6 @@
-﻿using ProjectXyz.Application.Stats.Interface.Calculations;
+﻿using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Application.Stats.Core.Calculations
+namespace ProjectXyz.Plugins.Stats.Calculations
 {
     public sealed class ValueStatCalculationNode : IStatCalculationNode
     {

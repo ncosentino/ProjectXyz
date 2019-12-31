@@ -1,12 +1,11 @@
-﻿using Autofac;
-using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Application.Stats.Interface;
-using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Game.Core.Stats;
-using ProjectXyz.Game.Interface.Stats;
+﻿using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Framework;
+using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Stats;
+using ProjectXyz.Api.Enchantments.Stats;
+using Autofac;
 
-namespace ProjectXyz.Game.Core.Dependencies.Autofac
+namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
 {
     public sealed class StatsModule : SingleRegistrationModule
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Plugins.Features.BoundedStats.Api;
+using ProjectXyz.Api.Stats.Calculations;
 
 namespace ProjectXyz.Plugins.Features.BoundedStats
 {

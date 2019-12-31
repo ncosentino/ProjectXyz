@@ -4,10 +4,9 @@ using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Stats.Interface.Calculations;
 using ProjectXyz.Shared.Framework;
 
-namespace ProjectXyz.Application.Stats.Core.Calculations
+namespace ProjectXyz.Plugins.Stats.Calculations
 {
     public sealed class StatCalculationNodeCreator : IStatCalculationNodeCreator
     {

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Stats.Interface;
-using ProjectXyz.Game.Interface.Stats;
+using ProjectXyz.Api.Stats;
 
-namespace ProjectXyz.Game.Core.Stats
+namespace ProjectXyz.Plugins.Enchantments.Stats
 {
     public sealed class StatManager : IStatManager
     {

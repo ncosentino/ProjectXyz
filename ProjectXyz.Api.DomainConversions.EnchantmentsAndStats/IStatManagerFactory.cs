@@ -1,6 +1,6 @@
-using ProjectXyz.Application.Stats.Interface;
+using ProjectXyz.Api.Stats;
 
-namespace ProjectXyz.Game.Interface.Stats
+namespace ProjectXyz.Api.Enchantments.Stats
 {
     public interface IStatManagerFactory
     {

@@ -1,14 +1,14 @@
-﻿using ProjectXyz.Application.Stats.Interface.Calculations;
+﻿using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Application.Stats.Core.Calculations
+namespace ProjectXyz.Plugins.Stats.Calculations
 {
     public sealed class StringExpressionEvaluatorWrapper : IStringExpressionEvaluator
     {
-        private readonly Api.Framework.Math.IStringExpressionEvaluator _wrapped;
+        private readonly ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator _wrapped;
         private readonly bool _takeOwnership;
 
         public StringExpressionEvaluatorWrapper(
-            Api.Framework.Math.IStringExpressionEvaluator wrapped,
+            ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator wrapped,
             bool takeOwnership)
         {
             _takeOwnership = takeOwnership;

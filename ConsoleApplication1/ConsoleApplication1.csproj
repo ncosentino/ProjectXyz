@@ -33,9 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -101,6 +100,10 @@
       <Project>{37E43C15-CE90-455B-A9D8-EB6354006339}</Project>
       <Name>ProjectXyz.Api.Data.Serialization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
+      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
+      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
       <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
       <Name>ProjectXyz.Api.Enchantments.Generation</Name>
@@ -137,14 +140,6 @@
       <Project>{de382cf7-d84e-4a89-9c6d-3f2a7729b40c}</Project>
       <Name>ProjectXyz.Plugins.Features.BoundedStats.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4e6b441b-337a-4987-a50e-ce203d4929c1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats\ProjectXyz.Api.Stats.csproj">
-      <Project>{a3b8d906-34c9-4395-9d19-b1c8355ba5e7}</Project>
-      <Name>ProjectXyz.Api.Stats</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj">
       <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
       <Name>ProjectXyz.Api.Systems</Name>
@@ -152,10 +147,6 @@
     <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj">
       <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
       <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Core.Dependencies.Autofac\ProjectXyz.Application.Core.Dependencies.Autofac.csproj">
-      <Project>{59de295e-c5d0-4bb9-b393-bbe1831a0cfa}</Project>
-      <Name>ProjectXyz.Application.Core.Dependencies.Autofac</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
@@ -168,6 +159,10 @@
     <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Autofac\ProjectXyz.Framework.ViewWelding.Autofac.csproj">
       <Project>{457ac8cb-c325-41e2-b6c3-625c680b2ac1}</Project>
       <Name>ProjectXyz.Framework.ViewWelding.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Enchantments.Stats.csproj">
+      <Project>{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}</Project>
+      <Name>ProjectXyz.Plugins.Enchantments.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj">
       <Project>{f8f47e92-7e70-433f-8333-7c2b12b21f35}</Project>
@@ -217,13 +212,13 @@
       <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Application.Stats.Core.csproj">
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj">
       <Project>{B051F375-1F9F-4A03-BDC2-EB4FA3807B2E}</Project>
-      <Name>ProjectXyz.Application.Stats.Core</Name>
+      <Name>ProjectXyz.Plugins.Stats</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
       <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
-      <Name>ProjectXyz.Application.Stats.Interface</Name>
+      <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj">
       <Project>{BB4CB2EB-4003-4BF9-BB26-2A19FEC82D8B}</Project>

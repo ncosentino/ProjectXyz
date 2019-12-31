@@ -72,10 +72,6 @@
       <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
       <Name>ProjectXyz.Api.GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
       <Project>{9DEE41C0-A702-420A-9E5F-7D3D01886660}</Project>
       <Name>ProjectXyz.Api.Triggering</Name>
@@ -83,6 +79,10 @@
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
+      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
+      <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>

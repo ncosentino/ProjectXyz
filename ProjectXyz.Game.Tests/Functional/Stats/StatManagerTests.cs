@@ -3,9 +3,9 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
-using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Game.Core.Stats;
 using ProjectXyz.Game.Tests.Functional.TestingData;
+using ProjectXyz.Plugins.Enchantments.Stats;
+using ProjectXyz.Plugins.Stats;
 using ProjectXyz.Shared.Framework.Entities;
 using Xunit;
 

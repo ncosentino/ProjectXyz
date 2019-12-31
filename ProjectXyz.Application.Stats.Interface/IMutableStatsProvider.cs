@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Application.Stats.Interface
+namespace ProjectXyz.Api.Stats
 {
     public interface IMutableStatsProvider : IStatsProvider
     {

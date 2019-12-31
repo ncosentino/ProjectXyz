@@ -44,6 +44,10 @@
       <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
       <Name>ProjectXyz.Api.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
+      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
+      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
@@ -56,13 +60,13 @@
       <Project>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</Project>
       <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Application.Stats.Core.csproj">
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj">
       <Project>{B051F375-1F9F-4A03-BDC2-EB4FA3807B2E}</Project>
-      <Name>ProjectXyz.Application.Stats.Core</Name>
+      <Name>ProjectXyz.Plugins.Stats</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
       <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
-      <Name>ProjectXyz.Application.Stats.Interface</Name>
+      <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
       <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>

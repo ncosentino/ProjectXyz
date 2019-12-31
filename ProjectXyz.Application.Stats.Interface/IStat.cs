@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Application.Stats.Interface
+namespace ProjectXyz.Api.Stats
 {
     public interface IStat
     {

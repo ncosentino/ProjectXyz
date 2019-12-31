@@ -8,7 +8,7 @@ using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Game.Core.Stats;
+using ProjectXyz.Plugins.Enchantments.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Behaviors;

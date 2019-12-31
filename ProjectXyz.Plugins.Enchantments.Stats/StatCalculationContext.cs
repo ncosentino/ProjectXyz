@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Shared.Framework.Entities;
 
-namespace ProjectXyz.Game.Core.Stats
+namespace ProjectXyz.Plugins.Enchantments.Stats
 {
     public sealed class StatCalculationContext : IStatCalculationContext
     {

@@ -41,10 +41,6 @@
     <Compile Include="Mapping\MapManager.cs" />
     <Compile Include="Mapping\MapTile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stats\ContextConverter.cs" />
-    <Compile Include="Stats\StatCalculationContext.cs" />
-    <Compile Include="Stats\StatManager.cs" />
-    <Compile Include="Stats\StatManagerFactory.cs" />
     <Compile Include="Systems\GameObjectManagerSystem.cs" />
     <Compile Include="Systems\SystemUpdateContext.cs" />
   </ItemGroup>
@@ -69,10 +65,6 @@
       <Project>{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}</Project>
       <Name>ProjectXyz.Api.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj">
       <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
       <Name>ProjectXyz.Api.Systems</Name>
@@ -81,9 +73,9 @@
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Application.Stats.Interface.csproj">
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
       <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
-      <Name>ProjectXyz.Application.Stats.Interface</Name>
+      <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
       <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>

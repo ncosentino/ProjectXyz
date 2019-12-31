@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Application.Stats.Interface.Calculations
+namespace ProjectXyz.Api.Stats.Calculations
 {
     public interface IStatCalculationNodeCreator
     {

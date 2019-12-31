@@ -5,12 +5,11 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Game.Core.Autofac;
-using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.ElapsedTime;
+using ProjectXyz.Api.Enchantments.Stats;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {

@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Autofac;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
-using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Application.Stats.Core.Calculations;
-using ProjectXyz.Application.Stats.Interface.Calculations;
+using ProjectXyz.Plugins.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
+using Autofac;
+
 using IStringExpressionEvaluator = ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator;
 
-namespace ProjectXyz.Application.Core.Dependencies.Autofac
+namespace ProjectXyz.Plugins.Stats.Autofac
 {
     public sealed class StatsModule : SingleRegistrationModule
     {
@@ -56,9 +55,9 @@ namespace ProjectXyz.Application.Core.Dependencies.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<MutableStatsProvider>()
-                .AsImplementedInterfaces();
-            ////.SingleInstance(); // *NOT* a single instance
+                .RegisterType<MutableStatsProviderFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder
                 .Register(c => StatDefinitionToTermMappingRepository.None)
                 .AsImplementedInterfaces()

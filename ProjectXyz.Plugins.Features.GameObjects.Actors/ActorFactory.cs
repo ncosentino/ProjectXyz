@@ -3,10 +3,10 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Application.Stats.Core;
-using ProjectXyz.Game.Interface.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Api.Enchantments.Stats;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
@@ -17,6 +17,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         private readonly IStatManagerFactory _statManagerFactory;
         private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
         private readonly IBehaviorManager _behaviorManager;
+        private readonly IMutableStatsProviderFactory _mutableStatsProviderFactory;
         private readonly IReadOnlyCollection<IAdditionalActorBehaviorsProvider> _additionalActorBehaviorsProviders;
 
         public ActorFactory(
@@ -24,12 +25,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             IStatManagerFactory statManagerFactory,
             IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
             IBehaviorManager behaviorManager,
+            IMutableStatsProviderFactory mutableStatsProviderFactory,
             IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders)
         {
             _behaviorCollectionFactory = behaviorCollectionFactory;
             _statManagerFactory = statManagerFactory;
             _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
             _behaviorManager = behaviorManager;
+            _mutableStatsProviderFactory = mutableStatsProviderFactory;
             _additionalActorBehaviorsProviders = additionalActorBehaviorsProviders.ToArray();
         }
 
@@ -37,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         {
             var identifierBehavior = new IdentifierBehavior();
 
-            var mutableStatsProvider = new MutableStatsProvider();
+            var mutableStatsProvider = _mutableStatsProviderFactory.Create();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStatsBehavior(statManager);
 

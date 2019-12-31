@@ -39,9 +39,16 @@
     <Compile Include="Calculations\IStatCalculationNodeCreator.cs" />
     <Compile Include="Calculations\IStatCalculationNodeFactory.cs" />
     <Compile Include="Calculations\IStatCalculationNodeFactoryExtensions.cs" />
+    <Compile Include="Calculations\IStatCalculator.cs" />
+    <Compile Include="Calculations\IStatDefinitionToCalculationMapping.cs" />
+    <Compile Include="Calculations\IStatDefinitionToCalculationMappingRepository.cs" />
+    <Compile Include="Calculations\IStatExpressionInterceptor.cs" />
     <Compile Include="Calculations\IStringExpressionEvaluator.cs" />
     <Compile Include="IMutableStatsProvider.cs" />
+    <Compile Include="IMutableStatsProviderFactory.cs" />
     <Compile Include="IStat.cs" />
+    <Compile Include="IStatDefinitionToTermMapping.cs" />
+    <Compile Include="IStatDefinitionToTermMappingRepository.cs" />
     <Compile Include="IStatsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -49,10 +56,6 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
       <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
       <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Calculations\ProjectXyz.Api.Stats.Calculations.csproj">
-      <Project>{4E6B441B-337A-4987-A50E-CE203D4929C1}</Project>
-      <Name>ProjectXyz.Api.Stats.Calculations</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

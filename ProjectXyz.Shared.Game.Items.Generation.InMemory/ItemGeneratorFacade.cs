@@ -48,7 +48,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
                 var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
                 var currentContext = new GeneratorContext(
                     1,
-                    totalCount - generatedCount,
+                    1, // totalCount - generatedCount, // FIXME: do we hurt randomization by allowing initially selected generators to generate more?
                     generatorContext.Attributes);
 
                 var generatedItems = generator.GenerateItems(currentContext);
