@@ -9,10 +9,8 @@ namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
 {
     public sealed class StatsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .Register(c => new ContextConverter(
                     c.Resolve<IEnchantmentCalculatorContextFactory>(),

@@ -7,10 +7,8 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Autofac
 {
     public sealed class DepencencyModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<EnchantmentApplier>()
                 .AsImplementedInterfaces()

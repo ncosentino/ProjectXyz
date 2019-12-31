@@ -9,10 +9,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
 {
     public sealed class InternalDependenciesModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<DtoJsonSerializer>()
                 .AsImplementedInterfaces()

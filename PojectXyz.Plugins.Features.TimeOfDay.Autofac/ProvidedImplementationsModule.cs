@@ -5,10 +5,8 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay.Autofac
 {
     public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<TimeOfDaySystem>()
                 .AsImplementedInterfaces()

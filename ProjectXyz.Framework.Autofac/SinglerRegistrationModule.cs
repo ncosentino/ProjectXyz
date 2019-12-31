@@ -14,11 +14,14 @@ namespace ProjectXyz.Framework.Autofac
             var propertyKey = $"{PREFIX}{GetType().FullName}";
             if (builder.Properties.ContainsKey(propertyKey))
             {
-                throw new InvalidOperationException(
-                    $"Single registration module '{GetType()}' has already been registered.");
+                return;
             }
 
             builder.Properties[propertyKey] = new object();
+            
+            SafeLoad(builder);
         }
+
+        protected abstract void SafeLoad(ContainerBuilder builder);
     }
 }

@@ -6,10 +6,8 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
     public sealed class SystemsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<GameObjectManagerSystem>()
                 .AsImplementedInterfaces()

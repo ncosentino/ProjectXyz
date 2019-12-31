@@ -8,10 +8,8 @@ namespace ProjectXyz.Shared.States.Autofac
 {
     public sealed class StatesModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .Register(c =>
                 {

@@ -7,10 +7,8 @@ namespace ProjectXyz.Plugins.Features.UnhandledExceptionHandling
 {
     public sealed class UnhandledExceptionModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<UnhandledErrorReporter>()
                 .AsSelf()

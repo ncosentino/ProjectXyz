@@ -11,10 +11,8 @@ namespace ProjectXyz.Plugins.Stats.Autofac
 {
     public sealed class StatsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .Register(c => new StringExpressionEvaluatorWrapper(
                     c.Resolve<IStringExpressionEvaluator>(),

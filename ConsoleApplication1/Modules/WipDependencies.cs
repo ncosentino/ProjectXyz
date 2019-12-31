@@ -8,10 +8,8 @@ namespace ConsoleApplication1.Modules
 {
     public sealed class WipDependencies : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<StatPrinterSystem>()
                 .AsImplementedInterfaces()

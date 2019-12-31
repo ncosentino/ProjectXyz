@@ -8,10 +8,8 @@ namespace ProjectXyz.Plugins.Framework.Math.Jace
 {
     public sealed class JaceModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<CalculationEngine>()
                 .SingleInstance();

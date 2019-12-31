@@ -10,10 +10,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac
 {
     public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             // TODO: should this be in the other project for shared "generation" classes?
             builder
                 .RegisterType<BaseItemGenerator>()

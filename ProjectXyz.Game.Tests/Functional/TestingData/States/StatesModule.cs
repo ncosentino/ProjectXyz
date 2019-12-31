@@ -11,7 +11,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.States
 {
     public sealed class StatesModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
                 .RegisterType<StateIdToTermRepo>()

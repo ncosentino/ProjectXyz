@@ -5,10 +5,8 @@ namespace ProjectXyz.Framework.ViewWelding.Autofac
 {
     public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<ViewWelderFactory>()
                 .AsImplementedInterfaces()

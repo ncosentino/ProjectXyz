@@ -5,10 +5,8 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State.Autofac
 {
     public sealed class SharedComponentsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<ContextToExpressionInterceptorConverter>()
                 .AsImplementedInterfaces()

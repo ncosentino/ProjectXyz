@@ -8,10 +8,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
 {
     public sealed class StatsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<StatDefinitionToTermMappingRepo>()
                 .AsImplementedInterfaces()

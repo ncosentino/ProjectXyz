@@ -5,10 +5,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class ActorsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<ActorFactory>()
                 .AsImplementedInterfaces()

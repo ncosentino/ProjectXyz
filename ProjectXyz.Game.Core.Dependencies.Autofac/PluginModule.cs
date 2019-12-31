@@ -9,10 +9,8 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
 {
     public sealed class PluginModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             var assemblies = Directory
                 .GetFiles(
                     AppDomain.CurrentDomain.BaseDirectory,

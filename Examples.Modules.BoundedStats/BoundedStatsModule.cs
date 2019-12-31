@@ -5,10 +5,8 @@ namespace Examples.Modules.BoundedStats
 {
     public sealed class BoundedStatsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<StatDefinitionIdToBoundsMappingRepository>()
                 .AsImplementedInterfaces()

@@ -10,10 +10,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
 {
     public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<GeneratorComponentToBehaviorConverterFacade>()
                 .AsImplementedInterfaces()

@@ -5,10 +5,8 @@ namespace ProjectXyz.Shared.Behaviors.Autofac
 {
     public sealed class BehaviorModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<BehaviorCollectionFactory>()
                 .AsImplementedInterfaces()

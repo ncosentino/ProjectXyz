@@ -137,10 +137,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
 
         private sealed class TestDataModule : SingleRegistrationModule
         {
-            protected override void Load(ContainerBuilder builder)
+            protected override void SafeLoad(ContainerBuilder builder)
             {
-                base.Load(builder);
-
                 builder
                     .Register(x => new InMemoryDropTableRepository(new IDropTable[]
                     {

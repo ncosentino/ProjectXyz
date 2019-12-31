@@ -6,10 +6,8 @@ namespace ProjectXyz.Plugins.Features.ExpressionEnchantments.Autofac
 {
     public sealed class DepencencyModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .Register(c =>
                 {

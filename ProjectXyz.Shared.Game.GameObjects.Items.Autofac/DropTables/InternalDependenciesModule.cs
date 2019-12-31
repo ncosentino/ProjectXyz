@@ -9,10 +9,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.DropTables
 {
     public sealed class InternalDependenciesModule : SingleRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        protected override void SafeLoad(ContainerBuilder builder)
         {
-            base.Load(builder);
-
             builder
                 .RegisterType<DropTableHandlerGeneratorFacade>()
                 .AsImplementedInterfaces()
