@@ -28,23 +28,15 @@ namespace ProjectXyz.Plugins.Stats.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .Register(c =>
-                {
-                    var statDefinitionIdToTermMapping = c
-                        .Resolve<IEnumerable<IStatDefinitionToTermMappingRepository>>()
-                        .SelectMany(x => x.GetStatDefinitionIdToTermMappings())
-                        .ToDictionary(x => x.StateDefinitionId, x => x.Term);
-                    var statDefinitionIdToCalculationMapping = c
-                        .Resolve<IEnumerable<IStatDefinitionToCalculationMappingRepository>>()
-                        .SelectMany(x => x.GetStatDefinitionIdToCalculationMappings())
-                        .ToDictionary(x => x.StateDefinitionId, x => x.Calculation);
-                    var statCalculationNodeCreator = new StatCalculationNodeCreator(
-                        c.Resolve<IStatCalculationNodeFactory>(),
-                        c.Resolve<IExpressionStatDefinitionDependencyFinder>(),
-                        statDefinitionIdToTermMapping,
-                        statDefinitionIdToCalculationMapping);
-                    return statCalculationNodeCreator;
-                })
+                .RegisterType<StatDefinitionToTermConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<StatDefinitionToCalculationConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<StatCalculationNodeCreator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

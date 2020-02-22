@@ -35,7 +35,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IApplyEquipmentEnchantmentsBehavior.cs" />
     <Compile Include="IApplyItemContainerEnchantmentsBehavior.cs" />
     <Compile Include="IApplySocketEnchantmentsBehavior.cs" />
     <Compile Include="IBuffableBehavior.cs" />
@@ -43,17 +42,19 @@
     <Compile Include="ICanBeSocketedBehavior.cs" />
     <Compile Include="ICanEquipBehavior.cs" />
     <Compile Include="ICanFitSocketBehavior.cs" />
-    <Compile Include="IEnchantableBehavior.cs" />
+    <Compile Include="IBuffableBehaviorExtensionMethods.cs" />
     <Compile Include="IHasEnchantmentsBehavior.cs" />
     <Compile Include="IHasEquipmentBehavior.cs" />
     <Compile Include="IHasMutableStatsBehavior.cs" />
     <Compile Include="IHasStatDefinitionIdBehavior.cs" />
     <Compile Include="IHasStatsBehavior.cs" />
     <Compile Include="IIdentifierBehavior.cs" />
+    <Compile Include="IHasItemContainerBehavior.cs" />
     <Compile Include="IItemContainerBehavior.cs" />
     <Compile Include="ILightRadiusBehavior.cs" />
     <Compile Include="IObservableItemContainerBehavior.cs" />
     <Compile Include="IReadOnlyIdentifierBehavior.cs" />
+    <Compile Include="IReadOnlyHasItemContainerBehavior.cs" />
     <Compile Include="IReadOnlyItemContainerBehavior.cs" />
     <Compile Include="IReadOnlyLightRadiusBehavior.cs" />
     <Compile Include="ItemsChangedEventArgs.cs" />

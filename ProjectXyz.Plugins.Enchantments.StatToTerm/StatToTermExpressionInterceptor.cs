@@ -3,16 +3,17 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Plugins.Enchantments.StatToTerm
 {
     public sealed class StatToTermExpressionInterceptor : IEnchantmentExpressionInterceptor
     {
         private readonly IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionBehavior>> _statDefinitionToComponentMapping;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
+        private readonly IStatDefinitionToTermConverter _statDefinitionIdToTermMapping;
 
         public StatToTermExpressionInterceptor(
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
+            IStatDefinitionToTermConverter statDefinitionIdToTermMapping,
             IReadOnlyDictionary<IIdentifier, IReadOnlyCollection<IEnchantmentExpressionBehavior>> statDefinitionToComponentMapping,
             int priority)
         {

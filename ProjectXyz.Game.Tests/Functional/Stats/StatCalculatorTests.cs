@@ -4,6 +4,7 @@ using System.Linq;
 using Jace;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
 using ProjectXyz.Plugins.Enchantments.Stats.StatExpressions;
@@ -46,8 +47,8 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             var statCalculationNodeCreator = new StatCalculationNodeCreator(
                 statCalculationNodeFactory,
                 expressionStatDefinitionDependencyFinder,
-                TEST_FIXTURE.StatDefinitionIdToTermMapping,
-                TEST_FIXTURE.StatDefinitionIdToCalculationMapping);
+                TEST_FIXTURE.StatDefinitionToTermConverter,
+                TEST_FIXTURE.StatDefinitionToCalculationConverter);
 
             _statCalculator = new StatCalculator(statCalculationNodeCreator);
             _statExpressionInterceptors = new[]
@@ -169,16 +170,16 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 },
                 1);
 
-            public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToTermMapping { get; } = new Dictionary<IIdentifier, string>()
+            public IStatDefinitionToTermConverter StatDefinitionToTermConverter { get; } = ProjectXyz.Plugins.Stats.StatDefinitionToTermConverter.FromMapping(new Dictionary<IIdentifier, string>()
             {
                 { STAT_DEFINITION_IDS.ConstantValue, "STR" },
                 { STAT_DEFINITION_IDS.NonDependentExpression, "PHYS_DMG" },
                 { STAT_DEFINITION_IDS.ExpressionDependentOnConstantValue, "SIMPLE_EXPRESSION" },
                 { STAT_DEFINITION_IDS.Override.ConstantValue, "OVERRIDDEN" },
                 { STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenConstantValue, "EXPR_OVERRIDE" },
-            };
+            });
 
-            public IReadOnlyDictionary<IIdentifier, string> StatDefinitionIdToCalculationMapping { get; } = new Dictionary<IIdentifier, string>()
+            public IStatDefinitionToCalculationConverter StatDefinitionToCalculationConverter { get; } = ProjectXyz.Plugins.Stats.Calculations.StatDefinitionToCalculationConverter.FromMapping(new Dictionary<IIdentifier, string>()
             {
                 { STAT_DEFINITION_IDS.ConstantValue, "123" },
                 { STAT_DEFINITION_IDS.NonDependentExpression, "(1 + 2 + 3 + 4) / 2" },
@@ -189,7 +190,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 { STAT_DEFINITION_IDS.Override.ExpressionDependentOnConstantValue, "STR * 10" },
                 { STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenConstantValue, "OVERRIDDEN * 10" },
                 { STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenExpression, "STR * 10" },
-            };
+            });
 
             public IStatExpressionInterceptor StatBoundsExpressionInterceptor { get; } = new StatBoundsExpressionInterceptor(
                 new Dictionary<IIdentifier, IStatBounds>()

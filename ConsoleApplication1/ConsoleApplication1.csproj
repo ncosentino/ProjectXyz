@@ -104,6 +104,10 @@
       <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
       <Name>ProjectXyz.Api.Enchantments.Stats</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj">
+      <Project>{d983c81b-5e86-4d85-83f9-487032c91765}</Project>
+      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
       <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
       <Name>ProjectXyz.Api.Enchantments.Generation</Name>
@@ -148,6 +152,14 @@
       <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
       <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
+      <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
+      <Name>ProjectXyz.Api.Triggering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Shared.Triggering.csproj">
+      <Project>{0e56d372-31cf-48bd-94a2-67d4622c270a}</Project>
+      <Name>ProjectXyz.Shared.Triggering</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
       <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
       <Name>ProjectXyz.Api.Enchantments</Name>
@@ -172,6 +184,14 @@
       <Project>{a64b788e-6599-45b8-b3e0-24f0078641d7}</Project>
       <Name>ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj">
+      <Project>{d584415f-e635-4842-9d70-f1031ea8250b}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj">
+      <Project>{c2455bfd-e607-4250-91dc-ab95ebd8d0fb}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.StatCalculation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj">
       <Project>{0d155cb4-1e5e-4a72-9a81-37bee19746c9}</Project>
       <Name>ProjectXyz.Plugins.Features.UnhandledExceptionHandling</Name>
@@ -184,9 +204,17 @@
       <Project>{6cde69e6-0824-4f12-8152-24739b8dbd89}</Project>
       <Name>ProjectXyz.Plugins.Features.Weather</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Autofac\ProjectXyz.Plugins.Stats.Autofac.csproj">
+      <Project>{a47e7001-f475-4506-acdf-8c60bb62aecf}</Project>
+      <Name>ProjectXyz.Plugins.Stats.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac\ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac.csproj">
       <Project>{cdd03413-ee57-401d-bb36-177579561e94}</Project>
       <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj">
+      <Project>{29c8e4a8-ff67-4b18-bc0f-73c3f7b7df01}</Project>
+      <Name>ProjectXyz.Plugins.Features.GameObjects.Items</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj">
       <Project>{49801e3a-3c81-4aa1-b2da-8ded706b3155}</Project>

@@ -41,6 +41,7 @@
     <Compile Include="Calculations\EnchantmentCalculator.cs" />
     <Compile Include="Calculations\EnchantmentCalculatorContext.cs" />
     <Compile Include="Calculations\EnchantmentCalculatorContextFactory.cs" />
+    <Compile Include="Calculations\EnchantmentTargetBehavior.cs" />
     <Compile Include="Calculations\EnchantmentExpressionBehavior.cs" />
     <Compile Include="Enchantment.cs" />
     <Compile Include="EnchantmentFactory.cs" />

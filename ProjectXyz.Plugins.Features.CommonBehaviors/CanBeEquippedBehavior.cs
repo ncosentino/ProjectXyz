@@ -10,6 +10,11 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         BaseBehavior,
         ICanBeEquippedBehavior
     {
+        public CanBeEquippedBehavior(params IIdentifier[] allowedEquipSlots)
+            : this((IEnumerable<IIdentifier>)allowedEquipSlots)
+        {
+        }
+
         public CanBeEquippedBehavior(IEnumerable<IIdentifier> allowedEquipSlots)
         {
             AllowedEquipSlots = allowedEquipSlots.ToArray();

@@ -11,34 +11,25 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 {
     public sealed class ActiveEnchantmentManagerTests
     {
-        #region Constants
-        private static readonly TestData TEST_DATA = new TestData();
-        #endregion
+        private static readonly TestData _testData;
+        private static readonly TestFixture _fixture;
 
-        #region Fields
-        private readonly TestFixture _fixture;
-        #endregion
-
-        #region Constructors
-        public ActiveEnchantmentManagerTests()
+        static ActiveEnchantmentManagerTests()
         {
-            _fixture = new TestFixture(TEST_DATA);
+            _testData = new TestData();
+            _fixture = new TestFixture(_testData);
         }
-        #endregion
 
-        #region Methods
         public static IEnumerable<object[]> GetSingleEnchantmentTheoryData()
         {
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(0), true };
-            yield return new object[] { TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(10), true };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(0), true };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(5), true };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(10), false };
-            yield return new object[] { TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(11), false };
+            yield return new object[] { _testData.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(0), true };
+            yield return new object[] { _testData.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(10), true };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(0), true };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(5), true };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(10), false };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(11), false };
         }
-        #endregion
 
-        #region Tests
         [Theory,
          MemberData(nameof(GetSingleEnchantmentTheoryData))]
         private void ElapseTime_SingleEnchantment_ContainsExpectedValue(
@@ -62,6 +53,5 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 activeEnchantmentManager.Enchantments.Contains(enchantment),
                 $"{(contains ? "Expecting" : "Not expecting")} the enchantment to be contained.");
         }
-        #endregion
     }
 }

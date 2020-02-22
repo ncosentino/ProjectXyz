@@ -66,7 +66,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 new StringIdentifier("back"),
             });
 
-            var applyEquipmentEnchantmentsBehavior = new ApplyEquipmentEnchantmentsBehavior();
+            // TODO: where should these come from? not here...
+            var inventory = new ItemContainerBehavior(new StringIdentifier("Inventory"));
+            var hasItemContainers = new HasItemContainersBehavior();
+            hasItemContainers.AddItemContainer(inventory);
+
             var actor = new Actor(
                 identifierBehavior,
                 _behaviorCollectionFactory,
@@ -75,7 +79,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 buffable,
                 hasMutableStats,
                 canEquip,
-                applyEquipmentEnchantmentsBehavior,
+                hasItemContainers,
                 _additionalActorBehaviorsProviders);
             return actor;
         }

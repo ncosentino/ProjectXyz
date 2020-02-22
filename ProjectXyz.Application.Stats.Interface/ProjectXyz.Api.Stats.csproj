@@ -7,8 +7,8 @@
     <ProjectGuid>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Application.Stats.Interface</RootNamespace>
-    <AssemblyName>ProjectXyz.Application.Stats.Interface</AssemblyName>
+    <RootNamespace>ProjectXyz.Api.Stats</RootNamespace>
+    <AssemblyName>ProjectXyz.Api.Stats</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,11 +42,13 @@
     <Compile Include="Calculations\IStatCalculator.cs" />
     <Compile Include="Calculations\IStatDefinitionToCalculationMapping.cs" />
     <Compile Include="Calculations\IStatDefinitionToCalculationMappingRepository.cs" />
+    <Compile Include="Calculations\IStatDefinitionToCalculationConverter.cs" />
     <Compile Include="Calculations\IStatExpressionInterceptor.cs" />
     <Compile Include="Calculations\IStringExpressionEvaluator.cs" />
     <Compile Include="IMutableStatsProvider.cs" />
     <Compile Include="IMutableStatsProviderFactory.cs" />
     <Compile Include="IStat.cs" />
+    <Compile Include="IStatDefinitionToTermConverter.cs" />
     <Compile Include="IStatDefinitionToTermMapping.cs" />
     <Compile Include="IStatDefinitionToTermMappingRepository.cs" />
     <Compile Include="IStatsProvider.cs" />

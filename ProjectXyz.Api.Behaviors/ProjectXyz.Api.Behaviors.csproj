@@ -40,6 +40,7 @@
     <Compile Include="IBehaviorCollectionFactory.cs" />
     <Compile Include="IBehaviorFinder.cs" />
     <Compile Include="IBehaviorManager.cs" />
+    <Compile Include="IHasBehaviorsExtensionMethods.cs" />
     <Compile Include="IHasBehaviors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -16,37 +16,28 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 {
     public sealed class StatUpdaterTests
     {
-        #region Constants
-        private static readonly TestData TEST_DATA = new TestData();
-        #endregion
+        private static readonly TestData _testData;
+        private static readonly TestFixture _fixture;
 
-        #region Fields
-        private readonly TestFixture _fixture;
-        #endregion
-
-        #region Constructors
-        public StatUpdaterTests()
+        static StatUpdaterTests()
         {
-            _fixture = new TestFixture(TEST_DATA);
+            _testData = new TestData();
+            _fixture = new TestFixture(_testData);
         }
-        #endregion
 
-        #region Methods
         public static IEnumerable<object[]> GetTimeElapsedSingleEnchantmentTestData()
         {
-            yield return new object[] { "Base stat addition zero interval", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, TEST_DATA.ZeroInterval, 5 };
-            yield return new object[] { "Base stat addition-over-time zero interval", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.ZeroInterval, 0 };
-            yield return new object[] { "Base stat addition-over-time half interval", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval.Divide(2), 5 };
-            yield return new object[] { "Base stat addition-over-time one interval", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval, 10 };
-            yield return new object[] { "Base stat addition-over-time two intervals", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval.Multiply(2), 20 };
-            yield return new object[] { "Base stat addition expires zero interval", TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, TEST_DATA.ZeroInterval, 5 };
-            yield return new object[] { "Base stat addition expires half interval", TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, TEST_DATA.UnitInterval.Divide(2), 5 };
-            yield return new object[] { "Base stat addition expires one interval", TEST_DATA.Enchantments.BuffsThatExpire.StatABaseStat, TEST_DATA.UnitInterval, 5 };
-            yield return new object[] { "On-demand addition expires one interval", TEST_DATA.Enchantments.BuffsThatExpire.StatAOnDemand, TEST_DATA.UnitInterval, 0 };
+            yield return new object[] { "Base stat addition zero interval", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, _testData.ZeroInterval, 5 };
+            yield return new object[] { "Base stat addition-over-time zero interval", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.ZeroInterval, 0 };
+            yield return new object[] { "Base stat addition-over-time half interval", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.UnitInterval.Divide(2), 5 };
+            yield return new object[] { "Base stat addition-over-time one interval", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.UnitInterval, 10 };
+            yield return new object[] { "Base stat addition-over-time two intervals", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.UnitInterval.Multiply(2), 20 };
+            yield return new object[] { "Base stat addition expires zero interval", _testData.Enchantments.BuffsThatExpire.StatABaseStat, _testData.ZeroInterval, 5 };
+            yield return new object[] { "Base stat addition expires half interval", _testData.Enchantments.BuffsThatExpire.StatABaseStat, _testData.UnitInterval.Divide(2), 5 };
+            yield return new object[] { "Base stat addition expires one interval", _testData.Enchantments.BuffsThatExpire.StatABaseStat, _testData.UnitInterval, 5 };
+            yield return new object[] { "On-demand addition expires one interval", _testData.Enchantments.BuffsThatExpire.StatAOnDemand, _testData.UnitInterval, 0 };
         }
-        #endregion
 
-        #region Tests
         [Theory,
          MemberData(nameof(GetTimeElapsedSingleEnchantmentTestData))]
         private void TimeElapsed_SingleEnchantment(
@@ -90,6 +81,5 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
                 expectedValue,
                 mutableStatsProvider.Stats.GetValueOrDefault(enchantment.StatDefinitionId));
         }
-        #endregion
     }
 }

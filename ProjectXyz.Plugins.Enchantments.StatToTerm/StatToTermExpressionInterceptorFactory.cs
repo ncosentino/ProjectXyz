@@ -5,16 +5,17 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Plugins.Enchantments.StatToTerm
 {
     public sealed class StatToTermExpressionInterceptorFactory : IStatToTermExpressionInterceptorFactory
     {
         private readonly int _priority;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
+        private readonly IStatDefinitionToTermConverter _statDefinitionIdToTermMapping;
 
         public StatToTermExpressionInterceptorFactory(
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
+            IStatDefinitionToTermConverter statDefinitionIdToTermMapping,
             int priority)
         {
             _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;

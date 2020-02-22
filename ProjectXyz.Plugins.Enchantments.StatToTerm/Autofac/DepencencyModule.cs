@@ -13,12 +13,8 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm.Autofac
             builder
                 .Register(c =>
                 {
-                    var statDefinitionIdToTermMapping = c
-                        .Resolve<IEnumerable<IStatDefinitionToTermMappingRepository>>()
-                        .SelectMany(x => x.GetStatDefinitionIdToTermMappings())
-                        .ToDictionary(x => x.StateDefinitionId, x => x.Term);
                     var statToTermExpressionInterceptorFactory = new StatToTermExpressionInterceptorFactory(
-                        statDefinitionIdToTermMapping,
+                        c.Resolve<IStatDefinitionToTermConverter>(),
                         0);
                     return statToTermExpressionInterceptorFactory;
                 })

@@ -12,49 +12,40 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 {
     public sealed class EnchantmentApplierTests
     {
-        #region Constants
-        private static readonly TestData TEST_DATA = new TestData();
-        #endregion
+        private static readonly TestData _testData;
+        private static readonly TestFixture _fixture;
 
-        #region Fields
-        private readonly TestFixture _fixture;
-        #endregion
-
-        #region Constructors
-        public EnchantmentApplierTests()
+        static EnchantmentApplierTests()
         {
-            _fixture = new TestFixture(TEST_DATA);
+            _testData = new TestData();
+            _fixture = new TestFixture(_testData);
         }
-        #endregion
 
-        #region Methods
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsTheoryData()
         {
-            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, 5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.Debuffs.StatAAdditiveBaseStat, -5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatBAdditiveBaseStat, 5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatCAdditiveBaseStat, 10 };
-            yield return new object[] { "", TEST_DATA.Enchantments.Debuffs.StatCAdditiveBaseStat, 5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.PreNullifyStatABaseStat, -1 };
-            yield return new object[] { "", TEST_DATA.Enchantments.PostNullifyStatABaseStat, -1 };
-            yield return new object[] { "", TEST_DATA.Enchantments.RecursiveStatABaseStat, 0 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, 5 };
+            yield return new object[] { "", _testData.Enchantments.Debuffs.StatAAdditiveBaseStat, -5 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatBAdditiveBaseStat, 5 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatCAdditiveBaseStat, 10 };
+            yield return new object[] { "", _testData.Enchantments.Debuffs.StatCAdditiveBaseStat, 5 };
+            yield return new object[] { "", _testData.Enchantments.PreNullifyStatABaseStat, -1 };
+            yield return new object[] { "", _testData.Enchantments.PostNullifyStatABaseStat, -1 };
+            yield return new object[] { "", _testData.Enchantments.RecursiveStatABaseStat, 0 };
         }
 
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
         {
-            var doubleDuration = TEST_DATA.UnitInterval.Multiply(2);
-            var halfDuration = TEST_DATA.UnitInterval.Divide(2);
+            var doubleDuration = _testData.UnitInterval.Multiply(2);
+            var halfDuration = _testData.UnitInterval.Divide(2);
 
-            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, TEST_DATA.UnitInterval, 5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, doubleDuration, 5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.Buffs.StatAAdditiveBaseStat, halfDuration, 5 };
-            yield return new object[] { "", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, TEST_DATA.UnitInterval, 10 };
-            yield return new object[] { "", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, doubleDuration, 20 };
-            yield return new object[] { "", TEST_DATA.Enchantments.BuffsOverTime.StatABaseStat, halfDuration, 5 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, _testData.UnitInterval, 5 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, doubleDuration, 5 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, halfDuration, 5 };
+            yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.UnitInterval, 10 };
+            yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, doubleDuration, 20 };
+            yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, halfDuration, 5 };
         }
-        #endregion
 
-        #region Tests
         [Theory,
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsTheoryData))]
         private void ApplyEnchantments_SingleEnchantmentNoBaseStats_SingleStatExpectedValue(
@@ -96,6 +87,5 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             Assert.Equal(1, result.Count);
             Assert.Equal(expectedValue, result[enchantment.StatDefinitionId]);
         }
-        #endregion
     }
 }

@@ -31,14 +31,14 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
 
             public IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings()
             {
-                yield return new StatDefinitionToTermMapping() { StateDefinitionId = _statInfo.DefinitionIds.StatA, Term = "STAT_A" };
-                yield return new StatDefinitionToTermMapping() { StateDefinitionId = _statInfo.DefinitionIds.StatB, Term = "STAT_B" };
-                yield return new StatDefinitionToTermMapping() { StateDefinitionId = _statInfo.DefinitionIds.StatC, Term = "STAT_C" };
+                yield return new StatDefinitionToTermMapping() { StatDefinitionId = _statInfo.DefinitionIds.StatA, Term = "STAT_A" };
+                yield return new StatDefinitionToTermMapping() { StatDefinitionId = _statInfo.DefinitionIds.StatB, Term = "STAT_B" };
+                yield return new StatDefinitionToTermMapping() { StatDefinitionId = _statInfo.DefinitionIds.StatC, Term = "STAT_C" };
             }
 
             private sealed class StatDefinitionToTermMapping : IStatDefinitionToTermMapping
             {
-                public IIdentifier StateDefinitionId { get; set; }
+                public IIdentifier StatDefinitionId { get; set; }
 
                 public string Term { get; set; }
             }

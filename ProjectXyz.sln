@@ -287,6 +287,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Enchantm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stats", "Stats", "{7C9575BE-5CAD-4CF5-BEF1-5084279ABF08}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StatCalculation", "StatCalculation", "{F98147E6-5044-4ED6-A3F4-DF1653A58F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.StatCalculation", "ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj", "{C2455BFD-E607-4250-91DC-AB95EBD8D0FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api", "ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj", "{A394818A-D853-418E-9BC1-77D42124B32C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Handlers", "Handlers", "{41BB2693-46E5-4AF3-9FD2-2C6BF9A6B379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default", "ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj", "{D584415F-E635-4842-9D70-F1031EA8250B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -661,6 +671,18 @@ Global
 		{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2455BFD-E607-4250-91DC-AB95EBD8D0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2455BFD-E607-4250-91DC-AB95EBD8D0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2455BFD-E607-4250-91DC-AB95EBD8D0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2455BFD-E607-4250-91DC-AB95EBD8D0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A394818A-D853-418E-9BC1-77D42124B32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A394818A-D853-418E-9BC1-77D42124B32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A394818A-D853-418E-9BC1-77D42124B32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A394818A-D853-418E-9BC1-77D42124B32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D584415F-E635-4842-9D70-F1031EA8250B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D584415F-E635-4842-9D70-F1031EA8250B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D584415F-E635-4842-9D70-F1031EA8250B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D584415F-E635-4842-9D70-F1031EA8250B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -799,6 +821,11 @@ Global
 		{4E398FAD-938E-44BC-B900-41E7117FF9E9} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}
 		{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653} = {7C9575BE-5CAD-4CF5-BEF1-5084279ABF08}
 		{7C9575BE-5CAD-4CF5-BEF1-5084279ABF08} = {2972B7D9-8D15-4A9A-BF86-29C97F9B7B81}
+		{F98147E6-5044-4ED6-A3F4-DF1653A58F15} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
+		{C2455BFD-E607-4250-91DC-AB95EBD8D0FB} = {F98147E6-5044-4ED6-A3F4-DF1653A58F15}
+		{A394818A-D853-418E-9BC1-77D42124B32C} = {F98147E6-5044-4ED6-A3F4-DF1653A58F15}
+		{41BB2693-46E5-4AF3-9FD2-2C6BF9A6B379} = {F98147E6-5044-4ED6-A3F4-DF1653A58F15}
+		{D584415F-E635-4842-9D70-F1031EA8250B} = {41BB2693-46E5-4AF3-9FD2-2C6BF9A6B379}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}

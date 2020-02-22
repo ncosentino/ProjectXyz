@@ -13,31 +13,22 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 {
     public sealed class StatManagerTests
     {
-        #region Constants
-        private static readonly TestData TEST_DATA = new TestData();
-        #endregion
+        private static readonly TestData _testData;
+        private static readonly TestFixture _fixture;
 
-        #region Fields
-        private readonly TestFixture _fixture;
-        #endregion
-
-        #region Constructors
-        public StatManagerTests()
+        static StatManagerTests()
         {
-            _fixture = new TestFixture(TEST_DATA);
+            _testData = new TestData();
+            _fixture = new TestFixture(_testData);
         }
-        #endregion
 
-        #region Methods
         public static IEnumerable<object[]> GetNoStateTestData()
         {
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, -100 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, 0 };
-            yield return new object[] { TEST_DATA.Stats.DefinitionIds.StatA, 100 };
+            yield return new object[] { _testData.Stats.DefinitionIds.StatA, -100 };
+            yield return new object[] { _testData.Stats.DefinitionIds.StatA, 0 };
+            yield return new object[] { _testData.Stats.DefinitionIds.StatA, 100 };
         }
-        #endregion
 
-        #region Tests
         [Theory,
          MemberData(nameof(GetNoStateTestData))]
         private void GetValue_NoState_ReturnsBaseValue(
@@ -62,6 +53,5 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             // Assert
             Assert.Equal(baseValue, result);
         }
-        #endregion
     }
 }

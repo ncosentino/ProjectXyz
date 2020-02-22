@@ -67,7 +67,7 @@
       <Name>ProjectXyz.Api.Enchantments</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
-      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
+      <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
       <Name>ProjectXyz.Api.Stats</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">

@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Shared.Framework;
 
@@ -12,19 +13,19 @@ namespace ProjectXyz.Plugins.Stats.Calculations
     {
         private readonly IStatCalculationNodeFactory _statCalculationNodeFactory;
         private readonly IExpressionStatDefinitionDependencyFinder _expressionStatDefinitionDependencyFinder;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToTermMapping;
-        private readonly IReadOnlyDictionary<IIdentifier, string> _statDefinitionIdToCalculationMapping;
+        private readonly IStatDefinitionToTermConverter _statDefinitionToTermConverter;
+        private readonly IStatDefinitionToCalculationConverter _statDefinitionToCalculationConverter;
 
         public StatCalculationNodeCreator(
             IStatCalculationNodeFactory statCalculationNodeFactory,
             IExpressionStatDefinitionDependencyFinder expressionStatDefinitionDependencyFinder,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToCalculationMapping)
+            IStatDefinitionToTermConverter statDefinitionToTermConverter,
+            IStatDefinitionToCalculationConverter statDefinitionToCalculationConverter)
         {
             _statCalculationNodeFactory = statCalculationNodeFactory;
             _expressionStatDefinitionDependencyFinder = expressionStatDefinitionDependencyFinder;
-            _statDefinitionIdToTermMapping = statDefinitionIdToTermMapping;
-            _statDefinitionIdToCalculationMapping = statDefinitionIdToCalculationMapping;
+            _statDefinitionToTermConverter = statDefinitionToTermConverter;
+            _statDefinitionToCalculationConverter = statDefinitionToCalculationConverter;
         }
 
         public IStatCalculationNode Create(
@@ -42,8 +43,8 @@ namespace ProjectXyz.Plugins.Stats.Calculations
 
                 var expression = baseStats.ContainsKey(currentStatDefinitionId)
                     ? baseStats[currentStatDefinitionId].ToString(CultureInfo.InvariantCulture)
-                    : _statDefinitionIdToCalculationMapping.ContainsKey(currentStatDefinitionId)
-                        ? _statDefinitionIdToCalculationMapping[currentStatDefinitionId]
+                    : _statDefinitionToCalculationConverter.ContainsKey(currentStatDefinitionId)
+                        ? _statDefinitionToCalculationConverter[currentStatDefinitionId]
                         : "0";
 
                 expression = statExpressionInterceptors
@@ -54,7 +55,7 @@ namespace ProjectXyz.Plugins.Stats.Calculations
                             c));
 
                 var dependentStatDefinitionIds = _expressionStatDefinitionDependencyFinder.FindDependencies(
-                    _statDefinitionIdToTermMapping,
+                    _statDefinitionToTermConverter,
                     expression);
 
                 var canMakeNode =
@@ -74,7 +75,7 @@ namespace ProjectXyz.Plugins.Stats.Calculations
 
                 var termToCalculationNodeMapping = dependentStatDefinitionIds
                     .Select(x => KeyValuePair.Create(
-                        _statDefinitionIdToTermMapping[x],
+                        _statDefinitionToTermConverter[x],
                         cache[x]))
                     .ToDictionary();
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 
 namespace ProjectXyz.Plugins.Stats.Calculations
@@ -8,10 +9,10 @@ namespace ProjectXyz.Plugins.Stats.Calculations
     public sealed class ExpressionStatDefinitionDependencyFinder : IExpressionStatDefinitionDependencyFinder
     {
         public IReadOnlyCollection<IIdentifier> FindDependencies(
-            IReadOnlyDictionary<IIdentifier, string> statDefinitionIdToTermMapping,
+            IStatDefinitionToTermConverter statDefinitionToTermConverter,
             string expression)
         {
-            var dependencies = statDefinitionIdToTermMapping
+            var dependencies = statDefinitionToTermConverter
                 .Where(x => expression.Contains(x.Value))
                 .Select(x => x.Key)
                 .ToArray();

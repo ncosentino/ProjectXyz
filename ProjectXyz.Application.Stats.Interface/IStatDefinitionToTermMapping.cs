@@ -4,7 +4,7 @@ namespace ProjectXyz.Api.Stats
 {
     public interface IStatDefinitionToTermMapping
     {
-        IIdentifier StateDefinitionId { get; }
+        IIdentifier StatDefinitionId { get; }
 
         string Term { get; }
     }

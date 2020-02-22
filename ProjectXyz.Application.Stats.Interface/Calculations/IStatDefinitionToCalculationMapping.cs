@@ -4,7 +4,7 @@ namespace ProjectXyz.Api.Stats.Calculations
 {
     public interface IStatDefinitionToCalculationMapping
     {
-        IIdentifier StateDefinitionId { get; }
+        IIdentifier StatDefinitionId { get; }
 
         string Calculation { get; }
     }

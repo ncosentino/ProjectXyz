@@ -36,15 +36,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplyItemContainerEnchantmentsBehavior.cs" />
-    <Compile Include="ApplyEquipmentEnchantmentsBehavior.cs" />
     <Compile Include="ApplySocketEnchantmentsBehavior.cs" />
     <Compile Include="BuffableBehavior.cs" />
     <Compile Include="CanBeEquippedBehavior.cs" />
     <Compile Include="CanBeSocketedBehavior.cs" />
     <Compile Include="CanEquipBehavior.cs" />
     <Compile Include="CanFitSocketBehavior.cs" />
-    <Compile Include="EnchantableBehavior.cs" />
     <Compile Include="HasEnchantmentsBehavior.cs" />
+    <Compile Include="HasItemContainersBehavior.cs" />
     <Compile Include="HasMutableStatsBehavior.cs" />
     <Compile Include="HasStatsBehavior.cs" />
     <Compile Include="HasStatDefinitionIdBehavior.cs" />

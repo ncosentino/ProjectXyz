@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             IBuffableBehavior buffableBehavior,
             IHasMutableStatsBehavior hasStatsBehavior,
             ICanEquipBehavior canEquipBehavior,
-            IApplyEquipmentEnchantmentsBehavior applyEquipmentEnchantmentsBehavior,
+            IHasItemContainersBehavior hasItemContainersBehavior,
             IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders)
         {
             var additionalBehaviors = additionalActorBehaviorsProviders.SelectMany(x => x.GetBehaviors(this));
@@ -28,7 +28,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                     buffableBehavior,
                     hasStatsBehavior,
                     canEquipBehavior,
-                    applyEquipmentEnchantmentsBehavior
+                    hasItemContainersBehavior
                 }
                 .Concat(additionalBehaviors));
             behaviorManager.Register(this, Behaviors);
