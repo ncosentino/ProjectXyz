@@ -1,77 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.GameObjects.Generation</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.GameObjects.Generation</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Api.GameObjects.Generation</AssemblyTitle>
+    <Product>ProjectXyz.Api.GameObjects.Generation</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <AssemblyTitle>ProjectXyz.Api.GameObjects.Generation</AssemblyTitle>
+    <Product>ProjectXyz.Api.GameObjects.Generation</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Attributes\AttributeValueMatchDelegate.cs" />
-    <Compile Include="Attributes\GenericAttributeValueMatchDelegate.cs" />
-    <Compile Include="Attributes\IAttributeFilterer.cs" />
-    <Compile Include="Attributes\IAttributeValueMatcher.cs" />
-    <Compile Include="Attributes\IAttributeValueMatchFacade.cs" />
-    <Compile Include="Attributes\IAttributeValueMatchRegistrar.cs" />
-    <Compile Include="Attributes\IHasGeneratorAttributes.cs" />
-    <Compile Include="Attributes\IGeneratorAttribute.cs" />
-    <Compile Include="Attributes\IGeneratorAttributeValue.cs" />
-    <Compile Include="Attributes\IGeneratorContextAttributeProviders.cs" />
-    <Compile Include="ConvertGeneratorComponentToBehaviorDelegate.cs" />
-    <Compile Include="IDiscoverableGeneratorComponentToBehaviorConverter.cs" />
-    <Compile Include="IGenerationComponent.cs" />
-    <Compile Include="IGeneratorComponentToBehaviorConverter.cs" />
-    <Compile Include="IGeneratorComponentToBehaviorConverterFacade.cs" />
-    <Compile Include="IGeneratorComponentToBehaviorConverterRegistrar.cs" />
-    <Compile Include="IGeneratorContext.cs" />
-    <Compile Include="IGeneratorContextFactory.cs" />
-    <Compile Include="IGeneratorContextProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

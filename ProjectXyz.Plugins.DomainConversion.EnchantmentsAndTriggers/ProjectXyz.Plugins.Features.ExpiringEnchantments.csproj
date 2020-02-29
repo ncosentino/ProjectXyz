@@ -1,84 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B558EC5B-B983-4701-845F-00F7109A2CF9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Features.ExpiringEnchantments</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Features.ExpiringEnchantments</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.ExpiringEnchantments</AssemblyTitle>
+    <Company>Nexus Labs</Company>
+    <Product>ProjectXyz.Plugins.Features.ExpiringEnchantments</Product>
+    <Copyright>Copyright © Nexus Labs 2017</Copyright>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.ExpiringEnchantments</AssemblyTitle>
+    <Company>Nexus Labs</Company>
+    <Product>ProjectXyz.Plugins.Features.ExpiringEnchantments</Product>
+    <Copyright>Copyright © Nexus Labs 2017</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EnchantmentExpiryTriggerMechanicRegistrar.cs" />
-    <Compile Include="ExpiryTriggerBehavior.cs" />
-    <Compile Include="ExpiryTriggerMechanicFactory.cs" />
-    <Compile Include="IExpiryBehavior.cs" />
-    <Compile Include="IExpiryTriggerBehavior.cs" />
-    <Compile Include="IExpiryTriggerMechanicFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj">
-      <Project>{D983C81B-5E86-4D85-83F9-487032C91765}</Project>
-      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
-      <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
-      <Name>ProjectXyz.Api.GameObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj">
-      <Project>{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}</Project>
-      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
-      <Project>{9DEE41C0-A702-420A-9E5F-7D3D01886660}</Project>
-      <Name>ProjectXyz.Api.Triggering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
-      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
-      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -1,95 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C18D2AD8-69F0-4167-B407-EAD386708730}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Features.ElapsedTime</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Features.ElapsedTime</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.ElapsedTime</AssemblyTitle>
+    <Company>Nexus Labs</Company>
+    <Product>ProjectXyz.Plugins.Features.ElapsedTime</Product>
+    <Copyright>Copyright © Nexus Labs 2018</Copyright>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.ElapsedTime</AssemblyTitle>
+    <Company>Nexus Labs</Company>
+    <Product>ProjectXyz.Plugins.Features.ElapsedTime</Product>
+    <Copyright>Copyright © Nexus Labs 2018</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Duration\DurationTriggerBehavior.cs" />
-    <Compile Include="Duration\DurationTriggerMechanic.cs" />
-    <Compile Include="Duration\DurationTriggerMechanicFactory.cs" />
-    <Compile Include="ElapsedTime.cs" />
-    <Compile Include="ElapsedTimeComponentCreator.cs" />
-    <Compile Include="ElapsedTimeTriggerBehavior.cs" />
-    <Compile Include="ElapsedTimeTriggerMechanic.cs" />
-    <Compile Include="ElapsedTimeTriggerMechanicSystem.cs" />
-    <Compile Include="ElapsedTimeTriggerSourceMechanicRegistrar.cs" />
-    <Compile Include="IElapsedTimeTriggerSourceMechanicRegistrar.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
-      <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
-      <Name>ProjectXyz.Api.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj">
-      <Project>{C4B48455-7596-49E1-9443-B2E4ACCD1E80}</Project>
-      <Name>ProjectXyz.Api.Systems</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj">
-      <Project>{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}</Project>
-      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
-      <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
-      <Name>ProjectXyz.Api.Triggering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
-      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
-      <Name>ProjectXyz.Shared.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
-      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
-      <Name>ProjectXyz.Shared.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
-      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
-      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

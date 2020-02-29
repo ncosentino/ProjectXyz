@@ -1,60 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Api.Framework</RootNamespace>
-    <AssemblyName>ProjectXyz.Api.Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Api.Framework</AssemblyTitle>
+    <Product>ProjectXyz.Api.Framework</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <AssemblyTitle>ProjectXyz.Api.Framework</AssemblyTitle>
+    <Product>ProjectXyz.Api.Framework</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Collections\DictionaryExtensions.cs" />
-    <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="Collections\ICache.cs" />
-    <Compile Include="Collections\IReadOnlyCache.cs" />
-    <Compile Include="Events\EventHandlerExtensionMethods.cs" />
-    <Compile Include="Events\EventArgs.cs" />
-    <Compile Include="IConvert.cs" />
-    <Compile Include="IIdentifier.cs" />
-    <Compile Include="IInterval.cs" />
-    <Compile Include="IRandomNumberGenerator.cs" />
-    <Compile Include="IRandomNumberGeneratorExtensions.cs" />
-    <Compile Include="ITry.cs" />
-    <Compile Include="Math\IStringExpressionEvaluator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

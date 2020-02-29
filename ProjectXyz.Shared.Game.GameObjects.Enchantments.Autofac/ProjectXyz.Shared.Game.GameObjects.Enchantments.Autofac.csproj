@@ -1,109 +1,40 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FC1D1ED4-7264-4614-8400-F55AF6E1CAA1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</RootNamespace>
-    <AssemblyName>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</AssemblyTitle>
+    <Company>Nexus Labs</Company>
+    <Product>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</Product>
+    <Copyright>Copyright © Nexus Labs 2018</Copyright>
+    <AssemblyTitle>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</AssemblyTitle>
+    <Company>Nexus Labs</Company>
+    <Product>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</Product>
+    <Copyright>Copyright © Nexus Labs 2018</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProvidedImplementationsModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
-      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
-      <Project>{a578219f-0115-4536-ae85-9b6496e1d21d}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Generation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
-      <Project>{427baf56-5faf-4b1c-9851-7474660f58ea}</Project>
-      <Name>ProjectXyz.Api.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
-      <Project>{bc5887bd-4022-497a-a792-f3cedffea874}</Project>
-      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
-      <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
-      <Name>ProjectXyz.Api.States</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{d9fc9425-991e-4d82-ad07-1f7e501cc27c}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
-      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
-      <Name>ProjectXyz.Api.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
-      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
-      <Name>ProjectXyz.Framework.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
-      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
-      <Name>ProjectXyz.Shared.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory.csproj">
-      <Project>{2D540693-B997-48E2-A5F9-D36973033075}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation\ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.csproj">
-      <Project>{C87767ED-6D08-4710-9E45-BA47A9184BF1}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
-      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

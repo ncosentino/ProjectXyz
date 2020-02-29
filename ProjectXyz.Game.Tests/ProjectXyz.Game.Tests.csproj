@@ -1,400 +1,113 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
-  <Import Project="..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Game.Tests</RootNamespace>
-    <AssemblyName>ProjectXyz.Game.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Game.Tests</AssemblyTitle>
+    <Product>ProjectXyz.Game.Tests</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <AssemblyTitle>ProjectXyz.Game.Tests</AssemblyTitle>
+    <Product>ProjectXyz.Game.Tests</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Jace, Version=0.8.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jace.0.8.7\lib\net40\Jace.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="Jace" Version="0.8.7" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="xunit.assert" Version="2.4.1" />
+    <PackageReference Include="xunit.core" Version="2.4.1" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Moq, Version=4.13.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.13.1\lib\net45\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.assert.2.4.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.core.2.4.1\lib\net452\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functional\StatCalculationServiceTests.cs" />
-    <Compile Include="Functional\TestingData\TestDataModule.cs" />
-    <Compile Include="Functional\TestingData\Enchantments\EnchantmentFactory.cs" />
-    <Compile Include="Functional\TestingData\Enchantments\EnchantmentsModule.cs" />
-    <Compile Include="Functional\TestingData\Stats\StatBounds.cs" />
-    <Compile Include="Functional\TestingData\TestData.cs" />
-    <Compile Include="Functional\Stats\StatUpdaterTests.cs" />
-    <Compile Include="Functional\Stats\StatManagerTests.cs" />
-    <Compile Include="Functional\Enchantments\ActiveEnchantmentManagerTests.cs" />
-    <Compile Include="Functional\Enchantments\EnchantmentApplierTests.cs" />
-    <Compile Include="Functional\Enchantments\EnchantmentCalculatorTests.cs" />
-    <Compile Include="Functional\TestingData\TestFixture.cs" />
-    <Compile Include="Functional\Stats\StatCalculatorTests.cs" />
-    <Compile Include="Functional\TestingData\States\StateInfo.cs" />
-    <Compile Include="Functional\TestingData\States\StatesModule.cs" />
-    <Compile Include="Functional\TestingData\Stats\StatInfo.cs" />
-    <Compile Include="Functional\TestingData\Stats\StatsModule.cs" />
-    <Compile Include="Functional\TestingData\Enchantments\ValueMapperRepository.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unit\Behaviors\BehaviorManagertests.cs" />
+    <ProjectReference Include="..\Examples.Modules.States.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" />
+    <ProjectReference Include="..\PojectXyz.Plugins.Features.TimeOfDay.Autofac\ProjectXyz.Plugins.Features.TimeOfDay.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Features.BoundedStats.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Autofac\ProjectXyz.Framework.ViewWelding.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Enchantments.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Autofac\ProjectXyz.Plugins.Features.Weather.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Autofac\ProjectXyz.Plugins.Stats.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac\ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Framework.Autofac\ProjectXyz.Shared.Framework.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Testing\ProjectXyz.Framework.Testing.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Game.Core.Dependencies.Autofac\ProjectXyz.Game.Core.Dependencies.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Enchantments.Stats.StatExpressions.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.State\ProjectXyz.Plugins.Features.StateEnchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.States.Autofac\ProjectXyz.Shared.States.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Triggering.Autofac\ProjectXyz.Shared.Triggering.Autofac.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Examples.Modules.States.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj">
-      <Project>{1f1feb20-3e06-442e-9b5b-b9b96baafc54}</Project>
-      <Name>ProjectXyz.Plugins.Features.TimeOfDay</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PojectXyz.Plugins.Features.TimeOfDay.Autofac\ProjectXyz.Plugins.Features.TimeOfDay.Autofac.csproj">
-      <Project>{8530346a-66a4-4be7-a8f8-815c4ca5eb15}</Project>
-      <Name>ProjectXyz.Plugins.Features.TimeOfDay.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
-      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.Api.csproj">
-      <Project>{d983c81b-5e86-4d85-83f9-487032c91765}</Project>
-      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj">
-      <Project>{427BAF56-5FAF-4B1C-9851-7474660F58EA}</Project>
-      <Name>ProjectXyz.Api.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
-      <Project>{c1c9d171-58f9-41e9-b816-c0f287d6f2ca}</Project>
-      <Name>ProjectXyz.Api.GameObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj">
-      <Project>{4ac90e8c-b0ba-4907-ac9d-03e878c0e8e4}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj">
-      <Project>{3456B356-20D3-43CE-92D1-1A84383AFAF2}</Project>
-      <Name>ProjectXyz.Api.States</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Features.BoundedStats.Api.csproj">
-      <Project>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</Project>
-      <Name>ProjectXyz.Plugins.Features.BoundedStats.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj">
-      <Project>{b76d36d7-02de-43fa-b5af-52a2a8a5dc6b}</Project>
-      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj">
-      <Project>{9dee41c0-a702-420a-9e5f-7d3d01886660}</Project>
-      <Name>ProjectXyz.Api.Triggering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
-      <Project>{a20309e3-493a-4b05-a4de-b9536487a9d1}</Project>
-      <Name>ProjectXyz.Api.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
-      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
-      <Name>ProjectXyz.Framework.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Autofac\ProjectXyz.Framework.ViewWelding.Autofac.csproj">
-      <Project>{457ac8cb-c325-41e2-b6c3-625c680b2ac1}</Project>
-      <Name>ProjectXyz.Framework.ViewWelding.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Enchantments.Stats.csproj">
-      <Project>{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
-      <Project>{8b3c197a-e87b-424a-a21e-15b84a5e5054}</Project>
-      <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj">
-      <Project>{f8f47e92-7e70-433f-8333-7c2b12b21f35}</Project>
-      <Name>ProjectXyz.Plugins.Features.ElapsedTime.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj">
-      <Project>{45dbffa4-242f-40bc-a1eb-7ccd690c84c9}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj">
-      <Project>{5e9c8b2b-94ed-4e9e-bb79-9ac38d2485cd}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Actors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac.csproj">
-      <Project>{a64b788e-6599-45b8-b3e0-24f0078641d7}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.csproj">
-      <Project>{e10094fc-d3c1-4d59-a480-e568ed061f0a}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj">
-      <Project>{A394818A-D853-418E-9BC1-77D42124B32C}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj">
-      <Project>{D584415F-E635-4842-9D70-F1031EA8250B}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj">
-      <Project>{C2455BFD-E607-4250-91DC-AB95EBD8D0FB}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.StatCalculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Autofac\ProjectXyz.Plugins.Features.Weather.Autofac.csproj">
-      <Project>{0fe3c1d9-266a-44d6-8f8d-cdd7ef5a6c8d}</Project>
-      <Name>ProjectXyz.Plugins.Features.Weather.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj">
-      <Project>{6cde69e6-0824-4f12-8152-24739b8dbd89}</Project>
-      <Name>ProjectXyz.Plugins.Features.Weather</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Autofac\ProjectXyz.Plugins.Stats.Autofac.csproj">
-      <Project>{a47e7001-f475-4506-acdf-8c60bb62aecf}</Project>
-      <Name>ProjectXyz.Plugins.Stats.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj">
-      <Project>{C18D2AD8-69F0-4167-B407-EAD386708730}</Project>
-      <Name>ProjectXyz.Plugins.Features.ElapsedTime</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Triggers.Enchantments.Expiration.Autofac\ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac.csproj">
-      <Project>{cdd03413-ee57-401d-bb36-177579561e94}</Project>
-      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj">
-      <Project>{29c8e4a8-ff67-4b18-bc0f-73c3f7b7df01}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Items</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors.Autofac\ProjectXyz.Shared.Behaviors.Autofac.csproj">
-      <Project>{49801e3a-3c81-4aa1-b2da-8ded706b3155}</Project>
-      <Name>ProjectXyz.Shared.Behaviors.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj">
-      <Project>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</Project>
-      <Name>ProjectXyz.Shared.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Framework.Autofac\ProjectXyz.Shared.Framework.Autofac.csproj">
-      <Project>{b2c366a4-d245-44e7-affc-641a7da029e1}</Project>
-      <Name>ProjectXyz.Shared.Framework.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac\ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac.csproj">
-      <Project>{fc1d1ed4-7264-4614-8400-f55af6e1caa1}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
-      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj">
-      <Project>{B051F375-1F9F-4A03-BDC2-EB4FA3807B2E}</Project>
-      <Name>ProjectXyz.Plugins.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj">
-      <Project>{abc9ad2e-c560-4b6f-ae17-3b0537cd9275}</Project>
-      <Name>ProjectXyz.Plugins.Framework.Math.Jace</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj">
-      <Project>{3FF8799D-1850-46DC-BD5E-632485E89058}</Project>
-      <Name>ProjectXyz.Shared.Framework.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
-      <Project>{8878cd88-b979-4af3-9510-2fa949060088}</Project>
-      <Name>ProjectXyz.Shared.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Testing\ProjectXyz.Framework.Testing.csproj">
-      <Project>{9910fe87-56f3-453d-899d-46415d56fb9c}</Project>
-      <Name>ProjectXyz.Framework.Testing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj">
-      <Project>{5bbdff60-4159-4321-84f0-a2e668657cfc}</Project>
-      <Name>ProjectXyz.Game.Core.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Core.Dependencies.Autofac\ProjectXyz.Game.Core.Dependencies.Autofac.csproj">
-      <Project>{8730b98b-6dbf-4209-8c36-75377e89f62f}</Project>
-      <Name>ProjectXyz.Game.Core.Dependencies.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj">
-      <Project>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</Project>
-      <Name>ProjectXyz.Game.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj">
-      <Project>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</Project>
-      <Name>ProjectXyz.Game.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Enchantments.Stats.StatExpressions.csproj">
-      <Project>{bf07fb51-d73c-49b7-8632-b2a58f9bf17f}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Stats.StatExpressions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj">
-      <Project>{B558EC5B-B983-4701-845F-00F7109A2CF9}</Project>
-      <Name>ProjectXyz.Plugins.Features.ExpiringEnchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj">
-      <Project>{d3de6090-306a-4c84-8ccb-86bbd50d7885}</Project>
-      <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj">
-      <Project>{c8d2af3c-c4c1-4d21-9e2c-1e56ba103b9a}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.Multiple</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.State\ProjectXyz.Plugins.Features.StateEnchantments.csproj">
-      <Project>{18E59339-25CA-46BF-B6FA-8D992A303050}</Project>
-      <Name>ProjectXyz.Plugins.Features.StateEnchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj">
-      <Project>{566fada1-bcbc-41e4-9327-64214a1a6d30}</Project>
-      <Name>ProjectXyz.Plugins.Enchantments.StatToTerm</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj">
-      <Project>{8feb2dc5-bc36-47aa-a319-3c2263740808}</Project>
-      <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj">
-      <Project>{B544856A-AB36-4A88-9441-67853074F33A}</Project>
-      <Name>ProjectXyz.Plugins.Features.BaseStatEnchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj">
-      <Project>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</Project>
-      <Name>ProjectXyz.Plugins.Features.CommonBehaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj">
-      <Project>{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}</Project>
-      <Name>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj">
-      <Project>{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}</Project>
-      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj">
-      <Project>{F85CF10E-7CEC-42BD-8DBA-A76275F5060F}</Project>
-      <Name>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj">
-      <Project>{9ABFCBE9-D6F9-4C9E-B447-6A8F49A5A939}</Project>
-      <Name>ProjectXyz.Shared.States</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj">
-      <Project>{523bb036-1ddf-419e-851e-8685e4ec744f}</Project>
-      <Name>ProjectXyz.Plugins.Features.BoundedStats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
-      <Project>{229057a2-508f-4cde-8f87-da3fab069d06}</Project>
-      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac\ProjectXyz.Shared.Game.GameObjects.Generation.Autofac.csproj">
-      <Project>{7fc318ca-ff3a-4e07-ad82-01fbe4b357be}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Generation.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Items.Autofac\ProjectXyz.Plugins.Features.GameObjects.Items.Autofac.csproj">
-      <Project>{76e07dca-60bd-44a1-9599-cadde6a0b850}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj">
-      <Project>{68fb16f5-2c5c-4172-8277-70a4781df6db}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj">
-      <Project>{ff377f10-928c-4281-8adb-e40d9a664967}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.Items.Generation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.States.Autofac\ProjectXyz.Shared.States.Autofac.csproj">
-      <Project>{baf626a6-9b22-4815-b54e-3ebc992bbac9}</Project>
-      <Name>ProjectXyz.Shared.States.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Triggering.Autofac\ProjectXyz.Shared.Triggering.Autofac.csproj">
-      <Project>{6aea32ed-169f-4d10-bf9a-7f2d1a2f416f}</Project>
-      <Name>ProjectXyz.Shared.Triggering.Autofac</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
-  </Target>
-  <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
