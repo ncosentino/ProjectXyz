@@ -1,6 +1,25 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using Autofac;
+using ConsoleApplication1.Wip.Items.Generation.Plugins;
+using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Game.Core.Autofac;
+using ProjectXyz.Game.Interface.Engine;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
+using ProjectXyz.Plugins.Features.ExpiringEnchantments;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments;
+using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ConsoleApplication1
 {
@@ -20,67 +39,73 @@ namespace ConsoleApplication1
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
 
-            ////var itemGenerationContextFactory = dependencyContainer.Resolve<IItemGenerationContextFactory>();
-            ////var itemGenerationContext = itemGenerationContextFactory.Merge(
-            ////    itemGenerationContextFactory.Create(),
-            ////    new []
-            ////    {
-            ////        new ItemCountContextComponent(1, 1), 
-            ////    });
-            ////var generatedItems = dependencyContainer
-            ////    .Resolve<IItemGenerator>()
-            ////    .GenerateItems(itemGenerationContext)
-            ////    .ToArray();
+            var itemGenerator = dependencyContainer.Resolve<IItemGeneratorFacade>();
+            itemGenerator.Register(new RandomRollItemGeneratorPlugin(
+                new StringIdentifier("roll"),
+                100));
+            var itemGenerationContextFactory = dependencyContainer.Resolve<IGeneratorContextFactory>();
+            var itemGenerationContext = itemGenerationContextFactory.CreateGeneratorContext(
+                1,
+                1,
+                new GeneratorAttribute(
+                    new StringIdentifier("roll"),
+                    new DoubleGeneratorAttributeValue(50),
+                    true));
+            var generatedItems = itemGenerator
+                .GenerateItems(itemGenerationContext)
+                .ToArray();
 
-            ////var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();
+            var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();
 
-            ////var actorFactory = dependencyContainer.Resolve<IActorFactory>();
-            ////var actor = actorFactory.Create();
+            var actorFactory = dependencyContainer.Resolve<IActorFactory>();
+            var actor = actorFactory.Create();
 
-            ////var buffable = actor
-            ////    .Behaviors
-            ////    .GetFirst<IBuffableBehavior>();
-            ////buffable.AddEnchantments(new IEnchantment[]
-            ////{
-            ////    new Enchantment(
-            ////        new StringIdentifier("stat1"),
-            ////        new IComponent[]
-            ////        {
-            ////            new EnchantmentExpressionComponent(new CalculationPriority<int>(1), "stat1 + 1"),
-            ////            new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
-            ////            dependencyContainer.Resolve<IAppliesToBaseStat>(),
-            ////        }),
-            ////});
+            var buffable = actor
+                .Behaviors
+                .GetOnly<IBuffableBehavior>();
+            buffable.AddEnchantments(new IEnchantment[]
+            {
+                new Enchantment(
+                    dependencyContainer.Resolve<IBehaviorCollectionFactory>(),
+                    new StringIdentifier("stat1"),
+                    new IBehavior[]
+                    {
+                        new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat1 + 1"),
+                        new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
+                        dependencyContainer.Resolve<IAppliesToBaseStat>(),
+                    }),
+            });
 
-            ////var item = generatedItems.First();
+            var item = generatedItems.First();
 
-            ////var buffableItem = item
-            ////    .Behaviors
-            ////    .GetFirst<IBuffableBehavior>();
-            ////buffableItem.AddEnchantments(new IEnchantment[]
-            ////{
-            ////    new Enchantment(
-            ////        new StringIdentifier("stat2"),
-            ////        new IComponent[]
-            ////        {
-            ////            new EnchantmentExpressionComponent(new CalculationPriority<int>(1), "stat2 + 1"),
-            ////            new ExpiryTriggerComponent(new DurationTriggerComponent(new Interval<double>(5000))),
-            ////        }),
-            ////});
+            var buffableItem = item
+                .Behaviors
+                .GetFirst<IBuffableBehavior>();
+            buffableItem.AddEnchantments(new IEnchantment[]
+            {
+                new Enchantment(
+                    dependencyContainer.Resolve<IBehaviorCollectionFactory>(),
+                    new StringIdentifier("stat2"),
+                    new IBehavior[]
+                    {
+                        new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat2 + 1"),
+                        new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
+                    }),
+            });
 
-            ////var canEquip = actor
-            ////    .Behaviors
-            ////    .GetFirst<ICanEquipBehavior>();
-            ////canEquip.TryEquip(
-            ////    new StringIdentifier("left hand"),
-            ////    item.Behaviors.GetFirst<ICanBeEquippedBehavior>());
+            var canEquip = actor
+                .Behaviors
+                .GetFirst<ICanEquipBehavior>();
+            canEquip.TryEquip(
+                new StringIdentifier("left hand"),
+                item.Behaviors.GetFirst<ICanBeEquippedBehavior>());
 
-            ////dependencyContainer
-            ////    .Resolve<IMutableGameObjectManager>()
-            ////    .MarkForAddition(actor);
+            dependencyContainer
+                .Resolve<IMutableGameObjectManager>()
+                .MarkForAddition(actor);
 
-            ////var cancellationTokenSource = new CancellationTokenSource();
-            ////gameEngine.Start(cancellationTokenSource.Token);
+            var cancellationTokenSource = new CancellationTokenSource();
+            gameEngine.RunAsync(cancellationTokenSource.Token);
 
             Console.ReadLine();
         }

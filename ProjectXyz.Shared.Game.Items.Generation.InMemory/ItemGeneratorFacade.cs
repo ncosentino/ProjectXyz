@@ -28,6 +28,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 
         public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
         {
+            var totalCount = GetCount(
+                generatorContext.MinimumGenerateCount,
+                generatorContext.MaximumGenerateCount);
+            if (totalCount < 1)
+            {
+                yield break;
+            }
+
             var filteredGenerators = _attributeFilterer
                 .Filter(
                     _itemGenerators,
@@ -39,9 +47,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
                     $"There are no item generators that match the context '{generatorContext}'.");
             }
 
-            var totalCount = GetCount(
-                generatorContext.MinimumGenerateCount,
-                generatorContext.MaximumGenerateCount);
             var generatedCount = 0;
             while (generatedCount < totalCount)
             {

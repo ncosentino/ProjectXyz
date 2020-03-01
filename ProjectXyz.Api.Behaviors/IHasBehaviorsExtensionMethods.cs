@@ -28,8 +28,7 @@ namespace ProjectXyz.Api.GameObjects
         {
             return hasBehaviors
                 .Behaviors
-                .Get<TBehavior>()
-                .Single();
+                .GetOnly<TBehavior>();
         }
     }
 }

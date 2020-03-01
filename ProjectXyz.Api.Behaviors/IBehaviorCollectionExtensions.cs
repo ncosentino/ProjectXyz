@@ -30,6 +30,14 @@ namespace ProjectXyz.Api.Behaviors
             return behavior != null;
         }
 
+        public static TBehavior GetOnly<TBehavior>(this IBehaviorCollection behaviors)
+            where TBehavior : IBehavior
+        {
+            return behaviors
+                .Get<TBehavior>()
+                .Single();
+        }
+
         public static bool Has<TBehavior>(this IBehaviorCollection behaviors)
             where TBehavior : IBehavior
         {
