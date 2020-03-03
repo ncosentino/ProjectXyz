@@ -4,7 +4,6 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 {
@@ -20,10 +19,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 
         public IEnchantment Create(IEnumerable<IBehavior> behaviors)
         {
-            // FIXME: this is NOT how we should do this.
-            // - ditch IEnchantment... just use a game object
-            // - the stat definition id disappears... that should be a behavior
-            // - should NOT need to depend on a feature API?
             var hasStatDefinitionIdBehavior = behaviors
                 .TakeTypes<IHasStatDefinitionIdBehavior>()
                 .SingleOrDefault();

@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
+namespace ProjectXyz.Api.Enchantments
 {
     public interface IHasStatDefinitionIdBehavior : IBehavior
     {

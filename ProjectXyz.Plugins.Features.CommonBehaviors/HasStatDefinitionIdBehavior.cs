@@ -1,5 +1,5 @@
-﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+﻿using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 {
+    [DebuggerDisplay("Expression Enchantment\r\n\tStat Definition Id={StatDefinitionId}")]
     public sealed class Enchantment : IEnchantment
     {
         public Enchantment(
@@ -19,10 +21,5 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
         public IIdentifier StatDefinitionId { get; }
 
         public IBehaviorCollection Behaviors { get; }
-
-        public override string ToString()
-        {
-            return $"Expression Enchantment\r\n\tStat Definition Id={StatDefinitionId}";
-        }
     }
 }
