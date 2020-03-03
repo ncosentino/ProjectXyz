@@ -1,7 +1,7 @@
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Plugins.Features.ExpiringEnchantments.Api
+namespace ProjectXyz.Api.Enchantments.Triggering
 {
     public delegate void RemoveTriggerMechanicDelegate(
         IEnchantment enchantment,

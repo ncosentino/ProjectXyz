@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Triggering;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Plugins.Features.ExpiringEnchantments.Api;
 
 namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
