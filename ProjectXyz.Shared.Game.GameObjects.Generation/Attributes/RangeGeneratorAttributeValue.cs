@@ -1,7 +1,9 @@
-﻿using ProjectXyz.Api.GameObjects.Generation.Attributes;
+﻿using System.Diagnostics;
+using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
+    [DebuggerDisplay("({Minimum}, {Maximum})")]
     public sealed class RangeGeneratorAttributeValue : IGeneratorAttributeValue
     {
         public RangeGeneratorAttributeValue(double minimum, double maximum)

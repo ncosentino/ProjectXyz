@@ -52,9 +52,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
                         return !generatorContext.Attributes.Any(x => x.Required);
                     }
 
+                    if (!matchingAttributes.Any(attr => attr.Required) &&
+                        !generatorContext.Attributes.Any(x => x.Required))
+                    {
+                        return true;
+                    }
+
                     var isGeneratorMatch = matchingAttributes
-                        .Any(attr => attributeToContextMapping[attr.Id]
-                            .Any(contextAttrVal =>
+                        .All(attr =>
+                            generatorContext.Attributes.Any(x => x.Id.Equals(attr.Id) && !x.Required) ||
+                            attributeToContextMapping[attr.Id].Any(contextAttrVal =>
                             {
                                 var isAttrMatch = _attributeValueMatcher.Match(
                                     attr.Value,

@@ -44,7 +44,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 source,
                 generatorContext);
 
-            Assert.Equal(results, expectedResults);
+            Assert.Equal(expectedResults, results);
         }
 
         private sealed class TestData : IEnumerable<object[]>
@@ -63,6 +63,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 yield return CreateInRangeComponentIncludesAttributeless();
                 yield return CreateMatchInRangeComponent();
                 yield return CreateMatchInRangeComponentIncludesAttributeless();
+                yield return CreateOneFailedMatchWhenAllSourceAndGeneratorRequired();
+                yield return CreateOneFailedMatchNonRequiredGeneratorWhenAllSourceRequired();
+                yield return CreateOneFailedMatchNonSourceWhenAllSourceRequired();
             }
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -135,21 +138,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new DoubleGeneratorAttributeValue(1),
-                        false)
+                        true)
                 });
                 var component2 = new GeneratorComponent(new[]
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new DoubleGeneratorAttributeValue(2),
-                        false)
+                        true)
                 });
                 var expectedComponent = new GeneratorComponent(new[]
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new DoubleGeneratorAttributeValue(3),
-                        false)
+                        true)
                 });
 
                 return new object[]
@@ -166,7 +169,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                         new GeneratorAttribute(
                             new StringIdentifier("id"),
                             new DoubleGeneratorAttributeValue(3),
-                            false)
+                            true)
                     },
                     new IHasGeneratorAttributes[]
                     {
@@ -341,21 +344,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new DoubleGeneratorAttributeValue(1),
-                        false)
+                        true)
                 });
                 var expectedComponent = new GeneratorComponent(new[]
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new DoubleGeneratorAttributeValue(2),
-                        false)
+                        true)
                 });
                 var expectedComponent2 = new GeneratorComponent(new[]
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new DoubleGeneratorAttributeValue(3),
-                        false)
+                        true)
                 });
 
                 return new object[]
@@ -372,7 +375,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                         new GeneratorAttribute(
                             new StringIdentifier("id"),
                             new RangeGeneratorAttributeValue(2, 3),
-                            false)
+                            true)
                     },
                     new IHasGeneratorAttributes[]
                     {
@@ -426,21 +429,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new RangeGeneratorAttributeValue(1, 9),
-                        false)
+                        true)
                 });
                 var expectedComponent = new GeneratorComponent(new[]
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new RangeGeneratorAttributeValue(5, 10),
-                        false)
+                        true)
                 });
                 var expectedComponent2 = new GeneratorComponent(new[]
                 {
                     new GeneratorAttribute(
                         new StringIdentifier("id"),
                         new RangeGeneratorAttributeValue(10, 20),
-                        false)
+                        true)
                 });
 
                 return new object[]
@@ -457,7 +460,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                         new GeneratorAttribute(
                             new StringIdentifier("id"),
                             new DoubleGeneratorAttributeValue(10),
-                            false)
+                            true)
                     },
                     new IHasGeneratorAttributes[]
                     {
@@ -500,6 +503,121 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                         expectedComponent,
                         expectedComponent2,
                         expectedComponent3
+                    },
+                };
+            }
+
+            private object[] CreateOneFailedMatchWhenAllSourceAndGeneratorRequired()
+            {
+                var component = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("affix-type"),
+                        new StringGeneratorAttributeValue("magic"),
+                        true),
+                    new GeneratorAttribute(
+                        new StringIdentifier("item-level"),
+                        new DoubleGeneratorAttributeValue(5),
+                        true)
+                });
+
+                return new object[]
+                {
+                    "All Source & Generator Required Attributes, One Fails Match, No Results",
+                    new IHasGeneratorAttributes[]
+                    {
+                        component
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                        new GeneratorAttribute(
+                            new StringIdentifier("affix-type"),
+                            new StringGeneratorAttributeValue("magic"),
+                            true),
+                        new GeneratorAttribute(
+                            new StringIdentifier("item-level"),
+                            new RangeGeneratorAttributeValue(10, 20),
+                            true),
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
+                    },
+                };
+            }
+
+            private object[] CreateOneFailedMatchNonRequiredGeneratorWhenAllSourceRequired()
+            {
+                var component = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("affix-type"),
+                        new StringGeneratorAttributeValue("magic"),
+                        true),
+                    new GeneratorAttribute(
+                        new StringIdentifier("item-level"),
+                        new DoubleGeneratorAttributeValue(5),
+                        true)
+                });
+
+                return new object[]
+                {
+                    "All Source Required Attributes, Non-Required Generator One Fails Match, Gets Result",
+                    new IHasGeneratorAttributes[]
+                    {
+                        component
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                        new GeneratorAttribute(
+                            new StringIdentifier("affix-type"),
+                            new StringGeneratorAttributeValue("magic"),
+                            true),
+                        new GeneratorAttribute(
+                            new StringIdentifier("item-level"),
+                            new RangeGeneratorAttributeValue(10, 20),
+                            false),
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
+                        component
+                    },
+                };
+            }
+
+            private object[] CreateOneFailedMatchNonSourceWhenAllSourceRequired()
+            {
+                var component = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("affix-type"),
+                        new StringGeneratorAttributeValue("magic"),
+                        true),
+                    new GeneratorAttribute(
+                        new StringIdentifier("item-level"),
+                        new DoubleGeneratorAttributeValue(5),
+                        false)
+                });
+
+                return new object[]
+                {
+                    "All Generator Required Attributes, Non-Required Source One Fails Match, No Results",
+                    new IHasGeneratorAttributes[]
+                    {
+                        component
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                        new GeneratorAttribute(
+                            new StringIdentifier("affix-type"),
+                            new StringGeneratorAttributeValue("magic"),
+                            true),
+                        new GeneratorAttribute(
+                            new StringIdentifier("item-level"),
+                            new RangeGeneratorAttributeValue(10, 20),
+                            true),
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
                     },
                 };
             }
