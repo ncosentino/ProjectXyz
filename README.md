@@ -1,3 +1,6 @@
+PLEASE NOTE: This has moved to bitbucket for better integration opportunities!
+==========
+
 ProjectXyz (Yet to be named...)
 ==========
 
