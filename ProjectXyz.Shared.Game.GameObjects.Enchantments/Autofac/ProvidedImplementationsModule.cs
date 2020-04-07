@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Enchantments.Stats;
-using ProjectXyz.Api.Logging;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
 {
@@ -18,7 +14,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
-            RegisterGenerationImplementations(builder);
             RegisterCalculationsImplementations(builder);
 
             builder
@@ -40,7 +35,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
 
         private static void RegisterCalculationsImplementations(ContainerBuilder builder)
         {
-            // TODO: should this be in the other project for shared "calculations" classes?
             builder
                 .RegisterType<EnchantmentCalculator>()
                 .AsImplementedInterfaces()
@@ -60,7 +54,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
                 })
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            // TODO: should this be in the other project for shared "calculations" classes?
             builder
                 .Register(c =>
                 {
@@ -73,27 +66,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
                 })
                 .AsImplementedInterfaces()
                 .SingleInstance();
-        }
-
-        private static void RegisterGenerationImplementations(ContainerBuilder builder)
-        {
-            // TODO: should this be in the other project for shared "generation" classes?
-            builder
-                .RegisterType<BaseEnchantmentGenerator>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            // TODO: should this be in the other project for shared "generation" classes?
-            // FIXME: does this class *ACTUALLY* belong in the in-memory  "shared" project?"
-            // FIXME: why is in-memory even SHARED?!
-            builder
-                .RegisterType<EnchantmentGeneratorFacade>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
-                .RegisterType<DiscoverableEnchantmentGeneratorAutoRegistrar>()
-                .SingleInstance()
-                .AsSelf()
-                .AutoActivate();
         }
     }
 }

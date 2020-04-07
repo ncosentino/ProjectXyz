@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Autofac;
-using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Stats.Calculations;
+﻿using Autofac;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Stats.Calculations;
 using IStringExpressionEvaluator = ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator;
