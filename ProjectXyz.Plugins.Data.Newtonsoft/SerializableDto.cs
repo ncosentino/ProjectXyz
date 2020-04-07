@@ -1,6 +1,6 @@
 using ProjectXyz.Api.Data.Serialization;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
+namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
     public sealed class SerializableDto : ISerializableDto
     {

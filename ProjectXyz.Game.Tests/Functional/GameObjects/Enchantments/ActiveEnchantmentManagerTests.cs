@@ -7,7 +7,7 @@ using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Shared.Framework;
 using Xunit;
 
-namespace ProjectXyz.Game.Tests.Functional.Enchantments
+namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 {
     public sealed class ActiveEnchantmentManagerTests
     {

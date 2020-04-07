@@ -2,7 +2,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
+namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
     public sealed class DtoJsonSerializer : IDtoSerializer
     {

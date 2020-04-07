@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
+namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
     public interface IDtoSerializer
     {

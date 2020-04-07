@@ -12,7 +12,7 @@ using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 using ProjectXyz.Shared.States;
 using Xunit;
 
-namespace ProjectXyz.Game.Tests.Functional.Enchantments
+namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 {
     public sealed class EnchantmentCalculatorTests
     {

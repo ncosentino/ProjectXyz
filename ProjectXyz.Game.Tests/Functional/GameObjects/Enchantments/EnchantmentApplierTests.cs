@@ -8,7 +8,7 @@ using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 using Xunit;
 
-namespace ProjectXyz.Game.Tests.Functional.Enchantments
+namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 {
     public sealed class EnchantmentApplierTests
     {

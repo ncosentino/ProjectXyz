@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ProjectXyz.Framework.Contracts;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json
+namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
     public class SerializableConverter : JsonConverter
     {
