@@ -50,7 +50,6 @@
     <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Shared.Triggering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Autofac\ProjectXyz.Framework.ViewWelding.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft\ProjectXyz.Plugins.Data.Newtonsoft.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Enchantments.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj" />
@@ -69,7 +68,6 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Game.Core.Dependencies.Autofac\ProjectXyz.Game.Core.Dependencies.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Enchantments.Stats.StatExpressions.csproj" />
