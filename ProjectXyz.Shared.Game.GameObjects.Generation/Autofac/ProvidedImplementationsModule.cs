@@ -2,6 +2,7 @@
 using System.Linq;
 using Autofac;
 using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
@@ -49,6 +50,13 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
                 {
                     var attributeValueMatchFacade = x.Instance;
                     attributeValueMatchFacade.Register<
+                        NotGeneratorAttributeValue,
+                        IGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            return !attributeValueMatchFacade.Match(v1.Wrapped, v2);
+                        });
+                    attributeValueMatchFacade.Register<
                         StringGeneratorAttributeValue,
                         StringCollectionGeneratorAttributeValue>(
                         (v1, v2) =>
@@ -78,20 +86,18 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
                         });
                     attributeValueMatchFacade.Register<
                         DoubleGeneratorAttributeValue,
-                        RangeGeneratorAttributeValue>(
-                        (v1, v2) =>
-                        {
-                            var isAttrtMatch =
-                                v2.Minimum <= v1.Value &&
-                                v2.Maximum >= v1.Value;
-                            return isAttrtMatch;
-                        });
-                    attributeValueMatchFacade.Register<
-                        DoubleGeneratorAttributeValue,
                         DoubleGeneratorAttributeValue>(
                         (v1, v2) =>
                         {
                             var isAttrtMatch = v1.Value == v2.Value;
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        IdentifierGeneratorAttributeValue,
+                        IdentifierGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v1.Value.Equals(v2.Value);
                             return isAttrtMatch;
                         });
                 });
