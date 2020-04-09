@@ -27,6 +27,7 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Api\ProjectXyz.Plugins.Features.TimeOfDay.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj" />
   </ItemGroup>
 </Project>

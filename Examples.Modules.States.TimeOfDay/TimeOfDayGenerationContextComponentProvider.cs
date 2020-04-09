@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 

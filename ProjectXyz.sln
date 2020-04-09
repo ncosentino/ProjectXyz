@@ -272,6 +272,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Data.New
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Weather.Api", "ProjectXyz.Plugins.Features.Weather.Api\ProjectXyz.Plugins.Features.Weather.Api.csproj", "{6DF3EF09-8668-469C-81D5-06364B758F65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.TimeOfDay.Api", "ProjectXyz.Plugins.Features.TimeOfDay.Api\ProjectXyz.Plugins.Features.TimeOfDay.Api.csproj", "{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -606,6 +608,10 @@ Global
 		{6DF3EF09-8668-469C-81D5-06364B758F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DF3EF09-8668-469C-81D5-06364B758F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DF3EF09-8668-469C-81D5-06364B758F65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -737,6 +743,7 @@ Global
 		{FB2F06CF-CDFB-44FC-BAC3-1F89F1B00324} = {15BDBEA4-4170-4040-9C45-C392D6098151}
 		{1B168CAB-8239-4C0A-A0F5-6AFE98336952} = {FB2F06CF-CDFB-44FC-BAC3-1F89F1B00324}
 		{6DF3EF09-8668-469C-81D5-06364B758F65} = {C31A48B7-7CEE-45D8-8669-27C796A047DD}
+		{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF} = {02E99FD1-9946-4B2E-9D7E-8173648EC9BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}

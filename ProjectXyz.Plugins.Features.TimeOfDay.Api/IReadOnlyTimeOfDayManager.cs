@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Plugins.Features.TimeOfDay
+namespace ProjectXyz.Plugins.Features.TimeOfDay.Api
 {
     public interface IReadOnlyTimeOfDayManager
     {

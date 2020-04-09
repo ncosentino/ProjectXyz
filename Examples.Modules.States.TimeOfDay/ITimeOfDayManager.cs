@@ -1,4 +1,5 @@
 ﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay
 {

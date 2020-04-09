@@ -15,6 +15,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implem
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
+using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
@@ -27,14 +28,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
         private static readonly IGeneratorContextFactory _generatorContextFactory;
         private static readonly IGeneratorContextProvider _generatorContextProvider;
         private static readonly ILootGenerator _lootGenerator;
-        private static readonly IReadOnlyWeatherManager _weatherManager;
 
         static LootGeneratorFunctionalTests()
         {
             _generatorContextFactory = CachedDependencyLoader.Container.Resolve<IGeneratorContextFactory>();
             _generatorContextProvider = CachedDependencyLoader.Container.Resolve<IGeneratorContextProvider>();
             _lootGenerator = CachedDependencyLoader.Container.Resolve<ILootGenerator>();
-            _weatherManager = CachedDependencyLoader.Container.Resolve<IReadOnlyWeatherManager>();
         }
 
         [ClassData(typeof(TestData))]
@@ -64,25 +63,6 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                     "Match Any, Requires Exactly 5 Drops",
                     _generatorContextFactory.CreateGeneratorContext(5, 5),
                     new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 5),
-                },
-                new object[]
-                {
-                    "Exact Match, Does Not Exist, Throws Exception",
-                    _generatorContextFactory.CreateGeneratorContext(
-                        5,
-                        5,
-                        new GeneratorAttribute(
-                            new StringIdentifier("id"),
-                            new StringGeneratorAttributeValue("Table A"),
-                            true)),
-                        new Predicate<IEnumerable<IGameObject>>(results =>
-                        {
-                            var exception = Assert.Throws<InvalidOperationException>(() => results.ToArray());
-                            Assert.StartsWith(
-                                "There was no drop table that could be selected from the set of filtered drop tables using context ",
-                                exception.Message);
-                            return true;
-                        }),
                 },
                 new object[]
                 {
@@ -129,7 +109,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 },
                 new object[]
                 {
-                    "Exact Match, Link Single Table, Context Reequires More Drops Than Table Provides",
+                    "Exact Match, Link Single Table, Context Requires More Drops Than Table Provides",
                     _generatorContextFactory.CreateGeneratorContext(
                         10,
                         10,
@@ -141,7 +121,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 },
                 new object[]
                 {
-                    "Exact Match, Link Single Table, Context Reequires Fewer Drops Than Table Provides",
+                    "Exact Match, Link Single Table, Context Requires Fewer Drops Than Table Provides",
                     _generatorContextFactory.CreateGeneratorContext(
                         1,
                         1,
@@ -167,6 +147,22 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                                 true))),
                     new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 3),
                 },
+                new object[]
+                {
+                    "Time of Day Matches",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        3,
+                        3,
+                        _generatorContextProvider
+                            .GetGeneratorContext()
+                            .Attributes
+                            .Append(
+                            new GeneratorAttribute(
+                                new StringIdentifier("id"),
+                                new StringGeneratorAttributeValue("Time of Day Table"),
+                                true))),
+                    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 3),
+                },
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -182,6 +178,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                     .Register(x =>
                     {
                         var weatherManager = x.Resolve<IReadOnlyWeatherManager>();
+                        var timeOfDayManager = x.Resolve<IReadOnlyTimeOfDayManager>();
                         return new InMemoryDropTableRepository(new IDropTable[]
                         {
                         // Match NOTHING Table, Generates Exactly 3
@@ -227,6 +224,23 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                                 new GeneratorAttribute(
                                     new StringIdentifier("weather"),
                                     new IdentifierGeneratorAttributeValue(weatherManager.WeatherId),
+                                    true),
+                            },
+                            Enumerable.Empty<IGeneratorAttribute>()),
+                        // Time of Day Table, Generates 1
+                        new ItemDropTable(
+                            new StringIdentifier("Time of Day Table"),
+                            1,
+                            1,
+                            new[]
+                            {
+                                new GeneratorAttribute(
+                                    new StringIdentifier("id"),
+                                    new StringGeneratorAttributeValue("Time of Day Table"),
+                                    true),
+                                new GeneratorAttribute(
+                                    new StringIdentifier("time-of-day"),
+                                    new IdentifierGeneratorAttributeValue(timeOfDayManager.TimeOfDay),
                                     true),
                             },
                             Enumerable.Empty<IGeneratorAttribute>()),
