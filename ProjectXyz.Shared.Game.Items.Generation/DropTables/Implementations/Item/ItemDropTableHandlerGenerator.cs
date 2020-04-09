@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Framework.Contracts;
@@ -39,10 +40,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IGeneratorContext generatorContext)
         {
             // Create a new context
+            var dropTableRequiredAttributeIds = new HashSet<IIdentifier>(dropTable
+                .SupportedAttributes
+                .Where(x => x.Required)
+                .Select(x => x.Id));
             var currentDropContext = _generatorContextFactory.CreateGeneratorContext(
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount,
-                generatorContext.Attributes.Concat(dropTable.ProvidedAttributes));
+                generatorContext
+                    .Attributes
+                    .Where(x => !dropTableRequiredAttributeIds.Contains(x.Id))
+                    .Concat(dropTable.ProvidedAttributes));
 
             // delegate generation of this table to someone else
             var generated = _itemGeneratorFacade.GenerateItems(currentDropContext);

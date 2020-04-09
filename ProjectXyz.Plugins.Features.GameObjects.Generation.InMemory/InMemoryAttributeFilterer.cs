@@ -69,7 +69,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
                                 return isAttrMatch;
                             }));
                     return isGeneratorMatch;
-                });
+                })
+                .ToArray();
             return matching;
         }
     }

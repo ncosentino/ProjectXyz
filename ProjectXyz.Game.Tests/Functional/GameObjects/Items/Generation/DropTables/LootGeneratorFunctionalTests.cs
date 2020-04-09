@@ -9,40 +9,32 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
+using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using Xunit;
 
-namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTables
+namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTables
 {
     public sealed class LootGeneratorFunctionalTests
     {
-        private static readonly IContainer _container;
         private static readonly IGeneratorContextFactory _generatorContextFactory;
-        private readonly ILootGenerator _lootGenerator;
+        private static readonly IGeneratorContextProvider _generatorContextProvider;
+        private static readonly ILootGenerator _lootGenerator;
+        private static readonly IReadOnlyWeatherManager _weatherManager;
 
         static LootGeneratorFunctionalTests()
         {
-            var moduleDiscoverer = new ModuleDiscoverer();
-            var modules = moduleDiscoverer
-                .Discover(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
-                .Where(x => !x.GetType().FullName.Equals("ProjectXyz.Game.Core.Dependencies.Autofac.PluginModule"));
-            var dependencyContainerBuilder = new DependencyContainerBuilder();
-            _container = dependencyContainerBuilder.Create(modules);
-            _generatorContextFactory = _container.Resolve<IGeneratorContextFactory>();
-        }
-
-        public LootGeneratorFunctionalTests()
-        {
-            _lootGenerator = _container.Resolve<ILootGenerator>();
-
+            _generatorContextFactory = CachedDependencyLoader.Container.Resolve<IGeneratorContextFactory>();
+            _generatorContextProvider = CachedDependencyLoader.Container.Resolve<IGeneratorContextProvider>();
+            _lootGenerator = CachedDependencyLoader.Container.Resolve<ILootGenerator>();
+            _weatherManager = CachedDependencyLoader.Container.Resolve<IReadOnlyWeatherManager>();
         }
 
         [ClassData(typeof(TestData))]
@@ -71,6 +63,37 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 {
                     "Match Any, Requires Exactly 5 Drops",
                     _generatorContextFactory.CreateGeneratorContext(5, 5),
+                    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 5),
+                },
+                new object[]
+                {
+                    "Exact Match, Does Not Exist, Throws Exception",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        5,
+                        5,
+                        new GeneratorAttribute(
+                            new StringIdentifier("id"),
+                            new StringGeneratorAttributeValue("Table A"),
+                            true)),
+                        new Predicate<IEnumerable<IGameObject>>(results =>
+                        {
+                            var exception = Assert.Throws<InvalidOperationException>(() => results.ToArray());
+                            Assert.StartsWith(
+                                "There was no drop table that could be selected from the set of filtered drop tables using context ",
+                                exception.Message);
+                            return true;
+                        }),
+                },
+                new object[]
+                {
+                    "Exact Match, Requires Exactly 5 Drops",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        5,
+                        5,
+                        new GeneratorAttribute(
+                            new StringIdentifier("id"),
+                            new StringGeneratorAttributeValue("Table B"),
+                            true)),
                     new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 5),
                 },
                 new object[]
@@ -128,6 +151,22 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 1),
                 },
+                new object[]
+                {
+                    "Weather Matches",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        3,
+                        3,
+                        _generatorContextProvider
+                            .GetGeneratorContext()
+                            .Attributes
+                            .Append(
+                            new GeneratorAttribute(
+                                new StringIdentifier("id"),
+                                new StringGeneratorAttributeValue("Weather Table"),
+                                true))),
+                    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 3),
+                },
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -140,9 +179,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             protected override void SafeLoad(ContainerBuilder builder)
             {
                 builder
-                    .Register(x => new InMemoryDropTableRepository(new IDropTable[]
+                    .Register(x =>
                     {
-                        // Match All Item Table, Generates Exactly 3
+                        var weatherManager = x.Resolve<IReadOnlyWeatherManager>();
+                        return new InMemoryDropTableRepository(new IDropTable[]
+                        {
+                        // Match NOTHING Table, Generates Exactly 3
                         new ItemDropTable(
                             new StringIdentifier("Table A"),
                             3,
@@ -171,7 +213,25 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                                 new StringGeneratorAttributeValue("Table C"),
                                 true).Yield(),
                             Enumerable.Empty<IGeneratorAttribute>()),
-                    }))
+                        // Weather Table, Generates 1
+                        new ItemDropTable(
+                            new StringIdentifier("Weather Table"),
+                            1,
+                            1,
+                            new[]
+                            {
+                                new GeneratorAttribute(
+                                    new StringIdentifier("id"),
+                                    new StringGeneratorAttributeValue("Weather Table"),
+                                    true),
+                                new GeneratorAttribute(
+                                    new StringIdentifier("weather"),
+                                    new IdentifierGeneratorAttributeValue(weatherManager.WeatherId),
+                                    true),
+                            },
+                            Enumerable.Empty<IGeneratorAttribute>()),
+                        });
+                    })
                     .AsImplementedInterfaces()
                     .SingleInstance();
                 builder
