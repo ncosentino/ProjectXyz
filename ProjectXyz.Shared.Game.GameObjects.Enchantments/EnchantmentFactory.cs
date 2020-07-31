@@ -24,12 +24,11 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
                 .SingleOrDefault();
             if (hasStatDefinitionIdBehavior == null)
             {
-                throw new InvalidOperationException($"Missing required '{typeof(IHasStatDefinitionIdBehavior)}'.");
+                throw new ArgumentException($"Missing required '{typeof(IHasStatDefinitionIdBehavior)}'.");
             }
 
             var enchantment = new Enchantment(
                 _behaviorCollectionFactory,
-                hasStatDefinitionIdBehavior.StatDefinitionId,
                 behaviors);
             return enchantment;
         }

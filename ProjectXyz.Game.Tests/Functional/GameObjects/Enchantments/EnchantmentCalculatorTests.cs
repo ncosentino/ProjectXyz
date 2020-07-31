@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
@@ -96,7 +98,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
                 .Calculate(
                     enchantmentCalculatorContext,
                     baseStats,
-                    enchantment.StatDefinitionId);
+                    enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId);
 
             Assert.Equal(expectedResult, result);
         }
@@ -150,7 +152,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
-                enchantment.StatDefinitionId);
+                enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId);
 
             Assert.Equal(expectedResult, result);
         }
@@ -172,7 +174,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
-                enchantment.StatDefinitionId);
+                enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId);
 
             Assert.Equal(expectedValue, result);
         }
@@ -189,7 +191,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
             Action method = () => _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
-                _testData.Enchantments.BadExpression.StatDefinitionId);
+                _testData.Enchantments.BadExpression.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId);
 
             Assert.Throws<FormatException>(method);
         }

@@ -11,6 +11,7 @@ using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Interface.Engine;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
@@ -67,9 +68,9 @@ namespace ConsoleApplication1
             {
                 new Enchantment(
                     dependencyContainer.Resolve<IBehaviorCollectionFactory>(),
-                    new StringIdentifier("stat1"),
                     new IBehavior[]
                     {
+                        new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat1") },
                         new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat1 + 1"),
                         new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
                         dependencyContainer.Resolve<IAppliesToBaseStat>(),
@@ -85,9 +86,9 @@ namespace ConsoleApplication1
             {
                 new Enchantment(
                     dependencyContainer.Resolve<IBehaviorCollectionFactory>(),
-                    new StringIdentifier("stat2"),
                     new IBehavior[]
                     {
+                        new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat2") },
                         new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat2 + 1"),
                         new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
                     }),

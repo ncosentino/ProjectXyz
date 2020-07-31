@@ -5,6 +5,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
@@ -25,10 +26,16 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
             ICalculationPriority calculationPriority,
             params IBehavior[] additionalBehaviors)
         {
-            IEnumerable<IBehavior> behaviors = new EnchantmentExpressionBehavior(
+            IEnumerable<IBehavior> behaviors = new IBehavior[]
+            {
+                new EnchantmentExpressionBehavior(
                     calculationPriority,
-                    expression)
-                .Yield();
+                    expression),
+                new HasStatDefinitionIdBehavior()
+                {
+                    StatDefinitionId = statDefinitionId,
+                },
+            };
 
             if (additionalBehaviors != null)
             {
@@ -37,7 +44,6 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
 
             return new Enchantment(
                 _behaviorCollectionFactory,
-                statDefinitionId,
                 behaviors);
         }
     }

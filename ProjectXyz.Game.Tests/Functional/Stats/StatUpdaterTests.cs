@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
@@ -79,7 +81,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 expectedValue,
-                mutableStatsProvider.Stats.GetValueOrDefault(enchantment.StatDefinitionId));
+                mutableStatsProvider.Stats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
     }
 }

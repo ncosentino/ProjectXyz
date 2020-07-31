@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
@@ -63,7 +65,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
                 baseStats);
 
             Assert.Equal(1, result.Count);
-            Assert.Equal(expectedValue, result[enchantment.StatDefinitionId]);
+            Assert.Equal(expectedValue, result[enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId]);
         }
 
         [Theory,
@@ -85,7 +87,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
                 baseStats);
 
             Assert.Equal(1, result.Count);
-            Assert.Equal(expectedValue, result[enchantment.StatDefinitionId]);
+            Assert.Equal(expectedValue, result[enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId]);
         }
     }
 }

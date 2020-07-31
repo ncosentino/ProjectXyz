@@ -1,7 +1,10 @@
 ﻿using System.Linq;
+
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Shared.Behaviors;
@@ -51,9 +54,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                 var statTerm = statDefinitionToTermConverter[statId];
                 var baseEquipmentStatsEnchantment = new Enchantment(
                     new BehaviorCollectionFactory(),
-                    statId,
-                    new[]
+                    new IBehavior[]
                     {
+                        new HasStatDefinitionIdBehavior()
+                        {
+                            StatDefinitionId = statId,
+                        },
                         new EnchantmentExpressionBehavior(
                             new CalculationPriority<int>(-1),
                             $"{statTerm} + {equipmentStats.Sum()}")

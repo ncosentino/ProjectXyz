@@ -26,7 +26,9 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
         {
             var statDefinitionToComponentMapping = enchantments
                 .GroupBy(
-                    enchantment => enchantment.StatDefinitionId,
+                    enchantment => enchantment
+                        .GetOnly<IHasStatDefinitionIdBehavior>()
+                        .StatDefinitionId,
                     enchantment => enchantment)
                 .ToDictionary(
                     group => group.Key,
