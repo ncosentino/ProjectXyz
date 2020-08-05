@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory.Autofac
 {

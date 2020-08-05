@@ -1,4 +1,5 @@
 ﻿using Autofac;
+
 using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.Autofac
@@ -11,6 +12,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.Autofac
                 .RegisterType<BaseEnchantmentGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<DiscoverableEnchantmentGeneratorAutoRegistrar>()
+                .AsSelf()
+                .AutoActivate();
         }
     }
 }
