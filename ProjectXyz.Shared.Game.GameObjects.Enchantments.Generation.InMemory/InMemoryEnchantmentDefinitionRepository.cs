@@ -24,6 +24,15 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 
         public IEnumerable<IEnchantmentDefinition> LoadEnchantmentDefinitions(IGeneratorContext generatorContext)
         {
+            if (!EnchantmentDefinitions.Any())
+            {
+                throw new InvalidOperationException(
+                    $"There are no {typeof(IEnchantmentDefinition)} instances " +
+                    $"for this repository. Did you forget to construct " +
+                    $"{GetType()} with these instances or register them with " +
+                    $"your dependency injection framework?");
+            }
+
             var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
                 EnchantmentDefinitions,
                 generatorContext);
