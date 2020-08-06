@@ -1,39 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ProjectXyz.Api.Behaviors;
+﻿using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class ActorFactory : IActorFactory
     {
-        private readonly IBehaviorCollectionFactory _behaviorCollectionFactory;
+        private readonly Actor.Factory _actorFactory;
         private readonly IStatManagerFactory _statManagerFactory;
         private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
         private readonly IBehaviorManager _behaviorManager;
         private readonly IMutableStatsProviderFactory _mutableStatsProviderFactory;
-        private readonly IReadOnlyCollection<IAdditionalActorBehaviorsProvider> _additionalActorBehaviorsProviders;
 
         public ActorFactory(
-            IBehaviorCollectionFactory behaviorCollectionFactory,
+            Actor.Factory actorFactory,
             IStatManagerFactory statManagerFactory,
             IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
             IBehaviorManager behaviorManager,
-            IMutableStatsProviderFactory mutableStatsProviderFactory,
-            IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders)
+            IMutableStatsProviderFactory mutableStatsProviderFactory)
         {
-            _behaviorCollectionFactory = behaviorCollectionFactory;
+            _actorFactory = actorFactory;
             _statManagerFactory = statManagerFactory;
             _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
             _behaviorManager = behaviorManager;
             _mutableStatsProviderFactory = mutableStatsProviderFactory;
-            _additionalActorBehaviorsProviders = additionalActorBehaviorsProviders.ToArray();
         }
 
         public IGameObject Create()
@@ -48,39 +42,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var hasEnchantments = new HasEnchantmentsBehavior(activeEnchantmentManager);
             var buffable = new BuffableBehavior(activeEnchantmentManager);
 
-            // TODO: where should these come from? not here...
-            var canEquip = new CanEquipBehavior(new[]
-            {
-                new StringIdentifier("head"),
-                new StringIdentifier("body"),
-                new StringIdentifier("left hand"),
-                new StringIdentifier("right hand"),
-                new StringIdentifier("amulet"),
-                new StringIdentifier("ring1"),
-                new StringIdentifier("ring2"),
-                new StringIdentifier("shoulders"),
-                new StringIdentifier("hands"),
-                new StringIdentifier("waist"),
-                new StringIdentifier("feet"),
-                new StringIdentifier("legs"),
-                new StringIdentifier("back"),
-            });
-
-            // TODO: where should these come from? not here...
-            var inventory = new ItemContainerBehavior(new StringIdentifier("Inventory"));
-            var hasItemContainers = new HasItemContainersBehavior();
-            hasItemContainers.AddItemContainer(inventory);
-
-            var actor = new Actor(
+            var actor = _actorFactory.Invoke(
                 identifierBehavior,
-                _behaviorCollectionFactory,
                 _behaviorManager,
                 hasEnchantments,
                 buffable,
-                hasMutableStats,
-                canEquip,
-                hasItemContainers,
-                _additionalActorBehaviorsProviders);
+                hasMutableStats);
             return actor;
         }
     }

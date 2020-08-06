@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -16,23 +17,34 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             IHasEnchantmentsBehavior hasEnchantmentsBehavior,
             IBuffableBehavior buffableBehavior,
             IHasMutableStatsBehavior hasStatsBehavior,
-            ICanEquipBehavior canEquipBehavior,
-            IHasItemContainersBehavior hasItemContainersBehavior,
-            IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders)
+            IEnumerable<IAdditionalActorBehaviorsProvider> additionalActorBehaviorsProviders,
+            IEnumerable<IActorBehaviorsInterceptor> actorBehaviorsInterceptors)
         {
             var additionalBehaviors = additionalActorBehaviorsProviders.SelectMany(x => x.GetBehaviors(this));
-            Behaviors = behaviorCollectionFactory.Create(new IBehavior[]
+            var behaviors = new IBehavior[]
                 {
                     identifierBehavior,
                     hasEnchantmentsBehavior,
                     buffableBehavior,
                     hasStatsBehavior,
-                    canEquipBehavior,
-                    hasItemContainersBehavior
                 }
-                .Concat(additionalBehaviors));
+                .Concat(additionalBehaviors)
+                .ToArray();
+            foreach (var behaviorInterceptor in actorBehaviorsInterceptors)
+            {
+                behaviorInterceptor.Intercept(behaviors);
+            }
+
+            Behaviors = behaviorCollectionFactory.Create(behaviors);
             behaviorManager.Register(this, Behaviors);
         }
+
+        public delegate Actor Factory(
+            IIdentifierBehavior identifierBehavior,
+            IBehaviorManager behaviorManager,
+            IHasEnchantmentsBehavior hasEnchantmentsBehavior,
+            IBuffableBehavior buffableBehavior,
+            IHasMutableStatsBehavior hasStatsBehavior);
 
         public IBehaviorCollection Behaviors { get; }
     }
