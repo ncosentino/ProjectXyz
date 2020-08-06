@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
@@ -26,6 +27,13 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 
         public IEnumerable<IEnchantment> GenerateEnchantments(IGeneratorContext generatorContext)
         {
+            if (!_enchantmentGenerators.Any())
+            {
+                throw new InvalidOperationException(
+                    $"There are no enchantment generators registered to this " +
+                    $"facade. Did you forget to call '{nameof(Register)}()'?");
+            }
+
             var filteredGenerators = _attributeFilterer.Filter(
                 _enchantmentGenerators,
                 generatorContext);
