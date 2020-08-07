@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Autofac;
+
 using Moq;
+
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
@@ -19,6 +22,8 @@ using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Testing;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTables
@@ -31,9 +36,9 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
 
         static LootGeneratorFunctionalTests()
         {
-            _generatorContextFactory = CachedDependencyLoader.Container.Resolve<IGeneratorContextFactory>();
-            _generatorContextProvider = CachedDependencyLoader.Container.Resolve<IGeneratorContextProvider>();
-            _lootGenerator = CachedDependencyLoader.Container.Resolve<ILootGenerator>();
+            _generatorContextFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IGeneratorContextFactory>();
+            _generatorContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IGeneratorContextProvider>();
+            _lootGenerator = CachedDependencyLoader.LifeTimeScope.Resolve<ILootGenerator>();
         }
 
         [ClassData(typeof(TestData))]

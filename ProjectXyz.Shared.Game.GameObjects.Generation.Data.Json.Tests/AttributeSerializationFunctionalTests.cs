@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+
 using Autofac;
+
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Testing;
+
 using Xunit;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
@@ -19,17 +21,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
 
         static AttributeSerializationFunctionalTests()
         {
-            var moduleDiscoverer = new ModuleDiscoverer();
-            var moduleDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var modules = moduleDiscoverer
-                .Discover(moduleDirectory, "*.exe")
-                .Concat(moduleDiscoverer
-                    .Discover(moduleDirectory, "*.dll"));
-            var dependencyContainerBuilder = new DependencyContainerBuilder();
-            var dependencyContainer = dependencyContainerBuilder.Create(modules);
+            var scope = new TestLifeTimeScopeFactory().CreateScope();
 
-            _serializer = dependencyContainer.Resolve<ISerializer>();
-            _deserializer = dependencyContainer.Resolve<IDeserializer>();
+            _serializer = scope.Resolve<ISerializer>();
+            _deserializer = scope.Resolve<IDeserializer>();
         }
 
         [ClassData(typeof(TestData))]

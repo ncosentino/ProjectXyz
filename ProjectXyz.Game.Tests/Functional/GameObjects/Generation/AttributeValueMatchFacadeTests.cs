@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Autofac;
+
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Testing;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
@@ -19,7 +23,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
 
         static AttributeValueMatchFacadeTests()
         {
-            _attributeValueMatchFacade = CachedDependencyLoader.Container.Resolve<IAttributeValueMatchFacade>();
+            _attributeValueMatchFacade = CachedDependencyLoader.LifeTimeScope.Resolve<IAttributeValueMatchFacade>();
         }
 
         [ClassData(typeof(TestData))]

@@ -1,10 +1,14 @@
 ﻿using System.Linq;
+
 using Autofac;
+
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.TimeOfDay;
 using ProjectXyz.Plugins.Features.Weather;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Testing;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
@@ -17,9 +21,9 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
 
         static GeneratorContextProviderFunctionalTests()
         {
-            _generatorContextProvider = CachedDependencyLoader.Container.Resolve<IGeneratorContextProvider>();
-            _weatherManager = CachedDependencyLoader.Container.Resolve<IWeatherManager>();
-            _timeOfDayManager = CachedDependencyLoader.Container.Resolve<ITimeOfDayManager>();            
+            _generatorContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IGeneratorContextProvider>();
+            _weatherManager = CachedDependencyLoader.LifeTimeScope.Resolve<IWeatherManager>();
+            _timeOfDayManager = CachedDependencyLoader.LifeTimeScope.Resolve<ITimeOfDayManager>();            
         }
 
         [Fact]

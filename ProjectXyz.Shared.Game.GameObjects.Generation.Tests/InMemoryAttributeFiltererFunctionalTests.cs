@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+
 using Autofac;
+
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Testing;
+
 using Xunit;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
@@ -17,14 +19,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
         public InMemoryAttributeFiltererFunctionalTests()
         {
-            var moduleDiscoverer = new ModuleDiscoverer();
-            var modules = moduleDiscoverer.Discover(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "*.dll");
-            var dependencyContainerBuilder = new DependencyContainerBuilder();
-            var container = dependencyContainerBuilder.Create(modules);
-
-            _inMemoryAttributeFilterer = container.Resolve<IAttributeFilterer>();
+            var scope = new TestLifeTimeScopeFactory().CreateScope();
+            _inMemoryAttributeFilterer = scope.Resolve<IAttributeFilterer>();
         }
 
         [ClassData(typeof(TestData))]

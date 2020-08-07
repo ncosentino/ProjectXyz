@@ -39,5 +39,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft\ProjectXyz.Plugins.Data.Newtonsoft.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json\ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Testing\ProjectXyz.Testing.csproj" />
   </ItemGroup>
 </Project>
