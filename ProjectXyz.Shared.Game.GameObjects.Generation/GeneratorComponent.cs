@@ -17,6 +17,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation
             SupportedAttributes = supportedAttributes.ToArray();
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; }
+        public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; set; }
     }
 }

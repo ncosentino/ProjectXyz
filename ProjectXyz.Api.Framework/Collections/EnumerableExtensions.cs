@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 
 namespace ProjectXyz.Api.Framework.Collections
 {
@@ -160,6 +161,18 @@ namespace ProjectXyz.Api.Framework.Collections
         public static IReadOnlyCollection<T> ToReadOnlyCollection<T>(this IEnumerable<T> enumerable)
         {
             return enumerable.ToArray();
+        }
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> enumerable)
+        {
+            return new HashSet<T>(enumerable);
+        }
+
+        public static HashSet<T> ToHashSet<T>(
+            this IEnumerable<T> enumerable,
+            IEqualityComparer<T> comparer)
+        {
+            return new HashSet<T>(enumerable, comparer);
         }
 
         public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> enumerable)

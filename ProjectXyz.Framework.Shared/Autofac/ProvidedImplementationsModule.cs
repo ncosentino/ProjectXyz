@@ -12,6 +12,10 @@ namespace ProjectXyz.Shared.Framework.Autofac
                 .Register(c => new RandomNumberGenerator(new Random()))
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+               .RegisterType<Cast>()
+               .AsImplementedInterfaces()
+               .SingleInstance();
         }
     }
 }

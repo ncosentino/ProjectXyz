@@ -8,14 +8,14 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Autofac
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
-            builder
-                .RegisterType<StringSerializableDtoDataConverter>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
-                .RegisterType<StringSerializableConverter>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
+            ////builder
+            ////    .RegisterType<StringSerializableDtoDataConverter>()
+            ////    .AsImplementedInterfaces()
+            ////    .SingleInstance();
+            ////builder
+            ////    .RegisterType<StringSerializableConverter>()
+            ////    .AsImplementedInterfaces()
+            ////    .SingleInstance();
         }
     }
 }
