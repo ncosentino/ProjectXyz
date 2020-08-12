@@ -18,10 +18,17 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
     public sealed class NewtonsoftJsonRecursiveSerialization
     {
         private readonly ICast _cast;
+        private readonly IObjectToSerializationIdConverterFacade _objectToSerializationIdConverterFacade;
+        private readonly ISerializableIdToTypeConverterFacade _serializableIdToTypeConverterFacade;
 
-        public NewtonsoftJsonRecursiveSerialization(ICast cast)
+        public NewtonsoftJsonRecursiveSerialization(
+            ICast cast,
+            IObjectToSerializationIdConverterFacade objectToSerializationIdConverterFacade,
+            ISerializableIdToTypeConverterFacade serializableIdToTypeConverterFacade)
         {
             _cast = cast;
+            _objectToSerializationIdConverterFacade = objectToSerializationIdConverterFacade;
+            _serializableIdToTypeConverterFacade = serializableIdToTypeConverterFacade;
         }
 
         public ISerializable ToSerializable(
@@ -30,9 +37,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             HashSet<object> visited,
             Type type)
         {
-            var serialiableId = objectToConvert
-                .GetType()
-                .AssemblyQualifiedName;
+            var serialiableId = _objectToSerializationIdConverterFacade.ConvertToSerializationId(objectToConvert);
             if (typeof(IEnumerable).IsAssignableFrom(type))
             {
                 return new Serializable(
@@ -68,8 +73,9 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
         public object FromStream(
             INewtonsoftJsonDeserializer deserializer,
             Stream stream,
-            Type type)
+            string serializableId)
         {
+            var type = _serializableIdToTypeConverterFacade.ConvertToType(serializableId);
             var jsonObject = deserializer.ReadObject(stream);
             var jsonPropertyNames = jsonObject
                 .Children()

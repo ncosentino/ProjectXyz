@@ -10,7 +10,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Api
     public delegate object NewtonsoftDeserializeDelegate(
         INewtonsoftJsonDeserializer deserializer,
         Stream stream,
-        Type type);
+        string serializableId);
 
     public interface INewtonsoftJsonDeserializer : IDeserializer
     {

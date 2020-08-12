@@ -272,6 +272,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Testing", "Proje
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Data.Newtonsoft.Api", "ProjectXyz.Plugins.Data.Newtonsoft.Api\ProjectXyz.Plugins.Data.Newtonsoft.Api.csproj", "{C121E3B8-4F91-4C69-944E-E6CA7C39A735}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{120A2FEA-A7A2-4524-8DC3-661DD1E006B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Data.Serialization", "ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj", "{1F707104-65A3-4E28-A34B-27F31F30A29C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -618,6 +622,10 @@ Global
 		{C121E3B8-4F91-4C69-944E-E6CA7C39A735}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C121E3B8-4F91-4C69-944E-E6CA7C39A735}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C121E3B8-4F91-4C69-944E-E6CA7C39A735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F707104-65A3-4E28-A34B-27F31F30A29C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F707104-65A3-4E28-A34B-27F31F30A29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F707104-65A3-4E28-A34B-27F31F30A29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F707104-65A3-4E28-A34B-27F31F30A29C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -748,6 +756,8 @@ Global
 		{6DF3EF09-8668-469C-81D5-06364B758F65} = {C31A48B7-7CEE-45D8-8669-27C796A047DD}
 		{C8AF3BB4-3AE4-4ECB-8D09-AE30F671BBBF} = {02E99FD1-9946-4B2E-9D7E-8173648EC9BC}
 		{C121E3B8-4F91-4C69-944E-E6CA7C39A735} = {FB2F06CF-CDFB-44FC-BAC3-1F89F1B00324}
+		{120A2FEA-A7A2-4524-8DC3-661DD1E006B1} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
+		{1F707104-65A3-4E28-A34B-27F31F30A29C} = {120A2FEA-A7A2-4524-8DC3-661DD1E006B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}

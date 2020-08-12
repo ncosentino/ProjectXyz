@@ -76,7 +76,6 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 .ToString(Formatting.None);
 
             var serializableId = serializable[nameof(ISerializable.SerializableId)].Value<string>();
-            var type = Type.GetType(serializableId);
 
             if (!_mapping.TryGetValue(
                 serializableId,
@@ -91,23 +90,14 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 var converted = converter.Invoke(
                     this,
                     nestedStream,
-                    type ?? typeof(TDeserializable));
+                    serializableId);
                 return (TDeserializable)converted;
             }
 
-            if (type == null)
-            {
-                throw new NotSupportedException(
-                    $"There is no mechanism to deserialize '{serializableId}' " +
-                    $"and no type could be found that matches this serialization " +
-                    $"id.");
-            }
-
-            var deserialized = JsonConvert.DeserializeObject(
-                rawObjectData,
-                type);
-            var casted = (TDeserializable)deserialized;
-            return casted;
+            throw new NotSupportedException(
+                $"There is no mechanism to deserialize '{serializableId}' " +
+                $"and no type could be found that matches this serialization " +
+                $"id.");
         }
     }
 }
