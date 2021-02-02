@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
@@ -8,7 +9,7 @@ using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 {
     public sealed class EnchantmentGeneratorFacade : IEnchantmentGeneratorFacade
     {

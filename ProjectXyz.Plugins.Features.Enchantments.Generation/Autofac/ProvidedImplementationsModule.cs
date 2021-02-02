@@ -2,7 +2,7 @@
 
 using ProjectXyz.Framework.Autofac;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.Autofac
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac
 {
     public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
@@ -10,6 +10,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.Autofac
         {
             builder
                 .RegisterType<BaseEnchantmentGenerator>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<EnchantmentGeneratorFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

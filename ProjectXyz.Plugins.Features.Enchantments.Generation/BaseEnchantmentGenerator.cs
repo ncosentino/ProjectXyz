@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects.Generation;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 {
     public sealed class BaseEnchantmentGenerator : IBaseEnchantmentGenerator
     {

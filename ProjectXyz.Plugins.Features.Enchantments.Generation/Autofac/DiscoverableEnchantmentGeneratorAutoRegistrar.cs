@@ -3,7 +3,7 @@
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Logging;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.Autofac
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac
 {
     public sealed class DiscoverableEnchantmentGeneratorAutoRegistrar
     {
