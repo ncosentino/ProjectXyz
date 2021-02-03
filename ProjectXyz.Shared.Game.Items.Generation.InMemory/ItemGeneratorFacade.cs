@@ -48,19 +48,35 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             }
 
             var generatedCount = 0;
+            var elligibleGenerators = new HashSet<IItemGenerator>(filteredGenerators);
             while (generatedCount < totalCount)
             {
-                var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
+                if (elligibleGenerators.Count < 1)
+                {
+                    throw new InvalidOperationException(
+                        "Could not find elligible item generators with the " +
+                        "provided context. Investigate the conditions on the " +
+                        "context along with the item generators.");
+                }
+
+                var generator = elligibleGenerators.RandomOrDefault(_randomNumberGenerator);
                 var currentContext = new GeneratorContext(
                     1,
                     1, // totalCount - generatedCount, // FIXME: do we hurt randomization by allowing initially selected generators to generate more?
                     generatorContext.Attributes);
 
                 var generatedItems = generator.GenerateItems(currentContext);
+                var generatedAtLeastOne = false;
                 foreach (var generatedItem in generatedItems)
                 {
                     generatedCount++;
+                    generatedAtLeastOne = true;
                     yield return generatedItem;
+                }
+
+                if (!generatedAtLeastOne)
+                {
+                    elligibleGenerators.Remove(generator);
                 }
             }
         }
