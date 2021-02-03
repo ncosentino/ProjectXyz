@@ -14,35 +14,47 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandomNumberGenerator _randomNumberGenerator;
-        private readonly IEnchantmentDefinitionRepository _enchantmentDefinitionRepository;
+        private readonly IReadOnlyCollection<IEnchantmentDefinitionRepository> _enchantmentDefinitionRepositories;
         private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandomNumberGenerator randomNumberGenerator,
-            IEnchantmentDefinitionRepository enchantmentDefinitionRepository,
+            IEnumerable<IEnchantmentDefinitionRepository> enchantmentDefinitionRepositories,
             IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
             _randomNumberGenerator = randomNumberGenerator;
-            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
+            _enchantmentDefinitionRepositories = enchantmentDefinitionRepositories.ToArray();
             _generatorComponentToBehaviorConverter = generatorComponentToBehaviorConverter;
         }
 
         public IEnumerable<IEnchantment> GenerateEnchantments(IGeneratorContext generatorContext)
         {
-            var count = GetCount(
+            var targetCount = GetCount(
                 generatorContext.MinimumGenerateCount,
                 generatorContext.MaximumGenerateCount);
 
-            for (var i = 0; i < count; i++)
+            var elligibleRepositories = new HashSet<IEnchantmentDefinitionRepository>(_enchantmentDefinitionRepositories);
+            var currentCount = 0;
+            while (currentCount < targetCount)
             {
+                if (elligibleRepositories.Count < 1)
+                {
+                    throw new InvalidOperationException(
+                        "Could not find elligible enchantment repositories " +
+                        "with the provided context. Investigate the conditions " +
+                        "on the context along with the available repositories.");
+                }
+
                 // pick the random enchantment definition that meets the context conditions
-                var enchantmentDefinitionCandidates = _enchantmentDefinitionRepository.LoadEnchantmentDefinitions(generatorContext);
+                var enchantmentDefinitionRepository = elligibleRepositories.RandomOrDefault(_randomNumberGenerator);
+                var enchantmentDefinitionCandidates = enchantmentDefinitionRepository.LoadEnchantmentDefinitions(generatorContext);
                 var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_randomNumberGenerator);
                 if (enchantmentDefinition == null)
                 {
-                    throw new InvalidOperationException("Could not generate an enchantment for the provided context.");
+                    elligibleRepositories.Remove(enchantmentDefinitionRepository);
+                    continue;
                 }
 
                 // create the whole set of components for the enchantment from the enchantment generation components
@@ -52,6 +64,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);
                 yield return enchantment;
+                currentCount++;
             }
         }
 
