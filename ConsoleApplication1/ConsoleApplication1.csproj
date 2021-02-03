@@ -20,7 +20,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
-    <PackageReference Include="ProjectXyz" Version="1.0.0" />
+    <PackageReference Include="Jace" Version="0.8.7" />
+    <PackageReference Include="MySql.Data" Version="8.0.23" />
+    <PackageReference Include="ProjectXyz" Version="1.0.0.38131" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

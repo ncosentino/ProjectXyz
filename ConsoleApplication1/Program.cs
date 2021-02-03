@@ -5,6 +5,7 @@ using Autofac;
 using ConsoleApplication1.Wip.Items.Generation.Plugins;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
@@ -29,6 +30,10 @@ namespace ConsoleApplication1
         public static void Main()
         {
             var moduleDiscoverer = new ModuleDiscoverer();
+            moduleDiscoverer.AssemblyLoadFailed += (_, args) =>
+            {
+                Console.WriteLine($"ERROR: Could not load assembly '{args.AssemblyFilePath}'.\r\n\t{args.Exception.Message}");
+            };
             var moduleDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var modules =
                 moduleDiscoverer.Discover(moduleDirectory, "*.exe")
@@ -37,6 +42,13 @@ namespace ConsoleApplication1
                 ////.Concat(moduleDiscoverer
                 ////.Discover(moduleDirectory, "Examples.Modules.*.dll"));
                 .Discover(moduleDirectory, "*.dll"));
+
+            Console.WriteLine("Discovered modules:");
+            foreach (var module in modules)
+            {
+                Console.WriteLine($"\t{module}");
+            }
+
             var dependencyContainerBuilder = new DependencyContainerBuilder();
             var dependencyContainer = dependencyContainerBuilder.Create(modules);
 
@@ -44,8 +56,8 @@ namespace ConsoleApplication1
             itemGenerator.Register(new RandomRollItemGeneratorPlugin(
                 new StringIdentifier("roll"),
                 100));
-            var itemGenerationContextFactory = dependencyContainer.Resolve<IGeneratorContextFactory>();
-            var itemGenerationContext = itemGenerationContextFactory.CreateGeneratorContext(
+            var generationContextFactory = dependencyContainer.Resolve<IGeneratorContextFactory>();
+            var itemGenerationContext = generationContextFactory.CreateGeneratorContext(
                 1,
                 1,
                 new GeneratorAttribute(
@@ -54,6 +66,18 @@ namespace ConsoleApplication1
                     true));
             var generatedItems = itemGenerator
                 .GenerateItems(itemGenerationContext)
+                .ToArray();
+
+            var enchantmentGenerationContext = generationContextFactory.CreateGeneratorContext(
+                1,
+                1,
+                new GeneratorAttribute(
+                    new StringIdentifier("roll"),
+                    new DoubleGeneratorAttributeValue(50),
+                    true));
+            var enchantmentDefinitions = dependencyContainer
+                .Resolve<IEnchantmentDefinitionRepository>()
+                .LoadEnchantmentDefinitions(enchantmentGenerationContext)
                 .ToArray();
 
             var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();

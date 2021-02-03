@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autofac\Module.cs" />
+    <Compile Include="EnchantmentDefinition.cs" />
+    <Compile Include="EnchantmentDefinitionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj">
+      <Project>{D54D0844-092D-4CCE-B01A-4AEA8B440926}</Project>
+      <Name>ProjectXyz.Api.Data.Databases</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj">
+      <Project>{37E43C15-CE90-455B-A9D8-EB6354006339}</Project>
+      <Name>ProjectXyz.Api.Data.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
+      <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
+      <Name>ProjectXyz.Api.Enchantments.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
+      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
+      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
+      <Name>ProjectXyz.Framework.Autofac</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

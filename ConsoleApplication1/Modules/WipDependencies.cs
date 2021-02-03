@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Data;
+
 using Autofac;
 using ConsoleApplication1.Wip;
+
+using MySql.Data.MySqlClient;
+
+using ProjectXyz.Api.Data.Databases;
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Framework.Autofac;
 
@@ -15,52 +21,62 @@ namespace ConsoleApplication1.Modules
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<NoneLogger>()
+                .RegisterType<ConsoleLogger>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<MySqlConnectionFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
-    }
 
-    public sealed class NoneLogger : ILogger
-    {
-        public void Debug(string message)
+        private sealed class MySqlConnectionFactory : IConnectionFactory
         {
-            throw new NotImplementedException();
+            public IDbConnection Create()
+            {
+                var connection = new MySqlConnection(
+                    $"Server=localhost;" +
+                    $"Database=macerus;" +
+                    $"Uid=macerus;" +
+                    $"Pwd=macerus;");
+                return connection;
+            }
         }
 
-        public void Debug(string message, object data)
+        private sealed class ConsoleLogger : ILogger
         {
-            throw new NotImplementedException();
-        }
+            public void Debug(string message) =>
+                Debug(message, null);
 
-        public void Info(string message)
-        {
-            throw new NotImplementedException();
-        }
+            public void Debug(string message, object data) =>
+                Log("DEBUG", message, data);
 
-        public void Info(string message, object data)
-        {
-            throw new NotImplementedException();
-        }
+            public void Error(string message) =>
+                Error(message, null);
 
-        public void Warn(string message)
-        {
-            throw new NotImplementedException();
-        }
+            public void Error(string message, object data) =>
+                Log("ERROR", message, data);
 
-        public void Warn(string message, object data)
-        {
-            throw new NotImplementedException();
-        }
+            public void Info(string message) =>
+                Info(message, null);
 
-        public void Error(string message)
-        {
-            throw new NotImplementedException();
-        }
+            public void Info(string message, object data) =>
+                Log("INFO", message, data);
 
-        public void Error(string message, object data)
-        {
-            throw new NotImplementedException();
+            public void Warn(string message) =>
+                Warn(message, null);
+
+            public void Warn(string message, object data) =>
+                Log("WARN", message, data);
+
+            private void Log(string prefix, string message, object data)
+            {
+                Console.WriteLine($"{prefix}: {message}");
+                if (data != null)
+                {
+                    Console.WriteLine($"\t{data}");
+                }
+            }
         }
     }
 }

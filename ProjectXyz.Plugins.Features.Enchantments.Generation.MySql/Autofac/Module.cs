@@ -2,14 +2,14 @@
 
 using ProjectXyz.Framework.Autofac;
 
-namespace Macerus.Plugins.Features.Data.MySql.Autofac
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql.Autofac
 {
-    public sealed class MySqlModule : SingleRegistrationModule
+    public sealed class Module : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<MySqlConnectionFactory>()
+                .RegisterType<EnchantmentDefinitionRepository>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
