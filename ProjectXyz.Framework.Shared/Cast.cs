@@ -24,6 +24,14 @@ namespace ProjectXyz.Shared.Framework
             _typeMethodInfoLookup = new Dictionary<Type, MethodInfo>();
         }
 
+        public T ToType<T>(
+            object obj,
+            bool useCache) =>
+            (T)ToType(obj, typeof(T), useCache);
+
+        public T ToType<T>(object obj) =>
+            ToType<T>(obj, true);
+
         public object ToType(
             object obj,
             Type resultType) =>
@@ -44,27 +52,36 @@ namespace ProjectXyz.Shared.Framework
                 return obj;
             }
 
-            if (typeof(IEnumerable).IsAssignableFrom(resultType) &&
-                resultType.IsGenericType)
+            try
             {
-                var enumerableResult = typeof(Enumerable)
-                    .GetMethod("Cast")
-                    .MakeGenericMethod(resultType.GenericTypeArguments[0])
-                    .Invoke(null, new object[] { obj });
-
-                if (resultType.FullName.StartsWith("System.Collections.Generic.IReadOnlyCollection`") ||
-                    resultType.GetInterfaces().Any(x =>
-                    {
-                        return x.FullName.StartsWith("System.Collections.Generic.IReadOnlyCollection`");
-                    }))
+                if (typeof(IEnumerable).IsAssignableFrom(resultType) &&
+                    resultType.IsGenericType)
                 {
-                    enumerableResult = typeof(Enumerable)
-                        .GetMethod("ToArray")
+                    var enumerableResult = typeof(Enumerable)
+                        .GetMethod("Cast")
                         .MakeGenericMethod(resultType.GenericTypeArguments[0])
-                        .Invoke(null, new object[] { enumerableResult });
-                }
+                        .Invoke(null, new object[] { obj });
 
-                return enumerableResult;
+                    if (resultType.FullName.StartsWith("System.Collections.Generic.IReadOnlyCollection`") ||
+                        resultType.GetInterfaces().Any(x =>
+                        {
+                            return x.FullName.StartsWith("System.Collections.Generic.IReadOnlyCollection`");
+                        }))
+                    {
+                        enumerableResult = typeof(Enumerable)
+                            .GetMethod("ToArray")
+                            .MakeGenericMethod(resultType.GenericTypeArguments[0])
+                            .Invoke(null, new object[] { enumerableResult });
+                    }
+
+                    return enumerableResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidCastException(
+                    $"Could not cast '{obj.GetType()}' to '{resultType}'.",
+                    ex);
             }
 
             MethodInfo castIntoMethod;
@@ -81,8 +98,17 @@ namespace ProjectXyz.Shared.Framework
                 }
             }
 
-            var castedObject = castIntoMethod.Invoke(null, new[] { obj });
-            return castedObject;
+            try
+            {
+                var castedObject = castIntoMethod.Invoke(null, new[] { obj });
+                return castedObject;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidCastException(
+                    $"Could not cast '{obj.GetType()}' to '{resultType}'.",
+                    ex);
+            }
         }
 
         private static T CastInto<T>(object obj)

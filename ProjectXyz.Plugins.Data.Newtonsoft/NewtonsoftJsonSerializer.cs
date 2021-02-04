@@ -30,18 +30,19 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
 
         public void Serialize<TSerializable>(
             Stream stream,
-            TSerializable objectToSerialize)
+            TSerializable objectToSerialize,
+            Encoding encoding)
         {
             if (!(objectToSerialize is ISerializable))
             {
                 var serializable = GetAsSerializable(
                     objectToSerialize,
                     new HashSet<object>());
-                Serialize(stream, serializable);
+                Serialize(stream, serializable, encoding);
                 return;
             }
 
-            using (var writer = new JsonTextWriter(new StreamWriter(stream, Encoding.UTF8, 4096, true)))
+            using (var writer = new JsonTextWriter(new StreamWriter(stream, encoding, 4096, true)))
             {
                 _jsonSerializer.Serialize(writer, objectToSerialize);
             }

@@ -71,6 +71,11 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 return (TDeserializable)(object)deserializedList;
             }
 
+            if (!NeedsDeserialization(objectData.Type))
+            {
+                return (TDeserializable)objectData.Value<JValue>().Value;
+            }
+
             var rawObjectData = objectData
                 .Value<JObject>()
                 .ToString(Formatting.None);
@@ -98,6 +103,15 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 $"There is no mechanism to deserialize '{serializableId}' " +
                 $"and no type could be found that matches this serialization " +
                 $"id.");
+        }
+
+        public bool NeedsDeserialization(JTokenType type)
+        {
+            return
+                type != JTokenType.String && 
+                type != JTokenType.Boolean &&
+                type != JTokenType.Float &&
+                type != JTokenType.Integer;
         }
     }
 }

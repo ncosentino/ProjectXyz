@@ -38,6 +38,13 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             Type type)
         {
             var serialiableId = _objectToSerializationIdConverterFacade.ConvertToSerializationId(objectToConvert);
+            if (!serializer.NeedsSerialization(type))
+            {
+                return new Serializable(
+                    serialiableId,
+                    objectToConvert);
+            }
+
             if (typeof(IEnumerable).IsAssignableFrom(type))
             {
                 return new Serializable(
