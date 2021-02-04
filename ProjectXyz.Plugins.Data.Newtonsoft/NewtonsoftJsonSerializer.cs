@@ -59,13 +59,10 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
 
             if (NeedsSerialization(objectToSerialize))
             {
-                if (visited.Contains(objectToSerialize))
+                if (!visited.Contains(objectToSerialize))
                 {
-                    throw new InvalidOperationException(
-                        $"Circular reference detected. '{objectToSerialize}' has already been visited.");
+                    visited.Add(objectToSerialize);
                 }
-
-                visited.Add(objectToSerialize);
             }
 
             if (!_mapping.TryGetValue(

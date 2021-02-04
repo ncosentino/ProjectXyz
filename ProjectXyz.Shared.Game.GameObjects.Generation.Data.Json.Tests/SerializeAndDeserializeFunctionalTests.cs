@@ -75,10 +75,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     new Action<object>(result =>
                     {
                         Assert.IsType<GeneratorComponent>(result);
-
+                
                         var generatorComponent = (GeneratorComponent)result;
                         Assert.Equal(2, generatorComponent.SupportedAttributes.Count());
-
+                
                         var firstAttribute = generatorComponent.SupportedAttributes.First();
                         Assert.IsType<GeneratorAttribute>(firstAttribute);
                         Assert.Equal(
@@ -87,7 +87,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                         Assert.IsType<StringGeneratorAttributeValue>(firstAttribute.Value);
                         Assert.Equal("string", ((StringGeneratorAttributeValue)firstAttribute.Value).Value);
                         Assert.True(firstAttribute.Required, $"Unexpected value for '{nameof(IGeneratorAttribute.Required)}'.");
-
+                
                         var secondAttribute = generatorComponent.SupportedAttributes.Last();
                         Assert.IsType<GeneratorAttribute>(secondAttribute);
                         Assert.Equal(
@@ -96,6 +96,31 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                         Assert.IsType<DoubleGeneratorAttributeValue>(secondAttribute.Value);
                         Assert.Equal(123d, ((DoubleGeneratorAttributeValue)secondAttribute.Value).Value);
                         Assert.False(secondAttribute.Required, $"Unexpected value for '{nameof(IGeneratorAttribute.Required)}'.");
+                    }),
+                },
+                new object[]
+                {
+                    new RepeatedPropertyRefObject()
+                    {
+                        Property1 = SingletonObject.Value,
+                        Property2 = SingletonObject.Value,
+                    },
+                    new Action<object>(result =>
+                    {
+                        Assert.IsType<RepeatedPropertyRefObject>(result);
+                        Assert.NotNull(((RepeatedPropertyRefObject)result).Property1);
+                        Assert.NotNull(((RepeatedPropertyRefObject)result).Property2);
+                    }),
+                },
+                new object[]
+                {
+                    new[] { SingletonObject.Value, SingletonObject.Value },
+                    new Action<object>(result =>
+                    {
+                        Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
+                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
+                        Assert.IsType<SingletonObject>(((IReadOnlyList<object>)result)[0]);
+                        Assert.IsType<SingletonObject>(((IReadOnlyList<object>)result)[1]);
                     }),
                 },
                 new object[]
@@ -179,6 +204,20 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     }),
                 },
             };
+
+            private sealed class RepeatedPropertyRefObject
+            {
+                public SingletonObject Property1 { get; set; }
+
+                public SingletonObject Property2 { get; set; }
+            }
+
+            private sealed class SingletonObject
+            {
+                private static Lazy<SingletonObject> _lazySingle = new Lazy<SingletonObject>(() => new SingletonObject());
+
+                public static SingletonObject Value => _lazySingle.Value;
+            }
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
 
