@@ -8,15 +8,16 @@ namespace ProjectXyz.Shared.Framework
     public sealed class Identifier<T> : IIdentifier
     {
         private readonly Lazy<string> _lazyToString;
-        private readonly T _identifier;
 
-        public Identifier(T identifier)
+        public Identifier(T value)
         {
-            _identifier = identifier;
-            _lazyToString = new Lazy<string>(identifier.ToString);
+            Value = value;
+            _lazyToString = new Lazy<string>(value.ToString);
         }
 
         public override string ToString() => _lazyToString.Value;
+
+        public T Value { get; }
 
         public override bool Equals(object obj)
         {
@@ -30,7 +31,7 @@ namespace ProjectXyz.Shared.Framework
 
         public override int GetHashCode()
         {
-            return _identifier.GetHashCode() ^ 7;
+            return Value.GetHashCode() ^ 7;
         }
     }
 

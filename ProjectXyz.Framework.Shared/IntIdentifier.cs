@@ -16,6 +16,8 @@ namespace ProjectXyz.Shared.Framework
         {
         }
 
+        public int Identifier => ((Identifier<int>)_identifier).Value;
+
         public override string ToString()
         {
             return _identifier.ToString();
