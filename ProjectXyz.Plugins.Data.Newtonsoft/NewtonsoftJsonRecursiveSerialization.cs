@@ -129,7 +129,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                         BindingFlags.Public |
                         BindingFlags.NonPublic |
                         BindingFlags.SetProperty)
-                    .Where(p => unsetPropertyNames.Contains(p.Name))
+                    .Where(p => unsetPropertyNames.Contains(p.Name) && p.SetMethod != null)
                     .ToArray();
 
                 foreach (var property in settableProperties)
