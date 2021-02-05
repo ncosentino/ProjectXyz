@@ -75,10 +75,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     new Action<object>(result =>
                     {
                         Assert.IsType<GeneratorComponent>(result);
-                
+
                         var generatorComponent = (GeneratorComponent)result;
                         Assert.Equal(2, generatorComponent.SupportedAttributes.Count());
-                
+
                         var firstAttribute = generatorComponent.SupportedAttributes.First();
                         Assert.IsType<GeneratorAttribute>(firstAttribute);
                         Assert.Equal(
@@ -87,7 +87,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                         Assert.IsType<StringGeneratorAttributeValue>(firstAttribute.Value);
                         Assert.Equal("string", ((StringGeneratorAttributeValue)firstAttribute.Value).Value);
                         Assert.True(firstAttribute.Required, $"Unexpected value for '{nameof(IGeneratorAttribute.Required)}'.");
-                
+
                         var secondAttribute = generatorComponent.SupportedAttributes.Last();
                         Assert.IsType<GeneratorAttribute>(secondAttribute);
                         Assert.Equal(
@@ -97,112 +97,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                         Assert.Equal(123d, ((DoubleGeneratorAttributeValue)secondAttribute.Value).Value);
                         Assert.False(secondAttribute.Required, $"Unexpected value for '{nameof(IGeneratorAttribute.Required)}'.");
                     }),
-                },
-                new object[]
-                {
-                    new RepeatedPropertyRefObject()
-                    {
-                        Property1 = SingletonObject.Value,
-                        Property2 = SingletonObject.Value,
-                    },
-                    new Action<object>(result =>
-                    {
-                        Assert.IsType<RepeatedPropertyRefObject>(result);
-                        Assert.NotNull(((RepeatedPropertyRefObject)result).Property1);
-                        Assert.NotNull(((RepeatedPropertyRefObject)result).Property2);
-                    }),
-                },
-                new object[]
-                {
-                    new[] { SingletonObject.Value, SingletonObject.Value },
-                    new Action<object>(result =>
-                    {
-                        Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
-                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
-                        Assert.IsType<SingletonObject>(((IReadOnlyList<object>)result)[0]);
-                        Assert.IsType<SingletonObject>(((IReadOnlyList<object>)result)[1]);
-                    }),
-                },
-                new object[]
-                {
-                    new[] { "test", "array" },
-                    new Action<object>(result =>
-                    {
-                        Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
-                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
-                        Assert.Equal("test", ((IReadOnlyList<object>)result)[0]);
-                        Assert.Equal("array", ((IReadOnlyList<object>)result)[1]);
-                    }),
-                },
-                new object[]
-                {
-                    new[] { 12.3d, 45.6d },
-                    new Action<object>(result =>
-                    {
-                        Assert.IsAssignableFrom<IReadOnlyCollection<object>>(result);
-                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
-                        Assert.Equal(12.3d, ((IReadOnlyList<object>)result)[0]);
-                        Assert.Equal(45.6d, ((IReadOnlyList<object>)result)[1]);
-                    }),
-                },
-                new object[]
-                {
-                    new[] { 123L, 456L },
-                    new Action<object>(result =>
-                    {
-                        Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
-                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
-                        Assert.Equal(123L, ((IReadOnlyList<object>)result)[0]);
-                        Assert.Equal(456L, ((IReadOnlyList<object>)result)[1]);
-                    }),
-                },
-                new object[]
-                {
-                    new[] { 123, 456 },
-                    new Action<object>(result =>
-                    {
-                        Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
-                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
-                        Assert.Equal(123L, ((IReadOnlyList<object>)result)[0]);
-                        Assert.Equal(456L, ((IReadOnlyList<object>)result)[1]);
-                    }),
-                },
-                new object[]
-                {
-                    "string",
-                    new Action<object>(result =>
-                    {
-                        Assert.IsType<string>(result);
-                        Assert.Equal("string", result);
-                    }),
-                },
-                new object[]
-                {
-                    123.456d,
-                    new Action<object>(result =>
-                    {
-                        Assert.IsType<double>(result);
-                        Assert.Equal(123.456d, result);
-                    }),
-                },
-                new object[]
-                {
-                    123L,
-                    new Action<object>(result =>
-                    {
-                        Assert.IsType<long>(result);
-                        Assert.Equal(123L, result);
-                    }),
-                },
-                new object[]
-                {
-                    123,
-                    new Action<object>(result =>
-                    {
-                        Assert.IsType<long>(result);
-                        Assert.Equal(123L, result);
-                    }),
-                },
+                }
             };
 
             private sealed class RepeatedPropertyRefObject
