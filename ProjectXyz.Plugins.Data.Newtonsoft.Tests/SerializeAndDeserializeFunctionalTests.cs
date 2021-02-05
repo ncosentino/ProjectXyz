@@ -6,10 +6,7 @@ using System.Text;
 
 using Autofac;
 
-using Newtonsoft.Json;
-
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Plugins.Data.Newtonsoft;
 using ProjectXyz.Testing;
 
 using Xunit;
@@ -23,12 +20,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
 
         static SerializeAndDeserializeFunctionalTests()
         {
-            var jsonSerializer = new JsonSerializer();
-            _serializer = new NewtonsoftJsonSerializer(jsonSerializer);
-            _deserializer = new NewtonsoftJsonDeserializer(jsonSerializer);
-
-            var xx = new TestLifeTimeScopeFactory();
-            var scope = xx.CreateScope();
+            var scopeFactory = new TestLifeTimeScopeFactory();
+            var scope = scopeFactory.CreateScope();
             _serializer = scope.Resolve<ISerializer>();
             _deserializer = scope.Resolve<IDeserializer>();
         }
@@ -37,7 +30,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
         [Theory]
         private void Deserialize_SerializedData_ExpectedResult(
             object dataToSerialize,
-            Action<object> validateCallback)
+            Action<object, object> validateCallback)
         {
             var serializedStream = new MemoryStream();
             _serializer.Serialize(
@@ -46,7 +39,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 Encoding.UTF8);
             serializedStream.Seek(0, SeekOrigin.Begin);
             var deserialized = _deserializer.Deserialize(serializedStream);
-            validateCallback(deserialized);
+            validateCallback(dataToSerialize, deserialized);
         }
 
         private sealed class TestData : IEnumerable<object[]>
@@ -55,12 +48,35 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
             {
                 new object[]
                 {
+                    new ObjWithTwoPropertiesOneConstructorParameter("constructor parameter"),
+                    new Action<object, object>((original, result) =>
+                    {
+                        Assert.IsType<ObjWithTwoPropertiesOneConstructorParameter>(result);
+                        Assert.Equal("constructor parameter", ((ObjWithTwoPropertiesOneConstructorParameter)result).Property1);
+                        Assert.Null(((ObjWithTwoPropertiesOneConstructorParameter)result).Property2);
+                    }),
+                },
+                new object[]
+                {
+                    new ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly("constructor parameter"),
+                    new Action<object, object>((original, result) =>
+                    {
+                        Assert.IsType<ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly>(result);
+                        Assert.Equal("constructor parameter", ((ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly)result).Property1);
+                        Assert.NotNull(((ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly)result).Property2);
+                        Assert.NotEqual(
+                            ((ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly)original).Property2,
+                            ((ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly)result).Property2);
+                    }),
+                },
+                new object[]
+                {
                     new RepeatedPropertyRefObject()
                     {
                         Property1 = SingletonObject.Value,
                         Property2 = SingletonObject.Value,
                     },
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsType<RepeatedPropertyRefObject>(result);
                         Assert.NotNull(((RepeatedPropertyRefObject)result).Property1);
@@ -70,7 +86,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     new[] { SingletonObject.Value, SingletonObject.Value },
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
                         Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
@@ -81,7 +97,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     new[] { "test", "array" },
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
                         Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
@@ -92,7 +108,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     new[] { 12.3d, 45.6d },
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsAssignableFrom<IReadOnlyCollection<object>>(result);
                         Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
@@ -103,7 +119,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     new[] { 123L, 456L },
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
                         Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
@@ -114,7 +130,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     new[] { 123, 456 },
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
                         Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
@@ -125,7 +141,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     "string",
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsType<string>(result);
                         Assert.Equal("string", result);
@@ -134,7 +150,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     123.456d,
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsType<double>(result);
                         Assert.Equal(123.456d, result);
@@ -143,7 +159,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     123L,
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsType<long>(result);
                         Assert.Equal(123L, result);
@@ -152,13 +168,37 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 new object[]
                 {
                     123,
-                    new Action<object>(result =>
+                    new Action<object, object>((original, result) =>
                     {
                         Assert.IsType<long>(result);
                         Assert.Equal(123L, result);
                     }),
                 },
             };
+
+            public sealed class ObjWithTwoPropertiesOneConstructorParameter
+            {
+                public ObjWithTwoPropertiesOneConstructorParameter(string property1)
+                {
+                    Property1 = property1;
+                }
+
+                public string Property1 { get; }
+
+                public string Property2 { get; }
+            }
+
+            public sealed class ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly
+            {
+                public ObjWithTwoPropertiesOneConstructorParameterSecondAsReadonly(string property1)
+                {
+                    Property1 = property1;
+                }
+
+                public string Property1 { get; }
+
+                public string Property2 { get; } = Guid.NewGuid().ToString();
+            }
 
             private sealed class RepeatedPropertyRefObject
             {
