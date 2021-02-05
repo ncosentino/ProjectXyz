@@ -49,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
                 // pick the random enchantment definition that meets the context conditions
                 var enchantmentDefinitionRepository = elligibleRepositories.RandomOrDefault(_randomNumberGenerator);
-                var enchantmentDefinitionCandidates = enchantmentDefinitionRepository.LoadEnchantmentDefinitions(generatorContext);
+                var enchantmentDefinitionCandidates = enchantmentDefinitionRepository.ReadEnchantmentDefinitions(generatorContext);
                 var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_randomNumberGenerator);
                 if (enchantmentDefinition == null)
                 {

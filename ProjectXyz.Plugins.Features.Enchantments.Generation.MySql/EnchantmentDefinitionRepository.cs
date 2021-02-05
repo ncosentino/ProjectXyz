@@ -16,22 +16,25 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
     {
         private readonly IConnectionFactory _connectionFactory;
         private readonly IDeserializer _deserializer;
+        private readonly ISerializer _serializer;
         private readonly IAttributeFilterer _attributeFilterer;
         private readonly Lazy<IReadOnlyCollection<IEnchantmentDefinition>> _lazyDefinitionCache;
 
         public EnchantmentDefinitionRepository(
             IConnectionFactory connectionFactory,
             IDeserializer deserializer,
+            ISerializer serializer,
             IAttributeFilterer attributeFilterer)
         {
             _connectionFactory = connectionFactory;
             _deserializer = deserializer;
+            _serializer = serializer;
             _attributeFilterer = attributeFilterer;
             _lazyDefinitionCache = new Lazy<IReadOnlyCollection<IEnchantmentDefinition>>(() =>
                 ReadAllEnchantmentDefinitions().ToArray());
         }
 
-        public IEnumerable<IEnchantmentDefinition> LoadEnchantmentDefinitions(IGeneratorContext generatorContext)
+        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IGeneratorContext generatorContext)
         {
             var enchantmentDefinitions = _lazyDefinitionCache.Value;
             var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
@@ -45,6 +48,39 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
                 // - Filter-applies ones that aren't attached to the Enchantment definition but can be applied by filter requirement being met   
 
                 yield return filteredEnchantmentDefinition;
+            }
+        }
+
+        public void WriteEnchantmentDefinitions(IEnumerable<IEnchantmentDefinition> enchantmentDefinitions)
+        {
+            using (var connection = _connectionFactory.OpenNew())
+            using (var transaction = connection.BeginTransaction())
+            {
+                foreach (var enchantmentDefinition in enchantmentDefinitions)
+                {
+                    var serialized = _serializer.SerializeToString(
+                        enchantmentDefinition,
+                        Encoding.UTF8);
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = @"
+                        INSERT INTO
+                            enchantment_definitions
+                        SET
+                            serialized=@serialized
+                        ;";
+                        command.AddParameter("@serialized", serialized);
+
+                        var result = command.ExecuteNonQuery();
+                        if (result != 1)
+                        {
+                            throw new InvalidOperationException(
+                                $"The enchantment definition could not be added. Result code {result}.");
+                        }
+                    }
+                }
+
+                transaction.Commit();
             }
         }
 

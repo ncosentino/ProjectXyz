@@ -10,7 +10,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 {
     public sealed class InMemoryEnchantmentDefinitionRepository : IEnchantmentDefinitionRepository
     {
-        private readonly Lazy<IReadOnlyCollection<IEnchantmentDefinition>> _lazyEnchantmentDefinitions;
+        private readonly List<IEnchantmentDefinition> _enchantmentDefinitions;
         private readonly IAttributeFilterer _attributeFilterer;
 
         public InMemoryEnchantmentDefinitionRepository(
@@ -18,14 +18,12 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
             IEnumerable<IEnchantmentDefinition> enchantmentDefinitions)
         {
             _attributeFilterer = attributeFilterer;
-            _lazyEnchantmentDefinitions = new Lazy<IReadOnlyCollection<IEnchantmentDefinition>>(enchantmentDefinitions.ToArray);
+            _enchantmentDefinitions = new List<IEnchantmentDefinition>(enchantmentDefinitions);
         }
 
-        private IReadOnlyCollection<IEnchantmentDefinition> EnchantmentDefinitions => _lazyEnchantmentDefinitions.Value;
-
-        public IEnumerable<IEnchantmentDefinition> LoadEnchantmentDefinitions(IGeneratorContext generatorContext)
+        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IGeneratorContext generatorContext)
         {
-            if (!EnchantmentDefinitions.Any())
+            if (!_enchantmentDefinitions.Any())
             {
                 throw new InvalidOperationException(
                     $"There are no {typeof(IEnchantmentDefinition)} instances " +
@@ -35,7 +33,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
             }
 
             var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
-                EnchantmentDefinitions,
+                _enchantmentDefinitions,
                 generatorContext);
             foreach (var filteredEnchantmentDefinition in filteredEnchantmentDefinitions)
             {
@@ -48,7 +46,12 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
             }
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes => EnchantmentDefinitions
+        public void WriteEnchantmentDefinitions(IEnumerable<IEnchantmentDefinition> enchantmentDefinitions)
+        {
+            _enchantmentDefinitions.AddRange(enchantmentDefinitions);
+        }
+
+        public IEnumerable<IGeneratorAttribute> SupportedAttributes => _enchantmentDefinitions
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
     }
