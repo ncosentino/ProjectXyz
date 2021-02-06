@@ -2,8 +2,8 @@
 
 namespace ProjectXyz.Api.Stats
 {
-    public interface IStatDefinitionToTermMappingRepository
+    public interface IStatDefinitionToTermMappingRepository : IReadOnlyStatDefinitionToTermMappingRepository
     {
-        IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings();
+        void WriteStatDefinitionIdToTermMappings(IEnumerable<IStatDefinitionToTermMapping> statDefinitionToTermMappings);
     }
 }

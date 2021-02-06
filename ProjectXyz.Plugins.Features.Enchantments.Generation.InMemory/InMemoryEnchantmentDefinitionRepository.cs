@@ -8,7 +8,7 @@ using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 {
-    public sealed class InMemoryEnchantmentDefinitionRepository : IEnchantmentDefinitionRepository
+    public sealed class InMemoryEnchantmentDefinitionRepository : IReadOnlyEnchantmentDefinitionRepository
     {
         private readonly List<IEnchantmentDefinition> _enchantmentDefinitions;
         private readonly IAttributeFilterer _attributeFilterer;
@@ -44,11 +44,6 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
 
                 yield return filteredEnchantmentDefinition;
             }
-        }
-
-        public void WriteEnchantmentDefinitions(IEnumerable<IEnchantmentDefinition> enchantmentDefinitions)
-        {
-            _enchantmentDefinitions.AddRange(enchantmentDefinitions);
         }
 
         public IEnumerable<IGeneratorAttribute> SupportedAttributes => _enchantmentDefinitions

@@ -16,13 +16,13 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandom _random;
-        private readonly IReadOnlyCollection<IEnchantmentDefinitionRepository> _enchantmentDefinitionRepositories;
+        private readonly IReadOnlyCollection<IReadOnlyEnchantmentDefinitionRepository> _enchantmentDefinitionRepositories;
         private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandom random,
-            IEnumerable<IEnchantmentDefinitionRepository> enchantmentDefinitionRepositories,
+            IEnumerable<IReadOnlyEnchantmentDefinitionRepository> enchantmentDefinitionRepositories,
             IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
@@ -37,7 +37,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                 generatorContext.MinimumGenerateCount,
                 generatorContext.MaximumGenerateCount);
 
-            var elligibleRepositories = new HashSet<IEnchantmentDefinitionRepository>(_enchantmentDefinitionRepositories);
+            var elligibleRepositories = new HashSet<IReadOnlyEnchantmentDefinitionRepository>(_enchantmentDefinitionRepositories);
             var currentCount = 0;
             while (currentCount < targetCount)
             {
