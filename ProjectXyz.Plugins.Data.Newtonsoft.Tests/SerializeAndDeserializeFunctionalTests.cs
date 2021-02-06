@@ -48,6 +48,15 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
             {
                 new object[]
                 {
+                    new ObjWithOnePropertiesTwoConstructorParameter("constructor parameter", "unused"),
+                    new Action<object, object>((original, result) =>
+                    {
+                        Assert.IsType<ObjWithOnePropertiesTwoConstructorParameter>(result);
+                        Assert.Equal("constructor parameter", ((ObjWithOnePropertiesTwoConstructorParameter)result).Property1);
+                    }),
+                },
+                new object[]
+                {
                     new ObjWithTwoPropertiesOneConstructorParameter("constructor parameter"),
                     new Action<object, object>((original, result) =>
                     {
@@ -175,6 +184,16 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     }),
                 },
             };
+
+            public sealed class ObjWithOnePropertiesTwoConstructorParameter
+            {
+                public ObjWithOnePropertiesTwoConstructorParameter(string property1, string property2)
+                {
+                    Property1 = property1;
+                }
+
+                public string Property1 { get; }
+            }
 
             public sealed class ObjWithTwoPropertiesOneConstructorParameter
             {

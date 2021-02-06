@@ -22,7 +22,7 @@
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Jace" Version="0.8.7" />
     <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="ProjectXyz" Version="1.0.0.39514" />
+    <PackageReference Include="ProjectXyz" Version="1.0.7707.5329" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />

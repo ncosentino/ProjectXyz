@@ -152,7 +152,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             Type type,
             HashSet<string> jsonPropertyNames)
         {
-            return type
+            var sortedConstructors = type
                 .GetConstructors()
                 .Select(c => new
                 {
@@ -160,9 +160,23 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                     Parameters = c.GetParameters(),
                 })
                 .OrderByDescending(x => x.Parameters.Length)
-                .ThenByDescending(x => x.Parameters.Count(p => p.ParameterType.IsValueType || p.ParameterType == typeof(string)))
+                .ThenByDescending(x => x.Parameters.Count(p => p.ParameterType.IsValueType || p.ParameterType == typeof(string)));
+
+            // start with fully matching parameters
+            foreach (var constructor in sortedConstructors
                 .Where(x => x.Parameters.Select(p => p.Name).All(p => jsonPropertyNames.Contains(p)))
-                .Select(x => x.Constructor);
+                .Select(x => x.Constructor))
+            {
+                yield return constructor;
+            }
+
+            foreach (var constructor in sortedConstructors
+                .Where(x => !(x.Parameters.Select(p => p.Name).All(p => jsonPropertyNames.Contains(p))))
+                .OrderByDescending(x => x.Parameters.Count(p => jsonPropertyNames.Contains(p.Name)))
+                .Select(x => x.Constructor))
+            {
+                yield return constructor;
+            }
         }
 
         private bool TryCreateInstance(
@@ -180,15 +194,22 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             {
                 foreach (var requiredParameter in constructor.GetParameters())
                 {
-                    var jsonPropertyValue = jsonObject.GetValue(
+                    bool jsonHasProperty = jsonObject.TryGetValue(
                         requiredParameter.Name,
-                        StringComparison.OrdinalIgnoreCase);
-                    var parameterValue = ConvertJsonValue(
+                        StringComparison.OrdinalIgnoreCase,
+                        out var jsonPropertyValue);
+                    var parameterValue = !jsonHasProperty || jsonPropertyValue == null
+                        ? null
+                        : ConvertJsonValue(
                         deserializer,
                         requiredParameter.ParameterType,
                         jsonPropertyValue);
                     constructorParameters.Add(parameterValue);
-                    usedProperties.Add(requiredParameter.Name);
+
+                    if (jsonHasProperty)
+                    {
+                        usedProperties.Add(requiredParameter.Name);
+                    }
                 }
 
                 var constructorParamsArray = constructorParameters.ToArray();
