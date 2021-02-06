@@ -10,10 +10,10 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
     public sealed class EnchantmentDefinition : IEnchantmentDefinition
     {
         public EnchantmentDefinition(
-            IEnumerable<IGeneratorAttribute> attributes,
+            IEnumerable<IGeneratorAttribute> supportedAttributes,
             IEnumerable<IGeneratorComponent> generatorComponents)
         {
-            SupportedAttributes = attributes.ToArray();
+            SupportedAttributes = supportedAttributes.ToArray();
             GeneratorComponents = generatorComponents.ToArray();
         }
 

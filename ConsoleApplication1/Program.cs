@@ -77,7 +77,7 @@ namespace ConsoleApplication1
                     true));
             var enchantmentDefinitions = dependencyContainer
                 .Resolve<IEnchantmentDefinitionRepository>()
-                .LoadEnchantmentDefinitions(enchantmentGenerationContext)
+                .ReadEnchantmentDefinitions(enchantmentGenerationContext)
                 .ToArray();
 
             var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();
