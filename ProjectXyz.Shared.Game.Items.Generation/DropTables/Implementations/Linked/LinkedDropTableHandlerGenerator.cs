@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
@@ -11,18 +14,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
 {
     public sealed class LinkedDropTableHandlerGenerator : IDiscoverableDropTableHandlerGenerator
     {
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IRandom _random;
         private readonly IDropTableHandlerGeneratorFacade _dropTableHandlerGeneratorFacade;
         private readonly IDropTableRepository _dropTableRepository;
         private readonly IGeneratorContextFactory _generatorContextFactory;
 
         public LinkedDropTableHandlerGenerator(
-            IRandomNumberGenerator randomNumberGenerator,
+            IRandom random,
             IDropTableHandlerGeneratorFacade dropTableHandlerGeneratorFacade,
             IDropTableRepository dropTableRepository,
             IGeneratorContextFactory generatorContextFactory)
         {
-            _randomNumberGenerator = randomNumberGenerator;
+            _random = random;
             _dropTableHandlerGeneratorFacade = dropTableHandlerGeneratorFacade;
             _dropTableRepository = dropTableRepository;
             _generatorContextFactory = generatorContextFactory;
@@ -45,9 +48,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IGeneratorContext generatorContext)
         {
             // get a random count for this drop table
-            var generationCount = _randomNumberGenerator.NextInRange(
+            var generationCount = _random.Next(
                 dropTable.MinimumGenerateCount,
-                dropTable.MaximumGenerateCount);
+                dropTable.MaximumGenerateCount + 1);
 
             // create our new context with all but the attributes this table required
             var dropTableRequiredAttributeIds = new HashSet<IIdentifier>(dropTable
@@ -97,7 +100,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IEnumerable<IWeightedEntry> entries,
             double totalWeight)
         {
-            var randomNumber = _randomNumberGenerator.NextInRange(0, totalWeight);
+            var randomNumber = _random.NextDouble(0, totalWeight + 1);
 
             foreach (var entry in entries)
             {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Api.Framework;
+
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
@@ -13,19 +15,19 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
     {
         private readonly IDropTableRepository _dropTableRepository;
         private readonly IAttributeFilterer _attributeFilterer;
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IRandom _random;
         private readonly IDropTableHandlerGeneratorFacade _dropTableHandlerGeneratorFacade;
 
         public LootGenerator(
             IDropTableRepository dropTableRepository,
             IDropTableHandlerGeneratorFacade dropTableHandlerGeneratorFacade,
             IAttributeFilterer attributeFilterer,
-            IRandomNumberGenerator randomNumberGenerator)
+            IRandom random)
         {
             _dropTableRepository = dropTableRepository;
             _dropTableHandlerGeneratorFacade = dropTableHandlerGeneratorFacade;
             _attributeFilterer = attributeFilterer;
-            _randomNumberGenerator = randomNumberGenerator;
+            _random = random;
         }
 
         public IEnumerable<IGameObject> GenerateLoot(IGeneratorContext generatorContext)
@@ -41,7 +43,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
             while (remaining > 0 && generatedCount < generatorContext.MaximumGenerateCount)
             {
                 // random roll the drop table
-                var dropTable = filteredDropTables.RandomOrDefault(_randomNumberGenerator);
+                var dropTable = filteredDropTables.RandomOrDefault(_random);
                 if (dropTable == null)
                 {
                     throw new InvalidOperationException(

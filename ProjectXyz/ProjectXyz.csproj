@@ -79,6 +79,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Api\ProjectXyz.Plugins.Features.Weather.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />

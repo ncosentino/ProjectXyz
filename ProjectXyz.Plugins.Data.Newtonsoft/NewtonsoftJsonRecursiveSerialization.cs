@@ -8,8 +8,9 @@ using System.Reflection;
 
 using Newtonsoft.Json.Linq;
 
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
+
+using NexusLabs.Framework;
 
 namespace ProjectXyz.Api.Framework.Collections
 {
@@ -9,7 +10,7 @@ namespace ProjectXyz.Api.Framework.Collections
     {
         public static T Random<T>(
             this IEnumerable<T> source,
-            IRandomNumberGenerator random)
+            IRandom random)
         {
             var current = default(T);
             var count = 0;
@@ -17,8 +18,7 @@ namespace ProjectXyz.Api.Framework.Collections
             {
                 count++;
 
-                // subtract 1 because we need EXCLUSIVE upper bound
-                if (random.NextInRange(0, count - 1) == 0)
+                if (random.Next(0, count) == 0)
                 {
                     current = element;
                 }
@@ -34,7 +34,7 @@ namespace ProjectXyz.Api.Framework.Collections
 
         public static T RandomOrDefault<T>(
             this IEnumerable<T> source,
-            IRandomNumberGenerator random)
+            IRandom random)
         {
             var current = default(T);
             var count = 0;
@@ -42,8 +42,7 @@ namespace ProjectXyz.Api.Framework.Collections
             {
                 count++;
 
-                // subtract 1 because we need EXCLUSIVE upper bound
-                if (random.NextInRange(0, count - 1) == 0)
+                if (random.Next(0, count) == 0)
                 {
                     current = element;
                 }
@@ -59,7 +58,7 @@ namespace ProjectXyz.Api.Framework.Collections
 
         public static T Random<T>(
             this IEnumerable<T> source,
-            Random random)
+            System.Random random)
         {
             var current = default(T);
             var count = 0;
@@ -82,7 +81,7 @@ namespace ProjectXyz.Api.Framework.Collections
 
         public static T RandomOrDefault<T>(
             this IEnumerable<T> source,
-            Random random)
+            System.Random random)
         {
             var current = default(T);
             var count = 0;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Api.Framework;
+
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
@@ -13,18 +15,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
     public sealed class BaseItemGenerator : IBaseItemGenerator
     {
         private readonly IItemFactory _itemFactory;
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IRandom _random;
         private readonly IItemDefinitionRepository _itemDefinitionRepository;
         private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
 
         public BaseItemGenerator(
             IItemFactory itemFactory,
-            IRandomNumberGenerator randomNumberGenerator,
+            IRandom random,
             IItemDefinitionRepository itemDefinitionRepository,
             IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
         {
             _itemFactory = itemFactory;
-            _randomNumberGenerator = randomNumberGenerator;
+            _random = random;
             _itemDefinitionRepository = itemDefinitionRepository;
             _generatorComponentToBehaviorConverter = generatorComponentToBehaviorConverter;
         }
@@ -39,7 +41,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
             {
                 // pick the random item definition that meets the context conditions
                 var itemDefinitionCandidates = _itemDefinitionRepository.LoadItemDefinitions(generatorContext);
-                var itemDefinition = itemDefinitionCandidates.RandomOrDefault(_randomNumberGenerator);
+                var itemDefinition = itemDefinitionCandidates.RandomOrDefault(_random);
                 if (itemDefinition == null)
                 {
                     throw new InvalidOperationException("Could not generate an item for the provided context.");
@@ -59,9 +61,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
             int itemCountMinimum,
             int itemCountMaximum)
         {
-            var count = _randomNumberGenerator.NextInRange(
+            var count = _random.Next(
                 itemCountMinimum,
-                itemCountMaximum);
+                itemCountMaximum + 1);
             return count;
         }
     }

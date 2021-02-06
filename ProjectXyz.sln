@@ -286,6 +286,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Data.Databas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Data.Newtonsoft.Tests", "ProjectXyz.Plugins.Data.Newtonsoft.Tests\ProjectXyz.Plugins.Data.Newtonsoft.Tests.csproj", "{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Framework.NexusLabs", "ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj", "{119856F1-AD8C-4440-BD65-58E324C56B95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -648,6 +650,10 @@ Global
 		{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119856F1-AD8C-4440-BD65-58E324C56B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119856F1-AD8C-4440-BD65-58E324C56B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119856F1-AD8C-4440-BD65-58E324C56B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119856F1-AD8C-4440-BD65-58E324C56B95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -785,6 +791,7 @@ Global
 		{FA40AD82-C71A-45B2-95C8-5FAC8BBB2881} = {4675B0A2-9B55-4C35-9863-DD84A0AF5219}
 		{D54D0844-092D-4CCE-B01A-4AEA8B440926} = {117CF347-F02B-4792-B596-4C6D94AA007A}
 		{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4} = {FB2F06CF-CDFB-44FC-BAC3-1F89F1B00324}
+		{119856F1-AD8C-4440-BD65-58E324C56B95} = {B369DF7D-3FE2-417A-9C69-E8FFECBBBF6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}

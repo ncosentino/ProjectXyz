@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
@@ -15,14 +18,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
     {
         private readonly List<IItemGenerator> _itemGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IRandom _random;
 
         public ItemGeneratorFacade(
             IAttributeFilterer attributeFilterer,
-            IRandomNumberGenerator randomNumberGenerator)
+            IRandom random)
         {
             _attributeFilterer = attributeFilterer;
-            _randomNumberGenerator = randomNumberGenerator;
+            _random = random;
             _itemGenerators = new List<IItemGenerator>();
         }
 
@@ -59,7 +62,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
                         "context along with the item generators.");
                 }
 
-                var generator = elligibleGenerators.RandomOrDefault(_randomNumberGenerator);
+                var generator = elligibleGenerators.RandomOrDefault(_random);
                 var currentContext = new GeneratorContext(
                     1,
                     1, // totalCount - generatedCount, // FIXME: do we hurt randomization by allowing initially selected generators to generate more?
@@ -94,9 +97,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             int itemCountMinimum,
             int itemCountMaximum)
         {
-            var count = _randomNumberGenerator.NextInRange(
+            var count = _random.Next(
                 itemCountMinimum,
-                itemCountMaximum);
+                itemCountMaximum + 1);
             return count;
         }
     }

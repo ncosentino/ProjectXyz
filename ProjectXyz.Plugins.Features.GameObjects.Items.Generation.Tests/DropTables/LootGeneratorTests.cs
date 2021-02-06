@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
+
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
@@ -19,7 +22,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         private readonly Mock<IDropTableRepository> _dropTableRepository;
         private readonly Mock<IDropTableHandlerGeneratorFacade> _dropTableHandlerGeneratorFacade;
         private readonly Mock<IAttributeFilterer> _attributeFilterer;
-        private readonly Mock<IRandomNumberGenerator> _randomNumberGenerator;
+        private readonly Mock<IRandom> _random;
         private readonly Mock<IGeneratorContext> _generatorContext;
         private readonly Mock<IEnumerable<IDropTable>> _unfilteredDropTables;
 
@@ -30,7 +33,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _dropTableRepository = _mockRepository.Create<IDropTableRepository>();
             _dropTableHandlerGeneratorFacade = _mockRepository.Create<IDropTableHandlerGeneratorFacade>();
             _attributeFilterer = _mockRepository.Create<IAttributeFilterer>();
-            _randomNumberGenerator = _mockRepository.Create<IRandomNumberGenerator>();
+            _random = _mockRepository.Create<IRandom>();
             _generatorContext = _mockRepository.Create<IGeneratorContext>();
             _unfilteredDropTables = _mockRepository.Create<IEnumerable<IDropTable>>();
 
@@ -38,7 +41,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 _dropTableRepository.Object,
                 _dropTableHandlerGeneratorFacade.Object,
                 _attributeFilterer.Object,
-                _randomNumberGenerator.Object);
+                _random.Object);
         }
 
         [Fact]

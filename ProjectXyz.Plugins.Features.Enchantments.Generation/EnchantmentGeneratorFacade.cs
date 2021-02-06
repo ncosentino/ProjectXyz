@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
@@ -15,14 +16,14 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
     {
         private readonly List<IEnchantmentGenerator> _enchantmentGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IRandom _random;
 
         public EnchantmentGeneratorFacade(
             IAttributeFilterer attributeFilterer,
-            IRandomNumberGenerator randomNumberGenerator)
+            IRandom random)
         {
             _attributeFilterer = attributeFilterer;
-            _randomNumberGenerator = randomNumberGenerator;
+            _random = random;
             _enchantmentGenerators = new List<IEnchantmentGenerator>();
         }
 
@@ -38,7 +39,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             var filteredGenerators = _attributeFilterer.Filter(
                 _enchantmentGenerators,
                 generatorContext);
-            var generator = filteredGenerators.RandomOrDefault(_randomNumberGenerator);
+            var generator = filteredGenerators.RandomOrDefault(_random);
             if (generator == null)
             {
                 return Enumerable.Empty<IEnchantment>();

@@ -82,6 +82,10 @@
       <Project>{1B168CAB-8239-4C0A-A0F5-6AFE98336952}</Project>
       <Name>ProjectXyz.Plugins.Data.Newtonsoft</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj">
+      <Project>{119856f1-ad8c-4440-bd65-58e324c56b95}</Project>
+      <Name>ProjectXyz.Plugins.Framework.NexusLabs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj">
       <Project>{1f707104-65a3-4e28-a34b-27f31f30a29c}</Project>
       <Name>ProjectXyz.Shared.Data.Serialization</Name>

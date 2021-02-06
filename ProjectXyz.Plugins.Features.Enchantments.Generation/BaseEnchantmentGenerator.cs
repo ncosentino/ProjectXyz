@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
@@ -13,18 +15,18 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
     public sealed class BaseEnchantmentGenerator : IBaseEnchantmentGenerator
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
-        private readonly IRandomNumberGenerator _randomNumberGenerator;
+        private readonly IRandom _random;
         private readonly IReadOnlyCollection<IEnchantmentDefinitionRepository> _enchantmentDefinitionRepositories;
         private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
-            IRandomNumberGenerator randomNumberGenerator,
+            IRandom random,
             IEnumerable<IEnchantmentDefinitionRepository> enchantmentDefinitionRepositories,
             IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
-            _randomNumberGenerator = randomNumberGenerator;
+            _random = random;
             _enchantmentDefinitionRepositories = enchantmentDefinitionRepositories.ToArray();
             _generatorComponentToBehaviorConverter = generatorComponentToBehaviorConverter;
         }
@@ -48,9 +50,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                 }
 
                 // pick the random enchantment definition that meets the context conditions
-                var enchantmentDefinitionRepository = elligibleRepositories.RandomOrDefault(_randomNumberGenerator);
+                var enchantmentDefinitionRepository = elligibleRepositories.RandomOrDefault(_random);
                 var enchantmentDefinitionCandidates = enchantmentDefinitionRepository.ReadEnchantmentDefinitions(generatorContext);
-                var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_randomNumberGenerator);
+                var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_random);
                 if (enchantmentDefinition == null)
                 {
                     elligibleRepositories.Remove(enchantmentDefinitionRepository);
@@ -72,9 +74,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             int enchantmentCountMinimum,
             int enchantmentCountMaximum)
         {
-            var count = _randomNumberGenerator.NextInRange(
+            var count = _random.Next(
                 enchantmentCountMinimum,
-                enchantmentCountMaximum);
+                enchantmentCountMaximum + 1);
             return count;
         }
     }
