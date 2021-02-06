@@ -18,7 +18,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
         private readonly IDeserializer _deserializer;
         private readonly ISerializer _serializer;
         private readonly IAttributeFilterer _attributeFilterer;
-        private readonly Lazy<IReadOnlyCollection<IEnchantmentDefinition>> _lazyDefinitionCache;
+        private readonly List<IEnchantmentDefinition> _definitionCache;
+
+        private bool _dirtyCache;
 
         public EnchantmentDefinitionRepository(
             IConnectionFactory connectionFactory,
@@ -30,13 +32,20 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
             _deserializer = deserializer;
             _serializer = serializer;
             _attributeFilterer = attributeFilterer;
-            _lazyDefinitionCache = new Lazy<IReadOnlyCollection<IEnchantmentDefinition>>(() =>
-                ReadAllEnchantmentDefinitions().ToArray());
+            _definitionCache = new List<IEnchantmentDefinition>();
+            _dirtyCache = true;
         }
 
         public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IGeneratorContext generatorContext)
         {
-            var enchantmentDefinitions = _lazyDefinitionCache.Value;
+            if (_dirtyCache)
+            {
+                _definitionCache.Clear();
+                _definitionCache.AddRange(ReadAllEnchantmentDefinitions());
+                _dirtyCache = false;
+            }
+
+            var enchantmentDefinitions = _definitionCache;
             var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
                 enchantmentDefinitions,
                 generatorContext);
@@ -81,6 +90,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
                 }
 
                 transaction.Commit();
+                _dirtyCache = true;
             }
         }
 
