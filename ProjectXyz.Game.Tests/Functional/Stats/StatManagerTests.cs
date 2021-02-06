@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Stats;

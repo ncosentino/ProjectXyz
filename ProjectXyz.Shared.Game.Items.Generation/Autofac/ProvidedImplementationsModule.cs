@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
 using Autofac;
-using ProjectXyz.Api.Framework.Collections;
+
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;

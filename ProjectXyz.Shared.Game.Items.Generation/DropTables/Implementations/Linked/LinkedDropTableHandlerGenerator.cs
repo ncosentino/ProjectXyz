@@ -100,7 +100,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IEnumerable<IWeightedEntry> entries,
             double totalWeight)
         {
-            var randomNumber = _random.NextDouble(0, totalWeight + 1);
+            var randomNumber = _random.NextDouble(0, totalWeight);
 
             foreach (var entry in entries)
             {

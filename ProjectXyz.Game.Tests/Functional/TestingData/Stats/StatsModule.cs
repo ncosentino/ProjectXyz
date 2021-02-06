@@ -20,7 +20,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
                 .SingleInstance();
         }
 
-        private sealed class StatDefinitionToTermMappingRepo : IStatDefinitionToTermMappingRepository
+        private sealed class StatDefinitionToTermMappingRepo : IReadOnlyStatDefinitionToTermMappingRepository
         {
             private readonly StatInfo _statInfo;
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Autofac;
 
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Shared.Data.Serialization.Autofac

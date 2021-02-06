@@ -1,4 +1,4 @@
-using ProjectXyz.Api.Framework.Collections;
+using System.Linq;
 
 namespace ProjectXyz.Api.Enchantments
 {

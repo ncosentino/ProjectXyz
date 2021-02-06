@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.States;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Calculations.State;
@@ -41,16 +41,16 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 
         public static IEnumerable<object[]> GetMultipleEnchantmentsNoBaseStatsTheoryData()
         {
-            yield return new object[] { "Two additions", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().Append(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 10 };
-            yield return new object[] { "Two subtractions", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Debuffs.StatAAdditiveBaseStat.Yield().Append(_testData.Enchantments.Debuffs.StatAAdditiveBaseStat), -10 };
-            yield return new object[] { "Add then subtract", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().Append(_testData.Enchantments.Debuffs.StatAAdditiveBaseStat), 0 };
-            yield return new object[] { "Pre-nullify then add", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().Append(_testData.Enchantments.PreNullifyStatABaseStat), 4 };
-            yield return new object[] { "Add then pre-nullify", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.PreNullifyStatABaseStat.Yield().Append(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 4 };
-            yield return new object[] { "Post-nullify then add", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.PostNullifyStatABaseStat.Yield().Append(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), -1 };
-            yield return new object[] { "Add then post-nullify", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().Append(_testData.Enchantments.PostNullifyStatABaseStat), -1 };
-            yield return new object[] { "Addition for two different stats", _testData.Stats.DefinitionIds.StatB, _testData.Enchantments.Buffs.StatBAdditiveBaseStat.Yield().Append(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 5 };
-            yield return new object[] { "Add then multiply", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().Append(_testData.Enchantments.Buffs.StatAMultiplicativeBaseStat), 10 };
-            yield return new object[] { "Multiply then add", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAMultiplicativeBaseStat.Yield().Append(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 5 };
+            yield return new object[] { "Two additions", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 10 };
+            yield return new object[] { "Two subtractions", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Debuffs.StatAAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.Debuffs.StatAAdditiveBaseStat), -10 };
+            yield return new object[] { "Add then subtract", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.Debuffs.StatAAdditiveBaseStat), 0 };
+            yield return new object[] { "Pre-nullify then add", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.PreNullifyStatABaseStat), 4 };
+            yield return new object[] { "Add then pre-nullify", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.PreNullifyStatABaseStat.Yield().AppendSingle(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 4 };
+            yield return new object[] { "Post-nullify then add", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.PostNullifyStatABaseStat.Yield().AppendSingle(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), -1 };
+            yield return new object[] { "Add then post-nullify", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.PostNullifyStatABaseStat), -1 };
+            yield return new object[] { "Addition for two different stats", _testData.Stats.DefinitionIds.StatB, _testData.Enchantments.Buffs.StatBAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 5 };
+            yield return new object[] { "Add then multiply", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAAdditiveBaseStat.Yield().AppendSingle(_testData.Enchantments.Buffs.StatAMultiplicativeBaseStat), 10 };
+            yield return new object[] { "Multiply then add", _testData.Stats.DefinitionIds.StatA, _testData.Enchantments.Buffs.StatAMultiplicativeBaseStat.Yield().AppendSingle(_testData.Enchantments.Buffs.StatAAdditiveBaseStat), 5 };
         }
 
         public static IEnumerable<object[]> GetTimeOfDayEnchantmentsTheoryData()

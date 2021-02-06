@@ -11,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using NexusLabs.Framework;
 
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft

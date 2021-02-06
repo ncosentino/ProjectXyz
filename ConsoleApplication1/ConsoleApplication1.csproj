@@ -22,7 +22,7 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Jace" Version="0.8.7" />
     <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="ProjectXyz" Version="1.0.7707.31411" />
+    <PackageReference Include="ProjectXyz" Version="1.0.7707.39362" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

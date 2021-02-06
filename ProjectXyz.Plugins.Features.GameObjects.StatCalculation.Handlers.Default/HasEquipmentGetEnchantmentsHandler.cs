@@ -65,7 +65,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                             $"{statTerm} + {equipmentStats.Sum()}")
                     });
                 var allEquipmentEnchantments = equipmentOwnerEnchantments
-                    .Append(baseEquipmentStatsEnchantment)
+                    .AppendSingle(baseEquipmentStatsEnchantment)
                     .ToArray();
                 return allEquipmentEnchantments;
             };

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Jace;
+
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
@@ -14,6 +15,7 @@ using ProjectXyz.Plugins.Stats;
 using ProjectXyz.Plugins.Stats.Calculations;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Math;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -101,8 +103,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
          MemberData(nameof(GetUseBaseStatsTheoryData))]
         private void Calculate_StatPresent_BaseStatUsed(IIdentifier statDefinitionId)
         {
-            var rng = new RandomNumberGenerator(new Random());
-            var expectedValue = rng.NextInRange(int.MinValue, int.MaxValue);
+            var expectedValue = new Random().Next(int.MinValue, int.MaxValue);
             var baseStat = new Stat(statDefinitionId, expectedValue);
             var baseStats = baseStat.Yield().ToDictionary(x => x.StatDefinitionId, x => x.Value);
             var result = _statCalculator.Calculate(
@@ -116,8 +117,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
          MemberData(nameof(GetOverrideBaseStatsTheoryData))]
         private void Calculate_StatPresent_BaseStatOverridden(IIdentifier statDefinitionId, double expectedValue)
         {
-            var rng = new RandomNumberGenerator(new Random());
-            var baseValue = rng.NextInRange(int.MinValue, int.MaxValue);
+            var baseValue = new Random().Next(int.MinValue, int.MaxValue);
             var baseStat = new Stat(statDefinitionId, baseValue);
             var baseStats = baseStat.Yield().ToDictionary(x => x.StatDefinitionId, x => x.Value);
             var result = _statCalculator.Calculate(

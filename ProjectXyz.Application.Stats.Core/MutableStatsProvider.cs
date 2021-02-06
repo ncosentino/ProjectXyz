@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Plugins.Stats
@@ -18,7 +19,7 @@ namespace ProjectXyz.Plugins.Stats
 
         public MutableStatsProvider(IEnumerable<KeyValuePair<IIdentifier, double>> stats)
         {
-            _stats = stats.ToDictionary();
+            _stats = stats.ToDictionary(x => x.Key, x => x.Value);
         }
 
         public IReadOnlyDictionary<IIdentifier, double> Stats => _stats;

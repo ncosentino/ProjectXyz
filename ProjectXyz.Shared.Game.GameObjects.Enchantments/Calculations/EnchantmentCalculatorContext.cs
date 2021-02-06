@@ -54,7 +54,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations
         public IEnchantmentCalculatorContext WithComponent(IComponent component)
         {
             return new EnchantmentCalculatorContext(
-                new ComponentCollection(Components.Append(component)),
+                new ComponentCollection(Components.AppendSingle(component)),
                 Elapsed,
                 Enchantments.ToArray());
         }
