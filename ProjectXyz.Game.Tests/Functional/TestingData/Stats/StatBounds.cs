@@ -35,7 +35,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Stats
         #endregion
     }
 
-    public sealed class StatDefinitionIdToBoundsMappingRepository : IStatDefinitionIdToBoundsMappingRepository
+    public sealed class StatDefinitionIdToBoundsMappingRepository : IDiscoverableReadOnlyStatDefinitionIdToBoundsMappingRepository
     {
         private readonly StatInfo _statInfo;
 

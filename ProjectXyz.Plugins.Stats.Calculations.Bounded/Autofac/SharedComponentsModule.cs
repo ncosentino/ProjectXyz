@@ -12,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.BoundedStats.Autofac
             builder
                 .Register(c =>
                 {
-                    var statDefinitionIdToBoundsMapping = c.Resolve<IStatDefinitionIdToBoundsMappingRepository>()
+                    var statDefinitionIdToBoundsMapping = c.Resolve<IReadOnlyStatDefinitionIdToBoundsMappingRepositoryFacade>()
                         .GetStatDefinitionIdToBoundsMappings()
                         .ToDictionary(x => x.StatDefinitiondId, x => x.StatBounds);
                     var statBoundsExpressionInterceptor = new StatBoundsExpressionInterceptor(

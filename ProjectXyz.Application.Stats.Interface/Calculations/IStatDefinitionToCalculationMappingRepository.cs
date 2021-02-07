@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace ProjectXyz.Api.Stats.Calculations
+﻿namespace ProjectXyz.Api.Stats.Calculations
 {
-    public interface IStatDefinitionToCalculationMappingRepository
+    public interface IStatDefinitionToCalculationMappingRepository : IReadOnlyStatDefinitionToCalculationMappingRepository
     {
-        IEnumerable<IStatDefinitionToCalculationMapping> GetStatDefinitionIdToCalculationMappings();
     }
 }

@@ -11,9 +11,9 @@ namespace ProjectXyz.Plugins.Stats
     {
         private readonly IReadOnlyDictionary<IIdentifier, string> _mapping;
 
-        public StatDefinitionToTermConverter(IEnumerable<IReadOnlyStatDefinitionToTermMappingRepository> statDefinitionToTermMappingRepositories)
-            : this(statDefinitionToTermMappingRepositories
-                .SelectMany(x => x.GetStatDefinitionIdToTermMappings())
+        public StatDefinitionToTermConverter(IReadOnlyStatDefinitionToTermMappingRepositoryFacade statDefinitionToTermMappingRepositoryFacade)
+            : this(statDefinitionToTermMappingRepositoryFacade
+                .GetStatDefinitionIdToTermMappings()
                 .ToDictionary(x => x.StatDefinitionId, x => x.Term))
         {
         }

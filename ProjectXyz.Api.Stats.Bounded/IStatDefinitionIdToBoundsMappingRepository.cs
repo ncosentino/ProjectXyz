@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace ProjectXyz.Plugins.Features.BoundedStats.Api
+﻿namespace ProjectXyz.Plugins.Features.BoundedStats.Api
 {
-    public interface IStatDefinitionIdToBoundsMappingRepository
+    public interface IStatDefinitionIdToBoundsMappingRepository : IReadOnlyStatDefinitionIdToBoundsMappingRepository
     {
-        IEnumerable<IStatDefinitionIdToBoundsMapping> GetStatDefinitionIdToBoundsMappings();
     }
 }

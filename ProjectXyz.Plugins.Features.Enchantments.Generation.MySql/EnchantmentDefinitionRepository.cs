@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 using ProjectXyz.Api.Data.Databases;
@@ -12,7 +11,7 @@ using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
 {
-    public sealed class EnchantmentDefinitionRepository : IEnchantmentDefinitionRepository
+    public sealed class EnchantmentDefinitionRepository : IDiscoverableReadOnlyEnchantmentDefinitionRepository
     {
         private readonly IConnectionFactory _connectionFactory;
         private readonly IDeserializer _deserializer;

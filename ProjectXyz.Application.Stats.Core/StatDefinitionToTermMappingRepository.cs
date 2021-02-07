@@ -7,7 +7,7 @@ using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Plugins.Stats
 {
-    public sealed class StatDefinitionToTermMappingRepository : IReadOnlyStatDefinitionToTermMappingRepository
+    public sealed class StatDefinitionToTermMappingRepository : IDiscoverableReadOnlyStatDefinitionToTermMappingRepository
     {
         private static readonly Lazy<IReadOnlyStatDefinitionToTermMappingRepository> NONE = new Lazy<IReadOnlyStatDefinitionToTermMappingRepository>(
             () => new StatDefinitionToTermMappingRepository());

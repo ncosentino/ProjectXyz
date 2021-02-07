@@ -4,7 +4,6 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;

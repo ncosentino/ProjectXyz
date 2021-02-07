@@ -1,14 +1,15 @@
 ﻿using Autofac;
+
 using ProjectXyz.Framework.Autofac;
 
-namespace ProjectXyz.Plugins.Features.BoundedStats.Autofac
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.Autofac
 {
-    public sealed class DepencencyModule : SingleRegistrationModule
+    public sealed class Module : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<ReadOnlyStatDefinitionIdToBoundsMappingRepositoryFacade>()
+                .RegisterType<ReadOnlyEnchantmentDefinitionRepositoryFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

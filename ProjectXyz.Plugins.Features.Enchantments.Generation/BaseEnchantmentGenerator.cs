@@ -16,18 +16,18 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandom _random;
-        private readonly IReadOnlyCollection<IReadOnlyEnchantmentDefinitionRepository> _enchantmentDefinitionRepositories;
+        private readonly IReadOnlyEnchantmentDefinitionRepositoryFacade _enchantmentDefinitionRepository;
         private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandom random,
-            IEnumerable<IReadOnlyEnchantmentDefinitionRepository> enchantmentDefinitionRepositories,
+            IReadOnlyEnchantmentDefinitionRepositoryFacade enchantmentDefinitionRepository,
             IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
             _random = random;
-            _enchantmentDefinitionRepositories = enchantmentDefinitionRepositories.ToArray();
+            _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
             _generatorComponentToBehaviorConverter = generatorComponentToBehaviorConverter;
         }
 
@@ -37,26 +37,19 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                 generatorContext.MinimumGenerateCount,
                 generatorContext.MaximumGenerateCount);
 
-            var elligibleRepositories = new HashSet<IReadOnlyEnchantmentDefinitionRepository>(_enchantmentDefinitionRepositories);
             var currentCount = 0;
             while (currentCount < targetCount)
             {
-                if (elligibleRepositories.Count < 1)
-                {
-                    throw new InvalidOperationException(
-                        "Could not find elligible enchantment repositories " +
-                        "with the provided context. Investigate the conditions " +
-                        "on the context along with the available repositories.");
-                }
-
                 // pick the random enchantment definition that meets the context conditions
-                var enchantmentDefinitionRepository = elligibleRepositories.RandomOrDefault(_random);
-                var enchantmentDefinitionCandidates = enchantmentDefinitionRepository.ReadEnchantmentDefinitions(generatorContext);
+                var enchantmentDefinitionCandidates = _enchantmentDefinitionRepository.ReadEnchantmentDefinitions(generatorContext);
                 var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_random);
                 if (enchantmentDefinition == null)
                 {
-                    elligibleRepositories.Remove(enchantmentDefinitionRepository);
-                    continue;
+                    throw new InvalidOperationException(
+                        "Could not read enchantment definitions that meet the " +
+                        "required context. Inspect the context provided and " +
+                        "ensure that there are repositories configured that " +
+                        "meet the criteria.");
                 }
 
                 // create the whole set of components for the enchantment from the enchantment generation components

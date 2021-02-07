@@ -6,9 +6,9 @@ using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Generation.InMemory
+namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
 {
-    public sealed class InMemoryEnchantmentDefinitionRepository : IReadOnlyEnchantmentDefinitionRepository
+    public sealed class InMemoryEnchantmentDefinitionRepository : IDiscoverableReadOnlyEnchantmentDefinitionRepository
     {
         private readonly List<IEnchantmentDefinition> _enchantmentDefinitions;
         private readonly IAttributeFilterer _attributeFilterer;

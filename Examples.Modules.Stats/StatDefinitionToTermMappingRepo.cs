@@ -7,7 +7,7 @@ using ProjectXyz.Shared.Framework;
 
 namespace Examples.Modules.Stats
 {
-    public sealed class StatDefinitionToTermMappingRepo : IReadOnlyStatDefinitionToTermMappingRepository
+    public sealed class StatDefinitionToTermMappingRepo : IDiscoverableReadOnlyStatDefinitionToTermMappingRepository
     {
         public IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings()
         {
