@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats;
 
 namespace ProjectXyz.Plugins.Stats
@@ -18,5 +20,9 @@ namespace ProjectXyz.Plugins.Stats
 
         public IEnumerable<IStatDefinitionToTermMapping> GetStatDefinitionIdToTermMappings() =>
             Enumerable.Empty<IStatDefinitionToTermMapping>();
+
+        public IStatDefinitionToTermMapping GetStatDefinitionToTermMappingById(IIdentifier statDefinitionId) => null;
+
+        public IStatDefinitionToTermMapping GetStatDefinitionToTermMappingByTerm(string term) => null;
     }
 }
