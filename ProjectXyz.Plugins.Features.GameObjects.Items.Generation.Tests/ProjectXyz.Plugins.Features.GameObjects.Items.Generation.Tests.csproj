@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>{B7B4246E-0624-42DF-AB84-BB41C912B81E}</ProjectGuid>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests</AssemblyTitle>
     <Company>Nexus Labs</Company>
     <Product>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests</Product>
@@ -23,7 +23,7 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Moq" Version="4.13.1" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -33,7 +33,7 @@
     <PackageReference Include="xunit.core" Version="2.4.1" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
