@@ -167,22 +167,62 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
                 yield return new TestScenario(
                     "Match str1 in (str3, str2, str1)",
                     new StringGeneratorAttributeValue("val1"),
-                    new StringCollectionGeneratorAttributeValue("val3", "val2", "val1"),
+                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2", "val1"),
+                    true);
+                yield return new TestScenario(
+                    "No Match str1 != (str3, str2, str1)",
+                    new StringGeneratorAttributeValue("val1"),
+                    new AllStringCollectionGeneratorAttributeValue("val3", "val2", "val1"),
+                    false);
+                yield return new TestScenario(
+                    "Match str1 is every element of (str1)",
+                    new StringGeneratorAttributeValue("val1"),
+                    new AllStringCollectionGeneratorAttributeValue("val1"),
                     true);
                 yield return new TestScenario(
                     "No Match str1 in (str3, str2)",
                     new StringGeneratorAttributeValue("val1"),
-                    new StringCollectionGeneratorAttributeValue("val3", "val2"),
+                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2"),
+                    false);
+                yield return new TestScenario(
+                    "Match (str1, str2) intersects (str3, str2)",
+                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
+                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2"),
+                    true);
+                yield return new TestScenario(
+                    "No Match (str1, str2) does not intersect (str3, str4)",
+                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
+                    new AnyStringCollectionGeneratorAttributeValue("val3", "val4"),
+                    false);
+                yield return new TestScenario(
+                    "Match (str1, str2) matches all of (str2, str1)",
+                    new AllStringCollectionGeneratorAttributeValue("val1", "val2"),
+                    new AllStringCollectionGeneratorAttributeValue("val2", "val1"),
+                    true);
+                yield return new TestScenario(
+                    "No Match (str1, str2) does not match all of (str1, str3)",
+                    new AllStringCollectionGeneratorAttributeValue("val1", "val2"),
+                    new AllStringCollectionGeneratorAttributeValue("val1", "val3"),
+                    false);
+                yield return new TestScenario(
+                    "Match (str1, str2) matches all of (str2, str1)",
+                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
+                    new AllStringCollectionGeneratorAttributeValue("val2", "val1"),
+                    true);
+                yield return new TestScenario(
+                    "No Match (str1, str2) does not match all of (str1, str3)",
+                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
+                    new AllStringCollectionGeneratorAttributeValue("val1", "val3"),
                     false);
                 yield return new TestScenario(
                     "Match str1 in Not(str3, str2)",
                     new StringGeneratorAttributeValue("val1"),
-                    new NotGeneratorAttributeValue(new StringCollectionGeneratorAttributeValue("val3", "val2")),
+                    new NotGeneratorAttributeValue(new AnyStringCollectionGeneratorAttributeValue("val3", "val2")),
                     true);
                 yield return new TestScenario(
                     "Match Not(str1) in (str3, str2)",
                     new NotGeneratorAttributeValue(new StringGeneratorAttributeValue("val1")),
-                    new StringCollectionGeneratorAttributeValue("val3", "val2"),
+                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2"),
                     true);
                 yield return new TestScenario(
                     "Match id1 == id2",

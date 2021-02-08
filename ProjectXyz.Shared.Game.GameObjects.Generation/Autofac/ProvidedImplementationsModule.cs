@@ -58,12 +58,64 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Autofac
                         });
                     attributeValueMatchFacade.Register<
                         StringGeneratorAttributeValue,
-                        StringCollectionGeneratorAttributeValue>(
+                        AnyStringCollectionGeneratorAttributeValue>(
                         (v1, v2) =>
                         {
                             var isAttrtMatch = v2
                                 .Values
                                 .Contains(v1.Value);
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        StringGeneratorAttributeValue,
+                        AllStringCollectionGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            if (v2.Values.Count != 1)
+                            {
+                                return false;
+                            }
+
+                            var isAttrtMatch = v2
+                                .Values
+                                .Single()
+                                .Equals(v1.Value);
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        AnyStringCollectionGeneratorAttributeValue,
+                        AnyStringCollectionGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .Any(attr => v1.Values.Contains(attr));
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        AllStringCollectionGeneratorAttributeValue,
+                        AllStringCollectionGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .All(attr => v1.Values.Contains(attr))
+                                && v1
+                                .Values
+                                .All(attr => v2.Values.Contains(attr));
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        AllStringCollectionGeneratorAttributeValue,
+                        AnyStringCollectionGeneratorAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .All(attr => v1.Values.Contains(attr))
+                                && v1
+                                .Values
+                                .All(attr => v2.Values.Contains(attr));
                             return isAttrtMatch;
                         });
                     attributeValueMatchFacade.Register<

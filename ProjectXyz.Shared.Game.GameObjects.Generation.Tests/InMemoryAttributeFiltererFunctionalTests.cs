@@ -47,6 +47,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
         {
             public IEnumerator<object[]> GetEnumerator()
             {
+                yield return CreateAnyStringCollectionAndAnyStringFilter();
                 yield return CreateEmptySourceEmptyFilter();
                 yield return CreateSingleComponentNoSupportedAttributesEmptyFilter();
                 yield return CreateMultipleComponentNoSupportedAttributesEmptyFilter();
@@ -77,6 +78,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 };
             }
 
+            //StringCollectionGeneratorAttributeValue
             private object[] CreateSingleComponentNoSupportedAttributesEmptyFilter()
             {
                 var expectedComponent = new GeneratorComponent();
@@ -91,6 +93,53 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     new IGeneratorAttribute[]
                     {
 
+                    },
+                    new IHasGeneratorAttributes[]
+                    {
+                        expectedComponent,
+                    },
+                };
+            }
+
+            private object[] CreateAnyStringCollectionAndAnyStringFilter()
+            {
+                var component = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new StringGeneratorAttributeValue("value"),
+                        true)
+                });
+                var component2 = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new StringGeneratorAttributeValue("value"),
+                        true)
+                });
+                var expectedComponent = new GeneratorComponent(new[]
+                {
+                    new GeneratorAttribute(
+                        new StringIdentifier("id"),
+                        new AnyStringCollectionGeneratorAttributeValue("match", "this wont be found"),
+                        true)
+                });
+
+                return new object[]
+                {
+                    "Filter Matching Double Component",
+                    new IHasGeneratorAttributes[]
+                    {
+                        component,
+                        expectedComponent,
+                        component2
+                    },
+                    new IGeneratorAttribute[]
+                    {
+                        new GeneratorAttribute(
+                            new StringIdentifier("id"),
+                            new AnyStringCollectionGeneratorAttributeValue("match", "try and find this if you can"),
+                            true)
                     },
                     new IHasGeneratorAttributes[]
                     {
