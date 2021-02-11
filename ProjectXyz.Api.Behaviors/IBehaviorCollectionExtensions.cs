@@ -33,9 +33,21 @@ namespace ProjectXyz.Api.Behaviors
         public static TBehavior GetOnly<TBehavior>(this IBehaviorCollection behaviors)
             where TBehavior : IBehavior
         {
-            return behaviors
+            var match = behaviors
                 .Get<TBehavior>()
-                .Single();
+                .SingleOrDefault();
+            if (match == null)
+            {
+                var count = behaviors
+                    .Get<TBehavior>()
+                    .Count();
+                throw new InvalidOperationException(
+                    $"Behaviour collection had {count} behaviors " +
+                    $"matching type '{typeof(TBehavior)}' when only one was " +
+                    $"expected.");
+            }
+
+            return match;
         }
 
         public static bool Has<TBehavior>(this IBehaviorCollection behaviors)
