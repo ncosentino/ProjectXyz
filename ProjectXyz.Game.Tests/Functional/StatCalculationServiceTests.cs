@@ -58,7 +58,10 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                     new CalculationPriority<int>(1),
                     new EnchantmentTargetBehavior(new StringIdentifier("owner.owner")));
 
-            var actor = _fixture.ActorFactory.Create();
+            var actor = _fixture.ActorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior());
             var equipSlotId = actor
                 .GetOnly<ICanEquipBehavior>()
                 .SupportedEquipSlotIds

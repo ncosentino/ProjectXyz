@@ -15,6 +15,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Testing;
+using ProjectXyz.Plugins.Features.GameObjects.Actors;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {

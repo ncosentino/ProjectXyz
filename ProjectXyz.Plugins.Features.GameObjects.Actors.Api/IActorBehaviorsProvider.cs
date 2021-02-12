@@ -4,8 +4,8 @@ using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
 {
-    public interface IActorBehaviorsInterceptor
+    public interface IActorBehaviorsProvider
     {
-        void Intercept(IReadOnlyCollection<IBehavior> behaviors);
+        IEnumerable<IBehavior> GetBehaviors(IReadOnlyCollection<IBehavior> baseBehaviors);
     }
 }

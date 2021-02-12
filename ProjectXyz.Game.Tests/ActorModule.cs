@@ -28,9 +28,9 @@ namespace ProjectXyz.Game.Tests
         }
     }
 
-    public sealed class AdditionalActorBehaviorProvider : IAdditionalActorBehaviorsProvider
+    public sealed class AdditionalActorBehaviorProvider : IDiscoverableActorBehaviorsProvider
     {
-        public IEnumerable<IBehavior> GetBehaviors(IGameObject gameObject)
+        public IEnumerable<IBehavior> GetBehaviors(IReadOnlyCollection<IBehavior> baseBehaviors)
         {
             var inventory = new ItemContainerBehavior(new StringIdentifier("Inventory"));
             var hasItemContainers = new HasItemContainersBehavior();

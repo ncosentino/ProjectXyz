@@ -11,9 +11,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 .RegisterType<ActorFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder.RegisterType<Actor>(); // delegate factory
             builder
                 .RegisterType<NoAdditionalActorBehaviorsProvider>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ActorBehaviorsInterceptorFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ActorBehaviorsProviderFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

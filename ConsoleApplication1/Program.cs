@@ -83,7 +83,10 @@ namespace ConsoleApplication1
             var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();
 
             var actorFactory = dependencyContainer.Resolve<IActorFactory>();
-            var actor = actorFactory.Create();
+            var actor = actorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior());
 
             var buffable = actor
                 .Behaviors
