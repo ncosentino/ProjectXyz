@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
@@ -42,7 +43,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         public IGameObject Create(
             IReadOnlyTypeIdentifierBehavior typeIdentifierBehavior,
             IReadOnlyTemplateIdentifierBehavior templateIdentifierBehavior,
-            IReadOnlyIdentifierBehavior identifierBehavior)
+            IReadOnlyIdentifierBehavior identifierBehavior,
+            IEnumerable<IBehavior> additionalbehaviors)
         {
             var mutableStatsProvider = _mutableStatsProviderFactory.Create();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
@@ -52,19 +54,22 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var hasEnchantments = new HasEnchantmentsBehavior(activeEnchantmentManager);
             var buffable = new BuffableBehavior(activeEnchantmentManager);
 
-            var baseBehaviours = new IBehavior[]
-            {
-                typeIdentifierBehavior,
-                templateIdentifierBehavior,
-                identifierBehavior,
-                hasEnchantments,
-                buffable,
-                hasMutableStats,
-            };
-            var additionalBehaviors = _actorBehaviorsProviderFacade.GetBehaviors(baseBehaviours);
+            var baseAndInjectedBehaviours = new IBehavior[]
+                {
+                    typeIdentifierBehavior,
+                    templateIdentifierBehavior,
+                    identifierBehavior,
+                    hasEnchantments,
+                    buffable,
+                    hasMutableStats,
+                }
+                .Concat(additionalbehaviors)
+                .ToArray();
+            var additionalBehaviorsFromProviders = _actorBehaviorsProviderFacade
+                .GetBehaviors(baseAndInjectedBehaviours);
             var allBehaviors = _behaviorCollectionFactory
-                .Create(baseBehaviours
-                .Concat(additionalBehaviors));
+                .Create(baseAndInjectedBehaviours
+                .Concat(additionalBehaviorsFromProviders));
             _actorBehaviorsInterceptorFacade.Intercept(allBehaviors);
 
             var actor = new Actor(allBehaviors);
