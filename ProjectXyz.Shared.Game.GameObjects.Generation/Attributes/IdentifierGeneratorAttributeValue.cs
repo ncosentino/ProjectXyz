@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
-using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {

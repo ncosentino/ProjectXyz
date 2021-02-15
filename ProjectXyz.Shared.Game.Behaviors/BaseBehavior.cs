@@ -1,5 +1,6 @@
 ﻿using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Framework.Contracts;
+
+using NexusLabs.Contracts;
 
 namespace ProjectXyz.Shared.Game.Behaviors
 {

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Framework.Contracts;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {
@@ -52,17 +52,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount + 1);
 
-            // create our new context with all but the attributes this table required
-            var dropTableRequiredAttributeIds = new HashSet<IIdentifier>(dropTable
-                .SupportedAttributes
-                .Where(x => x.Required)
-                .Select(x => x.Id));
+            // create our new context by keeping information about attributes 
+            // from our caller, but acknowledging that any that were required
+            // are now fulfilled up until this point. we then cobine in the
+            // newly provided attributes from the drop table.
             var currentDropContext = _generatorContextFactory.CreateGeneratorContext(
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount,
                 generatorContext
                     .Attributes
-                    .Where(x => !dropTableRequiredAttributeIds.Contains(x.Id))
+                    .Select(x => x.Required
+                        ? x.CopyWithRequired(false)
+                        : x)
                     .Concat(dropTable.ProvidedAttributes));
 
             // calculate the total weight once

@@ -27,7 +27,6 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft.Api\ProjectXyz.Plugins.Data.Newtonsoft.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Game.GameObjects.Generation.csproj" />

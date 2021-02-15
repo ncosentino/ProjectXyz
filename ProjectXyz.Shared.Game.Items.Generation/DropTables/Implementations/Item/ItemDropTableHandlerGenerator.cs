@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Api.Framework;
+
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Framework.Contracts;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item
 {
@@ -39,17 +41,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IItemDropTable dropTable,
             IGeneratorContext generatorContext)
         {
-            // Create a new context
-            var dropTableRequiredAttributeIds = new HashSet<IIdentifier>(dropTable
-                .SupportedAttributes
-                .Where(x => x.Required)
-                .Select(x => x.Id));
+            // create our new context by keeping information about attributes 
+            // from our caller, but acknowledging that any that were required
+            // are now fulfilled up until this point. we then cobine in the
+            // newly provided attributes from the drop table.
             var currentDropContext = _generatorContextFactory.CreateGeneratorContext(
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount,
                 generatorContext
                     .Attributes
-                    .Where(x => !dropTableRequiredAttributeIds.Contains(x.Id))
+                    .Select(x => x.Required
+                        ? x.CopyWithRequired(false)
+                        : x)
                     .Concat(dropTable.ProvidedAttributes));
 
             // delegate generation of this table to someone else

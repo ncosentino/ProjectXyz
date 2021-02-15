@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
+using NexusLabs.Contracts;
 using NexusLabs.Framework;
 
 using ProjectXyz.Api.Framework.Collections;
@@ -34,21 +36,46 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
         {
             // filter the drop tables
             var allDropTables = _dropTableRepository.GetAllDropTables();
-            var filteredDropTables = _attributeFilterer.Filter(
-                allDropTables,
-                generatorContext);
+            var filteredDropTables = _attributeFilterer
+                .Filter(
+                    allDropTables,
+                    generatorContext)
+                .ToArray();
+            if (filteredDropTables.Length < 1)
+            {
+                if (generatorContext.MinimumGenerateCount < 1)
+                {
+                    yield break;
+                }
 
-            int generatedCount = 0;
-            int remaining = generatorContext.MinimumGenerateCount;
-            while (remaining > 0 && generatedCount < generatorContext.MaximumGenerateCount)
+                throw new InvalidOperationException(
+                    $"There was no drop table that could be selected from " +
+                    $"the set of filtered drop tables using context '{generatorContext}'.");
+            }
+
+            Contract.Requires(
+                generatorContext.MinimumGenerateCount <= generatorContext.MaximumGenerateCount,
+                $"The generation context must have a maximum " +
+                $"({generatorContext.MaximumGenerateCount}) greater than or " +
+                $"equal to the minimum ({generatorContext.MinimumGenerateCount}).");
+            Contract.Requires(
+                generatorContext.MinimumGenerateCount >= 0,
+                $"The generation context must have a minimum " +
+                $"({generatorContext.MinimumGenerateCount}) greater than or " +
+                $"equal to zero.");
+
+            var targetCount = _random.Next(
+                generatorContext.MinimumGenerateCount,
+                generatorContext.MaximumGenerateCount + 1);
+            for (var generationIndex = 0; generationIndex < targetCount; generationIndex++)
             {
                 // random roll the drop table
                 var dropTable = filteredDropTables.RandomOrDefault(_random);
                 if (dropTable == null)
                 {
                     throw new InvalidOperationException(
-                        $"There was no drop table that could be selected from " +
-                        $"the set of filtered drop tables using context '{generatorContext}'.");
+                        $"Randomized selection of drop tables failed to select " +
+                        $"a valid drop table. Are any in the enumerable set?");
                 }
 
                 var generatedLoot = _dropTableHandlerGeneratorFacade.GenerateLoot(
@@ -56,14 +83,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
                     generatorContext);
                 foreach (var loot in generatedLoot)
                 {
-                    if (remaining == 0 || generatedCount == generatorContext.MaximumGenerateCount)
+                    if (generationIndex == generatorContext.MaximumGenerateCount)
                     {
                         break;
                     }
 
                     yield return loot;
-                    remaining -= 1;
-                    generatedCount += 1;
+                    generationIndex++;
                 }
             }
         }

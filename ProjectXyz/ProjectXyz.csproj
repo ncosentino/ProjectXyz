@@ -40,7 +40,6 @@
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Contracts\ProjectXyz.Framework.Contracts.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />

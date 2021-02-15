@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {
@@ -19,7 +22,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             MinimumGenerateCount = minimumGenerateCount;
             MaximumGenerateCount = maximumGenerateCount;
             Entries = entries.ToArray();
-            SupportedAttributes = supportedAttributes.ToArray();
+            SupportedAttributes =
+                new GeneratorAttribute(
+                    new StringIdentifier("drop-table"),
+                    new IdentifierGeneratorAttributeValue(dropTableId),
+                    false)
+                .Yield()
+                .Concat(supportedAttributes)
+                .ToArray();
             ProvidedAttributes = providedAttributes.ToArray();
         }
 

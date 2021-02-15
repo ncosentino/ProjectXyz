@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Framework.Contracts;
 
 namespace ProjectXyz.Shared.Framework.Collections
 {
