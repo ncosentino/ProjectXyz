@@ -64,10 +64,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
                 $"({generatorContext.MinimumGenerateCount}) greater than or " +
                 $"equal to zero.");
 
-            var targetCount = _random.Next(
+            var targetCount = GetGenerationCount(
                 generatorContext.MinimumGenerateCount,
-                generatorContext.MaximumGenerateCount + 1);
-            for (var generationIndex = 0; generationIndex < targetCount; generationIndex++)
+                generatorContext.MaximumGenerateCount);
+            for (var generationIndex = 0; generationIndex < targetCount; /* no increment here */)
             {
                 // random roll the drop table
                 var dropTable = filteredDropTables.RandomOrDefault(_random);
@@ -83,7 +83,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
                     generatorContext);
                 foreach (var loot in generatedLoot)
                 {
-                    if (generationIndex == generatorContext.MaximumGenerateCount)
+                    if (generationIndex >= targetCount)
                     {
                         break;
                     }
@@ -92,6 +92,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
                     generationIndex++;
                 }
             }
+        }
+
+        private int GetGenerationCount(
+            int itemCountMinimum,
+            int itemCountMaximum)
+        {
+            var count = _random.Next(
+                itemCountMinimum,
+                itemCountMaximum == int.MaxValue
+                    ? int.MaxValue
+                    : itemCountMaximum + 1);
+            return count;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 
         public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
         {
-            var totalCount = GetCount(
+            var totalCount = GetGenerationCount(
                 generatorContext.MinimumGenerateCount,
                 generatorContext.MaximumGenerateCount);
             if (totalCount < 1)
@@ -92,13 +92,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             _itemGenerators.Add(itemGenerator);
         }
 
-        private int GetCount(
+        private int GetGenerationCount(
             int itemCountMinimum,
             int itemCountMaximum)
         {
             var count = _random.Next(
                 itemCountMinimum,
-                itemCountMaximum + 1);
+                itemCountMaximum == int.MaxValue
+                    ? int.MaxValue
+                    : itemCountMaximum + 1);
             return count;
         }
     }

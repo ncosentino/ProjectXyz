@@ -48,8 +48,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
             IGeneratorContext context,
             Predicate<IEnumerable<IGameObject>> validateResults)
         {
-            var results = _lootGenerator
-                .GenerateLoot(context);
+            var results = _lootGenerator.GenerateLoot(context);
             Assert.True(validateResults(results));
         }
 
@@ -57,61 +56,77 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
         {
             private readonly IReadOnlyCollection<object[]> _data = new List<object[]>
             {
-                ////new object[]
-                ////{
-                ////    "Match Any, Requires Exactly 1 Drop",
-                ////    _generatorContextFactory.CreateGeneratorContext(1, 1),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 1),
-                ////},
-                ////new object[]
-                ////{
-                ////    "Match Any, Requires Exactly 5 Drops",
-                ////    _generatorContextFactory.CreateGeneratorContext(5, 5),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 5),
-                ////},
-                ////new object[]
-                ////{
-                ////    "Exact Match, Requires Exactly 5 Drops",
-                ////    _generatorContextFactory.CreateGeneratorContext(
-                ////        5,
-                ////        5,
-                ////        new GeneratorAttribute(
-                ////            new StringIdentifier("id"),
-                ////            new StringGeneratorAttributeValue("Table B"),
-                ////            true)),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 5),
-                ////},
-                ////new object[]
-                ////{
-                ////    "Unmatching Filter, Not Required, Requires Exacty Drops",
-                ////    _generatorContextFactory.CreateGeneratorContext(
-                ////        3,
-                ////        3,
-                ////        new GeneratorAttribute(
-                ////            new StringIdentifier("don't match anything"),
-                ////            new StringGeneratorAttributeValue("value"),
-                ////            false)),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 3),
-                ////},
-                ////new object[]
-                ////{
-                ////    "Unmatching Filter, Required, Throws Because Can't Drop Enough Items",
-                ////    _generatorContextFactory.CreateGeneratorContext(
-                ////        3,
-                ////        3,
-                ////        new GeneratorAttribute(
-                ////            new StringIdentifier("don't match anything"),
-                ////            new StringGeneratorAttributeValue("value"),
-                ////            true)),
-                ////    new Predicate<IEnumerable<IGameObject>>(results =>
-                ////    {
-                ////        var exception = Assert.Throws<InvalidOperationException>(() => results.Consume());
-                ////        Assert.StartsWith(
-                ////            "There was no drop table that could be selected from the set of filtered drop tables using context ",
-                ////            exception.Message);
-                ////        return true;
-                ////    }),
-                ////},
+                new object[]
+                {
+                    "Match Any, Requires Exactly 1 Drop",
+                    _generatorContextFactory.CreateGeneratorContext(1, 1),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Single(results);
+                        return true;
+                    }),
+                },
+                new object[]
+                {
+                    "Match Any, Requires Exactly 5 Drops",
+                    _generatorContextFactory.CreateGeneratorContext(5, 5),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Equal(5, results.Count());
+                        return true;
+                    }),
+                },
+                new object[]
+                {
+                    "Exact Match, Requires Exactly 5 Drops",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        5,
+                        5,
+                        new GeneratorAttribute(
+                            new StringIdentifier("id"),
+                            new StringGeneratorAttributeValue("Table B"),
+                            true)),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Equal(5, results.Count());
+                        return true;
+                    }),
+                },
+                new object[]
+                {
+                    "Unmatching Filter, Not Required, Requires Exacty Drops",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        3,
+                        3,
+                        new GeneratorAttribute(
+                            new StringIdentifier("don't match anything"),
+                            new StringGeneratorAttributeValue("value"),
+                            false)),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Equal(3, results.Count());
+                        return true;
+                    }),
+                },
+                new object[]
+                {
+                    "Unmatching Filter, Required, Throws Because Can't Drop Enough Items",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        3,
+                        3,
+                        new GeneratorAttribute(
+                            new StringIdentifier("don't match anything"),
+                            new StringGeneratorAttributeValue("value"),
+                            true)),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        var exception = Assert.Throws<InvalidOperationException>(() => results.Consume());
+                        Assert.StartsWith(
+                            "There was no drop table that could be selected from the set of filtered drop tables using context ",
+                            exception.Message);
+                        return true;
+                    }),
+                },
                 new object[]
                 {
                     "Exact Match, Link Single Table, Context Requires More Drops Than Table Provides",
@@ -122,52 +137,68 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             new StringIdentifier("id"),
                             new StringGeneratorAttributeValue("Table C"),
                             true)),
-                    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 10),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Equal(10, results.Count());
+                        return true;
+                    }),
                 },
-                ////new object[]
-                ////{
-                ////    "Exact Match, Link Single Table, Context Requires Fewer Drops Than Table Provides",
-                ////    _generatorContextFactory.CreateGeneratorContext(
-                ////        1,
-                ////        1,
-                ////        new GeneratorAttribute(
-                ////            new StringIdentifier("id"),
-                ////            new StringGeneratorAttributeValue("Table C"),
-                ////            true)),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 1),
-                ////},
-                ////new object[]
-                ////{
-                ////    "Weather Matches",
-                ////    _generatorContextFactory.CreateGeneratorContext(
-                ////        3,
-                ////        3,
-                ////        _generatorContextProvider
-                ////            .GetGeneratorContext()
-                ////            .Attributes
-                ////            .AppendSingle(
-                ////            new GeneratorAttribute(
-                ////                new StringIdentifier("id"),
-                ////                new StringGeneratorAttributeValue("Weather Table"),
-                ////                true))),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 3),
-                ////},
-                ////new object[]
-                ////{
-                ////    "Time of Day Matches",
-                ////    _generatorContextFactory.CreateGeneratorContext(
-                ////        3,
-                ////        3,
-                ////        _generatorContextProvider
-                ////            .GetGeneratorContext()
-                ////            .Attributes
-                ////            .AppendSingle(
-                ////            new GeneratorAttribute(
-                ////                new StringIdentifier("id"),
-                ////                new StringGeneratorAttributeValue("Time of Day Table"),
-                ////                true))),
-                ////    new Predicate<IEnumerable<IGameObject>>(results => results.ToArray().Length == 3),
-                ////},
+                new object[]
+                {
+                    "Exact Match, Link Single Table, Context Requires Fewer Drops Than Table Provides",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        1,
+                        1,
+                        new GeneratorAttribute(
+                            new StringIdentifier("id"),
+                            new StringGeneratorAttributeValue("Table C"),
+                            true)),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Single(results);
+                        return true;
+                    }),
+                },
+                new object[]
+                {
+                    "Weather Matches",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        3,
+                        3,
+                        _generatorContextProvider
+                            .GetGeneratorContext()
+                            .Attributes
+                            .AppendSingle(
+                            new GeneratorAttribute(
+                                new StringIdentifier("id"),
+                                new StringGeneratorAttributeValue("Weather Table"),
+                                true))),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Equal(3, results.Count());
+                        return true;
+                    }),
+                },
+                new object[]
+                {
+                    "Time of Day Matches",
+                    _generatorContextFactory.CreateGeneratorContext(
+                        3,
+                        3,
+                        _generatorContextProvider
+                            .GetGeneratorContext()
+                            .Attributes
+                            .AppendSingle(
+                            new GeneratorAttribute(
+                                new StringIdentifier("id"),
+                                new StringGeneratorAttributeValue("Time of Day Table"),
+                                true))),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                        Assert.Equal(3, results.Count());
+                        return true;
+                    }),
+                },
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();

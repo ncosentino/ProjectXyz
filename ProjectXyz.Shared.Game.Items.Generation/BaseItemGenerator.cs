@@ -63,7 +63,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
         {
             var count = _random.Next(
                 itemCountMinimum,
-                itemCountMaximum + 1);
+                itemCountMaximum == int.MaxValue
+                    ? int.MaxValue
+                    : itemCountMaximum + 1);
             return count;
         }
     }

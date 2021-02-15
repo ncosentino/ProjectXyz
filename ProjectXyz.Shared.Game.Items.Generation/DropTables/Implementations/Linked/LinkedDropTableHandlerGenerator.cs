@@ -48,9 +48,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IGeneratorContext generatorContext)
         {
             // get a random count for this drop table
-            var generationCount = _random.Next(
+            var generationCount = GetGenerationCount(
                 dropTable.MinimumGenerateCount,
-                dropTable.MaximumGenerateCount + 1);
+                dropTable.MaximumGenerateCount);
 
             // create our new context by keeping information about attributes 
             // from our caller, but acknowledging that any that were required
@@ -95,6 +95,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
                     yield return gameObject;
                 }
             }
+        }
+
+        private int GetGenerationCount(
+            int itemCountMinimum,
+            int itemCountMaximum)
+        {
+            var count = _random.Next(
+                itemCountMinimum,
+                itemCountMaximum == int.MaxValue
+                    ? int.MaxValue
+                    : itemCountMaximum + 1);
+            return count;
         }
 
         private IWeightedEntry PickWeightedEntry(
