@@ -86,7 +86,8 @@ namespace ConsoleApplication1
             var actor = actorFactory.Create(
                 new TypeIdentifierBehavior(),
                 new TemplateIdentifierBehavior(),
-                new IdentifierBehavior());
+                new IdentifierBehavior(),
+                Enumerable.Empty<IBehavior>());
 
             var buffable = actor
                 .Behaviors

@@ -19,7 +19,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
     {
         private readonly MockRepository _mockRepository;
         private readonly LootGenerator _lootGenerator;
-        private readonly Mock<IDropTableRepository> _dropTableRepository;
+        private readonly Mock<IDropTableRepositoryFacade> _dropTableRepository;
         private readonly Mock<IDropTableHandlerGeneratorFacade> _dropTableHandlerGeneratorFacade;
         private readonly Mock<IAttributeFilterer> _attributeFilterer;
         private readonly Mock<IRandom> _random;
@@ -30,7 +30,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
             
-            _dropTableRepository = _mockRepository.Create<IDropTableRepository>();
+            _dropTableRepository = _mockRepository.Create<IDropTableRepositoryFacade>();
             _dropTableHandlerGeneratorFacade = _mockRepository.Create<IDropTableHandlerGeneratorFacade>();
             _attributeFilterer = _mockRepository.Create<IAttributeFilterer>();
             _random = _mockRepository.Create<IRandom>();

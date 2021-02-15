@@ -16,13 +16,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
     {
         private readonly IRandom _random;
         private readonly IDropTableHandlerGeneratorFacade _dropTableHandlerGeneratorFacade;
-        private readonly IDropTableRepository _dropTableRepository;
+        private readonly IDropTableRepositoryFacade _dropTableRepository;
         private readonly IGeneratorContextFactory _generatorContextFactory;
 
         public LinkedDropTableHandlerGenerator(
             IRandom random,
             IDropTableHandlerGeneratorFacade dropTableHandlerGeneratorFacade,
-            IDropTableRepository dropTableRepository,
+            IDropTableRepositoryFacade dropTableRepository,
             IGeneratorContextFactory generatorContextFactory)
         {
             _random = random;

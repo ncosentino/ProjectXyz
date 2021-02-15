@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Framework.Entities;
@@ -61,7 +63,8 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
             var actor = _fixture.ActorFactory.Create(
                 new TypeIdentifierBehavior(),
                 new TemplateIdentifierBehavior(),
-                new IdentifierBehavior());
+                new IdentifierBehavior(),
+                Enumerable.Empty<IBehavior>());
             var equipSlotId = actor
                 .GetOnly<ICanEquipBehavior>()
                 .SupportedEquipSlotIds

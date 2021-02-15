@@ -6,7 +6,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables
 {
-    public sealed class InMemoryDropTableRepository : IDropTableRepository
+    public sealed class InMemoryDropTableRepository : IDiscoverableDropTableRepository
     {
         private readonly Lazy<IReadOnlyDictionary<IIdentifier, IDropTable>> _lazyDropTables;
 

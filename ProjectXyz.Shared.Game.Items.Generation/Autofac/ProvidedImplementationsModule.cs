@@ -16,6 +16,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+                .RegisterType<DropTableRepositoryFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<NoneDropTableRepository>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<NoneDropTableRepository>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<BaseItemGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

@@ -13,13 +13,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
 {
     public sealed class LootGenerator : ILootGenerator
     {
-        private readonly IDropTableRepository _dropTableRepository;
+        private readonly IDropTableRepositoryFacade _dropTableRepository;
         private readonly IAttributeFilterer _attributeFilterer;
         private readonly IRandom _random;
         private readonly IDropTableHandlerGeneratorFacade _dropTableHandlerGeneratorFacade;
 
         public LootGenerator(
-            IDropTableRepository dropTableRepository,
+            IDropTableRepositoryFacade dropTableRepository,
             IDropTableHandlerGeneratorFacade dropTableHandlerGeneratorFacade,
             IAttributeFilterer attributeFilterer,
             IRandom random)
