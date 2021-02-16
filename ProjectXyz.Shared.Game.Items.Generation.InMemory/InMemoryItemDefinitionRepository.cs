@@ -7,7 +7,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 {
-    public sealed class InMemoryItemDefinitionRepository : IItemDefinitionRepository
+    public sealed class InMemoryItemDefinitionRepository : IDiscoverableItemDefinitionRepository
     {
         private readonly Lazy<IReadOnlyCollection<IItemDefinition>> _lazyItemDefinitions;
         private readonly IAttributeFilterer _attributeFilterer;

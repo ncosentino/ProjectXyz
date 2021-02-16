@@ -16,13 +16,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
     {
         private readonly IItemFactory _itemFactory;
         private readonly IRandom _random;
-        private readonly IItemDefinitionRepository _itemDefinitionRepository;
+        private readonly IItemDefinitionRepositoryFacade _itemDefinitionRepository;
         private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
 
         public BaseItemGenerator(
             IItemFactory itemFactory,
             IRandom random,
-            IItemDefinitionRepository itemDefinitionRepository,
+            IItemDefinitionRepositoryFacade itemDefinitionRepository,
             IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
         {
             _itemFactory = itemFactory;

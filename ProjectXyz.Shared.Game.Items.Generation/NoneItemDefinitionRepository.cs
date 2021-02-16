@@ -7,7 +7,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 {
-    public sealed class NoneItemDefinitionRepository : IItemDefinitionRepository
+    public sealed class NoneItemDefinitionRepository : IDiscoverableItemDefinitionRepository
     {
         public IEnumerable<IItemDefinition> LoadItemDefinitions(IGeneratorContext generatorContext) =>
             Enumerable.Empty<IItemDefinition>();

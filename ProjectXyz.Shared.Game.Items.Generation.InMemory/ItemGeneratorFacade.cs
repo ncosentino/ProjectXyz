@@ -21,11 +21,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 
         public ItemGeneratorFacade(
             IAttributeFilterer attributeFilterer,
-            IRandom random)
+            IRandom random,
+            IEnumerable<IDiscoverableItemGenerator> itemGenerators)
         {
             _attributeFilterer = attributeFilterer;
             _random = random;
-            _itemGenerators = new List<IItemGenerator>();
+            _itemGenerators = new List<IItemGenerator>(itemGenerators);
         }
 
         public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)

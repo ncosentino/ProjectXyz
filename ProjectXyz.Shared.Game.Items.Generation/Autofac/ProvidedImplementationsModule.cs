@@ -24,7 +24,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<NoneDropTableRepository>()
+                .RegisterType<ItemDefinitionRepositoryFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<NoneItemDefinitionRepository>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

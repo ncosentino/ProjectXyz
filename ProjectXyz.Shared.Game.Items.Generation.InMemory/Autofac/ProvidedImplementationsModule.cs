@@ -15,14 +15,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.Auto
             builder
                 .RegisterType<ItemGeneratorFacade>()
                 .AsImplementedInterfaces()
-                .SingleInstance()
-                .OnActivated(x =>
-                {
-                    x
-                     .Context
-                     .Resolve<IEnumerable<IDiscoverableItemGenerator>>()
-                     .Foreach(x.Instance.Register);
-                });
+                .SingleInstance();
         }
     }
 }
