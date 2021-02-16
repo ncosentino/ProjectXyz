@@ -127,5 +127,99 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 29,
                 statCalculationService.GetStatValue(actor, statId, context));
         }
+
+        [Fact]
+        private void GetStatValue_SocketBuff_ExpectedStat()
+        {
+            var statId = new StringIdentifier("Stat A");
+            var statTerm = new StringIdentifier("STAT_A");
+
+            var fitInSocketEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} + 10",
+                    new CalculationPriority<int>(1),
+                    new EnchantmentTargetBehavior(new StringIdentifier("self")));
+            var canBeSocketedEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} + 5",
+                    new CalculationPriority<int>(1),
+                    new EnchantmentTargetBehavior(new StringIdentifier("self")));
+
+            var actor = _fixture.ActorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior(),
+                Enumerable.Empty<IBehavior>());
+            var equipSlotId = actor
+                .GetOnly<ICanEquipBehavior>()
+                .SupportedEquipSlotIds
+                .First();
+
+            var socketTypeId = new StringIdentifier("socket type id");
+
+            var itemEnchantmentManager = _fixture.ActiveEnchantmentManagerFactory.Create();
+            var canBeSocketedItem = _fixture
+                .ItemFactory
+                .Create(
+                    new ApplySocketEnchantmentsBehavior(),
+                    new CanBeSocketedBehavior(new[]
+                    {
+                        socketTypeId,
+                    }),
+                    new CanBeEquippedBehavior(equipSlotId),
+                    new BuffableBehavior(itemEnchantmentManager),
+                    new HasEnchantmentsBehavior(itemEnchantmentManager));
+            canBeSocketedItem
+                .GetOnly<IBuffableBehavior>()
+                .AddEnchantments(canBeSocketedEnchantment);
+            var equippable = canBeSocketedItem.GetOnly<ICanBeEquippedBehavior>();
+
+            var fitSocketEnchantmentManager = _fixture.ActiveEnchantmentManagerFactory.Create();
+            var canFitSocketItem = _fixture
+                .ItemFactory
+                .Create(
+                    new CanFitSocketBehavior(socketTypeId, 1),
+                    new BuffableBehavior(fitSocketEnchantmentManager),
+                    new HasEnchantmentsBehavior(fitSocketEnchantmentManager));
+            canFitSocketItem
+                .GetOnly<IBuffableBehavior>()
+                .AddEnchantments(fitInSocketEnchantment);
+
+            Assert.True(
+                canBeSocketedItem
+                    .GetOnly<ICanBeSocketedBehavior>()
+                    .Socket(canFitSocketItem.GetOnly<ICanFitSocketBehavior>()),
+                $"Expected to be able socket '{canFitSocketItem}' into " +
+                $"'{canBeSocketedItem}'.");
+
+            actor
+                .GetOnly<ICanEquipBehavior>()
+                .TryEquip(
+                    equipSlotId,
+                    equippable);
+
+            var canBeSocketedItemStats = canBeSocketedItem.GetOnly<IHasStatsBehavior>();
+            var actorStats = actor.GetOnly<IHasStatsBehavior>();
+            var canFitSocketItemStats = canFitSocketItem.GetOnly<IHasStatsBehavior>();
+
+            var context = new StatCalculationContext(
+                new IComponent[0],
+                new IEnchantment[0]);
+
+            var statCalculationService = _fixture.StatCalculationService;
+            Assert.Equal(
+                15,
+                statCalculationService.GetStatValue(canBeSocketedItem, statId, context));
+            Assert.Equal(
+                10,
+                statCalculationService.GetStatValue(canFitSocketItem, statId, context));
+            Assert.Equal(
+                15,
+                statCalculationService.GetStatValue(actor, statId, context));
+        }
     }
 }
