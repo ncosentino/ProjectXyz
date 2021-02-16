@@ -67,29 +67,43 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
             var targetCount = GetGenerationCount(
                 generatorContext.MinimumGenerateCount,
                 generatorContext.MaximumGenerateCount);
-            for (var generationIndex = 0; generationIndex < targetCount; /* no increment here */)
+            var dropTableCandidates = new HashSet<IDropTable>(filteredDropTables);
+            for (var generationCount = 0; generationCount < targetCount; /* no increment here */)
             {
                 // random roll the drop table
-                var dropTable = filteredDropTables.RandomOrDefault(_random);
+                var dropTable = dropTableCandidates.RandomOrDefault(_random);
                 if (dropTable == null)
                 {
+                    if (generationCount >= generatorContext.MinimumGenerateCount)
+                    {
+                        yield break;
+                    }
+
                     throw new InvalidOperationException(
                         $"Randomized selection of drop tables failed to select " +
                         $"a valid drop table. Are any in the enumerable set?");
                 }
 
+                var generationCountBeforeDrop = generationCount;
                 var generatedLoot = _dropTableHandlerGeneratorFacade.GenerateLoot(
                     dropTable,
                     generatorContext);
                 foreach (var loot in generatedLoot)
                 {
-                    if (generationIndex >= targetCount)
+                    if (generationCount >= targetCount)
                     {
                         break;
                     }
 
                     yield return loot;
-                    generationIndex++;
+                    generationCount++;
+                }
+
+                // if this drop table didn't yield any items, we can forget 
+                // about it on future attempts with this context
+                if (generationCount == generationCountBeforeDrop)
+                {
+                    dropTableCandidates.Remove(dropTable);
                 }
             }
         }
