@@ -1,10 +1,12 @@
 ﻿using System;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing
 {
     public sealed class ApplySocketEnchantmentsBehavior :
         BaseBehavior,
@@ -16,8 +18,14 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         {
             base.OnRegisteredToOwner(owner);
 
-            if (owner.Behaviors.TryGetFirst(out _canBeSocketed))
+            if (owner.Behaviors.TryGetFirst(out ICanBeSocketedBehavior newCanBeSocketed))
             {
+                if (_canBeSocketed != null && _canBeSocketed != newCanBeSocketed)
+                {
+                    _canBeSocketed.Socketed -= CanBeSocketed_Socketed;
+                }
+
+                _canBeSocketed = newCanBeSocketed;
                 _canBeSocketed.Socketed += CanBeSocketed_Socketed;
             }
         }

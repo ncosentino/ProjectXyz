@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Behaviors;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api
 {
     public interface IApplySocketEnchantmentsBehavior : IBehavior
     {

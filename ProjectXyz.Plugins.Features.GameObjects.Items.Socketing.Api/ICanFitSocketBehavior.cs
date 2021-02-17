@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api
 {
     public interface ICanFitSocketBehavior : IBehavior
     {

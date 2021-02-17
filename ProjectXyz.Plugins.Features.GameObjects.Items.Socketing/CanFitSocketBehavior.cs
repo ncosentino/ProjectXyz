@@ -1,8 +1,8 @@
 ﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors
+namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing
 {
     public sealed class CanFitSocketBehavior :
         BaseBehavior,

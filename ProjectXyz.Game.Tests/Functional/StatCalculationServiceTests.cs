@@ -2,7 +2,6 @@
 
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Tests.Functional.TestingData;
@@ -10,8 +9,11 @@ using ProjectXyz.Plugins.Enchantments.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Enchantments
