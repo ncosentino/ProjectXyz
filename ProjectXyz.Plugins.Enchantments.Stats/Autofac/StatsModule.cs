@@ -22,6 +22,10 @@ namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<StatCalculationContextFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .Register(c => c
                     .Resolve<IStatManagerFactory>()
                     .Create(c.Resolve<IMutableStatsProvider>()))
