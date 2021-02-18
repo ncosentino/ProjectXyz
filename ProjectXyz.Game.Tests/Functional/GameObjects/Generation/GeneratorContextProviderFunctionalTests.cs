@@ -51,5 +51,16 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
             Assert.NotNull(attribute);
             Assert.Equal(expectedValue, ((IdentifierGeneratorAttributeValue)attribute.Value).Value);
         }
+
+        [Fact]
+        public static void GetGeneratorContext_Actors_AttributePresent()
+        {
+            var attributes = _generatorContextProvider
+                .GetGeneratorContext()
+                .Attributes
+                .ToArray();
+            var attribute = attributes.SingleOrDefault(x => x.Id.Equals(new StringIdentifier("actor-stats")));
+            Assert.NotNull(attribute);
+        }
     }
 }

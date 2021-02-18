@@ -7,11 +7,11 @@ using Autofac;
 
 using Moq;
 
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item;
@@ -21,6 +21,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTabl
 using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.Game.GameObjects.Generation;
 using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Testing;
 
@@ -56,6 +57,28 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
         {
             private readonly IReadOnlyCollection<object[]> _data = new List<object[]>
             {
+                new object[]
+                {
+                    "Request actor stat drop table, no actor present, throws",
+                    _generatorContextProvider
+                        .GetGeneratorContext()
+                        .WithGenerateCountRange(1, 1)
+                        .WithAdditionalAttributes(new[]
+                        {
+                            new GeneratorAttribute(
+                                new StringIdentifier("drop-table"),
+                                new IdentifierGeneratorAttributeValue(new StringIdentifier("Actor Stats Table")),
+                                true),
+                        }),
+                    new Predicate<IEnumerable<IGameObject>>(results =>
+                    {
+                       var exception = Assert.Throws<InvalidOperationException>(() => results.Consume());
+                        Assert.StartsWith(
+                            "There was no drop table that could be selected from the set of filtered drop tables using context ",
+                            exception.Message);
+                        return true;
+                    }),
+                },
                 new object[]
                 {
                     "Match Any, Requires Exactly 1 Drop",
@@ -259,6 +282,23 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                                 new GeneratorAttribute(
                                     new StringIdentifier("time-of-day"),
                                     new IdentifierGeneratorAttributeValue(timeOfDayManager.TimeOfDay),
+                                    true),
+                            },
+                            Enumerable.Empty<IGeneratorAttribute>()),
+                        // Actor Stat, Generates 1
+                        new ItemDropTable(
+                            new StringIdentifier("Actor Stats Table"),
+                            1,
+                            1,
+                            new[]
+                            {
+                                new GeneratorAttribute(
+                                    new StringIdentifier("actor-stats"),
+                                    new ActorStatGeneratorAttributeValue(
+                                        new StringIdentifier("player"),
+                                        new StringIdentifier("STAT_A"),
+                                        0,
+                                        100),
                                     true),
                             },
                             Enumerable.Empty<IGeneratorAttribute>()),
