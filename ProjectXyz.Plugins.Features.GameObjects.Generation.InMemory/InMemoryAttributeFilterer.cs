@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
@@ -20,58 +21,90 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
             IGeneratorContext generatorContext)
             where T : IHasGeneratorAttributes
         {
-            var attributeToContextMapping = generatorContext
-                .Attributes
-                .GroupBy(x => x.Id)
-                .ToDictionary(
-                    x => x.Key,
-                    x => x
-                        .Select(key => key.Value)
-                        .ToReadOnlyCollection());
-            var matching = source
-                .Where(s =>
+            var requiredContextAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
+            var allContextAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
+            foreach (var contextAttribute in generatorContext.Attributes)
+            {
+                allContextAttributes.Add(contextAttribute.Id, contextAttribute);
+                if (contextAttribute.Required)
                 {
-                    var supportedAttributes = s.
-                        SupportedAttributes
-                        .ToDictionary(
-                            x => x.Id,
-                            x => x);
-                    var missingSupportedAttributes = supportedAttributes
-                        .Any(x => x.Value.Required && !attributeToContextMapping.ContainsKey(x.Value.Id));
-                    if (missingSupportedAttributes)
+                    requiredContextAttributes.Add(contextAttribute.Id, contextAttribute);
+                }
+            }
+
+            foreach (var sourceToFilter in source)
+            {
+                var requiredSourceAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
+                var allSourceAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
+                foreach (var sourceAttribute in sourceToFilter.SupportedAttributes)
+                {
+                    allSourceAttributes.Add(sourceAttribute.Id, sourceAttribute);
+                    if (sourceAttribute.Required)
                     {
-                        return false;
+                        requiredSourceAttributes.Add(sourceAttribute.Id, sourceAttribute);
+                    }
+                }
+
+                var matchAttributeCache = new HashSet<IIdentifier>();
+
+                bool metContextRequirements = true;
+                foreach (var requiredContextAttribute in requiredContextAttributes
+                    .Keys
+                    .Where(x => !matchAttributeCache.Contains(x)))
+                {
+                    if (!allSourceAttributes.ContainsKey(requiredContextAttribute))
+                    {
+                        metContextRequirements = false;
+                        break;
                     }
 
-                    var matchingAttributes = s
-                        .SupportedAttributes
-                        .Where(attr => attributeToContextMapping.ContainsKey(attr.Id))
-                        .ToArray();
-                    if (!matchingAttributes.Any())
+                    var isAttrMatch = _attributeValueMatcher.Match(
+                        allSourceAttributes[requiredContextAttribute].Value,
+                        allContextAttributes[requiredContextAttribute].Value);
+                    if (!isAttrMatch)
                     {
-                        return !generatorContext.Attributes.Any(x => x.Required);
+                        metContextRequirements = false;
+                        break;
                     }
 
-                    if (!matchingAttributes.Any(attr => attr.Required) &&
-                        !generatorContext.Attributes.Any(x => x.Required))
+                    matchAttributeCache.Add(requiredContextAttribute);
+                }
+
+                if (!metContextRequirements)
+                {
+                    continue;
+                }
+
+                bool metSourceRequirements = true;
+                foreach (var requiredSourceAttribute in requiredSourceAttributes
+                    .Keys
+                    .Where(x => !matchAttributeCache.Contains(x)))
+                {
+                    if (!allContextAttributes.ContainsKey(requiredSourceAttribute))
                     {
-                        return true;
+                        metSourceRequirements = false;
+                        break;
                     }
 
-                    var isGeneratorMatch = matchingAttributes
-                        .All(attr =>
-                            generatorContext.Attributes.Any(x => x.Id.Equals(attr.Id) && !x.Required) ||
-                            attributeToContextMapping[attr.Id].Any(contextAttrVal =>
-                            {
-                                var isAttrMatch = _attributeValueMatcher.Match(
-                                    attr.Value,
-                                    contextAttrVal);
-                                return isAttrMatch;
-                            }));
-                    return isGeneratorMatch;
-                })
-                .ToArray();
-            return matching;
+                    var isAttrMatch = _attributeValueMatcher.Match(
+                        allSourceAttributes[requiredSourceAttribute].Value,
+                        allContextAttributes[requiredSourceAttribute].Value);
+                    if (!isAttrMatch)
+                    {
+                        metSourceRequirements = false;
+                        break;
+                    }
+
+                    matchAttributeCache.Add(requiredSourceAttribute);
+                }
+
+                if (!metSourceRequirements)
+                {
+                    continue;
+                }
+
+                yield return sourceToFilter;
+            }
         }
     }
 }

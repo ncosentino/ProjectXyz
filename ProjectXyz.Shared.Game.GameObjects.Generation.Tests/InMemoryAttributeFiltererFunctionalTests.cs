@@ -606,7 +606,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
                 return new object[]
                 {
-                    "All Source Required Attributes, Non-Required Generator One Fails Match, Gets Result",
+                    "All Source Required Attributes, Non-Required Generator One Fails Match, No Result",
                     new IHasGeneratorAttributes[]
                     {
                         component
@@ -624,7 +624,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     },
                     new IHasGeneratorAttributes[]
                     {
-                        component
                     },
                 };
             }

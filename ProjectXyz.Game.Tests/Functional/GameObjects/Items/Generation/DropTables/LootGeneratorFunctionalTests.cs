@@ -83,8 +83,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                         5,
                         5,
                         new GeneratorAttribute(
-                            new StringIdentifier("id"),
-                            new StringGeneratorAttributeValue("Table B"),
+                            new StringIdentifier("drop-table"),
+                            new IdentifierGeneratorAttributeValue(new StringIdentifier("Table B")),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -94,7 +94,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 },
                 new object[]
                 {
-                    "Unmatching Filter, Not Required, Requires Exacty Drops",
+                    "Unmatching Filter, Not Required, Requires Exactly 3 Drops",
                     _generatorContextFactory.CreateGeneratorContext(
                         3,
                         3,
@@ -134,8 +134,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                         10,
                         10,
                         new GeneratorAttribute(
-                            new StringIdentifier("id"),
-                            new StringGeneratorAttributeValue("Table C"),
+                            new StringIdentifier("drop-table"),
+                            new IdentifierGeneratorAttributeValue(new StringIdentifier("Table C")),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -150,8 +150,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                         1,
                         1,
                         new GeneratorAttribute(
-                            new StringIdentifier("id"),
-                            new StringGeneratorAttributeValue("Table C"),
+                            new StringIdentifier("drop-table"),
+                            new IdentifierGeneratorAttributeValue(new StringIdentifier("Table C")),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -170,8 +170,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             .Attributes
                             .AppendSingle(
                             new GeneratorAttribute(
-                                new StringIdentifier("id"),
-                                new StringGeneratorAttributeValue("Weather Table"),
+                                new StringIdentifier("drop-table"),
+                                new IdentifierGeneratorAttributeValue(new StringIdentifier("Weather Table")),
                                 true))),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -190,8 +190,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             .Attributes
                             .AppendSingle(
                             new GeneratorAttribute(
-                                new StringIdentifier("id"),
-                                new StringGeneratorAttributeValue("Time of Day Table"),
+                                new StringIdentifier("drop-table"),
+                                new IdentifierGeneratorAttributeValue(new StringIdentifier("Time of Day Table")),
                                 true))),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -219,19 +219,14 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                         {
                         // Match NOTHING Table, Generates Exactly 3
                         new ItemDropTable(
-                            new StringIdentifier("Table A"),
+                            new StringIdentifier("Not something you will match on"),
                             3,
                             3),
                         // Match Specific Id, Generates Exactly 3
                         new ItemDropTable(
                             new StringIdentifier("Table B"),
                             3,
-                            3,
-                            new GeneratorAttribute(
-                                new StringIdentifier("id"),
-                                new StringGeneratorAttributeValue("Table B"),
-                                true).Yield(),
-                            Enumerable.Empty<IGeneratorAttribute>()),
+                            3),
                         // LinkedTo Specific, Still Generates
                         new LinkedDropTable(
                             new StringIdentifier("Table C"),
@@ -240,12 +235,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             new IWeightedEntry[]
                             {
                                 new WightedEntry(1, new StringIdentifier("Table B")),
-                            },
-                            new GeneratorAttribute(
-                                new StringIdentifier("id"),
-                                new StringGeneratorAttributeValue("Table C"),
-                                true).Yield(),
-                            Enumerable.Empty<IGeneratorAttribute>()),
+                            }),
                         // Weather Table, Generates 1
                         new ItemDropTable(
                             new StringIdentifier("Weather Table"),
@@ -253,10 +243,6 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             1,
                             new[]
                             {
-                                new GeneratorAttribute(
-                                    new StringIdentifier("id"),
-                                    new StringGeneratorAttributeValue("Weather Table"),
-                                    true),
                                 new GeneratorAttribute(
                                     new StringIdentifier("weather"),
                                     new IdentifierGeneratorAttributeValue(weatherManager.WeatherId),
@@ -270,10 +256,6 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             1,
                             new[]
                             {
-                                new GeneratorAttribute(
-                                    new StringIdentifier("id"),
-                                    new StringGeneratorAttributeValue("Time of Day Table"),
-                                    true),
                                 new GeneratorAttribute(
                                     new StringIdentifier("time-of-day"),
                                     new IdentifierGeneratorAttributeValue(timeOfDayManager.TimeOfDay),
