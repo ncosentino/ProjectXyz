@@ -3,7 +3,6 @@ using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
-    [DebuggerDisplay("{Value}")]
     public sealed class StringGeneratorAttributeValue : IGeneratorAttributeValue
     {
         public StringGeneratorAttributeValue(string value)
@@ -12,5 +11,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         }
 
         public string Value { get; }
+
+        public override string ToString() => Value;
     }
 }

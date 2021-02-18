@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+﻿using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
-    [DebuggerDisplay("Not({Wrapped})")]
     public sealed class NotGeneratorAttributeValue : IGeneratorAttributeValue
     {
         public NotGeneratorAttributeValue(IGeneratorAttributeValue wrapped)
@@ -12,5 +10,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         }
 
         public IGeneratorAttributeValue Wrapped { get; }
+
+        public override string ToString() =>
+            $"Not ({Wrapped})";
     }
 }

@@ -1,13 +1,10 @@
-﻿using System.Diagnostics;
-
-using NexusLabs.Contracts;
+﻿using NexusLabs.Contracts;
 
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
-    [DebuggerDisplay("{Value}")]
     public sealed class IdentifierGeneratorAttributeValue : IGeneratorAttributeValue
     {
         public IdentifierGeneratorAttributeValue(IIdentifier value)
@@ -20,5 +17,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         }
 
         public IIdentifier Value { get; }
+
+        public override string ToString() =>
+            $"ID: {Value}";
     }
 }

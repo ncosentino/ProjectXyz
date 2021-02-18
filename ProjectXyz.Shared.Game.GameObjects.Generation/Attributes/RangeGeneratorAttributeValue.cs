@@ -3,7 +3,6 @@ using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
-    [DebuggerDisplay("({Minimum}, {Maximum})")]
     public sealed class RangeGeneratorAttributeValue : IGeneratorAttributeValue
     {
         public RangeGeneratorAttributeValue(double minimum, double maximum)
@@ -15,5 +14,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         public double Minimum { get; }
 
         public double Maximum { get; }
+
+        public override string ToString() =>
+            $"Range ({Minimum}d, {Maximum}d)";
     }
 }

@@ -6,7 +6,6 @@ using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
-    [DebuggerDisplay("All of {string.Join(\", \", Values)}")]
     public sealed class AllStringCollectionGeneratorAttributeValue : IGeneratorAttributeValue
     {
         public AllStringCollectionGeneratorAttributeValue(params string[] values)
@@ -20,5 +19,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         }
 
         public IReadOnlyCollection<string> Values { get; }
+
+        public override string ToString() =>
+            $"All of {string.Join(", ", Values)}";
     }
 }

@@ -20,5 +20,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         public IGeneratorAttributeValue Value { get; }
 
         public bool Required { get; }
+
+        public override string ToString() =>
+            $"{Id} - {Value}{(Required ? " Required" : string.Empty)}";
     }
 }
