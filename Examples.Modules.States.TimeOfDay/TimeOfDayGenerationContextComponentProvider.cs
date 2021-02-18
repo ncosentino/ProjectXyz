@@ -6,7 +6,7 @@ using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
-    public sealed class TimeOfDayGenerationContextAttributeProvider : IGeneratorContextAttributeProvider
+    public sealed class TimeOfDayGenerationContextAttributeProvider : IDiscoverableGeneratorContextAttributeProvider
     {
         private readonly IReadOnlyTimeOfDayManager _readOnlyTimeOfDayManager;
 

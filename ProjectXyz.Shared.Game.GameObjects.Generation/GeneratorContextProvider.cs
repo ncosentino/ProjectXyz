@@ -8,11 +8,11 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation
     public sealed class GeneratorContextProvider : IGeneratorContextProvider
     {
         private readonly IGeneratorContextFactory _generatorContextFactory;
-        private readonly IReadOnlyCollection<IGeneratorContextAttributeProvider> _generatorContextAttributeProviders;
+        private readonly IReadOnlyCollection<IDiscoverableGeneratorContextAttributeProvider> _generatorContextAttributeProviders;
 
         public GeneratorContextProvider(
             IGeneratorContextFactory generatorContextFactory,
-            IEnumerable<IGeneratorContextAttributeProvider> generatorContextAttributeProviders)
+            IEnumerable<IDiscoverableGeneratorContextAttributeProvider> generatorContextAttributeProviders)
         {
             _generatorContextFactory = generatorContextFactory;
             _generatorContextAttributeProviders = generatorContextAttributeProviders.ToArray();

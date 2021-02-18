@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace ProjectXyz.Api.GameObjects.Generation.Attributes
+﻿namespace ProjectXyz.Api.GameObjects.Generation.Attributes
 {
-    public interface IGeneratorContextAttributeProvider
+    public interface IDiscoverableGeneratorContextAttributeProvider : IGeneratorContextAttributeProvider
     {
-        IEnumerable<IGeneratorAttribute> GetAttributes();
     }
 }

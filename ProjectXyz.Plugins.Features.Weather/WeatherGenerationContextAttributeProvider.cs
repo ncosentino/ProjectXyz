@@ -6,7 +6,7 @@ using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
-    public sealed class WeatherGenerationContextAttributeProvider : IGeneratorContextAttributeProvider
+    public sealed class WeatherGenerationContextAttributeProvider : IDiscoverableGeneratorContextAttributeProvider
     {
         private readonly IReadOnlyWeatherManager _readOnlyWeatherManager;
 
