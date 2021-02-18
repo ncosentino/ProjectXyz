@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+﻿using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
 {
