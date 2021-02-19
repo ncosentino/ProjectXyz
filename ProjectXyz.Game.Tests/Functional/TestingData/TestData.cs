@@ -17,7 +17,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
     public sealed class TestData
     {
         #region Constants
-        private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory(new BehaviorCollectionFactory());
+        private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory();
         private static readonly CalculationPriorities CALC_PRIORITIES = new CalculationPriorities();
         private static readonly StatInfo.StatDefinitionIds STAT_DEFINITION_IDS = new StatInfo.StatDefinitionIds();
         private static readonly IInterval UNIT_INTERVAL = new Interval<double>(1);

@@ -95,7 +95,6 @@ namespace ConsoleApplication1
             buffable.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
-                    dependencyContainer.Resolve<IBehaviorCollectionFactory>(),
                     new IBehavior[]
                     {
                         new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat1") },
@@ -113,7 +112,6 @@ namespace ConsoleApplication1
             buffableItem.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
-                    dependencyContainer.Resolve<IBehaviorCollectionFactory>(),
                     new IBehavior[]
                     {
                         new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat2") },

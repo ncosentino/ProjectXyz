@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+
 using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Api.GameObjects
@@ -19,8 +19,7 @@ namespace ProjectXyz.Api.GameObjects
         {
             return hasBehaviors
                 .Behaviors
-                .Get<TBehavior>()
-                .Any();
+                .Has<TBehavior>();
         }
 
         public static TBehavior GetOnly<TBehavior>(this IHasBehaviors hasBehaviors)
@@ -29,6 +28,24 @@ namespace ProjectXyz.Api.GameObjects
             return hasBehaviors
                 .Behaviors
                 .GetOnly<TBehavior>();
+        }
+
+        public static TBehavior GetFirst<TBehavior>(this IHasBehaviors hasBehaviors)
+            where TBehavior : IBehavior
+        {
+            return hasBehaviors
+                .Behaviors
+                .GetFirst<TBehavior>();
+        }
+
+        public static bool TryGetFirst<TBehavior>(
+            this IHasBehaviors hasBehaviors,
+            out TBehavior behavior)
+            where TBehavior : IBehavior
+        {
+            return hasBehaviors
+                .Behaviors
+                .TryGetFirst(out behavior);
         }
     }
 }

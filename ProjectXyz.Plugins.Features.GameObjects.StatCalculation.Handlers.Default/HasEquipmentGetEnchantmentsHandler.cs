@@ -53,7 +53,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     .ToArray();
                 var statTerm = statDefinitionToTermConverter[statId];
                 var baseEquipmentStatsEnchantment = new Enchantment(
-                    new BehaviorCollectionFactory(),
                     new IBehavior[]
                     {
                         new HasStatDefinitionIdBehavior()

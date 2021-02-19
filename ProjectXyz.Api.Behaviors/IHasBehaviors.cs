@@ -1,7 +1,9 @@
-﻿namespace ProjectXyz.Api.Behaviors
+﻿using System.Collections.Generic;
+
+namespace ProjectXyz.Api.Behaviors
 {
     public interface IHasBehaviors
     {
-        IBehaviorCollection Behaviors { get; }
+        IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

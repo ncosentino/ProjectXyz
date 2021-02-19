@@ -8,10 +8,6 @@ namespace ProjectXyz.Shared.Behaviors.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<BehaviorCollectionFactory>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .RegisterType<BehaviorFinder>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

@@ -1,15 +1,18 @@
-﻿using ProjectXyz.Api.Behaviors;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class Actor : IGameObject
     {
-        public Actor(IBehaviorCollection behaviors)
+        public Actor(IEnumerable<IBehavior> behaviors)
         {
-            Behaviors = behaviors;
+            Behaviors = behaviors.ToArray();
         }
 
-        public IBehaviorCollection Behaviors { get; }
+        public IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

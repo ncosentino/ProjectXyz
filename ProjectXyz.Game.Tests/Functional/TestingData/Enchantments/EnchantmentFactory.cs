@@ -13,13 +13,6 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
 {
     public sealed class EnchantmentFactory
     {
-        private readonly IBehaviorCollectionFactory _behaviorCollectionFactory;
-
-        public EnchantmentFactory(IBehaviorCollectionFactory behaviorCollectionFactory)
-        {
-            _behaviorCollectionFactory = behaviorCollectionFactory;
-        }
-
         public IEnchantment CreateExpressionEnchantment(
             IIdentifier statDefinitionId,
             string expression,
@@ -42,9 +35,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
                 behaviors = behaviors.Concat(additionalBehaviors);
             }
 
-            return new Enchantment(
-                _behaviorCollectionFactory,
-                behaviors);
+            return new Enchantment(behaviors);
         }
     }
 }

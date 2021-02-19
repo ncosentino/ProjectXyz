@@ -16,14 +16,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
     {
         private readonly IStatManagerFactory _statManagerFactory;
         private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
-        private readonly IBehaviorCollectionFactory _behaviorCollectionFactory;
         private readonly IBehaviorManager _behaviorManager;
         private readonly IActorBehaviorsProviderFacade _actorBehaviorsProviderFacade;
         private readonly IActorBehaviorsInterceptorFacade _actorBehaviorsInterceptorFacade;
         private readonly IMutableStatsProviderFactory _mutableStatsProviderFactory;
 
         public ActorFactory(
-            IBehaviorCollectionFactory behaviorCollectionFactory,
             IBehaviorManager behaviorManager,
             IActorBehaviorsProviderFacade actorBehaviorsProviderFacade,
             IActorBehaviorsInterceptorFacade actorBehaviorsInterceptorFacade,
@@ -33,7 +31,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         {
             _statManagerFactory = statManagerFactory;
             _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
-            _behaviorCollectionFactory = behaviorCollectionFactory;
             _behaviorManager = behaviorManager;
             _actorBehaviorsProviderFacade = actorBehaviorsProviderFacade;
             _actorBehaviorsInterceptorFacade = actorBehaviorsInterceptorFacade;
@@ -67,9 +64,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 .ToArray();
             var additionalBehaviorsFromProviders = _actorBehaviorsProviderFacade
                 .GetBehaviors(baseAndInjectedBehaviours);
-            var allBehaviors = _behaviorCollectionFactory
-                .Create(baseAndInjectedBehaviours
-                .Concat(additionalBehaviorsFromProviders));
+            var allBehaviors = baseAndInjectedBehaviours
+                .Concat(additionalBehaviorsFromProviders)
+                .ToArray();
             _actorBehaviorsInterceptorFacade.Intercept(allBehaviors);
 
             var actor = new Actor(allBehaviors);

@@ -38,7 +38,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             ItemFactory = LifeTimeScope.Resolve<IItemFactory>();
             StatDefinitionToTermConverter = LifeTimeScope.Resolve<IStatDefinitionToTermConverter>();
             StatCalculationService = LifeTimeScope.Resolve<IStatCalculationService>();
-            EnchantmentFactory = new EnchantmentFactory(LifeTimeScope.Resolve<IBehaviorCollectionFactory>());
+            EnchantmentFactory = new EnchantmentFactory();
         }
         #endregion
 

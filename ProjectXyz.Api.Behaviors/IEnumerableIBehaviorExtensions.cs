@@ -10,15 +10,21 @@ namespace ProjectXyz.Api.Behaviors
             where TBehavior : IBehavior
         {
             var behavior = behaviors
-                .Where(x => x is TBehavior)
-                .Cast<TBehavior>()
+                .TakeTypes<TBehavior>()
                 .FirstOrDefault();
             if (behavior == null)
             {
-                throw new InvalidOperationException($"Could not find a behavior of type '{typeof(TBehavior)}'.");
+                throw new InvalidOperationException(
+                    $"Could not find a behavior of type '{typeof(TBehavior)}'.");
             }
 
             return behavior;
+        }
+
+        public static IEnumerable<TBehavior> Get<TBehavior>(this IEnumerable<IBehavior> behaviors)
+            where TBehavior : IBehavior
+        {
+            return behaviors.TakeTypes<TBehavior>();
         }
 
         public static bool TryGetFirst<TBehavior>(
@@ -27,8 +33,7 @@ namespace ProjectXyz.Api.Behaviors
             where TBehavior : IBehavior
         {
             behavior = behaviors
-                .Where(x => x is TBehavior)
-                .Cast<TBehavior>()
+                .TakeTypes<TBehavior>()
                 .FirstOrDefault();
             return behavior != null;
         }
@@ -36,18 +41,28 @@ namespace ProjectXyz.Api.Behaviors
         public static TBehavior GetOnly<TBehavior>(this IEnumerable<IBehavior> behaviors)
             where TBehavior : IBehavior
         {
-            return behaviors
-                .Where(x => x is TBehavior)
-                .Cast<TBehavior>()
-                .Single();
+            var match = behaviors
+                .TakeTypes<TBehavior>()
+                .SingleOrDefault();
+            if (match == null)
+            {
+                var count = behaviors
+                    .TakeTypes<TBehavior>()
+                    .Count();
+                throw new InvalidOperationException(
+                    $"Enumeration found {count} behaviors " +
+                    $"matching type '{typeof(TBehavior)}' when only one was " +
+                    $"expected.");
+            }
+
+            return match;
         }
 
         public static bool Has<TBehavior>(this IEnumerable<IBehavior> behaviors)
             where TBehavior : IBehavior
         {
             var behavior = behaviors
-                .Where(x => x is TBehavior)
-                .Cast<TBehavior>()
+                .TakeTypes<TBehavior>()
                 .FirstOrDefault();
             return behavior != null;
         }

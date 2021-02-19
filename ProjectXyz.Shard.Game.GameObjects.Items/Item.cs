@@ -4,7 +4,6 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Shared.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items
 {
@@ -12,13 +11,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items
     {
         public Item(
             IBehaviorManager behaviorManager,
-            IHasMutableStatsBehavior hasStatsBehavior, // FIXME: this seems bad because it depends on a feature...
-            IEnumerable<IBehavior> behaviors)
+            IHasMutableStatsBehavior hasStatsBehavior,
+            IEnumerable<IBehavior> additionalBehaviors)
         {
-            Behaviors = new BehaviorCollection(behaviors.AppendSingle(hasStatsBehavior));
+            Behaviors = hasStatsBehavior
+                .Yield()
+                .Concat(additionalBehaviors)
+                .ToArray();
             behaviorManager.Register(this, Behaviors);
         }
 
-        public IBehaviorCollection Behaviors { get; }
+        public IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

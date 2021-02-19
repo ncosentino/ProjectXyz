@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Autofac;
@@ -106,7 +107,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items
 
         public sealed class TestSocketPatternItem : IGameObject
         {
-            public IBehaviorCollection Behaviors { get; set; }
+            public IReadOnlyCollection<IBehavior> Behaviors { get; set; }
         }
 
         private sealed class TestSocketPatternHandler : IDiscoverableSocketPatternHandler

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Shared.Behaviors
@@ -6,7 +8,7 @@ namespace ProjectXyz.Shared.Behaviors
     {
         public void Register(
             IHasBehaviors owner,
-            IBehaviorCollection behaviors)
+            IReadOnlyCollection<IBehavior> behaviors)
         {
             foreach (var behavior in behaviors)
             {

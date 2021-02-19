@@ -11,13 +11,11 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
         private readonly BehaviorManager _behaviorManager;
         private readonly MockRepository _mockRepository;
         private readonly Mock<IHasBehaviors> _mockHasBehaviors;
-        private readonly Mock<IBehaviorCollection> _mockBehaviorCollection;
 
         public BehaviorManagertests()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
             _mockHasBehaviors = _mockRepository.Create<IHasBehaviors>();
-            _mockBehaviorCollection = _mockRepository.Create<IBehaviorCollection>();
             _behaviorManager = new BehaviorManager();
         }
 
@@ -45,20 +43,14 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
                     registeredCalls++;
                 });
 
-            _mockBehaviorCollection
-                .SetupSequence(x => x.GetEnumerator())
-                .Returns(new List<IBehavior>()
-                {
-                    mockBehavior.Object,
-                }.GetEnumerator())
-                .Returns(new List<IBehavior>()
-                {
-                    mockBehavior.Object,
-                }.GetEnumerator());
+            var behaviors = new List<IBehavior>()
+            {
+                mockBehavior.Object,
+            };
 
             _behaviorManager.Register(
                 _mockHasBehaviors.Object,
-                _mockBehaviorCollection.Object);
+                behaviors);
 
             _mockRepository.VerifyAll();
             Assert.Equal(1, registeringCalls);
@@ -108,22 +100,15 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
                     registeredCalls++;
                 });
 
-            _mockBehaviorCollection
-                .SetupSequence(x => x.GetEnumerator())
-                .Returns(new List<IBehavior>()
-                {
-                    mockBehavior1.Object,
-                    mockBehavior2.Object,
-                }.GetEnumerator())
-                .Returns(new List<IBehavior>()
-                {
-                    mockBehavior1.Object,
-                    mockBehavior2.Object,
-                }.GetEnumerator());
+            var behaviors = new List<IBehavior>()
+            {
+                mockBehavior1.Object,
+                mockBehavior2.Object,
+            };
 
             _behaviorManager.Register(
                 _mockHasBehaviors.Object,
-                _mockBehaviorCollection.Object);
+                behaviors);
 
             _mockRepository.VerifyAll();
             Assert.Equal(2, registeringCalls);
