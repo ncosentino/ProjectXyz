@@ -41,10 +41,10 @@ namespace ProjectXyz.Api.Behaviors
         public static TBehavior GetOnly<TBehavior>(this IEnumerable<IBehavior> behaviors)
             where TBehavior : IBehavior
         {
-            var match = behaviors
+            var matches = behaviors
                 .TakeTypes<TBehavior>()
-                .SingleOrDefault();
-            if (match == null)
+                .ToArray();
+            if (matches.Length != 1)
             {
                 var count = behaviors
                     .TakeTypes<TBehavior>()
@@ -55,7 +55,7 @@ namespace ProjectXyz.Api.Behaviors
                     $"expected.");
             }
 
-            return match;
+            return matches[0];
         }
 
         public static bool Has<TBehavior>(this IEnumerable<IBehavior> behaviors)
