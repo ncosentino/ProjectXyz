@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Api.GameObjects.Generation

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
+
 using Autofac;
-using ConsoleApplication1.Wip.Items.Generation.Plugins;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Game.Core.Autofac;
 using ProjectXyz.Game.Interface.Engine;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
@@ -17,11 +14,11 @@ using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Testing;
 
 namespace ConsoleApplication1
 {
@@ -29,69 +26,21 @@ namespace ConsoleApplication1
     {
         public static void Main()
         {
-            var moduleDiscoverer = new ModuleDiscoverer();
-            moduleDiscoverer.AssemblyLoadFailed += (_, args) =>
-            {
-                Console.WriteLine($"ERROR: Could not load assembly '{args.AssemblyFilePath}'.\r\n\t{args.Exception.Message}");
-            };
-            var moduleDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var modules =
-                moduleDiscoverer.Discover(moduleDirectory, "*.exe")
-                .Concat(moduleDiscoverer
-                ////.Discover(moduleDirectory, "*.Autofac.dll"))
-                ////.Concat(moduleDiscoverer
-                ////.Discover(moduleDirectory, "Examples.Modules.*.dll"));
-                .Discover(moduleDirectory, "*.dll"));
+            var lifetimeScope = new TestLifeTimeScopeFactory().CreateScope();
 
-            Console.WriteLine("Discovered modules:");
-            foreach (var module in modules)
-            {
-                Console.WriteLine($"\t{module}");
-            }
+            var gameEngine = lifetimeScope.Resolve<IAsyncGameEngine>();
 
-            var dependencyContainerBuilder = new DependencyContainerBuilder();
-            var dependencyContainer = dependencyContainerBuilder.Create(modules);
-
-            var itemGenerator = dependencyContainer.Resolve<IItemGeneratorFacade>();
-            itemGenerator.Register(new RandomRollItemGeneratorPlugin(
-                new StringIdentifier("roll"),
-                100));
-            var generationContextFactory = dependencyContainer.Resolve<IGeneratorContextFactory>();
-            var itemGenerationContext = generationContextFactory.CreateGeneratorContext(
-                1,
-                1,
-                new GeneratorAttribute(
-                    new StringIdentifier("roll"),
-                    new DoubleGeneratorAttributeValue(50),
-                    true));
-            var generatedItems = itemGenerator
-                .GenerateItems(itemGenerationContext)
-                .ToArray();
-
-            var enchantmentGenerationContext = generationContextFactory.CreateGeneratorContext(
-                1,
-                1,
-                new GeneratorAttribute(
-                    new StringIdentifier("roll"),
-                    new DoubleGeneratorAttributeValue(50),
-                    true));
-            var enchantmentDefinitions = dependencyContainer
-                .Resolve<IEnchantmentDefinitionRepository>()
-                .ReadEnchantmentDefinitions(enchantmentGenerationContext)
-                .ToArray();
-
-            var gameEngine = dependencyContainer.Resolve<IAsyncGameEngine>();
-
-            var actorFactory = dependencyContainer.Resolve<IActorFactory>();
+            var actorFactory = lifetimeScope.Resolve<IActorFactory>();
             var actor = actorFactory.Create(
                 new TypeIdentifierBehavior(),
                 new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
-                Enumerable.Empty<IBehavior>());
+                new[]
+                {
+                    new CanEquipBehavior(new[] { new StringIdentifier("left hand") })
+                });
 
-            var buffable = actor
-                .Behaviors
-                .GetOnly<IBuffableBehavior>();
+            var buffable = actor.GetOnly<IBuffableBehavior>();
             buffable.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
@@ -100,15 +49,19 @@ namespace ConsoleApplication1
                         new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat1") },
                         new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat1 + 1"),
                         new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
-                        dependencyContainer.Resolve<IAppliesToBaseStat>(),
+                        lifetimeScope.Resolve<IAppliesToBaseStat>(),
                     }),
             });
 
-            var item = generatedItems.First();
+            var activeEnchantmentManagerFactory = lifetimeScope.Resolve<IActiveEnchantmentManagerFactory>();
+            var itemActiveEnchantmentManager = activeEnchantmentManagerFactory.Create();
+            var itemFactory = lifetimeScope.Resolve<IItemFactory>();
+            var item = itemFactory.Create(
+                new BuffableBehavior(itemActiveEnchantmentManager),
+                new HasEnchantmentsBehavior(itemActiveEnchantmentManager),
+                new CanBeEquippedBehavior(new[] { new StringIdentifier("left hand") }));
 
-            var buffableItem = item
-                .Behaviors
-                .GetFirst<IBuffableBehavior>();
+            var buffableItem = item.GetFirst<IBuffableBehavior>();
             buffableItem.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
@@ -120,14 +73,12 @@ namespace ConsoleApplication1
                     }),
             });
 
-            var canEquip = actor
-                .Behaviors
-                .GetFirst<ICanEquipBehavior>();
+            var canEquip = actor.GetFirst<ICanEquipBehavior>();
             canEquip.TryEquip(
                 new StringIdentifier("left hand"),
                 item.Behaviors.GetFirst<ICanBeEquippedBehavior>());
 
-            dependencyContainer
+            lifetimeScope
                 .Resolve<IMutableGameObjectManager>()
                 .MarkForAddition(actor);
 
