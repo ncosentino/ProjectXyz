@@ -296,6 +296,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj", "{24C946AC-66DB-4BAC-B5CF-6112E4773707}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Tests", "ProjectXyz.Plugins.Features.GameObjects.Items.Tests\ProjectXyz.Plugins.Features.GameObjects.Items.Tests.csproj", "{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -674,6 +676,10 @@ Global
 		{24C946AC-66DB-4BAC-B5CF-6112E4773707}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24C946AC-66DB-4BAC-B5CF-6112E4773707}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24C946AC-66DB-4BAC-B5CF-6112E4773707}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -816,6 +822,7 @@ Global
 		{4F77BE14-6BC7-4E0C-A1B4-877E2E65DA79} = {B995F9F7-4397-4E2E-B83E-F4BA64609AEA}
 		{44C8F627-23AA-476B-95E3-D091F7946A7B} = {B995F9F7-4397-4E2E-B83E-F4BA64609AEA}
 		{24C946AC-66DB-4BAC-B5CF-6112E4773707} = {B995F9F7-4397-4E2E-B83E-F4BA64609AEA}
+		{2A5F0DE5-4914-4FB3-9A85-AB638ED56696} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}
