@@ -2,15 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Moq;
 
 using NexusLabs.Contracts;
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
@@ -26,22 +27,22 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         private readonly MockRepository _mockRepository;
         private readonly ItemDropTableHandlerGenerator _itemDropTableHandlerGenerator;
         private readonly Mock<IItemGeneratorFacade> _itemGeneratorFacade;
-        private readonly Mock<IGeneratorContextFactory> _generatorContextFactory;
-        private readonly Mock<IGeneratorContext> _sourceGeneratorContext;
-        private readonly Mock<IGeneratorContext> _newGeneratorContext;
+        private readonly Mock<IFilterContextFactory> _filterContextFactory;
+        private readonly Mock<IFilterContext> _sourceFilterContext;
+        private readonly Mock<IFilterContext> _newFilterContext;
 
         public ItemDropTableHandlerGeneratorTests()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
 
             _itemGeneratorFacade = _mockRepository.Create<IItemGeneratorFacade>();
-            _generatorContextFactory = _mockRepository.Create<IGeneratorContextFactory>();
-            _sourceGeneratorContext = _mockRepository.Create<IGeneratorContext>();
-            _newGeneratorContext = _mockRepository.Create<IGeneratorContext>();
+            _filterContextFactory = _mockRepository.Create<IFilterContextFactory>();
+            _sourceFilterContext = _mockRepository.Create<IFilterContext>();
+            _newFilterContext = _mockRepository.Create<IFilterContext>();
 
             _itemDropTableHandlerGenerator = new ItemDropTableHandlerGenerator(
                 _itemGeneratorFacade.Object,
-                _generatorContextFactory.Object);
+                _filterContextFactory.Object);
         }
 
         [Fact]
@@ -60,7 +61,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             
             var exception = Assert.Throws<ContractException>(() => _itemDropTableHandlerGenerator.GenerateLoot(
                 dropTable.Object,
-                _sourceGeneratorContext.Object));
+                _sourceFilterContext.Object));
 
             Assert.Equal(
                 $"The provided drop table '{dropTable.Object}' must have " +
@@ -82,29 +83,29 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             };
 
             _itemGeneratorFacade
-                .Setup(x => x.GenerateItems(_newGeneratorContext.Object))
+                .Setup(x => x.GenerateItems(_newFilterContext.Object))
                 .Returns(expectedItems);
 
-            _sourceGeneratorContext
+            _sourceFilterContext
                 .Setup(x => x.Attributes)
-                .Returns(new IGeneratorAttribute[]
+                .Returns(new IFilterAttribute[]
                 {
                 });
 
-            _generatorContextFactory
-                .Setup(x => x.CreateGeneratorContext(
+            _filterContextFactory
+                .Setup(x => x.CreateContext(
                     123,
                     456,
-                    It.Is<IEnumerable<IGeneratorAttribute>>(attrs =>
-                        attrs.SequenceEqual(new IGeneratorAttribute[]
+                    It.Is<IEnumerable<IFilterAttribute>>(attrs =>
+                        attrs.SequenceEqual(new IFilterAttribute[]
                         {
                         }))))
-                .Returns(_newGeneratorContext.Object);
+                .Returns(_newFilterContext.Object);
 
             var results = _itemDropTableHandlerGenerator
                 .GenerateLoot(
                     dropTable,
-                    _sourceGeneratorContext.Object)
+                    _sourceFilterContext.Object)
                 .ToArray();
 
             Assert.Equal<IGameObject>(expectedItems, results);
@@ -114,13 +115,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         [Fact]
         public void GenerateLoot_NoContextAttributesTableProvidedAttributes_ExpectedContext()
         {
-            var dropTableProvidedAttribute = _mockRepository.Create<IGeneratorAttribute>();
+            var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
 
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
                 123,
                 456,
-                Enumerable.Empty<IGeneratorAttribute>(),
+                Enumerable.Empty<IFilterAttribute>(),
                 new[]
                 {
                     dropTableProvidedAttribute.Object,
@@ -131,30 +132,30 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             };
 
             _itemGeneratorFacade
-                .Setup(x => x.GenerateItems(_newGeneratorContext.Object))
+                .Setup(x => x.GenerateItems(_newFilterContext.Object))
                 .Returns(expectedItems);
 
-            _sourceGeneratorContext
+            _sourceFilterContext
                 .Setup(x => x.Attributes)
-                .Returns(new IGeneratorAttribute[]
+                .Returns(new IFilterAttribute[]
                 {
                 });
 
-            _generatorContextFactory
-                .Setup(x => x.CreateGeneratorContext(
+            _filterContextFactory
+                .Setup(x => x.CreateContext(
                     123,
                     456,
-                    It.Is<IEnumerable<IGeneratorAttribute>>(attrs =>
-                        attrs.SequenceEqual(new IGeneratorAttribute[]
+                    It.Is<IEnumerable<IFilterAttribute>>(attrs =>
+                        attrs.SequenceEqual(new IFilterAttribute[]
                         {
                             dropTableProvidedAttribute.Object,
                         }))))
-                .Returns(_newGeneratorContext.Object);
+                .Returns(_newFilterContext.Object);
 
             var results = _itemDropTableHandlerGenerator
                 .GenerateLoot(
                     dropTable,
-                    _sourceGeneratorContext.Object)
+                    _sourceFilterContext.Object)
                 .ToArray();
 
             Assert.Equal<IGameObject>(expectedItems, results);
@@ -164,13 +165,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         [Fact]
         public void GenerateLoot_RequiredContextAttributesTableProvidedAttributes_ExpectedContext()
         {
-            var dropTableProvidedAttribute = _mockRepository.Create<IGeneratorAttribute>();
+            var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
 
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
                 123,
                 456,
-                Enumerable.Empty<IGeneratorAttribute>(),
+                Enumerable.Empty<IFilterAttribute>(),
                 new[]
                 {
                     dropTableProvidedAttribute.Object,
@@ -181,45 +182,45 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             };
 
             _itemGeneratorFacade
-                .Setup(x => x.GenerateItems(_newGeneratorContext.Object))
+                .Setup(x => x.GenerateItems(_newFilterContext.Object))
                 .Returns(expectedItems);
 
-            var sourceGeneratorAttribute = _mockRepository.Create<IGeneratorAttribute>();
-            var sourceGeneratorAttributeValue = _mockRepository.Create<IGeneratorAttributeValue>();
-            sourceGeneratorAttribute
+            var sourceFilterAttribute = _mockRepository.Create<IFilterAttribute>();
+            var sourceFilterAttributeValue = _mockRepository.Create<IFilterAttributeValue>();
+            sourceFilterAttribute
                 .Setup(x => x.Id)
                 .Returns(new StringIdentifier("context required attribute"));
-            sourceGeneratorAttribute
+            sourceFilterAttribute
                 .Setup(x => x.Required)
                 .Returns(true);
-            sourceGeneratorAttribute
+            sourceFilterAttribute
                 .Setup(x => x.Value)
-                .Returns(sourceGeneratorAttributeValue.Object);
+                .Returns(sourceFilterAttributeValue.Object);
 
-            _sourceGeneratorContext
+            _sourceFilterContext
                 .Setup(x => x.Attributes)
-                .Returns(new IGeneratorAttribute[]
+                .Returns(new IFilterAttribute[]
                 {
-                    sourceGeneratorAttribute.Object,
+                    sourceFilterAttribute.Object,
                 });
 
-            _generatorContextFactory
-                .Setup(x => x.CreateGeneratorContext(
+            _filterContextFactory
+                .Setup(x => x.CreateContext(
                     123,
                     456,
-                    It.Is<IEnumerable<IGeneratorAttribute>>(attrs =>
+                    It.Is<IEnumerable<IFilterAttribute>>(attrs =>
                         attrs.Any(attr => attr.Equals(dropTableProvidedAttribute.Object)) &&
                         attrs.Any(attr => 
                             attr.Id.Equals(new StringIdentifier("context required attribute")) &&
                             attr.Required == false &&
-                            attr.Value == sourceGeneratorAttributeValue.Object) &&
+                            attr.Value == sourceFilterAttributeValue.Object) &&
                         attrs.Count() == 2)))
-                .Returns(_newGeneratorContext.Object);
+                .Returns(_newFilterContext.Object);
 
             var results = _itemDropTableHandlerGenerator
                 .GenerateLoot(
                     dropTable,
-                    _sourceGeneratorContext.Object)
+                    _sourceFilterContext.Object)
                 .ToArray();
 
             Assert.Equal<IGameObject>(expectedItems, results);
@@ -228,13 +229,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
 
         public void GenerateLoot_NotRequiredContextAttributesTableProvidedAttributes_ExpectedContext()
         {
-            var dropTableProvidedAttribute = _mockRepository.Create<IGeneratorAttribute>();
+            var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
 
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
                 123,
                 456,
-                Enumerable.Empty<IGeneratorAttribute>(),
+                Enumerable.Empty<IFilterAttribute>(),
                 new[]
                 {
                     dropTableProvidedAttribute.Object,
@@ -245,35 +246,35 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             };
 
             _itemGeneratorFacade
-                .Setup(x => x.GenerateItems(_newGeneratorContext.Object))
+                .Setup(x => x.GenerateItems(_newFilterContext.Object))
                 .Returns(expectedItems);
 
-            var sourceGeneratorAttribute = _mockRepository.Create<IGeneratorAttribute>();
-            sourceGeneratorAttribute
+            var sourceFilterAttribute = _mockRepository.Create<IFilterAttribute>();
+            sourceFilterAttribute
                 .Setup(x => x.Required)
                 .Returns(false);
 
-            _sourceGeneratorContext
+            _sourceFilterContext
                 .Setup(x => x.Attributes)
-                .Returns(new IGeneratorAttribute[]
+                .Returns(new IFilterAttribute[]
                 {
-                    sourceGeneratorAttribute.Object,
+                    sourceFilterAttribute.Object,
                 });
 
-            _generatorContextFactory
-                .Setup(x => x.CreateGeneratorContext(
+            _filterContextFactory
+                .Setup(x => x.CreateContext(
                     123,
                     456,
-                    It.Is<IEnumerable<IGeneratorAttribute>>(attrs =>
+                    It.Is<IEnumerable<IFilterAttribute>>(attrs =>
                         attrs.Any(attr => attr.Equals(dropTableProvidedAttribute.Object)) &&
-                        attrs.Any(attr => attr.Equals(sourceGeneratorAttribute.Object)) &&
+                        attrs.Any(attr => attr.Equals(sourceFilterAttribute.Object)) &&
                         attrs.Count() == 2)))
-                .Returns(_newGeneratorContext.Object);
+                .Returns(_newFilterContext.Object);
 
             var results = _itemDropTableHandlerGenerator
                 .GenerateLoot(
                     dropTable,
-                    _sourceGeneratorContext.Object)
+                    _sourceFilterContext.Object)
                 .ToArray();
 
             Assert.Equal<IGameObject>(expectedItems, results);

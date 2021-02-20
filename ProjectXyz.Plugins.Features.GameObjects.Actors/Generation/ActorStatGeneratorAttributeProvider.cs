@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
 {
-    public sealed class ActorStatGeneratorAttributeProvider : IDiscoverableGeneratorContextAttributeProvider
+    public sealed class ActorStatFilterAttributeProvider : IDiscoverableFilterContextAttributeProvider
     {
         private readonly IGameObjectManager _gameObjectManager;
         private readonly IStatCalculationService _statCalculationService;
         private readonly IStatCalculationContextFactory _statCalculationContextFactory;
 
-        public ActorStatGeneratorAttributeProvider(
+        public ActorStatFilterAttributeProvider(
             IGameObjectManager gameObjectManager,
             IStatCalculationService statCalculationService,
             IStatCalculationContextFactory statCalculationContextFactory)
@@ -25,11 +25,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
             _statCalculationContextFactory = statCalculationContextFactory;
         }
 
-        public IEnumerable<IGeneratorAttribute> GetAttributes()
+        public IEnumerable<IFilterAttribute> GetAttributes()
         {
-            yield return new GeneratorAttribute(
+            yield return new FilterAttribute(
                 new StringIdentifier("actor-stats"),
-                new ActorStatGeneratorAttributeValueProvider(
+                new ActorStatFilterAttributeValueProvider(
                     _gameObjectManager,
                     _statCalculationService,
                     _statCalculationContextFactory),

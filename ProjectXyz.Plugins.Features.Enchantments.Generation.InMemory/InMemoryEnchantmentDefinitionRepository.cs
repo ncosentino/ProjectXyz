@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
 {
@@ -21,7 +21,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
             _enchantmentDefinitions = new List<IEnchantmentDefinition>(enchantmentDefinitions);
         }
 
-        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IGeneratorContext generatorContext)
+        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IFilterContext filterContext)
         {
             if (!_enchantmentDefinitions.Any())
             {
@@ -34,7 +34,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
 
             var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
                 _enchantmentDefinitions,
-                generatorContext);
+                filterContext);
             foreach (var filteredEnchantmentDefinition in filteredEnchantmentDefinitions)
             {
                 // TODO: ensure we have all of the Enchantment generation components
@@ -46,7 +46,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
             }
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes => _enchantmentDefinitions
+        public IEnumerable<IFilterAttribute> SupportedAttributes => _enchantmentDefinitions
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
     }

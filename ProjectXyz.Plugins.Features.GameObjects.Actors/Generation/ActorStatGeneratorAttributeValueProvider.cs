@@ -1,23 +1,23 @@
 ﻿using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
 {
-    public sealed class ActorStatGeneratorAttributeValueProvider : IGeneratorAttributeValue
+    public sealed class ActorStatFilterAttributeValueProvider : IFilterAttributeValue
     {
         private readonly IGameObjectManager _gameObjectManager;
         private readonly IStatCalculationService _statCalculationService;
         private readonly IStatCalculationContextFactory _statCalculationContextFactory;
 
-        public ActorStatGeneratorAttributeValueProvider(
+        public ActorStatFilterAttributeValueProvider(
             IGameObjectManager gameObjectManager,
             IStatCalculationService statCalculationService,
             IStatCalculationContextFactory statCalculationContextFactory)

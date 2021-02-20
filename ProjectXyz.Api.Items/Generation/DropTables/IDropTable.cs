@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables
 {
-    public interface IDropTable : IHasGeneratorAttributes
+    public interface IDropTable : IHasFilterAttributes
     {
         IIdentifier DropTableId { get; }
 
@@ -12,6 +13,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTable
 
         int MaximumGenerateCount { get; }
 
-        IEnumerable<IGeneratorAttribute> ProvidedAttributes { get; }
+        IEnumerable<IFilterAttribute> ProvidedAttributes { get; }
     }
 }

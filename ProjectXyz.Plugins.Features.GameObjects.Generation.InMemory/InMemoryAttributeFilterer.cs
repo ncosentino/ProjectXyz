@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
 {
@@ -18,12 +18,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
 
         public IEnumerable<T> Filter<T>(
             IEnumerable<T> source,
-            IGeneratorContext generatorContext)
-            where T : IHasGeneratorAttributes
+            IFilterContext filterContext)
+            where T : IHasFilterAttributes
         {
-            var requiredContextAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
-            var allContextAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
-            foreach (var contextAttribute in generatorContext.Attributes)
+            var requiredContextAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+            var allContextAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+            foreach (var contextAttribute in filterContext.Attributes)
             {
                 allContextAttributes.Add(contextAttribute.Id, contextAttribute);
                 if (contextAttribute.Required)
@@ -34,8 +34,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory
 
             foreach (var sourceToFilter in source)
             {
-                var requiredSourceAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
-                var allSourceAttributes = new Dictionary<IIdentifier, IGeneratorAttribute>();
+                var requiredSourceAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+                var allSourceAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
                 foreach (var sourceAttribute in sourceToFilter.SupportedAttributes)
                 {
                     allSourceAttributes.Add(sourceAttribute.Id, sourceAttribute);

@@ -2,61 +2,61 @@
 
 using Autofac;
 
-using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Plugins.Features.TimeOfDay;
 using ProjectXyz.Plugins.Features.Weather;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Testing;
 
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
 {
-    public sealed class GeneratorContextProviderFunctionalTests
+    public sealed class FilterContextProviderFunctionalTests
     {
-        private static readonly IGeneratorContextProvider _generatorContextProvider;
+        private static readonly IFilterContextProvider _filterContextProvider;
         private static readonly IWeatherManager _weatherManager;
         private static readonly ITimeOfDayManager _timeOfDayManager;
 
-        static GeneratorContextProviderFunctionalTests()
+        static FilterContextProviderFunctionalTests()
         {
-            _generatorContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IGeneratorContextProvider>();
+            _filterContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IFilterContextProvider>();
             _weatherManager = CachedDependencyLoader.LifeTimeScope.Resolve<IWeatherManager>();
             _timeOfDayManager = CachedDependencyLoader.LifeTimeScope.Resolve<ITimeOfDayManager>();            
         }
 
         [Fact]
-        public static void GetGeneratorContext_Weather_HasSameValueAsManager()
+        public static void GetFilterContext_Weather_HasSameValueAsManager()
         {
             var expectedValue = _weatherManager.WeatherId;
-            var attributes = _generatorContextProvider
-                .GetGeneratorContext()
+            var attributes = _filterContextProvider
+                .GetContext()
                 .Attributes
                 .ToArray();
             var attribute = attributes.SingleOrDefault(x => x.Id.Equals(new StringIdentifier("weather")));
             Assert.NotNull(attribute);
-            Assert.Equal(expectedValue, ((IdentifierGeneratorAttributeValue)attribute.Value).Value);
+            Assert.Equal(expectedValue, ((IdentifierFilterAttributeValue)attribute.Value).Value);
         }
 
         [Fact]
-        public static void GetGeneratorContext_TimeOfDay_HasSameValueAsManager()
+        public static void GetFilterContext_TimeOfDay_HasSameValueAsManager()
         {
             var expectedValue = _timeOfDayManager.TimeOfDay;
-            var attributes = _generatorContextProvider
-                .GetGeneratorContext()
+            var attributes = _filterContextProvider
+                .GetContext()
                 .Attributes
                 .ToArray();
             var attribute = attributes.SingleOrDefault(x => x.Id.Equals(new StringIdentifier("time-of-day")));
             Assert.NotNull(attribute);
-            Assert.Equal(expectedValue, ((IdentifierGeneratorAttributeValue)attribute.Value).Value);
+            Assert.Equal(expectedValue, ((IdentifierFilterAttributeValue)attribute.Value).Value);
         }
 
         [Fact]
-        public static void GetGeneratorContext_Actors_AttributePresent()
+        public static void GetFilterContext_Actors_AttributePresent()
         {
-            var attributes = _generatorContextProvider
-                .GetGeneratorContext()
+            var attributes = _filterContextProvider
+                .GetContext()
                 .Attributes
                 .ToArray();
             var attribute = attributes.SingleOrDefault(x => x.Id.Equals(new StringIdentifier("actor-stats")));

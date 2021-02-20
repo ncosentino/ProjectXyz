@@ -1,11 +1,11 @@
-﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+﻿using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
 {
-    public sealed class ActorStatGeneratorAttributeValue : IGeneratorAttributeValue
+    public sealed class ActorStatFilterAttributeValue : IFilterAttributeValue
     {
-        public ActorStatGeneratorAttributeValue(
+        public ActorStatFilterAttributeValue(
             IIdentifier actorId,
             IIdentifier statDefinitionId,
             double minimum,

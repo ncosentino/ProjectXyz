@@ -4,51 +4,51 @@ using System.Linq;
 
 using NexusLabs.Contracts;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item
 {
     public sealed class ItemDropTableHandlerGenerator : IDiscoverableDropTableHandlerGenerator
     {
         private readonly IItemGeneratorFacade _itemGeneratorFacade;
-        private readonly IGeneratorContextFactory _generatorContextFactory;
+        private readonly IFilterContextFactory _filterContextFactory;
 
         public ItemDropTableHandlerGenerator(
             IItemGeneratorFacade itemGeneratorFacade,
-            IGeneratorContextFactory generatorContextFactory)
+            IFilterContextFactory filterContextFactory)
         {
             _itemGeneratorFacade = itemGeneratorFacade;
-            _generatorContextFactory = generatorContextFactory;
+            _filterContextFactory = filterContextFactory;
         }
 
         public Type DropTableType { get; } = typeof(ItemDropTable);
 
         public IEnumerable<IGameObject> GenerateLoot(
             IDropTable dropTable,
-            IGeneratorContext generatorContext)
+            IFilterContext filterContext)
         {
             Contract.Requires(
                 dropTable.GetType() == DropTableType,
                 $"The provided drop table '{dropTable}' must have the type '{DropTableType}'.");
-            return GenerateLoot((IItemDropTable)dropTable, generatorContext);
+            return GenerateLoot((IItemDropTable)dropTable, filterContext);
         }
 
         private IEnumerable<IGameObject> GenerateLoot(
             IItemDropTable dropTable,
-            IGeneratorContext generatorContext)
+            IFilterContext filterContext)
         {
             // create our new context by keeping information about attributes 
             // from our caller, but acknowledging that any that were required
             // are now fulfilled up until this point. we then cobine in the
             // newly provided attributes from the drop table.
-            var currentDropContext = _generatorContextFactory.CreateGeneratorContext(
+            var currentDropContext = _filterContextFactory.CreateContext(
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount,
-                generatorContext
+                filterContext
                     .Attributes
                     .Select(x => x.Required
                         ? x.CopyWithRequired(false)

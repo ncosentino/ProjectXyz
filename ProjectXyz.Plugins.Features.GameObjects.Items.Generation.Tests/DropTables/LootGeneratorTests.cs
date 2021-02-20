@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using Moq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
+
 using Xunit;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTables
@@ -24,7 +26,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         private readonly Mock<IDropTableHandlerGeneratorFacade> _dropTableHandlerGeneratorFacade;
         private readonly Mock<IAttributeFilterer> _attributeFilterer;
         private readonly Mock<IRandom> _random;
-        private readonly Mock<IGeneratorContext> _generatorContext;
+        private readonly Mock<IFilterContext> _filterContext;
         private readonly Mock<IEnumerable<IDropTable>> _unfilteredDropTables;
 
         public LootGeneratorTests()
@@ -35,7 +37,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _dropTableHandlerGeneratorFacade = _mockRepository.Create<IDropTableHandlerGeneratorFacade>();
             _attributeFilterer = _mockRepository.Create<IAttributeFilterer>();
             _random = _mockRepository.Create<IRandom>();
-            _generatorContext = _mockRepository.Create<IGeneratorContext>();
+            _filterContext = _mockRepository.Create<IFilterContext>();
             _unfilteredDropTables = _mockRepository.Create<IEnumerable<IDropTable>>();
 
             _lootGenerator = new LootGenerator(
@@ -61,14 +63,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _attributeFilterer
                 .Setup(x => x.Filter(
                     _unfilteredDropTables.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(filteredDropTables);
 
-            _generatorContext
-                .Setup(x => x.MinimumGenerateCount)
+            _filterContext
+                .Setup(x => x.MinimumCount)
                 .Returns(0);
-            _generatorContext
-                .Setup(x => x.MaximumGenerateCount)
+            _filterContext
+                .Setup(x => x.MaximumCount)
                 .Returns(0);
 
             _random
@@ -77,7 +79,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
 
             // act
             var result = _lootGenerator
-                .GenerateLoot(_generatorContext.Object)
+                .GenerateLoot(_filterContext.Object)
                 .ToArray();
 
             // assert
@@ -100,16 +102,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _attributeFilterer
                 .Setup(x => x.Filter(
                     _unfilteredDropTables.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(filteredDropTables);
 
-            _generatorContext
-                .Setup(x => x.MinimumGenerateCount)
+            _filterContext
+                .Setup(x => x.MinimumCount)
                 .Returns(0);
 
             // act
             var result = _lootGenerator
-                .GenerateLoot(_generatorContext.Object)
+                .GenerateLoot(_filterContext.Object)
                 .ToArray();
 
             // assert
@@ -130,14 +132,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _attributeFilterer
                 .Setup(x => x.Filter(
                     _unfilteredDropTables.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(filteredDropTables);
 
-            _generatorContext
-                .Setup(x => x.MinimumGenerateCount)
+            _filterContext
+                .Setup(x => x.MinimumCount)
                 .Returns(1);
-            _generatorContext
-                .Setup(x => x.MaximumGenerateCount)
+            _filterContext
+                .Setup(x => x.MaximumCount)
                 .Returns(1);
 
             _random
@@ -146,13 +148,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
 
             // act
             var exception = Assert.Throws<InvalidOperationException>(() => _lootGenerator
-                .GenerateLoot(_generatorContext.Object)
+                .GenerateLoot(_filterContext.Object)
                 .ToArray());
 
             // assert
             Assert.Equal(
                 $"There was no drop table that could be selected from " +
-                $"the set of filtered drop tables using context '{_generatorContext.Object}'.",
+                $"the set of filtered drop tables using context '{_filterContext.Object}'.",
                 exception.Message);
         }
 
@@ -165,7 +167,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _dropTableHandlerGeneratorFacade
                 .Setup(x => x.GenerateLoot(
                     dropTable.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(Enumerable.Empty<IGameObject>());
 
             var filteredDropTables = new IDropTable[]
@@ -180,14 +182,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _attributeFilterer
                 .Setup(x => x.Filter(
                     _unfilteredDropTables.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(filteredDropTables);
 
-            _generatorContext
-                .Setup(x => x.MinimumGenerateCount)
+            _filterContext
+                .Setup(x => x.MinimumCount)
                 .Returns(0);
-            _generatorContext
-                .Setup(x => x.MaximumGenerateCount)
+            _filterContext
+                .Setup(x => x.MaximumCount)
                 .Returns(1);
 
             _random
@@ -199,7 +201,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
 
             // act
             var result = _lootGenerator
-                .GenerateLoot(_generatorContext.Object)
+                .GenerateLoot(_filterContext.Object)
                 .ToArray();
 
             // assert
@@ -225,7 +227,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _dropTableHandlerGeneratorFacade
                 .Setup(x => x.GenerateLoot(
                     dropTable.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(generatedItems);
 
             var filteredDropTables = new IDropTable[]
@@ -240,14 +242,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _attributeFilterer
                 .Setup(x => x.Filter(
                     _unfilteredDropTables.Object,
-                    _generatorContext.Object))
+                    _filterContext.Object))
                 .Returns(filteredDropTables);
 
-            _generatorContext
-                .Setup(x => x.MinimumGenerateCount)
+            _filterContext
+                .Setup(x => x.MinimumCount)
                 .Returns(0);
-            _generatorContext
-                .Setup(x => x.MaximumGenerateCount)
+            _filterContext
+                .Setup(x => x.MaximumCount)
                 .Returns(3);
 
             _random
@@ -259,7 +261,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
 
             // act
             var result = _lootGenerator
-                .GenerateLoot(_generatorContext.Object)
+                .GenerateLoot(_filterContext.Object)
                 .ToArray();
 
             // assert

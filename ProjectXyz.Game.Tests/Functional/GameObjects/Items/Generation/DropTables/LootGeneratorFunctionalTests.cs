@@ -7,9 +7,9 @@ using Autofac;
 
 using Moq;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
@@ -20,9 +20,9 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
 using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
+using ProjectXyz.Shared.Behaviors.Filtering;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Testing;
 
 using Xunit;
@@ -31,14 +31,14 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
 {
     public sealed class LootGeneratorFunctionalTests
     {
-        private static readonly IGeneratorContextFactory _generatorContextFactory;
-        private static readonly IGeneratorContextProvider _generatorContextProvider;
+        private static readonly IFilterContextFactory _filterContextFactory;
+        private static readonly IFilterContextProvider _filterContextProvider;
         private static readonly ILootGenerator _lootGenerator;
 
         static LootGeneratorFunctionalTests()
         {
-            _generatorContextFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IGeneratorContextFactory>();
-            _generatorContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IGeneratorContextProvider>();
+            _filterContextFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IFilterContextFactory>();
+            _filterContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IFilterContextProvider>();
             _lootGenerator = CachedDependencyLoader.LifeTimeScope.Resolve<ILootGenerator>();
         }
 
@@ -46,7 +46,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
         [Theory]
         private void GenerateLoot_Scenario_ExpectedResult(
             string _,
-            IGeneratorContext context,
+            IFilterContext context,
             Predicate<IEnumerable<IGameObject>> validateResults)
         {
             var results = _lootGenerator.GenerateLoot(context);
@@ -60,14 +60,14 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Request actor stat drop table, no actor present, throws",
-                    _generatorContextProvider
-                        .GetGeneratorContext()
-                        .WithGenerateCountRange(1, 1)
+                    _filterContextProvider
+                        .GetContext()
+                        .WithRange(1, 1)
                         .WithAdditionalAttributes(new[]
                         {
-                            new GeneratorAttribute(
+                            new FilterAttribute(
                                 new StringIdentifier("drop-table"),
-                                new IdentifierGeneratorAttributeValue(new StringIdentifier("Actor Stats Table")),
+                                new IdentifierFilterAttributeValue(new StringIdentifier("Actor Stats Table")),
                                 true),
                         }),
                     new Predicate<IEnumerable<IGameObject>>(results =>
@@ -82,7 +82,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Match Any, Requires Exactly 1 Drop",
-                    _generatorContextFactory.CreateGeneratorContext(1, 1),
+                    _filterContextFactory.CreateContext(1, 1),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
                         Assert.Single(results);
@@ -92,7 +92,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Match Any, Requires Exactly 5 Drops",
-                    _generatorContextFactory.CreateGeneratorContext(5, 5),
+                    _filterContextFactory.CreateContext(5, 5),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
                         Assert.Equal(5, results.Count());
@@ -102,12 +102,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Exact Match, Requires Exactly 5 Drops",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         5,
                         5,
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("drop-table"),
-                            new IdentifierGeneratorAttributeValue(new StringIdentifier("Table B")),
+                            new IdentifierFilterAttributeValue(new StringIdentifier("Table B")),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -118,12 +118,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Unmatching Filter, Not Required, Requires Exactly 3 Drops",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         3,
                         3,
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("don't match anything"),
-                            new StringGeneratorAttributeValue("value"),
+                            new StringFilterAttributeValue("value"),
                             false)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -134,12 +134,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Unmatching Filter, Required, Throws Because Can't Drop Enough Items",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         3,
                         3,
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("don't match anything"),
-                            new StringGeneratorAttributeValue("value"),
+                            new StringFilterAttributeValue("value"),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -153,12 +153,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Exact Match, Link Single Table, Context Requires More Drops Than Table Provides",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         10,
                         10,
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("drop-table"),
-                            new IdentifierGeneratorAttributeValue(new StringIdentifier("Table C")),
+                            new IdentifierFilterAttributeValue(new StringIdentifier("Table C")),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -169,12 +169,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Exact Match, Link Single Table, Context Requires Fewer Drops Than Table Provides",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         1,
                         1,
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("drop-table"),
-                            new IdentifierGeneratorAttributeValue(new StringIdentifier("Table C")),
+                            new IdentifierFilterAttributeValue(new StringIdentifier("Table C")),
                             true)),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -185,16 +185,16 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Weather Matches",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         3,
                         3,
-                        _generatorContextProvider
-                            .GetGeneratorContext()
+                        _filterContextProvider
+                            .GetContext()
                             .Attributes
                             .AppendSingle(
-                            new GeneratorAttribute(
+                            new FilterAttribute(
                                 new StringIdentifier("drop-table"),
-                                new IdentifierGeneratorAttributeValue(new StringIdentifier("Weather Table")),
+                                new IdentifierFilterAttributeValue(new StringIdentifier("Weather Table")),
                                 true))),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -205,16 +205,16 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 new object[]
                 {
                     "Time of Day Matches",
-                    _generatorContextFactory.CreateGeneratorContext(
+                    _filterContextFactory.CreateContext(
                         3,
                         3,
-                        _generatorContextProvider
-                            .GetGeneratorContext()
+                        _filterContextProvider
+                            .GetContext()
                             .Attributes
                             .AppendSingle(
-                            new GeneratorAttribute(
+                            new FilterAttribute(
                                 new StringIdentifier("drop-table"),
-                                new IdentifierGeneratorAttributeValue(new StringIdentifier("Time of Day Table")),
+                                new IdentifierFilterAttributeValue(new StringIdentifier("Time of Day Table")),
                                 true))),
                     new Predicate<IEnumerable<IGameObject>>(results =>
                     {
@@ -266,12 +266,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             1,
                             new[]
                             {
-                                new GeneratorAttribute(
+                                new FilterAttribute(
                                     new StringIdentifier("weather"),
-                                    new IdentifierGeneratorAttributeValue(weatherManager.WeatherId),
+                                    new IdentifierFilterAttributeValue(weatherManager.WeatherId),
                                     true),
                             },
-                            Enumerable.Empty<IGeneratorAttribute>()),
+                            Enumerable.Empty<IFilterAttribute>()),
                         // Time of Day Table, Generates 1
                         new ItemDropTable(
                             new StringIdentifier("Time of Day Table"),
@@ -279,12 +279,12 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             1,
                             new[]
                             {
-                                new GeneratorAttribute(
+                                new FilterAttribute(
                                     new StringIdentifier("time-of-day"),
-                                    new IdentifierGeneratorAttributeValue(timeOfDayManager.TimeOfDay),
+                                    new IdentifierFilterAttributeValue(timeOfDayManager.TimeOfDay),
                                     true),
                             },
-                            Enumerable.Empty<IGeneratorAttribute>()),
+                            Enumerable.Empty<IFilterAttribute>()),
                         // Actor Stat, Generates 1
                         new ItemDropTable(
                             new StringIdentifier("Actor Stats Table"),
@@ -292,16 +292,16 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             1,
                             new[]
                             {
-                                new GeneratorAttribute(
+                                new FilterAttribute(
                                     new StringIdentifier("actor-stats"),
-                                    new ActorStatGeneratorAttributeValue(
+                                    new ActorStatFilterAttributeValue(
                                         new StringIdentifier("player"),
                                         new StringIdentifier("STAT_A"),
                                         0,
                                         100),
                                     true),
                             },
-                            Enumerable.Empty<IGeneratorAttribute>()),
+                            Enumerable.Empty<IFilterAttribute>()),
                         });
                     })
                     .AsImplementedInterfaces()
@@ -320,9 +320,9 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
 
             private sealed class DummyItemGenerator : IDiscoverableItemGenerator
             {
-                public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; } = Enumerable.Empty<IGeneratorAttribute>();
+                public IEnumerable<IFilterAttribute> SupportedAttributes { get; } = Enumerable.Empty<IFilterAttribute>();
 
-                public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
+                public IEnumerable<IGameObject> GenerateItems(IFilterContext filterContext)
                 {
                     yield return new Mock<IGameObject>(MockBehavior.Strict).Object;
                 }

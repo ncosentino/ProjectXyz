@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 
 namespace ConsoleApplication1.Wip.Items.Generation.Plugins
 {
@@ -14,20 +15,20 @@ namespace ConsoleApplication1.Wip.Items.Generation.Plugins
             IIdentifier rollIdentifier,
             double rollChance)
         {
-            SupportedAttributes = new IGeneratorAttribute[]
+            SupportedAttributes = new IFilterAttribute[]
             {
-                new GeneratorAttribute(
+                new FilterAttribute(
                     rollIdentifier,
-                    new RangeGeneratorAttributeValue(0, rollChance),
+                    new RangeFilterAttributeValue(0, rollChance),
                     true),
             };
         }
 
-        public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
+        public IEnumerable<IGameObject> GenerateItems(IFilterContext filterContext)
         {
             yield break;
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; }
+        public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
     }
 }

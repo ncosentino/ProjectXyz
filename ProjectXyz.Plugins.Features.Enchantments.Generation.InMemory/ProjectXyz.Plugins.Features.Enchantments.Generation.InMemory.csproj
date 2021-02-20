@@ -54,9 +54,9 @@
       <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
       <Name>ProjectXyz.Api.Enchantments.Generation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj">
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Behaviors.Filtering.csproj">
       <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
-      <Name>ProjectXyz.Api.GameObjects.Generation</Name>
+      <Name>ProjectXyz.Api.Behaviors.Filtering</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
       <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>

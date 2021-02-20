@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
 {
@@ -15,7 +15,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
             _repositories = repositories.ToArray();
         }
 
-        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IGeneratorContext generatorContext) =>
-            _repositories.SelectMany(x => x.ReadEnchantmentDefinitions(generatorContext));
+        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IFilterContext filterContext) =>
+            _repositories.SelectMany(x => x.ReadEnchantmentDefinitions(filterContext));
     }
 }

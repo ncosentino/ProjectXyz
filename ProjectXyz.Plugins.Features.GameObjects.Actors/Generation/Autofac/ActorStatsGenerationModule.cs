@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation.Autofac
@@ -10,7 +10,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<ActorStatGeneratorAttributeProvider>()
+                .RegisterType<ActorStatFilterAttributeProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
@@ -18,8 +18,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation.Autofac
             {
                 var attributeValueMatchFacade = c.Resolve<IAttributeValueMatchFacade>();
                 attributeValueMatchFacade.Register<
-                    ActorStatGeneratorAttributeValueProvider,
-                    ActorStatGeneratorAttributeValue>(
+                    ActorStatFilterAttributeValueProvider,
+                    ActorStatFilterAttributeValue>(
                     (v1, v2) =>
                     {
                         if (!v1.TryGetActorStat(

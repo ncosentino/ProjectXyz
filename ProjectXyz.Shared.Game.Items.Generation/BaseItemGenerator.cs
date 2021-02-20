@@ -4,9 +4,9 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
@@ -17,30 +17,30 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
         private readonly IItemFactory _itemFactory;
         private readonly IRandom _random;
         private readonly IItemDefinitionRepositoryFacade _itemDefinitionRepository;
-        private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
+        private readonly IFilterComponentToBehaviorConverter _filterComponentToBehaviorConverter;
 
         public BaseItemGenerator(
             IItemFactory itemFactory,
             IRandom random,
             IItemDefinitionRepositoryFacade itemDefinitionRepository,
-            IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
+            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter)
         {
             _itemFactory = itemFactory;
             _random = random;
             _itemDefinitionRepository = itemDefinitionRepository;
-            _generatorComponentToBehaviorConverter = generatorComponentToBehaviorConverter;
+            _filterComponentToBehaviorConverter = filterComponentToBehaviorConverter;
         }
 
-        public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
+        public IEnumerable<IGameObject> GenerateItems(IFilterContext filterContext)
         {
             var count = GetCount(
-                generatorContext.MinimumGenerateCount,
-                generatorContext.MaximumGenerateCount);
+                filterContext.MinimumCount,
+                filterContext.MaximumCount);
 
             for (var i = 0; i < count; i++)
             {
                 // pick the random item definition that meets the context conditions
-                var itemDefinitionCandidates = _itemDefinitionRepository.LoadItemDefinitions(generatorContext);
+                var itemDefinitionCandidates = _itemDefinitionRepository.LoadItemDefinitions(filterContext);
                 var itemDefinition = itemDefinitionCandidates.RandomOrDefault(_random);
                 if (itemDefinition == null)
                 {
@@ -49,8 +49,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 
                 // create the whole set of components for the item from the item generation components
                 var itemBehaviors = itemDefinition
-                    .GeneratorComponents
-                    .SelectMany(_generatorComponentToBehaviorConverter.Convert);
+                    .FilterComponents
+                    .SelectMany(_filterComponentToBehaviorConverter.Convert);
 
                 var item = _itemFactory.Create(itemBehaviors);
                 yield return item;

@@ -5,10 +5,10 @@ using System.Linq;
 using NexusLabs.Contracts;
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {
@@ -17,35 +17,35 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
         private readonly IRandom _random;
         private readonly IDropTableHandlerGeneratorFacade _dropTableHandlerGeneratorFacade;
         private readonly IDropTableRepositoryFacade _dropTableRepository;
-        private readonly IGeneratorContextFactory _generatorContextFactory;
+        private readonly IFilterContextFactory _filterContextFactory;
 
         public LinkedDropTableHandlerGenerator(
             IRandom random,
             IDropTableHandlerGeneratorFacade dropTableHandlerGeneratorFacade,
             IDropTableRepositoryFacade dropTableRepository,
-            IGeneratorContextFactory generatorContextFactory)
+            IFilterContextFactory filterContextFactory)
         {
             _random = random;
             _dropTableHandlerGeneratorFacade = dropTableHandlerGeneratorFacade;
             _dropTableRepository = dropTableRepository;
-            _generatorContextFactory = generatorContextFactory;
+            _filterContextFactory = filterContextFactory;
         }
 
         public Type DropTableType { get; } = typeof(LinkedDropTable);
 
         public IEnumerable<IGameObject> GenerateLoot(
             IDropTable dropTable,
-            IGeneratorContext generatorContext)
+            IFilterContext filterContext)
         {
             Contract.Requires(
                 dropTable.GetType() == DropTableType,
                 $"The provided drop table '{dropTable}' must have the type '{DropTableType}'.");
-            return GenerateLoot((ILinkedDropTable)dropTable, generatorContext);
+            return GenerateLoot((ILinkedDropTable)dropTable, filterContext);
         }
 
         private IEnumerable<IGameObject> GenerateLoot(
             ILinkedDropTable dropTable,
-            IGeneratorContext generatorContext)
+            IFilterContext filterContext)
         {
             // get a random count for this drop table
             var generationCount = GetGenerationCount(
@@ -56,10 +56,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             // from our caller, but acknowledging that any that were required
             // are now fulfilled up until this point. we then cobine in the
             // newly provided attributes from the drop table.
-            var currentDropContext = _generatorContextFactory.CreateGeneratorContext(
+            var currentDropContext = _filterContextFactory.CreateContext(
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount,
-                generatorContext
+                filterContext
                     .Attributes
                     .Select(x => x.Required
                         ? x.CopyWithRequired(false)
@@ -81,7 +81,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
                 var linkedDropTable = _dropTableRepository.GetForDropTableId(linkedDropTableId);
 
                 // Create a new context
-                var linkedDropContext = _generatorContextFactory.CreateGeneratorContext(
+                var linkedDropContext = _filterContextFactory.CreateContext(
                     linkedDropTable.MinimumGenerateCount,
                     linkedDropTable.MaximumGenerateCount,
                     currentDropContext.Attributes.Concat(linkedDropTable.ProvidedAttributes));

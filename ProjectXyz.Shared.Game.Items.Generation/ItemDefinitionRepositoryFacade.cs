@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
@@ -15,7 +15,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
             _repositories = repositories.ToArray();
         }
 
-        public IEnumerable<IItemDefinition> LoadItemDefinitions(IGeneratorContext generatorContext) =>
-            _repositories.SelectMany(x => x.LoadItemDefinitions(generatorContext));
+        public IEnumerable<IItemDefinition> LoadItemDefinitions(IFilterContext filterContext) =>
+            _repositories.SelectMany(x => x.LoadItemDefinitions(filterContext));
     }
 }

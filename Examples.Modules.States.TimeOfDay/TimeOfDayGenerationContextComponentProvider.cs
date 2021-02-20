@@ -1,12 +1,13 @@
 using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Plugins.Features.TimeOfDay.Api;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
-    public sealed class TimeOfDayGenerationContextAttributeProvider : IDiscoverableGeneratorContextAttributeProvider
+    public sealed class TimeOfDayGenerationContextAttributeProvider : IDiscoverableFilterContextAttributeProvider
     {
         private readonly IReadOnlyTimeOfDayManager _readOnlyTimeOfDayManager;
 
@@ -15,11 +16,11 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
             _readOnlyTimeOfDayManager = readOnlyTimeOfDayManager;
         }
 
-        public IEnumerable<IGeneratorAttribute> GetAttributes()
+        public IEnumerable<IFilterAttribute> GetAttributes()
         {
-            yield return new GeneratorAttribute(
+            yield return new FilterAttribute(
                 new StringIdentifier("time-of-day"),
-                new IdentifierGeneratorAttributeValue(_readOnlyTimeOfDayManager.TimeOfDay),
+                new IdentifierFilterAttributeValue(_readOnlyTimeOfDayManager.TimeOfDay),
                 false);
         }
     }

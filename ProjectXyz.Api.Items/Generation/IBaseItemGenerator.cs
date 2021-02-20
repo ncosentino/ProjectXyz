@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation
 {
     public interface IBaseItemGenerator
     {
-        IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext);
+        IEnumerable<IGameObject> GenerateItems(IFilterContext filterContext);
     }
 }

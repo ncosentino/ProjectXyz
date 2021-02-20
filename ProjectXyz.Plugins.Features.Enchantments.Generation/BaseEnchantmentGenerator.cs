@@ -4,11 +4,10 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Api.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 {
@@ -17,31 +16,31 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandom _random;
         private readonly IReadOnlyEnchantmentDefinitionRepositoryFacade _enchantmentDefinitionRepository;
-        private readonly IGeneratorComponentToBehaviorConverter _generatorComponentToBehaviorConverter;
+        private readonly IFilterComponentToBehaviorConverter _filterComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandom random,
             IReadOnlyEnchantmentDefinitionRepositoryFacade enchantmentDefinitionRepository,
-            IGeneratorComponentToBehaviorConverter generatorComponentToBehaviorConverter)
+            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
             _random = random;
             _enchantmentDefinitionRepository = enchantmentDefinitionRepository;
-            _generatorComponentToBehaviorConverter = generatorComponentToBehaviorConverter;
+            _filterComponentToBehaviorConverter = filterComponentToBehaviorConverter;
         }
 
-        public IEnumerable<IEnchantment> GenerateEnchantments(IGeneratorContext generatorContext)
+        public IEnumerable<IEnchantment> GenerateEnchantments(IFilterContext filterContext)
         {
             var targetCount = GetCount(
-                generatorContext.MinimumGenerateCount,
-                generatorContext.MaximumGenerateCount);
+                filterContext.MinimumCount,
+                filterContext.MaximumCount);
 
             var currentCount = 0;
             while (currentCount < targetCount)
             {
                 // pick the random enchantment definition that meets the context conditions
-                var enchantmentDefinitionCandidates = _enchantmentDefinitionRepository.ReadEnchantmentDefinitions(generatorContext);
+                var enchantmentDefinitionCandidates = _enchantmentDefinitionRepository.ReadEnchantmentDefinitions(filterContext);
                 var enchantmentDefinition = enchantmentDefinitionCandidates.RandomOrDefault(_random);
                 if (enchantmentDefinition == null)
                 {
@@ -54,8 +53,8 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
                 // create the whole set of components for the enchantment from the enchantment generation components
                 var enchantmentBehaviors = enchantmentDefinition
-                    .GeneratorComponents
-                    .SelectMany(_generatorComponentToBehaviorConverter.Convert);
+                    .FilterComponents
+                    .SelectMany(_filterComponentToBehaviorConverter.Convert);
 
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);
                 yield return enchantment;

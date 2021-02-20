@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
 {
     public sealed class EnchantmentDefinition : IEnchantmentDefinition
     {
         public EnchantmentDefinition(
-            IEnumerable<IGeneratorAttribute> supportedAttributes,
-            IEnumerable<IGeneratorComponent> generatorComponents)
+            IEnumerable<IFilterAttribute> supportedAttributes,
+            IEnumerable<IFilterComponent> filterComponents)
         {
             SupportedAttributes = supportedAttributes.ToArray();
-            GeneratorComponents = generatorComponents.ToArray();
+            FilterComponents = filterComponents.ToArray();
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; }
+        public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
 
-        public IEnumerable<IGeneratorComponent> GeneratorComponents { get; }
+        public IEnumerable<IFilterComponent> FilterComponents { get; }
     }
 }

@@ -7,10 +7,11 @@ using System.Text;
 
 using Autofac;
 
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Testing;
 
 using Xunit;
@@ -52,50 +53,50 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
             {
                 new object[]
                 {
-                    new StringGeneratorAttributeValue("my string value"),
+                    new StringFilterAttributeValue("my string value"),
                     new Action<object>(result =>
                     {
-                        Assert.IsType<StringGeneratorAttributeValue>(result);
-                        Assert.Equal("my string value", ((StringGeneratorAttributeValue)result).Value);
+                        Assert.IsType<StringFilterAttributeValue>(result);
+                        Assert.Equal("my string value", ((StringFilterAttributeValue)result).Value);
                     }),
                 },
                 new object[]
                 {
-                    new GeneratorComponent(new[]
+                    new FilterComponent(new[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("attr1"),
-                            new StringGeneratorAttributeValue("string"),
+                            new StringFilterAttributeValue("string"),
                             true),
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("attr2"),
-                            new DoubleGeneratorAttributeValue(123),
+                            new DoubleFilterAttributeValue(123),
                             false),
                     }),
                     new Action<object>(result =>
                     {
-                        Assert.IsType<GeneratorComponent>(result);
+                        Assert.IsType<FilterComponent>(result);
 
-                        var generatorComponent = (GeneratorComponent)result;
-                        Assert.Equal(2, generatorComponent.SupportedAttributes.Count());
+                        var filterComponent = (FilterComponent)result;
+                        Assert.Equal(2, filterComponent.SupportedAttributes.Count());
 
-                        var firstAttribute = generatorComponent.SupportedAttributes.First();
-                        Assert.IsType<GeneratorAttribute>(firstAttribute);
+                        var firstAttribute = filterComponent.SupportedAttributes.First();
+                        Assert.IsType<FilterAttribute>(firstAttribute);
                         Assert.Equal(
                             new StringIdentifier("attr1"),
                             firstAttribute.Id);
-                        Assert.IsType<StringGeneratorAttributeValue>(firstAttribute.Value);
-                        Assert.Equal("string", ((StringGeneratorAttributeValue)firstAttribute.Value).Value);
-                        Assert.True(firstAttribute.Required, $"Unexpected value for '{nameof(IGeneratorAttribute.Required)}'.");
+                        Assert.IsType<StringFilterAttributeValue>(firstAttribute.Value);
+                        Assert.Equal("string", ((StringFilterAttributeValue)firstAttribute.Value).Value);
+                        Assert.True(firstAttribute.Required, $"Unexpected value for '{nameof(IFilterAttribute.Required)}'.");
 
-                        var secondAttribute = generatorComponent.SupportedAttributes.Last();
-                        Assert.IsType<GeneratorAttribute>(secondAttribute);
+                        var secondAttribute = filterComponent.SupportedAttributes.Last();
+                        Assert.IsType<FilterAttribute>(secondAttribute);
                         Assert.Equal(
                             new StringIdentifier("attr2"),
                             secondAttribute.Id);
-                        Assert.IsType<DoubleGeneratorAttributeValue>(secondAttribute.Value);
-                        Assert.Equal(123d, ((DoubleGeneratorAttributeValue)secondAttribute.Value).Value);
-                        Assert.False(secondAttribute.Required, $"Unexpected value for '{nameof(IGeneratorAttribute.Required)}'.");
+                        Assert.IsType<DoubleFilterAttributeValue>(secondAttribute.Value);
+                        Assert.Equal(123d, ((DoubleFilterAttributeValue)secondAttribute.Value).Value);
+                        Assert.False(secondAttribute.Required, $"Unexpected value for '{nameof(IFilterAttribute.Required)}'.");
                     }),
                 }
             };

@@ -4,11 +4,11 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Collections;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 {
@@ -27,7 +27,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             _enchantmentGenerators = new List<IEnchantmentGenerator>();
         }
 
-        public IEnumerable<IEnchantment> GenerateEnchantments(IGeneratorContext generatorContext)
+        public IEnumerable<IEnchantment> GenerateEnchantments(IFilterContext filterContext)
         {
             if (!_enchantmentGenerators.Any())
             {
@@ -38,18 +38,18 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
             var filteredGenerators = _attributeFilterer.Filter(
                 _enchantmentGenerators,
-                generatorContext);
+                filterContext);
             var generator = filteredGenerators.RandomOrDefault(_random);
             if (generator == null)
             {
                 return Enumerable.Empty<IEnchantment>();
             }
 
-            var generatedEnchantments = generator.GenerateEnchantments(generatorContext);
+            var generatedEnchantments = generator.GenerateEnchantments(filterContext);
             return generatedEnchantments;
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes => _enchantmentGenerators
+        public IEnumerable<IFilterAttribute> SupportedAttributes => _enchantmentGenerators
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
 

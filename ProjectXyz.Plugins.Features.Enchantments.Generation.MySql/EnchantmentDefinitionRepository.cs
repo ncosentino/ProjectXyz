@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Data.Databases;
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
 {
@@ -35,7 +35,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
             _dirtyCache = true;
         }
 
-        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IGeneratorContext generatorContext)
+        public IEnumerable<IEnchantmentDefinition> ReadEnchantmentDefinitions(IFilterContext filterContext)
         {
             if (_dirtyCache)
             {
@@ -47,7 +47,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.MySql
             var enchantmentDefinitions = _definitionCache;
             var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
                 enchantmentDefinitions,
-                generatorContext);
+                filterContext);
             foreach (var filteredEnchantmentDefinition in filteredEnchantmentDefinitions)
             {
                 // TODO: ensure we have all of the Enchantment generation components

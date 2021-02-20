@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
 namespace ProjectXyz.Api.Enchantments.Generation
 {
-    public interface IEnchantmentGenerator : IHasGeneratorAttributes
+    public interface IEnchantmentGenerator : IHasFilterAttributes
     {
-        IEnumerable<IEnchantment> GenerateEnchantments(IGeneratorContext generatorContext);
+        IEnumerable<IEnchantment> GenerateEnchantments(IFilterContext filterContext);
     }
 }

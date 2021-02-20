@@ -5,10 +5,10 @@ using System.Linq;
 using NexusLabs.Contracts;
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
@@ -32,41 +32,41 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
             _random = random;
         }
 
-        public IEnumerable<IGameObject> GenerateLoot(IGeneratorContext generatorContext)
+        public IEnumerable<IGameObject> GenerateLoot(IFilterContext filterContext)
         {
             // filter the drop tables
             var allDropTables = _dropTableRepository.GetAllDropTables();
             var filteredDropTables = _attributeFilterer
                 .Filter(
                     allDropTables,
-                    generatorContext)
+                    filterContext)
                 .ToArray();
             if (filteredDropTables.Length < 1)
             {
-                if (generatorContext.MinimumGenerateCount < 1)
+                if (filterContext.MinimumCount < 1)
                 {
                     yield break;
                 }
 
                 throw new InvalidOperationException(
                     $"There was no drop table that could be selected from " +
-                    $"the set of filtered drop tables using context '{generatorContext}'.");
+                    $"the set of filtered drop tables using context '{filterContext}'.");
             }
 
             Contract.Requires(
-                generatorContext.MinimumGenerateCount <= generatorContext.MaximumGenerateCount,
+                filterContext.MinimumCount <= filterContext.MaximumCount,
                 $"The generation context must have a maximum " +
-                $"({generatorContext.MaximumGenerateCount}) greater than or " +
-                $"equal to the minimum ({generatorContext.MinimumGenerateCount}).");
+                $"({filterContext.MaximumCount}) greater than or " +
+                $"equal to the minimum ({filterContext.MinimumCount}).");
             Contract.Requires(
-                generatorContext.MinimumGenerateCount >= 0,
+                filterContext.MinimumCount >= 0,
                 $"The generation context must have a minimum " +
-                $"({generatorContext.MinimumGenerateCount}) greater than or " +
+                $"({filterContext.MinimumCount}) greater than or " +
                 $"equal to zero.");
 
             var targetCount = GetGenerationCount(
-                generatorContext.MinimumGenerateCount,
-                generatorContext.MaximumGenerateCount);
+                filterContext.MinimumCount,
+                filterContext.MaximumCount);
             var dropTableCandidates = new HashSet<IDropTable>(filteredDropTables);
             for (var generationCount = 0; generationCount < targetCount; /* no increment here */)
             {
@@ -74,7 +74,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
                 var dropTable = dropTableCandidates.RandomOrDefault(_random);
                 if (dropTable == null)
                 {
-                    if (generationCount >= generatorContext.MinimumGenerateCount)
+                    if (generationCount >= filterContext.MinimumCount)
                     {
                         yield break;
                     }
@@ -87,7 +87,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
                 var generationCountBeforeDrop = generationCount;
                 var generatedLoot = _dropTableHandlerGeneratorFacade.GenerateLoot(
                     dropTable,
-                    generatorContext);
+                    filterContext);
                 foreach (var loot in generatedLoot)
                 {
                     if (generationCount >= targetCount)

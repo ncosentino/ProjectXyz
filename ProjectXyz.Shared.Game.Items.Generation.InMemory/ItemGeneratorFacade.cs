@@ -4,12 +4,12 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Generation;
+using ProjectXyz.Shared.Behaviors.Filtering;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 {
@@ -29,11 +29,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             _itemGenerators = new List<IItemGenerator>(itemGenerators);
         }
 
-        public IEnumerable<IGameObject> GenerateItems(IGeneratorContext generatorContext)
+        public IEnumerable<IGameObject> GenerateItems(IFilterContext filterContext)
         {
             var totalCount = GetGenerationCount(
-                generatorContext.MinimumGenerateCount,
-                generatorContext.MaximumGenerateCount);
+                filterContext.MinimumCount,
+                filterContext.MaximumCount);
             if (totalCount < 1)
             {
                 yield break;
@@ -42,12 +42,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             var filteredGenerators = _attributeFilterer
                 .Filter(
                     _itemGenerators,
-                    generatorContext)
+                    filterContext)
                 .ToArray();
             if (!filteredGenerators.Any())
             {
                 throw new InvalidOperationException(
-                    $"There are no item generators that match the context '{generatorContext}'.");
+                    $"There are no item generators that match the context '{filterContext}'.");
             }
 
             var generatedCount = 0;
@@ -63,10 +63,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
                 }
 
                 var generator = elligibleGenerators.RandomOrDefault(_random);
-                var currentContext = new GeneratorContext(
+                var currentContext = new FilterContext(
                     1,
                     1, // totalCount - generatedCount, // FIXME: do we hurt randomization by allowing initially selected generators to generate more?
-                    generatorContext.Attributes);
+                    filterContext.Attributes);
 
                 var generatedItems = generator.GenerateItems(currentContext);
                 var generatedAtLeastOne = false;
@@ -84,7 +84,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             }
         }
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes => _itemGenerators
+        public IEnumerable<IFilterAttribute> SupportedAttributes => _itemGenerators
             .SelectMany(x => x.SupportedAttributes)
             .Distinct();
 

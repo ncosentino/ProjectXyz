@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+
+namespace ProjectXyz.Shared.Behaviors.Filtering.Attributes
 {
     public sealed class AttributeValueMatchFacade : IAttributeValueMatchFacade
     {
@@ -14,8 +15,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         }
 
         public void Register<T1, T2>(GenericAttributeValueMatchDelegate<T1, T2> callback)
-            where T1 : IGeneratorAttributeValue
-            where T2 : IGeneratorAttributeValue
+            where T1 : IFilterAttributeValue
+            where T2 : IFilterAttributeValue
         {
             _mapping.Add(
                 new Tuple<Type, Type>(typeof(T1), typeof(T2)),
@@ -23,8 +24,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
         }
 
         public bool Match(
-            IGeneratorAttributeValue v1,
-            IGeneratorAttributeValue v2)
+            IFilterAttributeValue v1,
+            IFilterAttributeValue v2)
         {
             if (!_mapping.TryGetValue(
                 new Tuple<Type, Type>(v1.GetType(), v2.GetType()),
@@ -64,7 +65,8 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Attributes
                 if (matchCallback == null)
                 {
                     throw new InvalidOperationException(
-                        $"There is no attribute matching callback for types '{v1.GetType()}' and '{v2.GetType()}'.");
+                        $"There is no attribute matching callback for types " +
+                        $"'{v1.GetType()}' and '{v2.GetType()}'.");
                 }
             }
 

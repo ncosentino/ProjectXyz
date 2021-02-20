@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {
@@ -15,17 +15,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             int minimumGenerateCount,
             int maximumGenerateCount,
             IEnumerable<IWeightedEntry> entries,
-            IEnumerable<IGeneratorAttribute> supportedAttributes,
-            IEnumerable<IGeneratorAttribute> providedAttributes)
+            IEnumerable<IFilterAttribute> supportedAttributes,
+            IEnumerable<IFilterAttribute> providedAttributes)
         {
             DropTableId = dropTableId;
             MinimumGenerateCount = minimumGenerateCount;
             MaximumGenerateCount = maximumGenerateCount;
             Entries = entries.ToArray();
             SupportedAttributes =
-                new GeneratorAttribute(
+                new FilterAttribute(
                     new StringIdentifier("drop-table"),
-                    new IdentifierGeneratorAttributeValue(dropTableId),
+                    new IdentifierFilterAttributeValue(dropTableId),
                     false)
                 .Yield()
                 .Concat(supportedAttributes)
@@ -43,8 +43,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
                 minimumGenerateCount,
                 maximumGenerateCount,
                 entries,
-                Enumerable.Empty<IGeneratorAttribute>(),
-                Enumerable.Empty<IGeneratorAttribute>())
+                Enumerable.Empty<IFilterAttribute>(),
+                Enumerable.Empty<IFilterAttribute>())
         {
         }
 
@@ -54,9 +54,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
 
         public int MaximumGenerateCount { get; } = 3;
 
-        public IEnumerable<IGeneratorAttribute> SupportedAttributes { get; }
+        public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
 
-        public IEnumerable<IGeneratorAttribute> ProvidedAttributes { get; }
+        public IEnumerable<IFilterAttribute> ProvidedAttributes { get; }
 
         public IReadOnlyCollection<IWeightedEntry> Entries { get; }
     }

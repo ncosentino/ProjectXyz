@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation
 {
-    public interface IItemDefinition : IHasGeneratorAttributes
+    public interface IItemDefinition : IHasFilterAttributes
     {
-        IEnumerable<IGeneratorComponent> GeneratorComponents { get; }
+        IEnumerable<IFilterComponent> FilterComponents { get; }
     }
 }

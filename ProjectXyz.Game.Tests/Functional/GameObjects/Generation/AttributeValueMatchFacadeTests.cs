@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Autofac;
 
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Testing;
 
 using Xunit;
@@ -59,8 +56,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
 
             public TestScenario(
                 string name,
-                IGeneratorAttributeValue value1,
-                IGeneratorAttributeValue value2,
+                IFilterAttributeValue value1,
+                IFilterAttributeValue value2,
                 bool expectedResult)
                 : this(name, value1, value2, null, expectedResult)
             {
@@ -68,8 +65,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
 
             public TestScenario(
                 string name,
-                IGeneratorAttributeValue value1,
-                IGeneratorAttributeValue value2,
+                IFilterAttributeValue value1,
+                IFilterAttributeValue value2,
                 Exception exception)
                 : this (name, value1, value2, exception, false)
             {
@@ -77,8 +74,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
 
             private TestScenario(
                 string name,
-                IGeneratorAttributeValue value1,
-                IGeneratorAttributeValue value2,
+                IFilterAttributeValue value1,
+                IFilterAttributeValue value2,
                 Exception exception,
                 bool expectedResult)
             {
@@ -89,9 +86,9 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
                 ExpectedResult = expectedResult;
             }
 
-            public IGeneratorAttributeValue Value1 { get; }
+            public IFilterAttributeValue Value1 { get; }
 
-            public IGeneratorAttributeValue Value2 { get; }
+            public IFilterAttributeValue Value2 { get; }
             
             public Exception Exception { get; }
 
@@ -116,133 +113,133 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
             {
                 yield return new TestScenario(
                     "Throws str1 == num1",
-                    new StringGeneratorAttributeValue("value"),
-                    new DoubleGeneratorAttributeValue(123),
+                    new StringFilterAttributeValue("value"),
+                    new DoubleFilterAttributeValue(123),
                     new InvalidOperationException("expected"));
                 yield return new TestScenario(
                     "No Match str1 == Not(num1)",
-                    new StringGeneratorAttributeValue("value"),
-                    new NotGeneratorAttributeValue(new DoubleGeneratorAttributeValue(123)),
+                    new StringFilterAttributeValue("value"),
+                    new NotFilterAttributeValue(new DoubleFilterAttributeValue(123)),
                     new InvalidOperationException("expected"));
                 yield return new TestScenario(
                     "Match str1 == str2",
-                    new StringGeneratorAttributeValue("same value"),
-                    new StringGeneratorAttributeValue("same value"),
+                    new StringFilterAttributeValue("same value"),
+                    new StringFilterAttributeValue("same value"),
                     true);
                 yield return new TestScenario(
                     "No Match str1 != str2",
-                    new StringGeneratorAttributeValue("same value"),
-                    new StringGeneratorAttributeValue("not same value"),
+                    new StringFilterAttributeValue("same value"),
+                    new StringFilterAttributeValue("not same value"),
                     false);
                 yield return new TestScenario(
                     "Match str1 == Not(str2)",
-                    new StringGeneratorAttributeValue("same value"),
-                    new NotGeneratorAttributeValue(new StringGeneratorAttributeValue("not same value")),
+                    new StringFilterAttributeValue("same value"),
+                    new NotFilterAttributeValue(new StringFilterAttributeValue("not same value")),
                     true);
                 yield return new TestScenario(
                      "Match Not(str1) == str2",
-                     new NotGeneratorAttributeValue(new StringGeneratorAttributeValue("same value")),
-                     new StringGeneratorAttributeValue("not same value"),
+                     new NotFilterAttributeValue(new StringFilterAttributeValue("same value")),
+                     new StringFilterAttributeValue("not same value"),
                      true);
                 yield return new TestScenario(
                     "Match num1 == num2",
-                    new DoubleGeneratorAttributeValue(123),
-                    new DoubleGeneratorAttributeValue(123),
+                    new DoubleFilterAttributeValue(123),
+                    new DoubleFilterAttributeValue(123),
                     true);
                 yield return new TestScenario(
                     "No Match num1 != num2",
-                    new DoubleGeneratorAttributeValue(123),
-                    new DoubleGeneratorAttributeValue(456),
+                    new DoubleFilterAttributeValue(123),
+                    new DoubleFilterAttributeValue(456),
                     false);
                 yield return new TestScenario(
                     "Match num1 == Not(num2)",
-                    new DoubleGeneratorAttributeValue(123),
-                    new NotGeneratorAttributeValue(new DoubleGeneratorAttributeValue(456)),
+                    new DoubleFilterAttributeValue(123),
+                    new NotFilterAttributeValue(new DoubleFilterAttributeValue(456)),
                     true);
                 yield return new TestScenario(
                     "Match Not(num1) == num2",
-                    new NotGeneratorAttributeValue(new DoubleGeneratorAttributeValue(123)),
-                    new DoubleGeneratorAttributeValue(456),
+                    new NotFilterAttributeValue(new DoubleFilterAttributeValue(123)),
+                    new DoubleFilterAttributeValue(456),
                     true);
                 yield return new TestScenario(
                     "Match str1 in (str3, str2, str1)",
-                    new StringGeneratorAttributeValue("val1"),
-                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2", "val1"),
+                    new StringFilterAttributeValue("val1"),
+                    new AnyStringCollectionFilterAttributeValue("val3", "val2", "val1"),
                     true);
                 yield return new TestScenario(
                     "No Match str1 != (str3, str2, str1)",
-                    new StringGeneratorAttributeValue("val1"),
-                    new AllStringCollectionGeneratorAttributeValue("val3", "val2", "val1"),
+                    new StringFilterAttributeValue("val1"),
+                    new AllStringCollectionFilterAttributeValue("val3", "val2", "val1"),
                     false);
                 yield return new TestScenario(
                     "Match str1 is every element of (str1)",
-                    new StringGeneratorAttributeValue("val1"),
-                    new AllStringCollectionGeneratorAttributeValue("val1"),
+                    new StringFilterAttributeValue("val1"),
+                    new AllStringCollectionFilterAttributeValue("val1"),
                     true);
                 yield return new TestScenario(
                     "No Match str1 in (str3, str2)",
-                    new StringGeneratorAttributeValue("val1"),
-                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2"),
+                    new StringFilterAttributeValue("val1"),
+                    new AnyStringCollectionFilterAttributeValue("val3", "val2"),
                     false);
                 yield return new TestScenario(
                     "Match (str1, str2) intersects (str3, str2)",
-                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
-                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2"),
+                    new AnyStringCollectionFilterAttributeValue("val1", "val2"),
+                    new AnyStringCollectionFilterAttributeValue("val3", "val2"),
                     true);
                 yield return new TestScenario(
                     "No Match (str1, str2) does not intersect (str3, str4)",
-                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
-                    new AnyStringCollectionGeneratorAttributeValue("val3", "val4"),
+                    new AnyStringCollectionFilterAttributeValue("val1", "val2"),
+                    new AnyStringCollectionFilterAttributeValue("val3", "val4"),
                     false);
                 yield return new TestScenario(
                     "Match (str1, str2) matches all of (str2, str1)",
-                    new AllStringCollectionGeneratorAttributeValue("val1", "val2"),
-                    new AllStringCollectionGeneratorAttributeValue("val2", "val1"),
+                    new AllStringCollectionFilterAttributeValue("val1", "val2"),
+                    new AllStringCollectionFilterAttributeValue("val2", "val1"),
                     true);
                 yield return new TestScenario(
                     "No Match (str1, str2) does not match all of (str1, str3)",
-                    new AllStringCollectionGeneratorAttributeValue("val1", "val2"),
-                    new AllStringCollectionGeneratorAttributeValue("val1", "val3"),
+                    new AllStringCollectionFilterAttributeValue("val1", "val2"),
+                    new AllStringCollectionFilterAttributeValue("val1", "val3"),
                     false);
                 yield return new TestScenario(
                     "Match (str1, str2) matches all of (str2, str1)",
-                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
-                    new AllStringCollectionGeneratorAttributeValue("val2", "val1"),
+                    new AnyStringCollectionFilterAttributeValue("val1", "val2"),
+                    new AllStringCollectionFilterAttributeValue("val2", "val1"),
                     true);
                 yield return new TestScenario(
                     "No Match (str1, str2) does not match all of (str1, str3)",
-                    new AnyStringCollectionGeneratorAttributeValue("val1", "val2"),
-                    new AllStringCollectionGeneratorAttributeValue("val1", "val3"),
+                    new AnyStringCollectionFilterAttributeValue("val1", "val2"),
+                    new AllStringCollectionFilterAttributeValue("val1", "val3"),
                     false);
                 yield return new TestScenario(
                     "Match str1 in Not(str3, str2)",
-                    new StringGeneratorAttributeValue("val1"),
-                    new NotGeneratorAttributeValue(new AnyStringCollectionGeneratorAttributeValue("val3", "val2")),
+                    new StringFilterAttributeValue("val1"),
+                    new NotFilterAttributeValue(new AnyStringCollectionFilterAttributeValue("val3", "val2")),
                     true);
                 yield return new TestScenario(
                     "Match Not(str1) in (str3, str2)",
-                    new NotGeneratorAttributeValue(new StringGeneratorAttributeValue("val1")),
-                    new AnyStringCollectionGeneratorAttributeValue("val3", "val2"),
+                    new NotFilterAttributeValue(new StringFilterAttributeValue("val1")),
+                    new AnyStringCollectionFilterAttributeValue("val3", "val2"),
                     true);
                 yield return new TestScenario(
                     "Match id1 == id2",
-                    new IdentifierGeneratorAttributeValue(new StringIdentifier("same value")),
-                    new IdentifierGeneratorAttributeValue(new StringIdentifier("same value")),
+                    new IdentifierFilterAttributeValue(new StringIdentifier("same value")),
+                    new IdentifierFilterAttributeValue(new StringIdentifier("same value")),
                     true);
                 yield return new TestScenario(
                     "No Match str1 != str2",
-                    new IdentifierGeneratorAttributeValue(new StringIdentifier("same value")),
-                    new IdentifierGeneratorAttributeValue(new StringIdentifier("not same value")),
+                    new IdentifierFilterAttributeValue(new StringIdentifier("same value")),
+                    new IdentifierFilterAttributeValue(new StringIdentifier("not same value")),
                     false);
                 yield return new TestScenario(
                     "Match str1 == Not(str2)",
-                    new IdentifierGeneratorAttributeValue(new StringIdentifier("same value")),
-                    new NotGeneratorAttributeValue(new IdentifierGeneratorAttributeValue(new StringIdentifier("not same value"))),
+                    new IdentifierFilterAttributeValue(new StringIdentifier("same value")),
+                    new NotFilterAttributeValue(new IdentifierFilterAttributeValue(new StringIdentifier("not same value"))),
                     true);
                 yield return new TestScenario(
                      "Match Not(str1) == str2",
-                     new NotGeneratorAttributeValue(new IdentifierGeneratorAttributeValue(new StringIdentifier("same value"))),
-                     new IdentifierGeneratorAttributeValue(new StringIdentifier("not same value")),
+                     new NotFilterAttributeValue(new IdentifierFilterAttributeValue(new StringIdentifier("same value"))),
+                     new IdentifierFilterAttributeValue(new StringIdentifier("not same value")),
                      true);
             }
         }

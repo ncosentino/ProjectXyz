@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
@@ -17,7 +18,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
 
         public IEnumerable<IGameObject> GenerateLoot(
             IDropTable dropTable,
-            IGeneratorContext generatorContext)
+            IFilterContext filterContext)
         {
             if (!_mapping.TryGetValue(
                 dropTable.GetType(),
@@ -29,7 +30,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
 
             var generated = dropTableHandlerGenerator.GenerateLoot(
                 dropTable,
-                generatorContext);
+                filterContext);
             return generated;
         }
 

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Plugins.Features.Weather.Api;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
-    public sealed class WeatherGenerationContextAttributeProvider : IDiscoverableGeneratorContextAttributeProvider
+    public sealed class WeatherGenerationContextAttributeProvider : IDiscoverableFilterContextAttributeProvider
     {
         private readonly IReadOnlyWeatherManager _readOnlyWeatherManager;
 
@@ -15,11 +16,11 @@ namespace ProjectXyz.Plugins.Features.Weather
             _readOnlyWeatherManager = readOnlyWeatherManager;
         }
 
-        public IEnumerable<IGeneratorAttribute> GetAttributes()
+        public IEnumerable<IFilterAttribute> GetAttributes()
         {
-            yield return new GeneratorAttribute(
+            yield return new FilterAttribute(
                 new StringIdentifier("weather"),
-                new IdentifierGeneratorAttributeValue(_readOnlyWeatherManager.WeatherId),
+                new IdentifierFilterAttributeValue(_readOnlyWeatherManager.WeatherId),
                 false);
         }
     }

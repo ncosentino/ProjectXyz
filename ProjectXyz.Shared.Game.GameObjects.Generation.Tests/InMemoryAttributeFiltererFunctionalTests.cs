@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 using Autofac;
 
-using ProjectXyz.Api.GameObjects.Generation.Attributes;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Shared.Behaviors.Filtering;
+using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Generation;
-using ProjectXyz.Shared.Game.GameObjects.Generation.Attributes;
 using ProjectXyz.Testing;
 
 using Xunit;
@@ -27,18 +27,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
         [Theory]
         private void Filter_SourceWithAttributes_Expected(
             string name,
-            IReadOnlyCollection<IHasGeneratorAttributes> source,
-            IReadOnlyCollection<IGeneratorAttribute> attributes,
-            IReadOnlyCollection<IHasGeneratorAttributes> expectedResults)
+            IReadOnlyCollection<IHasFilterAttributes> source,
+            IReadOnlyCollection<IFilterAttribute> attributes,
+            IReadOnlyCollection<IHasFilterAttributes> expectedResults)
         {
-            var generatorContext = new GeneratorContext(
+            var filterContext = new FilterContext(
                 1,
                 1,
                 attributes);
 
             var results = _inMemoryAttributeFilterer.Filter(
                 source,
-                generatorContext);
+                filterContext);
 
             Assert.Equal(expectedResults, results);
         }
@@ -60,8 +60,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 yield return CreateInRangeComponentIncludesAttributeless();
                 yield return CreateMatchInRangeComponent();
                 yield return CreateMatchInRangeComponentIncludesAttributeless();
-                yield return CreateOneFailedMatchWhenAllSourceAndGeneratorRequired();
-                yield return CreateOneFailedMatchNonRequiredGeneratorWhenAllSourceRequired();
+                yield return CreateOneFailedMatchWhenAllSourceAndFilterRequired();
+                yield return CreateOneFailedMatchNonRequiredFilterWhenAllSourceRequired();
                 yield return CreateOneFailedMatchNonSourceWhenAllSourceRequired();
             }
 
@@ -72,29 +72,29 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 return new object[]
                 {
                     "Empty Source, Empty Attributes",
-                    new IHasGeneratorAttributes[0],
-                    new IGeneratorAttribute[0],
-                    new IHasGeneratorAttributes[0],
+                    new IHasFilterAttributes[0],
+                    new IFilterAttribute[0],
+                    new IHasFilterAttributes[0],
                 };
             }
 
-            //StringCollectionGeneratorAttributeValue
+            //StringCollectionFilterAttributeValue
             private object[] CreateSingleComponentNoSupportedAttributesEmptyFilter()
             {
-                var expectedComponent = new GeneratorComponent();
+                var expectedComponent = new FilterComponent();
 
                 return new object[]
                 {
                     "Single Component, No Supported Attributes, Empty Filter",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
 
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                     },
@@ -103,45 +103,45 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateAnyStringCollectionAndAnyStringFilter()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new StringGeneratorAttributeValue("value"),
+                        new StringFilterAttributeValue("value"),
                         true)
                 });
-                var component2 = new GeneratorComponent(new[]
+                var component2 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new StringGeneratorAttributeValue("value"),
+                        new StringFilterAttributeValue("value"),
                         true)
                 });
-                var expectedComponent = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new AnyStringCollectionGeneratorAttributeValue("match", "this wont be found"),
+                        new AnyStringCollectionFilterAttributeValue("match", "this wont be found"),
                         true)
                 });
 
                 return new object[]
                 {
                     "Filter Matching Double Component",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         component,
                         expectedComponent,
                         component2
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new AnyStringCollectionGeneratorAttributeValue("match", "try and find this if you can"),
+                            new AnyStringCollectionFilterAttributeValue("match", "try and find this if you can"),
                             true)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                     },
@@ -150,24 +150,24 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMultipleComponentNoSupportedAttributesEmptyFilter()
             {
-                var expectedComponent = new GeneratorComponent();
-                var expectedComponent2 = new GeneratorComponent();
-                var expectedComponent3 = new GeneratorComponent();
+                var expectedComponent = new FilterComponent();
+                var expectedComponent2 = new FilterComponent();
+                var expectedComponent3 = new FilterComponent();
 
                 return new object[]
                 {
                     "Multiple Components, No Supported Attributes, Empty Filter",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
                         expectedComponent3,
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
 
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -178,45 +178,45 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchingDoubleComponent()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(1),
+                        new DoubleFilterAttributeValue(1),
                         true)
                 });
-                var component2 = new GeneratorComponent(new[]
+                var component2 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(2),
+                        new DoubleFilterAttributeValue(2),
                         true)
                 });
-                var expectedComponent = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         true)
                 });
 
                 return new object[]
                 {
                     "Filter Matching Double Component",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         component,
                         expectedComponent,
                         component2
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(3),
+                            new DoubleFilterAttributeValue(3),
                             true)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                     },
@@ -225,33 +225,33 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchingDoubleComponentIncludesAttributeless()
             {
-                var expectedComponent = new GeneratorComponent();
-                var expectedComponent2 = new GeneratorComponent();
-                var expectedComponent3 = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent();
+                var expectedComponent2 = new FilterComponent();
+                var expectedComponent3 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         false)
                 });
 
                 return new object[]
                 {
                     "Filter With Double Match, Includes Attributeless",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
                         expectedComponent3
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(3),
+                            new DoubleFilterAttributeValue(3),
                             false)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -262,41 +262,41 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateSupportedComponentsNotInContextNotRequired()
             {
-                var expectedComponent = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(1),
+                        new DoubleFilterAttributeValue(1),
                         false)
                 });
-                var expectedComponent2 = new GeneratorComponent(new[]
+                var expectedComponent2 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(2),
+                        new DoubleFilterAttributeValue(2),
                         false)
                 });
-                var expectedComponent3 = new GeneratorComponent(new[]
+                var expectedComponent3 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         false)
                 });
 
                 return new object[]
                 {
                     "Supported Components Not In Context, Not Required",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
                         expectedComponent3,
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -307,41 +307,41 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateSupportedComponentsNotInContextRequired()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(1),
+                        new DoubleFilterAttributeValue(1),
                         true)
                 });
-                var component2 = new GeneratorComponent(new[]
+                var component2 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(2),
+                        new DoubleFilterAttributeValue(2),
                         true)
                 });
-                var component3 = new GeneratorComponent(new[]
+                var component3 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         true)
                 });
 
                 return new object[]
                 {
                     "Supported Components Not In Context, Required",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         component,
                         component2,
                         component3,
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                     },
                 };
@@ -349,33 +349,33 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateRequiredMatchingDoubleComponentExcludesAttributeless()
             {
-                var component = new GeneratorComponent();
-                var component2 = new GeneratorComponent();
-                var expectedComponent3 = new GeneratorComponent(new[]
+                var component = new FilterComponent();
+                var component2 = new FilterComponent();
+                var expectedComponent3 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         false)
                 });
 
                 return new object[]
                 {
                     "Filter With Required Double Match, Excludes Attributeless",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         component,
                         component2,
                         expectedComponent3
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(3),
+                            new DoubleFilterAttributeValue(3),
                             true)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent3
                     },
@@ -384,45 +384,45 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateInRangeComponent()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(1),
+                        new DoubleFilterAttributeValue(1),
                         true)
                 });
-                var expectedComponent = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(2),
+                        new DoubleFilterAttributeValue(2),
                         true)
                 });
-                var expectedComponent2 = new GeneratorComponent(new[]
+                var expectedComponent2 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         true)
                 });
 
                 return new object[]
                 {
                     "Filter In Range",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         component,
                         expectedComponent,
                         expectedComponent2,
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new RangeGeneratorAttributeValue(2, 3),
+                            new RangeFilterAttributeValue(2, 3),
                             true)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -432,33 +432,33 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateInRangeComponentIncludesAttributeless()
             {
-                var expectedComponent = new GeneratorComponent();
-                var expectedComponent2 = new GeneratorComponent();
-                var expectedComponent3 = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent();
+                var expectedComponent2 = new FilterComponent();
+                var expectedComponent3 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new DoubleGeneratorAttributeValue(3),
+                        new DoubleFilterAttributeValue(3),
                         false)
                 });
 
                 return new object[]
                 {
                     "Filter In Range, Includes Match Plus Attributeless",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
                         expectedComponent3
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new RangeGeneratorAttributeValue(1, 4),
+                            new RangeFilterAttributeValue(1, 4),
                             false)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -469,45 +469,45 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchInRangeComponent()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new RangeGeneratorAttributeValue(1, 9),
+                        new RangeFilterAttributeValue(1, 9),
                         true)
                 });
-                var expectedComponent = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new RangeGeneratorAttributeValue(5, 10),
+                        new RangeFilterAttributeValue(5, 10),
                         true)
                 });
-                var expectedComponent2 = new GeneratorComponent(new[]
+                var expectedComponent2 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new RangeGeneratorAttributeValue(10, 20),
+                        new RangeFilterAttributeValue(10, 20),
                         true)
                 });
 
                 return new object[]
                 {
                     "Filter Matching In Range",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         component,
                         expectedComponent,
                         expectedComponent2,
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(10),
+                            new DoubleFilterAttributeValue(10),
                             true)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -517,33 +517,33 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchInRangeComponentIncludesAttributeless()
             {
-                var expectedComponent = new GeneratorComponent();
-                var expectedComponent2 = new GeneratorComponent();
-                var expectedComponent3 = new GeneratorComponent(new[]
+                var expectedComponent = new FilterComponent();
+                var expectedComponent2 = new FilterComponent();
+                var expectedComponent3 = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("id"),
-                        new RangeGeneratorAttributeValue(5, 15),
+                        new RangeFilterAttributeValue(5, 15),
                         false)
                 });
 
                 return new object[]
                 {
                     "Filter Match In Range, Includes Match Plus Attributeless",
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
                         expectedComponent3
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("id"),
-                            new DoubleGeneratorAttributeValue(10),
+                            new DoubleFilterAttributeValue(10),
                             false)
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                         expectedComponent,
                         expectedComponent2,
@@ -552,77 +552,77 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                 };
             }
 
-            private object[] CreateOneFailedMatchWhenAllSourceAndGeneratorRequired()
+            private object[] CreateOneFailedMatchWhenAllSourceAndFilterRequired()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("affix-type"),
-                        new StringGeneratorAttributeValue("magic"),
+                        new StringFilterAttributeValue("magic"),
                         true),
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("item-level"),
-                        new DoubleGeneratorAttributeValue(5),
+                        new DoubleFilterAttributeValue(5),
                         true)
                 });
 
                 return new object[]
                 {
-                    "All Source & Generator Required Attributes, One Fails Match, No Results",
-                    new IHasGeneratorAttributes[]
+                    "All Source & Filter Required Attributes, One Fails Match, No Results",
+                    new IHasFilterAttributes[]
                     {
                         component
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("affix-type"),
-                            new StringGeneratorAttributeValue("magic"),
+                            new StringFilterAttributeValue("magic"),
                             true),
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("item-level"),
-                            new RangeGeneratorAttributeValue(10, 20),
+                            new RangeFilterAttributeValue(10, 20),
                             true),
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                     },
                 };
             }
 
-            private object[] CreateOneFailedMatchNonRequiredGeneratorWhenAllSourceRequired()
+            private object[] CreateOneFailedMatchNonRequiredFilterWhenAllSourceRequired()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("affix-type"),
-                        new StringGeneratorAttributeValue("magic"),
+                        new StringFilterAttributeValue("magic"),
                         true),
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("item-level"),
-                        new DoubleGeneratorAttributeValue(5),
+                        new DoubleFilterAttributeValue(5),
                         true)
                 });
 
                 return new object[]
                 {
-                    "All Source Required Attributes, Non-Required Generator One Fails Match, No Result",
-                    new IHasGeneratorAttributes[]
+                    "All Source Required Attributes, Non-Required Filter One Fails Match, No Result",
+                    new IHasFilterAttributes[]
                     {
                         component
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("affix-type"),
-                            new StringGeneratorAttributeValue("magic"),
+                            new StringFilterAttributeValue("magic"),
                             true),
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("item-level"),
-                            new RangeGeneratorAttributeValue(10, 20),
+                            new RangeFilterAttributeValue(10, 20),
                             false),
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                     },
                 };
@@ -630,37 +630,37 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateOneFailedMatchNonSourceWhenAllSourceRequired()
             {
-                var component = new GeneratorComponent(new[]
+                var component = new FilterComponent(new[]
                 {
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("affix-type"),
-                        new StringGeneratorAttributeValue("magic"),
+                        new StringFilterAttributeValue("magic"),
                         true),
-                    new GeneratorAttribute(
+                    new FilterAttribute(
                         new StringIdentifier("item-level"),
-                        new DoubleGeneratorAttributeValue(5),
+                        new DoubleFilterAttributeValue(5),
                         false)
                 });
 
                 return new object[]
                 {
-                    "All Generator Required Attributes, Non-Required Source One Fails Match, No Results",
-                    new IHasGeneratorAttributes[]
+                    "All Filter Required Attributes, Non-Required Source One Fails Match, No Results",
+                    new IHasFilterAttributes[]
                     {
                         component
                     },
-                    new IGeneratorAttribute[]
+                    new IFilterAttribute[]
                     {
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("affix-type"),
-                            new StringGeneratorAttributeValue("magic"),
+                            new StringFilterAttributeValue("magic"),
                             true),
-                        new GeneratorAttribute(
+                        new FilterAttribute(
                             new StringIdentifier("item-level"),
-                            new RangeGeneratorAttributeValue(10, 20),
+                            new RangeFilterAttributeValue(10, 20),
                             true),
                     },
-                    new IHasGeneratorAttributes[]
+                    new IHasFilterAttributes[]
                     {
                     },
                 };
