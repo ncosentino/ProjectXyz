@@ -73,6 +73,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj" />
