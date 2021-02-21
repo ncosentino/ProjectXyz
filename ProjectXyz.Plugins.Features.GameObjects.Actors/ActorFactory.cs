@@ -2,10 +2,7 @@
 using System.Linq;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
@@ -14,38 +11,33 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class ActorFactory : IActorFactory
     {
-        private readonly IStatManagerFactory _statManagerFactory;
         private readonly IBehaviorManager _behaviorManager;
         private readonly IActorBehaviorsProviderFacade _actorBehaviorsProviderFacade;
         private readonly IActorBehaviorsInterceptorFacade _actorBehaviorsInterceptorFacade;
-        private readonly IMutableStatsProviderFactory _mutableStatsProviderFactory;
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
+        private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         public ActorFactory(
             IBehaviorManager behaviorManager,
             IActorBehaviorsProviderFacade actorBehaviorsProviderFacade,
             IActorBehaviorsInterceptorFacade actorBehaviorsInterceptorFacade,
-            IStatManagerFactory statManagerFactory,
-            IMutableStatsProviderFactory mutableStatsProviderFactory,
-            IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory)
+            IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
+            IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
-            _statManagerFactory = statManagerFactory;
             _behaviorManager = behaviorManager;
             _actorBehaviorsProviderFacade = actorBehaviorsProviderFacade;
             _actorBehaviorsInterceptorFacade = actorBehaviorsInterceptorFacade;
-            _mutableStatsProviderFactory = mutableStatsProviderFactory;
             _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
+            _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
         }
 
         public IGameObject Create(
             IReadOnlyTypeIdentifierBehavior typeIdentifierBehavior,
             IReadOnlyTemplateIdentifierBehavior templateIdentifierBehavior,
             IReadOnlyIdentifierBehavior identifierBehavior,
-            IEnumerable<IBehavior> additionalbehaviors)
+            IEnumerable<IBehavior> additionalBehaviors)
         {
-            var mutableStatsProvider = _mutableStatsProviderFactory.Create();
-            var statManager = _statManagerFactory.Create(mutableStatsProvider);
-            var hasMutableStats = new HasMutableStatsBehavior(statManager);
+            var hasMutableStats = _hasMutableStatsBehaviorFactory.Create();
             var hasEnchantments = _hasEnchantmentsBehaviorFactory.Create();
 
             var baseAndInjectedBehaviours = new IBehavior[]
@@ -56,7 +48,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                     hasEnchantments,
                     hasMutableStats,
                 }
-                .Concat(additionalbehaviors)
+                .Concat(additionalBehaviors)
                 .ToArray();
             var additionalBehaviorsFromProviders = _actorBehaviorsProviderFacade
                 .GetBehaviors(baseAndInjectedBehaviours);

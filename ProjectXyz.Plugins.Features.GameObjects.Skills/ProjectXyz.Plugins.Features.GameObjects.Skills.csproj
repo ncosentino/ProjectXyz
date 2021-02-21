@@ -53,6 +53,7 @@
     <Compile Include="HasSkillSynergiesBehavior.cs" />
     <Compile Include="IAuraSkillBehavior.cs" />
     <Compile Include="IDiscoverableSkillDefinitionRepository.cs" />
+    <Compile Include="ISkillFactory.cs" />
     <Compile Include="Synergies\IDiscoverableSkillSynergyRepository.cs" />
     <Compile Include="IHasSkillsBehavior.cs" />
     <Compile Include="IHasSkillSynergiesBehavior.cs" />
