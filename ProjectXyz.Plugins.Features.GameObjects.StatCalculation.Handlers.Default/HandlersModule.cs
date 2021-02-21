@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
+
 using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default

@@ -1,19 +1,17 @@
 ﻿using System.Linq;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Behaviors;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
 {
-    public sealed class HasEquipmentGetEnchantmentsHandler : IGetEnchantmentsHandler
+    public sealed class HasEquipmentGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
         public HasEquipmentGetEnchantmentsHandler(
             ITargetNavigator targetNavigator,

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Stats;
@@ -17,10 +16,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation
         private readonly List<IStatCalculatorHandler> _getStatsMapping;
         private readonly List<IGetEnchantmentsHandler> _getEnchantmentsMapping;
 
-        public StatCalculationService()
+        public StatCalculationService(
+            IEnumerable<IDiscoverableGetEnchantmentsHandler> getEnchantmentsHandlers,
+            IEnumerable<IDiscoverableStatCalculatorHandler> statCalculatorHandlers)
         {
-            _getStatsMapping = new List<IStatCalculatorHandler>();
-            _getEnchantmentsMapping = new List<IGetEnchantmentsHandler>();
+            _getEnchantmentsMapping = new List<IGetEnchantmentsHandler>(getEnchantmentsHandlers);
+            _getStatsMapping = new List<IStatCalculatorHandler>(statCalculatorHandlers);
         }
 
         public IEnumerable<IEnchantment> GetEnchantments(

@@ -5,7 +5,7 @@ using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
 {
-    public sealed class HasItemContainersGetEnchantmentsHandler : IGetEnchantmentsHandler
+    public sealed class HasItemContainersGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
         public HasItemContainersGetEnchantmentsHandler(ITargetNavigator targetNavigator)
         {

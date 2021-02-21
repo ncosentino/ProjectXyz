@@ -6,7 +6,7 @@ using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
 {
-    public sealed class HasStatsStatCalculatorHandler : IStatCalculatorHandler
+    public sealed class HasStatsStatCalculatorHandler : IDiscoverableStatCalculatorHandler
     {
         public CanCalculateStatDelegate CanCalculateStat { get; } =
             behaviors => behaviors.Has<IHasStatsBehavior>();
