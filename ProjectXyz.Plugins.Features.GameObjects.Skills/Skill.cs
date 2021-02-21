@@ -14,7 +14,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasMutableStatsBehavior hasMutableStatsBehavior,
             ISkillTargetModeBehavior skillTargetModeBehavior,
             IHasSkillSynergiesBehavior hasSkillSynergiesBehavior,
-            IBuffableBehavior buffableBehavior,
             IHasEnchantmentsBehavior hasEnchantmentsBehavior,
             ISkillPrerequisitesBehavior skillPrerequisitesBehavior,
             ISkillRequirementsBehavior skillRequirementsBehavior,
@@ -26,7 +25,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 hasMutableStatsBehavior,
                 skillTargetModeBehavior,
                 hasSkillSynergiesBehavior,
-                buffableBehavior,
                 hasEnchantmentsBehavior,
                 skillPrerequisitesBehavior,
                 skillRequirementsBehavior

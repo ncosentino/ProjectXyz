@@ -34,7 +34,7 @@ namespace ConsoleApplication1
         public static void Main()
         {
             var lifetimeScope = new TestLifeTimeScopeFactory().CreateScope();
-            var activeEnchantmentManagerFactory = lifetimeScope.Resolve<IActiveEnchantmentManagerFactory>();
+            var hasEnchantmentsBehaviorFactory = lifetimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
             var filterContextFactory = lifetimeScope.Resolve<IFilterContextFactory>();
 
             var skillRepository = lifetimeScope.Resolve<ISkillRepository>();
@@ -60,8 +60,8 @@ namespace ConsoleApplication1
                     new HasSkillsBehavior(new[] { skill }),
                 });
 
-            var buffable = actor.GetOnly<IBuffableBehavior>();
-            buffable.AddEnchantments(new IEnchantment[]
+            var actorEnchantments = actor.GetOnly<IHasEnchantmentsBehavior>();
+            actorEnchantments.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
                     new IBehavior[]
@@ -74,15 +74,13 @@ namespace ConsoleApplication1
                     }),
             });
 
-            var itemActiveEnchantmentManager = activeEnchantmentManagerFactory.Create();
             var itemFactory = lifetimeScope.Resolve<IItemFactory>();
             var item = itemFactory.Create(
-                new BuffableBehavior(itemActiveEnchantmentManager),
-                new HasEnchantmentsBehavior(itemActiveEnchantmentManager),
+                hasEnchantmentsBehaviorFactory.Create(),
                 new CanBeEquippedBehavior(new[] { new StringIdentifier("left hand") }));
 
-            var buffableItem = item.GetFirst<IBuffableBehavior>();
-            buffableItem.AddEnchantments(new IEnchantment[]
+            var itemEnchantments = item.GetFirst<IHasEnchantmentsBehavior>();
+            itemEnchantments.AddEnchantments(new IEnchantment[]
             {
                 new Enchantment(
                     new IBehavior[]

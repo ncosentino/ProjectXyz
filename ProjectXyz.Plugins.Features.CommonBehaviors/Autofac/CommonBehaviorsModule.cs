@@ -12,6 +12,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
                 .RegisterType<HasMutableStatsBehaviorFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+              .RegisterType<HasEnchantmentsBehaviorFactory>()
+              .AsImplementedInterfaces()
+              .SingleInstance();
         }
     }
 }

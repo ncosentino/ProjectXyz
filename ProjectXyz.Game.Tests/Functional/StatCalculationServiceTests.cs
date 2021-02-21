@@ -72,16 +72,14 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 .SupportedEquipSlotIds
                 .First();
 
-            var itemEnchantmentManager = _fixture.ActiveEnchantmentManagerFactory.Create();
             var item = _fixture
                 .ItemFactory
                 .Create(
                     new CanBeEquippedBehavior(equipSlotId),
-                    new BuffableBehavior(itemEnchantmentManager),
-                    new HasEnchantmentsBehavior(itemEnchantmentManager));
+                    _fixture.HasEnchantmentsBehaviorFactory.Create());
             var equippable = item.GetOnly<ICanBeEquippedBehavior>();
-            var buffableItem = item.GetOnly<IBuffableBehavior>();
-            buffableItem.AddEnchantments(
+            var itemEnchantmentsBehavior = item.GetOnly<IHasEnchantmentsBehavior>();
+            itemEnchantmentsBehavior.AddEnchantments(
                 itemOnlyEnchantment1,
                 itemOnlyEnchantment2,
                 actorOnlyEnchantment);
@@ -92,14 +90,11 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                     equipSlotId,
                     equippable);
 
-            var inventoryItemEnchantmentManager = _fixture.ActiveEnchantmentManagerFactory.Create();
             var inventoryItem = _fixture
                 .ItemFactory
-                .Create(
-                    new BuffableBehavior(inventoryItemEnchantmentManager),
-                    new HasEnchantmentsBehavior(inventoryItemEnchantmentManager));
-            var buffableInventoryItem = inventoryItem.GetOnly<IBuffableBehavior>();
-            buffableInventoryItem.AddEnchantments(
+                .Create(_fixture.HasEnchantmentsBehaviorFactory.Create());
+            var inventoryItemEnchantmentsBehavior = inventoryItem.GetOnly<IHasEnchantmentsBehavior>();
+            inventoryItemEnchantmentsBehavior.AddEnchantments(
                 itemOnlyEnchantment1,
                 inventoryItemOnlyEnchantment);
 
@@ -163,7 +158,6 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
 
             var socketTypeId = new StringIdentifier("socket type id");
 
-            var itemEnchantmentManager = _fixture.ActiveEnchantmentManagerFactory.Create();
             var canBeSocketedItem = _fixture
                 .ItemFactory
                 .Create(
@@ -173,22 +167,19 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                         socketTypeId,
                     }),
                     new CanBeEquippedBehavior(equipSlotId),
-                    new BuffableBehavior(itemEnchantmentManager),
-                    new HasEnchantmentsBehavior(itemEnchantmentManager));
+                    _fixture.HasEnchantmentsBehaviorFactory.Create());
             canBeSocketedItem
-                .GetOnly<IBuffableBehavior>()
+                .GetOnly<IHasEnchantmentsBehavior>()
                 .AddEnchantments(canBeSocketedEnchantment);
             var equippable = canBeSocketedItem.GetOnly<ICanBeEquippedBehavior>();
 
-            var fitSocketEnchantmentManager = _fixture.ActiveEnchantmentManagerFactory.Create();
             var canFitSocketItem = _fixture
                 .ItemFactory
                 .Create(
                     new CanFitSocketBehavior(socketTypeId, 1),
-                    new BuffableBehavior(fitSocketEnchantmentManager),
-                    new HasEnchantmentsBehavior(fitSocketEnchantmentManager));
+                    _fixture.HasEnchantmentsBehaviorFactory.Create());
             canFitSocketItem
-                .GetOnly<IBuffableBehavior>()
+                .GetOnly<IHasEnchantmentsBehavior>()
                 .AddEnchantments(fitInSocketEnchantment);
 
             Assert.True(

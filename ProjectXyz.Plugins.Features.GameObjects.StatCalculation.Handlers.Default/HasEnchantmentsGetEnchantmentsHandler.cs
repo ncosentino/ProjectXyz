@@ -14,7 +14,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
             GetEnchantments = (statVisitor, enchantmentVisitor, behaviors, target, statId, context) =>
             {
                 var enchantments = behaviors
-                    .Get<IHasEnchantmentsBehavior>()
+                    .Get<IHasReadOnlyEnchantmentsBehavior>()
                     ?.SelectMany(x => x.Enchantments)
                     .ToArray()
                     ?? new IEnchantment[0];
@@ -38,7 +38,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
         }
 
         public CanGetEnchantmentsDelegate CanGetEnchantments { get; } =
-            behaviors => behaviors.Has<IHasEnchantmentsBehavior>();
+            behaviors => behaviors.Has<IHasReadOnlyEnchantmentsBehavior>();
 
         public GetEnchantmentsDelegate GetEnchantments { get; }
     }

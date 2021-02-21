@@ -34,10 +34,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing
             object sender,
             EventArgs<Tuple<ICanBeSocketedBehavior, ICanFitSocketBehavior>> e)
         {
-            if (e.Data.Item1.Owner.Behaviors.TryGetFirst(out IBuffableBehavior buffable) &&
-                e.Data.Item2.Owner.Behaviors.TryGetFirst(out IHasEnchantmentsBehavior hasEnchantments))
+            if (e.Data.Item1.Owner.Behaviors.TryGetFirst(out IHasEnchantmentsBehavior canBeSocketedEnchantments) &&
+                e.Data.Item2.Owner.Behaviors.TryGetFirst(out IHasReadOnlyEnchantmentsBehavior canFitSocketEnchantments))
             {
-                buffable.AddEnchantments(hasEnchantments.Enchantments);
+                canBeSocketedEnchantments.AddEnchantments(canFitSocketEnchantments.Enchantments);
             }
         }
     }

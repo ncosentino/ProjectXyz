@@ -3,10 +3,10 @@ using ProjectXyz.Api.Enchantments;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 {
-    public static class IBuffableBehaviorExtensionMethods
+    public static class IHasEnchantmentsBehaviorExtensionMethods
     {
         public static void AddEnchantments(
-            this IBuffableBehavior @this,
+            this IHasEnchantmentsBehavior @this,
             IEnchantment enchantment,
             params IEnchantment[] others) => @this.AddEnchantments(
                 others == null
@@ -14,7 +14,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
                 : new[] { enchantment }.Concat(others));
 
         public static void RemoveEnchantments(
-            this IBuffableBehavior @this,
+            this IHasEnchantmentsBehavior @this,
             IEnchantment enchantment,
             params IEnchantment[] others) => @this.RemoveEnchantments(
                 others == null

@@ -19,7 +19,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         private readonly ISkillDefinitionRepositoryFacade _skillDefinitionRepositoryFacade;
         private readonly ISkillSynergyRepositoryFacade _skillSynergyRepositoryFacade;
         private readonly IFilterContextFactory _filterContextFactory;
-        private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManager;
+        private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
         private readonly IBehaviorManager _behaviorManager;
 
@@ -27,14 +27,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             ISkillDefinitionRepositoryFacade skillDefinitionRepositoryFacade,
             ISkillSynergyRepositoryFacade skillSynergyRepositoryFacade,
             IFilterContextFactory filterContextFactory,
-            IActiveEnchantmentManagerFactory activeEnchantmentManager,
+            IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             IBehaviorManager behaviorManager)
         {
             _skillDefinitionRepositoryFacade = skillDefinitionRepositoryFacade;
             _skillSynergyRepositoryFacade = skillSynergyRepositoryFacade;
             _filterContextFactory = filterContextFactory;
-            _activeEnchantmentManager = activeEnchantmentManager;
+            _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _behaviorManager = behaviorManager;
         }
@@ -58,7 +58,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 filterContext,
                 skillDefinition);
 
-            var activeEnchantmentManager = _activeEnchantmentManager.Create();
+            var hasEnchantmentsBehavior = _hasEnchantmentsBehaviorFactory.Create();
             var hasMutableStats = CreateStatsBehavior(skillDefinition);
 
             var skill = new Skill(
@@ -67,8 +67,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 hasMutableStats,
                 new SkillTargetModeBehavior(skillDefinition.SkillTargetModeId),
                 new HasSkillSynergiesBehavior(skillSynergies),
-                new BuffableBehavior(activeEnchantmentManager),
-                new HasEnchantmentsBehavior(activeEnchantmentManager),
+                hasEnchantmentsBehavior,
                 new SkillPrerequisitesBehavior(new IFilterAttribute[]
                 {
                     // FIXME: load this from the definition

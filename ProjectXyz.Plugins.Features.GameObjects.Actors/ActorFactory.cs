@@ -15,26 +15,26 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
     public sealed class ActorFactory : IActorFactory
     {
         private readonly IStatManagerFactory _statManagerFactory;
-        private readonly IActiveEnchantmentManagerFactory _activeEnchantmentManagerFactory;
         private readonly IBehaviorManager _behaviorManager;
         private readonly IActorBehaviorsProviderFacade _actorBehaviorsProviderFacade;
         private readonly IActorBehaviorsInterceptorFacade _actorBehaviorsInterceptorFacade;
         private readonly IMutableStatsProviderFactory _mutableStatsProviderFactory;
+        private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
 
         public ActorFactory(
             IBehaviorManager behaviorManager,
             IActorBehaviorsProviderFacade actorBehaviorsProviderFacade,
             IActorBehaviorsInterceptorFacade actorBehaviorsInterceptorFacade,
             IStatManagerFactory statManagerFactory,
-            IActiveEnchantmentManagerFactory activeEnchantmentManagerFactory,
-            IMutableStatsProviderFactory mutableStatsProviderFactory)
+            IMutableStatsProviderFactory mutableStatsProviderFactory,
+            IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory)
         {
             _statManagerFactory = statManagerFactory;
-            _activeEnchantmentManagerFactory = activeEnchantmentManagerFactory;
             _behaviorManager = behaviorManager;
             _actorBehaviorsProviderFacade = actorBehaviorsProviderFacade;
             _actorBehaviorsInterceptorFacade = actorBehaviorsInterceptorFacade;
             _mutableStatsProviderFactory = mutableStatsProviderFactory;
+            _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
         }
 
         public IGameObject Create(
@@ -46,10 +46,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var mutableStatsProvider = _mutableStatsProviderFactory.Create();
             var statManager = _statManagerFactory.Create(mutableStatsProvider);
             var hasMutableStats = new HasMutableStatsBehavior(statManager);
-
-            var activeEnchantmentManager = _activeEnchantmentManagerFactory.Create();
-            var hasEnchantments = new HasEnchantmentsBehavior(activeEnchantmentManager);
-            var buffable = new BuffableBehavior(activeEnchantmentManager);
+            var hasEnchantments = _hasEnchantmentsBehaviorFactory.Create();
 
             var baseAndInjectedBehaviours = new IBehavior[]
                 {
@@ -57,7 +54,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                     templateIdentifierBehavior,
                     identifierBehavior,
                     hasEnchantments,
-                    buffable,
                     hasMutableStats,
                 }
                 .Concat(additionalbehaviors)

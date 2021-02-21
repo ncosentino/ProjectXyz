@@ -12,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies
         public SkillSynergy(
             SkillSynergyDefinitionIdBehavior skillSynergyDefinitionIdBehavior,
             SkillSynergyEffectedSkillsBehavior skillSynergyEffectedSkillsBehavior,
-            IHasEnchantmentsBehavior hasEnchantmentsBehavior,
+            IHasReadOnlyEnchantmentsBehavior hasEnchantmentsBehavior,
             IEnumerable<IBehavior> additionalBehaviors)
         {
             Behaviors = new IBehavior[]

@@ -16,6 +16,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Testing;
 using ProjectXyz.Plugins.Features.GameObjects.Actors;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
@@ -31,6 +32,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             ElapsedTimeTriggerSourceMechanic = LifeTimeScope.Resolve<IElapsedTimeTriggerSourceMechanicRegistrar>();
             TriggerMechanicRegistrar = LifeTimeScope.Resolve<ITriggerMechanicRegistrar>();
             ActiveEnchantmentManagerFactory = LifeTimeScope.Resolve<IActiveEnchantmentManagerFactory>();
+            HasEnchantmentsBehaviorFactory = LifeTimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
             StateContextProvider = LifeTimeScope.Resolve<IStateContextProvider>();
             StatManagerFactory = LifeTimeScope.Resolve<IStatManagerFactory>();
             ContextConverter = LifeTimeScope.Resolve<IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>>();
@@ -60,6 +62,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IElapsedTimeTriggerSourceMechanicRegistrar ElapsedTimeTriggerSourceMechanic { get; }
 
         public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
+
+        public IHasEnchantmentsBehaviorFactory HasEnchantmentsBehaviorFactory { get; }
 
         public IEnchantmentCalculator EnchantmentCalculator { get; }
 

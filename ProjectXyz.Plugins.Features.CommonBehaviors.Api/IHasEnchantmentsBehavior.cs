@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.Behaviors;
+
 using ProjectXyz.Api.Enchantments;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 {
-    public interface IHasEnchantmentsBehavior : IBehavior
+    public interface IHasEnchantmentsBehavior : IHasReadOnlyEnchantmentsBehavior
     {
-        IReadOnlyCollection<IEnchantment> Enchantments { get; }
+        void AddEnchantments(IEnumerable<IEnchantment> enchantments);
+
+        void RemoveEnchantments(IEnumerable<IEnchantment> enchantments);
     }
 }
