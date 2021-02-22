@@ -24,6 +24,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         }
 
         public IGameObject Create(
+            IReadOnlyTypeIdentifierBehavior typeIdentifierBehavior,
+            IReadOnlyTemplateIdentifierBehavior templateIdentifierBehavior,
+            IReadOnlyIdentifierBehavior identifierBehavior,
             ISkillResourceUsageBehavior skillResourceUsageBehavior,
             IHasMutableStatsBehavior hasMutableStatsBehavior,
             ISkillTargetModeBehavior skillTargetModeBehavior,
@@ -35,6 +38,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         {
             var baseAndInjectedBehaviours = new IBehavior[]
                 {
+                    typeIdentifierBehavior,
+                    templateIdentifierBehavior,
+                    identifierBehavior,
                     skillResourceUsageBehavior,
                     hasMutableStatsBehavior,
                     skillTargetModeBehavior,

@@ -70,6 +70,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             var hasMutableStats = CreateStatsBehavior(skillDefinition);
 
             var skill = _skillFactory.Create(
+                new TypeIdentifierBehavior(new StringIdentifier("skill")),
+                new TemplateIdentifierBehavior(new StringIdentifier("skill")),
+                new IdentifierBehavior(skillDefinition.SkillDefinitionId),
                 // FIXME: modifiers (D3 & Wolcen style?)
                 new SkillResourceUsageBehavior(),
                 hasMutableStats,
