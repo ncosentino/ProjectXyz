@@ -68,7 +68,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
         {
             var count = _random.Next(
                 enchantmentCountMinimum,
-                enchantmentCountMaximum + 1);
+                enchantmentCountMaximum == int.MaxValue
+                    ? int.MaxValue
+                    : enchantmentCountMaximum + 1);
             return count;
         }
     }
