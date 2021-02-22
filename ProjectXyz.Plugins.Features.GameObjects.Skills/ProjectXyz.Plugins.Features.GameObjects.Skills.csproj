@@ -52,8 +52,17 @@
     <Compile Include="HasSkillsBehavior.cs" />
     <Compile Include="HasSkillSynergiesBehavior.cs" />
     <Compile Include="IAuraSkillBehavior.cs" />
+    <Compile Include="IDiscoverableSkillBehaviorsInterceptor.cs" />
+    <Compile Include="IDiscoverableSkillBehaviorsProvider.cs" />
     <Compile Include="IDiscoverableSkillDefinitionRepository.cs" />
+    <Compile Include="ISkillBehaviorsInterceptor.cs" />
+    <Compile Include="ISkillBehaviorsInterceptorFacade.cs" />
+    <Compile Include="ISkillBehaviorsProvider.cs" />
+    <Compile Include="ISkillBehaviorsProviderFacade.cs" />
     <Compile Include="ISkillFactory.cs" />
+    <Compile Include="SkillBehaviorsInterceptorFacade.cs" />
+    <Compile Include="SkillBehaviorsProviderFacade.cs" />
+    <Compile Include="SkillFactory.cs" />
     <Compile Include="Synergies\IDiscoverableSkillSynergyRepository.cs" />
     <Compile Include="IHasSkillsBehavior.cs" />
     <Compile Include="IHasSkillSynergiesBehavior.cs" />
