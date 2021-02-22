@@ -8,6 +8,16 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
        BaseBehavior,
        ITypeIdentifierBehavior
     {
+        public TypeIdentifierBehavior()
+            : this(null)
+        {
+        }
+
+        public TypeIdentifierBehavior(IIdentifier typeId)
+        {
+            TypeId = typeId;
+        }
+
         public IIdentifier TypeId { get; set; }
     }
 }

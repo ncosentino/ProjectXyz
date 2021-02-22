@@ -8,6 +8,16 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         BaseBehavior,
         IIdentifierBehavior
     {
+        public IdentifierBehavior()
+            : this(null)
+        {
+        }
+
+        public IdentifierBehavior(IIdentifier id)
+        {
+            Id = id;
+        }
+
         public IIdentifier Id { get; set; }
     }
 }

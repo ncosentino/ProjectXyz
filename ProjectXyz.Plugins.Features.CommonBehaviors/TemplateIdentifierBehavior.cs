@@ -8,6 +8,16 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
        BaseBehavior,
        ITemplateIdentifierBehavior
     {
+        public TemplateIdentifierBehavior()
+            : this(null)
+        {
+        }
+
+        public TemplateIdentifierBehavior(IIdentifier templateId)
+        {
+            TemplateId = templateId;
+        }
+
         public IIdentifier TemplateId { get; set; }
     }
 }
