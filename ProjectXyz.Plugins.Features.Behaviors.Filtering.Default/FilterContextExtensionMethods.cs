@@ -4,7 +4,7 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
-namespace ProjectXyz.Shared.Behaviors.Filtering
+namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default
 {
     /// <summary>
     /// These extensions require access to the class 

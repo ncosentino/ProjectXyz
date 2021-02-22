@@ -4,23 +4,23 @@ using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
-namespace ProjectXyz.Shared.Behaviors.Filtering.Attributes
+namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
 {
-    public sealed class AllStringCollectionFilterAttributeValue : IFilterAttributeValue
+    public sealed class AnyStringCollectionFilterAttributeValue : IFilterAttributeValue
     {
         private readonly Lazy<IReadOnlyCollection<string>> _lazyValues;
 
-        public AllStringCollectionFilterAttributeValue(params string[] values)
+        public AnyStringCollectionFilterAttributeValue(params string[] values)
             : this((IEnumerable<string>)values)
         {
         }
 
-        public AllStringCollectionFilterAttributeValue(IEnumerable<string> values)
+        public AnyStringCollectionFilterAttributeValue(IEnumerable<string> values)
             : this(() => values.ToArray())
         {
         }
 
-        public AllStringCollectionFilterAttributeValue(Func<IReadOnlyCollection<string>> callback)
+        public AnyStringCollectionFilterAttributeValue(Func<IReadOnlyCollection<string>> callback)
         {
             _lazyValues = new Lazy<IReadOnlyCollection<string>>(callback);
         }
@@ -28,6 +28,6 @@ namespace ProjectXyz.Shared.Behaviors.Filtering.Attributes
         public IReadOnlyCollection<string> Values => _lazyValues.Value;
 
         public override string ToString() =>
-            $"All of {string.Join(", ", Values)}";
+            $"Any of {string.Join(", ", Values)}";
     }
 }

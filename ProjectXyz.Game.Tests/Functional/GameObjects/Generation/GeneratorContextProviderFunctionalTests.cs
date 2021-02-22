@@ -3,9 +3,9 @@
 using Autofac;
 
 using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.TimeOfDay;
 using ProjectXyz.Plugins.Features.Weather;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 

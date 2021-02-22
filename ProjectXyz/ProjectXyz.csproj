@@ -59,6 +59,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj" />
@@ -92,7 +93,6 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Behaviors.Filtering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj" />
   </ItemGroup>

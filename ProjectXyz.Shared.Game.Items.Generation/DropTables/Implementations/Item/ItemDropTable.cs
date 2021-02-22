@@ -3,7 +3,7 @@ using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item

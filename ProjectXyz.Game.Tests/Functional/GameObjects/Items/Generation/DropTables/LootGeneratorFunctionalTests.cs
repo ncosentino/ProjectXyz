@@ -11,6 +11,8 @@ using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
@@ -20,8 +22,6 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
 using ProjectXyz.Plugins.Features.TimeOfDay.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
-using ProjectXyz.Shared.Behaviors.Filtering;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 

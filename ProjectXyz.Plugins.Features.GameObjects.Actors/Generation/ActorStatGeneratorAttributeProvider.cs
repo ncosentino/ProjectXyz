@@ -3,8 +3,8 @@
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation

@@ -7,8 +7,8 @@ using NexusLabs.Framework;
 
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {

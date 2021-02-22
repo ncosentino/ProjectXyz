@@ -4,8 +4,8 @@ using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
 
 namespace ConsoleApplication1.Wip.Items.Generation.Plugins
 {

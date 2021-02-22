@@ -9,8 +9,8 @@ using Autofac;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Shared.Behaviors.Filtering;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 

@@ -51,7 +51,6 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Behaviors.Filtering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj" />
   </ItemGroup>

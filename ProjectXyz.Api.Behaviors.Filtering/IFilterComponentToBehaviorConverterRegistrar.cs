@@ -9,5 +9,9 @@ namespace ProjectXyz.Api.Behaviors.Filtering
         void Register(
             Type t,
             ConvertFilterComponentToBehaviorDelegate callback);
+
+        void Register(
+            Predicate<IFilterComponent> predicate,
+            ConvertFilterComponentToBehaviorDelegate callback);
     }
 }

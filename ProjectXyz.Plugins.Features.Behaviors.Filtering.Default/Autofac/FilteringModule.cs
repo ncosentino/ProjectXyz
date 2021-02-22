@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Logging;
 using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 
 namespace ProjectXyz.Shared.Behaviors.Filtering.Autofac
 {
@@ -18,24 +16,7 @@ namespace ProjectXyz.Shared.Behaviors.Filtering.Autofac
             builder
                 .RegisterType<FilterComponentToBehaviorConverterFacade>()
                 .AsImplementedInterfaces()
-                .SingleInstance()
-                .OnActivated(c =>
-                {
-                    var logger = c.Context.Resolve<ILogger>();
-                    var facade = c.Context.Resolve<IFilterComponentToBehaviorConverterFacade>();
-                    logger.Debug($"Registering converters to '{facade}'...");
-
-                    var discovered = c.Context.Resolve<IEnumerable<IDiscoverableFilterComponentToBehaviorConverter>>();
-                    foreach (var converter in discovered)
-                    {
-                        logger.Debug($"Registering '{converter}' on type '{converter.ComponentType}' to '{facade}'.");
-                        facade.Register(
-                            converter.ComponentType,
-                            converter.Convert);
-                    }
-
-                    logger.Debug($"Done registering converters to '{facade}'.");
-                });
+                .SingleInstance();
             builder
                 .RegisterType<FilterContextProvider>()
                 .AsImplementedInterfaces()

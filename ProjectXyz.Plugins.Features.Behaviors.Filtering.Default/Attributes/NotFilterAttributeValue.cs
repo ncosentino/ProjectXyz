@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
-namespace ProjectXyz.Shared.Behaviors.Filtering.Attributes
+namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
 {
     public sealed class NotFilterAttributeValue : IFilterAttributeValue
     {

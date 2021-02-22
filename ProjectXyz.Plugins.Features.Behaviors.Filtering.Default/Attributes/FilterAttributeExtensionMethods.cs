@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
-namespace ProjectXyz.Shared.Behaviors.Filtering.Attributes
+namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
 {
     /// <summary>
     /// These extensions are not located with the API interfaces because they 

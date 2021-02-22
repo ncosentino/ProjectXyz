@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Shared.Behaviors.Filtering.Attributes
+namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
 {
     public sealed class FilterAttribute : IFilterAttribute
     {

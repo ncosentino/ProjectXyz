@@ -25,9 +25,9 @@
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Api\ProjectXyz.Plugins.Features.TimeOfDay.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Behaviors.Filtering.csproj" />
   </ItemGroup>
 </Project>

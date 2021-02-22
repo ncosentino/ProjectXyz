@@ -9,7 +9,6 @@ using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
-using ProjectXyz.Shared.Behaviors.Filtering;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 {
@@ -18,14 +17,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
         private readonly List<IItemGenerator> _itemGenerators;
         private readonly IAttributeFilterer _attributeFilterer;
         private readonly IRandom _random;
+        private readonly IFilterContextFactory _filterContextFactory;
 
         public ItemGeneratorFacade(
             IAttributeFilterer attributeFilterer,
             IRandom random,
-            IEnumerable<IDiscoverableItemGenerator> itemGenerators)
+            IEnumerable<IDiscoverableItemGenerator> itemGenerators,
+            IFilterContextFactory filterContextFactory)
         {
             _attributeFilterer = attributeFilterer;
             _random = random;
+            _filterContextFactory = filterContextFactory;
             _itemGenerators = new List<IItemGenerator>(itemGenerators);
         }
 
@@ -63,10 +65,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
                 }
 
                 var generator = elligibleGenerators.RandomOrDefault(_random);
-                var currentContext = new FilterContext(
-                    1,
-                    1, // totalCount - generatedCount, // FIXME: do we hurt randomization by allowing initially selected generators to generate more?
-                    filterContext.Attributes);
+                var currentContext = _filterContextFactory.CreateFilterContextForSingle(filterContext.Attributes);
 
                 var generatedItems = generator.GenerateItems(currentContext);
                 var generatedAtLeastOne = false;

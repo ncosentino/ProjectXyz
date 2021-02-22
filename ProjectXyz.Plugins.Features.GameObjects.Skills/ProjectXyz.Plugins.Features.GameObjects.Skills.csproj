@@ -143,6 +143,10 @@
       <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
       <Name>ProjectXyz.Shared.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj">
+      <Project>{3329B059-C7B2-4D39-A002-DA530F0B3541}</Project>
+      <Name>ProjectXyz.Plugins.Features.Behaviors.Filtering.Default</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
       <Project>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</Project>
       <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
@@ -162,10 +166,6 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
       <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
       <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Generation\ProjectXyz.Shared.Behaviors.Filtering.csproj">
-      <Project>{6F7166A4-5BC3-4C1E-A014-AE37A8392A88}</Project>
-      <Name>ProjectXyz.Shared.Behaviors.Filtering</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

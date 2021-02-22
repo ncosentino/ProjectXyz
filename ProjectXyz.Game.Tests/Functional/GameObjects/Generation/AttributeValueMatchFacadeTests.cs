@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Autofac;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Shared.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
