@@ -4,6 +4,8 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -21,6 +23,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
         private readonly ISkillFactory _skillFactory;
+        private readonly IEnchantmentGeneratorFacade _enchantmentGeneratorFacade;
 
         public SkillRepository(
             ISkillDefinitionRepositoryFacade skillDefinitionRepositoryFacade,
@@ -28,7 +31,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IFilterContextFactory filterContextFactory,
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
-            ISkillFactory skillFactory)
+            ISkillFactory skillFactory,
+            IEnchantmentGeneratorFacade enchantmentGeneratorFacade)
         {
             _skillDefinitionRepositoryFacade = skillDefinitionRepositoryFacade;
             _skillSynergyRepositoryFacade = skillSynergyRepositoryFacade;
@@ -36,6 +40,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _skillFactory = skillFactory;
+            _enchantmentGeneratorFacade = enchantmentGeneratorFacade;
         }
 
         public IEnumerable<IGameObject> GetSkills(IFilterContext filterContext)
@@ -58,6 +63,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 skillDefinition);
 
             var hasEnchantmentsBehavior = _hasEnchantmentsBehaviorFactory.Create();
+            hasEnchantmentsBehavior.AddEnchantments(GetSkillEnchantments(
+                filterContext,
+                skillDefinition));
+
             var hasMutableStats = CreateStatsBehavior(skillDefinition);
 
             var skill = _skillFactory.Create(
@@ -105,6 +114,23 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                     new PassiveSkillBehavior(),
                 });            
             return skill;
+        }
+
+        private IEnumerable<IEnchantment> GetSkillEnchantments(
+            IFilterContext filterContext,
+            ISkillDefinition skillDefinition)
+        {
+            var enchantmentsFilterContext = _filterContextFactory
+                .CreateFilterContextForAnyAmount(filterContext
+                .Attributes
+                .Select(x => x.Required ? x.CopyWithRequired(false) : x)
+                .AppendSingle(new FilterAttribute(
+                    new StringIdentifier("skill-definition-id"),
+                    // FIXME: use ID filtering here not strings
+                    new IdentifierFilterAttributeValue(skillDefinition.SkillDefinitionId),
+                    true)));
+            var enchantments = _enchantmentGeneratorFacade.GenerateEnchantments(enchantmentsFilterContext);
+            return enchantments;
         }
 
         private IHasMutableStatsBehavior CreateStatsBehavior(ISkillDefinition skillDefinition)
