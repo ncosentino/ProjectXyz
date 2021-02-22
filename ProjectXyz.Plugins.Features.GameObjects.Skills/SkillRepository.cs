@@ -23,7 +23,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
         private readonly ISkillFactory _skillFactory;
-        private readonly IEnchantmentGeneratorFacade _enchantmentGeneratorFacade;
+        private readonly IEnchantmentLoader _enchantmentLoader;
 
         public SkillRepository(
             ISkillDefinitionRepositoryFacade skillDefinitionRepositoryFacade,
@@ -32,7 +32,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             ISkillFactory skillFactory,
-            IEnchantmentGeneratorFacade enchantmentGeneratorFacade)
+            IEnchantmentLoader enchantmentLoader)
         {
             _skillDefinitionRepositoryFacade = skillDefinitionRepositoryFacade;
             _skillSynergyRepositoryFacade = skillSynergyRepositoryFacade;
@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _skillFactory = skillFactory;
-            _enchantmentGeneratorFacade = enchantmentGeneratorFacade;
+            _enchantmentLoader = enchantmentLoader;
         }
 
         public IEnumerable<IGameObject> GetSkills(IFilterContext filterContext)
@@ -129,7 +129,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                     // FIXME: use ID filtering here not strings
                     new IdentifierFilterAttributeValue(skillDefinition.SkillDefinitionId),
                     true)));
-            var enchantments = _enchantmentGeneratorFacade.GenerateEnchantments(enchantmentsFilterContext);
+            var enchantments = _enchantmentLoader.Load(enchantmentsFilterContext);
             return enchantments;
         }
 

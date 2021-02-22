@@ -9,6 +9,10 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+                .RegisterType<EnchantmentLoader>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<BaseEnchantmentGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
@@ -16,10 +20,6 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac
                 .RegisterType<EnchantmentGeneratorFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder
-                .RegisterType<DiscoverableEnchantmentGeneratorAutoRegistrar>()
-                .AsSelf()
-                .AutoActivate();
         }
     }
 }

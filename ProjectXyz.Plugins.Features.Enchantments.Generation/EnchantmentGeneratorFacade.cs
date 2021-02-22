@@ -20,11 +20,12 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
         public EnchantmentGeneratorFacade(
             IAttributeFilterer attributeFilterer,
-            IRandom random)
+            IRandom random,
+            IEnumerable<IDiscoverableEnchantmentGenerator> discoverableEnchantmentGenerators)
         {
             _attributeFilterer = attributeFilterer;
             _random = random;
-            _enchantmentGenerators = new List<IEnchantmentGenerator>();
+            _enchantmentGenerators = new List<IEnchantmentGenerator>(discoverableEnchantmentGenerators);
         }
 
         public IEnumerable<IEnchantment> GenerateEnchantments(IFilterContext filterContext)
