@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
 {
+
     [DebuggerDisplay("{Value}")]
-    public sealed class CalculationPriority<T> :
+    internal sealed class CalculationPriority<T> :
         ICalculationPriority<T>
         where T : IComparable<T>
     {

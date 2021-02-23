@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
@@ -8,16 +9,18 @@ using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Shared.Behaviors;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
     public sealed class TestData
     {
         #region Constants
-        private static readonly EnchantmentFactory ENCHANTMENT_FACTORY = new EnchantmentFactory();
+        private static readonly ExpressionEnchantmentFactory ENCHANTMENT_FACTORY = new ExpressionEnchantmentFactory(new EnchantmentFactory(new BehaviorManager()));
+        private static readonly ICalculationPriorityFactory CALCULATION_PRIORITY_FACTORY = new CalculationPriorityFactory();
         private static readonly CalculationPriorities CALC_PRIORITIES = new CalculationPriorities();
         private static readonly StatInfo.StatDefinitionIds STAT_DEFINITION_IDS = new StatInfo.StatDefinitionIds();
         private static readonly IInterval UNIT_INTERVAL = new Interval<double>(1);
@@ -121,11 +124,11 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
         private class CalculationPriorities
         {
-            public ICalculationPriority Lowest { get; } = new CalculationPriority<int>(int.MinValue);
+            public ICalculationPriority Lowest { get; } = CALCULATION_PRIORITY_FACTORY.Create<int>(int.MinValue);
 
-            public ICalculationPriority Middle { get; } = new CalculationPriority<int>(0);
+            public ICalculationPriority Middle { get; } = CALCULATION_PRIORITY_FACTORY.Create<int>(0);
 
-            public ICalculationPriority Highest { get; } = new CalculationPriority<int>(int.MaxValue);
+            public ICalculationPriority Highest { get; } = CALCULATION_PRIORITY_FACTORY.Create<int>(int.MaxValue);
         }
         #endregion
     }

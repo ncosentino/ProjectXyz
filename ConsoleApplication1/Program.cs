@@ -23,9 +23,9 @@ using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Skills;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Testing;
+using ProjectXyz.Api.Enchantments.Calculations;
 
 namespace ConsoleApplication1
 {
@@ -37,6 +37,7 @@ namespace ConsoleApplication1
             var hasEnchantmentsBehaviorFactory = lifetimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
             var filterContextFactory = lifetimeScope.Resolve<IFilterContextFactory>();
             var enchantmentFactory = lifetimeScope.Resolve<IEnchantmentFactory>();
+            var calculationPriorityFactory = lifetimeScope.Resolve<ICalculationPriorityFactory>();
 
             var skillRepository = lifetimeScope.Resolve<ISkillRepository>();
             var skill = skillRepository
@@ -69,7 +70,7 @@ namespace ConsoleApplication1
                     {
                         new EnchantmentTargetBehavior(new StringIdentifier("self")),
                         new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat1") },
-                        new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat1 + 1"),
+                        new EnchantmentExpressionBehavior(calculationPriorityFactory.Create<int>(1), "stat1 + 1"),
                         //new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
                         //lifetimeScope.Resolve<IAppliesToBaseStat>(),
                     }),
@@ -88,7 +89,7 @@ namespace ConsoleApplication1
                     {
                         new EnchantmentTargetBehavior(new StringIdentifier("owner")),
                         new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat2") },
-                        new EnchantmentExpressionBehavior(new CalculationPriority<int>(1), "stat2 + 1"),
+                        new EnchantmentExpressionBehavior(calculationPriorityFactory.Create<int>(1), "stat2 + 1"),
                         new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
                     }),
             });

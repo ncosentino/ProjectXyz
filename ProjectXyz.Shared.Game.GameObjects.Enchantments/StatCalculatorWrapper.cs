@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Stats.Calculations;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     public sealed class StatCalculatorWrapper : IEnchantmentStatCalculator
     {

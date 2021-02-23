@@ -6,7 +6,7 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     public sealed class EnchantmentFactory : IEnchantmentFactory
     {

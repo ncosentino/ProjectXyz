@@ -1,8 +1,9 @@
 using System.Diagnostics;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
 {
     [DebuggerDisplay("Priority: {CalculationPriority}, Expression: {Expression}")]
     public sealed class EnchantmentExpressionBehavior :

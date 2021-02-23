@@ -12,7 +12,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 
 using Xunit;
 
@@ -38,28 +38,28 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} + 10",
-                    new CalculationPriority<int>(1),
+                    _fixture.CalculationPriorityFactory.Create<int>(1),
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
             var itemOnlyEnchantment2 = _fixture
                 .EnchantmentFactory
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} * 2",
-                    new CalculationPriority<int>(2),
+                    _fixture.CalculationPriorityFactory.Create<int>(2),
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
             var actorOnlyEnchantment = _fixture
                 .EnchantmentFactory
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} + 3",
-                    new CalculationPriority<int>(1),
+                    _fixture.CalculationPriorityFactory.Create<int>(1),
                     new EnchantmentTargetBehavior(new StringIdentifier("owner")));
             var inventoryItemOnlyEnchantment = _fixture
                 .EnchantmentFactory
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} + 6",
-                    new CalculationPriority<int>(1),
+                    _fixture.CalculationPriorityFactory.Create<int>(1),
                     new EnchantmentTargetBehavior(new StringIdentifier("owner.owner")));
 
             var actor = _fixture.ActorFactory.Create(
@@ -136,14 +136,14 @@ namespace ProjectXyz.Game.Tests.Functional.Enchantments
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} + 10",
-                    new CalculationPriority<int>(1),
+                    _fixture.CalculationPriorityFactory.Create<int>(1),
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
             var canBeSocketedEnchantment = _fixture
                 .EnchantmentFactory
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} + 5",
-                    new CalculationPriority<int>(1),
+                    _fixture.CalculationPriorityFactory.Create<int>(1),
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
 
             var actor = _fixture.ActorFactory.Create(

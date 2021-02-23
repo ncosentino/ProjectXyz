@@ -7,7 +7,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Shared.Framework.Entities;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments

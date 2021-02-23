@@ -1,22 +1,20 @@
 using Autofac;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
-using ProjectXyz.Api.Triggering;
 using ProjectXyz.Api.Stats;
+using ProjectXyz.Api.Triggering;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.ElapsedTime;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Testing;
-using ProjectXyz.Plugins.Features.GameObjects.Actors;
-using ProjectXyz.Plugins.Features.CommonBehaviors;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
@@ -40,12 +38,13 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             ItemFactory = LifeTimeScope.Resolve<IItemFactory>();
             StatDefinitionToTermConverter = LifeTimeScope.Resolve<IStatDefinitionToTermConverter>();
             StatCalculationService = LifeTimeScope.Resolve<IStatCalculationService>();
-            EnchantmentFactory = new EnchantmentFactory();
+            CalculationPriorityFactory = LifeTimeScope.Resolve<ICalculationPriorityFactory>();
+            EnchantmentFactory = new ExpressionEnchantmentFactory(LifeTimeScope.Resolve<IEnchantmentFactory>());
         }
         #endregion
 
         #region Properties
-        public EnchantmentFactory EnchantmentFactory { get; }
+        public ExpressionEnchantmentFactory EnchantmentFactory { get; }
 
         public IStatCalculationService StatCalculationService { get; }
 
@@ -72,6 +71,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IEnchantmentApplier EnchantmentApplier { get; }
 
         public IStateContextProvider StateContextProvider { get; }
+
+        public ICalculationPriorityFactory CalculationPriorityFactory { get; }
 
         private ILifetimeScope LifeTimeScope { get; }
         #endregion

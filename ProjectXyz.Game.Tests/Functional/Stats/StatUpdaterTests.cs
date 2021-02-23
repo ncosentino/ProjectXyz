@@ -11,7 +11,7 @@ using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.ElapsedTime;
 using ProjectXyz.Plugins.Stats;
 using ProjectXyz.Shared.Framework.Entities;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats

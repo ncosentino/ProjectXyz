@@ -2,7 +2,7 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
 {
     public sealed class EnchantmentTargetBehavior :
         BaseBehavior,

@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+
 using Autofac;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Shared.Framework.Entities;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
 {
     public sealed class ProvidedImplementationsModule : SingleRegistrationModule
     {
@@ -35,6 +37,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Autofac
 
         private static void RegisterCalculationsImplementations(ContainerBuilder builder)
         {
+            builder
+                .RegisterType<CalculationPriorityFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder
                 .RegisterType<EnchantmentCalculator>()
                 .AsImplementedInterfaces()

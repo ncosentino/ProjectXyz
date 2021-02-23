@@ -4,25 +4,24 @@ using Autofac;
 
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
     public sealed class HasPassiveSkillsGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
-
-        public HasPassiveSkillsGetEnchantmentsHandler(IEnchantmentFactory enchantmentFactory)
-        {
-            _enchantmentFactory = enchantmentFactory;
-        }
+        private readonly ICalculationPriorityFactory _calculationPriorityFactory;
 
         public HasPassiveSkillsGetEnchantmentsHandler(
+            IEnchantmentFactory enchantmentFactory,
+            ICalculationPriorityFactory calculationPriorityFactory,
             ITargetNavigator targetNavigator,
             IStatDefinitionToTermConverter statDefinitionToTermConverter)
         {
@@ -62,7 +61,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                             StatDefinitionId = statId,
                         },
                         new EnchantmentExpressionBehavior(
-                            new CalculationPriority<int>(-1),
+                            _calculationPriorityFactory.Create<int>(-1),
                             $"{statTerm} + {passiveSkillStats.Sum()}")
                     });
                 var allPassiveSkillEnchantments = passiveSkillsOwnerEnchantments
@@ -70,6 +69,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                     .ToArray();
                 return allPassiveSkillEnchantments;
             };
+            _enchantmentFactory = enchantmentFactory;
+            _calculationPriorityFactory = calculationPriorityFactory;
         }
 
         public CanGetEnchantmentsDelegate CanGetEnchantments { get; } =

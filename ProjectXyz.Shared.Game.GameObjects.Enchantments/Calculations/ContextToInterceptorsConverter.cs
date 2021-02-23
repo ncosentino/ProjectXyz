@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
 {
     public sealed class ContextToInterceptorsConverter : IConvert<IEnchantmentCalculatorContext, IReadOnlyCollection<IEnchantmentExpressionInterceptor>>
     {

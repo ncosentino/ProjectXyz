@@ -5,7 +5,7 @@ using System.Linq;
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     internal sealed class Enchantment : IEnchantment
     {

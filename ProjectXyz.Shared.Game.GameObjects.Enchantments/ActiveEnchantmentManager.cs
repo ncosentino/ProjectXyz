@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Triggering;
 using ProjectXyz.Api.Triggering;
 
-namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
+namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     public sealed class ActiveEnchantmentManager : IActiveEnchantmentManager
     {

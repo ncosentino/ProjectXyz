@@ -2,28 +2,28 @@
 
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
 {
     public sealed class HasEquipmentGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
-
-        public HasEquipmentGetEnchantmentsHandler(IEnchantmentFactory enchantmentFactory)
-        {
-            _enchantmentFactory = enchantmentFactory;
-        }
+        private readonly ICalculationPriorityFactory _calculationPriorityFactory;
 
         public HasEquipmentGetEnchantmentsHandler(
+            IEnchantmentFactory enchantmentFactory,
             ITargetNavigator targetNavigator,
-            IStatDefinitionToTermConverter statDefinitionToTermConverter)
+            IStatDefinitionToTermConverter statDefinitionToTermConverter,
+            ICalculationPriorityFactory calculationPriorityFactory)
         {
+            _enchantmentFactory = enchantmentFactory;
             GetEnchantments = (statVisitor, enchantmentVisitor, behaviors, target, statId, context) =>
             {
                 var hasEquipment = behaviors.GetOnly<IHasEquipmentBehavior>();
@@ -60,12 +60,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                 var baseEquipmentStatsEnchantment = _enchantmentFactory.Create(
                     new IBehavior[]
                     {
+                        new EnchantmentTargetBehavior(equipmentTarget),
                         new HasStatDefinitionIdBehavior()
                         {
                             StatDefinitionId = statId,
                         },
                         new EnchantmentExpressionBehavior(
-                            new CalculationPriority<int>(-1),
+                            _calculationPriorityFactory.Create<int>(-1),
                             $"{statTerm} + {equipmentStats.Sum()}")
                     });
                 var allEquipmentEnchantments = equipmentOwnerEnchantments
@@ -73,6 +74,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     .ToArray();
                 return allEquipmentEnchantments;
             };
+            _calculationPriorityFactory = calculationPriorityFactory;
         }
 
         public CanGetEnchantmentsDelegate CanGetEnchantments { get; } =
