@@ -17,6 +17,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
     public sealed class SkillRepository : ISkillRepository
     {
+        private readonly IFilterComponentToBehaviorConverter _filterComponentToBehaviorConverter;
         private readonly ISkillDefinitionRepositoryFacade _skillDefinitionRepositoryFacade;
         private readonly ISkillSynergyRepositoryFacade _skillSynergyRepositoryFacade;
         private readonly IFilterContextFactory _filterContextFactory;
@@ -32,7 +33,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             ISkillFactory skillFactory,
-            IEnchantmentLoader enchantmentLoader)
+            IEnchantmentLoader enchantmentLoader,
+            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter)
         {
             _skillDefinitionRepositoryFacade = skillDefinitionRepositoryFacade;
             _skillSynergyRepositoryFacade = skillSynergyRepositoryFacade;
@@ -41,6 +43,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _skillFactory = skillFactory;
             _enchantmentLoader = enchantmentLoader;
+            _filterComponentToBehaviorConverter = filterComponentToBehaviorConverter;
         }
 
         public IEnumerable<IGameObject> GetSkills(IFilterContext filterContext)
@@ -68,6 +71,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 skillDefinition));
 
             var hasMutableStats = CreateStatsBehavior(skillDefinition);
+
+            var filterComponentBehaviors = skillDefinition
+                .FilterComponents
+                .SelectMany(_filterComponentToBehaviorConverter.Convert);
+            var additionalBehaviors = filterComponentBehaviors
+                .Concat(new IBehavior[]
+                {
+                    // FIXME: these are just for testing
+                    new AuraSkillBehavior(),
+                    new PassiveSkillBehavior(),
+                });
 
             var skill = _skillFactory.Create(
                 new TypeIdentifierBehavior(new StringIdentifier("skill")),
@@ -111,11 +125,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                     //        int.MaxValue),
                     //    true),
                 }),
-                new IBehavior[]
-                {
-                    new AuraSkillBehavior(),
-                    new PassiveSkillBehavior(),
-                });            
+                additionalBehaviors);            
             return skill;
         }
 

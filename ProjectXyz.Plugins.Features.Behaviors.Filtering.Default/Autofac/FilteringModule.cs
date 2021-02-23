@@ -14,6 +14,10 @@ namespace ProjectXyz.Shared.Behaviors.Filtering.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+               .RegisterType<BehaviorFilterComponentToBehaviorConverter>()
+               .AsImplementedInterfaces()
+               .SingleInstance();
+            builder
                 .RegisterType<FilterComponentToBehaviorConverterFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

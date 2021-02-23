@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 
@@ -59,5 +60,10 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default
                 attributes);
             return itemFilterContext;
         }
+    }
+
+    public interface IBehaviorFilterComponent : IFilterComponent
+    {
+        IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

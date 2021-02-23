@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
@@ -15,7 +16,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IIdentifier skillTargetModeId,
             IReadOnlyCollection<IIdentifier> skillSynergyDefinitionIds,
             IEnumerable<KeyValuePair<IIdentifier, double>> stats,
-            IEnumerable<IFilterAttribute> supportedAttributes)
+            IEnumerable<IFilterAttribute> supportedAttributes,
+            IEnumerable<IFilterComponent> filterComponents)
         {
             SkillDefinitionId = skillDefinitionId;
             SkillTargetModeId = skillTargetModeId;
@@ -28,6 +30,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 .Yield()
                 .Concat(supportedAttributes)
                 .ToArray();
+            FilterComponents = filterComponents;
             Stats = stats.ToDictionary();
         }
 
@@ -40,5 +43,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         public IReadOnlyDictionary<IIdentifier, double> Stats { get; }
 
         public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
+
+        public IEnumerable<IFilterComponent> FilterComponents { get; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 
@@ -14,5 +15,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         IIdentifier SkillTargetModeId { get; }
 
         IReadOnlyDictionary<IIdentifier, double> Stats { get; }
+
+        IEnumerable<IFilterComponent> FilterComponents { get; }
     }
 }
