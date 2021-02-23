@@ -6,9 +6,9 @@ using ProjectXyz.Api.Behaviors.Filtering;
 
 namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default
 {
-    public sealed class BehaviorFilterComponentToBehaviorConverter : IDiscoverableFilterComponentToBehaviorConverter
+    public sealed class BehaviorFilterComponentToBehaviorConverter : IDiscoverablePredicateFilterComponentToBehaviorConverter
     {
-        public Type ComponentType => typeof(IBehaviorFilterComponent);
+        public bool CanConvert(IFilterComponent filterComponent) => filterComponent is IBehaviorFilterComponent;
 
         public IEnumerable<IBehavior> Convert(IFilterComponent filterComponent)
         {
