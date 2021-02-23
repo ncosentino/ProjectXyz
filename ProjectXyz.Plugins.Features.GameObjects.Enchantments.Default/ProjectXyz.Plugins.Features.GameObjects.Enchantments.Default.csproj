@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <AssemblyTitle>ProjectXyz.Shared.Game.GameObjects.Enchantments</AssemblyTitle>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</AssemblyTitle>
     <Company>Nexus Labs</Company>
-    <Product>ProjectXyz.Shared.Game.GameObjects.Enchantments</Product>
+    <Product>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</Product>
     <Copyright>Copyright © Nexus Labs 2017</Copyright>
-    <AssemblyTitle>ProjectXyz.Shared.Game.GameObjects.Enchantments</AssemblyTitle>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</AssemblyTitle>
     <Company>Nexus Labs</Company>
-    <Product>ProjectXyz.Shared.Game.GameObjects.Enchantments</Product>
+    <Product>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</Product>
     <Copyright>Copyright © Nexus Labs 2017</Copyright>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\</OutputPath>

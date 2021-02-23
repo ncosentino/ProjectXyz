@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Enchantments.Multiple", "ProjectXyz.Plugins.Enchantments.Calculations.Multiple\ProjectXyz.Plugins.Enchantments.Multiple.csproj", "{C8D2AF3C-C4C1-4D21-9E2C-1E56BA103B9A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default", "ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj", "{585F063F-E452-4A6B-B29E-36BA8BF14FBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default", "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj", "{585F063F-E452-4A6B-B29E-36BA8BF14FBD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}"
 EndProject
