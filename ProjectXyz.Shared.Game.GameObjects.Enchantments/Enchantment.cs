@@ -7,8 +7,7 @@ using ProjectXyz.Api.Enchantments;
 
 namespace ProjectXyz.Shared.Game.GameObjects.Enchantments
 {
-    [DebuggerDisplay("Expression Enchantment\r\n\tStat Definition Id={StatDefinitionId}")]
-    public sealed class Enchantment : IEnchantment
+    internal sealed class Enchantment : IEnchantment
     {
         public Enchantment(IEnumerable<IBehavior> behaviors)
         {

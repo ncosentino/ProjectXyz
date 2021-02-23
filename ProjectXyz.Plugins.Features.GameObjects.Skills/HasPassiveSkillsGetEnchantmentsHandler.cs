@@ -3,18 +3,25 @@
 using Autofac;
 
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
     public sealed class HasPassiveSkillsGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
+        private readonly IEnchantmentFactory _enchantmentFactory;
+
+        public HasPassiveSkillsGetEnchantmentsHandler(IEnchantmentFactory enchantmentFactory)
+        {
+            _enchantmentFactory = enchantmentFactory;
+        }
+
         public HasPassiveSkillsGetEnchantmentsHandler(
             ITargetNavigator targetNavigator,
             IStatDefinitionToTermConverter statDefinitionToTermConverter)
@@ -46,9 +53,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                         context))
                     .ToArray();
                 var statTerm = statDefinitionToTermConverter[statId];
-                var passiveSkillsStatsEnchantment = new Enchantment(
+                var passiveSkillsStatsEnchantment = _enchantmentFactory.Create(
                     new IBehavior[]
                     {
+                        new EnchantmentTargetBehavior(skillsTarget),
                         new HasStatDefinitionIdBehavior()
                         {
                             StatDefinitionId = statId,

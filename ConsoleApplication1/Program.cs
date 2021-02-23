@@ -36,6 +36,7 @@ namespace ConsoleApplication1
             var lifetimeScope = new TestLifeTimeScopeFactory().CreateScope();
             var hasEnchantmentsBehaviorFactory = lifetimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
             var filterContextFactory = lifetimeScope.Resolve<IFilterContextFactory>();
+            var enchantmentFactory = lifetimeScope.Resolve<IEnchantmentFactory>();
 
             var skillRepository = lifetimeScope.Resolve<ISkillRepository>();
             var skill = skillRepository
@@ -63,7 +64,7 @@ namespace ConsoleApplication1
             var actorEnchantments = actor.GetOnly<IHasEnchantmentsBehavior>();
             actorEnchantments.AddEnchantments(new IEnchantment[]
             {
-                new Enchantment(
+                enchantmentFactory.Create(
                     new IBehavior[]
                     {
                         new EnchantmentTargetBehavior(new StringIdentifier("self")),
@@ -82,7 +83,7 @@ namespace ConsoleApplication1
             var itemEnchantments = item.GetFirst<IHasEnchantmentsBehavior>();
             itemEnchantments.AddEnchantments(new IEnchantment[]
             {
-                new Enchantment(
+                enchantmentFactory.Create(
                     new IBehavior[]
                     {
                         new EnchantmentTargetBehavior(new StringIdentifier("owner")),

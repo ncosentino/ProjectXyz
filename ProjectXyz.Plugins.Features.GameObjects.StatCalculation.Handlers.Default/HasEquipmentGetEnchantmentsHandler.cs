@@ -1,18 +1,25 @@
 ﻿using System.Linq;
 
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Game.GameObjects.Enchantments;
 using ProjectXyz.Shared.Game.GameObjects.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
 {
     public sealed class HasEquipmentGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
+        private readonly IEnchantmentFactory _enchantmentFactory;
+
+        public HasEquipmentGetEnchantmentsHandler(IEnchantmentFactory enchantmentFactory)
+        {
+            _enchantmentFactory = enchantmentFactory;
+        }
+
         public HasEquipmentGetEnchantmentsHandler(
             ITargetNavigator targetNavigator,
             IStatDefinitionToTermConverter statDefinitionToTermConverter)
@@ -50,7 +57,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                         context))
                     .ToArray();
                 var statTerm = statDefinitionToTermConverter[statId];
-                var baseEquipmentStatsEnchantment = new Enchantment(
+                var baseEquipmentStatsEnchantment = _enchantmentFactory.Create(
                     new IBehavior[]
                     {
                         new HasStatDefinitionIdBehavior()
