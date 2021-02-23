@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.ExpressionEnchantments.Api</Product>

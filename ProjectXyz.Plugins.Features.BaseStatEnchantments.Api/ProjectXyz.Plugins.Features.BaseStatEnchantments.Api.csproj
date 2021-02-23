@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{8FEB2DC5-BC36-47AA-A319-3C2263740808}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.BaseStatEnchantments.Api</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.BaseStatEnchantments.Api</Product>

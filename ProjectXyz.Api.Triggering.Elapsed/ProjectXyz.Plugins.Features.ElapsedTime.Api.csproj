@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.ElapsedTime.Api</AssemblyTitle>
     <Company>Nexus Labs</Company>

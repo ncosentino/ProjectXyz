@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{D09925AA-BFCB-42A0-A998-589AE6D03148}</ProjectGuid>
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.CommonBehaviors.Tests</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.CommonBehaviors.Tests</Product>

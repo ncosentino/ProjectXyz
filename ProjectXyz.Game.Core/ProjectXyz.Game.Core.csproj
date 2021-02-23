@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{E2A76532-FDAD-4E30-9DA7-096C71B04C68}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Game.Core</AssemblyTitle>
     <Product>ProjectXyz.Game.Core</Product>

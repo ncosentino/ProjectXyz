@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.TimeOfDay</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.TimeOfDay</Product>

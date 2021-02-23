@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Shared.Game.GameObjects.Enchantments</AssemblyTitle>
     <Company>Nexus Labs</Company>

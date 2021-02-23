@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{BF07FB51-D73C-49B7-8632-B2A58F9BF17F}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Enchantments.Stats.StatExpressions</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Enchantments.Stats.StatExpressions</Product>

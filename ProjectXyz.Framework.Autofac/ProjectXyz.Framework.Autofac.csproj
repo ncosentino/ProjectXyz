@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{30231E66-8E48-4C1C-A170-4E52166057FE}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Framework.Autofac</AssemblyTitle>
     <Product>ProjectXyz.Framework.Autofac</Product>

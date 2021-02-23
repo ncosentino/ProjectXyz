@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{0D155CB4-1E5E-4A72-9A81-37BEE19746C9}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.UnhandledExceptionHandling</AssemblyTitle>
     <Company>Nexus Labs</Company>

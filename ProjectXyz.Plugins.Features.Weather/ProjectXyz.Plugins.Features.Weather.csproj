@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{6CDE69E6-0824-4F12-8152-24739B8DBD89}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.Weather</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.Weather</Product>

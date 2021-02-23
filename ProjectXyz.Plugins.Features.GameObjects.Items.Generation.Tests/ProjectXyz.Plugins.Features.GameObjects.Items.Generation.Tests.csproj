@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{B7B4246E-0624-42DF-AB84-BB41C912B81E}</ProjectGuid>
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests</AssemblyTitle>
     <Company>Nexus Labs</Company>
@@ -35,7 +34,6 @@
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

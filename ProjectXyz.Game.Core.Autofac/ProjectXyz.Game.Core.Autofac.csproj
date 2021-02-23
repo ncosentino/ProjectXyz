@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{5BBDFF60-4159-4321-84F0-A2E668657CFC}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Game.Core.Autofac</AssemblyTitle>
     <Product>ProjectXyz.Game.Core.Autofac</Product>

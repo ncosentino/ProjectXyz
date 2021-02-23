@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{18E59339-25CA-46BF-B6FA-8D992A303050}</ProjectGuid>
     <RootNamespace>ProjectXyz.Plugins.Enchantments.Calculations.State</RootNamespace>
     <AssemblyName>ProjectXyz.Plugins.Enchantments.Calculations.State</AssemblyName>
     <TargetFramework>net46</TargetFramework>

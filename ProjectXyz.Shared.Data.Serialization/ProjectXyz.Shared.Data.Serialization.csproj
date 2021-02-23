@@ -1,75 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1F707104-65A3-4E28-A34B-27F31F30A29C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Shared.Data.Serialization</RootNamespace>
-    <AssemblyName>ProjectXyz.Shared.Data.Serialization</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Shared.Data.Serialization</AssemblyTitle>
+    <Product>ProjectXyz.Shared.Data.Serialization</Product>
+    <Copyright>Copyright ©  2020</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="NexusLabs.Collections.Generic, Version=0.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NexusLabs.Collections.Generic.0.0.5\lib\net46\NexusLabs.Collections.Generic.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.5" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autofac\InternalDependenciesModule.cs" />
-    <Compile Include="Autofac\ProvidedImplementationsModule.cs" />
-    <Compile Include="ObjectToSerializationIdConverterFacade.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializableIdShorterner.cs" />
-    <Compile Include="SerializableIdToTypeConverterFacade.cs" />
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj">
-      <Project>{37E43C15-CE90-455B-A9D8-EB6354006339}</Project>
-      <Name>ProjectXyz.Api.Data.Serialization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2a29ccc2-b883-403f-b2ea-e55d44b44ec0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
-      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
-      <Name>ProjectXyz.Framework.Autofac</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

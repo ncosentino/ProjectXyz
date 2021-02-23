@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{F4DB6337-D838-4347-9987-E0EE13EBD818}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>Examples.Modules.Stats</AssemblyTitle>
     <Product>Examples.Modules.Stats</Product>

@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{B33EE9D3-EF98-4400-A528-67CD385747E7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ConsoleApplication1</AssemblyTitle>
@@ -22,7 +21,7 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Jace" Version="0.8.7" />
     <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="ProjectXyz" Version="1.0.7723.37745" />
+    <PackageReference Include="ProjectXyz" Version="1.0.7724.6961" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

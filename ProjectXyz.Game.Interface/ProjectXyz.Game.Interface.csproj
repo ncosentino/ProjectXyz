@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{66ECD308-648E-4AC6-A37A-A868DF43CA6C}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Game.Interface</AssemblyTitle>
     <Product>ProjectXyz.Game.Interface</Product>

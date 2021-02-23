@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{F8F47E92-7E70-433F-8333-7C2B12B21F35}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.ElapsedTime.Autofac</AssemblyTitle>
     <Company>Nexus Labs</Company>

@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{523BB036-1DDF-419E-851E-8685E4EC744F}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.BoundedStats</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.BoundedStats</Product>

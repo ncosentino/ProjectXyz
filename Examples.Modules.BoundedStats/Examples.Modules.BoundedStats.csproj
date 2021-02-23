@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>Examples.Modules.BoundedStats</AssemblyTitle>
     <Product>Examples.Modules.BoundedStats</Product>

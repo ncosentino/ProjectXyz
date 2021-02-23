@@ -1,11 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
   </ItemGroup>
-
 </Project>

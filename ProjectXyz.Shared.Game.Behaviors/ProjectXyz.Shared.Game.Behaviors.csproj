@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Shared.Game.Behaviors</AssemblyTitle>
     <Product>ProjectXyz.Shared.Game.Behaviors</Product>

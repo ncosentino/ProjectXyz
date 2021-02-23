@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{F85CF10E-7CEC-42BD-8DBA-A76275F5060F}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.StateEnchantments.Shared</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.StateEnchantments.Shared</Product>

@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{68FB16F5-2C5C-4172-8277-70A4781DF6DB}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory</AssemblyTitle>
     <Company>Nexus Labs</Company>

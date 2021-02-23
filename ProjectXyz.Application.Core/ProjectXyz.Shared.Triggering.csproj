@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{0E56D372-31CF-48BD-94A2-67D4622C270A}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Shared.Triggering</AssemblyTitle>
     <Company>Nexus Labs</Company>

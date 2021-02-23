@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{9910FE87-56F3-453D-899D-46415D56FB9C}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Framework.Testing</AssemblyTitle>
     <Product>ProjectXyz.Framework.Testing</Product>

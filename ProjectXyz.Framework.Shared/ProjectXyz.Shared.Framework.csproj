@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{8878CD88-B979-4AF3-9510-2FA949060088}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Shared.Framework</AssemblyTitle>
     <Product>ProjectXyz.Shared.Framework</Product>

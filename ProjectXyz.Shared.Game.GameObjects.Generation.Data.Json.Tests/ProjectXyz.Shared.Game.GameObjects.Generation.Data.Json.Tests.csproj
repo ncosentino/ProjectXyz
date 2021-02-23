@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{285A7876-8D58-4B60-8394-139711B84DC3}</ProjectGuid>
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests</AssemblyTitle>
     <Product>ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests</Product>

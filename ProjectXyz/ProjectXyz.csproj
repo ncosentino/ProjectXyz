@@ -1,14 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <Deterministic>true</Deterministic>
     <Authors>Nexus Software Labs</Authors>
     <Copyright>Copyright © Nexus Software Labs 2020</Copyright>
+    <PackageId>ProjectXyz</PackageId>
+    <Company>Nexus Software Labs</Company>
   </PropertyGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
       <Output TaskParameter="Assemblies" ItemName="CurrentAssembly" />
@@ -16,7 +15,6 @@
     <!--NOTE: editing this following block in VS visual editor can break the formatting.-->
     <Exec Command="REM ------&#xD;&#xA;REM This approach packs to your bin, then copies&#xD;&#xA;REM ------&#xD;&#xA;REM del &quot;$(TargetDir)*.nupkg&quot;&#xD;&#xA;REM nuget pack $(ProjectFileName) -Symbols -IncludeReferencedProjects -OutputDirectory &quot;$(OutDir)\&quot; -properties Configuration=$(ConfigurationName)&#xD;&#xA;REM xcopy &quot;$(TargetDir)*.nupkg&quot; &quot;$(SolutionDir)..\..\nuget-repo&quot; /C /Y&#xD;&#xA;&#xD;&#xA;REM ------&#xD;&#xA;REM This approach packs directly to your local nuget repo&#xD;&#xA;REM ------&#xD;&#xA;&#xD;&#xA;FOR /F &quot;tokens=* USEBACKQ&quot; %25%25F IN (`$(ProjectDir)GenerateProjectAssemblyVersion.exe $(ProjectDir)$(ProjectFileName)`) DO (&#xD;&#xA;SET generatedVersion=%25%25F&#xD;&#xA;)&#xD;&#xA;ECHO Generated Version: %25generatedVersion%25&#xD;&#xA;&#xD;&#xA;nuget pack $(ProjectFileName) -Symbols -IncludeReferencedProjects -OutputDirectory &quot;$(SolutionDir)..\..\nuget-repo&quot; -Version %25generatedVersion%25 -properties Configuration=$(ConfigurationName)" />
   </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\Examples.Modules.States.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Behaviors.Filtering.csproj" />
@@ -96,5 +94,4 @@
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj" />
   </ItemGroup>
-
 </Project>

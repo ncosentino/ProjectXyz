@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>Examples.Modules.StateEnchantments</AssemblyTitle>
     <Product>Examples.Modules.StateEnchantments</Product>

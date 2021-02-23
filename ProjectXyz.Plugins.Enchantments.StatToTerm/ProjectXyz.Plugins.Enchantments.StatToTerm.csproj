@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{566FADA1-BCBC-41E4-9327-64214A1A6D30}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Enchantments.StatToTerm</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Enchantments.StatToTerm</Product>

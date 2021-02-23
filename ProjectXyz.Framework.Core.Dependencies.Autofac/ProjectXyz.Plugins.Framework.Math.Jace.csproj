@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{ABC9AD2E-C560-4B6F-AE17-3B0537CD9275}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Framework.Math.Jace</AssemblyTitle>
     <Company>Nexus Labs</Company>

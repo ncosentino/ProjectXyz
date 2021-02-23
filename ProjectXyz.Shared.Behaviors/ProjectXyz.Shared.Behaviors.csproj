@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Shared.Behaviors</AssemblyTitle>
     <Company>Nexus Labs</Company>

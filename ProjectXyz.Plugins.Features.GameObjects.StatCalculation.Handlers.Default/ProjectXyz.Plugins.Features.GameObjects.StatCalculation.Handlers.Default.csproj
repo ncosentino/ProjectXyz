@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{D584415F-E635-4842-9D70-F1031EA8250B}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default</Product>

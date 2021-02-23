@@ -1,175 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9610A531-3581-4F4D-90BB-2977B2778385}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectXyz.Plugins.Features.GameObjects.Skills</RootNamespace>
-    <AssemblyName>ProjectXyz.Plugins.Features.GameObjects.Skills</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Skills</AssemblyTitle>
+    <Product>ProjectXyz.Plugins.Features.GameObjects.Skills</Product>
+    <Copyright>Copyright ©  2021</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="NexusLabs.Collections.Generic, Version=0.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NexusLabs.Collections.Generic.0.0.5\lib\net46\NexusLabs.Collections.Generic.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.5" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuraSkillBehavior.cs" />
-    <Compile Include="HasPassiveSkillsGetEnchantmentsHandler.cs" />
-    <Compile Include="HasSkillsBehavior.cs" />
-    <Compile Include="HasSkillSynergiesBehavior.cs" />
-    <Compile Include="IAuraSkillBehavior.cs" />
-    <Compile Include="IDiscoverableSkillBehaviorsInterceptor.cs" />
-    <Compile Include="IDiscoverableSkillBehaviorsProvider.cs" />
-    <Compile Include="IDiscoverableSkillDefinitionRepository.cs" />
-    <Compile Include="ISkillBehaviorsInterceptor.cs" />
-    <Compile Include="ISkillBehaviorsInterceptorFacade.cs" />
-    <Compile Include="ISkillBehaviorsProvider.cs" />
-    <Compile Include="ISkillBehaviorsProviderFacade.cs" />
-    <Compile Include="ISkillFactory.cs" />
-    <Compile Include="SkillBehaviorsInterceptorFacade.cs" />
-    <Compile Include="SkillBehaviorsProviderFacade.cs" />
-    <Compile Include="SkillFactory.cs" />
-    <Compile Include="Synergies\IDiscoverableSkillSynergyRepository.cs" />
-    <Compile Include="IHasSkillsBehavior.cs" />
-    <Compile Include="IHasSkillSynergiesBehavior.cs" />
-    <Compile Include="InMemorySkillDefinitionRepository.cs" />
-    <Compile Include="Synergies\InMemorySkillSynergyRepository.cs" />
-    <Compile Include="IPassiveSkillBehavior.cs" />
-    <Compile Include="IReadOnlyHasSkillsBehavior.cs" />
-    <Compile Include="ISkillDefinition.cs" />
-    <Compile Include="ISkillDefinitionRepository.cs" />
-    <Compile Include="ISkillDefinitionRepositoryFacade.cs" />
-    <Compile Include="ISkillPrerequisitesBehavior.cs" />
-    <Compile Include="ISkillRepository.cs" />
-    <Compile Include="ISkillRequirementsBehavior.cs" />
-    <Compile Include="ISkillResourceUsageBehavior.cs" />
-    <Compile Include="Synergies\ISkillSynergyBehavior.cs" />
-    <Compile Include="Synergies\ISkillSynergyDefinition.cs" />
-    <Compile Include="Synergies\ISkillSynergyDefinitionIdBehavior.cs" />
-    <Compile Include="Synergies\ISkillSynergyEffectedSkillsBehavior.cs" />
-    <Compile Include="Synergies\ISkillSynergyRepository.cs" />
-    <Compile Include="Synergies\ISkillSynergyRepositoryFacade.cs" />
-    <Compile Include="ISkillTargetModeBehavior.cs" />
-    <Compile Include="PassiveSkillBehavior.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Skill.cs" />
-    <Compile Include="SkillDefinition.cs" />
-    <Compile Include="SkillDefinitionRepositoryFacade.cs" />
-    <Compile Include="Autofac\SkillModule.cs" />
-    <Compile Include="SkillPrerequisitesBehavior.cs" />
-    <Compile Include="SkillRepository.cs" />
-    <Compile Include="SkillRequirementsBehavior.cs" />
-    <Compile Include="SkillResourceUsageBehavior.cs" />
-    <Compile Include="Synergies\SkillSynergy.cs" />
-    <Compile Include="Synergies\SkillSynergyBehavior.cs" />
-    <Compile Include="Synergies\SkillSynergyDefinition.cs" />
-    <Compile Include="Synergies\SkillSynergyDefinitionIdBehavior.cs" />
-    <Compile Include="Synergies\SkillSynergyEffectedSkillsBehavior.cs" />
-    <Compile Include="Synergies\SkillSynergyRepositoryFacade.cs" />
-    <Compile Include="SkillTargetModeBehavior.cs" />
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Behaviors.Filtering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Behaviors.Filtering.csproj">
-      <Project>{BC5887BD-4022-497A-A792-F3CEDFFEA874}</Project>
-      <Name>ProjectXyz.Api.Behaviors.Filtering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj">
-      <Project>{175783B5-DBE5-491A-B365-CA1D1CC09375}</Project>
-      <Name>ProjectXyz.Api.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj">
-      <Project>{2C772806-3C50-468C-8A13-CFA42592322A}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj">
-      <Project>{A578219F-0115-4536-AE85-9B6496E1D21D}</Project>
-      <Name>ProjectXyz.Api.Enchantments.Generation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj">
-      <Project>{2A29CCC2-B883-403F-B2EA-E55D44B44EC0}</Project>
-      <Name>ProjectXyz.Api.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj">
-      <Project>{C1C9D171-58F9-41E9-B816-C0F287D6F2CA}</Project>
-      <Name>ProjectXyz.Api.GameObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj">
-      <Project>{D9FC9425-991E-4D82-AD07-1F7E501CC27C}</Project>
-      <Name>ProjectXyz.Api.Enchantments</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj">
-      <Project>{A20309E3-493A-4B05-A4DE-B9536487A9D1}</Project>
-      <Name>ProjectXyz.Api.Stats</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj">
-      <Project>{30231E66-8E48-4C1C-A170-4E52166057FE}</Project>
-      <Name>ProjectXyz.Framework.Autofac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj">
-      <Project>{8878CD88-B979-4AF3-9510-2FA949060088}</Project>
-      <Name>ProjectXyz.Shared.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj">
-      <Project>{3329B059-C7B2-4D39-A002-DA530F0B3541}</Project>
-      <Name>ProjectXyz.Plugins.Features.Behaviors.Filtering.Default</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj">
-      <Project>{8B3C197A-E87B-424A-A21E-15B84A5E5054}</Project>
-      <Name>ProjectXyz.Plugins.Features.CommonBehaviors.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj">
-      <Project>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</Project>
-      <Name>ProjectXyz.Plugins.Features.CommonBehaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj">
-      <Project>{A394818A-D853-418E-9BC1-77D42124B32C}</Project>
-      <Name>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj">
-      <Project>{229057A2-508F-4CDE-8F87-DA3FAB069D06}</Project>
-      <Name>ProjectXyz.Shared.Game.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.GameObjects.Enchantments\ProjectXyz.Shared.Game.GameObjects.Enchantments.csproj">
-      <Project>{585F063F-E452-4A6B-B29E-36BA8BF14FBD}</Project>
-      <Name>ProjectXyz.Shared.Game.GameObjects.Enchantments</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

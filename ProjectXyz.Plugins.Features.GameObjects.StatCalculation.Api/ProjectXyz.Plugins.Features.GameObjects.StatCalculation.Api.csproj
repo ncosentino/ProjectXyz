@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{A394818A-D853-418E-9BC1-77D42124B32C}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api</Product>

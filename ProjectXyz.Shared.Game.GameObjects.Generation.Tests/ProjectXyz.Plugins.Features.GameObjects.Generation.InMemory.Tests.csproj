@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{537B76E3-E183-473C-B95B-0E83B0BEC779}</ProjectGuid>
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests</AssemblyTitle>
     <Company>Nexus Labs</Company>

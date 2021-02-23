@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{45DBFFA4-242F-40BC-A1EB-7CCD690C84C9}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</Product>

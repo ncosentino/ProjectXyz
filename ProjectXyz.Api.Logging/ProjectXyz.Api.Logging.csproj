@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Api.Logging</AssemblyTitle>
     <Product>ProjectXyz.Api.Logging</Product>

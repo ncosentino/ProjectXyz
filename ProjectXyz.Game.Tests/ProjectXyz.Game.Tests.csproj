@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{E67B42E4-9BE6-42B5-99DF-17727C1E2F38}</ProjectGuid>
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>ProjectXyz.Game.Tests</AssemblyTitle>
     <Product>ProjectXyz.Game.Tests</Product>
@@ -22,9 +21,10 @@
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Jace" Version="0.8.7" />
     <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.5" />
     <PackageReference Include="NexusLabs.Framework" Version="0.0.5" />
-    <PackageReference Include="ProjectXyz" Version="1.0.7723.37745" />
+    <PackageReference Include="ProjectXyz" Version="1.0.7724.6961" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />

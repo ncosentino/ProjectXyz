@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{C8D2AF3C-C4C1-4D21-9E2C-1E56BA103B9A}</ProjectGuid>
     <RootNamespace>ProjectXyz.Plugins.Enchantments.Calculations.Multiple</RootNamespace>
     <AssemblyName>ProjectXyz.Plugins.Enchantments.Calculations.Multiple</AssemblyName>
     <TargetFramework>net46</TargetFramework>

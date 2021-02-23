@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{A578219F-0115-4536-AE85-9B6496E1D21D}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Api.Enchantments.Generation</AssemblyTitle>
     <Company>Nexus Labs</Company>

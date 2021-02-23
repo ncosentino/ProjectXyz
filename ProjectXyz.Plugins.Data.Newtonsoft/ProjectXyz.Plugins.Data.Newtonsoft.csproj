@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{1B168CAB-8239-4C0A-A0F5-6AFE98336952}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Data.Newtonsoft</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Data.Newtonsoft</Product>

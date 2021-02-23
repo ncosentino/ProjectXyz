@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Items.Api</AssemblyTitle>
     <Company>Nexus Labs</Company>

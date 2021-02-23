@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{77D2CF94-450D-4B14-B5C3-1A7E48214784}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>Examples.Modules.ExpressionEnchantments</AssemblyTitle>
     <Product>Examples.Modules.ExpressionEnchantments</Product>

@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}</ProjectGuid>
     <RootNamespace>ProjectXyz.Plugins.StatCalculations</RootNamespace>
     <AssemblyName>ProjectXyz.Plugins.StatCalculations</AssemblyName>
     <TargetFramework>net46</TargetFramework>

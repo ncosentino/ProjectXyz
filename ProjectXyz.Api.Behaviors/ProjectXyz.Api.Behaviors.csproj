@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{175783B5-DBE5-491A-B365-CA1D1CC09375}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Api.Behaviors</AssemblyTitle>
     <Product>ProjectXyz.Api.Behaviors</Product>

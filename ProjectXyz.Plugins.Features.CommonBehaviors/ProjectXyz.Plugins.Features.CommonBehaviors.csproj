@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.CommonBehaviors</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.CommonBehaviors</Product>

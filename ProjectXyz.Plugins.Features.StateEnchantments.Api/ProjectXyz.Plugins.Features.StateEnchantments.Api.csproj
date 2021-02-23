@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.StateEnchantments.Api</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.StateEnchantments.Api</Product>

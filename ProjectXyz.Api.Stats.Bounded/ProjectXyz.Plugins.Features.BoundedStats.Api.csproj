@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.BoundedStats.Api</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.BoundedStats.Api</Product>

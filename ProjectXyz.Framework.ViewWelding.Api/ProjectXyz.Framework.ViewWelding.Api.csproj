@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{E0D4BF12-9866-4263-9B83-2BBD6B561574}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Framework.ViewWelding.Api</AssemblyTitle>
     <Product>ProjectXyz.Framework.ViewWelding.Api</Product>

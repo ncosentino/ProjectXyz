@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{9DEE41C0-A702-420A-9E5F-7D3D01886660}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Api.Triggering</AssemblyTitle>
     <Product>ProjectXyz.Api.Triggering</Product>

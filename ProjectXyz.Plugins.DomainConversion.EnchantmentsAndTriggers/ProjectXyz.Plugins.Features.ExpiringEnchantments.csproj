@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProjectGuid>{B558EC5B-B983-4701-845F-00F7109A2CF9}</ProjectGuid>
     <TargetFramework>net46</TargetFramework>
     <AssemblyTitle>ProjectXyz.Plugins.Features.ExpiringEnchantments</AssemblyTitle>
     <Company>Nexus Labs</Company>
