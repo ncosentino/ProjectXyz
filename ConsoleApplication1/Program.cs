@@ -130,6 +130,9 @@ namespace ConsoleApplication1
                             },
                             new IFilterAttribute[]
                             {
+                            },
+                            new IFilterComponent[]
+                            {
                             }),
                     };
 
