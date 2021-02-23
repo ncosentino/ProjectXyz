@@ -7,7 +7,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
 {
 
     [DebuggerDisplay("{Value}")]
-    internal sealed class CalculationPriority<T> :
+    public sealed class CalculationPriority<T> :
         ICalculationPriority<T>
         where T : IComparable<T>
     {
