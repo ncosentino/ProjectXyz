@@ -260,49 +260,51 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz", "ProjectXyz\ProjectXyz.csproj", "{706C5448-947B-4DA4-BE21-76A7B6D57601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Testing", "ProjectXyz.Testing\ProjectXyz.Testing.csproj", "{45D85DC6-41B3-4302-96C0-D7D9A2F5AC7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Testing", "ProjectXyz.Testing\ProjectXyz.Testing.csproj", "{45D85DC6-41B3-4302-96C0-D7D9A2F5AC7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Data.Newtonsoft.Api", "ProjectXyz.Plugins.Data.Newtonsoft.Api\ProjectXyz.Plugins.Data.Newtonsoft.Api.csproj", "{C121E3B8-4F91-4C69-944E-E6CA7C39A735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Data.Newtonsoft.Api", "ProjectXyz.Plugins.Data.Newtonsoft.Api\ProjectXyz.Plugins.Data.Newtonsoft.Api.csproj", "{C121E3B8-4F91-4C69-944E-E6CA7C39A735}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{120A2FEA-A7A2-4524-8DC3-661DD1E006B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Shared.Data.Serialization", "ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj", "{1F707104-65A3-4E28-A34B-27F31F30A29C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Shared.Data.Serialization", "ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj", "{1F707104-65A3-4E28-A34B-27F31F30A29C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enchantments", "Enchantments", "{0BDD1CB0-4E11-4453-8370-8B9176818A63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generation", "Generation", "{4675B0A2-9B55-4C35-9863-DD84A0AF5219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory", "ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.csproj", "{AFFC3DA4-E1B3-45FF-848C-E4B0D4B63E73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory", "ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.csproj", "{AFFC3DA4-E1B3-45FF-848C-E4B0D4B63E73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Enchantments.Generation.MySql", "ProjectXyz.Plugins.Features.Enchantments.Generation.MySql\ProjectXyz.Plugins.Features.Enchantments.Generation.MySql.csproj", "{FA40AD82-C71A-45B2-95C8-5FAC8BBB2881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Enchantments.Generation.MySql", "ProjectXyz.Plugins.Features.Enchantments.Generation.MySql\ProjectXyz.Plugins.Features.Enchantments.Generation.MySql.csproj", "{FA40AD82-C71A-45B2-95C8-5FAC8BBB2881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.Data.Databases", "ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj", "{D54D0844-092D-4CCE-B01A-4AEA8B440926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Data.Databases", "ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj", "{D54D0844-092D-4CCE-B01A-4AEA8B440926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Data.Newtonsoft.Tests", "ProjectXyz.Plugins.Data.Newtonsoft.Tests\ProjectXyz.Plugins.Data.Newtonsoft.Tests.csproj", "{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Data.Newtonsoft.Tests", "ProjectXyz.Plugins.Data.Newtonsoft.Tests\ProjectXyz.Plugins.Data.Newtonsoft.Tests.csproj", "{4473324D-DBA5-44AC-BF5A-DD5046D2D8C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Framework.NexusLabs", "ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj", "{119856F1-AD8C-4440-BD65-58E324C56B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Framework.NexusLabs", "ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj", "{119856F1-AD8C-4440-BD65-58E324C56B95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Socketing", "Socketing", "{B995F9F7-4397-4E2E-B83E-F4BA64609AEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns", "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.csproj", "{D3BD57F1-60C7-4070-9424-A6041B22F285}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns", "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.csproj", "{D3BD57F1-60C7-4070-9424-A6041B22F285}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api.csproj", "{4F77BE14-6BC7-4E0C-A1B4-877E2E65DA79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api.csproj", "{4F77BE14-6BC7-4E0C-A1B4-877E2E65DA79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing", "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.csproj", "{44C8F627-23AA-476B-95E3-D091F7946A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing", "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.csproj", "{44C8F627-23AA-476B-95E3-D091F7946A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj", "{24C946AC-66DB-4BAC-B5CF-6112E4773707}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj", "{24C946AC-66DB-4BAC-B5CF-6112E4773707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Tests", "ProjectXyz.Plugins.Features.GameObjects.Items.Tests\ProjectXyz.Plugins.Features.GameObjects.Items.Tests.csproj", "{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Tests", "ProjectXyz.Plugins.Features.GameObjects.Items.Tests\ProjectXyz.Plugins.Features.GameObjects.Items.Tests.csproj", "{2A5F0DE5-4914-4FB3-9A85-AB638ED56696}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{ACE36FEB-FC45-465A-936F-1CAE04BF0CC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Skills", "ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj", "{9610A531-3581-4F4D-90BB-2977B2778385}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Skills", "ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj", "{9610A531-3581-4F4D-90BB-2977B2778385}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviors", "Behaviors", "{2ED4C3BA-8B75-4F6B-9C9B-CE39A0F0D37F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filtering", "Filtering", "{62CDB2CC-443E-48BD-AA31-D76F7DBC9F38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default", "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj", "{3329B059-C7B2-4D39-A002-DA530F0B3541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default", "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj", "{3329B059-C7B2-4D39-A002-DA530F0B3541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests", "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests\ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.csproj", "{054F10F2-310C-40A0-BDD8-2A345355A4A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -690,6 +692,10 @@ Global
 		{3329B059-C7B2-4D39-A002-DA530F0B3541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3329B059-C7B2-4D39-A002-DA530F0B3541}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3329B059-C7B2-4D39-A002-DA530F0B3541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -836,6 +842,7 @@ Global
 		{2ED4C3BA-8B75-4F6B-9C9B-CE39A0F0D37F} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{62CDB2CC-443E-48BD-AA31-D76F7DBC9F38} = {2ED4C3BA-8B75-4F6B-9C9B-CE39A0F0D37F}
 		{3329B059-C7B2-4D39-A002-DA530F0B3541} = {62CDB2CC-443E-48BD-AA31-D76F7DBC9F38}
+		{054F10F2-310C-40A0-BDD8-2A345355A4A4} = {ACE36FEB-FC45-465A-936F-1CAE04BF0CC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}
