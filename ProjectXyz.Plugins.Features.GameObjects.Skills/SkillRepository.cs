@@ -78,9 +78,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             var additionalBehaviors = filterComponentBehaviors
                 .Concat(new IBehavior[]
                 {
-                    // FIXME: these are just for testing
-                    new AuraSkillBehavior(),
-                    new PassiveSkillBehavior(),
                 });
 
             var skill = _skillFactory.Create(
