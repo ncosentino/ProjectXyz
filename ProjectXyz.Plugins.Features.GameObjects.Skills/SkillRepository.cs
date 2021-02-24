@@ -24,7 +24,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
         private readonly ISkillFactory _skillFactory;
-        private readonly IEnchantmentLoader _enchantmentLoader;
 
         public SkillRepository(
             ISkillDefinitionRepositoryFacade skillDefinitionRepositoryFacade,
@@ -33,7 +32,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             ISkillFactory skillFactory,
-            IEnchantmentLoader enchantmentLoader,
             IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter)
         {
             _skillDefinitionRepositoryFacade = skillDefinitionRepositoryFacade;
@@ -42,7 +40,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _skillFactory = skillFactory;
-            _enchantmentLoader = enchantmentLoader;
             _filterComponentToBehaviorConverter = filterComponentToBehaviorConverter;
         }
 
@@ -65,11 +62,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 filterContext,
                 skillDefinition);
 
-            var hasEnchantmentsBehavior = _hasEnchantmentsBehaviorFactory.Create();
-            hasEnchantmentsBehavior.AddEnchantments(GetSkillEnchantments(
-                filterContext,
-                skillDefinition));
-
             var hasMutableStats = CreateStatsBehavior(skillDefinition);
 
             var filterComponentBehaviors = skillDefinition
@@ -78,11 +70,36 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             var additionalBehaviors = filterComponentBehaviors
                 .Concat(new IBehavior[]
                 {
-                });
+                })
+                .ToArray();
+
+            // copy out all of the enchantments from the definition defined in behaviors
+            var hasEnchantmentsBehavior = _hasEnchantmentsBehaviorFactory.Create();
+            foreach (var definitionHasReadOnlyEnchantmentsBehavior in additionalBehaviors
+                .TakeTypes<IHasReadOnlyEnchantmentsBehavior>())
+            {
+                hasEnchantmentsBehavior.AddEnchantments(definitionHasReadOnlyEnchantmentsBehavior.Enchantments);
+            }
+
+            // skip these since we took their contents
+            additionalBehaviors = additionalBehaviors
+                .Where(x => !(x is IHasReadOnlyEnchantmentsBehavior))
+                .ToArray();
+
+            // if we have a passive skill, we can load up the stateful 
+            // enchantments directly since we don't need to ever activate a 
+            // passive sill (i.e. copy their enchantments to another collection)
+            // and their bonuses are always active
+            if (additionalBehaviors.Has<IPassiveSkillBehavior>())
+            {
+                var statefulEnchantments = _skillDefinitionRepositoryFacade.GetSkillDefinitionStatefulEnchantments(
+                    skillDefinition.SkillDefinitionId);
+                hasEnchantmentsBehavior.AddEnchantments(statefulEnchantments);
+            }
 
             var skill = _skillFactory.Create(
                 new TypeIdentifierBehavior(new StringIdentifier("skill")),
-                new TemplateIdentifierBehavior(new StringIdentifier("skill")),
+                new TemplateIdentifierBehavior(skillDefinition.SkillDefinitionId),
                 new IdentifierBehavior(skillDefinition.SkillDefinitionId),
                 // FIXME: modifiers (D3 & Wolcen style?)
                 new SkillResourceUsageBehavior(),
@@ -124,23 +141,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 }),
                 additionalBehaviors);            
             return skill;
-        }
-
-        private IEnumerable<IEnchantment> GetSkillEnchantments(
-            IFilterContext filterContext,
-            ISkillDefinition skillDefinition)
-        {
-            var enchantmentsFilterContext = _filterContextFactory
-                .CreateFilterContextForAnyAmount(filterContext
-                .Attributes
-                .Select(x => x.Required ? x.CopyWithRequired(false) : x)
-                .AppendSingle(new FilterAttribute(
-                    new StringIdentifier("skill-definition-id"),
-                    // FIXME: use ID filtering here not strings
-                    new IdentifierFilterAttributeValue(skillDefinition.SkillDefinitionId),
-                    true)));
-            var enchantments = _enchantmentLoader.Load(enchantmentsFilterContext);
-            return enchantments;
         }
 
         private IHasMutableStatsBehavior CreateStatsBehavior(ISkillDefinition skillDefinition)

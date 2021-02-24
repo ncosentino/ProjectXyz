@@ -2,6 +2,8 @@
 using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
@@ -18,5 +20,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         // can respect the counts that are defined on the context!!
         public IEnumerable<ISkillDefinition> GetSkillDefinitions(IFilterContext filterContext) =>
             _repositories.SelectMany(x => x.GetSkillDefinitions(filterContext));
+
+        public IEnumerable<IEnchantment> GetSkillDefinitionStatefulEnchantments(IIdentifier skillDefinitionId) =>
+            _repositories.SelectMany(x => x.GetSkillDefinitionStatefulEnchantments(skillDefinitionId));
     }
 }
