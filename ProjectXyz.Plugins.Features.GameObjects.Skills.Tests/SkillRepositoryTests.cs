@@ -99,6 +99,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillDefinition
                 .Setup(x => x.SkillTargetModeId)
                 .Returns(new StringIdentifier("target mode id"));
+            _skillDefinition
+                .Setup(x => x.StaticResourceRequirements)
+                .Returns(new Dictionary<IIdentifier, double>());
 
             _skillDefinitionRepositoryFacade
                 .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
@@ -185,6 +188,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillDefinition
                 .Setup(x => x.SkillTargetModeId)
                 .Returns(new StringIdentifier("target mode id"));
+            _skillDefinition
+                .Setup(x => x.StaticResourceRequirements)
+                .Returns(new Dictionary<IIdentifier, double>());
 
             _skillDefinitionRepositoryFacade
                 .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
@@ -307,6 +313,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillDefinition
                 .Setup(x => x.SkillTargetModeId)
                 .Returns(new StringIdentifier("target mode id"));
+            _skillDefinition
+                .Setup(x => x.StaticResourceRequirements)
+                .Returns(new Dictionary<IIdentifier, double>());
 
             _skillDefinitionRepositoryFacade
                 .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
@@ -430,6 +439,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillDefinition
                 .Setup(x => x.SkillTargetModeId)
                 .Returns(new StringIdentifier("target mode id"));
+            _skillDefinition
+                .Setup(x => x.StaticResourceRequirements)
+                .Returns(new Dictionary<IIdentifier, double>());
 
             _skillDefinitionRepositoryFacade
                 .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
