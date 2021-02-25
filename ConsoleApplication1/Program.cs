@@ -26,6 +26,7 @@ using ProjectXyz.Shared.Framework;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Testing;
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Generation;
 
 namespace ConsoleApplication1
 {
@@ -139,9 +140,13 @@ namespace ConsoleApplication1
                     };
 
                     var attributeFilter = c.Resolve<IAttributeFilterer>();
+                    var filterContextFactory = c.Resolve<IFilterContextFactory>();
+                    var enchantmentLoader = c.Resolve<IEnchantmentLoader>();
                     var repository = new InMemorySkillDefinitionRepository(
                         attributeFilter,
-                        definitions);
+                        definitions,
+                        filterContextFactory,
+                        enchantmentLoader);
                     return repository;
                 })
                 .AsImplementedInterfaces()
