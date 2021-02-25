@@ -1,4 +1,8 @@
-﻿using ProjectXyz.Shared.Game.Behaviors;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
@@ -6,8 +10,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         BaseBehavior,
         ISkillResourceUsageBehavior
     {
-        public SkillResourceUsageBehavior()
+        public SkillResourceUsageBehavior(IEnumerable<KeyValuePair<IIdentifier, double>> staticStatRequirements)
         {
+            StaticStatRequirements = staticStatRequirements.ToDictionary();
         }
+
+        public IReadOnlyDictionary<IIdentifier, double> StaticStatRequirements { get; }
     }
 }

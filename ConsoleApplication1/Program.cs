@@ -136,6 +136,10 @@ namespace ConsoleApplication1
                             },
                             new IFilterComponent[]
                             {
+                            },
+                            new Dictionary<IIdentifier, double>()
+                            {
+                                // required stats
                             }),
                     };
 

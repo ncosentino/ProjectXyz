@@ -101,8 +101,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 new TypeIdentifierBehavior(new StringIdentifier("skill")),
                 new TemplateIdentifierBehavior(skillDefinition.SkillDefinitionId),
                 new IdentifierBehavior(skillDefinition.SkillDefinitionId),
-                // FIXME: modifiers (D3 & Wolcen style?)
-                new SkillResourceUsageBehavior(),
+                // FIXME: how to add & define modifiers (D3 & Wolcen style? i.e. increase range, change element)
+                new SkillResourceUsageBehavior(skillDefinition.StaticResourceRequirements),
                 hasMutableStats,
                 new SkillTargetModeBehavior(skillDefinition.SkillTargetModeId),
                 new HasSkillSynergiesBehavior(skillSynergies),

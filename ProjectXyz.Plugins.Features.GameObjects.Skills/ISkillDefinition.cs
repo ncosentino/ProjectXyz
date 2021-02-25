@@ -16,6 +16,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 
         IReadOnlyDictionary<IIdentifier, double> Stats { get; }
 
+        IReadOnlyDictionary<IIdentifier, double> StaticResourceRequirements { get; }
+
         IEnumerable<IFilterComponent> FilterComponents { get; }
     }
 }

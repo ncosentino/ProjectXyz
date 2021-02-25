@@ -17,7 +17,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IReadOnlyCollection<IIdentifier> skillSynergyDefinitionIds,
             IEnumerable<KeyValuePair<IIdentifier, double>> stats,
             IEnumerable<IFilterAttribute> supportedAttributes,
-            IEnumerable<IFilterComponent> filterComponents)
+            IEnumerable<IFilterComponent> filterComponents,
+            IEnumerable<KeyValuePair<IIdentifier, double>> staticResourceRequirements)
         {
             SkillDefinitionId = skillDefinitionId;
             SkillTargetModeId = skillTargetModeId;
@@ -31,6 +32,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 .Concat(supportedAttributes)
                 .ToArray();
             FilterComponents = filterComponents;
+            StaticResourceRequirements = staticResourceRequirements.ToDictionary();
             Stats = stats.ToDictionary();
         }
 
@@ -41,6 +43,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         public IReadOnlyCollection<IIdentifier> SkillSynergyDefinitionIds { get; }
 
         public IReadOnlyDictionary<IIdentifier, double> Stats { get; }
+
+        public IReadOnlyDictionary<IIdentifier, double> StaticResourceRequirements { get; }
 
         public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
 
