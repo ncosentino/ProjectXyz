@@ -1,15 +1,9 @@
-﻿using System;
-using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Events;
+﻿using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 {
-    public interface ICanEquipBehavior : IHasEquipmentBehavior
+    public interface ICanEquipBehavior : IObservableHasEquipmentBehavior
     {
-        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>> Equipped;
-
-        event EventHandler<EventArgs<Tuple<ICanEquipBehavior, ICanBeEquippedBehavior, IIdentifier>>> Unequipped;
-
         bool TryUnequip(
             IIdentifier equipSlotId,
             out ICanBeEquippedBehavior canBeEquipped);
