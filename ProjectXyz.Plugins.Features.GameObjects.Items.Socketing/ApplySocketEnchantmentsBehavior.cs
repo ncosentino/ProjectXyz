@@ -18,14 +18,23 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing
         {
             base.OnRegisteredToOwner(owner);
 
-            if (owner.Behaviors.TryGetFirst(out ICanBeSocketedBehavior newCanBeSocketed))
+            owner
+                .Behaviors
+                .TryGetFirst(out ICanBeSocketedBehavior newCanBeSocketed);
+            if (_canBeSocketed == newCanBeSocketed)
             {
-                if (_canBeSocketed != null && _canBeSocketed != newCanBeSocketed)
-                {
-                    _canBeSocketed.Socketed -= CanBeSocketed_Socketed;
-                }
+                return;
+            }
 
-                _canBeSocketed = newCanBeSocketed;
+            if (_canBeSocketed != null)
+            {
+                _canBeSocketed.Socketed -= CanBeSocketed_Socketed;
+            }
+
+            _canBeSocketed = newCanBeSocketed;
+
+            if (_canBeSocketed != null)
+            {
                 _canBeSocketed.Socketed += CanBeSocketed_Socketed;
             }
         }
