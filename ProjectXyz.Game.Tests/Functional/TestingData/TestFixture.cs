@@ -7,12 +7,14 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Triggering;
+using ProjectXyz.Game.Tests.Functional.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.ElapsedTime;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Testing;
 
@@ -39,6 +41,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             StatDefinitionToTermConverter = LifeTimeScope.Resolve<IStatDefinitionToTermConverter>();
             StatCalculationService = LifeTimeScope.Resolve<IStatCalculationService>();
             CalculationPriorityFactory = LifeTimeScope.Resolve<ICalculationPriorityFactory>();
+            ItemSetManager = LifeTimeScope.Resolve<IItemSetManager>();
             EnchantmentFactory = new ExpressionEnchantmentFactory(LifeTimeScope.Resolve<IEnchantmentFactory>());
         }
         #endregion
@@ -73,6 +76,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IStateContextProvider StateContextProvider { get; }
 
         public ICalculationPriorityFactory CalculationPriorityFactory { get; }
+
+        public IItemSetManager ItemSetManager { get; }
 
         private ILifetimeScope LifeTimeScope { get; }
         #endregion
