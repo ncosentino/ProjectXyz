@@ -44,6 +44,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         {
             var enchantmentsFilterContext = _filterContextFactory
                 .CreateFilterContextForAnyAmount(new FilterAttribute(
+                    // FIXME: should we be consistent and request enchantments 
+                    // keyed by THEIR ID, and not inverting it by putting the 
+                    // skill definition ID into it? Following this current 
+                    // pattern it means you bleed N number of
+                    // enchantment-wanting-things into your enchantment 
+                    // definitions. Inverting this means N number of things can
+                    // KNOW about enchantment definitions though, which feels
+                    // better? if so, this means skill definitions need
+                    // enchantment definition ID's on them. I assume I coded it
+                    // this way originally because it easily handles multiple
+                    // enchantments (i.e. skill definitions will need a
+                    // COLLECTION of enchantment definition IDs)
                     new StringIdentifier("skill-definition-id"),
                     new IdentifierFilterAttributeValue(skillDefinitionId),
                     true));
