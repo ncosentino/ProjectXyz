@@ -62,7 +62,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Enchantments.Generation.MySql\ProjectXyz.Plugins.Features.Enchantments.Generation.MySql.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Enchantments.Generation\ProjectXyz.Plugins.Features.Enchantments.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj" />

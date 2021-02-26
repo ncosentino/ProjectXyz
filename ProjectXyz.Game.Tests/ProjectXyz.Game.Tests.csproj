@@ -24,7 +24,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.5" />
     <PackageReference Include="NexusLabs.Framework" Version="0.0.5" />
-    <PackageReference Include="ProjectXyz" Version="1.0.7726.7090" />
+    <PackageReference Include="ProjectXyz" Version="1.0.7726.37418" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
