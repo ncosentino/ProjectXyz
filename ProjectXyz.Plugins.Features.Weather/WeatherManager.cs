@@ -1,16 +1,11 @@
-﻿using ProjectXyz.Api.Framework;
+﻿using ProjectXyz.Plugins.Features.Weather.Api;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
     public sealed class WeatherManager : IWeatherManager
     {
-        public WeatherManager()
-        {
-            // FIXME: hardcoding a weather here seems wrong, but allowing a 
-            // null weather ID also seems wrong?
-            WeatherId = WeatherIds.Clear;
-        }
+        public IWeatherTable WeatherTable { get; set; }
 
-        public IIdentifier WeatherId { get; set; }
+        public IWeather Weather { get; set; }
     }
 }

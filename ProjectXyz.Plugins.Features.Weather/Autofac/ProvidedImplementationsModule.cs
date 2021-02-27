@@ -20,7 +20,19 @@ namespace ProjectXyz.Plugins.Features.Weather.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<StateIdToTermRepo>()
+                .RegisterType<WeatherTableRepositoryFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<WeatherFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<WeatherBehaviorsInterceptorFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<WeatherBehaviorsProviderFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

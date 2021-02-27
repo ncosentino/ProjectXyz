@@ -7,6 +7,7 @@ using Autofac;
 
 using Moq;
 
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.GameObjects;
@@ -34,12 +35,84 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
         private static readonly IFilterContextFactory _filterContextFactory;
         private static readonly IFilterContextProvider _filterContextProvider;
         private static readonly ILootGenerator _lootGenerator;
+        private static readonly IWeatherManager _weatherManager;
+        private static readonly IWeatherFactory _weatherFactory;
 
         static LootGeneratorFunctionalTests()
         {
             _filterContextFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IFilterContextFactory>();
             _filterContextProvider = CachedDependencyLoader.LifeTimeScope.Resolve<IFilterContextProvider>();
             _lootGenerator = CachedDependencyLoader.LifeTimeScope.Resolve<ILootGenerator>();
+            _weatherManager = CachedDependencyLoader.LifeTimeScope.Resolve<IWeatherManager>();
+            _weatherFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IWeatherFactory>();
+        }
+
+        [Fact]
+        private void GenerateLoot_NoWeatherMatches_ThrowsException()
+        {
+            var originalWeather = _weatherManager.Weather;
+            try
+            {
+                _weatherManager.Weather = _weatherFactory.Create(
+                    new StringIdentifier("NOTHING SHOULD MATCH THIS"),
+                    new Interval<double>(0),
+                    new Interval<double>(0),
+                    new Interval<double>(0),
+                    new IBehavior[] { });
+                var context = _filterContextFactory.CreateContext(
+                    3,
+                    3,
+                    _filterContextProvider
+                        .GetContext()
+                        .Attributes
+                        .AppendSingle(
+                        new FilterAttribute(
+                            new StringIdentifier("drop-table"),
+                            new IdentifierFilterAttributeValue(new StringIdentifier("Weather Table")),
+                            true)));
+
+                var exception = Assert.Throws<InvalidOperationException>(() => _lootGenerator.GenerateLoot(context).Consume());
+                Assert.StartsWith(
+                    "There was no drop table that could be selected from the set of filtered drop tables using context ",
+                    exception.Message);
+            }
+            finally
+            {
+                _weatherManager.Weather = originalWeather;
+            }
+        }
+
+        [Fact]
+        private void GenerateLoot_WeatherMatches_ExpectedResults()
+        {
+            var originalWeather = _weatherManager.Weather;
+            try
+            {
+                _weatherManager.Weather = _weatherFactory.Create(
+                    new StringIdentifier("loot generator weather"),
+                    new Interval<double>(0),
+                    new Interval<double>(0),
+                    new Interval<double>(0),
+                    new IBehavior[] { });
+                var context = _filterContextFactory.CreateContext(
+                    3,
+                    3,
+                    _filterContextProvider
+                        .GetContext()
+                        .Attributes
+                        .AppendSingle(
+                        new FilterAttribute(
+                            new StringIdentifier("drop-table"),
+                            new IdentifierFilterAttributeValue(new StringIdentifier("Weather Table")),
+                            true)));
+
+                var results = _lootGenerator.GenerateLoot(context);
+                Assert.Equal(3, results.Count());
+            }
+            finally
+            {
+                _weatherManager.Weather = originalWeather;
+            }
         }
 
         [ClassData(typeof(TestData))]
@@ -184,26 +257,6 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 },
                 new object[]
                 {
-                    "Weather Matches",
-                    _filterContextFactory.CreateContext(
-                        3,
-                        3,
-                        _filterContextProvider
-                            .GetContext()
-                            .Attributes
-                            .AppendSingle(
-                            new FilterAttribute(
-                                new StringIdentifier("drop-table"),
-                                new IdentifierFilterAttributeValue(new StringIdentifier("Weather Table")),
-                                true))),
-                    new Predicate<IEnumerable<IGameObject>>(results =>
-                    {
-                        Assert.Equal(3, results.Count());
-                        return true;
-                    }),
-                },
-                new object[]
-                {
                     "Time of Day Matches",
                     _filterContextFactory.CreateContext(
                         3,
@@ -236,7 +289,6 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                 builder
                     .Register(x =>
                     {
-                        var weatherManager = x.Resolve<IReadOnlyWeatherManager>();
                         var timeOfDayManager = x.Resolve<IReadOnlyTimeOfDayManager>();
                         return new InMemoryDropTableRepository(new IDropTable[]
                         {
@@ -268,7 +320,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             {
                                 new FilterAttribute(
                                     new StringIdentifier("weather"),
-                                    new IdentifierFilterAttributeValue(weatherManager.WeatherId),
+                                    new IdentifierFilterAttributeValue(new StringIdentifier("loot generator weather")),
                                     true),
                             },
                             Enumerable.Empty<IFilterAttribute>()),

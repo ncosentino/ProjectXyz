@@ -200,7 +200,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Weather", "Weather", "{C31A48B7-7CEE-45D8-8669-27C796A047DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Weather", "ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj", "{6CDE69E6-0824-4F12-8152-24739B8DBD89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Weather.Default", "ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.Default.csproj", "{6CDE69E6-0824-4F12-8152-24739B8DBD89}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExpiringEnchantments", "ExpiringEnchantments", "{C5257E4F-A136-4D63-9883-F7B3F431CCAD}"
 EndProject
@@ -302,9 +302,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filtering", "Filtering", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default", "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj", "{3329B059-C7B2-4D39-A002-DA530F0B3541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests", "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests\ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.csproj", "{054F10F2-310C-40A0-BDD8-2A345355A4A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests", "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests\ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.csproj", "{054F10F2-310C-40A0-BDD8-2A345355A4A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets", "ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj", "{2D504688-A90A-43DE-8FF2-E84ABA46A4AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets", "ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj", "{2D504688-A90A-43DE-8FF2-E84ABA46A4AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
