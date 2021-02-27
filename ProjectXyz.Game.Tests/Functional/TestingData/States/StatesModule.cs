@@ -57,7 +57,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.States
             #endregion
         }
 
-        private sealed class StateIdToTermRepo : IStateIdToTermRepository
+        private sealed class StateIdToTermRepo : IDiscoverableStateIdToTermRepository
         {
             private readonly StateInfo _stateInfo;
 

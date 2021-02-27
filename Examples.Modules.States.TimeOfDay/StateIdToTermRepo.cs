@@ -6,7 +6,7 @@ using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
-    public sealed class StateIdToTermRepo : IStateIdToTermRepository
+    public sealed class StateIdToTermRepo : IDiscoverableStateIdToTermRepository
     {
         public IEnumerable<IStateIdToTermMapping> GetStateIdToTermMappings()
         {

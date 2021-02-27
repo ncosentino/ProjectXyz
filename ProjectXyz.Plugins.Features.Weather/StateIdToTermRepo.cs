@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 using ProjectXyz.Plugins.Features.StateEnchantments.Shared;
@@ -6,7 +7,7 @@ using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
-    public sealed class StateIdToTermRepo : IStateIdToTermRepository
+    public sealed class StateIdToTermRepo : IDiscoverableStateIdToTermRepository
     {
         public IEnumerable<IStateIdToTermMapping> GetStateIdToTermMappings()
         {

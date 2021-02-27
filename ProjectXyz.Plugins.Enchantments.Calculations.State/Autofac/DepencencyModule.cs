@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Autofac;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.StateEnchantments.Api;
@@ -15,7 +17,7 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State.Autofac
                 .Register(c =>
                 {
                     var stateIdToTermMapping = c
-                        .Resolve<IEnumerable<IStateIdToTermRepository>>()
+                        .Resolve<IEnumerable<IDiscoverableStateIdToTermRepository>>()
                         .SelectMany(x => x.GetStateIdToTermMappings())
                         .ToDictionary(
                             x => x.StateIdentifier,

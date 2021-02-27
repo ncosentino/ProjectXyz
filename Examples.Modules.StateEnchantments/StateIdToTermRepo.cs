@@ -3,7 +3,7 @@ using ProjectXyz.Plugins.Features.StateEnchantments.Api;
 
 namespace Examples.Modules.StateEnchantments
 {
-    public sealed class StateIdToTermRepo : IStateIdToTermRepository
+    public sealed class StateIdToTermRepo : IDiscoverableStateIdToTermRepository
     {
         public IEnumerable<IStateIdToTermMapping> GetStateIdToTermMappings()
         {
