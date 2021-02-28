@@ -5,17 +5,20 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
     public sealed class WeatherGenerationContextAttributeProvider : IDiscoverableFilterContextAttributeProvider
     {
+        private readonly IWeatherIdentifiers _weatherIdentifiers;
         private readonly IReadOnlyWeatherManager _readOnlyWeatherManager;
 
-        public WeatherGenerationContextAttributeProvider(IReadOnlyWeatherManager readOnlyWeatherManager)
+        public WeatherGenerationContextAttributeProvider(
+            IReadOnlyWeatherManager readOnlyWeatherManager,
+            IWeatherIdentifiers weatherIdentifiers)
         {
             _readOnlyWeatherManager = readOnlyWeatherManager;
+            _weatherIdentifiers = weatherIdentifiers;
         }
 
         public IEnumerable<IFilterAttribute> GetAttributes()
@@ -26,7 +29,7 @@ namespace ProjectXyz.Plugins.Features.Weather
                     .Weather
                     .GetOnly<IIdentifierBehavior>().Id;
                 yield return new FilterAttribute(
-                    new StringIdentifier("weather"),
+                    _weatherIdentifiers.FilterContextWeatherIdentifier,
                     new IdentifierFilterAttributeValue(weatherId),
                     false);
             }

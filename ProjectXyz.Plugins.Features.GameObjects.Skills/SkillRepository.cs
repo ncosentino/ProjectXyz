@@ -6,12 +6,12 @@ using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
@@ -24,6 +24,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
         private readonly ISkillFactory _skillFactory;
+        private readonly IEnchantmentLoader _enchantmentLoader;
+        private readonly ISkillIdentifiers _skillIdentifiers;
+        private readonly IEnchantmentIdentifiers _enchantmentIdentifiers;
 
         public SkillRepository(
             ISkillDefinitionRepositoryFacade skillDefinitionRepositoryFacade,
@@ -32,7 +35,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             ISkillFactory skillFactory,
-            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter)
+            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter,
+            IEnchantmentLoader enchantmentLoader,
+            ISkillIdentifiers skillIdentifiers,
+            IEnchantmentIdentifiers enchantmentIdentifiers)
         {
             _skillDefinitionRepositoryFacade = skillDefinitionRepositoryFacade;
             _skillSynergyRepositoryFacade = skillSynergyRepositoryFacade;
@@ -41,6 +47,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _skillFactory = skillFactory;
             _filterComponentToBehaviorConverter = filterComponentToBehaviorConverter;
+            _enchantmentLoader = enchantmentLoader;
+            _skillIdentifiers = skillIdentifiers;
+            _enchantmentIdentifiers = enchantmentIdentifiers;
         }
 
         public IEnumerable<IGameObject> GetSkills(IFilterContext filterContext)
@@ -92,13 +101,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             // and their bonuses are always active
             if (additionalBehaviors.Has<IPassiveSkillBehavior>())
             {
-                var statefulEnchantments = _skillDefinitionRepositoryFacade.GetSkillDefinitionStatefulEnchantments(
-                    skillDefinition.SkillDefinitionId);
+                var statefulEnchantments = GetStatefulEnchantments(skillDefinition.StatefulEnchantmentDefinitions);
                 hasEnchantmentsBehavior.AddEnchantments(statefulEnchantments);
             }
 
             var skill = _skillFactory.Create(
-                new TypeIdentifierBehavior(new StringIdentifier("skill")),
+                new TypeIdentifierBehavior(_skillIdentifiers.SkillTypeIdentifier),
                 new TemplateIdentifierBehavior(skillDefinition.SkillDefinitionId),
                 new IdentifierBehavior(skillDefinition.SkillDefinitionId),
                 // FIXME: how to add & define modifiers (D3 & Wolcen style? i.e. increase range, change element)
@@ -143,6 +151,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             return skill;
         }
 
+        private IEnumerable<IEnchantment> GetStatefulEnchantments(IEnumerable<IIdentifier> enchantmentDefinitionIds)
+        {
+            return _enchantmentLoader.LoadForEnchantmenDefinitionIds(enchantmentDefinitionIds);
+        }
+
         private IHasMutableStatsBehavior CreateStatsBehavior(ISkillDefinition skillDefinition)
         {
             var hasMutableStats = _hasMutableStatsBehaviorFactory.Create();
@@ -165,7 +178,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 .Attributes
                 .Select(x => x.Required ? x.CopyWithRequired(false) : x)
                 .AppendSingle(new FilterAttribute(
-                    new StringIdentifier("id"),
+                    _skillIdentifiers.SkillSynergyIdentifier,
                     // FIXME: use ID filtering here not strings
                     new AnyStringCollectionFilterAttributeValue(skillDefinition
                         .SkillSynergyDefinitionIds

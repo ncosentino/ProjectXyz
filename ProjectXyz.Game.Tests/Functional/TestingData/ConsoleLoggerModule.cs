@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autofac;
 using ProjectXyz.Api.Logging;
 
-namespace ProjectXyz.Game.Tests
+namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
     public sealed class ConsoleLoggerModule : Module
     {

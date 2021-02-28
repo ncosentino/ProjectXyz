@@ -8,6 +8,7 @@ using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
@@ -37,6 +38,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         private readonly Mock<IHasMutableStatsBehaviorFactory> _hasMutableStatsBehaviorFactory;
         private readonly Mock<ISkillFactory> _skillFactory;
         private readonly Mock<IFilterComponentToBehaviorConverter> _filterComponentToBehaviorConverter;
+        private readonly Mock<IEnchantmentLoader> _enchantmentLoader;
+        private readonly Mock<ISkillIdentifiers> _skillIdentifiers;
+        private readonly Mock<IEnchantmentIdentifiers> _enchantmentIdentifiers;
 
         public SkillRepositoryTests()
         {
@@ -48,6 +52,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _hasMutableStatsBehaviorFactory = _mockRepository.Create<IHasMutableStatsBehaviorFactory>();
             _skillFactory = _mockRepository.Create<ISkillFactory>();
             _filterComponentToBehaviorConverter = _mockRepository.Create<IFilterComponentToBehaviorConverter>();
+            _enchantmentLoader = _mockRepository.Create<IEnchantmentLoader>();
+            _skillIdentifiers = _mockRepository.Create<ISkillIdentifiers>();
+            _enchantmentIdentifiers = _mockRepository.Create<IEnchantmentIdentifiers>();
             _filterContext = _mockRepository.Create<IFilterContext>();
             _hasEnchantmentsBehavior = _mockRepository.Create<IHasEnchantmentsBehavior>();
             _hasMutableStatsBehavior = _mockRepository.Create<IHasMutableStatsBehavior>();
@@ -61,7 +68,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _hasEnchantmentsBehaviorFactory.Object,
                 _hasMutableStatsBehaviorFactory.Object,
                 _skillFactory.Object,
-                _filterComponentToBehaviorConverter.Object);
+                _filterComponentToBehaviorConverter.Object,
+                _enchantmentLoader.Object,
+                _skillIdentifiers.Object,
+                _enchantmentIdentifiers.Object);
         }
 
         [Fact]
@@ -80,6 +90,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         [Fact]
         private void GetSkills_HasSynergies_BehaviorPopulated()
         {
+            _skillIdentifiers
+                .Setup(x => x.SkillSynergyIdentifier)
+                .Returns(new StringIdentifier("id"));
+            _skillIdentifiers
+                .Setup(x => x.SkillTypeIdentifier)
+                .Returns(new StringIdentifier("skill"));
+
             var skillSynergyDefinitionIds = new[]
             {
                 new StringIdentifier("skill synergy definition id"),
@@ -167,6 +184,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         [Fact]
         private void GetSkills_HasStats_BehaviorPopulated()
         {
+            _skillIdentifiers
+                .Setup(x => x.SkillSynergyIdentifier)
+                .Returns(new StringIdentifier("id"));
+            _skillIdentifiers
+                .Setup(x => x.SkillTypeIdentifier)
+                .Returns(new StringIdentifier("skill"));
+
             var skillSynergyDefinitionIds = new IIdentifier[]
             {
             };
@@ -262,6 +286,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         [Fact]
         private void GetSkills_PassiveHasMultipleEnchantmentBehaviors_EnchantmentsAreCombinedWithStateful()
         {
+            _skillIdentifiers
+                .Setup(x => x.SkillSynergyIdentifier)
+                .Returns(new StringIdentifier("id"));
+            _skillIdentifiers
+                .Setup(x => x.SkillTypeIdentifier)
+                .Returns(new StringIdentifier("skill"));
+
             var filterComponent = _mockRepository.Create<IFilterComponent>();
 
             var enchantment1 = _mockRepository.Create<IEnchantment>();
@@ -276,9 +307,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Setup(x => x.Enchantments)
                 .Returns(new[] { enchantment2.Object });
 
+            var statefulEnchantmentDefinitionIds = new[]
+            {
+                new StringIdentifier("stateful enchantment")
+            };
+
             var enchantment3 = _mockRepository.Create<IEnchantment>();
-            _skillDefinitionRepositoryFacade
-                .Setup(x => x.GetSkillDefinitionStatefulEnchantments(new StringIdentifier("skill definition id")))
+            _enchantmentLoader
+                .Setup(x => x.LoadForEnchantmenDefinitionIds(statefulEnchantmentDefinitionIds))
                 .Returns(new[] { enchantment3.Object });
 
             var passiveBehavior = _mockRepository.Create<IPassiveSkillBehavior>();
@@ -316,6 +352,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillDefinition
                 .Setup(x => x.StaticResourceRequirements)
                 .Returns(new Dictionary<IIdentifier, double>());
+            _skillDefinition
+                .Setup(x => x.StatefulEnchantmentDefinitions)
+                .Returns(statefulEnchantmentDefinitionIds);
 
             _skillDefinitionRepositoryFacade
                 .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
@@ -396,6 +435,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         [Fact]
         private void GetSkills_ActiveSkillHasMultipleEnchantmentBehaviors_EnchantmentsAreCombinedWithoutStateless()
         {
+            _skillIdentifiers
+                .Setup(x => x.SkillSynergyIdentifier)
+                .Returns(new StringIdentifier("id"));
+            _skillIdentifiers
+                .Setup(x => x.SkillTypeIdentifier)
+                .Returns(new StringIdentifier("skill"));
+
             var filterComponent = _mockRepository.Create<IFilterComponent>();
 
             var enchantment1 = _mockRepository.Create<IEnchantment>();

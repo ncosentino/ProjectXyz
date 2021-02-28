@@ -17,6 +17,7 @@ namespace ProjectXyz.Plugins.Features.Weather
     {
         private readonly IWeatherFactory _weatherFactory;
         private readonly IWeatherManager _weatherManager;
+        private readonly IWeatherModifiers _weatherModifiers;
         private readonly IRandom _random;
 
         private IWeatherTable _currentWeatherTable;
@@ -26,10 +27,12 @@ namespace ProjectXyz.Plugins.Features.Weather
         public WeatherSystem(
             IWeatherManager weatherManager,
             IWeatherFactory weatherFactory,
+            IWeatherModifiers weatherModifiers,
             IRandom random)
         {
             _weatherManager = weatherManager;
             _weatherFactory = weatherFactory;
+            _weatherModifiers = weatherModifiers;
             _random = random;
             _currentCycleTime = new Interval<double>(0);
             _targetCycleTime = new Interval<double>(0);
@@ -64,9 +67,16 @@ namespace ProjectXyz.Plugins.Features.Weather
                     _random);
 
                 // FIXME: we gotta do better than this casting...
+                var adjustedMinimumDuration = _weatherModifiers.GetMinimumDuration(
+                    nextWeatherEntry.WeatherId,
+                    ((IInterval<double>)nextWeatherEntry.MinimumDuration).Value);
+                var adjustedMaximumDuration = _weatherModifiers.GetMaximumDuration(
+                    nextWeatherEntry.WeatherId,
+                    ((IInterval<double>)nextWeatherEntry.MaximumDuration).Value);
                 _targetCycleTime = new Interval<double>(_random.NextDouble(
-                    ((IInterval<double>)nextWeatherEntry.MinimumDuration).Value,
-                    ((IInterval<double>)nextWeatherEntry.MaximumDuration).Value));
+                    adjustedMinimumDuration,
+                    adjustedMaximumDuration));
+
                 _weatherManager.Weather = _weatherFactory.Create(
                     nextWeatherEntry.WeatherId,
                     _targetCycleTime,
@@ -80,14 +90,17 @@ namespace ProjectXyz.Plugins.Features.Weather
             IWeatherTable weatherTable,
             IRandom random)
         {
-            var totalWeight = weatherTable
+            var adjustedWeights = _weatherModifiers.GetWeights(weatherTable
                 .WeightedEntries
-                .Sum(x => x.Weight);
+                .ToDictionary(
+                    x => x.WeatherId,
+                    x => x.Weight));
+            var totalWeight = adjustedWeights.Sum(x => x.Value);
             var randomRoll = random.NextDouble(0, totalWeight);
             var weightAccumulator = 0d;
             foreach (var entry in weatherTable.WeightedEntries)
             {
-                weightAccumulator += entry.Weight;
+                weightAccumulator += adjustedWeights[entry.WeatherId];
                 if (weightAccumulator >= randomRoll)
                 {
                     return entry;

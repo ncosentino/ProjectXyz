@@ -3,29 +3,34 @@
 using Autofac;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Shared.Framework;
 
-namespace ProjectXyz.Game.Tests
+namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
     public sealed class ActorModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-
-            // FIXME: this kind of thing makes it REALLY hard to know if we 
-            // have the right configuration in this library vs consuming 
-            // libraries (i.e. ProjectXyz -> Macerus -> Macerus Unity). things 
-            // might work great here but they might not have something like 
-            // this registered and they NEED it for things to work as expected
             builder
                 .RegisterType<AdditionalActorBehaviorProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<ActorIdentifiers>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
+    }
+
+    public sealed class ActorIdentifiers : IActorIdentifiers
+    {
+        public IIdentifier FilterContextActorStatsIdentifier { get; } = new StringIdentifier("actor-stats");
+
+        public IIdentifier ActorTypeIdentifier { get; } = new StringIdentifier("actor");
     }
 
     public sealed class AdditionalActorBehaviorProvider : IDiscoverableActorBehaviorsProvider

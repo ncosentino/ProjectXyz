@@ -1,32 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 
 using Autofac;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Game.Interface.Engine;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Skills;
-using ProjectXyz.Shared.Framework;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
-using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Enchantments.Generation;
 
 namespace ConsoleApplication1
 {
@@ -36,21 +27,8 @@ namespace ConsoleApplication1
         {
             var lifetimeScope = new TestLifeTimeScopeFactory().CreateScope();
             var hasEnchantmentsBehaviorFactory = lifetimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
-            var filterContextFactory = lifetimeScope.Resolve<IFilterContextFactory>();
             var enchantmentFactory = lifetimeScope.Resolve<IEnchantmentFactory>();
             var calculationPriorityFactory = lifetimeScope.Resolve<ICalculationPriorityFactory>();
-
-            var skillRepository = lifetimeScope.Resolve<ISkillRepository>();
-            var skill = skillRepository
-                .GetSkills(filterContextFactory
-                    .CreateFilterContextForSingle(new[]
-                    {
-                        new FilterAttribute(
-                            new StringIdentifier("id"),
-                            new IdentifierFilterAttributeValue(new StringIdentifier("passive-skill-stat1")),
-                            true),
-                    }))
-                .Single();
 
             var actorFactory = lifetimeScope.Resolve<IActorFactory>();
             var actor = actorFactory.Create(
@@ -60,7 +38,6 @@ namespace ConsoleApplication1
                 new IBehavior[]
                 {
                     new CanEquipBehavior(new[] { new StringIdentifier("left hand") }),
-                    new HasSkillsBehavior(new[] { skill }),
                 });
 
             var actorEnchantments = actor.GetOnly<IHasEnchantmentsBehavior>();
@@ -109,52 +86,6 @@ namespace ConsoleApplication1
             gameEngine.RunAsync(cancellationTokenSource.Token);
 
             Console.ReadLine();
-        }
-    }
-
-    public sealed class SkillModule : SingleRegistrationModule
-    {
-        protected override void SafeLoad(ContainerBuilder builder)
-        {
-            builder
-                .Register(c =>
-                {
-                    var definitions = new[]
-                    {
-                        new SkillDefinition(
-                            new StringIdentifier("passive-skill-stat1"),
-                            new StringIdentifier("self"), //new StringIdentifier("1x1-front"),
-                            new IIdentifier[]
-                            {
-                            },
-                            new Dictionary<IIdentifier, double>()
-                            {
-                                [new StringIdentifier("stat1")] = 10,
-                            },
-                            new IFilterAttribute[]
-                            {
-                            },
-                            new IFilterComponent[]
-                            {
-                            },
-                            new Dictionary<IIdentifier, double>()
-                            {
-                                // required stats
-                            }),
-                    };
-
-                    var attributeFilter = c.Resolve<IAttributeFilterer>();
-                    var filterContextFactory = c.Resolve<IFilterContextFactory>();
-                    var enchantmentLoader = c.Resolve<IEnchantmentLoader>();
-                    var repository = new InMemorySkillDefinitionRepository(
-                        attributeFilter,
-                        definitions,
-                        filterContextFactory,
-                        enchantmentLoader);
-                    return repository;
-                })
-                .AsImplementedInterfaces()
-                .SingleInstance();
         }
     }
 }

@@ -5,7 +5,6 @@ using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
@@ -14,18 +13,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         public SkillDefinition(
             IIdentifier skillDefinitionId,
             IIdentifier skillTargetModeId,
-            IReadOnlyCollection<IIdentifier> skillSynergyDefinitionIds,
+            IEnumerable<IIdentifier> skillSynergyDefinitionIds,
+            IEnumerable<IIdentifier> statefulEnchantmentDefinitions,
             IEnumerable<KeyValuePair<IIdentifier, double>> stats,
             IEnumerable<IFilterAttribute> supportedAttributes,
             IEnumerable<IFilterComponent> filterComponents,
-            IEnumerable<KeyValuePair<IIdentifier, double>> staticResourceRequirements)
+            IEnumerable<KeyValuePair<IIdentifier, double>> staticResourceRequirements,
+            ISkillIdentifiers skillIdentifiers)
         {
             SkillDefinitionId = skillDefinitionId;
             SkillTargetModeId = skillTargetModeId;
-            SkillSynergyDefinitionIds = skillSynergyDefinitionIds;
+            SkillSynergyDefinitionIds = skillSynergyDefinitionIds.ToArray();
+            StatefulEnchantmentDefinitions = statefulEnchantmentDefinitions.ToArray();
             SupportedAttributes =
                 new FilterAttribute(
-                    new StringIdentifier("id"),
+                    skillIdentifiers.SkillDefinitionIdentifier,
                     new IdentifierFilterAttributeValue(skillDefinitionId),
                     false)
                 .Yield()
@@ -41,6 +43,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         public IIdentifier SkillTargetModeId { get; }
 
         public IReadOnlyCollection<IIdentifier> SkillSynergyDefinitionIds { get; }
+
+        public IReadOnlyCollection<IIdentifier> StatefulEnchantmentDefinitions { get; }
 
         public IReadOnlyDictionary<IIdentifier, double> Stats { get; }
 
