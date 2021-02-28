@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Game.Interface.Mapping;
 
-namespace ProjectXyz.Game.Core.Mapping
+using ProjectXyz.Plugins.Features.Mapping.Api;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
     public sealed class MapLayer : IMapLayer
     {

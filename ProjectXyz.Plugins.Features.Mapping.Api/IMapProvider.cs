@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectXyz.Game.Interface.Mapping
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapProvider
     {

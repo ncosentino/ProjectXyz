@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Game.Core.Mapping;
 
-namespace ProjectXyz.Game.Core.Dependencies.Autofac
+using ProjectXyz.Framework.Autofac;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
 {
     public sealed class MappingModule : SingleRegistrationModule
     {
@@ -10,6 +10,10 @@ namespace ProjectXyz.Game.Core.Dependencies.Autofac
         {
             builder
                 .RegisterType<MapManager>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<MapFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

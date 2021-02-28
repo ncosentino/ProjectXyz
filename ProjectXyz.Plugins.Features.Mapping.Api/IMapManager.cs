@@ -1,6 +1,6 @@
 ﻿using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Game.Interface.Mapping
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapManager : IMapProvider
     {

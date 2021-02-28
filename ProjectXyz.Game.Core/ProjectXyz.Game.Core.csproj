@@ -28,5 +28,6 @@
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
   </ItemGroup>
 </Project>

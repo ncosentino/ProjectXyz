@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.Framework;
 
-namespace ProjectXyz.Game.Interface.Mapping
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
-    public interface IMap
+    public interface IMap : IGameObject
     {
         IIdentifier Id { get; }
 

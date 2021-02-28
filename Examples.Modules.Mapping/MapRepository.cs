@@ -1,6 +1,7 @@
 ﻿using System;
+
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Game.Interface.Mapping;
+using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace Examples.Modules.Mapping
 {

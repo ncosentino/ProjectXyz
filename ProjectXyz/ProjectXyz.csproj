@@ -76,6 +76,8 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Api\ProjectXyz.Plugins.Features.TimeOfDay.Api.csproj" />

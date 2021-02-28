@@ -1,8 +1,9 @@
 ﻿using System;
-using ProjectXyz.Api.Framework;
-using ProjectXyz.Game.Interface.Mapping;
 
-namespace ProjectXyz.Game.Core.Mapping
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Plugins.Features.Mapping.Api;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
     public sealed class MapManager : IMapManager
     {

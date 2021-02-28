@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Game.Interface.Mapping;
+using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Game.Core.Systems
 {
