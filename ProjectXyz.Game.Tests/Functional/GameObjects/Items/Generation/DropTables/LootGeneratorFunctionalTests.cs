@@ -17,7 +17,8 @@ using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Linked;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Standard;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
@@ -290,20 +291,22 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                     .Register(x =>
                     {
                         var timeOfDayManager = x.Resolve<IReadOnlyTimeOfDayManager>();
+                        var itemDropTableFactory = x.Resolve<IItemDropTableFactory>();
+                        var linkedDropTableFactory = x.Resolve<ILinkedDropTableFactory>();
                         return new InMemoryDropTableRepository(new IDropTable[]
                         {
                         // Match NOTHING Table, Generates Exactly 3
-                        new ItemDropTable(
+                        itemDropTableFactory.Create(
                             new StringIdentifier("Not something you will match on"),
                             3,
                             3),
                         // Match Specific Id, Generates Exactly 3
-                        new ItemDropTable(
+                        itemDropTableFactory.Create(
                             new StringIdentifier("Table B"),
                             3,
                             3),
                         // LinkedTo Specific, Still Generates
-                        new LinkedDropTable(
+                        linkedDropTableFactory.Create(
                             new StringIdentifier("Table C"),
                             2,
                             2,
@@ -312,7 +315,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                                 new WightedEntry(1, new StringIdentifier("Table B")),
                             }),
                         // Weather Table, Generates 1
-                        new ItemDropTable(
+                        itemDropTableFactory.Create(
                             new StringIdentifier("Weather Table"),
                             1,
                             1,
@@ -325,7 +328,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             },
                             Enumerable.Empty<IFilterAttribute>()),
                         // Time of Day Table, Generates 1
-                        new ItemDropTable(
+                        itemDropTableFactory.Create(
                             new StringIdentifier("Time of Day Table"),
                             1,
                             1,
@@ -338,7 +341,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
                             },
                             Enumerable.Empty<IFilterAttribute>()),
                         // Actor Stat, Generates 1
-                        new ItemDropTable(
+                        itemDropTableFactory.Create(
                             new StringIdentifier("Actor Stats Table"),
                             1,
                             1,

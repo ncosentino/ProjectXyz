@@ -7,7 +7,6 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Game.Tests.Functional.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors;

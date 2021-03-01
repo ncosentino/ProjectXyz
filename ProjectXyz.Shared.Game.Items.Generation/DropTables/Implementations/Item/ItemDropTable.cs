@@ -3,8 +3,7 @@ using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
-using ProjectXyz.Shared.Framework;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Standard;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item
 {
@@ -20,28 +19,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             DropTableId = dropTableId;
             MinimumGenerateCount = minimumGenerateCount;
             MaximumGenerateCount = maximumGenerateCount;
-            SupportedAttributes = 
-                new FilterAttribute(
-                    new StringIdentifier("drop-table"),
-                    new IdentifierFilterAttributeValue(dropTableId),
-                    false)
-                .Yield()
-                .Concat(supportedAttributes)
-                .ToArray();
+            SupportedAttributes = supportedAttributes.ToArray();
             ProvidedAttributes = providedAttributes.ToArray();
-        }
-
-        public ItemDropTable(
-            IIdentifier dropTableId,
-            int minimumGenerateCount,
-            int maximumGenerateCount)
-            : this(
-                dropTableId,
-                minimumGenerateCount,
-                maximumGenerateCount,
-                Enumerable.Empty<IFilterAttribute>(),
-                Enumerable.Empty<IFilterAttribute>())
-        {
         }
 
         public IIdentifier DropTableId { get; }

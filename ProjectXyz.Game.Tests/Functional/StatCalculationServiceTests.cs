@@ -31,7 +31,7 @@ using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory;
 
-namespace ProjectXyz.Game.Tests.Functional.Enchantments
+namespace ProjectXyz.Game.Tests.Functional
 {
     public sealed class StatCalculationServiceTests
     {

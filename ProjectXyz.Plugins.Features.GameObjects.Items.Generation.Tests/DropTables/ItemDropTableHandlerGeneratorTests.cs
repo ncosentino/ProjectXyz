@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using Moq;
 
 using NexusLabs.Contracts;
-using NexusLabs.Framework;
 
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item;
 using ProjectXyz.Shared.Framework;
 
@@ -76,7 +71,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
                 123,
-                456);
+                456,
+                new IFilterAttribute[] { },
+                new IFilterAttribute[] { });
             var expectedItems = new IGameObject[]
             {
                 _mockRepository.Create<IGameObject>().Object,
@@ -227,6 +224,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _mockRepository.VerifyAll();
         }
 
+        [Fact]
         public void GenerateLoot_NotRequiredContextAttributesTableProvidedAttributes_ExpectedContext()
         {
             var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();

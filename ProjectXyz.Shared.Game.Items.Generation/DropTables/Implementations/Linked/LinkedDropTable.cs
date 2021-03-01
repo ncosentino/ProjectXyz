@@ -3,8 +3,7 @@ using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
-using ProjectXyz.Shared.Framework;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Linked;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {
@@ -22,37 +21,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             MinimumGenerateCount = minimumGenerateCount;
             MaximumGenerateCount = maximumGenerateCount;
             Entries = entries.ToArray();
-            SupportedAttributes =
-                new FilterAttribute(
-                    new StringIdentifier("drop-table"),
-                    new IdentifierFilterAttributeValue(dropTableId),
-                    false)
-                .Yield()
-                .Concat(supportedAttributes)
-                .ToArray();
+            SupportedAttributes = supportedAttributes.ToArray();
             ProvidedAttributes = providedAttributes.ToArray();
-        }
-
-        public LinkedDropTable(
-            IIdentifier dropTableId,
-            int minimumGenerateCount,
-            int maximumGenerateCount,
-            IEnumerable<IWeightedEntry> entries)
-            : this(
-                dropTableId,
-                minimumGenerateCount,
-                maximumGenerateCount,
-                entries,
-                Enumerable.Empty<IFilterAttribute>(),
-                Enumerable.Empty<IFilterAttribute>())
-        {
         }
 
         public IIdentifier DropTableId { get; }
 
-        public int MinimumGenerateCount { get; } = 1;
+        public int MinimumGenerateCount { get; }
 
-        public int MaximumGenerateCount { get; } = 3;
+        public int MaximumGenerateCount { get; }
 
         public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
 

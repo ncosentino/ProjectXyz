@@ -1,34 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using Autofac;
 
-using Autofac;
-
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.CommonBehaviors;
-using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Skills;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
 {
-    public sealed class SkillsModule : Module
+    public sealed class DropTableModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
             builder
-                .RegisterType<SkillIdentifiers>()
+                .RegisterType<DropTableIdentifiers>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
     }
 
-    public sealed class SkillIdentifiers : ISkillIdentifiers
+    public sealed class DropTableIdentifiers : IDropTableIdentifiers
     {
-        public IIdentifier SkillDefinitionIdentifier { get; } = new StringIdentifier("id");
-
-        public IIdentifier SkillTypeIdentifier { get; } = new StringIdentifier("skill");
-
-        public IIdentifier SkillSynergyIdentifier { get; } = new StringIdentifier("id");
+        public IIdentifier FilterContextDropTableIdentifier { get; } = new StringIdentifier("drop-table");
     }
 }
