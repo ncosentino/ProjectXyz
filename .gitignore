@@ -9,6 +9,7 @@ _ReSharper*/
 
 #Ignore thumbnails created by Windows
 Thumbs.db
+
 #Ignore files built by Visual Studio
 *.obj
 *.exe
@@ -32,5 +33,9 @@ obj/
 [Rr]elease*/
 [Tt]est[Rr]esult*
 .vs/
+
 #Nuget packages folder
 packages/
+
+#Tool for rev'ing versions
+!/**/GenerateProjectAssemblyVersion.*
