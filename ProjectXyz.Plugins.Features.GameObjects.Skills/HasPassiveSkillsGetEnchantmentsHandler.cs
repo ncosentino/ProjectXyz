@@ -42,7 +42,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                         skillsTarget,
                         statId,
                         context))
-                    .ToArray();
+                    .ToList();
 
                 var passiveSkillStats = passiveSkillBehaviors
                     .Where(x => x.Owner.Has<IHasStatsBehavior>())
@@ -52,7 +52,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                         context))
                     .ToArray();
                 var statTerm = statDefinitionToTermConverter[statId];
-                var passiveSkillsStatsEnchantment = _enchantmentFactory.Create(
+
+                var enchantmentValue = passiveSkillStats.Sum();
+                var allPassiveSkillEnchantments = passiveSkillsOwnerEnchantments;
+                if (enchantmentValue != 0)
+                {
+                    var passiveSkillsStatsEnchantment = _enchantmentFactory.Create(
                     new IBehavior[]
                     {
                         new EnchantmentTargetBehavior(skillsTarget),
@@ -62,11 +67,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                         },
                         new EnchantmentExpressionBehavior(
                             _calculationPriorityFactory.Create<int>(-1),
-                            $"{statTerm} + {passiveSkillStats.Sum()}")
+                            $"{statTerm} + {enchantmentValue}")
                     });
-                var allPassiveSkillEnchantments = passiveSkillsOwnerEnchantments
-                    .AppendSingle(passiveSkillsStatsEnchantment)
-                    .ToArray();
+                    allPassiveSkillEnchantments.Add(passiveSkillsStatsEnchantment);
+                }
+                
                 return allPassiveSkillEnchantments;
             };
             _enchantmentFactory = enchantmentFactory;

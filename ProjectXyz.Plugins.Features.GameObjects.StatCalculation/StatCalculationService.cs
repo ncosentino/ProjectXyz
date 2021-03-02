@@ -67,15 +67,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation
                 return 0;
             }
 
+            var enchantments = GetEnchantments(
+                gameObject,
+                _ => false,
+                new StringIdentifier("self"),
+                statId,
+                context)
+                .ToArray();
             var statValue = match.CalculateStat(
                 gameObject,
-                GetEnchantments(
-                    gameObject,
-                    _ => false,
-                    new StringIdentifier("self"),
-                    statId,
-                    context)
-                    .ToArray(),
+                enchantments,
                 statId,
                 context);
             return statValue;
