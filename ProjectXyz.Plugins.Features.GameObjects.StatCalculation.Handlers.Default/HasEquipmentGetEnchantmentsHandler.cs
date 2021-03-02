@@ -47,7 +47,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                         equipmentTarget,
                         statId,
                         context))
-                    .ToArray();
+                    .ToList();
 
                 var equipmentStats = equipment
                     .Where(x => x.Owner.Has<IHasStatsBehavior>())
@@ -56,10 +56,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                         statId,
                         context))
                     .ToArray();
-                var statTerm = statDefinitionToTermConverter[statId];
-                var baseEquipmentStatsEnchantment = _enchantmentFactory.Create(
-                    new IBehavior[]
-                    {
+                var enchantmentValue = equipmentStats.Sum();
+
+                var allEquipmentEnchantments = equipmentOwnerEnchantments;
+                if (enchantmentValue != 0)
+                {
+                    var statTerm = statDefinitionToTermConverter[statId];
+                    var baseEquipmentStatsEnchantment = _enchantmentFactory.Create(
+                        new IBehavior[]
+                        {
                         new EnchantmentTargetBehavior(equipmentTarget),
                         new HasStatDefinitionIdBehavior()
                         {
@@ -67,11 +72,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                         },
                         new EnchantmentExpressionBehavior(
                             _calculationPriorityFactory.Create<int>(-1),
-                            $"{statTerm} + {equipmentStats.Sum()}")
-                    });
-                var allEquipmentEnchantments = equipmentOwnerEnchantments
-                    .AppendSingle(baseEquipmentStatsEnchantment)
-                    .ToArray();
+                            $"{statTerm} + {enchantmentValue}")
+                        });
+                    allEquipmentEnchantments.Add(baseEquipmentStatsEnchantment);
+                }
+
                 return allEquipmentEnchantments;
             };
             _calculationPriorityFactory = calculationPriorityFactory;
