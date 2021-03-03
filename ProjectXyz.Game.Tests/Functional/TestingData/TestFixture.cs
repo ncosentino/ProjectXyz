@@ -14,7 +14,9 @@ using ProjectXyz.Plugins.Features.ElapsedTime;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
+using ProjectXyz.Plugins.Features.GameObjects.Skills;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
+using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.Handlers;
 using ProjectXyz.Testing;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
@@ -32,6 +34,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             TriggerMechanicRegistrar = LifeTimeScope.Resolve<ITriggerMechanicRegistrar>();
             ActiveEnchantmentManagerFactory = LifeTimeScope.Resolve<IActiveEnchantmentManagerFactory>();
             HasEnchantmentsBehaviorFactory = LifeTimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
+            HasMutableStatsBehaviorFactory = LifeTimeScope.Resolve<IHasMutableStatsBehaviorFactory>();
             StateContextProvider = LifeTimeScope.Resolve<IStateContextProvider>();
             StatManagerFactory = LifeTimeScope.Resolve<IStatManagerFactory>();
             ContextConverter = LifeTimeScope.Resolve<IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>>();
@@ -41,6 +44,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             StatCalculationService = LifeTimeScope.Resolve<IStatCalculationService>();
             CalculationPriorityFactory = LifeTimeScope.Resolve<ICalculationPriorityFactory>();
             ItemSetManager = LifeTimeScope.Resolve<IItemSetManager>();
+            SkillFactory = LifeTimeScope.Resolve<ISkillFactory>();
+            ComponentsForTargetComponentFactory = LifeTimeScope.Resolve<IComponentsForTargetComponentFactory>();
             EnchantmentFactory = new ExpressionEnchantmentFactory(LifeTimeScope.Resolve<IEnchantmentFactory>());
         }
         #endregion
@@ -56,6 +61,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
         public IActorFactory ActorFactory { get; }
 
+        public ISkillFactory SkillFactory { get; }
+
         public IStatManagerFactory StatManagerFactory { get; }
 
         public ITriggerMechanicRegistrar TriggerMechanicRegistrar { get; }
@@ -64,7 +71,11 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
         public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
 
+        public IHasMutableStatsBehaviorFactory HasMutableStatsBehaviorFactory { get; }
+
         public IHasEnchantmentsBehaviorFactory HasEnchantmentsBehaviorFactory { get; }
+
+        public IComponentsForTargetComponentFactory ComponentsForTargetComponentFactory { get; }
 
         public IEnchantmentCalculator EnchantmentCalculator { get; }
 

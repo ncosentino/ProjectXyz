@@ -2,7 +2,7 @@
 
 using ProjectXyz.Framework.Autofac;
 
-namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
+namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.Autofac
 {
     public sealed class HandlersModule : SingleRegistrationModule
     {
@@ -22,6 +22,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                 .SingleInstance();
             builder
                 .RegisterType<HasStatsStatCalculatorHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ComponentsHandlerFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ComponentsForTargetComponentHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ComponentsForTargetComponentFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

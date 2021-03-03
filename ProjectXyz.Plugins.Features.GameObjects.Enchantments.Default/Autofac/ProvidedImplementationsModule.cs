@@ -46,6 +46,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<OverrideBaseStatComponentHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .Register(c =>
                 {
                     var contextToInterceptorsConverter = new ContextToInterceptorsConverter();

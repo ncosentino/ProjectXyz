@@ -1,35 +1,36 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Autofac;
 
 using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.Enchantments.Generation;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Stats;
+using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Skills;
+using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 
 using Xunit;
-using ProjectXyz.Api.Framework;
-using System.Collections.Generic;
-using ProjectXyz.Shared.Game.Behaviors;
-using ProjectXyz.Api.Framework.Events;
-using System;
-using ProjectXyz.Api.Enchantments.Generation;
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
-using ProjectXyz.Framework.Autofac;
-using Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
-using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory;
 
 namespace ProjectXyz.Game.Tests.Functional
 {
@@ -40,6 +41,230 @@ namespace ProjectXyz.Game.Tests.Functional
         static StatCalculationServiceTests()
         {
             _fixture = new TestFixture(new TestData());
+        }
+
+        [Fact]
+        private void GetStatValue_ContextEnchantmentLowPriorityAndBuffEnchantmentHighPriority_ExpectedStat()
+        {
+            var statId = new StringIdentifier("Stat A");
+            var statTerm = new StringIdentifier("STAT_A");
+
+            var contextEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"10",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MinValue),
+                    new EnchantmentTargetBehavior(new StringIdentifier("self")));
+            var buffEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} * 2",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue),
+                    new EnchantmentTargetBehavior(new StringIdentifier("self")));
+
+            var actor = _fixture.ActorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior(),
+                Enumerable.Empty<IBehavior>());
+            actor
+                .GetOnly<IHasEnchantmentsBehavior>()
+                .AddEnchantments(buffEnchantment);
+
+            var context = new StatCalculationContext(
+                new IComponent[0],
+                new IEnchantment[] { contextEnchantment });
+            var statCalculationService = _fixture.StatCalculationService;
+            Assert.Equal(
+                20,
+                statCalculationService.GetStatValue(actor, statId, context));
+        }
+
+        [Fact]
+        private void GetStatValue_ContextEnchantmentHighPriorityAndBuffEnchantmentLowPriority_ExpectedStat()
+        {
+            var statId = new StringIdentifier("Stat A");
+            var statTerm = new StringIdentifier("STAT_A");
+
+            var contextEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"10",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue),
+                    new EnchantmentTargetBehavior(new StringIdentifier("self")));
+            var buffEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} * 2",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MinValue),
+                    new EnchantmentTargetBehavior(new StringIdentifier("self")));
+
+            var actor = _fixture.ActorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior(),
+                Enumerable.Empty<IBehavior>());
+            actor
+                .GetOnly<IHasEnchantmentsBehavior>()
+                .AddEnchantments(buffEnchantment);
+
+            var context = new StatCalculationContext(
+                new IComponent[0],
+                new IEnchantment[] { contextEnchantment });
+            var statCalculationService = _fixture.StatCalculationService;
+            Assert.Equal(
+                10,
+                statCalculationService.GetStatValue(actor, statId, context));
+        }
+
+        [Fact]
+        private void GetStatValue_ContextComponentLowPriorityAndPassiveSkillEnchantmentsHighPriority_ExpectedStat()
+        {
+            var statId = new StringIdentifier("Stat A");
+            var statTerm = new StringIdentifier("STAT_A");
+
+            var passiveEnchantment1 = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} * 3",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue - 1),
+                    new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+            var passiveEnchantment2 = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} + 2",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue),
+                    new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+            var skill = _fixture
+                .SkillFactory
+                .Create(
+                    new TypeIdentifierBehavior(new StringIdentifier("skill")),
+                    new TemplateIdentifierBehavior(new StringIdentifier("skill")),
+                    new IdentifierBehavior(new StringIdentifier("skill")),
+                    new SkillResourceUsageBehavior(Enumerable.Empty<KeyValuePair<IIdentifier, double>>()),
+                    _fixture.HasMutableStatsBehaviorFactory.Create(),
+                    new SkillTargetModeBehavior(new StringIdentifier("xxx")),
+                    new HasSkillSynergiesBehavior(Enumerable.Empty<IGameObject>()),
+                    _fixture.HasEnchantmentsBehaviorFactory.Create(),
+                    new SkillPrerequisitesBehavior(Enumerable.Empty<IFilterAttribute>()),
+                    new SkillRequirementsBehavior(Enumerable.Empty<IFilterAttribute>()),
+                    new IBehavior[]
+                    {
+                        new PassiveSkillBehavior(),
+                    });
+            skill
+                .GetOnly<IHasEnchantmentsBehavior>()
+                .AddEnchantments(new[]
+                {
+                    passiveEnchantment1,
+                    passiveEnchantment2,
+                });
+
+            var actor = _fixture.ActorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior(new StringIdentifier("actor")),
+                new[] { new HasSkillsBehavior() });
+            actor
+                .GetOnly<IHasSkillsBehavior>()
+                .Add(new[] { skill });
+
+            var context = new StatCalculationContext(
+                new IComponent[]
+                {
+                    _fixture.ComponentsForTargetComponentFactory.Create(
+                        actor,
+                        new[]
+                        {
+                            new OverrideBaseStatComponent(
+                            statId,
+                            11,
+                            int.MinValue),
+                        }),
+                },
+                new IEnchantment[] { });
+            var statCalculationService = _fixture.StatCalculationService;
+            Assert.Equal(
+                35,
+                statCalculationService.GetStatValue(actor, statId, context));
+        }
+
+        [Fact]
+        private void GetStatValue_ContextComponentAndPassiveSkillEnchantmentsWithBaseStats_ExpectedStat()
+        {
+            var statId = new StringIdentifier("Stat A");
+            var statTerm = new StringIdentifier("STAT_A");
+
+            var passiveEnchantment = _fixture
+                .EnchantmentFactory
+                .CreateExpressionEnchantment(
+                    statId,
+                    $"{statTerm} * 3",
+                    _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue - 1),
+                    new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+            var skill = _fixture
+                .SkillFactory
+                .Create(
+                    new TypeIdentifierBehavior(new StringIdentifier("skill")),
+                    new TemplateIdentifierBehavior(new StringIdentifier("skill")),
+                    new IdentifierBehavior(new StringIdentifier("skill")),
+                    new SkillResourceUsageBehavior(Enumerable.Empty<KeyValuePair<IIdentifier, double>>()),
+                    _fixture.HasMutableStatsBehaviorFactory.Create(),
+                    new SkillTargetModeBehavior(new StringIdentifier("xxx")),
+                    new HasSkillSynergiesBehavior(Enumerable.Empty<IGameObject>()),
+                    _fixture.HasEnchantmentsBehaviorFactory.Create(),
+                    new SkillPrerequisitesBehavior(Enumerable.Empty<IFilterAttribute>()),
+                    new SkillRequirementsBehavior(Enumerable.Empty<IFilterAttribute>()),
+                    new IBehavior[]
+                    {
+                        new PassiveSkillBehavior(),
+                    });
+            skill
+                .GetOnly<IHasEnchantmentsBehavior>()
+                .AddEnchantments(new[]
+                {
+                    passiveEnchantment,
+                });
+            skill
+                .GetOnly<IHasMutableStatsBehavior>()
+                .MutateStats(stats =>
+                {
+                    stats[statId] = 7;
+                });
+
+            var actor = _fixture.ActorFactory.Create(
+                new TypeIdentifierBehavior(),
+                new TemplateIdentifierBehavior(),
+                new IdentifierBehavior(new StringIdentifier("actor")),
+                new[] { new HasSkillsBehavior() });
+            actor
+                .GetOnly<IHasSkillsBehavior>()
+                .Add(new[] { skill });
+
+            var context = new StatCalculationContext(
+                new IComponent[]
+                {
+                    _fixture.ComponentsForTargetComponentFactory.Create(
+                        actor,
+                        new[]
+                        {
+                            new OverrideBaseStatComponent(
+                            statId,
+                            3,
+                            int.MinValue),
+                        }),
+                },
+                new IEnchantment[] { });
+            var statCalculationService = _fixture.StatCalculationService;
+            Assert.Equal(
+                30,
+                statCalculationService.GetStatValue(actor, statId, context));
         }
 
         [Fact]
@@ -120,24 +345,9 @@ namespace ProjectXyz.Game.Tests.Functional
 
             inventory.TryAddItem(inventoryItem);
 
-            var itemStats = item.GetOnly<IHasStatsBehavior>();
-            var actorStats = actor.GetOnly<IHasStatsBehavior>();
-            var inventoryItemStats = inventoryItem.GetOnly<IHasStatsBehavior>();
-
-            var context = new StatCalculationContext(
-                new IComponent[0],
-                new IEnchantment[0]);
-
-            var statCalculationService = _fixture.StatCalculationService;
-            Assert.Equal(
-                20,
-                statCalculationService.GetStatValue(item, statId, context));
-            Assert.Equal(
-                10,
-                statCalculationService.GetStatValue(inventoryItem, statId, context));
-            Assert.Equal(
-                29,
-                statCalculationService.GetStatValue(actor, statId, context));
+            AssertStat(item, statId, 20);
+            AssertStat(inventoryItem, statId, 10);
+            AssertStat(actor, statId, 29);
         }
 
         [Fact]
@@ -210,24 +420,9 @@ namespace ProjectXyz.Game.Tests.Functional
                     equipSlotId,
                     equippable);
 
-            var canBeSocketedItemStats = canBeSocketedItem.GetOnly<IHasStatsBehavior>();
-            var actorStats = actor.GetOnly<IHasStatsBehavior>();
-            var canFitSocketItemStats = canFitSocketItem.GetOnly<IHasStatsBehavior>();
-
-            var context = new StatCalculationContext(
-                new IComponent[0],
-                new IEnchantment[0]);
-
-            var statCalculationService = _fixture.StatCalculationService;
-            Assert.Equal(
-                15,
-                statCalculationService.GetStatValue(canBeSocketedItem, statId, context));
-            Assert.Equal(
-                10,
-                statCalculationService.GetStatValue(canFitSocketItem, statId, context));
-            Assert.Equal(
-                15,
-                statCalculationService.GetStatValue(actor, statId, context));
+            AssertStat(canBeSocketedItem, statId, 15);
+            AssertStat(canFitSocketItem, statId, 10);
+            AssertStat(actor, statId, 15);
         }
 
         [Fact]
@@ -432,14 +627,10 @@ namespace ProjectXyz.Game.Tests.Functional
             IIdentifier statdefinitionId,
             double expectedValue)
         {
-            var context = new StatCalculationContext(
-                new IComponent[0],
-                new IEnchantment[0]);
             var statCalculationService = _fixture.StatCalculationService;
             var actualValue = statCalculationService.GetStatValue(
                 obj,
-                statdefinitionId,
-                context);
+                statdefinitionId);
             Assert.True(
                 expectedValue == actualValue,
                 $"Stat '{statdefinitionId}' on '{obj}' was incorrect\r\n" +

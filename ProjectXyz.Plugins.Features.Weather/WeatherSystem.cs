@@ -67,12 +67,13 @@ namespace ProjectXyz.Plugins.Features.Weather
                     _random);
 
                 // FIXME: we gotta do better than this casting...
-                var adjustedMinimumDuration = _weatherModifiers.GetMinimumDuration(
-                    nextWeatherEntry.WeatherId,
-                    ((IInterval<double>)nextWeatherEntry.MinimumDuration).Value);
                 var adjustedMaximumDuration = _weatherModifiers.GetMaximumDuration(
                     nextWeatherEntry.WeatherId,
                     ((IInterval<double>)nextWeatherEntry.MaximumDuration).Value);
+                var adjustedMinimumDuration = _weatherModifiers.GetMinimumDuration(
+                    nextWeatherEntry.WeatherId,
+                    ((IInterval<double>)nextWeatherEntry.MinimumDuration).Value,
+                    adjustedMaximumDuration);
                 _targetCycleTime = new Interval<double>(_random.NextDouble(
                     adjustedMinimumDuration,
                     adjustedMaximumDuration));

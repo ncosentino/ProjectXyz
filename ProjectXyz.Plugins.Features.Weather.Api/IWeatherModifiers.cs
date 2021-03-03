@@ -10,7 +10,8 @@ namespace ProjectXyz.Plugins.Features.Weather.Api
 
         double GetMinimumDuration(
             IIdentifier weatherId,
-            double baseMinimumDuration);
+            double baseMinimumDuration,
+            double maximumDuration);
 
         double GetMaximumDuration(
             IIdentifier weatherId,
