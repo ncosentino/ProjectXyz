@@ -23,7 +23,21 @@ namespace ProjectXyz.Plugins.Stats
             _mapping = mapping.ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public string this[IIdentifier key] => _mapping[key];
+        public string this[IIdentifier key]
+        {
+            get
+            {
+                if (!_mapping.TryGetValue(
+                    key,
+                    out var value))
+                {
+                    throw new KeyNotFoundException(
+                        $"Could not find stat definition ID '{key}' in the mapping.");
+                }
+
+                return value;
+            }
+        }
 
         public IEnumerable<IIdentifier> Keys => _mapping.Keys;
 
