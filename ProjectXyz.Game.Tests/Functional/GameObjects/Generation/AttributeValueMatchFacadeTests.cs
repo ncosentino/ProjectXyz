@@ -112,6 +112,16 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
             private IEnumerable<TestScenario> Generate()
             {
                 yield return new TestScenario(
+                    "Matches True == num1",
+                    new TrueAttributeFilterValue(),
+                    new DoubleFilterAttributeValue(123),
+                    true);
+                yield return new TestScenario(
+                    "No Match True == num1",
+                    new FalseAttributeFilterValue(),
+                    new DoubleFilterAttributeValue(123),
+                    false);
+                yield return new TestScenario(
                     "Throws str1 == num1",
                     new StringFilterAttributeValue("value"),
                     new DoubleFilterAttributeValue(123),

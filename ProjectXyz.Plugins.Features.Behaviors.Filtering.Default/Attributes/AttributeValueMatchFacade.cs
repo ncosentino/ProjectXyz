@@ -8,10 +8,12 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
     public sealed class AttributeValueMatchFacade : IAttributeValueMatchFacade
     {
         private readonly Dictionary<Tuple<Type, Type>, AttributeValueMatchDelegate> _mapping;
+        private readonly List<Tuple<AttributeValueMatchDelegate, AttributeValueMatchDelegate>> _delegateMapping;
 
         public AttributeValueMatchFacade()
         {
             _mapping = new Dictionary<Tuple<Type, Type>, AttributeValueMatchDelegate>();
+            _delegateMapping = new List<Tuple<AttributeValueMatchDelegate, AttributeValueMatchDelegate>>();
         }
 
         public void Register<T1, T2>(GenericAttributeValueMatchDelegate<T1, T2> callback)
@@ -21,6 +23,13 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
             _mapping.Add(
                 new Tuple<Type, Type>(typeof(T1), typeof(T2)),
                 (v1, v2) => callback((T1)v1, (T2)v2));
+        }
+
+        public void Register(
+            AttributeValueMatchDelegate canMatchCallback,
+            AttributeValueMatchDelegate callback)
+        {
+            _delegateMapping.Add(Tuple.Create(canMatchCallback, callback));
         }
 
         public bool Match(
@@ -59,6 +68,15 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes
                             matchCallback = entry.Value;
                             break;
                         }
+                    }
+                }
+
+                foreach (var entry in _delegateMapping)
+                {
+                    if (entry.Item1(v1, v2))
+                    {
+                        matchCallback = entry.Item2;
+                        break;
                     }
                 }
 

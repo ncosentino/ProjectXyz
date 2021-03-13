@@ -36,6 +36,12 @@ namespace ProjectXyz.Shared.Behaviors.Filtering.Autofac
                 .OnActivated(x =>
                 {
                     var attributeValueMatchFacade = x.Instance;
+                    attributeValueMatchFacade.Register(
+                        (v1, v2) => v1 is TrueAttributeFilterValue || v2 is TrueAttributeFilterValue,
+                        (v1, v2) => true);
+                    attributeValueMatchFacade.Register(
+                        (v1, v2) => v1 is FalseAttributeFilterValue || v2 is FalseAttributeFilterValue,
+                        (v1, v2) => false);
                     attributeValueMatchFacade.Register<
                         NotFilterAttributeValue,
                         IFilterAttributeValue>(
