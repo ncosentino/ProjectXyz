@@ -1,4 +1,7 @@
 ﻿using Autofac;
+
+using Examples.Modules.GameObjects;
+
 using ProjectXyz.Framework.Autofac;
 
 namespace Examples.Modules.Mapping
@@ -9,6 +12,10 @@ namespace Examples.Modules.Mapping
         {
             builder
                 .RegisterType<MapRepository>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<MapGameObjectRepository>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Api.GameObjects;
 
-namespace ProjectXyz.Game.Core.GameObjects
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Mapping.Api;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
-    public sealed class GameObjectManager : IMutableGameObjectManager
+    public sealed class MapGameObjectManager : IMapGameObjectManager
     {
         private readonly HashSet<IGameObject> _gameObjects;
         private readonly HashSet<IGameObject> _gameObjectsToRemove;
         private readonly HashSet<IGameObject> _gameObjectsToAdd;
 
-        public GameObjectManager()
+        public MapGameObjectManager()
         {
             _gameObjects = new HashSet<IGameObject>();
             _gameObjectsToRemove = new HashSet<IGameObject>();

@@ -36,6 +36,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
   </ItemGroup>
 </Project>

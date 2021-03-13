@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectXyz.Api.GameObjects
+using ProjectXyz.Api.GameObjects;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
-    public interface IMutableGameObjectManager : IGameObjectManager
+    public interface IMapGameObjectManager : IReadOnlyMapGameObjectManager
     {
         void MarkForRemoval(params IGameObject[] gameObjects);
 

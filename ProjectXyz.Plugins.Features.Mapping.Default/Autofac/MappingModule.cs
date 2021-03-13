@@ -9,6 +9,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+                .RegisterType<MapGameObjectManagerSystem>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<MapGameObjectManager>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<MapManager>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

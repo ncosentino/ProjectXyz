@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectXyz.Api.GameObjects
+using ProjectXyz.Api.GameObjects;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public sealed class GameObjectsSynchronizedEventArgs : EventArgs
     {

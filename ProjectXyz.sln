@@ -158,8 +158,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{9FC699C8-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Shared.Game.Behaviors", "ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj", "{229057A2-508F-4CDE-8F87-DA3FAB069D06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.GameObjects", "Examples.Modules.GameObjects\Examples.Modules.GameObjects.csproj", "{43D9F449-C568-4A39-80F8-11200C07814E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.Mapping", "Examples.Modules.Mapping\Examples.Modules.Mapping.csproj", "{11FF2C70-2C4F-403B-AC53-247BDB063777}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Logging", "ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj", "{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}"
@@ -308,9 +306,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapping", "Mapping", "{3EA3B906-92E4-4ED7-B955-E534E4FE7481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Mapping.Api", "ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj", "{59EA8234-53A4-498C-A04C-8878A5C593E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Api", "ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj", "{59EA8234-53A4-498C-A04C-8878A5C593E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Mapping.Default", "ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj", "{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Default", "ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj", "{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -510,10 +508,6 @@ Global
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43D9F449-C568-4A39-80F8-11200C07814E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43D9F449-C568-4A39-80F8-11200C07814E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43D9F449-C568-4A39-80F8-11200C07814E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43D9F449-C568-4A39-80F8-11200C07814E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -785,7 +779,6 @@ Global
 		{C1C9D171-58F9-41E9-B816-C0F287D6F2CA} = {0F769E14-559C-4A23-BA23-20CECD2636A6}
 		{9FC699C8-887A-4FB4-B8C3-3075EF23553B} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
-		{43D9F449-C568-4A39-80F8-11200C07814E} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{11FF2C70-2C4F-403B-AC53-247BDB063777} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D} = {440A7AA9-5891-4505-898C-72E74B4EC02C}
 		{440A7AA9-5891-4505-898C-72E74B4EC02C} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}

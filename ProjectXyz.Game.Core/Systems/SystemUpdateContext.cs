@@ -13,6 +13,5 @@ namespace ProjectXyz.Game.Core.Systems
         }
 
         public IComponentCollection Components { get; }
-
     }
 }

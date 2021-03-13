@@ -8,21 +8,22 @@ using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
+using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
 {
     public sealed class ActorStatFilterAttributeValueProvider : IFilterAttributeValue
     {
-        private readonly IGameObjectManager _gameObjectManager;
+        private readonly IMapGameObjectManager _mapGameObjectManager;
         private readonly IStatCalculationService _statCalculationService;
         private readonly IStatCalculationContextFactory _statCalculationContextFactory;
 
         public ActorStatFilterAttributeValueProvider(
-            IGameObjectManager gameObjectManager,
+            IMapGameObjectManager mapGameObjectManager,
             IStatCalculationService statCalculationService,
             IStatCalculationContextFactory statCalculationContextFactory)
         {
-            _gameObjectManager = gameObjectManager;
+            _mapGameObjectManager = mapGameObjectManager;
             _statCalculationService = statCalculationService;
             _statCalculationContextFactory = statCalculationContextFactory;
         }
@@ -34,7 +35,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
         {
             statValue = 0;
 
-            var actor = _gameObjectManager
+            var actor = _mapGameObjectManager
                 .GameObjects
                 .FirstOrDefault(x => x
                 .Get<IIdentifierBehavior>()

@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ProjectXyz.Api.GameObjects;
+
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Core.Systems;
 using ProjectXyz.Game.Interface.Engine;
+using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Game.Core.Engine
 {
@@ -15,12 +16,12 @@ namespace ProjectXyz.Game.Core.Engine
         IGameEngine
     {
         private readonly ILogger _logger;
-        private readonly IGameObjectManager _gameObjectManager;
+        private readonly IReadOnlyMapGameObjectManager _gameObjectManager;
         private readonly IReadOnlyCollection<ISystem> _systems;
         private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
 
         public GameEngine(
-            IGameObjectManager gameObjectManager,
+            IReadOnlyMapGameObjectManager gameObjectManager,
             IEnumerable<ISystem> systems,
             IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators,
             ILogger logger)

@@ -16,6 +16,7 @@ using ProjectXyz.Plugins.Features.ExpiringEnchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.Mapping.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
@@ -78,7 +79,7 @@ namespace ConsoleApplication1
                 item.Behaviors.GetFirst<ICanBeEquippedBehavior>());
 
             lifetimeScope
-                .Resolve<IMutableGameObjectManager>()
+                .Resolve<IMapGameObjectManager>()
                 .MarkForAddition(actor);
 
             var cancellationTokenSource = new CancellationTokenSource();

@@ -21,7 +21,7 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Jace" Version="0.8.7" />
     <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="ProjectXyz" Version="1.0.7732.9465" />
+    <PackageReference Include="ProjectXyz" Version="1.0.7742.5889" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -29,7 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Examples.Modules.BoundedStats\Examples.Modules.BoundedStats.csproj" />
     <ProjectReference Include="..\Examples.Modules.ExpressionEnchantments\Examples.Modules.ExpressionEnchantments.csproj" />
-    <ProjectReference Include="..\Examples.Modules.GameObjects\Examples.Modules.GameObjects.csproj" />
     <ProjectReference Include="..\Examples.Modules.Mapping\Examples.Modules.Mapping.csproj" />
     <ProjectReference Include="..\Examples.Modules.StateEnchantments\Examples.Modules.StateEnchantments.csproj" />
     <ProjectReference Include="..\Examples.Modules.Stats\Examples.Modules.Stats.csproj" />

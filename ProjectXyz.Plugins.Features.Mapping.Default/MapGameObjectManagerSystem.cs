@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
-namespace ProjectXyz.Game.Core.Systems
+namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
-    public sealed class GameObjectManagerSystem : ISystem
+    public sealed class MapGameObjectManagerSystem : ISystem
     {
-        private readonly IMutableGameObjectManager _mutableGameObjectManager;
+        private readonly IMapGameObjectManager _mutableGameObjectManager;
         private readonly IMapManager _mapManager;
-        private readonly IGameObjectRepository _gameObjectRepository;
+        private readonly IMapGameObjectRepository _gameObjectRepository;
 
-        public GameObjectManagerSystem(
-            IMutableGameObjectManager mutableGameObjectManager,
+        public MapGameObjectManagerSystem(
+            IMapGameObjectManager mutableGameObjectManager,
             IMapManager mapManager,
-            IGameObjectRepository gameObjectRepository)
+            IMapGameObjectRepository gameObjectRepository)
         {
             _mutableGameObjectManager = mutableGameObjectManager;
             _mapManager = mapManager;

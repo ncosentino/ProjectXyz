@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProjectXyz.Api.GameObjects
+using ProjectXyz.Api.GameObjects;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
-    public interface IGameObjectManager
+    public interface IReadOnlyMapGameObjectManager
     {
         event EventHandler<GameObjectsSynchronizedEventArgs> Synchronized;
 
