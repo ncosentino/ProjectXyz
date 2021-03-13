@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
@@ -11,14 +11,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
     {
         public ItemDefinition(
             IEnumerable<IFilterAttribute> attributes,
-            IEnumerable<IFilterComponent> filterComponents)
+            IEnumerable<IGeneratorComponent> filterComponents)
         {
             SupportedAttributes = attributes.ToArray();
-            FilterComponents = filterComponents.ToArray();
+            GeneratorComponents = filterComponents.ToArray();
         }
 
         public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
 
-        public IEnumerable<IFilterComponent> FilterComponents { get; }
+        public IEnumerable<IGeneratorComponent> GeneratorComponents { get; }
     }
 }

@@ -9,7 +9,6 @@ using Autofac;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
@@ -62,7 +61,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 },
                 new object[]
                 {
-                    new FilterComponent(new[]
+                    new HasFilterAttributes(new[]
                     {
                         new FilterAttribute(
                             new StringIdentifier("attr1"),
@@ -75,9 +74,9 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     }),
                     new Action<object>(result =>
                     {
-                        Assert.IsType<FilterComponent>(result);
+                        Assert.IsType<HasFilterAttributes>(result);
 
-                        var filterComponent = (FilterComponent)result;
+                        var filterComponent = (HasFilterAttributes)result;
                         Assert.Equal(2, filterComponent.SupportedAttributes.Count());
 
                         var firstAttribute = filterComponent.SupportedAttributes.First();
@@ -119,5 +118,20 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
+    }
+
+    public sealed class HasFilterAttributes : IHasFilterAttributes
+    {
+        public HasFilterAttributes()
+            : this(Enumerable.Empty<IFilterAttribute>())
+        {
+        }
+
+        public HasFilterAttributes(IEnumerable<IFilterAttribute> supportedAttributes)
+        {
+            SupportedAttributes = supportedAttributes;
+        }
+
+        public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
     }
 }

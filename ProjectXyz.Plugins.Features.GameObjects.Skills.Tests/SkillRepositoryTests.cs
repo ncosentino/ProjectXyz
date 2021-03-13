@@ -11,6 +11,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -37,7 +38,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         private readonly Mock<IHasEnchantmentsBehaviorFactory> _hasEnchantmentsBehaviorFactory;
         private readonly Mock<IHasMutableStatsBehaviorFactory> _hasMutableStatsBehaviorFactory;
         private readonly Mock<ISkillFactory> _skillFactory;
-        private readonly Mock<IFilterComponentToBehaviorConverter> _filterComponentToBehaviorConverter;
+        private readonly Mock<IGeneratorComponentToBehaviorConverter> _filterComponentToBehaviorConverter;
         private readonly Mock<IEnchantmentLoader> _enchantmentLoader;
         private readonly Mock<ISkillIdentifiers> _skillIdentifiers;
         private readonly Mock<IEnchantmentIdentifiers> _enchantmentIdentifiers;
@@ -51,7 +52,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _hasEnchantmentsBehaviorFactory = _mockRepository.Create<IHasEnchantmentsBehaviorFactory>();
             _hasMutableStatsBehaviorFactory = _mockRepository.Create<IHasMutableStatsBehaviorFactory>();
             _skillFactory = _mockRepository.Create<ISkillFactory>();
-            _filterComponentToBehaviorConverter = _mockRepository.Create<IFilterComponentToBehaviorConverter>();
+            _filterComponentToBehaviorConverter = _mockRepository.Create<IGeneratorComponentToBehaviorConverter>();
             _enchantmentLoader = _mockRepository.Create<IEnchantmentLoader>();
             _skillIdentifiers = _mockRepository.Create<ISkillIdentifiers>();
             _enchantmentIdentifiers = _mockRepository.Create<IEnchantmentIdentifiers>();
@@ -106,7 +107,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(skillSynergyDefinitionIds);
             _skillDefinition
                 .Setup(x => x.FilterComponents)
-                .Returns(new IFilterComponent[] { });
+                .Returns(new IGeneratorComponent[] { });
             _skillDefinition
                 .Setup(x => x.Stats)
                 .Returns(new Dictionary<IIdentifier, double>());
@@ -199,7 +200,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(skillSynergyDefinitionIds);
             _skillDefinition
                 .Setup(x => x.FilterComponents)
-                .Returns(new IFilterComponent[] { });
+                .Returns(new IGeneratorComponent[] { });
             _skillDefinition
                 .Setup(x => x.Stats)
                 .Returns(new Dictionary<IIdentifier, double>()
@@ -293,7 +294,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Setup(x => x.SkillTypeIdentifier)
                 .Returns(new StringIdentifier("skill"));
 
-            var filterComponent = _mockRepository.Create<IFilterComponent>();
+            var filterComponent = _mockRepository.Create<IGeneratorComponent>();
 
             var enchantment1 = _mockRepository.Create<IEnchantment>();
             var enchantmentsBehavior1 = _mockRepository.Create<IHasEnchantmentsBehavior>();
@@ -336,7 +337,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(skillSynergyDefinitionIds);
             _skillDefinition
                 .Setup(x => x.FilterComponents)
-                .Returns(new IFilterComponent[] 
+                .Returns(new IGeneratorComponent[] 
                 {
                     filterComponent.Object,
                 });
@@ -442,7 +443,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Setup(x => x.SkillTypeIdentifier)
                 .Returns(new StringIdentifier("skill"));
 
-            var filterComponent = _mockRepository.Create<IFilterComponent>();
+            var filterComponent = _mockRepository.Create<IGeneratorComponent>();
 
             var enchantment1 = _mockRepository.Create<IEnchantment>();
             var enchantmentsBehavior1 = _mockRepository.Create<IHasEnchantmentsBehavior>();
@@ -472,7 +473,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(skillSynergyDefinitionIds);
             _skillDefinition
                 .Setup(x => x.FilterComponents)
-                .Returns(new IFilterComponent[]
+                .Returns(new IGeneratorComponent[]
                 {
                     filterComponent.Object,
                 });

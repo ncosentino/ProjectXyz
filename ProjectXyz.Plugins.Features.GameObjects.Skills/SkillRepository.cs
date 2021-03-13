@@ -8,6 +8,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -17,7 +18,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
     public sealed class SkillRepository : ISkillRepository
     {
-        private readonly IFilterComponentToBehaviorConverter _filterComponentToBehaviorConverter;
+        private readonly IGeneratorComponentToBehaviorConverter _filterComponentToBehaviorConverter;
         private readonly ISkillDefinitionRepositoryFacade _skillDefinitionRepositoryFacade;
         private readonly ISkillSynergyRepositoryFacade _skillSynergyRepositoryFacade;
         private readonly IFilterContextFactory _filterContextFactory;
@@ -35,7 +36,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             ISkillFactory skillFactory,
-            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter,
+            IGeneratorComponentToBehaviorConverter filterComponentToBehaviorConverter,
             IEnchantmentLoader enchantmentLoader,
             ISkillIdentifiers skillIdentifiers,
             IEnchantmentIdentifiers enchantmentIdentifiers)

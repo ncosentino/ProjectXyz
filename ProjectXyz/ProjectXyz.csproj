@@ -25,6 +25,7 @@
     <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj" />
@@ -66,6 +67,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj" />

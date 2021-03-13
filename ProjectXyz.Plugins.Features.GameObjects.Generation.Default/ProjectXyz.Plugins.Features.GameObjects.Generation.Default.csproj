@@ -1,11 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Behaviors.Filtering.csproj" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
   </ItemGroup>
+
 </Project>

@@ -8,6 +8,7 @@ using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 {
@@ -16,13 +17,13 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandom _random;
         private readonly IReadOnlyEnchantmentDefinitionRepositoryFacade _enchantmentDefinitionRepository;
-        private readonly IFilterComponentToBehaviorConverter _filterComponentToBehaviorConverter;
+        private readonly IGeneratorComponentToBehaviorConverter _filterComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandom random,
             IReadOnlyEnchantmentDefinitionRepositoryFacade enchantmentDefinitionRepository,
-            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter)
+            IGeneratorComponentToBehaviorConverter filterComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
             _random = random;
@@ -53,7 +54,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
                 // create the whole set of components for the enchantment from the enchantment generation components
                 var enchantmentBehaviors = enchantmentDefinition
-                    .FilterComponents
+                    .GeneratorComponents
                     .SelectMany(_filterComponentToBehaviorConverter.Convert);
 
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);

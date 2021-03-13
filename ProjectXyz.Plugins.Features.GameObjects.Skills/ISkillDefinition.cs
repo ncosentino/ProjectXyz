@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
@@ -31,6 +31,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 
         IReadOnlyDictionary<IIdentifier, double> StaticResourceRequirements { get; }
 
-        IEnumerable<IFilterComponent> FilterComponents { get; }
+        IEnumerable<IGeneratorComponent> FilterComponents { get; }
     }
 }

@@ -294,10 +294,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skills", "Skills", "{ACE36F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Skills", "ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj", "{9610A531-3581-4F4D-90BB-2977B2778385}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviors", "Behaviors", "{2ED4C3BA-8B75-4F6B-9C9B-CE39A0F0D37F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filtering", "Filtering", "{62CDB2CC-443E-48BD-AA31-D76F7DBC9F38}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default", "ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj", "{3329B059-C7B2-4D39-A002-DA530F0B3541}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests", "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests\ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.csproj", "{054F10F2-310C-40A0-BDD8-2A345355A4A4}"
@@ -309,6 +305,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Api", "ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj", "{59EA8234-53A4-498C-A04C-8878A5C593E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Default", "ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj", "{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.GameObjects.Generation", "ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj", "{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviors", "Behaviors", "{5E7FFF65-D72A-4D04-9491-CB546466D7AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filtering", "Filtering", "{BFF0574C-FE77-4043-83D9-0B0D532A3F12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Generation.Default", "ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj", "{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -704,6 +708,14 @@ Global
 		{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -845,14 +857,16 @@ Global
 		{2A5F0DE5-4914-4FB3-9A85-AB638ED56696} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{ACE36FEB-FC45-465A-936F-1CAE04BF0CC9} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
 		{9610A531-3581-4F4D-90BB-2977B2778385} = {ACE36FEB-FC45-465A-936F-1CAE04BF0CC9}
-		{2ED4C3BA-8B75-4F6B-9C9B-CE39A0F0D37F} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
-		{62CDB2CC-443E-48BD-AA31-D76F7DBC9F38} = {2ED4C3BA-8B75-4F6B-9C9B-CE39A0F0D37F}
-		{3329B059-C7B2-4D39-A002-DA530F0B3541} = {62CDB2CC-443E-48BD-AA31-D76F7DBC9F38}
+		{3329B059-C7B2-4D39-A002-DA530F0B3541} = {BFF0574C-FE77-4043-83D9-0B0D532A3F12}
 		{054F10F2-310C-40A0-BDD8-2A345355A4A4} = {ACE36FEB-FC45-465A-936F-1CAE04BF0CC9}
 		{2D504688-A90A-43DE-8FF2-E84ABA46A4AD} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{3EA3B906-92E4-4ED7-B955-E534E4FE7481} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{59EA8234-53A4-498C-A04C-8878A5C593E5} = {3EA3B906-92E4-4ED7-B955-E534E4FE7481}
 		{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9} = {3EA3B906-92E4-4ED7-B955-E534E4FE7481}
+		{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718} = {0F769E14-559C-4A23-BA23-20CECD2636A6}
+		{5E7FFF65-D72A-4D04-9491-CB546466D7AE} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{BFF0574C-FE77-4043-83D9-0B0D532A3F12} = {5E7FFF65-D72A-4D04-9491-CB546466D7AE}
+		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D} = {4F8437CB-FC27-48FD-A342-02CE7FCE2F6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}

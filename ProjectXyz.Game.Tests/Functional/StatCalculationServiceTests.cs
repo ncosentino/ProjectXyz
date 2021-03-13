@@ -4,7 +4,6 @@ using System.Linq;
 using Autofac;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
@@ -12,16 +11,16 @@ using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Stats;
-using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Generation.Default;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing;
@@ -752,10 +751,9 @@ namespace ProjectXyz.Game.Tests.Functional
                         new IdentifierFilterAttributeValue(enchantmentDefinitionId),
                         true),
                 },
-                new IFilterComponent[]
+                new IGeneratorComponent[]
                 {
-                    new BehaviorFilterComponent(
-                        Enumerable.Empty<IFilterAttribute>(),
+                    new BehaviorGeneratorComponent(
                         new IBehavior[]
                         {
                             new EnchantmentTargetBehavior(new StringIdentifier("self")),
@@ -775,15 +773,15 @@ namespace ProjectXyz.Game.Tests.Functional
         {
             public EnchantmentDefinition(
                 IEnumerable<IFilterAttribute> attributes,
-                IEnumerable<IFilterComponent> filterComponents)
+                IEnumerable<IGeneratorComponent> filterComponents)
             {
                 SupportedAttributes = attributes.ToArray();
-                FilterComponents = filterComponents.ToArray();
+                GeneratorComponents = filterComponents.ToArray();
             }
 
             public IEnumerable<IFilterAttribute> SupportedAttributes { get; set; }
 
-            public IEnumerable<IFilterComponent> FilterComponents { get; set; }
+            public IEnumerable<IGeneratorComponent> GeneratorComponents { get; set; }
         }
     }
 }

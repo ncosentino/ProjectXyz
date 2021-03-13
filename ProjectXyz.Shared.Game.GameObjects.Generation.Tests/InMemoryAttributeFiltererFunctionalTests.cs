@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using Autofac;
 
@@ -81,7 +82,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
             //StringCollectionFilterAttributeValue
             private object[] CreateSingleComponentNoSupportedAttributesEmptyFilter()
             {
-                var expectedComponent = new FilterComponent();
+                var expectedComponent = new HasFilterAttributes();
 
                 return new object[]
                 {
@@ -103,21 +104,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateAnyStringCollectionAndAnyStringFilter()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new StringFilterAttributeValue("value"),
                         true)
                 });
-                var component2 = new FilterComponent(new[]
+                var component2 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new StringFilterAttributeValue("value"),
                         true)
                 });
-                var expectedComponent = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -150,9 +151,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMultipleComponentNoSupportedAttributesEmptyFilter()
             {
-                var expectedComponent = new FilterComponent();
-                var expectedComponent2 = new FilterComponent();
-                var expectedComponent3 = new FilterComponent();
+                var expectedComponent = new HasFilterAttributes();
+                var expectedComponent2 = new HasFilterAttributes();
+                var expectedComponent3 = new HasFilterAttributes();
 
                 return new object[]
                 {
@@ -178,21 +179,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchingDoubleComponent()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(1),
                         true)
                 });
-                var component2 = new FilterComponent(new[]
+                var component2 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(2),
                         true)
                 });
-                var expectedComponent = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -225,9 +226,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchingDoubleComponentIncludesAttributeless()
             {
-                var expectedComponent = new FilterComponent();
-                var expectedComponent2 = new FilterComponent();
-                var expectedComponent3 = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes();
+                var expectedComponent2 = new HasFilterAttributes();
+                var expectedComponent3 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -262,21 +263,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateSupportedComponentsNotInContextNotRequired()
             {
-                var expectedComponent = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(1),
                         false)
                 });
-                var expectedComponent2 = new FilterComponent(new[]
+                var expectedComponent2 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(2),
                         false)
                 });
-                var expectedComponent3 = new FilterComponent(new[]
+                var expectedComponent3 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -307,21 +308,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateSupportedComponentsNotInContextRequired()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(1),
                         true)
                 });
-                var component2 = new FilterComponent(new[]
+                var component2 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(2),
                         true)
                 });
-                var component3 = new FilterComponent(new[]
+                var component3 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -349,9 +350,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateRequiredMatchingDoubleComponentExcludesAttributeless()
             {
-                var component = new FilterComponent();
-                var component2 = new FilterComponent();
-                var expectedComponent3 = new FilterComponent(new[]
+                var component = new HasFilterAttributes();
+                var component2 = new HasFilterAttributes();
+                var expectedComponent3 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -384,21 +385,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateInRangeComponent()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(1),
                         true)
                 });
-                var expectedComponent = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new DoubleFilterAttributeValue(2),
                         true)
                 });
-                var expectedComponent2 = new FilterComponent(new[]
+                var expectedComponent2 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -432,9 +433,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateInRangeComponentIncludesAttributeless()
             {
-                var expectedComponent = new FilterComponent();
-                var expectedComponent2 = new FilterComponent();
-                var expectedComponent3 = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes();
+                var expectedComponent2 = new HasFilterAttributes();
+                var expectedComponent3 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -469,21 +470,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchInRangeComponent()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new RangeFilterAttributeValue(1, 9),
                         true)
                 });
-                var expectedComponent = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
                         new RangeFilterAttributeValue(5, 10),
                         true)
                 });
-                var expectedComponent2 = new FilterComponent(new[]
+                var expectedComponent2 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -517,9 +518,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateMatchInRangeComponentIncludesAttributeless()
             {
-                var expectedComponent = new FilterComponent();
-                var expectedComponent2 = new FilterComponent();
-                var expectedComponent3 = new FilterComponent(new[]
+                var expectedComponent = new HasFilterAttributes();
+                var expectedComponent2 = new HasFilterAttributes();
+                var expectedComponent3 = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("id"),
@@ -554,7 +555,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateOneFailedMatchWhenAllSourceAndFilterRequired()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("affix-type"),
@@ -592,7 +593,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateOneFailedMatchNonRequiredFilterWhenAllSourceRequired()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("affix-type"),
@@ -630,7 +631,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
 
             private object[] CreateOneFailedMatchNonSourceWhenAllSourceRequired()
             {
-                var component = new FilterComponent(new[]
+                var component = new HasFilterAttributes(new[]
                 {
                     new FilterAttribute(
                         new StringIdentifier("affix-type"),
@@ -665,6 +666,21 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Tests
                     },
                 };
             }
+        }
+
+        public sealed class HasFilterAttributes : IHasFilterAttributes
+        {
+            public HasFilterAttributes()
+                : this(Enumerable.Empty<IFilterAttribute>())
+            {
+            }
+
+            public HasFilterAttributes(IEnumerable<IFilterAttribute> supportedAttributes)
+            {
+                SupportedAttributes = supportedAttributes;
+            }
+
+            public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
         }
     }
 }

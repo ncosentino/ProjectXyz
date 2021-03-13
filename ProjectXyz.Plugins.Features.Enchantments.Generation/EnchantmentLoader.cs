@@ -5,6 +5,7 @@ using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation
@@ -15,12 +16,12 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
         private readonly IEnchantmentIdentifiers _enchantmentIdentifiers;
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IReadOnlyEnchantmentDefinitionRepositoryFacade _enchantmentDefinitionRepository;
-        private readonly IFilterComponentToBehaviorConverter _filterComponentToBehaviorConverter;
+        private readonly IGeneratorComponentToBehaviorConverter _filterComponentToBehaviorConverter;
 
         public EnchantmentLoader(
             IEnchantmentFactory enchantmentFactory,
             IReadOnlyEnchantmentDefinitionRepositoryFacade enchantmentDefinitionRepository,
-            IFilterComponentToBehaviorConverter filterComponentToBehaviorConverter,
+            IGeneratorComponentToBehaviorConverter filterComponentToBehaviorConverter,
             IFilterContextFactory filterContextFactory,
             IEnchantmentIdentifiers enchantmentIdentifiers)
         {
@@ -55,7 +56,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                 .ReadEnchantmentDefinitions(filterContext))
             {
                 var enchantmentBehaviors = enchantmentDefinition
-                    .FilterComponents
+                    .GeneratorComponents
                     .SelectMany(_filterComponentToBehaviorConverter.Convert);
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);
                 yield return enchantment;
