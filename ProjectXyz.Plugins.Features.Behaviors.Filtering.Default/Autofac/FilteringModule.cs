@@ -139,6 +139,68 @@ namespace ProjectXyz.Shared.Behaviors.Filtering.Autofac
                             var isAttrtMatch = v1.Value.Equals(v2.Value);
                             return isAttrtMatch;
                         });
+                    attributeValueMatchFacade.Register<
+                        IdentifierFilterAttributeValue,
+                        AnyIdentifierCollectionFilterAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .Contains(v1.Value);
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        IdentifierFilterAttributeValue,
+                        AllIdentifierCollectionFilterAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            if (v2.Values.Count != 1)
+                            {
+                                return false;
+                            }
+
+                            var isAttrtMatch = v2
+                                .Values
+                                .Single()
+                                .Equals(v1.Value);
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        AnyIdentifierCollectionFilterAttributeValue,
+                        AnyIdentifierCollectionFilterAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .Any(attr => v1.Values.Contains(attr));
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        AllIdentifierCollectionFilterAttributeValue,
+                        AllIdentifierCollectionFilterAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .All(attr => v1.Values.Contains(attr))
+                                && v1
+                                .Values
+                                .All(attr => v2.Values.Contains(attr));
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
+                        AllIdentifierCollectionFilterAttributeValue,
+                        AnyIdentifierCollectionFilterAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v2
+                                .Values
+                                .All(attr => v1.Values.Contains(attr))
+                                && v1
+                                .Values
+                                .All(attr => v2.Values.Contains(attr));
+                            return isAttrtMatch;
+                        });
                 });
         }
     }

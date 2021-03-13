@@ -241,6 +241,100 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
                      new NotFilterAttributeValue(new IdentifierFilterAttributeValue(new StringIdentifier("same value"))),
                      new IdentifierFilterAttributeValue(new StringIdentifier("not same value")),
                      true);
+                yield return new TestScenario(
+                    "Match str1 in (str3, str2, str1)",
+                    new IdentifierFilterAttributeValue(new StringIdentifier("val1")),
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val3"),
+                        new StringIdentifier("val2"),
+                        new StringIdentifier("val1")),
+                    true);
+                yield return new TestScenario(
+                    "No Match str1 != (str3, str2, str1)",
+                    new IdentifierFilterAttributeValue(new StringIdentifier("val1")),
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val3"),
+                        new StringIdentifier("val2"),
+                        new StringIdentifier("val1")),
+                    false);
+                yield return new TestScenario(
+                    "Match str1 is every element of (str1)",
+                    new IdentifierFilterAttributeValue(new StringIdentifier("val1")),
+                    new AllIdentifierCollectionFilterAttributeValue(new StringIdentifier("val1")),
+                    true);
+                yield return new TestScenario(
+                    "No Match str1 in (str3, str2)",
+                    new IdentifierFilterAttributeValue(new StringIdentifier("val1")),
+                    new AnyIdentifierCollectionFilterAttributeValue(new StringIdentifier("val3"), new StringIdentifier("val2")),
+                    false);
+                yield return new TestScenario(
+                    "Match (str1, str2) intersects (str3, str2)",
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val2")),
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val3"),
+                        new StringIdentifier("val2")),
+                    true);
+                yield return new TestScenario(
+                    "No Match (str1, str2) does not intersect (str3, str4)",
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val2")),
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val3"),
+                        new StringIdentifier("val4")),
+                    false);
+                yield return new TestScenario(
+                    "Match (str1, str2) matches all of (str2, str1)",
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val2")),
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val2"),
+                        new StringIdentifier("val1")),
+                    true);
+                yield return new TestScenario(
+                    "No Match (str1, str2) does not match all of (str1, str3)",
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val2")),
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val3")),
+                    false);
+                yield return new TestScenario(
+                    "Match (str1, str2) matches all of (str2, str1)",
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val2")),
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val2"),
+                        new StringIdentifier("val1")),
+                    true);
+                yield return new TestScenario(
+                    "No Match (str1, str2) does not match all of (str1, str3)",
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val2")),
+                    new AllIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val1"),
+                        new StringIdentifier("val3")),
+                    false);
+                yield return new TestScenario(
+                    "Match str1 in Not(str3, str2)",
+                    new IdentifierFilterAttributeValue(new StringIdentifier("val1")),
+                    new NotFilterAttributeValue(new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val3"),
+                        new StringIdentifier("val2"))),
+                    true);
+                yield return new TestScenario(
+                    "Match Not(str1) in (str3, str2)",
+                    new NotFilterAttributeValue(new IdentifierFilterAttributeValue(new StringIdentifier("val1"))),
+                    new AnyIdentifierCollectionFilterAttributeValue(
+                        new StringIdentifier("val3"),
+                        new StringIdentifier("val2")),
+                    true);
             }
         }
     }
