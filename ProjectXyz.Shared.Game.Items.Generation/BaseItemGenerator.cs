@@ -4,6 +4,7 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
@@ -18,13 +19,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
         private readonly IItemFactory _itemFactory;
         private readonly IRandom _random;
         private readonly IItemDefinitionRepositoryFacade _itemDefinitionRepository;
-        private readonly IGeneratorComponentToBehaviorConverter _filterComponentToBehaviorConverter;
+        private readonly IGeneratorComponentToBehaviorConverterFacade _filterComponentToBehaviorConverter;
 
         public BaseItemGenerator(
             IItemFactory itemFactory,
             IRandom random,
             IItemDefinitionRepositoryFacade itemDefinitionRepository,
-            IGeneratorComponentToBehaviorConverter filterComponentToBehaviorConverter)
+            IGeneratorComponentToBehaviorConverterFacade filterComponentToBehaviorConverter)
         {
             _itemFactory = itemFactory;
             _random = random;
@@ -49,9 +50,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
                 }
 
                 // create the whole set of components for the item from the item generation components
-                var itemBehaviors = itemDefinition
-                    .GeneratorComponents
-                    .SelectMany(_filterComponentToBehaviorConverter.Convert);
+                var itemBehaviors = _filterComponentToBehaviorConverter.Convert(
+                    Enumerable.Empty<IBehavior>(),
+                    itemDefinition.GeneratorComponents);
 
                 var item = _itemFactory.Create(itemBehaviors);
                 yield return item;

@@ -18,7 +18,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
     public sealed class SkillRepository : ISkillRepository
     {
-        private readonly IGeneratorComponentToBehaviorConverter _filterComponentToBehaviorConverter;
+        private readonly IGeneratorComponentToBehaviorConverterFacade _filterComponentToBehaviorConverter;
         private readonly ISkillDefinitionRepositoryFacade _skillDefinitionRepositoryFacade;
         private readonly ISkillSynergyRepositoryFacade _skillSynergyRepositoryFacade;
         private readonly IFilterContextFactory _filterContextFactory;
@@ -36,7 +36,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             ISkillFactory skillFactory,
-            IGeneratorComponentToBehaviorConverter filterComponentToBehaviorConverter,
+            IGeneratorComponentToBehaviorConverterFacade filterComponentToBehaviorConverter,
             IEnchantmentLoader enchantmentLoader,
             ISkillIdentifiers skillIdentifiers,
             IEnchantmentIdentifiers enchantmentIdentifiers)
@@ -74,9 +74,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 
             var hasMutableStats = CreateStatsBehavior(skillDefinition);
 
-            var filterComponentBehaviors = skillDefinition
-                .FilterComponents
-                .SelectMany(_filterComponentToBehaviorConverter.Convert);
+            var filterComponentBehaviors = _filterComponentToBehaviorConverter.Convert(
+                Enumerable.Empty<IBehavior>(),
+                skillDefinition.FilterComponents);
             var additionalBehaviors = filterComponentBehaviors
                 .Concat(new IBehavior[]
                 {

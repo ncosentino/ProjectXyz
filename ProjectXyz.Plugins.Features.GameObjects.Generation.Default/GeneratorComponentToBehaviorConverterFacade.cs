@@ -63,25 +63,42 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
             _predicateMapping.Add(Tuple.Create(predicate, callback));
         }
 
-        public IEnumerable<IBehavior> Convert(IGeneratorComponent generatorComponent)
+        public IEnumerable<IBehavior> Convert(
+            IEnumerable<IBehavior> baseBehaviors,
+            IGeneratorComponent generatorComponent) =>
+            Convert(baseBehaviors, new[] { generatorComponent });
+
+        public IEnumerable<IBehavior> Convert(
+            IEnumerable<IBehavior> baseBehaviors,
+            IEnumerable<IGeneratorComponent> generatorComponents)
         {
-            if (!_mapping.TryGetValue(
-                generatorComponent.GetType(),
-                out var convertCallback))
+            var accumulatedBehaviors = new List<IBehavior>(baseBehaviors);
+            foreach (var generatorComponent in generatorComponents)
             {
-                convertCallback = _predicateMapping
-                    .FirstOrDefault(x => x.Item1(generatorComponent))
-                    ?.Item2;
-                if (convertCallback == null)
+                if (!_mapping.TryGetValue(
+                    generatorComponent.GetType(),
+                    out var convertCallback))
                 {
-                    throw new InvalidOperationException(
-                        "There was no registered mapping to convert " +
-                        $"'{generatorComponent.GetType()}'.");
+                    convertCallback = _predicateMapping
+                        .FirstOrDefault(x => x.Item1(generatorComponent))
+                        ?.Item2;
+                    if (convertCallback == null)
+                    {
+                        throw new InvalidOperationException(
+                            "There was no registered mapping to convert " +
+                            $"'{generatorComponent.GetType()}'.");
+                    }
                 }
+
+                var converted = convertCallback
+                    .Invoke(
+                        accumulatedBehaviors,
+                        generatorComponent)
+                    .ToArray();
+                accumulatedBehaviors.AddRange(converted);
             }
 
-            var converted = convertCallback.Invoke(generatorComponent);
-            return converted;
+            return accumulatedBehaviors;
         }
     }
 }

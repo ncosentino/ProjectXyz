@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,7 +39,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         private readonly Mock<IHasEnchantmentsBehaviorFactory> _hasEnchantmentsBehaviorFactory;
         private readonly Mock<IHasMutableStatsBehaviorFactory> _hasMutableStatsBehaviorFactory;
         private readonly Mock<ISkillFactory> _skillFactory;
-        private readonly Mock<IGeneratorComponentToBehaviorConverter> _filterComponentToBehaviorConverter;
+        private readonly Mock<IGeneratorComponentToBehaviorConverterFacade> _filterComponentToBehaviorConverter;
         private readonly Mock<IEnchantmentLoader> _enchantmentLoader;
         private readonly Mock<ISkillIdentifiers> _skillIdentifiers;
         private readonly Mock<IEnchantmentIdentifiers> _enchantmentIdentifiers;
@@ -52,7 +53,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _hasEnchantmentsBehaviorFactory = _mockRepository.Create<IHasEnchantmentsBehaviorFactory>();
             _hasMutableStatsBehaviorFactory = _mockRepository.Create<IHasMutableStatsBehaviorFactory>();
             _skillFactory = _mockRepository.Create<ISkillFactory>();
-            _filterComponentToBehaviorConverter = _mockRepository.Create<IGeneratorComponentToBehaviorConverter>();
+            _filterComponentToBehaviorConverter = _mockRepository.Create<IGeneratorComponentToBehaviorConverterFacade>();
             _enchantmentLoader = _mockRepository.Create<IEnchantmentLoader>();
             _skillIdentifiers = _mockRepository.Create<ISkillIdentifiers>();
             _enchantmentIdentifiers = _mockRepository.Create<IEnchantmentIdentifiers>();
@@ -174,6 +175,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                     It.Is<IEnumerable<IBehavior>>(b => b.Count() == 0)))
                 .Returns(_skill.Object);
 
+            _filterComponentToBehaviorConverter
+                .Setup(x => x.Convert(
+                    Enumerable.Empty<IBehavior>(),
+                    It.Is<IEnumerable<IGeneratorComponent>>(fcs => fcs.Count() == 0)))
+                .Returns(Enumerable.Empty<IBehavior>());
+
             var skills = _skillRepository
                 .GetSkills(_filterContext.Object);
             
@@ -269,6 +276,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                     It.Is<IEnumerable<IBehavior>>(b => b.Count() == 0)))
                 .Returns(_skill.Object);
 
+            _filterComponentToBehaviorConverter
+                .Setup(x => x.Convert(
+                    Enumerable.Empty<IBehavior>(),
+                    It.Is<IEnumerable<IGeneratorComponent>>(fcs => fcs.Count() == 0)))
+                .Returns(Enumerable.Empty<IBehavior>());
+
             var skills = _skillRepository
                 .GetSkills(_filterContext.Object);
 
@@ -321,7 +334,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             var passiveBehavior = _mockRepository.Create<IPassiveSkillBehavior>();
 
             _filterComponentToBehaviorConverter
-                .Setup(x => x.Convert(filterComponent.Object))
+                .Setup(x => x.Convert(
+                    Enumerable.Empty<IBehavior>(),
+                    It.Is<IEnumerable<IGeneratorComponent>>(fcs => 
+                        fcs.Count() == 1 &&
+                        fcs.Single() == filterComponent.Object)))
                 .Returns(new IBehavior[]
                 {
                     enchantmentsBehavior1.Object,
@@ -458,7 +475,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(new[] { enchantment2.Object });
 
             _filterComponentToBehaviorConverter
-                .Setup(x => x.Convert(filterComponent.Object))
+                .Setup(x => x.Convert(
+                    Enumerable.Empty<IBehavior>(),
+                    It.Is<IEnumerable<IGeneratorComponent>>(
+                        fcs => fcs.Count() == 1 &&
+                        fcs.Single() == filterComponent.Object)))
                 .Returns(new IBehavior[]
                 {
                     enchantmentsBehavior1.Object,

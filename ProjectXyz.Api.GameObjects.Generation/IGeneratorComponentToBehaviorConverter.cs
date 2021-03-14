@@ -6,6 +6,8 @@ namespace ProjectXyz.Api.GameObjects.Generation
 {
     public interface IGeneratorComponentToBehaviorConverter
     {
-        IEnumerable<IBehavior> Convert(IGeneratorComponent generatorComponent);
+        IEnumerable<IBehavior> Convert(
+            IEnumerable<IBehavior> baseBehaviors,
+            IGeneratorComponent generatorComponent);
     }
 }

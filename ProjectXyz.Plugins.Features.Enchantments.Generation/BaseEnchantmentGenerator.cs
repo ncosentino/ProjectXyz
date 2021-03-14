@@ -4,6 +4,7 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
+using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
@@ -17,13 +18,13 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandom _random;
         private readonly IReadOnlyEnchantmentDefinitionRepositoryFacade _enchantmentDefinitionRepository;
-        private readonly IGeneratorComponentToBehaviorConverter _filterComponentToBehaviorConverter;
+        private readonly IGeneratorComponentToBehaviorConverterFacade _filterComponentToBehaviorConverter;
 
         public BaseEnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandom random,
             IReadOnlyEnchantmentDefinitionRepositoryFacade enchantmentDefinitionRepository,
-            IGeneratorComponentToBehaviorConverter filterComponentToBehaviorConverter)
+            IGeneratorComponentToBehaviorConverterFacade filterComponentToBehaviorConverter)
         {
             _enchantmentFactory = enchantmentFactory;
             _random = random;
@@ -53,10 +54,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                 }
 
                 // create the whole set of components for the enchantment from the enchantment generation components
-                var enchantmentBehaviors = enchantmentDefinition
-                    .GeneratorComponents
-                    .SelectMany(_filterComponentToBehaviorConverter.Convert);
-
+                var enchantmentBehaviors = _filterComponentToBehaviorConverter.Convert(
+                    Enumerable.Empty<IBehavior>(),
+                    enchantmentDefinition.GeneratorComponents);
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);
                 yield return enchantment;
                 currentCount++;
