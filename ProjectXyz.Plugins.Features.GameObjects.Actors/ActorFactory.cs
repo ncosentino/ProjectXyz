@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ProjectXyz.Api.Behaviors;
@@ -11,6 +12,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class ActorFactory : IActorFactory
     {
+        private readonly IActorIdentifiers _actorIdentifiers;
         private readonly IBehaviorManager _behaviorManager;
         private readonly IActorBehaviorsProviderFacade _actorBehaviorsProviderFacade;
         private readonly IActorBehaviorsInterceptorFacade _actorBehaviorsInterceptorFacade;
@@ -18,12 +20,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         public ActorFactory(
+            IActorIdentifiers actorIdentifiers,
             IBehaviorManager behaviorManager,
             IActorBehaviorsProviderFacade actorBehaviorsProviderFacade,
             IActorBehaviorsInterceptorFacade actorBehaviorsInterceptorFacade,
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
+            _actorIdentifiers = actorIdentifiers;
             _behaviorManager = behaviorManager;
             _actorBehaviorsProviderFacade = actorBehaviorsProviderFacade;
             _actorBehaviorsInterceptorFacade = actorBehaviorsInterceptorFacade;
@@ -32,8 +36,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         }
 
         public IGameObject Create(
-            IReadOnlyTypeIdentifierBehavior typeIdentifierBehavior,
-            IReadOnlyTemplateIdentifierBehavior templateIdentifierBehavior,
             IReadOnlyIdentifierBehavior identifierBehavior,
             IEnumerable<IBehavior> additionalBehaviors)
         {
@@ -42,8 +44,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 
             var baseAndInjectedBehaviours = new IBehavior[]
                 {
-                    typeIdentifierBehavior,
-                    templateIdentifierBehavior,
+                    new TypeIdentifierBehavior(_actorIdentifiers.ActorTypeIdentifier),
                     identifierBehavior,
                     hasEnchantments,
                     hasMutableStats,

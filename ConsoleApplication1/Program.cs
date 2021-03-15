@@ -33,8 +33,6 @@ namespace ConsoleApplication1
 
             var actorFactory = lifetimeScope.Resolve<IActorFactory>();
             var actor = actorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 new IBehavior[]
                 {

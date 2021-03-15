@@ -64,8 +64,6 @@ namespace ProjectXyz.Game.Tests.Functional
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 Enumerable.Empty<IBehavior>());
             actor
@@ -103,8 +101,6 @@ namespace ProjectXyz.Game.Tests.Functional
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 Enumerable.Empty<IBehavior>());
             actor
@@ -166,8 +162,6 @@ namespace ProjectXyz.Game.Tests.Functional
                 });
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(new StringIdentifier("actor")),
                 new[] { new HasSkillsBehavior() });
             actor
@@ -238,8 +232,6 @@ namespace ProjectXyz.Game.Tests.Functional
                 });
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(new StringIdentifier("actor")),
                 new[] { new HasSkillsBehavior() });
             actor
@@ -302,8 +294,6 @@ namespace ProjectXyz.Game.Tests.Functional
                     new EnchantmentTargetBehavior(new StringIdentifier("owner.owner")));
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 Enumerable.Empty<IBehavior>());
             var equipSlotId = actor
@@ -371,8 +361,6 @@ namespace ProjectXyz.Game.Tests.Functional
                     new EnchantmentTargetBehavior(new StringIdentifier("self")));
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 Enumerable.Empty<IBehavior>());
             var equipSlotId = actor
@@ -430,8 +418,6 @@ namespace ProjectXyz.Game.Tests.Functional
             var statId = new StringIdentifier("Stat A");
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 new IBehavior[]
                 {
@@ -465,8 +451,6 @@ namespace ProjectXyz.Game.Tests.Functional
             var statId = new StringIdentifier("Stat A");
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 new IBehavior[]
                 {
@@ -517,8 +501,6 @@ namespace ProjectXyz.Game.Tests.Functional
             var statId = new StringIdentifier("Stat A");
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 new IBehavior[]
                 {
@@ -569,8 +551,6 @@ namespace ProjectXyz.Game.Tests.Functional
             var statId = new StringIdentifier("Stat A");
 
             var actor = _fixture.ActorFactory.Create(
-                new TypeIdentifierBehavior(),
-                new TemplateIdentifierBehavior(),
                 new IdentifierBehavior(),
                 new IBehavior[]
                 {

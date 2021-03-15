@@ -5,15 +5,15 @@ using ProjectXyz.Api.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
 {
-    public sealed class BehaviorGeneratorComponent : IBehaviorGeneratorComponent
+    public sealed class StatelessBehaviorGeneratorComponent : IBehaviorGeneratorComponent
     {
-        public BehaviorGeneratorComponent(
+        public StatelessBehaviorGeneratorComponent(
             params IBehavior[] behaviors)
             : this((IEnumerable<IBehavior>)behaviors)
         {
         }
 
-        public BehaviorGeneratorComponent(
+        public StatelessBehaviorGeneratorComponent(
             IEnumerable<IBehavior> behaviors)
         {
             Behaviors = behaviors.ToArray();

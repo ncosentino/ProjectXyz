@@ -9,8 +9,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
     public interface IActorFactory
     {
         IGameObject Create(
-            IReadOnlyTypeIdentifierBehavior typeIdentifierBehavior,
-            IReadOnlyTemplateIdentifierBehavior templateIdentifierBehavior,
             IReadOnlyIdentifierBehavior identifierBehavior,
             IEnumerable<IBehavior> additionalbehaviors);
     }
