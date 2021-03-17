@@ -19,9 +19,9 @@ namespace ProjectXyz.Plugins.Stats
             _repositories.SelectMany(x => x.GetStatDefinitionIdToTermMappings());
 
         public IStatDefinitionToTermMapping GetStatDefinitionToTermMappingById(IIdentifier statDefinitionId) =>
-            _repositories.Select(x => x.GetStatDefinitionToTermMappingById(statDefinitionId)).FirstOrDefault();
+            _repositories.Select(x => x.GetStatDefinitionToTermMappingById(statDefinitionId)).FirstOrDefault(x => x != null);
 
         public IStatDefinitionToTermMapping GetStatDefinitionToTermMappingByTerm(string term) =>
-            _repositories.Select(x => x.GetStatDefinitionToTermMappingByTerm(term)).FirstOrDefault();
+            _repositories.Select(x => x.GetStatDefinitionToTermMappingByTerm(term)).FirstOrDefault(x => x != null);
     }
 }

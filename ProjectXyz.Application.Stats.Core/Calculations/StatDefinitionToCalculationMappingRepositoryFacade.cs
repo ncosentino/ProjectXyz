@@ -5,11 +5,11 @@ using ProjectXyz.Api.Stats.Calculations;
 
 namespace ProjectXyz.Plugins.Stats.Calculations
 {
-    public sealed class StatDefinitionToTermMappingRepositoryFacade : IReadOnlyStatDefinitionToCalculationMappingRepositoryFacade
+    public sealed class StatDefinitionToCalculationMappingRepositoryFacade : IReadOnlyStatDefinitionToCalculationMappingRepositoryFacade
     {
         private readonly IReadOnlyCollection<IDiscoverableReadOnlyStatDefinitionToCalculationMappingRepository> _repositories;
 
-        public StatDefinitionToTermMappingRepositoryFacade(IEnumerable<IDiscoverableReadOnlyStatDefinitionToCalculationMappingRepository> repositories)
+        public StatDefinitionToCalculationMappingRepositoryFacade(IEnumerable<IDiscoverableReadOnlyStatDefinitionToCalculationMappingRepository> repositories)
         {
             _repositories = repositories.ToArray();
         }
