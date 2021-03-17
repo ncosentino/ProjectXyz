@@ -61,6 +61,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Autofac
                 .SingleInstance()
                 .OnActivated(x =>
                 {
+                    // NOTE: currently this needs to be OnActivated and not
+                    // done with autofac discovery because of a circular
+                    // dependency w/ classes that want IDropTableHandlerGeneratorFacade
                     x
                      .Context
                      .Resolve<IEnumerable<IDiscoverableDropTableHandlerGenerator>>()

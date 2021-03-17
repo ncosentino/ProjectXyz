@@ -733,8 +733,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 },
                 new IGeneratorComponent[]
                 {
-                    new BehaviorGeneratorComponent(
-                        new IBehavior[]
+                    new StatefulBehaviorGeneratorComponent(
+                        () => new IBehavior[]
                         {
                             new EnchantmentTargetBehavior(new StringIdentifier("self")),
                             new EnchantmentExpressionBehavior(
@@ -744,7 +744,7 @@ namespace ProjectXyz.Game.Tests.Functional
                             {
                                 StatDefinitionId = statDefinitionId,
                             },
-                        }.Concat(behaviors)),
+                        }.Concat(behaviors).ToArray()),
                 });
             return enchantmentDefinition;
         }
