@@ -2,5 +2,6 @@
 {
     public interface IDiscoverableActorBehaviorsInterceptor : IActorBehaviorsInterceptor
     {
+        int Priority { get; }
     }
 }

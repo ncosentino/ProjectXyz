@@ -12,15 +12,22 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 
         public ActorBehaviorsInterceptorFacade(IEnumerable<IDiscoverableActorBehaviorsInterceptor> interceptors)
         {
-            _interceptors = interceptors.ToArray();
+            _interceptors = interceptors
+                .OrderBy(x => x.Priority)
+                .ToArray();
         }
 
-        public void Intercept(IReadOnlyCollection<IBehavior> behaviors)
+        public IEnumerable<IBehavior> Intercept(IReadOnlyCollection<IBehavior> behaviors)
         {
+            IReadOnlyCollection<IBehavior> currentBehaviors = new List<IBehavior>(behaviors);
             foreach (var interceptor in _interceptors)
             {
-                interceptor.Intercept(behaviors);
+                currentBehaviors = interceptor
+                    .Intercept(currentBehaviors)
+                    .ToArray();
             }
+
+            return currentBehaviors;
         }
     }
 }

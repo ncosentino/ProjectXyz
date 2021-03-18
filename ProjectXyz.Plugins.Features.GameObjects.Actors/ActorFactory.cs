@@ -56,7 +56,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             var allBehaviors = baseAndInjectedBehaviours
                 .Concat(additionalBehaviorsFromProviders)
                 .ToArray();
-            _actorBehaviorsInterceptorFacade.Intercept(allBehaviors);
+            allBehaviors = _actorBehaviorsInterceptorFacade
+                .Intercept(allBehaviors)
+                .ToArray();
 
             var actor = new Actor(allBehaviors);
             _behaviorManager.Register(actor, allBehaviors);

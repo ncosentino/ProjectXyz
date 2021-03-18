@@ -6,6 +6,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
 {
     public interface IActorBehaviorsInterceptor
     {
-        void Intercept(IReadOnlyCollection<IBehavior> behaviors);
+        IEnumerable<IBehavior> Intercept(IReadOnlyCollection<IBehavior> behaviors);
     }
 }
