@@ -24,6 +24,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
                 .RegisterType<MapFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<MapRepositoryFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();            
         }
     }
 }
