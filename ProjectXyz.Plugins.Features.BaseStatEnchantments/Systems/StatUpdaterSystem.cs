@@ -8,7 +8,7 @@ using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 {
-    public sealed class StatUpdaterSystem : ISystem
+    public sealed class StatUpdaterSystem : IDiscoverableSystem
     {
         private readonly IBehaviorFinder _behaviorFinder;
         private readonly IStatUpdater _statUpdater;
@@ -20,6 +20,8 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
             _behaviorFinder = behaviorFinder;
             _statUpdater = statUpdater;
         }
+
+        public int? Priority => null;
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,

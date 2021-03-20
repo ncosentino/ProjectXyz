@@ -38,6 +38,8 @@ namespace ProjectXyz.Plugins.Features.Weather
             _targetCycleTime = new Interval<double>(0);
         }
 
+        public int? Priority => null;
+
         public void Update(
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IHasBehaviors> hasBehaviors)

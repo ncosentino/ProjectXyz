@@ -22,13 +22,15 @@ namespace ProjectXyz.Game.Core.Engine
 
         public GameEngine(
             IReadOnlyMapGameObjectManager gameObjectManager,
-            IEnumerable<ISystem> systems,
-            IEnumerable<ISystemUpdateComponentCreator> systemUpdateComponentCreators,
+            IEnumerable<IDiscoverableSystem> systems,
+            IEnumerable<IDiscoverableSystemUpdateComponentCreator> systemUpdateComponentCreators,
             ILogger logger)
         {
             _gameObjectManager = gameObjectManager;
             _logger = logger;
-            _systems = systems.ToArray();
+            _systems = systems
+                .OrderBy(x => x.Priority ?? int.MaxValue)
+                .ToArray();
 
             _logger.Debug($"Registered systems for '{this}':");
             foreach (var system in _systems)
@@ -36,7 +38,15 @@ namespace ProjectXyz.Game.Core.Engine
                 _logger.Debug($"\t{system}");
             }
 
-            _systemUpdateComponentCreators = systemUpdateComponentCreators.ToArray();
+            _systemUpdateComponentCreators = systemUpdateComponentCreators
+                .OrderBy(x => x.Priority ?? int.MaxValue)
+                .ToArray();
+
+            _logger.Debug($"Registered system update component creators for '{this}':");
+            foreach (var systemUpdateComponentCreator in _systemUpdateComponentCreators)
+            {
+                _logger.Debug($"\t{systemUpdateComponentCreator}");
+            }
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)

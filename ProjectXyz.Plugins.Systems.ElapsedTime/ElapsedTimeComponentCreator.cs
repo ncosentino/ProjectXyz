@@ -6,9 +6,11 @@ using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Plugins.Features.ElapsedTime
 {
-    public sealed class ElapsedTimeComponentCreator : ISystemUpdateComponentCreator
+    public sealed class ElapsedTimeComponentCreator : IDiscoverableSystemUpdateComponentCreator
     {
         private DateTime? _lastUpdateTime;
+
+        public int? Priority => int.MinValue;
 
         public IComponent CreateNext()
         {

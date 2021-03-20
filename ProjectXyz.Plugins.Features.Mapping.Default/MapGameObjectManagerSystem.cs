@@ -7,7 +7,7 @@ using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
-    public sealed class MapGameObjectManagerSystem : ISystem
+    public sealed class MapGameObjectManagerSystem : IDiscoverableSystem
     {
         private readonly IMapGameObjectManager _mutableGameObjectManager;
 
@@ -15,6 +15,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         {
             _mutableGameObjectManager = mutableGameObjectManager;
         }
+
+        public int? Priority => null;
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,

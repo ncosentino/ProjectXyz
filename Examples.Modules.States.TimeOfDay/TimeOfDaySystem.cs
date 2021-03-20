@@ -20,6 +20,8 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
             _currentCycleTime = new Interval<double>(0);
         }
 
+        public int? Priority => null;
+
         public void Update(
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IHasBehaviors> hasBehaviors)

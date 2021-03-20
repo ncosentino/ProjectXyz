@@ -6,7 +6,7 @@ using ProjectXyz.Plugins.Features.ElapsedTime.Api;
 
 namespace ProjectXyz.Plugins.Features.ElapsedTime
 {
-    public sealed class ElapsedTimeTriggerMechanicSystem : ISystem
+    public sealed class ElapsedTimeTriggerMechanicSystem : IDiscoverableSystem
     {
         private readonly IElapsedTimeTriggerSourceMechanic _elapsedTimeTriggerSourceMechanic;
 
@@ -14,6 +14,8 @@ namespace ProjectXyz.Plugins.Features.ElapsedTime
         {
             _elapsedTimeTriggerSourceMechanic = elapsedTimeTriggerSourceMechanic;
         }
+
+        public int? Priority => null;
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
