@@ -8,6 +8,10 @@ namespace ProjectXyz.Plugins.Features.Weather.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+                .RegisterType<WeatherMapBehaviorProvider>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<WeatherSystem>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

@@ -27,7 +27,15 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
             builder
                 .RegisterType<MapRepositoryFacade>()
                 .AsImplementedInterfaces()
-                .SingleInstance();            
+                .SingleInstance();
+            builder
+                .RegisterType<MapBehaviorsInterceptorFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<MapBehaviorsProviderFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }
