@@ -68,17 +68,17 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
         {
-            var doubleDuration = _testData.UnitInterval.Multiply(2);
-            var halfDuration = _testData.UnitInterval.Divide(2);
+            var doubleDuration = 2;
+            var halfDuration = 0.5;
 
-            yield return new object[] { "Additive zero interval", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, _testData.ZeroInterval, 5 };
-            yield return new object[] { "Additive unit interval", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, _testData.UnitInterval, 5 };
-            yield return new object[] { "Additve two unit intervals", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, doubleDuration, 5 };
-            yield return new object[] { "Additive half unit interval", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, halfDuration, 5 };
-            yield return new object[] { "Base stat additive-over-time zero interval", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.ZeroInterval, 0 };
-            yield return new object[] { "Base stat additive-over-time unit interval", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.UnitInterval, 10 };
-            yield return new object[] { "Base stat additive-over-time two unit intervals", _testData.Enchantments.BuffsOverTime.StatABaseStat, doubleDuration, 20 };
-            yield return new object[] { "Base stat additive-over-time half interval", _testData.Enchantments.BuffsOverTime.StatABaseStat, halfDuration, 5 };
+            yield return new object[] { "Additive zero turns", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, 0, 5 };
+            yield return new object[] { "Additive single turn", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, 1, 5 };
+            yield return new object[] { "Additve two turns", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, doubleDuration, 5 };
+            yield return new object[] { "Additive half turn", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, halfDuration, 5 };
+            yield return new object[] { "Base stat additive-over-time zero turns", _testData.Enchantments.BuffsOverTime.StatABaseStat, 0, 0 };
+            yield return new object[] { "Base stat additive-over-time single turn", _testData.Enchantments.BuffsOverTime.StatABaseStat, 1, 10 };
+            yield return new object[] { "Base stat additive-over-time two turns", _testData.Enchantments.BuffsOverTime.StatABaseStat, doubleDuration, 20 };
+            yield return new object[] { "Base stat additive-over-time half turn", _testData.Enchantments.BuffsOverTime.StatABaseStat, halfDuration, 5 };
         }
 
         [Theory,
@@ -162,13 +162,13 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
         private void ApplyEnchantments_SingleEnchantmentNoBaseStatsOverTime(
             string _,
             IEnchantment enchantment,
-            IInterval elapsed,
+            double elapsedTurns,
             double expectedValue)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithElapsed(elapsed)
+                .WithElapsedTurns(elapsedTurns)
                 .WithEnchantments(enchantment)
                 .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentCalculator.Calculate(

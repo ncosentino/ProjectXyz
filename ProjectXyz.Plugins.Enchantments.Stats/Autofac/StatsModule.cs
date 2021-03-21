@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using ProjectXyz.Api.Enchantments.Calculations;
+
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
 {
@@ -12,9 +11,7 @@ namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .Register(c => new ContextConverter(
-                    c.Resolve<IEnchantmentCalculatorContextFactory>(),
-                    new Interval<double>(0)))
+                .RegisterType<ContextConverter>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

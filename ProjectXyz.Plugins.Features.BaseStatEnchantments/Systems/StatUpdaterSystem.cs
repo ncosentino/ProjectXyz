@@ -5,6 +5,7 @@ using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.TurnBased.Api;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 {
@@ -27,14 +28,13 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IHasBehaviors> hasBehaviors)
         {
-            var elapsed = systemUpdateContext
-                .GetFirst<IComponent<IElapsedTime>>()
-                .Value
-                .Interval;
+            var turnInfo = systemUpdateContext
+                .GetFirst<IComponent<ITurnInfo>>()
+                .Value;
 
-            foreach (var hasBehavior in hasBehaviors)
+            foreach (var gameObject in turnInfo.ApplicableGameObjects)
             {
-                if (!_behaviorFinder.TryFind(hasBehavior, out Tuple<IHasReadOnlyEnchantmentsBehavior, IHasMutableStatsBehavior> behaviours))
+                if (!_behaviorFinder.TryFind(gameObject, out Tuple<IHasReadOnlyEnchantmentsBehavior, IHasMutableStatsBehavior> behaviours))
                 {
                     continue;
                 }
@@ -43,7 +43,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
                     behaviours.Item2.BaseStats,
                     behaviours.Item1.Enchantments,
                     behaviours.Item2.MutateStats,
-                    elapsed);
+                    turnInfo.ElapsedTurns);
             }
         }
     }

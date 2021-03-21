@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 
 namespace ProjectXyz.Api.Enchantments.Calculations
@@ -8,13 +7,13 @@ namespace ProjectXyz.Api.Enchantments.Calculations
     {
         IReadOnlyCollection<IEnchantment> Enchantments { get; }
 
-        IInterval Elapsed { get; }
+        double ElapsedTurns { get; }
 
         IEnchantmentCalculatorContext WithEnchantments(IEnumerable<IEnchantment> enchantments);
 
         IEnchantmentCalculatorContext WithComponent(IComponent component);
 
-        IEnchantmentCalculatorContext WithElapsed(IInterval elapsed);
+        IEnchantmentCalculatorContext WithElapsedTurns(double elapsedTurns);
     }
 
     public static class IEnchantmentCalculatorContextExtensions

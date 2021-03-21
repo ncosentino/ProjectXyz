@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 using Autofac;
@@ -7,8 +8,12 @@ using ConsoleApplication1.Wip;
 using MySql.Data.MySqlClient;
 
 using ProjectXyz.Api.Data.Databases;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Plugins.Features.Weather.Api;
+using ProjectXyz.Shared.Framework;
 
 namespace ConsoleApplication1.Modules
 {
@@ -28,6 +33,14 @@ namespace ConsoleApplication1.Modules
                 .RegisterType<MySqlConnectionFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<ActorIdentifiers>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<WeatherModifiers>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
 
         private sealed class MySqlConnectionFactory : IConnectionFactory
@@ -41,6 +54,47 @@ namespace ConsoleApplication1.Modules
                     $"Pwd=macerus;");
                 return connection;
             }
+        }
+
+        public sealed class WeatherModifiers : IWeatherModifiers
+        {
+            public double GetMaximumDuration(IIdentifier weatherId, double baseMaximumDuration)
+            {
+                return baseMaximumDuration;
+            }
+
+            public double GetMinimumDuration(IIdentifier weatherId, double baseMinimumDuration, double maximumDuration)
+            {
+                return baseMinimumDuration;
+            }
+
+            public IReadOnlyDictionary<IIdentifier, double> GetWeights(IReadOnlyDictionary<IIdentifier, double> weatherWeights)
+            {
+                return weatherWeights;
+            }
+        }
+
+        public sealed class ActorIdentifiers : IActorIdentifiers
+        {
+            public IIdentifier FilterContextActorStatsIdentifier { get; } = new StringIdentifier("actor-stats");
+
+            public IIdentifier ActorTypeIdentifier { get; } = new StringIdentifier("actor");
+
+            public IIdentifier AnimationStandBack { get; } = new StringIdentifier("animation-stand-back");
+
+            public IIdentifier AnimationStandForward { get; } = new StringIdentifier("animation-stand-forward");
+
+            public IIdentifier AnimationStandLeft { get; } = new StringIdentifier("animation-stand-left");
+
+            public IIdentifier AnimationStandRight { get; } = new StringIdentifier("animation-stand-right");
+
+            public IIdentifier AnimationWalkBack { get; } = new StringIdentifier("animation-walk-back");
+
+            public IIdentifier AnimationWalkForward { get; } = new StringIdentifier("animation-walk-forward");
+
+            public IIdentifier AnimationWalkLeft { get; } = new StringIdentifier("animation-walk-left");
+
+            public IIdentifier AnimationWalkRight { get; } = new StringIdentifier("animation-walk-right");
         }
 
         private sealed class ConsoleLogger : ILogger

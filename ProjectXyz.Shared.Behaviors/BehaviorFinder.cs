@@ -1,7 +1,7 @@
 ﻿using System;
 using ProjectXyz.Api.Behaviors;
 
-namespace ProjectXyz.Shared.Behaviors
+namespace ProjectXyz.Plugins.Features.Behaviors.Default
 {
     public sealed class BehaviorFinder : IBehaviorFinder
     {

@@ -12,7 +12,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .Register(c => new ValueMapperRepository(c.Resolve<TestData>()))
+                .RegisterType<ValueMapperRepository>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

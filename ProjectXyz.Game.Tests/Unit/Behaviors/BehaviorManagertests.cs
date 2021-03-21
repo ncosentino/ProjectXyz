@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+
 using Moq;
+
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Shared.Behaviors;
+using ProjectXyz.Plugins.Features.Behaviors.Default;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Unit.Behaviors

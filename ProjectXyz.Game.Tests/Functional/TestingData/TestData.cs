@@ -7,11 +7,11 @@ using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Game.Tests.Functional.TestingData.States;
 using ProjectXyz.Game.Tests.Functional.TestingData.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
-using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
+using ProjectXyz.Plugins.Features.Behaviors.Default;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
-using ProjectXyz.Shared.Behaviors;
+using ProjectXyz.Plugins.Features.TurnBased.Duration;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
@@ -98,25 +98,45 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             public sealed class BuffOverTimeEnchantments
             {
-                public IEnchantment StatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle, new AppliesToBaseStat());
+                public IEnchantment StatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + (10 * INTERVAL)",
+                    CALC_PRIORITIES.Middle,
+                    new AppliesToBaseStat());
 
-                public IEnchantment StatAOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + (10 * INTERVAL)", CALC_PRIORITIES.Middle);
+                public IEnchantment StatAOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + (10 * INTERVAL)",
+                    CALC_PRIORITIES.Middle);
             }
 
             public sealed class BuffsThatExpireEnchantments
             {
-                public IEnchantment StatABaseStat { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                public IEnchantment StatABaseStatAfter10TurnsIntervalIgnorant { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
                     STAT_DEFINITION_IDS.StatA,
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
                     new AppliesToBaseStat(),
-                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(10))));
+                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
 
-                public IEnchantment StatAOnDemand { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                public IEnchantment StatABaseStatAfter10Turns { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + 5 * MIN(INTERVAL, 10)", // need to cap this at expiration limit
+                    CALC_PRIORITIES.Middle,
+                    new AppliesToBaseStat(),
+                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
+
+                public IEnchantment StatAOnDemandAfter10TurnsIntervalIgnorant { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
                     STAT_DEFINITION_IDS.StatA,
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
-                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(10))));
+                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
+
+                //public IEnchantment StatAOnDemandAfter10Turns { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                //    STAT_DEFINITION_IDS.StatA,
+                //    "STAT_A + 5 * MIN(INTERVAL, 10)", // need to cap this at expiration limit
+                //    CALC_PRIORITIES.Middle,
+                //    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
             }
         }
 

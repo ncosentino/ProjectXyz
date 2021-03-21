@@ -37,7 +37,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Plugins.Features.Behaviors.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj" />
   </ItemGroup>

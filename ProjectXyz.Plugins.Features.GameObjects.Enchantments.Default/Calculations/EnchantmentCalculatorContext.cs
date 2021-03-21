@@ -4,33 +4,27 @@ using System.Linq;
 
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
 {
     public sealed class EnchantmentCalculatorContext : IEnchantmentCalculatorContext
     {
-        #region Constants
         private static readonly Lazy<IEnchantmentCalculatorContext> NONE = new Lazy<IEnchantmentCalculatorContext>(() => new EnchantmentCalculatorContext(
             ComponentCollection.Empty,
-            new Interval<double>(0),
+           0d,
             new IEnchantment[0]));
-        #endregion
-
-        #region Constructors
+        
         public EnchantmentCalculatorContext(
             IEnumerable<IComponent> components,
-            IInterval elapsed,
+            double elapsedTurns,
             IReadOnlyCollection<IEnchantment> enchantments)
         {
             Components = new ComponentCollection(components);
-            Elapsed = elapsed;
+            ElapsedTurns = elapsedTurns;
             Enchantments = enchantments;
         }
-        #endregion
 
         #region Properties
         public static IEnchantmentCalculatorContext None = NONE.Value;
@@ -39,15 +33,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
 
         public IReadOnlyCollection<IEnchantment> Enchantments { get; }
 
-        public IInterval Elapsed { get; }
+        public double ElapsedTurns { get; }
         #endregion
 
-        #region Methods
         public IEnchantmentCalculatorContext WithEnchantments(IEnumerable<IEnchantment> enchantments)
         {
             return new EnchantmentCalculatorContext(
                 Components,
-                Elapsed,
+                ElapsedTurns,
                 enchantments.ToArray());
         }
 
@@ -55,17 +48,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
         {
             return new EnchantmentCalculatorContext(
                 new ComponentCollection(Components.AppendSingle(component)),
-                Elapsed,
+                ElapsedTurns,
                 Enchantments.ToArray());
         }
 
-        public IEnchantmentCalculatorContext WithElapsed(IInterval elapsed)
+        public IEnchantmentCalculatorContext WithElapsedTurns(double elapsedTurns)
         {
             return new EnchantmentCalculatorContext(
                 Components,
-                elapsed,
+                elapsedTurns,
                 Enchantments.ToArray());
         }
-        #endregion
     }
 }

@@ -10,13 +10,13 @@ using ProjectXyz.Api.Triggering;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
-using ProjectXyz.Plugins.Features.ElapsedTime;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Skills;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.Handlers;
+using ProjectXyz.Plugins.Features.TurnBased;
 using ProjectXyz.Testing;
 
 namespace ProjectXyz.Game.Tests.Functional.TestingData
@@ -30,7 +30,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
             EnchantmentCalculator = LifeTimeScope.Resolve<IEnchantmentCalculator>();
             EnchantmentApplier = LifeTimeScope.Resolve<IEnchantmentApplier>();
-            ElapsedTimeTriggerSourceMechanic = LifeTimeScope.Resolve<IElapsedTimeTriggerSourceMechanicRegistrar>();
+            ElapsedTurnsTriggerSourceMechanic = LifeTimeScope.Resolve<IElapsedTurnsTriggerSourceMechanicRegistrar>();
             TriggerMechanicRegistrar = LifeTimeScope.Resolve<ITriggerMechanicRegistrar>();
             ActiveEnchantmentManagerFactory = LifeTimeScope.Resolve<IActiveEnchantmentManagerFactory>();
             HasEnchantmentsBehaviorFactory = LifeTimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
@@ -67,7 +67,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
         public ITriggerMechanicRegistrar TriggerMechanicRegistrar { get; }
 
-        public IElapsedTimeTriggerSourceMechanicRegistrar ElapsedTimeTriggerSourceMechanic { get; }
+        public IElapsedTurnsTriggerSourceMechanicRegistrar ElapsedTurnsTriggerSourceMechanic { get; }
 
         public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
 
@@ -89,7 +89,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
         public IItemSetManager ItemSetManager { get; }
 
-        private ILifetimeScope LifeTimeScope { get; }
+        public ILifetimeScope LifeTimeScope { get; }
         #endregion
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using ProjectXyz.Api.Behaviors;
 
-namespace ProjectXyz.Shared.Behaviors
+namespace ProjectXyz.Plugins.Features.Behaviors.Default
 {
     public sealed class BehaviorManager : IBehaviorManager
     {

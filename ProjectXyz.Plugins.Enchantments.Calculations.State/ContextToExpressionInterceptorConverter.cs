@@ -15,7 +15,9 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
 
         public IEnchantmentExpressionInterceptor Convert(IEnchantmentCalculatorContext enchantmentCalculatorContext)
         {
-            var stateContextProvider = enchantmentCalculatorContext.GetFirst<Api.Framework.Entities.IComponent<IStateContextProvider>>().Value;
+            var stateContextProvider = enchantmentCalculatorContext
+                .GetFirst<IComponent<IStateContextProvider>>()
+                .Value;
             var stateEnchantmentExpressionInterceptor = _stateExpressionInterceptorFactory.Create(
                 stateContextProvider,
                 enchantmentCalculatorContext.Enchantments);

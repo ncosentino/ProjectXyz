@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Framework.Testing;
 using ProjectXyz.Game.Tests.Functional.TestingData;
-using ProjectXyz.Shared.Framework;
+using ProjectXyz.Plugins.Features.TurnBased;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
@@ -22,19 +24,19 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 
         public static IEnumerable<object[]> GetSingleEnchantmentTheoryData()
         {
-            yield return new object[] { _testData.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(0), true };
-            yield return new object[] { _testData.Enchantments.Buffs.StatAAdditiveBaseStat, new Interval<double>(10), true };
-            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(0), true };
-            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(5), true };
-            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(10), false };
-            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStat, new Interval<double>(11), false };
+            yield return new object[] { _testData.Enchantments.Buffs.StatAAdditiveBaseStat, 0, true };
+            yield return new object[] { _testData.Enchantments.Buffs.StatAAdditiveBaseStat, 10, true };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant, 0, true };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant, 5, true };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant, 10, false };
+            yield return new object[] { _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant, 11, false };
         }
 
         [Theory,
          MemberData(nameof(GetSingleEnchantmentTheoryData))]
         private void ElapseTime_SingleEnchantment_ContainsExpectedValue(
             IEnchantment enchantment,
-            IInterval elapsed,
+            double elapsedTurns,
             bool contains)
         {
             var activeEnchantmentManager = _fixture
@@ -46,7 +48,11 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
                 activeEnchantmentManager.Enchantments.Contains(enchantment),
                 "Expecting the enchantment to be contained before elapsing any time.");
 
-            _fixture.ElapsedTimeTriggerSourceMechanic.Update(elapsed);
+            var turnInfo = new TurnInfo(
+                new IGameObject[] { },
+                elapsedTurns,
+                true);
+            _fixture.ElapsedTurnsTriggerSourceMechanic.Update(turnInfo);
 
             AssertEx.Equal(
                 contains,

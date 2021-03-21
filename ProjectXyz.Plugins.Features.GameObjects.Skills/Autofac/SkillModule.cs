@@ -10,6 +10,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+                .RegisterType<HasSkillsGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<SkillFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

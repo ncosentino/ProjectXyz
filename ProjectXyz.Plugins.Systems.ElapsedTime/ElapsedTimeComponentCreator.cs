@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Shared.Framework;
@@ -8,19 +10,32 @@ namespace ProjectXyz.Plugins.Features.ElapsedTime
 {
     public sealed class ElapsedTimeComponentCreator : IDiscoverableSystemUpdateComponentCreator
     {
+        private readonly IRealTimeProvider _realTimeProvider;
         private DateTime? _lastUpdateTime;
+
+        public ElapsedTimeComponentCreator(IRealTimeProvider realTimeProvider)
+        {
+            _realTimeProvider = realTimeProvider;
+        }
 
         public int? Priority => int.MinValue;
 
-        public IComponent CreateNext()
+        public IEnumerable<IComponent> CreateNext(IReadOnlyCollection<IComponent> components)
         {
-            var elapsedMilliseconds = _lastUpdateTime.HasValue
-                ? (DateTime.UtcNow - _lastUpdateTime.Value).TotalMilliseconds
+            var utcNow = _realTimeProvider.GetTimeUtc();
+            var validTime =
+                _lastUpdateTime.HasValue &&
+                _lastUpdateTime != DateTime.MinValue &&
+                _lastUpdateTime < utcNow;
+            var elapsedMilliseconds = validTime
+                ? (utcNow - _lastUpdateTime.Value).TotalMilliseconds
                 : 0;
-            _lastUpdateTime = DateTime.UtcNow;
+            _lastUpdateTime = utcNow;
             var elapsedInterval = new Interval<double>(elapsedMilliseconds);
 
-            return new GenericComponent<IElapsedTime>(new ElapsedTime(elapsedInterval));
+            var elapsedTime = new ElapsedTime(elapsedInterval);
+            var component = new GenericComponent<IElapsedTime>(elapsedTime);
+            yield return component;
         }
     }
 }

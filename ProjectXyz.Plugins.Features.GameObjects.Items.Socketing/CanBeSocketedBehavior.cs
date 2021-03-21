@@ -9,7 +9,6 @@ using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing
 {
-
     public sealed class CanBeSocketedBehavior :
         BaseBehavior,
         ICanBeSocketedBehavior

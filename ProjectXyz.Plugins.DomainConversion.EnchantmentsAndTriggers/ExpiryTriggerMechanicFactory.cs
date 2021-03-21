@@ -1,6 +1,6 @@
 using System;
 using ProjectXyz.Api.Triggering;
-using ProjectXyz.Plugins.Features.ElapsedTime.Api.Duration;
+using ProjectXyz.Plugins.Features.TurnBased.Api.Duration;
 
 namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {

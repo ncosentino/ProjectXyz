@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Game.Core.Systems;
@@ -61,7 +62,13 @@ namespace ProjectXyz.Game.Core.Engine
 
         private void Update(CancellationToken cancellationToken)
         {
-            var systemUpdateComponents = _systemUpdateComponentCreators.Select(x => x.CreateNext());
+            var systemUpdateComponents = new List<IComponent>();
+            foreach (var systemUpdateComponentCreator in _systemUpdateComponentCreators)
+            {
+                var nextComponents = systemUpdateComponentCreator.CreateNext(systemUpdateComponents);
+                systemUpdateComponents.AddRange(nextComponents);
+            }
+            
             var systemUpdateContext = new SystemUpdateContext(systemUpdateComponents);
 
             foreach (var system in _systems)

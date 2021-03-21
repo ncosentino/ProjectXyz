@@ -1,19 +1,24 @@
 ﻿using Autofac;
-using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
 
-namespace ProjectXyz.Plugins.Features.ElapsedTime.Autofac
+using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.TurnBased.Duration;
+
+namespace ProjectXyz.Plugins.Features.TurnBased.Autofac
 {
-    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
+    public sealed class TurnBasedModule : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<ElapsedTimeComponentCreator>()
+                .RegisterType<TurnBasedComponentCreator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<ElapsedTimeTriggerMechanicSystem>()
+                .RegisterType<TurnBasedManager>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ElapsedTurnsTriggerMechanicSystem>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
@@ -21,7 +26,7 @@ namespace ProjectXyz.Plugins.Features.ElapsedTime.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<ElapsedTimeTriggerSourceMechanicRegistrar>()
+                .RegisterType<ElapsedTurnsTriggerSourceMechanicRegistrar>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

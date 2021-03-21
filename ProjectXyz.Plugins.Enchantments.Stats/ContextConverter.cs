@@ -7,20 +7,16 @@ namespace ProjectXyz.Plugins.Enchantments.Stats
     public sealed class ContextConverter : IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>
     {
         private readonly IEnchantmentCalculatorContextFactory _enchantmentCalculatorContextFactory;
-        private readonly IInterval _zeroElapsedTime;
 
-        public ContextConverter(
-            IEnchantmentCalculatorContextFactory enchantmentCalculatorContextFactory,
-            IInterval zeroElapsedTime)
+        public ContextConverter(IEnchantmentCalculatorContextFactory enchantmentCalculatorContextFactory)
         {
             _enchantmentCalculatorContextFactory = enchantmentCalculatorContextFactory;
-            _zeroElapsedTime = zeroElapsedTime;
         }
 
         public IEnchantmentCalculatorContext Convert(IStatCalculationContext input)
         {
             return _enchantmentCalculatorContextFactory.CreateEnchantmentCalculatorContext(
-                _zeroElapsedTime,
+                0,
                 input.Enchantments,
                 input.Components);
         }

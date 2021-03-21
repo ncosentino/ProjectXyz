@@ -11,12 +11,12 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Interface.Engine;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Plugins.Features.ElapsedTime.Duration;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.Mapping.Api;
+using ProjectXyz.Plugins.Features.TurnBased.Duration;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
@@ -67,7 +67,7 @@ namespace ConsoleApplication1
                         new EnchantmentTargetBehavior(new StringIdentifier("owner")),
                         new HasStatDefinitionIdBehavior() { StatDefinitionId = new StringIdentifier("stat2") },
                         new EnchantmentExpressionBehavior(calculationPriorityFactory.Create<int>(1), "stat2 + 1"),
-                        new ExpiryTriggerBehavior(new DurationTriggerBehavior(new Interval<double>(5000))),
+                        new ExpiryTriggerBehavior(new DurationTriggerBehavior(5)),
                     }),
             });
 

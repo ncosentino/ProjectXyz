@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using ProjectXyz.Framework.Autofac;
 
-namespace ProjectXyz.Shared.Behaviors.Autofac
+namespace ProjectXyz.Plugins.Features.Behaviors.Default.Autofac
 {
     public sealed class BehaviorModule : SingleRegistrationModule
     {

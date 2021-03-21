@@ -11,6 +11,6 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IReadOnlyCollection<IEnchantment> enchantments,
             Action<Action<IDictionary<IIdentifier, double>>> mutateStatsCallback,
-            IInterval elapsed);
+            double elapsedTurns);
     }
 }

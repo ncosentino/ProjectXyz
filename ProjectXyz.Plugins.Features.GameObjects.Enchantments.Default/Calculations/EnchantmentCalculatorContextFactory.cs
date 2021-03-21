@@ -19,23 +19,23 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
         }
 
         public IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
-            IInterval elapsed,
+            double elapsedTurns,
             IReadOnlyCollection<IEnchantment> enchantments)
         {
             return CreateEnchantmentCalculatorContext(
-                elapsed,
+                elapsedTurns,
                 enchantments,
                 Enumerable.Empty<IComponent>());
         }
 
         public IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
-            IInterval elapsed,
+            double elapsedTurns,
             IReadOnlyCollection<IEnchantment> enchantments,
             IEnumerable<IComponent> additionalComponents)
         {
             return new EnchantmentCalculatorContext(
                 _componentCollection.Concat(additionalComponents),
-                elapsed,
+                elapsedTurns,
                 enchantments);
         }
     }

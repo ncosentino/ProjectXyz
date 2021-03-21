@@ -20,6 +20,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Autofac
                 .RegisterType<CanFitSocketBehaviorFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<CanBeSocketedGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();            
         }
     }
 }

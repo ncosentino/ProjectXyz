@@ -13,9 +13,25 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-              .RegisterType<HasEnchantmentsBehaviorFactory>()
-              .AsImplementedInterfaces()
-              .SingleInstance();
+                .RegisterType<HasEnchantmentsBehaviorFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<HasEchantmentsGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<HasItemContainersBehaviorGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ItemContainerGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<EquipmentGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();            
         }
     }
 }

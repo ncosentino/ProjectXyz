@@ -37,13 +37,13 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 
         public static IEnumerable<object[]> GetSingleEnchantmentNoBaseStatsOverTimeTheoryData()
         {
-            var doubleDuration = _testData.UnitInterval.Multiply(2);
-            var halfDuration = _testData.UnitInterval.Divide(2);
+            var doubleDuration = 2;
+            var halfDuration = 0.5;
 
-            yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, _testData.UnitInterval, 5 };
+            yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, 1, 5 };
             yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, doubleDuration, 5 };
             yield return new object[] { "", _testData.Enchantments.Buffs.StatAAdditiveBaseStat, halfDuration, 5 };
-            yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, _testData.UnitInterval, 10 };
+            yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, 1, 10 };
             yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, doubleDuration, 20 };
             yield return new object[] { "", _testData.Enchantments.BuffsOverTime.StatABaseStat, halfDuration, 5 };
         }
@@ -73,13 +73,13 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
         private void ApplyEnchantments_SingleEnchantmentNoBaseStatsOverTime_SingleStatExpectedValue(
             string _,
             IEnchantment enchantment,
-            IInterval elapsed,
+            double elapsedTurns,
             double expectedValue)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithElapsed(elapsed)
+                .WithElapsedTurns(elapsedTurns)
                 .WithEnchantments(enchantment)
                 .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
             var result = _fixture.EnchantmentApplier.ApplyEnchantments(

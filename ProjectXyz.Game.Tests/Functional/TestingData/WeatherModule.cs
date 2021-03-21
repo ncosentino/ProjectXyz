@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 using Autofac;
 
 using ProjectXyz.Api.Framework;
@@ -16,6 +18,10 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
                 .RegisterType<WeatherIdentifiers>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<WeatherModifiers>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 
@@ -24,5 +30,23 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IIdentifier FilterContextWeatherIdentifier { get; } = new StringIdentifier("weather");
 
         public IIdentifier WeatherIdentifier { get; } = new StringIdentifier("id");
+    }
+
+    public sealed class WeatherModifiers : IWeatherModifiers
+    {
+        public double GetMaximumDuration(IIdentifier weatherId, double baseMaximumDuration)
+        {
+            return baseMaximumDuration;
+        }
+
+        public double GetMinimumDuration(IIdentifier weatherId, double baseMinimumDuration, double maximumDuration)
+        {
+            return baseMinimumDuration;
+        }
+
+        public IReadOnlyDictionary<IIdentifier, double> GetWeights(IReadOnlyDictionary<IIdentifier, double> weatherWeights)
+        {
+            return weatherWeights;
+        }
     }
 }

@@ -186,9 +186,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.CommonBehaviors", "ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj", "{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviors", "Behaviors", "{C6B78C5C-D323-4F6F-A56B-CCCE6E295B2B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Shared.Behaviors", "ProjectXyz.Shared.Behaviors\ProjectXyz.Shared.Behaviors.csproj", "{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Behaviors.Default", "ProjectXyz.Shared.Behaviors\ProjectXyz.Plugins.Features.Behaviors.Default.csproj", "{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items", "ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj", "{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}"
 EndProject
@@ -203,8 +201,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExpiringEnchantments", "ExpiringEnchantments", "{C5257E4F-A136-4D63-9883-F7B3F431CCAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ElapsedTime", "ElapsedTime", "{39BD87FF-9E18-453B-93B0-F6B1384C3D8C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.ElapsedTime.Autofac", "ProjectXyz.Plugins.Features.ElapsedTime.Autofac\ProjectXyz.Plugins.Features.ElapsedTime.Autofac.csproj", "{F8F47E92-7E70-433F-8333-7C2B12B21F35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Triggering", "Triggering", "{37003CAC-D461-4B18-8208-76EA9C6D8262}"
 EndProject
@@ -306,13 +302,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Default", "ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj", "{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Api.GameObjects.Generation", "ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj", "{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.GameObjects.Generation", "ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj", "{1CAFCF03-56D9-4D08-9CF8-4F010CE6F718}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behaviors", "Behaviors", "{5E7FFF65-D72A-4D04-9491-CB546466D7AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filtering", "Filtering", "{BFF0574C-FE77-4043-83D9-0B0D532A3F12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Generation.Default", "ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj", "{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Generation.Default", "ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj", "{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TurnBased", "TurnBased", "{82E62E79-9A1C-43A5-96FF-E21656FCC46C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased.Api", "ProjectXyz.Plugins.Features.TurnBased.Api\ProjectXyz.Plugins.Features.TurnBased.Api.csproj", "{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased", "ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj", "{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Default", "ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj", "{EA6D03DD-882C-400F-910D-1D06658CF80A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -564,10 +568,6 @@ Global
 		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CDE69E6-0824-4F12-8152-24739B8DBD89}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8F47E92-7E70-433F-8333-7C2B12B21F35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8F47E92-7E70-433F-8333-7C2B12B21F35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8F47E92-7E70-433F-8333-7C2B12B21F35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8F47E92-7E70-433F-8333-7C2B12B21F35}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C9B0F7B-7976-406C-B910-AC75B6C8F925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C9B0F7B-7976-406C-B910-AC75B6C8F925}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9B0F7B-7976-406C-B910-AC75B6C8F925}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -716,6 +716,18 @@ Global
 		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -805,8 +817,7 @@ Global
 		{23813F2B-B24A-463A-989F-97E74EDFE87C} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{8B3C197A-E87B-424A-A21E-15B84A5E5054} = {23813F2B-B24A-463A-989F-97E74EDFE87C}
 		{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A} = {23813F2B-B24A-463A-989F-97E74EDFE87C}
-		{C6B78C5C-D323-4F6F-A56B-CCCE6E295B2B} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
-		{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7} = {C6B78C5C-D323-4F6F-A56B-CCCE6E295B2B}
+		{5BA3E2DE-AEF1-4F60-A852-DDB96A3938A7} = {5E7FFF65-D72A-4D04-9491-CB546466D7AE}
 		{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{A961E96A-CD60-4D17-ACA1-E8446BF08ABC} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{0D155CB4-1E5E-4A72-9A81-37BEE19746C9} = {A961E96A-CD60-4D17-ACA1-E8446BF08ABC}
@@ -814,7 +825,6 @@ Global
 		{6CDE69E6-0824-4F12-8152-24739B8DBD89} = {C31A48B7-7CEE-45D8-8669-27C796A047DD}
 		{C5257E4F-A136-4D63-9883-F7B3F431CCAD} = {0BDD1CB0-4E11-4453-8370-8B9176818A63}
 		{39BD87FF-9E18-453B-93B0-F6B1384C3D8C} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
-		{F8F47E92-7E70-433F-8333-7C2B12B21F35} = {39BD87FF-9E18-453B-93B0-F6B1384C3D8C}
 		{37003CAC-D461-4B18-8208-76EA9C6D8262} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{5C9B0F7B-7976-406C-B910-AC75B6C8F925} = {67320FA1-D860-4482-9EA7-E3B47DC5C1EE}
 		{E0D4BF12-9866-4263-9B83-2BBD6B561574} = {67320FA1-D860-4482-9EA7-E3B47DC5C1EE}
@@ -867,6 +877,10 @@ Global
 		{5E7FFF65-D72A-4D04-9491-CB546466D7AE} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{BFF0574C-FE77-4043-83D9-0B0D532A3F12} = {5E7FFF65-D72A-4D04-9491-CB546466D7AE}
 		{528B5D2C-8AE5-417F-87CE-D5FBCF46F99D} = {4F8437CB-FC27-48FD-A342-02CE7FCE2F6D}
+		{82E62E79-9A1C-43A5-96FF-E21656FCC46C} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4} = {82E62E79-9A1C-43A5-96FF-E21656FCC46C}
+		{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5} = {82E62E79-9A1C-43A5-96FF-E21656FCC46C}
+		{EA6D03DD-882C-400F-910D-1D06658CF80A} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}

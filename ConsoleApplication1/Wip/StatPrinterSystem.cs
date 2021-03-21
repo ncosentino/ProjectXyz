@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
@@ -10,15 +11,15 @@ using ProjectXyz.Api.States;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Enchantments.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Api;
+using ProjectXyz.Plugins.Features.Behaviors.Default;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
-using ProjectXyz.Shared.Behaviors;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Entities;
 
 namespace ConsoleApplication1.Wip
 {
-    public sealed class StatPrinterSystem : ISystem
+    public sealed class StatPrinterSystem : IDiscoverableSystem
     {
         private readonly IStatCalculationService _statCalculationService;
         private readonly IStateContextProvider _stateContextProvider;
@@ -33,6 +34,8 @@ namespace ConsoleApplication1.Wip
             _stateContextProvider = stateContextProvider;
             _statCalculationService = statCalculationService;
         }
+
+        public int? Priority { get; } = null;
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
