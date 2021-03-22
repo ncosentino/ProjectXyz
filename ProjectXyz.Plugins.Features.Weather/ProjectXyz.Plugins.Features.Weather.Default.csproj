@@ -27,6 +27,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Api\ProjectXyz.Plugins.Features.TurnBased.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Api\ProjectXyz.Plugins.Features.Weather.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />

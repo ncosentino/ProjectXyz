@@ -56,7 +56,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
             {
                 _weatherManager.Weather = _weatherFactory.Create(
                     new StringIdentifier("NOTHING SHOULD MATCH THIS"),
-                    new Interval<double>(0),
+                    0,
                     new Interval<double>(0),
                     new Interval<double>(0),
                     new IBehavior[] { });
@@ -91,7 +91,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
             {
                 _weatherManager.Weather = _weatherFactory.Create(
                     new StringIdentifier("loot generator weather"),
-                    new Interval<double>(0),
+                    0,
                     new Interval<double>(0),
                     new Interval<double>(0),
                     new IBehavior[] { });

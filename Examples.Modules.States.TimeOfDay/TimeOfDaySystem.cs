@@ -1,23 +1,24 @@
 using System.Collections.Generic;
+
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
-using ProjectXyz.Shared.Framework;
+using ProjectXyz.Plugins.Features.TurnBased.Api;
 
 namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
     public sealed class TimeOfDaySystem : ITimeOfDaySystem
     {
-        private static readonly IInterval<double> LENGTH_OF_DAY = new Interval<double>(10000);
-
         private readonly ITimeOfDayManager _timeOfDayManager;
-        private IInterval _currentCycleTime;
+        private readonly ITimeOfDayConfiguration _timeOfDayConfiguration;
+        private double _currentCycleTime;
 
-        public TimeOfDaySystem(ITimeOfDayManager timeOfDayManager)
+        public TimeOfDaySystem(
+            ITimeOfDayManager timeOfDayManager,
+            ITimeOfDayConfiguration timeOfDayConfiguration)
         {
             _timeOfDayManager = timeOfDayManager;
-            _currentCycleTime = new Interval<double>(0);
+            _timeOfDayConfiguration = timeOfDayConfiguration;
         }
 
         public int? Priority => null;
@@ -26,25 +27,21 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IHasBehaviors> hasBehaviors)
         {
-            var elapsed = systemUpdateContext
-                .GetFirst<IComponent<IElapsedTime>>()
+            var elapsedTurns = systemUpdateContext
+                .GetFirst<IComponent<ITurnInfo>>()
                 .Value
-                .Interval;
-            _currentCycleTime = _currentCycleTime.Add(elapsed);
+                .ElapsedTurns;
+            _currentCycleTime += elapsedTurns;
 
             // FIXME: isn't there something modulo can do here... brain...
             var limited = _currentCycleTime;
-            while (((IInterval<double>)limited).Value > LENGTH_OF_DAY.Value)
+            while (limited > _timeOfDayConfiguration.LengthOfDayInTurns)
             {
-                limited = limited.Subtract(LENGTH_OF_DAY);
+                limited -= _timeOfDayConfiguration.LengthOfDayInTurns;
             }
 
             _currentCycleTime = limited;
-
-            _timeOfDayManager.CyclePercent = _currentCycleTime.Divide(LENGTH_OF_DAY);
-
-            // TODO: actually calculate the time of day
-            _timeOfDayManager.TimeOfDay = TimesOfDay.Dusk;
+            _timeOfDayManager.CyclePercent = _currentCycleTime / _timeOfDayConfiguration.LengthOfDayInTurns;
         }
     }
 }

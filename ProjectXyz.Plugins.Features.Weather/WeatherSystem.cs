@@ -5,9 +5,9 @@ using System.Linq;
 using NexusLabs.Framework;
 
 using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Systems;
+using ProjectXyz.Plugins.Features.TurnBased.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
 
@@ -21,8 +21,8 @@ namespace ProjectXyz.Plugins.Features.Weather
         private readonly IRandom _random;
 
         private IWeatherTable _currentWeatherTable;
-        private IInterval _currentCycleTime;
-        private IInterval _targetCycleTime;
+        private double _currentCycleTimeInTurns;
+        private double _targetCycleTimeInTurns;
 
         public WeatherSystem(
             IWeatherManager weatherManager,
@@ -34,8 +34,6 @@ namespace ProjectXyz.Plugins.Features.Weather
             _weatherFactory = weatherFactory;
             _weatherModifiers = weatherModifiers;
             _random = random;
-            _currentCycleTime = new Interval<double>(0);
-            _targetCycleTime = new Interval<double>(0);
         }
 
         public int? Priority => null;
@@ -44,17 +42,15 @@ namespace ProjectXyz.Plugins.Features.Weather
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IHasBehaviors> hasBehaviors)
         {
-            var elapsed = systemUpdateContext
-                .GetFirst<IComponent<IElapsedTime>>()
+            var elapsedTurns = systemUpdateContext
+                .GetFirst<IComponent<ITurnInfo>>()
                 .Value
-                .Interval;
-            _currentCycleTime = _currentCycleTime.Add(elapsed);
+                .ElapsedTurns;
+            _currentCycleTimeInTurns += elapsedTurns;
 
-            // FIXME: we gotta do better than this casting...
-            if (((IInterval<double>)_currentCycleTime).Value >=
-                ((IInterval<double>)_targetCycleTime).Value)
+            if (_currentCycleTimeInTurns >= _targetCycleTimeInTurns)
             {
-                _currentCycleTime = new Interval<double>(0);
+                _currentCycleTimeInTurns = 0;
 
                 // pull in the current weather table from the manager
                 _currentWeatherTable = _weatherManager.WeatherTable;
@@ -68,21 +64,20 @@ namespace ProjectXyz.Plugins.Features.Weather
                     _currentWeatherTable,
                     _random);
 
-                // FIXME: we gotta do better than this casting...
                 var adjustedMaximumDuration = _weatherModifiers.GetMaximumDuration(
                     nextWeatherEntry.WeatherId,
-                    ((IInterval<double>)nextWeatherEntry.MaximumDuration).Value);
+                    nextWeatherEntry.MaximumDurationInTurns);
                 var adjustedMinimumDuration = _weatherModifiers.GetMinimumDuration(
                     nextWeatherEntry.WeatherId,
-                    ((IInterval<double>)nextWeatherEntry.MinimumDuration).Value,
+                    nextWeatherEntry.MinimumDurationInTurns,
                     adjustedMaximumDuration);
-                _targetCycleTime = new Interval<double>(_random.NextDouble(
+                _targetCycleTimeInTurns = _random.NextDouble(
                     adjustedMinimumDuration,
-                    adjustedMaximumDuration));
+                    adjustedMaximumDuration);
 
                 _weatherManager.Weather = _weatherFactory.Create(
                     nextWeatherEntry.WeatherId,
-                    _targetCycleTime,
+                    _targetCycleTimeInTurns,
                     new Interval<double>(5000), // FIXME: load transition from table??
                     new Interval<double>(5000), // FIXME: load transition from table??
                     new IBehavior[] { });

@@ -4,14 +4,14 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 {
     public sealed class TimeOfDayManager : ITimeOfDayManager
     {
-        public TimeOfDayManager()
+        private readonly ITimeOfDayConverter _timeOfDayConverter;
+
+        public TimeOfDayManager(ITimeOfDayConverter timeOfDayConverter)
         {
-            // FIXME: hardcoding a ToD here seems wrong, but allowing a 
-            // null ToD ID also seems wrong?
-            TimeOfDay = TimesOfDay.Dawn;
+            _timeOfDayConverter = timeOfDayConverter;
         }
 
-        public IIdentifier TimeOfDay { get; set; }
+        public IIdentifier TimeOfDay => _timeOfDayConverter.GetTimeOfDay(CyclePercent);
 
         public double CyclePercent { get; set; }
     }

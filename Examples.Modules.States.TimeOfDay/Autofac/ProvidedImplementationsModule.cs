@@ -19,10 +19,6 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay.Autofac
                 .RegisterType<TimeOfDayGenerationContextAttributeProvider>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-            builder
-                .RegisterType<StateIdToTermRepo>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
         }
     }
 }

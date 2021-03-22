@@ -10,18 +10,18 @@ namespace ProjectXyz.Plugins.Features.Weather
     public sealed class Weather : IWeather
     {
         public Weather(
-            IInterval duration,
+            double durationInTurns,
             IInterval transitionInDuration,
             IInterval transitionOutDuration,
             IEnumerable<IBehavior> behaviors)
         {
-            Duration = duration;
+            DurationInTurns = durationInTurns;
             TransitionInDuration = transitionInDuration;
             TransitionOutDuration = transitionOutDuration;
             Behaviors = behaviors.ToArray();
         }
 
-        public IInterval Duration { get; }
+        public double DurationInTurns { get; }
 
         public IInterval TransitionInDuration { get; }
 

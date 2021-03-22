@@ -5,7 +5,7 @@ namespace ProjectXyz.Plugins.Features.Weather.Api
 {
     public interface IWeather : IGameObject
     {
-        IInterval Duration { get; }
+        double DurationInTurns { get; }
         
         IInterval TransitionInDuration { get; }
         

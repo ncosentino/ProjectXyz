@@ -26,7 +26,7 @@ namespace ProjectXyz.Plugins.Features.Weather
 
         public IWeather Create(
             IIdentifier weatherId,
-            IInterval duration,
+            double durationInTurns,
             IInterval transitionInDuration,
             IInterval transitionOutDuration,
             IEnumerable<IBehavior> additionalBehaviors)
@@ -46,7 +46,7 @@ namespace ProjectXyz.Plugins.Features.Weather
             _weatherBehaviorsInterceptorFacade.Intercept(allBehaviors);
 
             var weather = new Weather(
-                duration,
+                durationInTurns,
                 transitionInDuration,
                 transitionOutDuration,
                 allBehaviors);

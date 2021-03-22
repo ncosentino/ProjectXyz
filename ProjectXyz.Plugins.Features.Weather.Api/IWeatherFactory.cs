@@ -9,7 +9,7 @@ namespace ProjectXyz.Plugins.Features.Weather.Api
     {
         IWeather Create(
             IIdentifier weatherId,
-            IInterval duration,
+            double durationInTurns,
             IInterval transitionInDuration,
             IInterval transitionOutDuration,
             IEnumerable<IBehavior> additionalBehaviors);

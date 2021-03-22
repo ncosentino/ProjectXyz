@@ -8,8 +8,8 @@ namespace ProjectXyz.Plugins.Features.Weather.Api
 
         IIdentifier WeatherId { get; }
 
-        IInterval MinimumDuration { get; }
+        double MinimumDurationInTurns { get; }
 
-        IInterval MaximumDuration { get; }
+        double MaximumDurationInTurns { get; }
     }
 }

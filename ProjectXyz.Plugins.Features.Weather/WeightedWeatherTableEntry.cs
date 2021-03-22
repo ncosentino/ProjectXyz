@@ -8,21 +8,21 @@ namespace ProjectXyz.Plugins.Features.Weather
         public WeightedWeatherTableEntry(
             IIdentifier weatherId,
             double weight,
-            IInterval minimumDuration,
-            IInterval maximumDuration)
+            double minimumDurationInTurns,
+            double maximumDurationInTurns)
         {
             WeatherId = weatherId;
             Weight = weight;
-            MinimumDuration = minimumDuration;
-            MaximumDuration = maximumDuration;
+            MinimumDurationInTurns = minimumDurationInTurns;
+            MaximumDurationInTurns = maximumDurationInTurns;
         }
 
         public IIdentifier WeatherId { get; }
 
         public double Weight { get; }
 
-        public IInterval MinimumDuration { get; }
+        public double MinimumDurationInTurns { get; }
 
-        public IInterval MaximumDuration { get; }
+        public double MaximumDurationInTurns { get; }
     }
 }

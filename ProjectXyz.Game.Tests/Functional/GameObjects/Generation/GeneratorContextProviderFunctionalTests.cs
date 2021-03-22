@@ -39,7 +39,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
             {
                 _weatherManager.Weather = _weatherFactory.Create(
                     new StringIdentifier("the weather"),
-                    new Interval<double>(0),
+                    0,
                     new Interval<double>(0),
                     new Interval<double>(0),
                     new IBehavior[] { });
