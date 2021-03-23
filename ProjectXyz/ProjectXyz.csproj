@@ -59,6 +59,8 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.csproj" />

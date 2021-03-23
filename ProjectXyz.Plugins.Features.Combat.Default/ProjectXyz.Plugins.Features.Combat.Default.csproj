@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj" />
+  </ItemGroup>
+
+</Project>

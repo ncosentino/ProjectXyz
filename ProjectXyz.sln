@@ -316,7 +316,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased", "ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj", "{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Default", "ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj", "{EA6D03DD-882C-400F-910D-1D06658CF80A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Default", "ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj", "{EA6D03DD-882C-400F-910D-1D06658CF80A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Combat", "Combat", "{30F515A1-A400-4BDA-A310-7BAD92E413ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Combat.Default.Tests", "ProjectXyz.Plugins.Features.Combat.Default.Tests\ProjectXyz.Plugins.Features.Combat.Default.Tests.csproj", "{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Combat.Api", "ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj", "{89F1DBEE-B868-4987-B55A-8891F254CD10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Combat.Default", "ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj", "{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -728,6 +736,18 @@ Global
 		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA6D03DD-882C-400F-910D-1D06658CF80A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F1DBEE-B868-4987-B55A-8891F254CD10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F1DBEE-B868-4987-B55A-8891F254CD10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F1DBEE-B868-4987-B55A-8891F254CD10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F1DBEE-B868-4987-B55A-8891F254CD10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -881,6 +901,10 @@ Global
 		{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4} = {82E62E79-9A1C-43A5-96FF-E21656FCC46C}
 		{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5} = {82E62E79-9A1C-43A5-96FF-E21656FCC46C}
 		{EA6D03DD-882C-400F-910D-1D06658CF80A} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
+		{30F515A1-A400-4BDA-A310-7BAD92E413ED} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{1EFF101A-2E81-4D63-BBD0-1773CFE3056A} = {30F515A1-A400-4BDA-A310-7BAD92E413ED}
+		{89F1DBEE-B868-4987-B55A-8891F254CD10} = {30F515A1-A400-4BDA-A310-7BAD92E413ED}
+		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41} = {30F515A1-A400-4BDA-A310-7BAD92E413ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}
