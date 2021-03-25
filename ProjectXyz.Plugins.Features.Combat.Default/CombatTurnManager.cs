@@ -23,6 +23,8 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             _actorCounters = new Dictionary<IGameObject, double>();
         }
 
+        public event EventHandler<TurnOrderEventArgs> TurnProgressed;
+
         public void Reset()
         {
             _actorCounters.Clear();
@@ -32,11 +34,12 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             IFilterContext filterContext,
             int turns)
         {
-            CalculateTurnOrder(
+            var actorOrder = CalculateTurnOrder(
                 filterContext,
                 _actorCounters,
-                turns)
-                .Consume();
+                turns);
+            var eventArgs = new TurnOrderEventArgs(actorOrder);
+            TurnProgressed?.Invoke(this, eventArgs);
         }
 
         public IEnumerable<IGameObject> GetSnapshot(

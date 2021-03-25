@@ -2,7 +2,7 @@
 
 namespace ProjectXyz.Plugins.Features.Combat.Api
 {
-    public interface ICombatTurnManager : IReadOnlyCombatTurnManager
+    public interface ICombatTurnManager : IObservableCombatTurnManager
     {        
         void ProgressTurn(
             IFilterContext filterContext,
