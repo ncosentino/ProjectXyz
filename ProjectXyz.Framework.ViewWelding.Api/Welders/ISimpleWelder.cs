@@ -2,6 +2,6 @@
 {
     public interface ISimpleWelder : IViewWelder
     {
-        void Weld();
+        IWeldResult Weld();
     }
 }
