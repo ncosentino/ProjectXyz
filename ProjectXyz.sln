@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{B33EE9D3-EF98-4400-A528-67CD385747E7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{ABC9AD2E-C560-4B6F-AE17-3B0537CD9275} = {ABC9AD2E-C560-4B6F-AE17-3B0537CD9275}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{2E9E6598-5746-4968-AB8F-240FED1139D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{15BDBEA4-4170-4040-9C45-C392D6098151}"
@@ -112,29 +107,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BoundedStats", "BoundedStats", "{32557D31-ACBC-4368-A147-389CB1006A8F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{8A28C6A1-F2B2-47F9-BBBF-5C5DD182C237}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C6559E54-8743-4057-BD3D-7D499EAE1613}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.BoundedStats", "Examples.Modules.BoundedStats\Examples.Modules.BoundedStats.csproj", "{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExpressionEnchantments", "ExpressionEnchantments", "{082E360F-BD44-4AEF-BFA9-5BFDD278EE27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.ExpressionEnchantments.Api", "ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj", "{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.ExpressionEnchantments", "Examples.Modules.ExpressionEnchantments\Examples.Modules.ExpressionEnchantments.csproj", "{77D2CF94-450D-4B14-B5C3-1A7E48214784}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StateEnchantments", "StateEnchantments", "{347226E9-35EB-468E-9884-130B7D502E2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.StateEnchantments.Api", "ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj", "{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.StateEnchantments", "Examples.Modules.StateEnchantments\Examples.Modules.StateEnchantments.csproj", "{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.Stats", "Examples.Modules.Stats\Examples.Modules.Stats.csproj", "{F4DB6337-D838-4347-9987-E0EE13EBD818}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "States", "States", "{64B76D05-65D1-4AA8-B453-3C1BC400B2A4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TimeOfDay", "Examples.Modules.States.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj", "{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TimeOfDay", "ProjectXyz.Plugins.Features.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj", "{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.StateEnchantments.Shared", "ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj", "{F85CF10E-7CEC-42BD-8DBA-A76275F5060F}"
 EndProject
@@ -157,8 +140,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{9FC699C8-887A-4FB4-B8C3-3075EF23553B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Shared.Game.Behaviors", "ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj", "{229057A2-508F-4CDE-8F87-DA3FAB069D06}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples.Modules.Mapping", "Examples.Modules.Mapping\Examples.Modules.Mapping.csproj", "{11FF2C70-2C4F-403B-AC53-247BDB063777}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Logging", "ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj", "{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}"
 EndProject
@@ -320,11 +301,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Combat", "Combat", "{30F515A1-A400-4BDA-A310-7BAD92E413ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Combat.Default.Tests", "ProjectXyz.Plugins.Features.Combat.Default.Tests\ProjectXyz.Plugins.Features.Combat.Default.Tests.csproj", "{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Combat.Default.Tests", "ProjectXyz.Plugins.Features.Combat.Default.Tests\ProjectXyz.Plugins.Features.Combat.Default.Tests.csproj", "{1EFF101A-2E81-4D63-BBD0-1773CFE3056A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Combat.Api", "ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj", "{89F1DBEE-B868-4987-B55A-8891F254CD10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Combat.Api", "ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj", "{89F1DBEE-B868-4987-B55A-8891F254CD10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Combat.Default", "ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj", "{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Combat.Default", "ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj", "{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -332,10 +313,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B33EE9D3-EF98-4400-A528-67CD385747E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B33EE9D3-EF98-4400-A528-67CD385747E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B33EE9D3-EF98-4400-A528-67CD385747E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B33EE9D3-EF98-4400-A528-67CD385747E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E56D372-31CF-48BD-94A2-67D4622C270A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E56D372-31CF-48BD-94A2-67D4622C270A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E56D372-31CF-48BD-94A2-67D4622C270A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -472,30 +449,14 @@ Global
 		{B544856A-AB36-4A88-9441-67853074F33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B544856A-AB36-4A88-9441-67853074F33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B544856A-AB36-4A88-9441-67853074F33A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76}.Release|Any CPU.Build.0 = Release|Any CPU
-		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77D2CF94-450D-4B14-B5C3-1A7E48214784}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4DB6337-D838-4347-9987-E0EE13EBD818}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -524,10 +485,6 @@ Global
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11FF2C70-2C4F-403B-AC53-247BDB063777}.Release|Any CPU.Build.0 = Release|Any CPU
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -753,7 +710,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B33EE9D3-EF98-4400-A528-67CD385747E7} = {8A28C6A1-F2B2-47F9-BBBF-5C5DD182C237}
 		{0E56D372-31CF-48BD-94A2-67D4622C270A} = {37003CAC-D461-4B18-8208-76EA9C6D8262}
 		{8878CD88-B979-4AF3-9510-2FA949060088} = {7F0E8840-224B-4473-89E6-1FE66EE93E8C}
 		{E67B42E4-9BE6-42B5-99DF-17727C1E2F38} = {DAB1F3EB-AD06-4CA0-BE64-7F7267ECCBFC}
@@ -801,15 +757,10 @@ Global
 		{8FEB2DC5-BC36-47AA-A319-3C2263740808} = {FE222CC0-0A13-4B24-B56B-FE72CA48A22C}
 		{B544856A-AB36-4A88-9441-67853074F33A} = {FE222CC0-0A13-4B24-B56B-FE72CA48A22C}
 		{32557D31-ACBC-4368-A147-389CB1006A8F} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
-		{C6559E54-8743-4057-BD3D-7D499EAE1613} = {8A28C6A1-F2B2-47F9-BBBF-5C5DD182C237}
-		{A86581CA-18F6-4D03-9F7A-0657DEC32A1A} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{082E360F-BD44-4AEF-BFA9-5BFDD278EE27} = {0BDD1CB0-4E11-4453-8370-8B9176818A63}
 		{B6A76B2D-7CB5-4584-8EFA-B76AEE3BDD76} = {082E360F-BD44-4AEF-BFA9-5BFDD278EE27}
-		{77D2CF94-450D-4B14-B5C3-1A7E48214784} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{347226E9-35EB-468E-9884-130B7D502E2A} = {0BDD1CB0-4E11-4453-8370-8B9176818A63}
 		{5A0E7932-B9A9-4A10-A8AE-CF505D6569B8} = {347226E9-35EB-468E-9884-130B7D502E2A}
-		{BC946063-8EF9-4520-BCEB-F13DB6DA4FF5} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
-		{F4DB6337-D838-4347-9987-E0EE13EBD818} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{64B76D05-65D1-4AA8-B453-3C1BC400B2A4} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{1F1FEB20-3E06-442E-9B5B-B9B96BAAFC54} = {02E99FD1-9946-4B2E-9D7E-8173648EC9BC}
 		{F85CF10E-7CEC-42BD-8DBA-A76275F5060F} = {347226E9-35EB-468E-9884-130B7D502E2A}
@@ -823,7 +774,6 @@ Global
 		{C1C9D171-58F9-41E9-B816-C0F287D6F2CA} = {0F769E14-559C-4A23-BA23-20CECD2636A6}
 		{9FC699C8-887A-4FB4-B8C3-3075EF23553B} = {51F6C9E0-53F8-4FEF-A52C-0D92F1226E5A}
 		{229057A2-508F-4CDE-8F87-DA3FAB069D06} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
-		{11FF2C70-2C4F-403B-AC53-247BDB063777} = {C6559E54-8743-4057-BD3D-7D499EAE1613}
 		{20D53CD6-10FD-4347-B5A3-C6A5B8FABF2D} = {440A7AA9-5891-4505-898C-72E74B4EC02C}
 		{440A7AA9-5891-4505-898C-72E74B4EC02C} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}
 		{68FB16F5-2C5C-4172-8277-70A4781DF6DB} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
