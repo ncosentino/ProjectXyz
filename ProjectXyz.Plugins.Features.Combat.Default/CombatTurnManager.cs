@@ -25,9 +25,15 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
 
         public event EventHandler<TurnOrderEventArgs> TurnProgressed;
 
-        public void Reset()
+        public event EventHandler<TurnOrderEventArgs> CombatStarted;
+
+        public void StartCombat(IFilterContext filterContext)
         {
             _actorCounters.Clear();
+
+            var actorOrder = GetSnapshot(filterContext, 1);
+            var eventArgs = new TurnOrderEventArgs(actorOrder);
+            CombatStarted?.Invoke(this, eventArgs);
         }
 
         public void ProgressTurn(

@@ -8,6 +8,6 @@ namespace ProjectXyz.Plugins.Features.Combat.Api
             IFilterContext filterContext,
             int turns);
         
-        void Reset();
+        void StartCombat(IFilterContext filterContext);
     }
 }
