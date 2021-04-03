@@ -60,7 +60,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
                 .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
 
-            _combatTurnManager.StartCombat();
+            _combatTurnManager.StartCombat(_filterContext.Object);
             var results1 = _combatTurnManager
                 .GetSnapshot(_filterContext.Object, 7)
                 .ToArray();
