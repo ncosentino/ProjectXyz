@@ -49,4 +49,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj" />
     <ProjectReference Include="..\ProjectXyz.Testing\ProjectXyz.Testing.csproj" />
   </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet restore --force $(ProjectPath)" />
+  </Target>
 </Project>
