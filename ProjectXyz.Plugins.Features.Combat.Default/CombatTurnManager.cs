@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Combat.Api;
@@ -23,16 +25,16 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             _actorCounters = new Dictionary<IGameObject, double>();
         }
 
-        public event EventHandler<TurnOrderEventArgs> TurnProgressed;
+        public event EventHandler<TurnProgressedEventArgs> TurnProgressed;
 
-        public event EventHandler<TurnOrderEventArgs> CombatStarted;
+        public event EventHandler<CombatStartedEventArgs> CombatStarted;
 
         public void StartCombat(IFilterContext filterContext)
         {
             _actorCounters.Clear();
 
             var actorOrder = GetSnapshot(filterContext, 1);
-            var eventArgs = new TurnOrderEventArgs(actorOrder);
+            var eventArgs = new CombatStartedEventArgs(actorOrder);
             CombatStarted?.Invoke(this, eventArgs);
         }
 
@@ -40,11 +42,21 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             IFilterContext filterContext,
             int turns)
         {
+            Contract.RequiresNotNull(
+                filterContext,
+                $"{nameof(filterContext)} cannot be null.");
+            Contract.Requires(
+                turns > 0,
+                $"{nameof(turns)} must be greater than 0.");
+
             var actorOrder = CalculateTurnOrder(
                 filterContext,
                 _actorCounters,
-                turns);
-            var eventArgs = new TurnOrderEventArgs(actorOrder);
+                turns)
+                .ToArray();
+            var eventArgs = new TurnProgressedEventArgs(
+                actorOrder,
+                GetSnapshot(filterContext, 1).Single());
             TurnProgressed?.Invoke(this, eventArgs);
         }
 
@@ -52,6 +64,13 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             IFilterContext filterContext,
             int length)
         {
+            Contract.RequiresNotNull(
+                filterContext,
+                $"{nameof(filterContext)} cannot be null.");
+            Contract.Requires(
+                length > 0,
+                $"{nameof(length)} must be greater than 0.");
+
             var actorCounter = _actorCounters.ToDictionary(
                 x => x.Key,
                 x => x.Value);

@@ -6,9 +6,9 @@ using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Combat.Api
 {
-    public sealed class TurnOrderEventArgs : EventArgs
+    public sealed class CombatStartedEventArgs : EventArgs
     {
-        public TurnOrderEventArgs(IEnumerable<IGameObject> actorOrder)
+        public CombatStartedEventArgs(IEnumerable<IGameObject> actorOrder)
         {
             ActorOrder = actorOrder.ToArray();
         }

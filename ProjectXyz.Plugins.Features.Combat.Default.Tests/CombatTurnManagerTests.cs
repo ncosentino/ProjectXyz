@@ -86,5 +86,108 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 results1.Skip(2),
                 results2);
         }
+
+        [InlineData(6, new[] { 0, 1, 0, 1, 2, 0 }, 1)]
+        [InlineData(5, new[] { 0, 1, 0, 1, 2 }, 0)]
+        [InlineData(4, new[] { 0, 1, 0, 1 }, 2)]
+        [InlineData(3, new[] { 0, 1, 0 }, 1)]
+        [InlineData(2, new[] { 0, 1 }, 0)]
+        [InlineData(1, new[] { 0 }, 1)]
+        [Theory]
+        private void ProgressTurn_VariableTurns_ExpectedEventArgs(
+            int numberOfTurns,
+            int[] expectedProgressedActorIndices,
+            int expectedNextActorIndex)
+        {
+            var gameObjectA1 = _mockRepository.Create<IGameObject>(); // actor 0
+            var gameObjectB1 = _mockRepository.Create<IGameObject>(); // actor 1
+            var gameObjectB2 = _mockRepository.Create<IGameObject>(); // actor 2
+
+            var possibleActors = new[]
+            {
+                gameObjectA1.Object,
+                gameObjectB1.Object,
+                gameObjectB2.Object,
+            };
+
+            _combatGameObjectManager
+                .Setup(x => x.GetGameObjects())
+                .Returns(new[]
+                {
+                    gameObjectA1.Object,
+                    gameObjectB1.Object,
+                    gameObjectB2.Object,
+                });
+
+            var speedMapping = new Dictionary<IGameObject, double>()
+            {
+                [gameObjectA1.Object] = 10,
+                [gameObjectB1.Object] = 8,
+                [gameObjectB2.Object] = 4,
+            };
+
+            _combatCalculations
+                .Setup(x => x.CalculateActorIncrementValue)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => speedMapping[actor]));
+            _combatCalculations
+                .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
+
+            var turnProgressedCount = 0;
+            _combatTurnManager.TurnProgressed += (s, e) =>
+            {
+                Assert.Equal(numberOfTurns, e.ActorTurnProgression.Count);
+                Assert.Equal(expectedProgressedActorIndices.Select(x => possibleActors[x]), e.ActorTurnProgression);
+                Assert.Equal(possibleActors[expectedNextActorIndex], e.ActorWithNextTurn);
+                turnProgressedCount++;
+            };
+
+            _combatTurnManager.ProgressTurn(
+                _filterContext.Object,
+                numberOfTurns);
+
+            Assert.Equal(1, turnProgressedCount);
+        }
+
+        [Fact]
+        private void CombatStarted_3ActorsVariableSpeed_ExpectedEventArgs()
+        {
+            var gameObjectA1 = _mockRepository.Create<IGameObject>();
+            var gameObjectB1 = _mockRepository.Create<IGameObject>();
+            var gameObjectB2 = _mockRepository.Create<IGameObject>();
+
+            _combatGameObjectManager
+                .Setup(x => x.GetGameObjects())
+                .Returns(new[]
+                {
+                    gameObjectA1.Object,
+                    gameObjectB1.Object,
+                    gameObjectB2.Object,
+                });
+
+            var speedMapping = new Dictionary<IGameObject, double>()
+            {
+                [gameObjectA1.Object] = 10,
+                [gameObjectB1.Object] = 8,
+                [gameObjectB2.Object] = 4,
+            };
+
+            _combatCalculations
+                .Setup(x => x.CalculateActorIncrementValue)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => speedMapping[actor]));
+            _combatCalculations
+                .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
+
+            var combatStartedCount = 0;
+            _combatTurnManager.CombatStarted += (s, e) =>
+            {
+                var firstActor = Assert.Single(e.ActorOrder);
+                Assert.Equal(gameObjectA1.Object, firstActor);
+                combatStartedCount++;
+            };
+
+            _combatTurnManager.StartCombat(_filterContext.Object);
+        }
     }
 }
