@@ -11,5 +11,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
         event EventHandler<EventArgs> MapPopulated;
 
         IMap ActiveMap { get; }
+
+        IPathFinder PathFinder { get; }
     }
 }

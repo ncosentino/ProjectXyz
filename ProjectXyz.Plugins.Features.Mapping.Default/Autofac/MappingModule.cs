@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.Mapping.Default.PathFinding;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
 {
@@ -34,6 +35,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
                 .SingleInstance();
             builder
                 .RegisterType<MapBehaviorsProviderFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<AStarPathFinder>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<AStarPathFinderFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
