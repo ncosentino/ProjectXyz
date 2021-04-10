@@ -7,5 +7,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Api
         event EventHandler<TurnProgressedEventArgs> TurnProgressed;
 
         event EventHandler<CombatStartedEventArgs> CombatStarted;
+
+        event EventHandler<CombatEndedEventArgs> CombatEnded;
     }
 }

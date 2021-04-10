@@ -29,13 +29,32 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
 
         public event EventHandler<CombatStartedEventArgs> CombatStarted;
 
+        public event EventHandler<CombatEndedEventArgs> CombatEnded;
+
+        public bool InCombat { get; private set; }
+
         public void StartCombat(IFilterContext filterContext)
         {
             _actorCounters.Clear();
 
             var actorOrder = GetSnapshot(filterContext, 1);
             var eventArgs = new CombatStartedEventArgs(actorOrder);
+
+            InCombat = true;
             CombatStarted?.Invoke(this, eventArgs);
+        }
+
+        public void EndCombat(
+            IEnumerable<IGameObject> winningTeam,
+            IReadOnlyDictionary<int, IReadOnlyCollection<IGameObject>> losingTeams)
+        {
+            _actorCounters.Clear();
+            var eventArgs = new CombatEndedEventArgs(
+                winningTeam,
+                losingTeams);
+
+            InCombat = false;
+            CombatEnded?.Invoke(this, eventArgs);
         }
 
         public void ProgressTurn(

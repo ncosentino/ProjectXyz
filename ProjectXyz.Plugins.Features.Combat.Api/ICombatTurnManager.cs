@@ -1,4 +1,7 @@
-﻿using ProjectXyz.Api.Behaviors.Filtering;
+﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Combat.Api
 {
@@ -9,5 +12,9 @@ namespace ProjectXyz.Plugins.Features.Combat.Api
             int turns);
         
         void StartCombat(IFilterContext filterContext);
+
+        void EndCombat(
+            IEnumerable<IGameObject> winningTeam,
+            IReadOnlyDictionary<int, IReadOnlyCollection<IGameObject>> losingTeams);
     }
 }
