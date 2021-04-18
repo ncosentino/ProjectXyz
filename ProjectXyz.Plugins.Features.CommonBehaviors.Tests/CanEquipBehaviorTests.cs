@@ -39,7 +39,8 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
 
             var result = _canEquipBehavior.TryEquip(
                 equipSlotId,
-                _mockCanBeEquipped.Object);
+                _mockCanBeEquipped.Object,
+                false);
 
             Assert.True(
                 result,
@@ -58,7 +59,8 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
 
             var result = _canEquipBehavior.TryEquip(
                 equipSlotId,
-                _mockCanBeEquipped.Object);
+                _mockCanBeEquipped.Object,
+                false);
 
             Assert.False(
                 result,
@@ -78,19 +80,50 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
 
             _canEquipBehavior.TryEquip(
                 equipSlotId,
-                _mockCanBeEquipped.Object);
+                _mockCanBeEquipped.Object,
+                false);
 
             var equippedCount = 0;
             _canEquipBehavior.Equipped += (_, __) => equippedCount++;
 
             var result = _canEquipBehavior.TryEquip(
                 equipSlotId,
-                _mockCanBeEquipped.Object);
+                _mockCanBeEquipped.Object,
+                false);
 
             Assert.False(
                 result,
                 "Unexpected result for TryEquip().");
             Assert.Equal(0, equippedCount);
+            _mockRepository.VerifyAll();
+        }
+
+        [Fact]
+        private void TryEquip_AlreadyEquippedAllowSwap_Succeeds()
+        {
+            var equipSlotId = new StringIdentifier("body");
+
+            _mockCanBeEquipped
+                .Setup(x => x.AllowedEquipSlots)
+                .Returns(_supportedEquipSlotIds);
+
+            _canEquipBehavior.TryEquip(
+                equipSlotId,
+                _mockCanBeEquipped.Object,
+                false);
+
+            var equippedCount = 0;
+            _canEquipBehavior.Equipped += (_, __) => equippedCount++;
+
+            var result = _canEquipBehavior.TryEquip(
+                equipSlotId,
+                _mockCanBeEquipped.Object,
+                true);
+
+            Assert.True(
+                result,
+                $"Unexpected result for {nameof(_canEquipBehavior.TryEquip)}().");
+            Assert.Equal(1, equippedCount);
             _mockRepository.VerifyAll();
         }
 
@@ -125,7 +158,8 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests
 
             _canEquipBehavior.TryEquip(
                 equipSlotId,
-                _mockCanBeEquipped.Object);
+                _mockCanBeEquipped.Object,
+                false);
 
             var unequippedCount = 0;
             _canEquipBehavior.Unequipped += (_, __) => unequippedCount++;

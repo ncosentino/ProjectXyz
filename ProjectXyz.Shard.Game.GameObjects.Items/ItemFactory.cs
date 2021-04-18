@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items
 {
@@ -32,10 +36,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items
             // FIXME: this probably shouldn't even be here... causes dependency on a feature
             var hasMutableStats = new HasMutableStatsBehavior(statManager);
 
+            var idBehavior = new IdentifierBehavior(new StringIdentifier(Guid.NewGuid().ToString()));
             var item = new Item(
                 _behaviorManager,
                 hasMutableStats,
-                behaviors);
+                behaviors.AppendSingle(idBehavior));
             return item;
         }
     }

@@ -24,6 +24,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items
                 Behaviors.TakeTypes<IHasStatsBehavior>().Count() == 1,
                 $"Expecting only a single behavior for '{this}' to be " +
                 $"'{typeof(IHasStatsBehavior)}'.");
+            Contract.Requires(
+                Behaviors.TakeTypes<IReadOnlyIdentifierBehavior>().Count() == 1,
+                $"Expecting only a single behavior for '{this}' to be " +
+                $"'{typeof(IReadOnlyIdentifierBehavior)}'.");
             behaviorManager.Register(this, Behaviors);
         }
 

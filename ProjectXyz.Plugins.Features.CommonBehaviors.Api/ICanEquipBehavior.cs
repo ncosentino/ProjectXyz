@@ -10,10 +10,12 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 
         bool CanEquip(
             IIdentifier equipSlotId,
-            ICanBeEquippedBehavior canBeEquipped);
+            ICanBeEquippedBehavior canBeEquipped,
+            bool allowSwap);
 
         bool TryEquip(
             IIdentifier equipSlotId,
-            ICanBeEquippedBehavior canBeEquipped);
+            ICanBeEquippedBehavior canBeEquipped,
+            bool allowSwap);
     }
 }

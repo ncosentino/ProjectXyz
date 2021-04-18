@@ -62,10 +62,11 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
         public bool CanEquip(
             IIdentifier equipSlotId,
-            ICanBeEquippedBehavior canBeEquipped)
+            ICanBeEquippedBehavior canBeEquipped,
+            bool allowSwap)
         {
             // already occupied
-            if (_equipment.ContainsKey(equipSlotId))
+            if (!allowSwap && _equipment.ContainsKey(equipSlotId))
             {
                 return false;
             }
@@ -88,11 +89,13 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
 
         public bool TryEquip(
             IIdentifier equipSlotId,
-            ICanBeEquippedBehavior canBeEquipped)
+            ICanBeEquippedBehavior canBeEquipped,
+            bool allowSwap)
         {
             if (!CanEquip(
                 equipSlotId,
-                canBeEquipped))
+                canBeEquipped,
+                allowSwap))
             {
                 return false;
             }
