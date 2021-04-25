@@ -96,7 +96,8 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId,
-                    equippable);
+                    equippable,
+                    false);
 
             var inventoryItem = _itemFactory
                 .Create(_hasEnchantmentsBehaviorFactory.Create());

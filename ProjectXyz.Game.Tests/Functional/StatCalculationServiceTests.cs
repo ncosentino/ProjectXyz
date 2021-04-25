@@ -317,7 +317,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId,
-                    equippable);
+                    equippable,
+                    false);
 
             var inventoryItem = _fixture
                 .ItemFactory
@@ -405,7 +406,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId,
-                    equippable);
+                    equippable,
+                    false);
 
             AssertStat(canBeSocketedItem, statId, 15);
             AssertStat(canFitSocketItem, statId, 10);
@@ -440,7 +442,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId1,
-                    item1.GetOnly<ICanBeEquippedBehavior>());
+                    item1.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             AssertStat(actor, statId, 0);
         }
@@ -473,7 +476,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId1,
-                    item1.GetOnly<ICanBeEquippedBehavior>());
+                    item1.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             var equipSlotId2 = new StringIdentifier("feet");
             var item2 = _fixture
@@ -490,7 +494,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId2,
-                    item2.GetOnly<ICanBeEquippedBehavior>());
+                    item2.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             AssertStat(actor, statId, 321);
         }
@@ -523,7 +528,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId1,
-                    item1.GetOnly<ICanBeEquippedBehavior>());
+                    item1.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             var equipSlotId2 = new StringIdentifier("feet");
             var item2 = _fixture
@@ -540,7 +546,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId2,
-                    item2.GetOnly<ICanBeEquippedBehavior>());
+                    item2.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             AssertStat(actor, statId, 0);
         }
@@ -573,7 +580,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId1,
-                    item1.GetOnly<ICanBeEquippedBehavior>());
+                    item1.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             var equipSlotId2 = new StringIdentifier("feet");
             var item2 = _fixture
@@ -590,7 +598,8 @@ namespace ProjectXyz.Game.Tests.Functional
                 .GetOnly<ICanEquipBehavior>()
                 .TryEquip(
                     equipSlotId2,
-                    item2.GetOnly<ICanBeEquippedBehavior>());
+                    item2.GetOnly<ICanBeEquippedBehavior>(),
+                    false);
 
             actor
                 .GetOnly<ICanEquipBehavior>()
