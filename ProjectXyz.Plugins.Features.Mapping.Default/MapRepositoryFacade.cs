@@ -1,9 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
@@ -17,18 +15,11 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _repositories = repositories.ToArray();
         }
 
-        public IMap LoadMap(IIdentifier mapId)
+        public IEnumerable<IMap> LoadMaps(IFilterContext filterContext)
         {
-            var map = _repositories
-                .Select(x => x.LoadMap(mapId))
-                .FirstOrDefault(x => x != null);
-            if (map == null)
-            {
-                throw new InvalidOperationException(
-                    $"Could not get an instance of '{typeof(IMap)}' for ID '{mapId}'.");
-            }
-
-            return map;
+            var maps = _repositories
+                .SelectMany(x => x.LoadMaps(filterContext));
+            return maps;
         }
     }
 }

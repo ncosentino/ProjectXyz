@@ -1,9 +1,11 @@
-﻿using ProjectXyz.Api.Framework;
+﻿using System.Collections.Generic;
+
+using ProjectXyz.Api.Behaviors.Filtering;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapRepository
     {
-        IMap LoadMap(IIdentifier mapId);
+        IEnumerable<IMap> LoadMaps(IFilterContext filterContext);
     }
 }
