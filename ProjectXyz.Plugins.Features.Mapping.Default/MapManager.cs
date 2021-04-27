@@ -3,6 +3,8 @@ using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Game.Api;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
@@ -16,6 +18,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         private readonly IMapGameObjectRepository _mapGameObjectRepository;
         private readonly IPathFinderFactory _pathFinderFactory;
         private readonly IFilterContextFactory _filterContextFactory;
+        private readonly IGameObjectRepository _gameObjectRepository;
 
         public MapManager(
             IMapIdentifiers mapIdentifiers,
@@ -23,7 +26,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             IMapGameObjectManager mapGameObjectManager,
             IMapGameObjectRepository mapGameObjectRepository,
             IPathFinderFactory pathFinderFactory,
-            IFilterContextFactory filterContextFactory)
+            IFilterContextFactory filterContextFactory,
+            IGameObjectRepository gameObjectRepository)
         {
             _mapIdentifiers = mapIdentifiers;
             _mapRepository = mapRepository;
@@ -31,6 +35,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _mapGameObjectRepository = mapGameObjectRepository;
             _pathFinderFactory = pathFinderFactory;
             _filterContextFactory = filterContextFactory;
+            _gameObjectRepository = gameObjectRepository;
         }
 
         public event EventHandler<EventArgs> MapChanging;
@@ -43,17 +48,65 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public IPathFinder PathFinder { get; private set; }
 
-        public void SwitchMap(IFilterContext filterContext)
+        public void UnloadMap()
         {
             MapChanging?.Invoke(this, EventArgs.Empty);
-            ActiveMap = _mapRepository.LoadMaps(filterContext).Single();
 
-            PathFinder = _pathFinderFactory.CreateForMap(ActiveMap);
+            ActiveMap = null;
+            PathFinder = null;
+
             MapChanged?.Invoke(this, EventArgs.Empty);
 
             _mapGameObjectManager.MarkForRemoval(_mapGameObjectManager.GameObjects);
-            _mapGameObjectManager.MarkForAddition(_mapGameObjectRepository.LoadForMap(ActiveMap.Id));
             _mapGameObjectManager.Synchronize();
+
+            MapPopulated?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SwitchMap(IFilterContext filterContext)
+        {
+            MapChanging?.Invoke(this, EventArgs.Empty);
+
+            var nextMap = _mapRepository.LoadMaps(filterContext).Single();
+
+            if (ActiveMap != null)
+            {
+                // no op!
+                if (ActiveMap == nextMap)
+                {
+                    return;
+                }
+
+                foreach (var gameObject in _mapGameObjectManager.GameObjects)
+                {
+                    _gameObjectRepository.Save(gameObject);
+                }
+
+                var mapGameObjectsToSave = _mapGameObjectManager
+                    .GameObjects
+                    .Where(x => !x.Has<ISkipMapSaveStateBehavior>());
+                _mapGameObjectRepository.SaveState(
+                    ActiveMap,
+                    mapGameObjectsToSave);
+            }
+
+            ActiveMap = nextMap;
+            PathFinder = _pathFinderFactory.CreateForMap(ActiveMap);
+
+            MapChanged?.Invoke(this, EventArgs.Empty);
+
+            var mapGameObjectsToRemove = _mapGameObjectManager
+                .GameObjects
+                .Where(x => !x.Has<IAlwaysLoadWithMapBehavior>());
+            _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
+            var mapGameObjectsToAdd = _mapGameObjectRepository
+                .LoadForMap(ActiveMap.Id)
+                .Concat(_gameObjectRepository
+                    .LoadAll()
+                    .Where(x => x.Has<IAlwaysLoadWithMapBehavior>()));
+            _mapGameObjectManager.MarkForAddition(mapGameObjectsToAdd);
+            _mapGameObjectManager.Synchronize();
+
             MapPopulated?.Invoke(this, EventArgs.Empty);
         }
 

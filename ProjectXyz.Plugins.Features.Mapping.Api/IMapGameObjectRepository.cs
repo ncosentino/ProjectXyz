@@ -8,5 +8,9 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
     public interface IMapGameObjectRepository
     {
         IEnumerable<IGameObject> LoadForMap(IIdentifier mapId);
+
+        void SaveState(
+            IMap map,
+            IEnumerable<IGameObject> gameObjects);
     }
 }
