@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Mapping.Api;
@@ -57,10 +58,11 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
             var addedGameObjects = new HashSet<IGameObject>();
             lock (_gameObjectsToAdd)
+            lock (_gameObjectsToRemove)
             {
                 lock (_gameObjects)
                 {
-                    foreach (var gameObject in _gameObjectsToAdd)
+                    foreach (var gameObject in _gameObjectsToAdd.Where(x => !_gameObjectsToRemove.Contains(x)))
                     {
                         // in some situations we're "adding" objects to the map
                         // even though they're already present just to ensure

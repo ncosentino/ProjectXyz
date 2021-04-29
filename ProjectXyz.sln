@@ -309,6 +309,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Filtering", "Filtering", "{25673D7C-5778-42E8-AF44-E6E924B730DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Mapping.Tests", "ProjectXyz.Plugins.Features.Mapping.Tests\ProjectXyz.Plugins.Features.Mapping.Tests.csproj", "{318A9778-5737-4817-BF55-2CFC2BE2E502}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -707,6 +709,10 @@ Global
 		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{318A9778-5737-4817-BF55-2CFC2BE2E502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318A9778-5737-4817-BF55-2CFC2BE2E502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318A9778-5737-4817-BF55-2CFC2BE2E502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318A9778-5737-4817-BF55-2CFC2BE2E502}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -858,6 +864,7 @@ Global
 		{89F1DBEE-B868-4987-B55A-8891F254CD10} = {30F515A1-A400-4BDA-A310-7BAD92E413ED}
 		{F0DEAF1E-DBB4-4810-BF70-959A8D2C2E41} = {30F515A1-A400-4BDA-A310-7BAD92E413ED}
 		{25673D7C-5778-42E8-AF44-E6E924B730DA} = {31E8CAA1-95FD-4C25-BD13-2CC91D5160B3}
+		{318A9778-5737-4817-BF55-2CFC2BE2E502} = {3EA3B906-92E4-4ED7-B955-E534E4FE7481}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}
