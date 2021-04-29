@@ -62,6 +62,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 {
                     foreach (var gameObject in _gameObjectsToAdd)
                     {
+                        // in some situations we're "adding" objects to the map
+                        // even though they're already present just to ensure
+                        // they stick around, but there's no actual net change
+                        if (_gameObjects.Contains(gameObject))
+                        {
+                            continue;
+                        }
+
                         _gameObjects.Add(gameObject);
                         addedGameObjects.Add(gameObject);
                         requiredSync = true;
@@ -78,6 +86,11 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 {
                     foreach (var gameObject in _gameObjectsToRemove)
                     {
+                        if (!_gameObjects.Contains(gameObject))
+                        {
+                            continue;
+                        }
+
                         _gameObjects.Remove(gameObject);
                         removedGameObjects.Add(gameObject);
                         requiredSync = true;
