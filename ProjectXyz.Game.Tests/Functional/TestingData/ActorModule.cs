@@ -47,6 +47,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IIdentifier AnimationWalkLeft { get; } = new StringIdentifier("animation-walk-left");
 
         public IIdentifier AnimationWalkRight { get; } = new StringIdentifier("animation-walk-right");
+
+        public IIdentifier AnimationDeath { get; } = new StringIdentifier("animation-death");
     }
 
     public sealed class AdditionalActorBehaviorProvider : IDiscoverableActorBehaviorsProvider
