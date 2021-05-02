@@ -26,5 +26,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
         IIdentifier AnimationWalkRight { get; }
 
         IIdentifier AnimationDeath { get; }
+
+        IIdentifier AnimationCastBack { get; }
+
+        IIdentifier AnimationCastForward { get; }
+
+        IIdentifier AnimationCastLeft { get; }
+
+        IIdentifier AnimationCastRight { get; }
     }
 }
