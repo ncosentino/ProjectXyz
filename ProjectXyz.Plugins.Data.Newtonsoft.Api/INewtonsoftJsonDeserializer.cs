@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 using Newtonsoft.Json.Linq;
 
@@ -16,6 +15,6 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Api
     {
         TDeserializable Deserialize<TDeserializable>(JObject serializable);
 
-        JObject ReadObject(Stream stream);
+        object ReadObject(Stream stream);
     }
 }

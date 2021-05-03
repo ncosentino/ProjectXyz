@@ -1,17 +1,26 @@
-﻿using Autofac;
+﻿
+using Autofac;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
 {
-    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
+    public sealed partial class ProvidedImplementationsModule : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
-            var jsonSerializer = new JsonSerializer();
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                DateParseHandling = DateParseHandling.None
+            };
+            settings.Converters.Add(new JsonInt32Converter());
+            var jsonSerializer = JsonSerializer.Create(settings);
+
             builder
                 .Register(x => new NewtonsoftJsonDeserializer(jsonSerializer))
                 .AsImplementedInterfaces()

@@ -8,6 +8,34 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
+            builder
+                .RegisterType<SerializableConverterFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<AlreadySerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<EnumerableSerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<PropertyDirectedSerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ConstructorDirectedSerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<MarkerSerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<NullSerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

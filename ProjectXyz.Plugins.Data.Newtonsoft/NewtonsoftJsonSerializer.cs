@@ -33,7 +33,8 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             TSerializable objectToSerialize,
             Encoding encoding)
         {
-            if (!(objectToSerialize is ISerializable))
+            if (NeedsSerialization(objectToSerialize) &&
+                !(objectToSerialize is ISerializable))
             {
                 var serializable = GetAsSerializable(
                     objectToSerialize,
@@ -50,6 +51,15 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
 
         public ISerializable GetAsSerializable(
             object objectToSerialize,
+            HashSet<object> visited) =>
+            GetAsSerializable(
+                objectToSerialize,
+                objectToSerialize.GetType(),
+                visited);
+
+        public ISerializable GetAsSerializable(
+            object objectToSerialize,
+            Type objectType,
             HashSet<object> visited)
         {
             if (objectToSerialize is ISerializable)
@@ -57,16 +67,20 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 return (ISerializable)objectToSerialize;
             }
 
-            if (NeedsSerialization(objectToSerialize))
+            if (NeedsSerialization(objectType))
             {
                 if (!visited.Contains(objectToSerialize))
                 {
                     visited.Add(objectToSerialize);
                 }
+                else
+                {
+                    // FIXME: is this an issue?
+                }
             }
 
             if (!_mapping.TryGetValue(
-                objectToSerialize.GetType(),
+                objectType,
                 out var converter))
             {
                 converter = _defaultConverter;
@@ -75,7 +89,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             if (converter == null)
             {
                 throw new InvalidOperationException(
-                    $"There is no conversion between '{objectToSerialize.GetType()}' " +
+                    $"There is no conversion between '{objectType}' " +
                     $"and '{typeof(ISerializable)}'.");
             }
 
@@ -83,11 +97,30 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 this,
                 objectToSerialize,
                 visited,
-                objectToSerialize.GetType());
+                objectType);
             return serializable;
         }
 
-        public bool NeedsSerialization(object obj) => NeedsSerialization(obj.GetType());
+        public object GetObjectToSerialize(
+            object obj,
+            HashSet<object> visited)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            var result = !NeedsSerialization(obj)
+                ? obj
+                : GetAsSerializable(
+                    obj,
+                    visited);
+            return result;
+        }
+
+        public bool NeedsSerialization(object obj) =>
+            obj != null &&
+            NeedsSerialization(obj.GetType());
 
         public bool NeedsSerialization(Type type)
         {

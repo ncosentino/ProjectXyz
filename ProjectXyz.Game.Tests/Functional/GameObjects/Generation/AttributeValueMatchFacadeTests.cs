@@ -17,7 +17,6 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
     {
         private static readonly IAttributeValueMatchFacade _attributeValueMatchFacade;
 
-
         static AttributeValueMatchFacadeTests()
         {
             _attributeValueMatchFacade = CachedDependencyLoader.LifeTimeScope.Resolve<IAttributeValueMatchFacade>();

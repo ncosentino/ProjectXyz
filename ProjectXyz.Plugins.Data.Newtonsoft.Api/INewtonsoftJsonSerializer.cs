@@ -20,5 +20,14 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Api
         ISerializable GetAsSerializable(
             object objectToSerialize,
             HashSet<object> visited);
+
+        ISerializable GetAsSerializable(
+            object objectToSerialize,
+            Type objectType,
+            HashSet<object> visited);
+
+        object GetObjectToSerialize(
+            object obj,
+            HashSet<object> visited);
     }
 }
