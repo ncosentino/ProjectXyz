@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
@@ -10,21 +11,21 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
     public sealed class MapFactory : IMapFactory
     {
-        private readonly IBehaviorManager _behaviorManager;
+        private readonly IGameObjectFactory _gameObjectFactory;
         private readonly IMapBehaviorsProviderFacade _mapBehaviorsProviderFacade;
         private readonly IMapBehaviorsInterceptorFacade _mapBehaviorsInterceptorFacade;
 
         public MapFactory(
-            IBehaviorManager behaviorManager,
+            IGameObjectFactory gameObjectFactory,
             IMapBehaviorsProviderFacade mapBehaviorsProviderFacade,
             IMapBehaviorsInterceptorFacade mapBehaviorsInterceptorFacade)
         {
-            _behaviorManager = behaviorManager;
+            _gameObjectFactory = gameObjectFactory;
             _mapBehaviorsProviderFacade = mapBehaviorsProviderFacade;
             _mapBehaviorsInterceptorFacade = mapBehaviorsInterceptorFacade;
         }
 
-        public IMap Create(
+        public IGameObject Create(
             IIdentifier id,
             IEnumerable<IMapLayer> layers,
             IEnumerable<IBehavior> additionalBehaviors)
@@ -32,6 +33,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             var baseAndInjectedBehaviours = new IBehavior[]
                 {
                     new IdentifierBehavior(id),
+                    new MapLayersBehavior(layers),
                 }
                 .Concat(additionalBehaviors)
                 .ToArray();
@@ -44,11 +46,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 .Intercept(allBehaviors)
                 .ToArray();
 
-            var map = new Map(
-                id,
-                layers,
-                allBehaviors);
-            _behaviorManager.Register(map, map.Behaviors);
+            var map = _gameObjectFactory.Create(allBehaviors);
             return map;
         }
     }

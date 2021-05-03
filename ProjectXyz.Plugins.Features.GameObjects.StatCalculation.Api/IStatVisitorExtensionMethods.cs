@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api
 {
@@ -15,7 +14,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api
     {
         public static double GetStatValue(
             this IStatVisitor statVisitor,
-            IHasBehaviors gameObject,
+            IGameObject gameObject,
             IIdentifier statId)
         {
             var value = statVisitor.GetStatValue(
@@ -36,11 +35,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api
 
             private EmptyCalculationContext()
             {
-                Enchantments = new IEnchantment[0];
+                Enchantments = new IGameObject[0];
                 Components = new ComponentCollection();
             }
 
-            public IReadOnlyCollection<IEnchantment> Enchantments { get; }
+            public IReadOnlyCollection<IGameObject> Enchantments { get; }
 
             public IComponentCollection Components { get; }
         }

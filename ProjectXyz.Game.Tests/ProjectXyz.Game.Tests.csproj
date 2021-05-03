@@ -44,9 +44,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Filtering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Testing\ProjectXyz.Framework.Testing.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj" />
     <ProjectReference Include="..\ProjectXyz.Testing\ProjectXyz.Testing.csproj" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

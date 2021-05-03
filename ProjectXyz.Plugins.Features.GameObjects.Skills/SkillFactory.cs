@@ -3,8 +3,8 @@ using System.Linq;
 
 using NexusLabs.Contracts;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
@@ -13,16 +13,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
     {
         private readonly ISkillBehaviorsInterceptorFacade _skillBehaviorsInterceptorFacade;
         private readonly ISkillBehaviorsProviderFacade _skillBehaviorsProviderFacade;
-        private readonly IBehaviorManager _behaviorManager;
+        private readonly IGameObjectFactory _gameObjectFactory;
 
         public SkillFactory(
             ISkillBehaviorsInterceptorFacade skillBehaviorsInterceptorFacade,
             ISkillBehaviorsProviderFacade skillBehaviorsProviderFacade,
-            IBehaviorManager behaviorManager)
+            IGameObjectFactory gameObjectFactory)
         {
             _skillBehaviorsInterceptorFacade = skillBehaviorsInterceptorFacade;
             _skillBehaviorsProviderFacade = skillBehaviorsProviderFacade;
-            _behaviorManager = behaviorManager;
+            _gameObjectFactory = gameObjectFactory;
         }
 
         public IGameObject Create(
@@ -67,8 +67,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 .ToArray();
             _skillBehaviorsInterceptorFacade.Intercept(allBehaviors);
 
-            var skill = new Skill(allBehaviors);
-            _behaviorManager.Register(skill, allBehaviors);
+            var skill = _gameObjectFactory.Create(allBehaviors);
             return skill;
         }
     }

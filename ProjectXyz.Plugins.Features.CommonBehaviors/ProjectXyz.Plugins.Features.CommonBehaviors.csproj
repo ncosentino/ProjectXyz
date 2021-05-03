@@ -20,7 +20,6 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />

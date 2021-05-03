@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
@@ -17,14 +18,14 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
             _activeEnchantmentManager = activeEnchantmentManager;
         }
 
-        public IReadOnlyCollection<IEnchantment> Enchantments => _activeEnchantmentManager.Enchantments;
+        public IReadOnlyCollection<IGameObject> Enchantments => _activeEnchantmentManager.Enchantments;
 
-        public void AddEnchantments(IEnumerable<IEnchantment> enchantments)
+        public void AddEnchantments(IEnumerable<IGameObject> enchantments)
         {
             _activeEnchantmentManager.Add(enchantments);
         }
 
-        public void RemoveEnchantments(IEnumerable<IEnchantment> enchantments)
+        public void RemoveEnchantments(IEnumerable<IGameObject> enchantments)
         {
             _activeEnchantmentManager.Remove(enchantments);
         }

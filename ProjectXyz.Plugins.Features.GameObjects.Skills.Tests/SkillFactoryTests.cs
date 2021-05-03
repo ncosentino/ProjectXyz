@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Moq;
 
 using NexusLabs.Contracts;
 
-using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 
 using Xunit;
@@ -20,7 +18,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         private readonly MockRepository _mockRepository;
         private readonly Mock<ISkillBehaviorsInterceptorFacade> _skillBehaviorsInterceptorFacade;
         private readonly Mock<ISkillBehaviorsProviderFacade> _skillBehaviorsProviderFacade;
-        private readonly Mock<IBehaviorManager> _behaviorManager;
+        private readonly Mock<IGameObjectFactory> _gameObjectFactory;
         private readonly Mock<IReadOnlyTypeIdentifierBehavior> _typeIdentifierBehavior;
         private readonly Mock<IReadOnlyTemplateIdentifierBehavior> _templateIdentifierBehavior;
         private readonly Mock<IReadOnlyIdentifierBehavior> _identifierBehavior;
@@ -37,7 +35,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _mockRepository = new MockRepository(MockBehavior.Strict);
             _skillBehaviorsInterceptorFacade = _mockRepository.Create<ISkillBehaviorsInterceptorFacade>();
             _skillBehaviorsProviderFacade = _mockRepository.Create<ISkillBehaviorsProviderFacade>();
-            _behaviorManager = _mockRepository.Create<IBehaviorManager>();
+            _gameObjectFactory = _mockRepository.Create<IGameObjectFactory>();
             _typeIdentifierBehavior = _mockRepository.Create<IReadOnlyTypeIdentifierBehavior>();
             _templateIdentifierBehavior = _mockRepository.Create<IReadOnlyTemplateIdentifierBehavior>();
             _identifierBehavior = _mockRepository.Create<IReadOnlyIdentifierBehavior>();
@@ -51,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillFactory = new SkillFactory(
                 _skillBehaviorsInterceptorFacade.Object,
                 _skillBehaviorsProviderFacade.Object,
-                _behaviorManager.Object);
+                _gameObjectFactory.Object);
         }
 
         [Fact]
@@ -65,16 +63,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillBehaviorsInterceptorFacade
                 .Setup(x => x.Intercept(It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)));
 
-            _behaviorManager
-                .Setup(x => x.Register(
-                    It.IsAny<IGameObject>(),
-                    It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)));
+            var expectedSkill = _mockRepository.Create<IGameObject>();
+            _gameObjectFactory
+                .Setup(x => x.Create(
+                    It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)))
+                .Returns(expectedSkill.Object);
 
             _hasEnchantmentsBehavior
                 .Setup(x => x.Enchantments)
-                .Returns(new IEnchantment[] { });
+                .Returns(new IGameObject[] { });
 
-            var skill = _skillFactory.Create(
+            var actualSkill = _skillFactory.Create(
                 _typeIdentifierBehavior.Object,
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
@@ -87,7 +86,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _skillRequirementsBehavior.Object,
                 new IBehavior[] { });
 
-            Assert.NotNull(skill);
+            Assert.Equal(expectedSkill.Object, actualSkill);
             _mockRepository.VerifyAll();
         }
 
@@ -102,16 +101,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillBehaviorsInterceptorFacade
                 .Setup(x => x.Intercept(It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)));
 
-            _behaviorManager
-                .Setup(x => x.Register(
-                    It.IsAny<IGameObject>(),
-                    It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)));
+            var expectedSkill = _mockRepository.Create<IGameObject>();
+            _gameObjectFactory
+                .Setup(x => x.Create(
+                    It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)))
+                .Returns(expectedSkill.Object);
 
             _hasEnchantmentsBehavior
                 .Setup(x => x.Enchantments)
-                .Returns(new IEnchantment[] { });
+                .Returns(new IGameObject[] { });
 
-            var skill = _skillFactory.Create(
+            var actualSkill = _skillFactory.Create(
                 _typeIdentifierBehavior.Object,
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
@@ -127,7 +127,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                     _mockRepository.Create<IPassiveSkillBehavior>().Object,
                 });
 
-            Assert.NotNull(skill);
+            Assert.Equal(expectedSkill.Object, actualSkill);
             //_mockRepository.VerifyAll(); // skipping because boolean logic shortcircuits
         }
 
@@ -142,19 +142,20 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _skillBehaviorsInterceptorFacade
                 .Setup(x => x.Intercept(It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)));
 
-            _behaviorManager
-                .Setup(x => x.Register(
-                    It.IsAny<IGameObject>(),
-                    It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)));
+            var expectedSkill = _mockRepository.Create<IGameObject>();
+            _gameObjectFactory
+                .Setup(x => x.Create(
+                    It.Is<IReadOnlyCollection<IBehavior>>(b => b.Count == EXPECTED_BEHAVIOR_COUNT)))
+                .Returns(expectedSkill.Object);
 
             _hasEnchantmentsBehavior
                 .Setup(x => x.Enchantments)
-                .Returns(new IEnchantment[]
+                .Returns(new IGameObject[]
                 {
-                    _mockRepository.Create<IEnchantment>().Object,
+                    _mockRepository.Create<IGameObject>().Object,
                 });
 
-            var skill = _skillFactory.Create(
+            var actualSkill = _skillFactory.Create(
                 _typeIdentifierBehavior.Object,
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
@@ -170,7 +171,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                     _mockRepository.Create<IPassiveSkillBehavior>().Object,
                 });
 
-            Assert.NotNull(skill);
+            Assert.Equal(expectedSkill.Object, actualSkill);
             //_mockRepository.VerifyAll(); // skipping because boolean logic shortcircuits
         }
 
@@ -179,9 +180,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         {
             _hasEnchantmentsBehavior
                 .Setup(x => x.Enchantments)
-                .Returns(new IEnchantment[] 
+                .Returns(new IGameObject[] 
                 {
-                    _mockRepository.Create<IEnchantment>().Object,
+                    _mockRepository.Create<IGameObject>().Object,
                 });
 
             Assert.Throws<ContractException>(() => _skillFactory.Create(

@@ -4,13 +4,14 @@ using System.Linq;
 
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Triggering;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Triggering;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     public sealed class ActiveEnchantmentManager : IActiveEnchantmentManager
     {
-        private readonly Dictionary<IEnchantment, List<ITriggerMechanic>> _activeEnchantments;
+        private readonly Dictionary<IGameObject, List<ITriggerMechanic>> _activeEnchantments;
         private readonly ITriggerMechanicRegistrar _triggerMechanicRegistrar;
         private readonly IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> _enchantmentTriggerMechanicRegistrars;
 
@@ -18,14 +19,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
             ITriggerMechanicRegistrar triggerMechanicRegistrar,
             IEnumerable<IEnchantmentTriggerMechanicRegistrar> enchantmentTriggerMechanicRegistrars)
         {
-            _activeEnchantments = new Dictionary<IEnchantment, List<ITriggerMechanic>>();
+            _activeEnchantments = new Dictionary<IGameObject, List<ITriggerMechanic>>();
             _triggerMechanicRegistrar = triggerMechanicRegistrar;
             _enchantmentTriggerMechanicRegistrars = enchantmentTriggerMechanicRegistrars.ToArray();
         }
 
-        public IReadOnlyCollection<IEnchantment> Enchantments => _activeEnchantments.Keys;
+        public IReadOnlyCollection<IGameObject> Enchantments => _activeEnchantments.Keys;
 
-        public void Add(IEnumerable<IEnchantment> enchantments)
+        public void Add(IEnumerable<IGameObject> enchantments)
         {
             foreach (var enchantment in enchantments)
             {
@@ -56,7 +57,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
             }
         }
 
-        public void Remove(IEnumerable<IEnchantment> enchantments)
+        public void Remove(IEnumerable<IGameObject> enchantments)
         {
             foreach (var enchantment in enchantments)
             {
@@ -69,7 +70,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
             }
         }
 
-        private void RemoveTriggerMechanicFromEnchantment(IEnchantment enchantment, ITriggerMechanic triggerMechanic)
+        private void RemoveTriggerMechanicFromEnchantment(
+            IGameObject enchantment,
+            ITriggerMechanic triggerMechanic)
         {
             if (_activeEnchantments[enchantment].Count == 1)
             {
@@ -77,7 +80,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
             }
             else if (!_activeEnchantments[enchantment].Remove(triggerMechanic))
             {
-                throw new InvalidOperationException($"Attempted to remove trigger '{triggerMechanic}' but the collection did not contain it.");
+                throw new InvalidOperationException(
+                    $"Attempted to remove trigger '{triggerMechanic}' but the " +
+                    $"collection did not contain it.");
             }
         }
     }

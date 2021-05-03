@@ -20,6 +20,6 @@
     <PackageReference Include="NexusLabs.Contracts" Version="0.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
   </ItemGroup>
 </Project>

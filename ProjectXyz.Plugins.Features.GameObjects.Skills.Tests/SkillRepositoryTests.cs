@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 using Moq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
@@ -309,13 +308,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
 
             var filterComponent = _mockRepository.Create<IGeneratorComponent>();
 
-            var enchantment1 = _mockRepository.Create<IEnchantment>();
+            var enchantment1 = _mockRepository.Create<IGameObject>();
             var enchantmentsBehavior1 = _mockRepository.Create<IHasEnchantmentsBehavior>();
             enchantmentsBehavior1
                 .Setup(x => x.Enchantments)
                 .Returns(new[] { enchantment1.Object });
 
-            var enchantment2 = _mockRepository.Create<IEnchantment>();
+            var enchantment2 = _mockRepository.Create<IGameObject>();
             var enchantmentsBehavior2 = _mockRepository.Create<IHasReadOnlyEnchantmentsBehavior>();
             enchantmentsBehavior2
                 .Setup(x => x.Enchantments)
@@ -326,7 +325,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 new StringIdentifier("stateful enchantment")
             };
 
-            var enchantment3 = _mockRepository.Create<IEnchantment>();
+            var enchantment3 = _mockRepository.Create<IGameObject>();
             _enchantmentLoader
                 .Setup(x => x.LoadForEnchantmenDefinitionIds(statefulEnchantmentDefinitionIds))
                 .Returns(new[] { enchantment3.Object });
@@ -407,15 +406,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(_hasMutableStatsBehavior.Object);
 
             _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IEnchantment>>(e =>
+                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
                     e.Count() == 1 &&
                     e.Single() == enchantment1.Object)));
             _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IEnchantment>>(e =>
+                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
                     e.Count() == 1 &&
                     e.Single() == enchantment2.Object)));
             _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IEnchantment>>(e =>
+                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
                     e.Count() == 1 &&
                     e.Single() == enchantment3.Object)));
 
@@ -462,13 +461,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
 
             var filterComponent = _mockRepository.Create<IGeneratorComponent>();
 
-            var enchantment1 = _mockRepository.Create<IEnchantment>();
+            var enchantment1 = _mockRepository.Create<IGameObject>();
             var enchantmentsBehavior1 = _mockRepository.Create<IHasEnchantmentsBehavior>();
             enchantmentsBehavior1
                 .Setup(x => x.Enchantments)
                 .Returns(new[] { enchantment1.Object });
 
-            var enchantment2 = _mockRepository.Create<IEnchantment>();
+            var enchantment2 = _mockRepository.Create<IGameObject>();
             var enchantmentsBehavior2 = _mockRepository.Create<IHasReadOnlyEnchantmentsBehavior>();
             enchantmentsBehavior2
                 .Setup(x => x.Enchantments)
@@ -544,11 +543,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 .Returns(_hasMutableStatsBehavior.Object);
 
             _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IEnchantment>>(e =>
+                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
                     e.Count() == 1 &&
                     e.Single() == enchantment1.Object)));
             _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IEnchantment>>(e =>
+                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
                     e.Count() == 1 &&
                     e.Single() == enchantment2.Object)));
 

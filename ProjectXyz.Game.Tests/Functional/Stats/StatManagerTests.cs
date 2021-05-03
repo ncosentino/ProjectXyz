@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.States;
 using ProjectXyz.Game.Tests.Functional.TestingData;
 using ProjectXyz.Plugins.Enchantments.Stats;
 using ProjectXyz.Plugins.Stats;
 using ProjectXyz.Shared.Framework.Entities;
+
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.Stats
@@ -44,7 +45,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
 
             var statCalculationContext = new StatCalculationContext(
                 new[] { new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider) },
-                new IEnchantment[0]);
+                new IGameObject[0]);
 
             // Execute
             var result = statManager.GetValue(

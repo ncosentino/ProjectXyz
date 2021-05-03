@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
@@ -20,7 +21,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IHasBehaviors> hasBehaviors)
+            IEnumerable<IGameObject> gameObjects)
         {
             _mutableGameObjectManager.Synchronize();
         }

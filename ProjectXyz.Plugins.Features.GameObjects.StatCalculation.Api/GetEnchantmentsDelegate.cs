@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Enchantments;
+﻿using System.Collections.Generic;
+
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api
 {
-    public delegate IReadOnlyCollection<IEnchantment> GetEnchantmentsDelegate(
+    public delegate IReadOnlyCollection<IGameObject> GetEnchantmentsDelegate(
         IStatVisitor statVisitor,
         IEnchantmentVisitor enchantmentVisitor,
-        IHasBehaviors behaviors,
+        IGameObject gameObject,
         IIdentifier target,
         IIdentifier statId,
         IStatCalculationContext context);

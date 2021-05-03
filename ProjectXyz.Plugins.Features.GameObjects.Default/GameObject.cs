@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
-namespace ProjectXyz.Plugins.Features.GameObjects.Actors
+namespace ProjectXyz.Plugins.Features.Behaviors.Default
 {
-    public sealed class Actor : IGameObject
+    public sealed class GameObject : IGameObject
     {
-        public Actor(IEnumerable<IBehavior> behaviors)
+        public GameObject(IEnumerable<IBehavior> behaviors)
         {
             Behaviors = behaviors.ToArray();
         }

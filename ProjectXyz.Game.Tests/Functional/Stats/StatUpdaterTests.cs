@@ -4,7 +4,7 @@ using System.Linq;
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
@@ -84,7 +84,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
          MemberData(nameof(GetGlobalTimeElapsedSingleEnchantmentTestData))]
         private void GlobalTimeElapsed_SingleBaseStatEnchantment_ExpectedBaseStat(
             string _,
-            IEnchantment enchantment,
+            IGameObject enchantment,
             double elapsedTurns,
             double expectedValue)
         {
@@ -130,7 +130,7 @@ namespace ProjectXyz.Game.Tests.Functional.Stats
          MemberData(nameof(GetGlobalTurnsElapsedSingleEnchantmentTestData))]
         private void GlobalTurnsElapsed_SingleBaseStatEnchantment_ExpectedBaseStat(
             string _,
-            IEnchantment enchantment,
+            IGameObject enchantment,
             double elapsedTurns,
             double expectedValue)
         {

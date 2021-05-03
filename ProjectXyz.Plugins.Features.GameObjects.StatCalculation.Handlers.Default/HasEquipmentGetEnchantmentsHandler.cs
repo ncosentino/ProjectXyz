@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;

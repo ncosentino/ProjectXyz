@@ -25,7 +25,6 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
@@ -37,7 +36,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Plugins.Features.Behaviors.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj" />
   </ItemGroup>

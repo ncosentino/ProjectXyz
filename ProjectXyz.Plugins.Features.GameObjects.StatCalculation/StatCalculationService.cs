@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Shared.Framework;
 
@@ -24,9 +23,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation
             _getStatsMapping = new List<IStatCalculatorHandler>(statCalculatorHandlers);
         }
 
-        public IEnumerable<IEnchantment> GetEnchantments(
-            IHasBehaviors gameObject,
-            Predicate<IHasBehaviors> visited,
+        public IEnumerable<IGameObject> GetEnchantments(
+            IGameObject gameObject,
+            Predicate<IGameObject> visited,
             IIdentifier target,
             IIdentifier statId,
             IStatCalculationContext context)
@@ -57,7 +56,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation
         }
 
         public double GetStatValue(
-            IHasBehaviors gameObject,
+            IGameObject gameObject,
             IIdentifier statId,
             IStatCalculationContext context)
         {

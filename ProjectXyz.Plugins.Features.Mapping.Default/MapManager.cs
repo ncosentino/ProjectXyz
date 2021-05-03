@@ -6,6 +6,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Api;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
@@ -44,7 +45,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public event EventHandler<EventArgs> MapPopulated;
 
-        public IMap ActiveMap { get; private set; }
+        public IGameObject ActiveMap { get; private set; }
 
         public IPathFinder PathFinder { get; private set; }
 
@@ -99,8 +100,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 .GameObjects
                 .Where(x => !x.Has<IAlwaysLoadWithMapBehavior>());
             _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
+
+            var mapId = ActiveMap.GetOnly<IIdentifierBehavior>().Id;
             var mapGameObjectsToAdd = _mapGameObjectRepository
-                .LoadForMap(ActiveMap.Id)
+                .LoadForMap(mapId)
                 .Concat(_gameObjectRepository
                     .LoadAll()
                     .Where(x => x.Has<IAlwaysLoadWithMapBehavior>()));

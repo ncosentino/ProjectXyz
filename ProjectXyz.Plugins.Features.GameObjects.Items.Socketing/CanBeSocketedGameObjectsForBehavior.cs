@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing

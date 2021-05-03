@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.Handlers;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
@@ -17,10 +17,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
         }
 
         public IEnumerable<IComponent> HandleComponents(
-            IHasBehaviors hasBehaviors,
+            IGameObject gameObject,
             IReadOnlyCollection<IComponent> components) =>
             _discoverableComponentsHandlers.SelectMany(x => x.HandleComponents(
-                hasBehaviors,
+                gameObject,
                 components));
     }
 }

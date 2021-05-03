@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectXyz.Api.Behaviors
+namespace ProjectXyz.Api.GameObjects.Behaviors
 {
     public static class IEnumerableIBehaviorExtensions
     {

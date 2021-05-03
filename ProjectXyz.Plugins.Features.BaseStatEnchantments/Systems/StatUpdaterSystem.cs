@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProjectXyz.Api.Behaviors;
+
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -26,7 +28,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IHasBehaviors> hasBehaviors)
+            IEnumerable<IGameObject> gameObjects)
         {
             var turnInfo = systemUpdateContext
                 .GetFirst<IComponent<ITurnInfo>>()

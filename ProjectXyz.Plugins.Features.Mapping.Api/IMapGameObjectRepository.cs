@@ -10,7 +10,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
         IEnumerable<IGameObject> LoadForMap(IIdentifier mapId);
 
         void SaveState(
-            IMap map,
+            IGameObject map,
             IEnumerable<IGameObject> gameObjects);
     }
 }

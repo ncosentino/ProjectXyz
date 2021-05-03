@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Api.Enchantments.Calculations
 {
@@ -7,11 +9,11 @@ namespace ProjectXyz.Api.Enchantments.Calculations
     {
         IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
             double elapsedTurns,
-            IReadOnlyCollection<IEnchantment> enchantments);
+            IReadOnlyCollection<IGameObject> enchantments);
 
         IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
             double elapsedTurns,
-            IReadOnlyCollection<IEnchantment> enchantments,
+            IReadOnlyCollection<IGameObject> enchantments,
             IEnumerable<IComponent> additionalComponents);
     }
 }

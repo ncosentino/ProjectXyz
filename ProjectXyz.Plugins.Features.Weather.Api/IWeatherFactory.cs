@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.Weather.Api
 {
     public interface IWeatherFactory
     {
-        IWeather Create(
+        IGameObject Create(
             IIdentifier weatherId,
-            double durationInTurns,
-            IInterval transitionInDuration,
-            IInterval transitionOutDuration,
+            IWeatherDuration weatherDuration,
             IEnumerable<IBehavior> additionalBehaviors);
     }
 }

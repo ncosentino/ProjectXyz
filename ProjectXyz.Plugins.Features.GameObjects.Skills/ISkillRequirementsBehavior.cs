@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {

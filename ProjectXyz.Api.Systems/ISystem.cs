@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Api.Systems
 {
@@ -8,6 +8,6 @@ namespace ProjectXyz.Api.Systems
     {
         void Update(
             ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IHasBehaviors> hasBehaviors);
+            IEnumerable<IGameObject> gameObjects);
     }
 }

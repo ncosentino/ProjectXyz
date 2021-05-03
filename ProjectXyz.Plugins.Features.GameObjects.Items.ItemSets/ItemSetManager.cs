@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                 .SelectMany(x => x.Get<IBelongsToItemSetBehavior>())
                 .Select(x => new
                 {
-                    Item = (IGameObject)x.Owner, // FIXME: wtf is this casting...
+                    Item = x.Owner,
                     BelongsToSet = x,
                 })
                 .ToArray();
@@ -55,7 +55,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                 .SelectMany(x => x.ItemSetBehaviors.Select(isb => new
                 {
                     EquipSlotId = x.EquipSlotId,
-                    Item = (IGameObject)isb.Owner, // FIXME: wtf is this casting...
+                    Item = isb.Owner,
                     BelongsToSet = isb,
                 }))
                 .ToArray();
@@ -66,7 +66,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                 .Distinct()
                 .ToArray();
 
-            var itemSetEnchantmentsToAdd = new List<IEnchantment>();
+            var itemSetEnchantmentsToAdd = new List<IGameObject>();
             foreach (var itemSetDefinitionId in itemSetDefinitionIds)
             {
                 var itemSetDefinition = _itemSetDefinitionRepositoryFacade.GetItemSetDefinitionById(itemSetDefinitionId);
@@ -202,7 +202,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
 
         private static void ApplyItemSetEnchantments(
             IGameObject actor,
-            IReadOnlyCollection<IEnchantment> itemSetEnchantmentsToAdd)
+            IReadOnlyCollection<IGameObject> itemSetEnchantmentsToAdd)
         {
             var actorEnchantmentsBehavior = actor.GetOnly<IHasEnchantmentsBehavior>();
             var currentEnchantments = actorEnchantmentsBehavior
@@ -214,7 +214,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                     {
                         EnchantmentDefinitionId = iseb.EnchantmentDefinitionId,
                         ItemSetId = iseb.ItemSetId,
-                        Enchantment = (IEnchantment)iseb.Owner, // FIXME: wtf is this casting
+                        Enchantment = iseb.Owner,
                     }))
                 .GroupBy(x => x.EnchantmentDefinitionId, x => x.Enchantment)
                 .ToDictionary(x => x.Key, x => x.ToReadOnlyCollection());
@@ -226,7 +226,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                     {
                         EnchantmentDefinitionId = iseb.EnchantmentDefinitionId,
                         ItemSetId = iseb.ItemSetId,
-                        Enchantment = (IEnchantment)iseb.Owner, // FIXME: wtf is this casting
+                        Enchantment = iseb.Owner,
                     }))
                 .GroupBy(x => x.EnchantmentDefinitionId, x => x.Enchantment)
                 .ToDictionary(x => x.Key, x => x.ToReadOnlyCollection());
@@ -268,7 +268,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
         // FIXME: can this be an extension method somewhere? Where would it 
         // live? can we even assume all enchantment definitions will have a
         // filter attribute ID of 'id'? (not the enchantment ID part)
-        private IEnchantment LoadEnchantmentByDefinitionId(
+        private IGameObject LoadEnchantmentByDefinitionId(
             IIdentifier itemSetId,
             IIdentifier enchantmentDefinitionId)
         {
@@ -290,7 +290,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
             return enchantment;
         }
 
-        private IEnumerable<IEnchantment> LoadEnchantmentsByDefinitionIds(
+        private IEnumerable<IGameObject> LoadEnchantmentsByDefinitionIds(
             IIdentifier itemSetId, 
             IEnumerable<IIdentifier> enchantmentDefinitionIds)
         {

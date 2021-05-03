@@ -4,8 +4,10 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.TurnBased.Api;
 using ProjectXyz.Plugins.Features.Weather.Api;
@@ -40,7 +42,7 @@ namespace ProjectXyz.Plugins.Features.Weather
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IHasBehaviors> hasBehaviors)
+            IEnumerable<IGameObject> gameObjects)
         {
             var elapsedTurns = systemUpdateContext
                 .GetFirst<IComponent<ITurnInfo>>()
@@ -77,9 +79,10 @@ namespace ProjectXyz.Plugins.Features.Weather
 
                 _weatherManager.Weather = _weatherFactory.Create(
                     nextWeatherEntry.WeatherId,
-                    _targetCycleTimeInTurns,
-                    new Interval<double>(5000), // FIXME: load transition from table??
-                    new Interval<double>(5000), // FIXME: load transition from table??
+                    new WeatherDurationBehavior(
+                        _targetCycleTimeInTurns,
+                        new Interval<double>(5000), // FIXME: load transition from table??
+                        new Interval<double>(5000)), // FIXME: load transition from table??
                     new IBehavior[] { });
             }
         }

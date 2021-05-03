@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using ProjectXyz.Api.Enchantments;
+
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Triggering;
 
 namespace ProjectXyz.Api.Enchantments.Triggering
@@ -7,7 +8,7 @@ namespace ProjectXyz.Api.Enchantments.Triggering
     public interface IEnchantmentTriggerMechanicRegistrar
     {
         IEnumerable<ITriggerMechanic> RegisterToEnchantment(
-            IEnchantment enchantment,
+            IGameObject enchantment,
             RemoveTriggerMechanicDelegate removeTriggerMechanicCallback);
     }
 }

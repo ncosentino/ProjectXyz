@@ -39,14 +39,14 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
                 .GetCanBeEquippedBehaviorsBySlot()
                 .Select(x => Tuple.Create(
                     x.Item1,
-                    (IGameObject)x.Item2.Owner)); // FIXME: wtf is this shitty casting
+                    x.Item2.Owner));
         }
 
         public static IEnumerable<IGameObject> GetEquippedItems(this IHasEquipmentBehavior hasEquipmentBehavior)
         {
             return hasEquipmentBehavior
                 .GetCanBeEquippedBehaviors()
-                .Select(x => (IGameObject)x.Owner); // FIXME: wtf is this shitty casting
+                .Select(x => x.Owner);
         }
     }
 }

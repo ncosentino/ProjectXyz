@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using ProjectXyz.Api.Enchantments;
+
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats
 {
@@ -9,7 +10,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats
     {
         void Update(
             IReadOnlyDictionary<IIdentifier, double> baseStats,
-            IReadOnlyCollection<IEnchantment> enchantments,
+            IReadOnlyCollection<IGameObject> enchantments,
             Action<Action<IDictionary<IIdentifier, double>>> mutateStatsCallback,
             double elapsedTurns);
     }

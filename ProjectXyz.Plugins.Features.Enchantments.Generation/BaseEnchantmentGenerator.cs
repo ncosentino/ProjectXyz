@@ -4,11 +4,12 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation
@@ -32,7 +33,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             _filterComponentToBehaviorConverter = filterComponentToBehaviorConverter;
         }
 
-        public IEnumerable<IEnchantment> GenerateEnchantments(IFilterContext filterContext)
+        public IEnumerable<IGameObject> GenerateEnchantments(IFilterContext filterContext)
         {
             var targetCount = GetCount(
                 filterContext.MinimumCount,

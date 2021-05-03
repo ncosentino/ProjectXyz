@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
-    public interface IMap : IGameObject
+    public interface IMapLayersBehavior : IBehavior
     {
-        IIdentifier Id { get; }
-
         IReadOnlyCollection<IMapLayer> Layers { get; }
     }
 }

@@ -2,12 +2,13 @@
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.TimeOfDay;
+using ProjectXyz.Plugins.Features.Weather;
 using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
@@ -39,9 +40,10 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Generation
             {
                 _weatherManager.Weather = _weatherFactory.Create(
                     new StringIdentifier("the weather"),
-                    0,
-                    new Interval<double>(0),
-                    new Interval<double>(0),
+                    new WeatherDurationBehavior(
+                        0,
+                        new Interval<double>(0),
+                        new Interval<double>(0)),
                     new IBehavior[] { });
                 var expectedValue = _weatherManager
                     .Weather

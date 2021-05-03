@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.TurnBased.Api;
 
@@ -20,7 +21,7 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
         public void Update(
             ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IHasBehaviors> hasBehaviors)
+            IEnumerable<IGameObject> gameObjects)
         {
             var turnInfo = systemUpdateContext
                 .GetFirst<IComponent<ITurnInfo>>()

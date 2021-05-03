@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.Weather.Api;
 
@@ -12,28 +13,27 @@ namespace ProjectXyz.Plugins.Features.Weather
     {
         private readonly IWeatherBehaviorsInterceptorFacade _weatherBehaviorsInterceptorFacade;
         private readonly IWeatherBehaviorsProviderFacade _weatherBehaviorsProviderFacade;
-        private readonly IBehaviorManager _behaviorManager;
+        private readonly IGameObjectFactory _gameObjectFactory;
 
         public WeatherFactory(
             IWeatherBehaviorsInterceptorFacade weatherBehaviorsInterceptorFacade,
             IWeatherBehaviorsProviderFacade weatherBehaviorsProviderFacade,
-            IBehaviorManager behaviorManager)
+            IGameObjectFactory gameObjectFactory)
         {
             _weatherBehaviorsInterceptorFacade = weatherBehaviorsInterceptorFacade;
             _weatherBehaviorsProviderFacade = weatherBehaviorsProviderFacade;
-            _behaviorManager = behaviorManager;
+            _gameObjectFactory = gameObjectFactory;
         }
 
-        public IWeather Create(
+        public IGameObject Create(
             IIdentifier weatherId,
-            double durationInTurns,
-            IInterval transitionInDuration,
-            IInterval transitionOutDuration,
+            IWeatherDuration weatherDuration,
             IEnumerable<IBehavior> additionalBehaviors)
         {
             var baseAndInjectedBehaviours = new IBehavior[]
                 {
-                    new IdentifierBehavior(weatherId)
+                    new IdentifierBehavior(weatherId),
+                    weatherDuration,
                 }
                 .Concat(additionalBehaviors)
                 .ToArray();
@@ -45,12 +45,7 @@ namespace ProjectXyz.Plugins.Features.Weather
                 .ToArray();
             _weatherBehaviorsInterceptorFacade.Intercept(allBehaviors);
 
-            var weather = new Weather(
-                durationInTurns,
-                transitionInDuration,
-                transitionOutDuration,
-                allBehaviors);
-            _behaviorManager.Register(weather, allBehaviors);            
+            var weather = _gameObjectFactory.Create(allBehaviors);
             return weather;
         }
     }

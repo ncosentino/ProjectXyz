@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using ProjectXyz.Api.Enchantments;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     .Get<IHasReadOnlyEnchantmentsBehavior>()
                     ?.SelectMany(x => x.Enchantments)
                     .ToArray()
-                    ?? new IEnchantment[0];
+                    ?? new IGameObject[0];
                 var selfEnchantments = enchantments
                     .Where(x => targetNavigator.AreTargetsEqual(x
                         .GetOnly<IEnchantmentTargetBehavior>()

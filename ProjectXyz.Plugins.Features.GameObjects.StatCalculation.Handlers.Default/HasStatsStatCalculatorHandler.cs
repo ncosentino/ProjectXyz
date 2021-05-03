@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Enchantments.Stats;

@@ -1,9 +1,9 @@
 ﻿using System;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Events;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
@@ -22,7 +22,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
 
         private IObservableHasEquipmentBehavior _observableHasEquipmentBehavior;
 
-        protected override void OnRegisteredToOwner(IHasBehaviors owner)
+        protected override void OnRegisteredToOwner(IGameObject owner)
         {
             base.OnRegisteredToOwner(owner);
 
@@ -65,7 +65,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
 
         private void Refresh()
         {
-            _itemSetManager.UpdateItemSets((IGameObject)Owner); // FIXME: wtf is this shitty casting...
+            _itemSetManager.UpdateItemSets(Owner);
         }
     }
 }

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 {
     public sealed class AStarPathFinder : IPathFinder
     {
-        private readonly IMap _map;
+        private readonly IGameObject _map;
         private readonly IPathFinderCollisionDetector _collisionDetector;
         private readonly Dictionary<int, Dictionary<int, IMapTile>> _grid;
 
         public AStarPathFinder(
-            IMap map,
+            IGameObject map,
             IPathFinderCollisionDetector collisionDetector)
         {
             _map = map;
             _collisionDetector = collisionDetector;
             _grid = new Dictionary<int, Dictionary<int, IMapTile>>();
-            foreach (var tile in map.Layers.First().Tiles)
+            foreach (var tile in map.GetOnly<IMapLayersBehavior>().Layers.First().Tiles)
             {
                 if (!_grid.TryGetValue(tile.X, out var rows))
                 {

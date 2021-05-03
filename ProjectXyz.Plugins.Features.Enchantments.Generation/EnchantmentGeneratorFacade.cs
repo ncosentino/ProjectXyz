@@ -6,9 +6,9 @@ using NexusLabs.Framework;
 
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Collections;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 {
@@ -28,7 +28,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             _enchantmentGenerators = new List<IEnchantmentGenerator>(discoverableEnchantmentGenerators);
         }
 
-        public IEnumerable<IEnchantment> GenerateEnchantments(IFilterContext filterContext)
+        public IEnumerable<IGameObject> GenerateEnchantments(IFilterContext filterContext)
         {
             if (!_enchantmentGenerators.Any())
             {
@@ -43,7 +43,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             var generator = filteredGenerators.RandomOrDefault(_random);
             if (generator == null)
             {
-                return Enumerable.Empty<IEnchantment>();
+                return Enumerable.Empty<IGameObject>();
             }
 
             var generatedEnchantments = generator.GenerateEnchantments(filterContext);

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 
+using ProjectXyz.Api.GameObjects;
+
 namespace ProjectXyz.Api.Enchantments
 {
     public interface IEnchantmentProvider
     {
-        IReadOnlyCollection<IEnchantment> Enchantments { get; }
+        IReadOnlyCollection<IGameObject> Enchantments { get; }
     }
 }

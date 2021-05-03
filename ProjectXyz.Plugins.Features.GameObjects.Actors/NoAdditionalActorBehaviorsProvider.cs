@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors

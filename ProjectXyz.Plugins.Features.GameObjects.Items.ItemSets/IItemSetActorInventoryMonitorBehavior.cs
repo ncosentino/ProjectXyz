@@ -1,5 +1,4 @@
-﻿
-using ProjectXyz.Api.Behaviors;
+﻿using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
 {

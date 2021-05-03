@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies
@@ -14,7 +14,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies
         public SkillSynergyBehavior(
             IIdentifier skillSynergyDefinitionId,
             IEnumerable<IIdentifier> synergySkillIds,
-            IEnumerable<IEnchantment> enchantments)
+            IEnumerable<IGameObject> enchantments)
         {
             SkillSynergyDefinitionId = skillSynergyDefinitionId;
             SynergySkillIds = synergySkillIds.ToArray();
@@ -22,7 +22,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies
         }
 
         public IIdentifier SkillSynergyDefinitionId { get; }
+
         public IReadOnlyCollection<IIdentifier> SynergySkillIds { get; }
-        public IReadOnlyCollection<IEnchantment> Enchantments { get; }
+
+        public IReadOnlyCollection<IGameObject> Enchantments { get; }
     }
 }

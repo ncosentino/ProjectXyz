@@ -1,6 +1,5 @@
-﻿
-using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Framework;
+﻿using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies
 {

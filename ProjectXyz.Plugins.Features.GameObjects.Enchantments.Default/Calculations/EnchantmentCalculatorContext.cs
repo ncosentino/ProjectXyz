@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
@@ -14,29 +14,27 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
         private static readonly Lazy<IEnchantmentCalculatorContext> NONE = new Lazy<IEnchantmentCalculatorContext>(() => new EnchantmentCalculatorContext(
             ComponentCollection.Empty,
            0d,
-            new IEnchantment[0]));
+            new IGameObject[0]));
         
         public EnchantmentCalculatorContext(
             IEnumerable<IComponent> components,
             double elapsedTurns,
-            IReadOnlyCollection<IEnchantment> enchantments)
+            IReadOnlyCollection<IGameObject> enchantments)
         {
             Components = new ComponentCollection(components);
             ElapsedTurns = elapsedTurns;
             Enchantments = enchantments;
         }
 
-        #region Properties
         public static IEnchantmentCalculatorContext None = NONE.Value;
 
         public IComponentCollection Components { get; }
 
-        public IReadOnlyCollection<IEnchantment> Enchantments { get; }
+        public IReadOnlyCollection<IGameObject> Enchantments { get; }
 
         public double ElapsedTurns { get; }
-        #endregion
 
-        public IEnchantmentCalculatorContext WithEnchantments(IEnumerable<IEnchantment> enchantments)
+        public IEnchantmentCalculatorContext WithEnchantments(IEnumerable<IGameObject> enchantments)
         {
             return new EnchantmentCalculatorContext(
                 Components,

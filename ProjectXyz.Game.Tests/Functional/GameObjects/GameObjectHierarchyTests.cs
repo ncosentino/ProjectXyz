@@ -2,7 +2,7 @@
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Tests.Functional.TestingData;

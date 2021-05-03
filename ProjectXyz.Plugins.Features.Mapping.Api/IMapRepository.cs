@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 
 using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapRepository
     {
-        IEnumerable<IMap> LoadMaps(IFilterContext filterContext);
+        IEnumerable<IGameObject> LoadMaps(IFilterContext filterContext);
     }
 }

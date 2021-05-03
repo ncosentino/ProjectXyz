@@ -1,27 +1,28 @@
-﻿using ProjectXyz.Api.Behaviors;
+﻿using NexusLabs.Contracts;
 
-using NexusLabs.Contracts;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Shared.Game.Behaviors
 {
-    public abstract class BaseBehavior : IBehavior
+    public abstract class BaseBehavior : IRegisterableBehavior
     {
-        public IHasBehaviors Owner { get; private set; }
+        public IGameObject Owner { get; private set; }
 
-        public void RegisteringToOwner(IHasBehaviors owner) => OnRegisteringToOwner(owner);
+        public void RegisteringToOwner(IGameObject owner) => OnRegisteringToOwner(owner);
 
-        public void RegisteredToOwner(IHasBehaviors owner) => OnRegisteredToOwner(owner);
+        public void RegisteredToOwner(IGameObject owner) => OnRegisteredToOwner(owner);
 
-        protected virtual void OnRegisteringToOwner(IHasBehaviors owner)
+        protected virtual void OnRegisteringToOwner(IGameObject owner)
         {
             Owner = owner;
         }
 
-        protected virtual void OnRegisteredToOwner(IHasBehaviors owner)
+        protected virtual void OnRegisteredToOwner(IGameObject owner)
         {
             Contract.Requires(
                 Owner == owner,
-                $"Expecting Owner ({Owner}) == {nameof(owner)} ({owner}).");
+                $"Expecting {nameof(Owner)} ({Owner}) == {nameof(owner)} ({owner}).");
         }
     }
 }

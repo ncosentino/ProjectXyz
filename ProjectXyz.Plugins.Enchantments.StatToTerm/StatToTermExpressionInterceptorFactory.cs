@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Stats;
 
@@ -22,7 +21,7 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
             _priority = priority;
         }
 
-        public IEnchantmentExpressionInterceptor Create(IReadOnlyCollection<IEnchantment> enchantments)
+        public IEnchantmentExpressionInterceptor Create(IReadOnlyCollection<IGameObject> enchantments)
         {
             var statDefinitionToComponentMapping = enchantments
                 .GroupBy(

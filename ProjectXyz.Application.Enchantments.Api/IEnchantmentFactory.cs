@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.Behaviors;
+
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Api.Enchantments
 {
     public interface IEnchantmentFactory
     {
-        IEnchantment Create(IEnumerable<IBehavior> behaviors);
+        IGameObject Create(IEnumerable<IBehavior> behaviors);
     }
 }

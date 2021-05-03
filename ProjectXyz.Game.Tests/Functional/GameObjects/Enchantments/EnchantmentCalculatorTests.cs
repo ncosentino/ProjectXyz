@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
@@ -13,6 +13,7 @@ using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Shared.States;
 using Xunit;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
 {
@@ -85,7 +86,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsTheoryData))]
         private void Calculate_SingleEnchantmentNoBaseStats(
             string _,
-            IEnchantment enchantment,
+            IGameObject enchantment,
             double expectedResult)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
@@ -108,7 +109,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
         private void Calculate_MultipleEnchantmentsNoBaseStats(
             string _,
             IIdentifier statDefinitionId,
-            IEnumerable<IEnchantment> enchantments,
+            IEnumerable<IGameObject> enchantments,
             double expectedResult)
         {
             var baseStats = new Dictionary<IIdentifier, double>();
@@ -128,7 +129,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
          MemberData(nameof(GetTimeOfDayEnchantmentsTheoryData))]
         private void Calculate_TimeOfDayEnchantmentNoBaseStats(
             string _,
-            IEnchantment enchantment,
+            IGameObject enchantment,
             double percentActiveState,
             double expectedResult)
         {
@@ -161,7 +162,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
          MemberData(nameof(GetSingleEnchantmentNoBaseStatsOverTimeTheoryData))]
         private void ApplyEnchantments_SingleEnchantmentNoBaseStatsOverTime(
             string _,
-            IEnchantment enchantment,
+            IGameObject enchantment,
             double elapsedTurns,
             double expectedValue)
         {

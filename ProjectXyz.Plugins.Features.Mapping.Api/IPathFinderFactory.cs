@@ -1,7 +1,9 @@
-﻿namespace ProjectXyz.Plugins.Features.Mapping.Api
+﻿using ProjectXyz.Api.GameObjects;
+
+namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IPathFinderFactory
     {
-        IPathFinder CreateForMap(IMap map);
+        IPathFinder CreateForMap(IGameObject map);
     }
 }

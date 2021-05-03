@@ -3,9 +3,8 @@ using System.Linq;
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
@@ -72,7 +71,7 @@ namespace ProjectXyz.Game.Tests.Functional
 
             var context = new StatCalculationContext(
                 new IComponent[0],
-                new IEnchantment[] { contextEnchantment });
+                new IGameObject[] { contextEnchantment });
             var statCalculationService = _fixture.StatCalculationService;
             Assert.Equal(
                 20,
@@ -109,7 +108,7 @@ namespace ProjectXyz.Game.Tests.Functional
 
             var context = new StatCalculationContext(
                 new IComponent[0],
-                new IEnchantment[] { contextEnchantment });
+                new IGameObject[] { contextEnchantment });
             var statCalculationService = _fixture.StatCalculationService;
             Assert.Equal(
                 10,
@@ -181,7 +180,7 @@ namespace ProjectXyz.Game.Tests.Functional
                             int.MinValue),
                         }),
                 },
-                new IEnchantment[] { });
+                new IGameObject[] { });
             var statCalculationService = _fixture.StatCalculationService;
             Assert.Equal(
                 35,
@@ -251,7 +250,7 @@ namespace ProjectXyz.Game.Tests.Functional
                             int.MinValue),
                         }),
                 },
-                new IEnchantment[] { });
+                new IGameObject[] { });
             var statCalculationService = _fixture.StatCalculationService;
             Assert.Equal(
                 30,

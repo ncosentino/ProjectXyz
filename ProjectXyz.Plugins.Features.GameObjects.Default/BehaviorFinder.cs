@@ -1,16 +1,18 @@
 ﻿using System;
-using ProjectXyz.Api.Behaviors;
+using System.Collections.Generic;
+
+using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.Behaviors.Default
 {
     public sealed class BehaviorFinder : IBehaviorFinder
     {
         public bool TryFind<TBehavior>(
-            IHasBehaviors hasBehaviors,
-            out Tuple<TBehavior> behaviors)
+            IEnumerable<IBehavior> behaviors,
+            out Tuple<TBehavior> matchingBehaviors)
         {
             var b1 = default(TBehavior);
-            foreach (var behavior in hasBehaviors.Behaviors)
+            foreach (var behavior in behaviors)
             {
                 if (behavior is TBehavior && b1 == null)
                 {
@@ -23,17 +25,17 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Default
                 }
             }
 
-            behaviors = Tuple.Create(b1);
+            matchingBehaviors = Tuple.Create(b1);
             return b1 != null;
         }
 
         public bool TryFind<TBehavior1, TBehavior2>(
-            IHasBehaviors hasBehaviors,
-            out Tuple<TBehavior1, TBehavior2> behaviors)
+            IEnumerable<IBehavior> behaviors,
+            out Tuple<TBehavior1, TBehavior2> matchingBehaviors)
         {
             var b1 = default(TBehavior1);
             var b2 = default(TBehavior2);
-            foreach (var behavior in hasBehaviors.Behaviors)
+            foreach (var behavior in behaviors)
             {
                 if (behavior is TBehavior1 && b1 == null)
                 {
@@ -50,18 +52,18 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Default
                 }
             }
 
-            behaviors = Tuple.Create(b1, b2);
+            matchingBehaviors = Tuple.Create(b1, b2);
             return b1 != null && b2 != null;
         }
 
         public bool TryFind<TBehavior1, TBehavior2, TBehavior3>(
-            IHasBehaviors hasBehaviors,
-            out Tuple<TBehavior1, TBehavior2, TBehavior3> behaviors)
+            IEnumerable<IBehavior> behaviors,
+            out Tuple<TBehavior1, TBehavior2, TBehavior3> matchingBehaviors)
         {
             var b1 = default(TBehavior1);
             var b2 = default(TBehavior2);
             var b3 = default(TBehavior3);
-            foreach (var behavior in hasBehaviors.Behaviors)
+            foreach (var behavior in behaviors)
             {
                 if (behavior is TBehavior1 && b1 == null)
                 {
@@ -82,7 +84,7 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Default
                 }
             }
 
-            behaviors = Tuple.Create(b1, b2, b3);
+            matchingBehaviors = Tuple.Create(b1, b2, b3);
             return b1 != null && b2 != null && b3 != null;
         }
     }

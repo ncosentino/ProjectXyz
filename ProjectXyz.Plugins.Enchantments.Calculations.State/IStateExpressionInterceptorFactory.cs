@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProjectXyz.Api.Enchantments;
+
 using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.States;
 
 namespace ProjectXyz.Plugins.Enchantments.Calculations.State
@@ -9,6 +10,6 @@ namespace ProjectXyz.Plugins.Enchantments.Calculations.State
     {
         IEnchantmentExpressionInterceptor Create(
             IStateContextProvider stateContextProvider,
-            IReadOnlyCollection<IEnchantment> enchantments);
+            IReadOnlyCollection<IGameObject> enchantments);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 using ProjectXyz.Shared.Framework;
 

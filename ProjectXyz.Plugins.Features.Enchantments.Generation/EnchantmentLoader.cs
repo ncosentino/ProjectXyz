@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 
@@ -33,7 +34,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             _enchantmentIdentifiers = enchantmentIdentifiers;
         }
 
-        public IEnumerable<IEnchantment> LoadForEnchantmenDefinitionIds(IEnumerable<IIdentifier> enchantmentDefinitionIds)
+        public IEnumerable<IGameObject> LoadForEnchantmenDefinitionIds(IEnumerable<IIdentifier> enchantmentDefinitionIds)
         {
             // FIXME: improve this to do one lookup with a context that has 
             // the set of identifiers we want to match
@@ -51,7 +52,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
             }
         }
 
-        public IEnumerable<IEnchantment> Load(IFilterContext filterContext)
+        public IEnumerable<IGameObject> Load(IFilterContext filterContext)
         {
             foreach (var enchantmentDefinition in _enchantmentDefinitionRepository
                 .ReadEnchantmentDefinitions(filterContext))

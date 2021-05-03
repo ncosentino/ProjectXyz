@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
@@ -47,7 +46,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation
 
             var context = _statCalculationContextFactory.Create(
                 Enumerable.Empty<IComponent>(),
-                Enumerable.Empty<IEnchantment>());
+                Enumerable.Empty<IGameObject>());
 
             statValue = _statCalculationService.GetStatValue(
                 actor,

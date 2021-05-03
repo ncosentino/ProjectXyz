@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
@@ -20,7 +19,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
 
         public IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
             double elapsedTurns,
-            IReadOnlyCollection<IEnchantment> enchantments)
+            IReadOnlyCollection<IGameObject> enchantments)
         {
             return CreateEnchantmentCalculatorContext(
                 elapsedTurns,
@@ -30,7 +29,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
 
         public IEnchantmentCalculatorContext CreateEnchantmentCalculatorContext(
             double elapsedTurns,
-            IReadOnlyCollection<IEnchantment> enchantments,
+            IReadOnlyCollection<IGameObject> enchantments,
             IEnumerable<IComponent> additionalComponents)
         {
             return new EnchantmentCalculatorContext(

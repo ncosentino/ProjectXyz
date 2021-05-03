@@ -7,7 +7,7 @@ using Autofac;
 
 using Moq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.GameObjects;
@@ -23,6 +23,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implem
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
 using ProjectXyz.Plugins.Features.TimeOfDay.Api;
+using ProjectXyz.Plugins.Features.Weather;
 using ProjectXyz.Plugins.Features.Weather.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
@@ -56,9 +57,10 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
             {
                 _weatherManager.Weather = _weatherFactory.Create(
                     new StringIdentifier("NOTHING SHOULD MATCH THIS"),
-                    0,
-                    new Interval<double>(0),
-                    new Interval<double>(0),
+                    new WeatherDurationBehavior(
+                        0,
+                        new Interval<double>(0),
+                        new Interval<double>(0)),
                     new IBehavior[] { });
                 var context = _filterContextFactory.CreateContext(
                     3,
@@ -91,9 +93,10 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Items.Generation.DropTabl
             {
                 _weatherManager.Weather = _weatherFactory.Create(
                     new StringIdentifier("loot generator weather"),
-                    0,
-                    new Interval<double>(0),
-                    new Interval<double>(0),
+                    new WeatherDurationBehavior(
+                        0,
+                        new Interval<double>(0),
+                        new Interval<double>(0)),
                     new IBehavior[] { });
                 var context = _filterContextFactory.CreateContext(
                     3,

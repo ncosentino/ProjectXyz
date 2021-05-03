@@ -2,44 +2,43 @@
 
 using Moq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Behaviors.Default;
 
 using Xunit;
 
 namespace ProjectXyz.Game.Tests.Unit.Behaviors
 {
-    public sealed class BehaviorManagertests
+    public sealed class GameObjectFactoryTests
     {
-        private readonly BehaviorManager _behaviorManager;
+        private readonly GameObjectFactory _gameObjectFactory;
         private readonly MockRepository _mockRepository;
-        private readonly Mock<IHasBehaviors> _mockHasBehaviors;
 
-        public BehaviorManagertests()
+        public GameObjectFactoryTests()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
-            _mockHasBehaviors = _mockRepository.Create<IHasBehaviors>();
-            _behaviorManager = new BehaviorManager();
+            _gameObjectFactory = new GameObjectFactory();
         }
 
         [Fact]
-        private void Register_SingleBehavior_RegistrationInCorrectOrder()
+        private void Create_SingleRegisterableBehavior_RegistrationInCorrectOrder()
         {
             int registeredCalls = 0;
             int registeringCalls = 0;
 
-            var mockBehavior = _mockRepository.Create<IBehavior>();
+            var mockBehavior = _mockRepository.Create<IRegisterableBehavior>();
             mockBehavior
-                .Setup(x => x.RegisteringToOwner(_mockHasBehaviors.Object))
-                .Callback<IHasBehaviors>(_ =>
+                .Setup(x => x.RegisteringToOwner(It.IsNotNull<IGameObject>()))
+                .Callback<IGameObject>(_ =>
                 {
                     Assert.Equal(0, registeredCalls);
                     Assert.Equal(0, registeringCalls);
                     registeringCalls++;
                 });
             mockBehavior
-                .Setup(x => x.RegisteredToOwner(_mockHasBehaviors.Object))
-                .Callback<IHasBehaviors>(_ =>
+                .Setup(x => x.RegisteredToOwner(It.IsNotNull<IGameObject>()))
+                .Callback<IGameObject>(_ =>
                 {
                     Assert.Equal(0, registeredCalls);
                     Assert.Equal(1, registeringCalls);
@@ -51,9 +50,7 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
                 mockBehavior.Object,
             };
 
-            _behaviorManager.Register(
-                _mockHasBehaviors.Object,
-                behaviors);
+            _gameObjectFactory.Create(behaviors);
 
             _mockRepository.VerifyAll();
             Assert.Equal(1, registeringCalls);
@@ -61,25 +58,25 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
         }
 
         [Fact]
-        private void Register_MultipleBehaviors_RegistrationInCorrectOrder()
+        private void Create_MultipleRegisterableBehaviors_RegistrationInCorrectOrder()
         {
             int registeredCalls = 0;
             int registeringCalls = 0;
 
-            var mockBehavior1 = _mockRepository.Create<IBehavior>();
-            var mockBehavior2 = _mockRepository.Create<IBehavior>();
+            var mockBehavior1 = _mockRepository.Create<IRegisterableBehavior>();
+            var mockBehavior2 = _mockRepository.Create<IRegisterableBehavior>();
 
             mockBehavior1
-                .Setup(x => x.RegisteringToOwner(_mockHasBehaviors.Object))
-                .Callback<IHasBehaviors>(_ =>
+                .Setup(x => x.RegisteringToOwner(It.IsNotNull<IGameObject>()))
+                .Callback<IGameObject>(_ =>
                 {
                     Assert.Equal(0, registeredCalls);
                     Assert.Equal(0, registeringCalls);
                     registeringCalls++;
                 });
             mockBehavior1
-                .Setup(x => x.RegisteredToOwner(_mockHasBehaviors.Object))
-                .Callback<IHasBehaviors>(_ =>
+                .Setup(x => x.RegisteredToOwner(It.IsNotNull<IGameObject>()))
+                .Callback<IGameObject>(_ =>
                 {
                     Assert.Equal(0, registeredCalls);
                     Assert.Equal(2, registeringCalls);
@@ -87,16 +84,16 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
                 });
 
             mockBehavior2
-                .Setup(x => x.RegisteringToOwner(_mockHasBehaviors.Object))
-                .Callback<IHasBehaviors>(_ =>
+                .Setup(x => x.RegisteringToOwner(It.IsNotNull<IGameObject>()))
+                .Callback<IGameObject>(_ =>
                 {
                     Assert.Equal(0, registeredCalls);
                     Assert.Equal(1, registeringCalls);
                     registeringCalls++;
                 });
             mockBehavior2
-                .Setup(x => x.RegisteredToOwner(_mockHasBehaviors.Object))
-                .Callback<IHasBehaviors>(_ =>
+                .Setup(x => x.RegisteredToOwner(It.IsNotNull<IGameObject>()))
+                .Callback<IGameObject>(_ =>
                 {
                     Assert.Equal(1, registeredCalls);
                     Assert.Equal(2, registeringCalls);
@@ -109,9 +106,7 @@ namespace ProjectXyz.Game.Tests.Unit.Behaviors
                 mockBehavior2.Object,
             };
 
-            _behaviorManager.Register(
-                _mockHasBehaviors.Object,
-                behaviors);
+            _gameObjectFactory.Create(behaviors);
 
             _mockRepository.VerifyAll();
             Assert.Equal(2, registeringCalls);

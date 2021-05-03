@@ -35,7 +35,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Enchantments
         [Theory,
          MemberData(nameof(GetSingleEnchantmentTheoryData))]
         private void ElapseTime_SingleEnchantment_ContainsExpectedValue(
-            IEnchantment enchantment,
+            IGameObject enchantment,
             double elapsedTurns,
             bool contains)
         {

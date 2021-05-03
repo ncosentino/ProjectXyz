@@ -1,4 +1,5 @@
-﻿using ProjectXyz.Plugins.Features.Weather.Api;
+﻿using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Weather.Api;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
@@ -6,6 +7,6 @@ namespace ProjectXyz.Plugins.Features.Weather
     {
         public IWeatherTable WeatherTable { get; set; }
 
-        public IWeather Weather { get; set; }
+        public IGameObject Weather { get; set; }
     }
 }

@@ -1,24 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using ProjectXyz.Api.Behaviors;
-using ProjectXyz.Api.Framework;
+﻿using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.Weather.Api;
+using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.Weather
 {
-    public sealed class Weather : IWeather
+    public sealed class WeatherDurationBehavior :
+        BaseBehavior,
+        IWeatherDuration
     {
-        public Weather(
+        public WeatherDurationBehavior(
             double durationInTurns,
             IInterval transitionInDuration,
-            IInterval transitionOutDuration,
-            IEnumerable<IBehavior> behaviors)
+            IInterval transitionOutDuration)
         {
             DurationInTurns = durationInTurns;
             TransitionInDuration = transitionInDuration;
             TransitionOutDuration = transitionOutDuration;
-            Behaviors = behaviors.ToArray();
         }
 
         public double DurationInTurns { get; }
@@ -26,7 +23,5 @@ namespace ProjectXyz.Plugins.Features.Weather
         public IInterval TransitionInDuration { get; }
 
         public IInterval TransitionOutDuration { get; }
-
-        public IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

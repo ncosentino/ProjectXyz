@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
         }
 
         public IEnumerable<ITriggerMechanic> RegisterToEnchantment(
-            IEnchantment enchantment,
+            IGameObject enchantment,
             RemoveTriggerMechanicDelegate removeTriggerMechanicCallback)
         {
             foreach (var expiryTrigger in enchantment

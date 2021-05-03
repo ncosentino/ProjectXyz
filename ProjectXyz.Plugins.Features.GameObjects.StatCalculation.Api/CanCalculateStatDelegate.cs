@@ -1,6 +1,6 @@
-﻿using ProjectXyz.Api.Behaviors;
+﻿using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api
 {
-    public delegate bool CanCalculateStatDelegate(IHasBehaviors behaviors);
+    public delegate bool CanCalculateStatDelegate(IGameObject gameObject);
 }

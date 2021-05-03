@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.CommonBehaviors;
@@ -152,7 +152,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             return skill;
         }
 
-        private IEnumerable<IEnchantment> GetStatefulEnchantments(IEnumerable<IIdentifier> enchantmentDefinitionIds)
+        private IEnumerable<IGameObject> GetStatefulEnchantments(IEnumerable<IIdentifier> enchantmentDefinitionIds)
         {
             return _enchantmentLoader.LoadForEnchantmenDefinitionIds(enchantmentDefinitionIds);
         }

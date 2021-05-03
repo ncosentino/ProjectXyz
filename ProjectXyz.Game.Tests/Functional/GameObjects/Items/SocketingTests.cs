@@ -4,7 +4,7 @@ using System.Linq;
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;

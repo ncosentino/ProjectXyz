@@ -1,4 +1,5 @@
-﻿using ProjectXyz.Plugins.Features.Mapping.Api;
+﻿using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 {
@@ -11,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             _collisionDetector = collisionDetector;
         }
 
-        public IPathFinder CreateForMap(IMap map)
+        public IPathFinder CreateForMap(IGameObject map)
         {
             var pathFinder = new AStarPathFinder(
                 map,

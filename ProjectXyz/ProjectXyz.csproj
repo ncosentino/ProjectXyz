@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Filtering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors\ProjectXyz.Api.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
@@ -95,7 +94,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Behaviors\ProjectXyz.Plugins.Features.Behaviors.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj" />

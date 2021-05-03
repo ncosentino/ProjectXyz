@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using ProjectXyz.Api.Framework.Entities;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Api.Enchantments.Stats
 {
@@ -8,6 +9,6 @@ namespace ProjectXyz.Api.Enchantments.Stats
     {
         IStatCalculationContext Create(
             IEnumerable<IComponent> components,
-            IEnumerable<IEnchantment> enchantments);
+            IEnumerable<IGameObject> enchantments);
     }
 }

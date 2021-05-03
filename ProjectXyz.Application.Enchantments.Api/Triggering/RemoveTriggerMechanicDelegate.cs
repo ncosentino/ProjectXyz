@@ -1,9 +1,9 @@
-using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Triggering;
 
 namespace ProjectXyz.Api.Enchantments.Triggering
 {
     public delegate void RemoveTriggerMechanicDelegate(
-        IEnchantment enchantment,
+        IGameObject enchantment,
         ITriggerMechanic triggerMechanic);
 }

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
@@ -13,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
     public sealed class ActorFactory : IActorFactory
     {
         private readonly IActorIdentifiers _actorIdentifiers;
-        private readonly IBehaviorManager _behaviorManager;
+        private readonly IGameObjectFactory _gameObjectFactory;
         private readonly IActorBehaviorsProviderFacade _actorBehaviorsProviderFacade;
         private readonly IActorBehaviorsInterceptorFacade _actorBehaviorsInterceptorFacade;
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
@@ -21,14 +20,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 
         public ActorFactory(
             IActorIdentifiers actorIdentifiers,
-            IBehaviorManager behaviorManager,
+            IGameObjectFactory gameObjectFactory,
             IActorBehaviorsProviderFacade actorBehaviorsProviderFacade,
             IActorBehaviorsInterceptorFacade actorBehaviorsInterceptorFacade,
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
             IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
             _actorIdentifiers = actorIdentifiers;
-            _behaviorManager = behaviorManager;
+            _gameObjectFactory = gameObjectFactory;
             _actorBehaviorsProviderFacade = actorBehaviorsProviderFacade;
             _actorBehaviorsInterceptorFacade = actorBehaviorsInterceptorFacade;
             _hasEnchantmentsBehaviorFactory = hasEnchantmentsBehaviorFactory;
@@ -60,8 +59,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
                 .Intercept(allBehaviors)
                 .ToArray();
 
-            var actor = new Actor(allBehaviors);
-            _behaviorManager.Register(actor, allBehaviors);
+            var actor = _gameObjectFactory.Create(allBehaviors);
             return actor;
         }
     }

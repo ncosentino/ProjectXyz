@@ -1,5 +1,7 @@
 ﻿using System;
 
+using ProjectXyz.Api.GameObjects;
+
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapProvider
@@ -10,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
 
         event EventHandler<EventArgs> MapPopulated;
 
-        IMap ActiveMap { get; }
+        IGameObject ActiveMap { get; }
 
         IPathFinder PathFinder { get; }
     }

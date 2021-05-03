@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Shared.Framework;
@@ -20,7 +21,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData.Enchantments
             _enchantmentFactory = enchantmentFactory;
         }
 
-        public IEnchantment CreateExpressionEnchantment(
+        public IGameObject CreateExpressionEnchantment(
             IIdentifier statDefinitionId,
             string expression,
             ICalculationPriority calculationPriority,
