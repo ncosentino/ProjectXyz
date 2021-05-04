@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Components;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac
@@ -26,6 +27,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<BehaviorConverterFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<SkillRepository>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
@@ -39,6 +44,72 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac
                 .SingleInstance();
             builder
                 .RegisterType<HasPassiveSkillsGetEnchantmentsHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
+            // Component converters
+            builder
+                .RegisterType<DisplayIconConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<DisplayNameConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<EnchantTargetsConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<InflictDamageConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SkillIdentifierConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SkillMutableStatsConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SkillTargetCombatTeamConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SkillTargetOriginConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SkillTargetPatternConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<StaticResourceRequirementsConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<UseInCombatConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<UseOutOfCombatConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SkillCombinationConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ParallelSkillExecutorConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<SequentialSkillExecutorConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<PassiveEnchantmentConverter>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

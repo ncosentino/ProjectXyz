@@ -4,7 +4,7 @@ using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac
 {
-    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
+    public sealed class EnchantmentsGenerationModule : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {

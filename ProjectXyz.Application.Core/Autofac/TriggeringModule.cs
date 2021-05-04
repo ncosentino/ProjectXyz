@@ -4,7 +4,7 @@ using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Shared.Triggering.Autofac
 {
-    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
+    public sealed class TriggeringModule : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {

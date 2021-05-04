@@ -13,9 +13,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Shared.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Enchantments.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Enchantments.Generation\ProjectXyz.Plugins.Features.Enchantments.Generation.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,582 +1,235 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Autofac;
 
-using Moq;
-
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.GameObjects.Behaviors;
-using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Skills.Synergies;
+using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Shared.Framework;
 
 using Xunit;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Default.Autofac;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac;
+using ProjectXyz.Plugins.Framework.Math.Jace;
+using ProjectXyz.Shared.States.Autofac;
+using ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac;
+using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Generation.Default.Autofac;
+using ProjectXyz.Shared.Behaviors.Filtering.Autofac;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
+using ProjectXyz.Api.Logging;
+using ProjectXyz.Shared.Triggering.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.Macerus.Plugins.Content.Skills;
+using ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac;
+using Moq;
+using System.Linq;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Api.Enchantments.Calculations;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
 {
+    public sealed class EnchantmentIdentifiers : IEnchantmentIdentifiers
+    {
+        public IIdentifier EnchantmentDefinitionId { get; } = new StringIdentifier("id");
+    }
+
+    public sealed class ValueMapperRepository : IValueMapperRepository
+    {
+        public IEnumerable<ValueMapperDelegate> GetValueMappers()
+        {
+            yield return context => new KeyValuePair<string, double>("INTERVAL", context.ElapsedTurns);
+        }
+    }
+
+    public sealed class Logger : ILogger
+    {
+        public void Debug(string message) =>
+            Debug(message, null);
+
+        public void Debug(string message, object data) =>
+            Log("DEBUG", message, data);
+
+        public void Error(string message) =>
+            Error(message, null);
+
+        public void Error(string message, object data) =>
+            Log("ERROR", message, data);
+
+        public void Info(string message) =>
+            Info(message, null);
+
+        public void Info(string message, object data) =>
+            Log("INFO", message, data);
+
+        public void Warn(string message) =>
+            Warn(message, null);
+
+        public void Warn(string message, object data) =>
+            Log("WARN", message, data);
+
+        private void Log(string prefix, string message, object data)
+        {
+            Console.WriteLine($"{prefix}: {message}");
+            if (data != null)
+            {
+                Console.WriteLine($"\t{data}");
+            }
+        }
+    }
+
+    public sealed class SkillRepositoryContainer
+    {
+        private readonly IDiscoverableSkillDefinitionRepository _skillDefinitionRepository;
+
+        public SkillRepositoryContainer(
+            IDiscoverableSkillDefinitionRepository skillDefinitionRepository)
+        {
+            _skillDefinitionRepository = skillDefinitionRepository;
+
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new SkillModule());
+            containerBuilder.RegisterModule(new Plugins.Enchantments.Stats.Autofac.StatsModule());
+            containerBuilder.RegisterModule(new Plugins.Stats.Autofac.StatsModule());
+            containerBuilder.RegisterModule(new EnchantmentsGenerationModule());
+            containerBuilder.RegisterModule(new InMemoryEnchantmentsModule());
+            containerBuilder.RegisterModule(new GenerationModule());
+            containerBuilder.RegisterModule(new JaceModule());
+            containerBuilder.RegisterModule(new StatesModule());
+            containerBuilder.RegisterModule(new FilteringModule());
+            containerBuilder.RegisterModule(new GameObjectsModule());
+            containerBuilder.RegisterModule(new CommonBehaviorsModule());
+            containerBuilder.RegisterModule(new ProvidedImplementationsModule());
+            containerBuilder.RegisterModule(new TriggeringModule());
+            containerBuilder.RegisterModule(new InMemoryFiltererModule());
+            containerBuilder
+                .RegisterInstance(new EnchantmentIdentifiers())
+                .AsImplementedInterfaces();
+            containerBuilder
+                .RegisterInstance(new ValueMapperRepository())
+                .AsImplementedInterfaces();
+            containerBuilder
+                .RegisterInstance(new Logger())
+                .AsImplementedInterfaces();
+            containerBuilder
+                .Register(c => _skillDefinitionRepository)
+                .AsImplementedInterfaces();
+
+            var dependencyContainer = containerBuilder.Build();
+            var lifetimeScope = dependencyContainer.BeginLifetimeScope();
+
+            Instance = lifetimeScope;
+        }
+
+        private ILifetimeScope Instance { get; }
+
+        public T Resolve<T>() => Instance.Resolve<T>();
+    }
+
     public sealed class SkillRepositoryTests
     {
+        private readonly SkillRepositoryContainer _container;
         private readonly ISkillRepository _skillRepository;
-        private readonly MockRepository _mockRepository;
-        private readonly Mock<IFilterContext> _filterContext;
-        private readonly Mock<IHasEnchantmentsBehavior> _hasEnchantmentsBehavior;
-        private readonly Mock<IHasMutableStatsBehavior> _hasMutableStatsBehavior;
-        private readonly Mock<ISkillDefinition> _skillDefinition;
-        private readonly Mock<IGameObject> _skillSynergy;
-        private readonly Mock<IGameObject> _skill;
-        private readonly Mock<ISkillDefinitionRepositoryFacade> _skillDefinitionRepositoryFacade;
-        private readonly Mock<ISkillSynergyRepositoryFacade> _skillSynergyRepositoryFacade;
-        private readonly Mock<IFilterContextFactory> _filterContextFactory;
-        private readonly Mock<IHasEnchantmentsBehaviorFactory> _hasEnchantmentsBehaviorFactory;
-        private readonly Mock<IHasMutableStatsBehaviorFactory> _hasMutableStatsBehaviorFactory;
-        private readonly Mock<ISkillFactory> _skillFactory;
-        private readonly Mock<IGeneratorComponentToBehaviorConverterFacade> _filterComponentToBehaviorConverter;
-        private readonly Mock<IEnchantmentLoader> _enchantmentLoader;
-        private readonly Mock<ISkillIdentifiers> _skillIdentifiers;
-        private readonly Mock<IEnchantmentIdentifiers> _enchantmentIdentifiers;
+        private readonly Mock<IDiscoverableSkillDefinitionRepository> _skillDefinitionRepositoryMock;
 
         public SkillRepositoryTests()
         {
-            _mockRepository = new MockRepository(MockBehavior.Strict);
-            _skillDefinitionRepositoryFacade = _mockRepository.Create<ISkillDefinitionRepositoryFacade>();
-            _skillSynergyRepositoryFacade = _mockRepository.Create<ISkillSynergyRepositoryFacade>();
-            _filterContextFactory = _mockRepository.Create<IFilterContextFactory>();
-            _hasEnchantmentsBehaviorFactory = _mockRepository.Create<IHasEnchantmentsBehaviorFactory>();
-            _hasMutableStatsBehaviorFactory = _mockRepository.Create<IHasMutableStatsBehaviorFactory>();
-            _skillFactory = _mockRepository.Create<ISkillFactory>();
-            _filterComponentToBehaviorConverter = _mockRepository.Create<IGeneratorComponentToBehaviorConverterFacade>();
-            _enchantmentLoader = _mockRepository.Create<IEnchantmentLoader>();
-            _skillIdentifiers = _mockRepository.Create<ISkillIdentifiers>();
-            _enchantmentIdentifiers = _mockRepository.Create<IEnchantmentIdentifiers>();
-            _filterContext = _mockRepository.Create<IFilterContext>();
-            _hasEnchantmentsBehavior = _mockRepository.Create<IHasEnchantmentsBehavior>();
-            _hasMutableStatsBehavior = _mockRepository.Create<IHasMutableStatsBehavior>();
-            _skillDefinition = _mockRepository.Create<ISkillDefinition>();
-            _skillSynergy = _mockRepository.Create<IGameObject>();
-            _skill = _mockRepository.Create<IGameObject>();
-            _skillRepository = new SkillRepository(
-                _skillDefinitionRepositoryFacade.Object,
-                _skillSynergyRepositoryFacade.Object,
-                _filterContextFactory.Object,
-                _hasEnchantmentsBehaviorFactory.Object,
-                _hasMutableStatsBehaviorFactory.Object,
-                _skillFactory.Object,
-                _filterComponentToBehaviorConverter.Object,
-                _enchantmentLoader.Object,
-                _skillIdentifiers.Object,
-                _enchantmentIdentifiers.Object);
+            _skillDefinitionRepositoryMock = new Mock<IDiscoverableSkillDefinitionRepository>(MockBehavior.Strict);
+
+            _container = new SkillRepositoryContainer(
+                _skillDefinitionRepositoryMock.Object);
+
+            _skillRepository = _container.Resolve<ISkillRepository>();
         }
 
         [Fact]
         private void GetSkills_NoMatch_Empty()
         {
-            _skillDefinitionRepositoryFacade
-                .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
-                .Returns(new ISkillDefinition[0]);
+            var filterContext = _container
+                .Resolve<IFilterContextFactory>()
+                .CreateNoneFilterContext();
 
-            var skills = _skillRepository.GetSkills(_filterContext.Object);
+            _skillDefinitionRepositoryMock
+                .Setup(x => x.GetSkillDefinitions(filterContext))
+                .Returns(Enumerable.Empty<ISkillDefinition>());
+
+            var skills = _skillRepository.GetSkills(filterContext);
 
             Assert.Empty(skills);
-            _mockRepository.VerifyAll();
         }
 
         [Fact]
-        private void GetSkills_HasSynergies_BehaviorPopulated()
+        private void GetSkills_FireballDefinition_ReturnsExpectedGameObjects()
         {
-            _skillIdentifiers
-                .Setup(x => x.SkillSynergyIdentifier)
-                .Returns(new StringIdentifier("id"));
-            _skillIdentifiers
-                .Setup(x => x.SkillTypeIdentifier)
-                .Returns(new StringIdentifier("skill"));
+            var filterContext = _container
+                .Resolve<IFilterContextFactory>()
+                .CreateNoneFilterContext();
 
-            var skillSynergyDefinitionIds = new[]
-            {
-                new StringIdentifier("skill synergy definition id"),
-            };
-            _skillDefinition
-                .Setup(x => x.SkillSynergyDefinitionIds)
-                .Returns(skillSynergyDefinitionIds);
-            _skillDefinition
-                .Setup(x => x.FilterComponents)
-                .Returns(new IGeneratorComponent[] { });
-            _skillDefinition
-                .Setup(x => x.Stats)
-                .Returns(new Dictionary<IIdentifier, double>());
-            _skillDefinition
-                .Setup(x => x.SkillDefinitionId)
-                .Returns(new StringIdentifier("skill definition id"));
-            _skillDefinition
-                .Setup(x => x.SkillTargetModeId)
-                .Returns(new StringIdentifier("target mode id"));
-            _skillDefinition
-                .Setup(x => x.StaticResourceRequirements)
-                .Returns(new Dictionary<IIdentifier, double>());
-
-            _skillDefinitionRepositoryFacade
-                .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
-                .Returns(new[] { _skillDefinition.Object });
-
-            _filterContext
-                .Setup(x => x.Attributes)
-                .Returns(new IFilterAttribute[] { });
-
-            var skillSynergyContext = _mockRepository.Create<IFilterContext>();
-            _filterContextFactory
-                .Setup(x => x.CreateContext(
-                    0,
-                    int.MaxValue,
-                    It.Is<IEnumerable<IFilterAttribute>>(fas =>
-                        fas.Count() == 1 &&
-                        fas.Single().Id.Equals(new StringIdentifier("id")) &&
-                        (fas.Single().Value is AnyStringCollectionFilterAttributeValue) &&
-                        ((AnyStringCollectionFilterAttributeValue)fas.Single().Value).Values.Count == skillSynergyDefinitionIds.Length)))
-                .Returns(skillSynergyContext.Object);
-
-            _skillSynergyRepositoryFacade
-                .Setup(x => x.GetSkillSynergies(skillSynergyContext.Object))
-                .Returns(new[] { _skillSynergy.Object });
-
-            _hasEnchantmentsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasEnchantmentsBehavior.Object);
-
-            _hasMutableStatsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasMutableStatsBehavior.Object);
-
-            _hasMutableStatsBehavior
-                .Setup(x => x.MutateStats(It.IsAny<Action<IDictionary<IIdentifier, double>>>()))
-                .Callback<Action<IDictionary<IIdentifier, double>>>(x => x.Invoke(new Dictionary<IIdentifier, double>()));
-
-            _skillFactory
-                .Setup(x => x.Create(
-                    It.Is<ITypeIdentifierBehavior>(b => b.TypeId.Equals(new StringIdentifier("skill"))),
-                    It.Is<ITemplateIdentifierBehavior>(b => b.TemplateId.Equals(new StringIdentifier("skill definition id"))),
-                    It.Is<IIdentifierBehavior>(b => b.Id.Equals(new StringIdentifier("skill definition id"))),
-                    It.IsAny<ISkillResourceUsageBehavior>(),
-                    _hasMutableStatsBehavior.Object,
-                    It.Is<ISkillTargetModeBehavior>(b => b.TargetModeId.Equals(new StringIdentifier("target mode id"))),
-                    It.Is<IHasSkillSynergiesBehavior>(b =>
-                        b.SkillSynergies.Count == 1 &&
-                        b.SkillSynergies.Single() == _skillSynergy.Object),
-                    _hasEnchantmentsBehavior.Object,
-                    It.IsAny<ISkillPrerequisitesBehavior>(),
-                    It.IsAny<ISkillRequirementsBehavior>(),
-                    It.Is<IEnumerable<IBehavior>>(b => b.Count() == 0)))
-                .Returns(_skill.Object);
-
-            _filterComponentToBehaviorConverter
-                .Setup(x => x.Convert(
-                    Enumerable.Empty<IBehavior>(),
-                    It.Is<IEnumerable<IGeneratorComponent>>(fcs => fcs.Count() == 0)))
-                .Returns(Enumerable.Empty<IBehavior>());
+            _skillDefinitionRepositoryMock
+                .Setup(x => x.GetSkillDefinitions(filterContext))
+                .Returns(
+                    SkillDefinition
+                        .FromId("fireball")
+                        .WithDisplayName("Fireball")
+                        .WithDisplayIcon(@"graphics\skills\fireball")
+                        .WithResourceRequirement(4, 10)
+                        .CanBeUsedInCombat()
+                        .IsACombinationOf(
+                            ExecuteSkills.InParallel(
+                                SkillDefinition
+                                    .Anonymous()
+                                    .Enchant("increase-fire-damage")
+                                    .AffectsTeams(0)
+                                    .StartsAtOffsetFromUser(0, 0)
+                                    .TargetsPattern()),
+                            ExecuteSkills.InSequence(
+                                SkillDefinition
+                                    .Anonymous()
+                                    .InflictDamage()
+                                    .AffectsTeams(1)
+                                    .StartsAtOffsetFromUser(0, 1)
+                                    .TargetsPattern(
+                                        Tuple.Create(0, 1))))
+                        .End());
 
             var skills = _skillRepository
-                .GetSkills(_filterContext.Object);
-            
-            Assert.Single(skills);
-            Assert.Equal(_skill.Object, skills.Single());
-            _mockRepository.VerifyAll();
-        }
+                .GetSkills(filterContext)
+                .ToArray();
 
-        [Fact]
-        private void GetSkills_HasStats_BehaviorPopulated()
-        {
-            _skillIdentifiers
-                .Setup(x => x.SkillSynergyIdentifier)
-                .Returns(new StringIdentifier("id"));
-            _skillIdentifiers
-                .Setup(x => x.SkillTypeIdentifier)
-                .Returns(new StringIdentifier("skill"));
+            Assert.Equal(3, skills.Count());
 
-            var skillSynergyDefinitionIds = new IIdentifier[]
-            {
-            };
-            _skillDefinition
-                .Setup(x => x.SkillSynergyDefinitionIds)
-                .Returns(skillSynergyDefinitionIds);
-            _skillDefinition
-                .Setup(x => x.FilterComponents)
-                .Returns(new IGeneratorComponent[] { });
-            _skillDefinition
-                .Setup(x => x.Stats)
-                .Returns(new Dictionary<IIdentifier, double>()
-                {
-                    [new StringIdentifier("Stat1")] = 123,
-                });
-            _skillDefinition
-                .Setup(x => x.SkillDefinitionId)
-                .Returns(new StringIdentifier("skill definition id"));
-            _skillDefinition
-                .Setup(x => x.SkillTargetModeId)
-                .Returns(new StringIdentifier("target mode id"));
-            _skillDefinition
-                .Setup(x => x.StaticResourceRequirements)
-                .Returns(new Dictionary<IIdentifier, double>());
+            var fireball = skills[2];
 
-            _skillDefinitionRepositoryFacade
-                .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
-                .Returns(new[] { _skillDefinition.Object });
+            Assert.True(fireball.Has<IUseInCombatBehavior>());
+            Assert.True(fireball.GetOnly<IHasDisplayNameBehavior>().DisplayName == "Fireball");
+            Assert.True(fireball.GetOnly<IHasDisplayIconBehavior>().IconResourceId.ToString() == @"graphics\skills\fireball");
+            Assert.True(fireball.GetOnly<ISkillResourceUsageBehavior>().StaticStatRequirements[new IntIdentifier(4)] == 10);
 
-            _filterContext
-                .Setup(x => x.Attributes)
-                .Returns(new IFilterAttribute[] { });
+            var fireDamageEnchant = skills[0];
 
-            var skillSynergyContext = _mockRepository.Create<IFilterContext>();
-            _filterContextFactory
-                .Setup(x => x.CreateContext(
-                    0,
-                    int.MaxValue,
-                    It.Is<IEnumerable<IFilterAttribute>>(fas =>
-                        fas.Count() == 1 &&
-                        fas.Single().Id.Equals(new StringIdentifier("id")) &&
-                        (fas.Single().Value is AnyStringCollectionFilterAttributeValue) &&
-                        ((AnyStringCollectionFilterAttributeValue)fas.Single().Value).Values.Count == skillSynergyDefinitionIds.Length)))
-                .Returns(skillSynergyContext.Object);
+            Assert.Contains(
+                new StringIdentifier("increase-fire-damage"),
+                fireDamageEnchant.GetOnly<IApplyEnchantmentsBehavior>().EnchantmentDefinitionIds);
+            Assert.Contains(
+                new IntIdentifier(0),
+                fireDamageEnchant.GetOnly<ITargetCombatTeamBehavior>().AffectedTeams);
+            Assert.True(fireDamageEnchant.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
+            Assert.True(fireDamageEnchant.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 0);
+            Assert.Empty(fireDamageEnchant.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
 
-            _skillSynergyRepositoryFacade
-                .Setup(x => x.GetSkillSynergies(skillSynergyContext.Object))
-                .Returns(new IGameObject[] { });
+            var damage = skills[1];
 
-            _hasEnchantmentsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasEnchantmentsBehavior.Object);
-
-            _hasMutableStatsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasMutableStatsBehavior.Object);
-
-            var mutatedStats = new Dictionary<IIdentifier, double>();
-            _hasMutableStatsBehavior
-                .Setup(x => x.MutateStats(It.IsAny<Action<IDictionary<IIdentifier, double>>>()))
-                .Callback<Action<IDictionary<IIdentifier, double>>>(x => x.Invoke(mutatedStats));
-
-            _skillFactory
-                .Setup(x => x.Create(
-                    It.Is<ITypeIdentifierBehavior>(b => b.TypeId.Equals(new StringIdentifier("skill"))),
-                    It.Is<ITemplateIdentifierBehavior>(b => b.TemplateId.Equals(new StringIdentifier("skill definition id"))),
-                    It.Is<IIdentifierBehavior>(b => b.Id.Equals(new StringIdentifier("skill definition id"))),
-                    It.IsAny<ISkillResourceUsageBehavior>(),
-                    _hasMutableStatsBehavior.Object,
-                    It.Is<ISkillTargetModeBehavior>(b => b.TargetModeId.Equals(new StringIdentifier("target mode id"))),
-                    It.Is<IHasSkillSynergiesBehavior>(b => b.SkillSynergies.Count == 0),
-                    _hasEnchantmentsBehavior.Object,
-                    It.IsAny<ISkillPrerequisitesBehavior>(),
-                    It.IsAny<ISkillRequirementsBehavior>(),
-                    It.Is<IEnumerable<IBehavior>>(b => b.Count() == 0)))
-                .Returns(_skill.Object);
-
-            _filterComponentToBehaviorConverter
-                .Setup(x => x.Convert(
-                    Enumerable.Empty<IBehavior>(),
-                    It.Is<IEnumerable<IGeneratorComponent>>(fcs => fcs.Count() == 0)))
-                .Returns(Enumerable.Empty<IBehavior>());
-
-            var skills = _skillRepository
-                .GetSkills(_filterContext.Object);
-
-            Assert.Single(skills);
-            Assert.Equal(_skill.Object, skills.Single());
-
-            Assert.Equal(1, mutatedStats.Count);
-            Assert.True(
-                mutatedStats.TryGetValue(new StringIdentifier("Stat1"), out var statValue),
-                "Expected stat was not found.");
-            Assert.Equal(123d, statValue);
-
-            _mockRepository.VerifyAll();
-        }
-
-        [Fact]
-        private void GetSkills_PassiveHasMultipleEnchantmentBehaviors_EnchantmentsAreCombinedWithStateful()
-        {
-            _skillIdentifiers
-                .Setup(x => x.SkillSynergyIdentifier)
-                .Returns(new StringIdentifier("id"));
-            _skillIdentifiers
-                .Setup(x => x.SkillTypeIdentifier)
-                .Returns(new StringIdentifier("skill"));
-
-            var filterComponent = _mockRepository.Create<IGeneratorComponent>();
-
-            var enchantment1 = _mockRepository.Create<IGameObject>();
-            var enchantmentsBehavior1 = _mockRepository.Create<IHasEnchantmentsBehavior>();
-            enchantmentsBehavior1
-                .Setup(x => x.Enchantments)
-                .Returns(new[] { enchantment1.Object });
-
-            var enchantment2 = _mockRepository.Create<IGameObject>();
-            var enchantmentsBehavior2 = _mockRepository.Create<IHasReadOnlyEnchantmentsBehavior>();
-            enchantmentsBehavior2
-                .Setup(x => x.Enchantments)
-                .Returns(new[] { enchantment2.Object });
-
-            var statefulEnchantmentDefinitionIds = new[]
-            {
-                new StringIdentifier("stateful enchantment")
-            };
-
-            var enchantment3 = _mockRepository.Create<IGameObject>();
-            _enchantmentLoader
-                .Setup(x => x.LoadForEnchantmenDefinitionIds(statefulEnchantmentDefinitionIds))
-                .Returns(new[] { enchantment3.Object });
-
-            var passiveBehavior = _mockRepository.Create<IPassiveSkillBehavior>();
-
-            _filterComponentToBehaviorConverter
-                .Setup(x => x.Convert(
-                    Enumerable.Empty<IBehavior>(),
-                    It.Is<IEnumerable<IGeneratorComponent>>(fcs => 
-                        fcs.Count() == 1 &&
-                        fcs.Single() == filterComponent.Object)))
-                .Returns(new IBehavior[]
-                {
-                    enchantmentsBehavior1.Object,
-                    enchantmentsBehavior2.Object,
-                    passiveBehavior.Object,
-                });
-
-            var skillSynergyDefinitionIds = new IIdentifier[]
-            {
-            };
-            _skillDefinition
-                .Setup(x => x.SkillSynergyDefinitionIds)
-                .Returns(skillSynergyDefinitionIds);
-            _skillDefinition
-                .Setup(x => x.FilterComponents)
-                .Returns(new IGeneratorComponent[] 
-                {
-                    filterComponent.Object,
-                });
-            _skillDefinition
-                .Setup(x => x.Stats)
-                .Returns(new Dictionary<IIdentifier, double>());
-            _skillDefinition
-                .Setup(x => x.SkillDefinitionId)
-                .Returns(new StringIdentifier("skill definition id"));
-            _skillDefinition
-                .Setup(x => x.SkillTargetModeId)
-                .Returns(new StringIdentifier("target mode id"));
-            _skillDefinition
-                .Setup(x => x.StaticResourceRequirements)
-                .Returns(new Dictionary<IIdentifier, double>());
-            _skillDefinition
-                .Setup(x => x.StatefulEnchantmentDefinitions)
-                .Returns(statefulEnchantmentDefinitionIds);
-
-            _skillDefinitionRepositoryFacade
-                .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
-                .Returns(new[] { _skillDefinition.Object });
-
-            _filterContext
-                .Setup(x => x.Attributes)
-                .Returns(new IFilterAttribute[] { });
-
-            var skillSynergyContext = _mockRepository.Create<IFilterContext>();
-            _filterContextFactory
-                .Setup(x => x.CreateContext(
-                    0,
-                    int.MaxValue,
-                    It.Is<IEnumerable<IFilterAttribute>>(fas =>
-                        fas.Count() == 1 &&
-                        fas.Single().Id.Equals(new StringIdentifier("id")) &&
-                        (fas.Single().Value is AnyStringCollectionFilterAttributeValue) &&
-                        ((AnyStringCollectionFilterAttributeValue)fas.Single().Value).Values.Count == skillSynergyDefinitionIds.Length)))
-                .Returns(skillSynergyContext.Object);
-
-            _skillSynergyRepositoryFacade
-                .Setup(x => x.GetSkillSynergies(skillSynergyContext.Object))
-                .Returns(new IGameObject[] { });
-
-            _hasEnchantmentsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasEnchantmentsBehavior.Object);
-
-            _hasMutableStatsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasMutableStatsBehavior.Object);
-
-            _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
-                    e.Count() == 1 &&
-                    e.Single() == enchantment1.Object)));
-            _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
-                    e.Count() == 1 &&
-                    e.Single() == enchantment2.Object)));
-            _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
-                    e.Count() == 1 &&
-                    e.Single() == enchantment3.Object)));
-
-            var mutatedStats = new Dictionary<IIdentifier, double>();
-            _hasMutableStatsBehavior
-                .Setup(x => x.MutateStats(It.IsAny<Action<IDictionary<IIdentifier, double>>>()))
-                .Callback<Action<IDictionary<IIdentifier, double>>>(x => x.Invoke(mutatedStats));
-
-            _skillFactory
-                .Setup(x => x.Create(
-                    It.Is<ITypeIdentifierBehavior>(b => b.TypeId.Equals(new StringIdentifier("skill"))),
-                    It.Is<ITemplateIdentifierBehavior>(b => b.TemplateId.Equals(new StringIdentifier("skill definition id"))),
-                    It.Is<IIdentifierBehavior>(b => b.Id.Equals(new StringIdentifier("skill definition id"))),
-                    It.IsAny<ISkillResourceUsageBehavior>(),
-                    _hasMutableStatsBehavior.Object,
-                    It.Is<ISkillTargetModeBehavior>(b => b.TargetModeId.Equals(new StringIdentifier("target mode id"))),
-                    It.Is<IHasSkillSynergiesBehavior>(b => b.SkillSynergies.Count == 0),
-                    _hasEnchantmentsBehavior.Object,
-                    It.IsAny<ISkillPrerequisitesBehavior>(),
-                    It.IsAny<ISkillRequirementsBehavior>(),
-                    It.Is<IEnumerable<IBehavior>>(b => 
-                        b.Count() == 1 &&
-                        b.Single() == passiveBehavior.Object)))
-                .Returns(_skill.Object);
-
-            var skills = _skillRepository
-                .GetSkills(_filterContext.Object);
-
-            Assert.Single(skills);
-            Assert.Equal(_skill.Object, skills.Single());
-
-            _mockRepository.VerifyAll();
-        }
-
-        [Fact]
-        private void GetSkills_ActiveSkillHasMultipleEnchantmentBehaviors_EnchantmentsAreCombinedWithoutStateless()
-        {
-            _skillIdentifiers
-                .Setup(x => x.SkillSynergyIdentifier)
-                .Returns(new StringIdentifier("id"));
-            _skillIdentifiers
-                .Setup(x => x.SkillTypeIdentifier)
-                .Returns(new StringIdentifier("skill"));
-
-            var filterComponent = _mockRepository.Create<IGeneratorComponent>();
-
-            var enchantment1 = _mockRepository.Create<IGameObject>();
-            var enchantmentsBehavior1 = _mockRepository.Create<IHasEnchantmentsBehavior>();
-            enchantmentsBehavior1
-                .Setup(x => x.Enchantments)
-                .Returns(new[] { enchantment1.Object });
-
-            var enchantment2 = _mockRepository.Create<IGameObject>();
-            var enchantmentsBehavior2 = _mockRepository.Create<IHasReadOnlyEnchantmentsBehavior>();
-            enchantmentsBehavior2
-                .Setup(x => x.Enchantments)
-                .Returns(new[] { enchantment2.Object });
-
-            _filterComponentToBehaviorConverter
-                .Setup(x => x.Convert(
-                    Enumerable.Empty<IBehavior>(),
-                    It.Is<IEnumerable<IGeneratorComponent>>(
-                        fcs => fcs.Count() == 1 &&
-                        fcs.Single() == filterComponent.Object)))
-                .Returns(new IBehavior[]
-                {
-                    enchantmentsBehavior1.Object,
-                    enchantmentsBehavior2.Object
-                });
-
-            var skillSynergyDefinitionIds = new IIdentifier[]
-            {
-            };
-            _skillDefinition
-                .Setup(x => x.SkillSynergyDefinitionIds)
-                .Returns(skillSynergyDefinitionIds);
-            _skillDefinition
-                .Setup(x => x.FilterComponents)
-                .Returns(new IGeneratorComponent[]
-                {
-                    filterComponent.Object,
-                });
-            _skillDefinition
-                .Setup(x => x.Stats)
-                .Returns(new Dictionary<IIdentifier, double>());
-            _skillDefinition
-                .Setup(x => x.SkillDefinitionId)
-                .Returns(new StringIdentifier("skill definition id"));
-            _skillDefinition
-                .Setup(x => x.SkillTargetModeId)
-                .Returns(new StringIdentifier("target mode id"));
-            _skillDefinition
-                .Setup(x => x.StaticResourceRequirements)
-                .Returns(new Dictionary<IIdentifier, double>());
-
-            _skillDefinitionRepositoryFacade
-                .Setup(x => x.GetSkillDefinitions(_filterContext.Object))
-                .Returns(new[] { _skillDefinition.Object });
-
-            _filterContext
-                .Setup(x => x.Attributes)
-                .Returns(new IFilterAttribute[] { });
-
-            var skillSynergyContext = _mockRepository.Create<IFilterContext>();
-            _filterContextFactory
-                .Setup(x => x.CreateContext(
-                    0,
-                    int.MaxValue,
-                    It.Is<IEnumerable<IFilterAttribute>>(fas =>
-                        fas.Count() == 1 &&
-                        fas.Single().Id.Equals(new StringIdentifier("id")) &&
-                        (fas.Single().Value is AnyStringCollectionFilterAttributeValue) &&
-                        ((AnyStringCollectionFilterAttributeValue)fas.Single().Value).Values.Count == skillSynergyDefinitionIds.Length)))
-                .Returns(skillSynergyContext.Object);
-
-            _skillSynergyRepositoryFacade
-                .Setup(x => x.GetSkillSynergies(skillSynergyContext.Object))
-                .Returns(new IGameObject[] { });
-
-            _hasEnchantmentsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasEnchantmentsBehavior.Object);
-
-            _hasMutableStatsBehaviorFactory
-                .Setup(x => x.Create())
-                .Returns(_hasMutableStatsBehavior.Object);
-
-            _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
-                    e.Count() == 1 &&
-                    e.Single() == enchantment1.Object)));
-            _hasEnchantmentsBehavior
-                .Setup(x => x.AddEnchantments(It.Is<IEnumerable<IGameObject>>(e =>
-                    e.Count() == 1 &&
-                    e.Single() == enchantment2.Object)));
-
-            var mutatedStats = new Dictionary<IIdentifier, double>();
-            _hasMutableStatsBehavior
-                .Setup(x => x.MutateStats(It.IsAny<Action<IDictionary<IIdentifier, double>>>()))
-                .Callback<Action<IDictionary<IIdentifier, double>>>(x => x.Invoke(mutatedStats));
-
-            _skillFactory
-                .Setup(x => x.Create(
-                    It.Is<ITypeIdentifierBehavior>(b => b.TypeId.Equals(new StringIdentifier("skill"))),
-                    It.Is<ITemplateIdentifierBehavior>(b => b.TemplateId.Equals(new StringIdentifier("skill definition id"))),
-                    It.Is<IIdentifierBehavior>(b => b.Id.Equals(new StringIdentifier("skill definition id"))),
-                    It.IsAny<ISkillResourceUsageBehavior>(),
-                    _hasMutableStatsBehavior.Object,
-                    It.Is<ISkillTargetModeBehavior>(b => b.TargetModeId.Equals(new StringIdentifier("target mode id"))),
-                    It.Is<IHasSkillSynergiesBehavior>(b => b.SkillSynergies.Count == 0),
-                    _hasEnchantmentsBehavior.Object,
-                    It.IsAny<ISkillPrerequisitesBehavior>(),
-                    It.IsAny<ISkillRequirementsBehavior>(),
-                    It.Is<IEnumerable<IBehavior>>(b => b.Count() == 0)))
-                .Returns(_skill.Object);
-
-            var skills = _skillRepository
-                .GetSkills(_filterContext.Object);
-
-            Assert.Single(skills);
-            Assert.Equal(_skill.Object, skills.Single());
-
-            _mockRepository.VerifyAll();
+            Assert.True(damage.Has<IInflictDamageBehavior>());
+            Assert.Contains(
+                new IntIdentifier(1),
+                damage.GetOnly<ITargetCombatTeamBehavior>().AffectedTeams);
+            Assert.True(damage.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
+            Assert.True(damage.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 1);
+            Assert.Contains(
+                Tuple.Create(0, 1),
+                damage.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
         }
     }
 }

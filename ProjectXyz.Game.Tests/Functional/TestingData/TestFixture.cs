@@ -4,12 +4,14 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
 using ProjectXyz.Api.Triggering;
 using ProjectXyz.Game.Tests.Functional.TestingData.Enchantments;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
@@ -46,6 +48,7 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
             ItemSetManager = LifeTimeScope.Resolve<IItemSetManager>();
             SkillFactory = LifeTimeScope.Resolve<ISkillFactory>();
             ComponentsForTargetComponentFactory = LifeTimeScope.Resolve<IComponentsForTargetComponentFactory>();
+            GameObjectFactory = LifeTimeScope.Resolve<IGameObjectFactory>();
             EnchantmentFactory = new ExpressionEnchantmentFactory(LifeTimeScope.Resolve<IEnchantmentFactory>());
         }
         #endregion
@@ -62,6 +65,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
         public IActorFactory ActorFactory { get; }
 
         public ISkillFactory SkillFactory { get; }
+
+        public IGameObjectFactory GameObjectFactory{ get; }
 
         public IStatManagerFactory StatManagerFactory { get; }
 

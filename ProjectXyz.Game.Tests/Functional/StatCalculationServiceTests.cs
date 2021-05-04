@@ -135,29 +135,22 @@ namespace ProjectXyz.Game.Tests.Functional
                     $"{statTerm} + 2",
                     _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue),
                     new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+
+            var hasEnchantmentsBehavior = _fixture
+                .HasEnchantmentsBehaviorFactory
+                .Create();
+
+            hasEnchantmentsBehavior.AddEnchantments(new[]
+            {
+                passiveEnchantment1,
+                passiveEnchantment2,
+            });
+
             var skill = _fixture
-                .SkillFactory
-                .Create(
-                    new TypeIdentifierBehavior(new StringIdentifier("skill")),
-                    new TemplateIdentifierBehavior(new StringIdentifier("skill")),
-                    new IdentifierBehavior(new StringIdentifier("skill")),
-                    new SkillResourceUsageBehavior(Enumerable.Empty<KeyValuePair<IIdentifier, double>>()),
-                    _fixture.HasMutableStatsBehaviorFactory.Create(),
-                    new SkillTargetModeBehavior(new StringIdentifier("xxx")),
-                    new HasSkillSynergiesBehavior(Enumerable.Empty<IGameObject>()),
-                    _fixture.HasEnchantmentsBehaviorFactory.Create(),
-                    new SkillPrerequisitesBehavior(Enumerable.Empty<IFilterAttribute>()),
-                    new SkillRequirementsBehavior(Enumerable.Empty<IFilterAttribute>()),
-                    new IBehavior[]
-                    {
-                        new PassiveSkillBehavior(),
-                    });
-            skill
-                .GetOnly<IHasEnchantmentsBehavior>()
-                .AddEnchantments(new[]
+                .GameObjectFactory
+                .Create(new[]
                 {
-                    passiveEnchantment1,
-                    passiveEnchantment2,
+                    hasEnchantmentsBehavior,
                 });
 
             var actor = _fixture.ActorFactory.Create(
@@ -200,34 +193,31 @@ namespace ProjectXyz.Game.Tests.Functional
                     $"{statTerm} * 3",
                     _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue - 1),
                     new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+
+            var hasEnchantmentsBehavior = _fixture
+                .HasEnchantmentsBehaviorFactory
+                .Create();
+
+            hasEnchantmentsBehavior.AddEnchantments(new[]
+            {
+                passiveEnchantment
+            });
+
+            var mutableStatsBehavior = _fixture
+                .HasMutableStatsBehaviorFactory
+                .Create();
+
+            mutableStatsBehavior.MutateStats(stats =>
+            {
+                stats[statId] = 7;
+            });
+
             var skill = _fixture
-                .SkillFactory
-                .Create(
-                    new TypeIdentifierBehavior(new StringIdentifier("skill")),
-                    new TemplateIdentifierBehavior(new StringIdentifier("skill")),
-                    new IdentifierBehavior(new StringIdentifier("skill")),
-                    new SkillResourceUsageBehavior(Enumerable.Empty<KeyValuePair<IIdentifier, double>>()),
-                    _fixture.HasMutableStatsBehaviorFactory.Create(),
-                    new SkillTargetModeBehavior(new StringIdentifier("xxx")),
-                    new HasSkillSynergiesBehavior(Enumerable.Empty<IGameObject>()),
-                    _fixture.HasEnchantmentsBehaviorFactory.Create(),
-                    new SkillPrerequisitesBehavior(Enumerable.Empty<IFilterAttribute>()),
-                    new SkillRequirementsBehavior(Enumerable.Empty<IFilterAttribute>()),
-                    new IBehavior[]
-                    {
-                        new PassiveSkillBehavior(),
-                    });
-            skill
-                .GetOnly<IHasEnchantmentsBehavior>()
-                .AddEnchantments(new[]
+                .GameObjectFactory
+                .Create(new IBehavior[]
                 {
-                    passiveEnchantment,
-                });
-            skill
-                .GetOnly<IHasMutableStatsBehavior>()
-                .MutateStats(stats =>
-                {
-                    stats[statId] = 7;
+                    hasEnchantmentsBehavior,
+                    mutableStatsBehavior
                 });
 
             var actor = _fixture.ActorFactory.Create(

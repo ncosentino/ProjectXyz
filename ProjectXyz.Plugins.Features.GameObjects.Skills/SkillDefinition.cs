@@ -1,54 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using ProjectXyz.Api.Behaviors.Filtering.Attributes;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
+using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Components;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
     public sealed class SkillDefinition : ISkillDefinition
     {
         public SkillDefinition(
-            IIdentifier skillDefinitionId,
-            IIdentifier skillTargetModeId,
-            IEnumerable<IIdentifier> skillSynergyDefinitionIds,
-            IEnumerable<IIdentifier> statefulEnchantmentDefinitions,
-            IEnumerable<KeyValuePair<IIdentifier, double>> stats,
             IEnumerable<IFilterAttribute> supportedAttributes,
-            IEnumerable<IGeneratorComponent> filterComponents,
-            IEnumerable<KeyValuePair<IIdentifier, double>> staticResourceRequirements,
-            ISkillIdentifiers skillIdentifiers)
+            IEnumerable<IGeneratorComponent> filterComponents)
         {
-            SkillDefinitionId = skillDefinitionId;
-            SkillTargetModeId = skillTargetModeId;
-            SkillSynergyDefinitionIds = skillSynergyDefinitionIds.ToArray();
-            StatefulEnchantmentDefinitions = statefulEnchantmentDefinitions.ToArray();
-            SupportedAttributes =
-                new FilterAttribute(
-                    skillIdentifiers.SkillDefinitionIdentifier,
-                    new IdentifierFilterAttributeValue(skillDefinitionId),
-                    false)
-                .Yield()
-                .Concat(supportedAttributes)
-                .ToArray();
-            FilterComponents = filterComponents;
-            StaticResourceRequirements = staticResourceRequirements.ToDictionary();
-            Stats = stats.ToDictionary();
+            FilterComponents = filterComponents.ToArray();
+            SupportedAttributes = supportedAttributes.ToArray();
         }
 
-        public IIdentifier SkillDefinitionId { get; }
+        public static ISkillDefinition FromId(string id)
+        {
+            var idGenerator = new SkillIdentifierGeneratorComponent(id);
+            var idFilterAttribute = new FilterAttribute(
+                new StringIdentifier("id"),
+                new IdentifierFilterAttributeValue(new StringIdentifier(id)),
+                false);
 
-        public IIdentifier SkillTargetModeId { get; }
+            return new SkillDefinition(
+                new[] { idFilterAttribute },
+                new[] { idGenerator });
+        }
 
-        public IReadOnlyCollection<IIdentifier> SkillSynergyDefinitionIds { get; }
-
-        public IReadOnlyCollection<IIdentifier> StatefulEnchantmentDefinitions { get; }
-
-        public IReadOnlyDictionary<IIdentifier, double> Stats { get; }
-
-        public IReadOnlyDictionary<IIdentifier, double> StaticResourceRequirements { get; }
+        public static ISkillDefinition Anonymous() => FromId(
+            Guid.NewGuid().ToString());
 
         public IEnumerable<IFilterAttribute> SupportedAttributes { get; }
 

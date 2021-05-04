@@ -45,7 +45,11 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Testing\ProjectXyz.Framework.Testing.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj" />
     <ProjectReference Include="..\ProjectXyz.Testing\ProjectXyz.Testing.csproj" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

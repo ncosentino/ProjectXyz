@@ -32,7 +32,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 var passiveSkillBehaviors = hasSkillsBehavior
                     .Skills
                     .SelectMany(x => x.Behaviors)
-                    .TakeTypes<IPassiveSkillBehavior>()
+                    .TakeTypes<IHasEnchantmentsBehavior>()
                     .ToArray();
 
                 var skillsTarget = targetNavigator.NavigateDown(target);
