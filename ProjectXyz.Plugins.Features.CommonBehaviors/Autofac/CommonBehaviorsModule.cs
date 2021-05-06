@@ -41,6 +41,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
             builder
                 .RegisterType<HasEnchantmentsBehaviorSerializer>()
                 .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<CanEquipBehaviorSerializer>()
+                .AsImplementedInterfaces()
                 .SingleInstance();            
         }
     }

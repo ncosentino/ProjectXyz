@@ -15,8 +15,17 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         private readonly Dictionary<IIdentifier, ICanBeEquippedBehavior> _equipment;
 
         public CanEquipBehavior(IEnumerable<IIdentifier> supportedEquipSlotIds)
+            : this(
+                  supportedEquipSlotIds,
+                  new Dictionary<IIdentifier, ICanBeEquippedBehavior>())
         {
-            _equipment = new Dictionary<IIdentifier, ICanBeEquippedBehavior>();
+        }
+
+        public CanEquipBehavior(
+            IEnumerable<IIdentifier> supportedEquipSlotIds,
+            IEnumerable<KeyValuePair<IIdentifier, ICanBeEquippedBehavior>> equipment)
+        {
+            _equipment = equipment.ToDictionary(x => x.Key, x => x.Value);
             SupportedEquipSlotIds = supportedEquipSlotIds.ToArray();
         }
 

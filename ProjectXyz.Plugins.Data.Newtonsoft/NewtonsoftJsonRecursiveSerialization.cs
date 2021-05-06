@@ -231,8 +231,10 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             if (jsonPropertyValue is JObject)
             {
                 var convertedValue = deserializer.Deserialize<object>((JObject)jsonPropertyValue);
-                if (targetType.IsGenericType &&
-                    typeof(IEnumerable).IsAssignableFrom(targetType))
+                var forceEnumerableCasting = targetType.IsGenericType &&
+                    typeof(IEnumerable).IsAssignableFrom(targetType);
+                var forceArrayCasting = targetType.IsArray;
+                if (forceEnumerableCasting || forceArrayCasting)
                 {
                     return _cast.ToType(
                         convertedValue,

@@ -17,7 +17,7 @@ using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Behaviors.Serialization.Newtonsoft
 {
-    public sealed class CanBeSocketedBehaviorSerializerTests
+    public sealed class CanBeSocketedBehaviorSerializationTests
     {
         private static readonly ISerializer _serializer;
         private static readonly IDeserializer _deserializer;
@@ -25,7 +25,7 @@ namespace ProjectXyz.Game.Tests.Functional.GameObjects.Behaviors.Serialization.N
         private static readonly ICanFitSocketBehaviorFactory _canFitSocketBehaviorFactory;
         private static readonly IGameObjectFactory _gameObjectFactory;
 
-        static CanBeSocketedBehaviorSerializerTests()
+        static CanBeSocketedBehaviorSerializationTests()
         {
             _serializer = CachedDependencyLoader.LifeTimeScope.Resolve<ISerializer>();
             _deserializer = CachedDependencyLoader.LifeTimeScope.Resolve<IDeserializer>();

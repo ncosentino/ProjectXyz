@@ -13,13 +13,13 @@ using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Behaviors.Serialization.Newtonsoft
 {
-    public sealed class HasMutableStatsBehaviorSerializerTests
+    public sealed class HasMutableStatsBehaviorSerializationTests
     {
         private static readonly ISerializer _serializer;
         private static readonly IDeserializer _deserializer;
         private static readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
-        static HasMutableStatsBehaviorSerializerTests()
+        static HasMutableStatsBehaviorSerializationTests()
         {
             _serializer = CachedDependencyLoader.LifeTimeScope.Resolve<ISerializer>();
             _deserializer = CachedDependencyLoader.LifeTimeScope.Resolve<IDeserializer>();

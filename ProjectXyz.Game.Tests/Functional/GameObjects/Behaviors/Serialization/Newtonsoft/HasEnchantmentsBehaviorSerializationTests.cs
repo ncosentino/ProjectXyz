@@ -15,14 +15,14 @@ using Xunit;
 
 namespace ProjectXyz.Game.Tests.Functional.GameObjects.Behaviors.Serialization.Newtonsoft
 {
-    public sealed class HasEnchantmentsBehaviorSerializerTests
+    public sealed class HasEnchantmentsBehaviorSerializationTests
     {
         private static readonly ISerializer _serializer;
         private static readonly IDeserializer _deserializer;
         private static readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
         private static readonly IGameObjectFactory _gameObjectFactory;
 
-        static HasEnchantmentsBehaviorSerializerTests()
+        static HasEnchantmentsBehaviorSerializationTests()
         {
             _serializer = CachedDependencyLoader.LifeTimeScope.Resolve<ISerializer>();
             _deserializer = CachedDependencyLoader.LifeTimeScope.Resolve<IDeserializer>();
