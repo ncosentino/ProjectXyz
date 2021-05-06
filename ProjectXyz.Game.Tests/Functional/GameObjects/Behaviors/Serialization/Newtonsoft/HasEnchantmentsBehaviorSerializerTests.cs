@@ -6,13 +6,14 @@ using Autofac;
 
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
 using Xunit;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests.Serialization.Newtonsoft
+namespace ProjectXyz.Game.Tests.Functional.GameObjects.Behaviors.Serialization.Newtonsoft
 {
     public sealed class HasEnchantmentsBehaviorSerializerTests
     {
@@ -30,7 +31,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests.Serialization.Newton
         }
 
         [Fact]
-        private void FullSerialize_HasEnchantmentsBehavior_EquivalentDeserialized()
+        private void FullSerialize_TwoEnchantments_EquivalentDeserialized()
         {
             var hasEnchantmentsBehavior = _hasEnchantmentsBehaviorFactory.Create();
             hasEnchantmentsBehavior.AddEnchantments(new[]

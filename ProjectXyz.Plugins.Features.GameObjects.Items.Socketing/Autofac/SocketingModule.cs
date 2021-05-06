@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Serialization.Newtonsoft;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Autofac
 {
@@ -23,7 +24,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Autofac
             builder
                 .RegisterType<CanBeSocketedGameObjectsForBehavior>()
                 .AsImplementedInterfaces()
-                .SingleInstance();            
+                .SingleInstance();
+
+            builder
+                .RegisterType<CanBeSocketedBehaviorSerializer>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

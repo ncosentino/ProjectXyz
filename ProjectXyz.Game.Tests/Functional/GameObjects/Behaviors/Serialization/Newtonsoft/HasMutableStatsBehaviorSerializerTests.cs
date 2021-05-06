@@ -4,13 +4,14 @@ using System.Text;
 using Autofac;
 
 using ProjectXyz.Api.Data.Serialization;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
 using Xunit;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests.Serialization.Newtonsoft
+namespace ProjectXyz.Game.Tests.Functional.GameObjects.Behaviors.Serialization.Newtonsoft
 {
     public sealed class HasMutableStatsBehaviorSerializerTests
     {
@@ -26,7 +27,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Tests.Serialization.Newton
         }
 
         [Fact]
-        private void FullSerialize_HasMutableStatsBehavior_EquivalentDeserialized()
+        private void FullSerialize_MixedStatIdentifierTypes_EquivalentDeserialized()
         {
             var hasMutableStatsBehavior = _hasMutableStatsBehaviorFactory.Create();
             hasMutableStatsBehavior.MutateStats(stats =>
