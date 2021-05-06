@@ -28,7 +28,10 @@ namespace ProjectXyz.Shared.Data.Serialization
 
         public IEnumerable<string> ConvertableSerializableIds => _typesToIds.Values;
 
-        public string ConvertToSerializationId(object obj) => _typesToIds[obj.GetType()];
+        public string ConvertToSerializationId(Type type) => _typesToIds[type];
+
+        public string ConvertToSerializationId(object obj) =>
+            ConvertToSerializationId(obj.GetType());
 
         public Type ConvertToType(string serializableId) => _idsToTypes[serializableId];
     }

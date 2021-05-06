@@ -40,6 +40,22 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             Type type)
         {
             var serializableId = _objectToSerializationIdConverterFacade.ConvertToSerializationId(objectToConvert);
+            var converted = ToSerializable(
+                serializer,
+                objectToConvert,
+                visited,
+                type,
+                serializableId);
+            return converted;
+        }
+
+        public ISerializable ToSerializable(
+            INewtonsoftJsonSerializer serializer,
+            object objectToConvert,
+            HashSet<object> visited,
+            Type type,
+            string serializableId)
+        {
             var converted = _serializableConverterFacade.Convert(
                 serializer,
                 objectToConvert,

@@ -13,13 +13,17 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
     public sealed class NewtonsoftJsonSerializer : INewtonsoftJsonSerializerFacade
     {
         private readonly JsonSerializer _jsonSerializer;
+        private readonly IObjectToSerializationIdConverterFacade _objectToSerializationIdConverterFacade;
         private readonly Dictionary<Type, ConvertToSerializableDelegate> _mapping;
         
         private ConvertToSerializableDelegate _defaultConverter;
 
-        public NewtonsoftJsonSerializer(JsonSerializer jsonSerializer)
+        public NewtonsoftJsonSerializer(
+            JsonSerializer jsonSerializer,
+            IObjectToSerializationIdConverterFacade objectToSerializationIdConverterFacade)
         {
             _jsonSerializer = jsonSerializer;
+            _objectToSerializationIdConverterFacade = objectToSerializationIdConverterFacade;
             _mapping = new Dictionary<Type, ConvertToSerializableDelegate>();
         }
 
@@ -93,11 +97,13 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                     $"and '{typeof(ISerializable)}'.");
             }
 
+            var serializableId = _objectToSerializationIdConverterFacade.ConvertToSerializationId(objectToSerialize);
             var serializable = converter.Invoke(
                 this,
                 objectToSerialize,
                 visited,
-                objectType);
+                objectType,
+                serializableId);
             return serializable;
         }
 

@@ -9,7 +9,8 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Api
         INewtonsoftJsonSerializer serializer,
         object objectToConvert,
         HashSet<object> visited,
-        Type type);
+        Type type,
+        string serializableId);
 
     public interface INewtonsoftJsonSerializer : ISerializer
     {

@@ -14,19 +14,20 @@ namespace ProjectXyz.Shared.Data.Serialization
             _converters = new Dictionary<Type, IObjectToSerializationIdConverter>();
         }
 
-        public string ConvertToSerializationId(object obj)
+        public string ConvertToSerializationId(object obj) =>
+            ConvertToSerializationId(obj.GetType());
+
+        public string ConvertToSerializationId(Type type)
         {
             if (_converters.TryGetValue(
-                obj.GetType(),
+                type,
                 out var converter))
             {
-                var converterResult = converter.ConvertToSerializationId(obj);
+                var converterResult = converter.ConvertToSerializationId(type);
                 return converterResult;
             }
 
-            var defaultConverterResult = obj
-                .GetType()
-                .AssemblyQualifiedName;
+            var defaultConverterResult = type.AssemblyQualifiedName;
             return defaultConverterResult;
         }
 

@@ -9,6 +9,10 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
+                .RegisterType<CustomSerializationRegistrar>()
+                .AutoActivate()
+                .AsSelf();
+            builder
                 .RegisterType<SerializableConverterFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

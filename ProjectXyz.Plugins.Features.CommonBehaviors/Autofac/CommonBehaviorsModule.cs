@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
 {
@@ -31,7 +32,12 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
             builder
                 .RegisterType<EquipmentGameObjectsForBehavior>()
                 .AsImplementedInterfaces()
-                .SingleInstance();            
+                .SingleInstance();
+
+            builder
+                .RegisterType<HasMutableStatsBehaviorSerializer>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

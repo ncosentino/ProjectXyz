@@ -1,9 +1,8 @@
-﻿
-using Autofac;
+﻿using Autofac;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
+using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
@@ -26,7 +25,9 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-               .Register(x => new NewtonsoftJsonSerializer(jsonSerializer))
+               .Register(x => new NewtonsoftJsonSerializer(
+                   jsonSerializer,
+                   x.Resolve<IObjectToSerializationIdConverterFacade>()))
                .AsImplementedInterfaces()
                .SingleInstance();
             builder
