@@ -38,6 +38,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
                 .RegisterType<HasMutableStatsBehaviorSerializer>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<HasEnchantmentsBehaviorSerializer>()
+                .AsImplementedInterfaces()
+                .SingleInstance();            
         }
     }
 }

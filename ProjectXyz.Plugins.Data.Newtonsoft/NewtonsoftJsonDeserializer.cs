@@ -64,42 +64,11 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
         public TDeserializable Deserialize<TDeserializable>(JObject serializable)
         {
             var objectData = serializable[nameof(ISerializable.Data)];
-            if (objectData.Type == JTokenType.Array)
+            if (!NeedsDeserialization(objectData.Type))
             {
-                var arrayData = objectData.Value<JArray>();
-                var deserializedList = new List<object>();
-                foreach (var child in arrayData.Children())
-                {
-                    if (child is JObject)
-                    {
-                        var deserializedChild = Deserialize<object>((JObject)child);
-                        deserializedList.Add(deserializedChild);
-                    }
-                    else if (child is JValue)
-                    {
-                        var value = ((JValue)child).Value;
-
-                        // FIXME: this is a hack but newtonsoft is hell-bent
-                        // on making ints longs and while i applaud them for it,
-                        // it becomes a nightmare if you're essentially never
-                        // using longs!
-                        if (value is long)
-                        {
-                            value = Convert.ToInt32(value, CultureInfo.InvariantCulture);
-                        }
-
-                        deserializedList.Add(value);
-                    }
-                    else
-                    {
-                        throw new NotSupportedException(
-                            $"Child JSON entry '{child}' is not supported.");
-                    }
-                }
-
-                return (TDeserializable)(object)deserializedList;
+                return (TDeserializable)objectData.Value<JValue>().Value;
             }
-            
+
             var serializableId = serializable[nameof(ISerializable.SerializableId)].Value<string>();
 
             if (!_mapping.TryGetValue(
@@ -107,25 +76,56 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 out var converter))
             {
                 converter = _defaultConverter;
+
+                if (objectData.Type == JTokenType.Array)
+                {
+                    var arrayData = objectData.Value<JArray>();
+                    var deserializedList = new List<object>();
+                    foreach (var child in arrayData.Children())
+                    {
+                        if (child is JObject)
+                        {
+                            var deserializedChild = Deserialize<object>((JObject)child);
+                            deserializedList.Add(deserializedChild);
+                        }
+                        else if (child is JValue)
+                        {
+                            var value = ((JValue)child).Value;
+
+                            // FIXME: this is a hack but newtonsoft is hell-bent
+                            // on making ints longs and while i applaud them for it,
+                            // it becomes a nightmare if you're essentially never
+                            // using longs!
+                            if (value is long)
+                            {
+                                value = Convert.ToInt32(value, CultureInfo.InvariantCulture);
+                            }
+
+                            deserializedList.Add(value);
+                        }
+                        else
+                        {
+                            throw new NotSupportedException(
+                                $"Child JSON entry '{child}' is not supported.");
+                        }
+                    }
+
+                    return (TDeserializable)(object)deserializedList;
+                }
             }
 
             if (converter != null)
             {
                 var rawObjectData = objectData.Value<object>();
-                var stringObjectData = rawObjectData is JObject
-                    ? ((JObject)rawObjectData).ToString(Formatting.None)
-                    : ((JValue)rawObjectData).ToString(Formatting.None);
-                var nestedStream = new MemoryStream(Encoding.UTF8.GetBytes(stringObjectData));
-                var converted = converter.Invoke(
-                    this,
-                    nestedStream,
-                    serializableId);
-                return (TDeserializable)converted;
-            }
-
-            if (!NeedsDeserialization(objectData.Type))
-            {
-                return (TDeserializable)objectData.Value<JValue>().Value;
+                var stringObjectData = ((JToken)rawObjectData).ToString(Formatting.None);
+                using (var nestedStream = new MemoryStream(Encoding.UTF8.GetBytes(stringObjectData)))
+                {
+                    var converted = converter.Invoke(
+                        this,
+                        nestedStream,
+                        serializableId);
+                    return (TDeserializable)converted;
+                }
             }
 
             throw new NotSupportedException(
