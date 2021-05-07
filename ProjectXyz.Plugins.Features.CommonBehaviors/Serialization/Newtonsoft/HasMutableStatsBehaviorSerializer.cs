@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft

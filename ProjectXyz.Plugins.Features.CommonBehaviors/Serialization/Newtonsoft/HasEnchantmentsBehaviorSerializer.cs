@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
 {
