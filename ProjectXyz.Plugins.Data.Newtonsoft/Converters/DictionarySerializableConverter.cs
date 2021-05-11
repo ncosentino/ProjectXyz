@@ -8,15 +8,13 @@ using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
-    public sealed class EnumerableSerializableConverter : IDiscoverableSerializableConverter
+    public sealed class DictionarySerializableConverter : IDiscoverableSerializableConverter
     {
         public bool CanConvert(
             INewtonsoftJsonSerializer serializer,
             object objectToConvert,
             Type type,
-            string serializableId) =>
-                typeof(IEnumerable).IsAssignableFrom(type) &&
-                !typeof(IDictionary).IsAssignableFrom(type);
+            string serializableId) => typeof(IDictionary).IsAssignableFrom(type);
 
         public ISerializable Convert(
             INewtonsoftJsonSerializer serializer,
@@ -25,10 +23,16 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             Type type,
             string serializableId) => new Serializable(
                 serializableId,
-                ((IEnumerable)objectToConvert)
-                    .Cast<object>()
-                    .Select(x => serializer.GetObjectToSerialize(
-                        x,
-                        visited)));
+                ((IDictionary)objectToConvert)
+                .Keys
+                .Cast<object>()
+                .Select(x => new
+                {
+                    Key = x,
+                    Value = serializer.GetObjectToSerialize(
+                        ((IDictionary)objectToConvert)[x],
+                        visited)
+                })
+                .ToDictionary(x => x.Key, x => x.Value));
     }
 }

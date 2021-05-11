@@ -84,6 +84,14 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                     .Children()
                     .Select(x => x.Path)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            if (typeof(IDictionary).IsAssignableFrom(type))
+            {
+                var uncastedDictionary = jsonObject.ToObject<IDictionary<string, object>>();
+                var castedDictionary = _cast.ToType(uncastedDictionary, type);
+                return castedDictionary;
+            }
+
             var bestMatchingConstructors = GetBestConstructors(
                 type,
                 jsonPropertyNames)

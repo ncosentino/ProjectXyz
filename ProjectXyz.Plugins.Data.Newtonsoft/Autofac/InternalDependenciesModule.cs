@@ -25,6 +25,10 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<DictionarySerializableConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();            
+            builder
                 .RegisterType<PropertyDirectedSerializableConverter>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

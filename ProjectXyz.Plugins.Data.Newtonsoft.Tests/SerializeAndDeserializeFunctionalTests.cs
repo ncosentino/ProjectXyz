@@ -112,7 +112,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     new Action<object, object, string>((original, result, json) =>
                     {
                         Assert.IsType<RepeatedSingletionViaConstructor>(result);
-                        
+                    
                         // NOTE: these singleton objects are TRULY non constructable so... we can't get them back
                         Assert.Null(((RepeatedSingletionViaConstructor)result).Property1);
                         Assert.Null(((RepeatedSingletionViaConstructor)result).Property2);
@@ -204,6 +204,50 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
 
                         // ensure the collection primitives are treates as such
                         Assert.Contains("\"Data\":[1,2,3]", json);
+                    }),
+                },
+                new object[]
+                {
+                    new ObjectWithEnumerableKvpInputReadOnlyDictionaryProperty(new Dictionary<string, int>()
+                    {
+                        ["hello"] = 123,
+                        ["world"] = 456,
+                    }),
+                    new Action<object, object, string>((original, result, json) =>
+                    {
+                        Assert.Contains(
+                            "{\"hello\":123,\"world\":456}",
+                            json);
+
+                        Assert.IsAssignableFrom<ObjectWithEnumerableKvpInputReadOnlyDictionaryProperty>(result);
+
+                        var castedResult = Assert.IsAssignableFrom<ObjectWithEnumerableKvpInputReadOnlyDictionaryProperty>(result);
+                        Assert.Equal(2, castedResult.Property.Count);
+                        Assert.Contains("hello", castedResult.Property.Keys);
+                        Assert.Equal(123, castedResult.Property["hello"]);
+                        Assert.Contains("world", castedResult.Property.Keys);
+                        Assert.Equal(456, castedResult.Property["world"]);
+                    }),
+                },
+                new object[]
+                {
+                    new Dictionary<string, int>()
+                    {
+                        ["hello"] = 123,
+                        ["world"] = 456,
+                    },
+                    new Action<object, object, string>((original, result, json) =>
+                    {
+                        Assert.Contains(
+                            "{\"hello\":123,\"world\":456}",
+                            json);
+
+                        var dictionaryResult = Assert.IsAssignableFrom<IReadOnlyDictionary<string, int>>(result);
+                        Assert.Equal(2, dictionaryResult.Count);
+                        Assert.Contains("hello", dictionaryResult.Keys);
+                        Assert.Equal(123, dictionaryResult["hello"]);
+                        Assert.Contains("world", dictionaryResult.Keys);
+                        Assert.Equal(456, dictionaryResult["world"]);
                     }),
                 },
                 new object[]
@@ -396,6 +440,16 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                 }
 
                 public IReadOnlyCollection<int> Property { get; }
+            }
+
+            public sealed class ObjectWithEnumerableKvpInputReadOnlyDictionaryProperty
+            {
+                public ObjectWithEnumerableKvpInputReadOnlyDictionaryProperty(IEnumerable<KeyValuePair<string, int>> property)
+                {
+                    Property = property.ToDictionary(x => x.Key, x => x.Value);
+                }
+
+                public IReadOnlyDictionary<string, int> Property { get; }
             }
 
             private sealed class SingletonObject

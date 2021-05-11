@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="NexusLabs.Contracts" Version="0.0.3" />
-    <PackageReference Include="NexusLabs.Framework" Version="0.0.6" />
+    <PackageReference Include="NexusLabs.Framework" Version="0.0.9" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />

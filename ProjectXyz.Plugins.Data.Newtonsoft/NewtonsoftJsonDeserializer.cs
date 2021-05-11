@@ -77,7 +77,8 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             {
                 converter = _defaultConverter;
 
-                if (objectData.Type == JTokenType.Array)
+                if (objectData.Type == JTokenType.Array &&
+                    serializableId.IndexOf("Dictionary", StringComparison.OrdinalIgnoreCase) == -1)
                 {
                     var arrayData = objectData.Value<JArray>();
                     var deserializedList = new List<object>();
