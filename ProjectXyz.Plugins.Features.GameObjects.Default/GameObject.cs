@@ -14,13 +14,18 @@ namespace ProjectXyz.Plugins.Features.Behaviors.Default
         {
             _behaviors = new List<IBehavior>();
 
-            foreach (var behavior in behaviors.TakeTypes<IRegisterableBehavior>())
+            foreach (var behavior in behaviors)
             {
                 _behaviors.Add(behavior);
-                behavior.RegisteringToOwner(this);
+
+                if (behavior is IRegisterableBehavior registerableBehavior)
+                {
+                    registerableBehavior.RegisteringToOwner(this);
+                }
             }
 
-            foreach (var behavior in behaviors.TakeTypes<IRegisterableBehavior>())
+            // RegisteredToOwner executes after all the RegisteringToOwner calls
+            foreach (var behavior in _behaviors.TakeTypes<IRegisterableBehavior>())
             {
                 behavior.RegisteredToOwner(this);
             }
