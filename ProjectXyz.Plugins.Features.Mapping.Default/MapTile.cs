@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
@@ -10,18 +11,17 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         public MapTile(
             int x,
             int y,
-            IEnumerable<ITileComponent> components)
+            IEnumerable<IBehavior> behaviors)
         {
             X = x;
             Y = y;
-            Components = components.ToArray();
+            Behaviors = behaviors.ToArray();
         }
 
         public int X { get; }
 
         public int Y { get; }
 
-
-        public IReadOnlyCollection<ITileComponent> Components { get; }
+        public IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }

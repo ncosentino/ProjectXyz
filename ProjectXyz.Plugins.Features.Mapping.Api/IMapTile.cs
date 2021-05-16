@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using ProjectXyz.Api.GameObjects.Behaviors;
+
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapTile
@@ -8,6 +10,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
 
         int Y { get; }
 
-        IReadOnlyCollection<ITileComponent> Components { get; }
+        IReadOnlyCollection<IBehavior> Behaviors { get; }
     }
 }
