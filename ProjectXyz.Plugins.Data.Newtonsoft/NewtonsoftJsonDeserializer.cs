@@ -8,6 +8,8 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
@@ -16,13 +18,17 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
     public sealed class NewtonsoftJsonDeserializer : INewtonsoftJsonDeserializerFacade
     {
         private readonly JsonSerializer _jsonSerializer;
+        private readonly ICast _cast;
         private readonly Dictionary<string, NewtonsoftDeserializeDelegate> _mapping;
 
         private NewtonsoftDeserializeDelegate _defaultConverter;
 
-        public NewtonsoftJsonDeserializer(JsonSerializer jsonSerializer)
+        public NewtonsoftJsonDeserializer(
+            JsonSerializer jsonSerializer,
+            ICast cast)
         {
             _jsonSerializer = jsonSerializer;
+            _cast = cast;
             _mapping = new Dictionary<string, NewtonsoftDeserializeDelegate>();
         }
 
@@ -111,7 +117,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                         }
                     }
 
-                    return (TDeserializable)(object)deserializedList;
+                    return _cast.ToType<TDeserializable>(deserializedList);
                 }
             }
 

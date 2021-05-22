@@ -29,6 +29,33 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
             _deserializer = scope.Resolve<IDeserializer>();
         }
 
+        [Fact]
+        private void Deserialize_ObjectListToStringIReadOnlyCollection_ExpectedResult()
+        {
+            var dataToSerialize = new List<object>()
+            {
+                "hello",
+                "world",
+            };
+            var serializedStream = new MemoryStream();
+            _serializer.Serialize(
+                serializedStream,
+                dataToSerialize,
+                Encoding.UTF8);
+            serializedStream.Seek(0, SeekOrigin.Begin);
+
+            using (var reader = new StreamReader(serializedStream))
+            {
+                var json = reader.ReadToEnd();
+                serializedStream.Seek(0, SeekOrigin.Begin);
+
+                var deserialized = _deserializer.Deserialize<IReadOnlyCollection<string>>(serializedStream);
+                Assert.Equal(2, deserialized.Count);
+                Assert.Equal("hello", deserialized.First());
+                Assert.Equal("world", deserialized.Last());
+            }
+        }
+
         [ClassData(typeof(TestData))]
         [Theory]
         private void Deserialize_SerializedData_ExpectedResult(

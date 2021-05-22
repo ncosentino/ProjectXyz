@@ -2,6 +2,8 @@
 
 using Newtonsoft.Json;
 
+using NexusLabs.Framework;
+
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
@@ -21,7 +23,9 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
             var jsonSerializer = JsonSerializer.Create(settings);
 
             builder
-                .Register(x => new NewtonsoftJsonDeserializer(jsonSerializer))
+                .Register(x => new NewtonsoftJsonDeserializer(
+                    jsonSerializer,
+                    x.Resolve<ICast>()))
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
