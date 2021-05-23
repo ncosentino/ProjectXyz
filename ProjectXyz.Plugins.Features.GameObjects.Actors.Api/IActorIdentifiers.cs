@@ -8,6 +8,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
 
         IIdentifier ActorTypeIdentifier { get; }
 
+        IIdentifier ActorDefinitionIdentifier { get; }
+
         // FIXME: are animations game specific?
         IIdentifier AnimationStandBack { get; }
 

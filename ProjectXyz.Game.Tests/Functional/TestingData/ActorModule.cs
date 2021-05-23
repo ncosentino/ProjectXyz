@@ -28,6 +28,8 @@ namespace ProjectXyz.Game.Tests.Functional.TestingData
 
     public sealed class ActorIdentifiers : IActorIdentifiers
     {
+        public IIdentifier ActorDefinitionIdentifier { get; } = new StringIdentifier("actor-id");
+
         public IIdentifier FilterContextActorStatsIdentifier { get; } = new StringIdentifier("actor-stats");
 
         public IIdentifier ActorTypeIdentifier { get; } = new StringIdentifier("actor");

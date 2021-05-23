@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
@@ -9,7 +10,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
     {
         public MapLayer(
             string name,
-            IEnumerable<IMapTile> tiles)
+            IEnumerable<IGameObject> tiles)
         {
             Name = name;
             Tiles = tiles.ToArray();
@@ -17,6 +18,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public string Name { get; }
 
-        public IReadOnlyCollection<IMapTile> Tiles { get; }
+        public IReadOnlyCollection<IGameObject> Tiles { get; }
     }
 }

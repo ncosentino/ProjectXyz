@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
@@ -12,7 +13,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
     {
         private readonly IGameObject _map;
         private readonly IPathFinderCollisionDetector _collisionDetector;
-        private readonly Dictionary<int, Dictionary<int, IMapTile>> _grid;
+        private readonly Dictionary<int, Dictionary<int, IGameObject>> _grid;
 
         public AStarPathFinder(
             IGameObject map,
@@ -20,16 +21,17 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
         {
             _map = map;
             _collisionDetector = collisionDetector;
-            _grid = new Dictionary<int, Dictionary<int, IMapTile>>();
+            _grid = new Dictionary<int, Dictionary<int, IGameObject>>();
             foreach (var tile in map.GetOnly<IMapLayersBehavior>().Layers.First().Tiles)
             {
-                if (!_grid.TryGetValue(tile.X, out var rows))
+                var tilePositionBehavior = tile.GetOnly<IReadOnlyPositionBehavior>();
+                if (!_grid.TryGetValue((int)tilePositionBehavior.X, out var rows))
                 {
-                    rows = new Dictionary<int, IMapTile>();
-                    _grid[tile.X] = rows;
+                    rows = new Dictionary<int, IGameObject>();
+                    _grid[(int)tilePositionBehavior.X] = rows;
                 }
 
-                rows[tile.Y] = tile;
+                rows[(int)tilePositionBehavior.Y] = tile;
             }
         }
 
@@ -174,7 +176,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
-        private bool TryGetTile(int x, int y, out IMapTile tile)
+        private bool TryGetTile(int x, int y, out IGameObject tile)
         {
             tile = null;
 
