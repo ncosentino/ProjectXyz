@@ -70,7 +70,6 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             Stream stream,
             string serializableId)
         {
-            var type = _serializableIdToTypeConverterFacade.ConvertToType(serializableId);
             var readObject = deserializer.ReadObject(stream);
             if (!(readObject is JObject) && readObject != null)
             {
@@ -84,6 +83,13 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                     .Children()
                     .Select(x => x.Path)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            var type = _serializableIdToTypeConverterFacade.ConvertToType(serializableId);
+            if (type == null)
+            {
+                throw new InvalidOperationException(
+                    $"The resulting type was null for serializable ID '{serializableId}'.");
+            }
 
             if (typeof(IDictionary).IsAssignableFrom(type))
             {

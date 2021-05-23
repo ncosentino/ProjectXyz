@@ -76,6 +76,14 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             }
 
             var serializableId = serializable[nameof(ISerializable.SerializableId)].Value<string>();
+            if (string.IsNullOrWhiteSpace(serializableId))
+            {
+                throw new InvalidOperationException(
+                    $"Could not deserialize because " +
+                    $"'{nameof(ISerializable.SerializableId)}' was null or " +
+                    $"whitespace on the JSON object:\r\n" +
+                    $"{serializable.ToString(Formatting.Indented)}");
+            }
 
             if (!_mapping.TryGetValue(
                 serializableId,
