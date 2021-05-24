@@ -16,6 +16,8 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
         private readonly ICombatGameObjectProvider _combatGameObjectProvider;
         private readonly Dictionary<IGameObject, double> _actorCounters;
 
+        private IGameObject _cachedCurrentActor;
+
         public CombatTurnManager(
             ICombatCalculations combatCalculations,
             ICombatGameObjectProvider combatGameObjectProvider)
@@ -37,7 +39,8 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
         {
             _actorCounters.Clear();
 
-            var actorOrder = GetSnapshot(filterContext, 1);
+            var actorOrder = GetSnapshot(filterContext, 1).ToArray();
+            _cachedCurrentActor = actorOrder.Single();
             var eventArgs = new CombatStartedEventArgs(actorOrder);
 
             InCombat = true;
@@ -48,6 +51,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             IEnumerable<IGameObject> winningTeam,
             IReadOnlyDictionary<int, IReadOnlyCollection<IGameObject>> losingTeams)
         {
+            _cachedCurrentActor = null;
             _actorCounters.Clear();
             var eventArgs = new CombatEndedEventArgs(
                 winningTeam,
@@ -73,9 +77,10 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
                 _actorCounters,
                 turns)
                 .ToArray();
+            _cachedCurrentActor = GetSnapshot(filterContext, 1).Single();
             var eventArgs = new TurnProgressedEventArgs(
                 actorOrder,
-                GetSnapshot(filterContext, 1).Single());
+                _cachedCurrentActor);
             TurnProgressed?.Invoke(this, eventArgs);
         }
 
@@ -89,6 +94,12 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             Contract.Requires(
                 length > 0,
                 $"{nameof(length)} must be greater than 0.");
+
+            if (length == 1 && _cachedCurrentActor != null)
+            {
+                yield return _cachedCurrentActor;
+                yield break;
+            }
 
             var actorCounter = _actorCounters.ToDictionary(
                 x => x.Key,

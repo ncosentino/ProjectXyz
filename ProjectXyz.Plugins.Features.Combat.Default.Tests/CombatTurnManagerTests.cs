@@ -31,6 +31,48 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
         }
 
         [Fact]
+        private void GetSnapshot_AfterStartCombatSnapshotLength1_UsesCache()
+        {
+            var gameObjectA1 = _mockRepository.Create<IGameObject>();
+            var gameObjectB1 = _mockRepository.Create<IGameObject>();
+            var gameObjectB2 = _mockRepository.Create<IGameObject>();
+
+            _combatGameObjectManager
+                .Setup(x => x.GetGameObjects())
+                .Returns(new[]
+                {
+                    gameObjectA1.Object,
+                    gameObjectB1.Object,
+                    gameObjectB2.Object,
+                });
+
+            var speedMapping = new Dictionary<IGameObject, double>()
+            {
+                [gameObjectA1.Object] = 10,
+                [gameObjectB1.Object] = 8,
+                [gameObjectB2.Object] = 4,
+            };
+
+            _combatCalculations
+                .Setup(x => x.CalculateActorIncrementValue)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => speedMapping[actor]));
+            _combatCalculations
+                .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
+
+            _combatTurnManager.StartCombat(_filterContext.Object);
+            var results = _combatTurnManager
+                .GetSnapshot(_filterContext.Object, 1)
+                .ToArray();
+
+            Assert.Equal(gameObjectA1.Object, Assert.Single(results));
+            _mockRepository.VerifyAll();
+
+            // FIXME: this is a pretty crap way to ensure we used a cached value but it works for now?
+            _combatGameObjectManager.Verify(x => x.GetGameObjects(), Times.Once);
+        }
+
+        [Fact]
         private void GetSnapshot_7InitialProgress2Turns5After_5AfterAreLast5OfFirst()
         {
             var gameObjectA1 = _mockRepository.Create<IGameObject>();
@@ -85,6 +127,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
             Assert.Equal<IGameObject>(
                 results1.Skip(2),
                 results2);
+            _mockRepository.VerifyAll();
         }
 
         [InlineData(6, new[] { 0, 1, 0, 1, 2, 0 }, 1)]
@@ -147,6 +190,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 numberOfTurns);
 
             Assert.Equal(1, turnProgressedCount);
+            _mockRepository.VerifyAll();
         }
 
         [Fact]
@@ -188,6 +232,9 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
             };
 
             _combatTurnManager.StartCombat(_filterContext.Object);
+            
+            Assert.Equal(1, combatStartedCount);
+            _mockRepository.VerifyAll();
         }
     }
 }
