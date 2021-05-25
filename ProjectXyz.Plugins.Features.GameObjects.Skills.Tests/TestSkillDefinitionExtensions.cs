@@ -11,7 +11,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+
+    using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
     using ProjectXyz.Api.Framework;
     using ProjectXyz.Plugins.Features.GameObjects.Skills;
     using ProjectXyz.Plugins.Features.GameObjects.Skills.Components;

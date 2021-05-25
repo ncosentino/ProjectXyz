@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Api;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.Filtering.Api;
+using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default

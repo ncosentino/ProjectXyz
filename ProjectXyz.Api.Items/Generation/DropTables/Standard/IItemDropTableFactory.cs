@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Standard

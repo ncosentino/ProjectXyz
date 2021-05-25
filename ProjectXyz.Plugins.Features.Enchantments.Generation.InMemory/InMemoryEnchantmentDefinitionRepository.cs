@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.Enchantments.Generation;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
 {

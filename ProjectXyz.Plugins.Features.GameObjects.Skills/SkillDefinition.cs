@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Components;
 using ProjectXyz.Shared.Framework;
 

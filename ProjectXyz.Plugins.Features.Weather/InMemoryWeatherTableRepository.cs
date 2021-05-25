@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.Weather.Api;
 
 namespace ProjectXyz.Plugins.Features.Weather

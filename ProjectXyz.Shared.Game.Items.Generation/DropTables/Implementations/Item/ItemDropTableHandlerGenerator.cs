@@ -4,9 +4,9 @@ using System.Linq;
 
 using NexusLabs.Contracts;
 
-using ProjectXyz.Api.Behaviors.Filtering;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes; // FIXME: dependency on non-API
+using ProjectXyz.Plugins.Features.Filtering.Api;
+using ProjectXyz.Plugins.Features.Filtering.Default.Attributes; // FIXME: dependency on non-API
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Standard;

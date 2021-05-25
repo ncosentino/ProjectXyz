@@ -4,8 +4,8 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;

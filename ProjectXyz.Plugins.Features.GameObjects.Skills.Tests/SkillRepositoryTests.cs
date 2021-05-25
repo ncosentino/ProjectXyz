@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Autofac;
 
-using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Behaviors.Filtering;
-using ProjectXyz.Shared.Framework;
+using Moq;
 
-using Xunit;
-using ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Default.Autofac;
+using ProjectXyz.Api.Enchantments;
+using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Logging;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac;
-using ProjectXyz.Plugins.Framework.Math.Jace;
-using ProjectXyz.Shared.States.Autofac;
 using ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac;
 using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Generation.Default.Autofac;
-using ProjectXyz.Shared.Behaviors.Filtering.Autofac;
-using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
-using ProjectXyz.Api.Logging;
-using ProjectXyz.Shared.Triggering.Autofac;
+using ProjectXyz.Plugins.Features.Filtering.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Default.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Generation.Default.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.Macerus.Plugins.Content.Skills;
-using ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.Autofac;
-using Moq;
-using System.Linq;
-using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Api.Enchantments.Calculations;
+using ProjectXyz.Plugins.Framework.Math.Jace;
+using ProjectXyz.Shared.Behaviors.Filtering.Autofac;
+using ProjectXyz.Shared.Framework;
+using ProjectXyz.Shared.States.Autofac;
+using ProjectXyz.Shared.Triggering.Autofac;
+
+using Xunit;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
 {
@@ -103,7 +103,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             containerBuilder.RegisterModule(new CommonBehaviorsModule());
             containerBuilder.RegisterModule(new ProvidedImplementationsModule());
             containerBuilder.RegisterModule(new TriggeringModule());
-            containerBuilder.RegisterModule(new InMemoryFiltererModule());
             containerBuilder
                 .RegisterInstance(new EnchantmentIdentifiers())
                 .AsImplementedInterfaces();

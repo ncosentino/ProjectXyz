@@ -4,7 +4,7 @@ using System.Linq;
 
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework.Collections;

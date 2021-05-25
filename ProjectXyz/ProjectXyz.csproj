@@ -16,7 +16,8 @@
     <Exec Command="REM ------&#xD;&#xA;REM This approach packs to your bin, then copies&#xD;&#xA;REM ------&#xD;&#xA;REM del &quot;$(TargetDir)*.nupkg&quot;&#xD;&#xA;REM nuget pack $(ProjectFileName) -Symbols -IncludeReferencedProjects -OutputDirectory &quot;$(OutDir)\&quot; -properties Configuration=$(ConfigurationName)&#xD;&#xA;REM xcopy &quot;$(TargetDir)*.nupkg&quot; &quot;$(SolutionDir)..\..\nuget-repo&quot; /C /Y&#xD;&#xA;&#xD;&#xA;REM ------&#xD;&#xA;REM This approach packs directly to your local nuget repo&#xD;&#xA;REM ------&#xD;&#xA;&#xD;&#xA;FOR /F &quot;tokens=* USEBACKQ&quot; %25%25F IN (`$(ProjectDir)GenerateProjectAssemblyVersion.exe $(ProjectDir)$(ProjectFileName)`) DO (&#xD;&#xA;SET generatedVersion=%25%25F&#xD;&#xA;)&#xD;&#xA;ECHO Generated Version: %25generatedVersion%25&#xD;&#xA;&#xD;&#xA;nuget pack $(ProjectFileName) -Verbosity detailed -Symbols -IncludeReferencedProjects -OutputDirectory &quot;$(projectDir)..\..\..\nuget-repo&quot; -Version %25generatedVersion%25 -properties Configuration=$(ConfigurationName)" />
   </Target>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Filtering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj" />
@@ -57,7 +58,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
@@ -69,7 +69,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Generation.InMemory.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.csproj" />

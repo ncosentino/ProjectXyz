@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
+
+namespace ProjectXyz.Plugins.Features.Filtering.Default.Attributes
+{
+    public sealed class AllStringCollectionFilterAttributeValue : IFilterAttributeValue
+    {
+        private readonly Lazy<IReadOnlyCollection<string>> _lazyValues;
+
+        public AllStringCollectionFilterAttributeValue(params string[] values)
+            : this((IEnumerable<string>)values)
+        {
+        }
+
+        public AllStringCollectionFilterAttributeValue(IEnumerable<string> values)
+            : this(() => values.ToArray())
+        {
+        }
+
+        public AllStringCollectionFilterAttributeValue(Func<IReadOnlyCollection<string>> callback)
+        {
+            _lazyValues = new Lazy<IReadOnlyCollection<string>>(callback);
+        }
+
+        public IReadOnlyCollection<string> Values => _lazyValues.Value;
+
+        public override string ToString() =>
+            $"All of {string.Join(", ", Values)}";
+    }
+}

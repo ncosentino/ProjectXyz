@@ -7,9 +7,9 @@ using System.Text;
 
 using Autofac;
 
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 

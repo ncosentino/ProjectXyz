@@ -17,14 +17,14 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Api.Behaviors.Filtering\ProjectXyz.Api.Filtering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default\ProjectXyz.Plugins.Features.Behaviors.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Api\ProjectXyz.Plugins.Features.TurnBased.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Api\ProjectXyz.Plugins.Features.Weather.Api.csproj" />

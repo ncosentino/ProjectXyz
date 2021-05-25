@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-using ProjectXyz.Api.Behaviors.Filtering.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Generation.Autofac

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using ProjectXyz.Api.Behaviors.Filtering;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
 
