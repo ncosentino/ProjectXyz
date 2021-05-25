@@ -73,6 +73,49 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
         }
 
         [Fact]
+        private void GetSnapshot_After1TurnProgressedSnapshotLength1_UsesCache()
+        {
+            var gameObjectA1 = _mockRepository.Create<IGameObject>();
+            var gameObjectB1 = _mockRepository.Create<IGameObject>();
+            var gameObjectB2 = _mockRepository.Create<IGameObject>();
+
+            _combatGameObjectManager
+                .Setup(x => x.GetGameObjects())
+                .Returns(new[]
+                {
+                    gameObjectA1.Object,
+                    gameObjectB1.Object,
+                    gameObjectB2.Object,
+                });
+
+            var speedMapping = new Dictionary<IGameObject, double>()
+            {
+                [gameObjectA1.Object] = 10,
+                [gameObjectB1.Object] = 8,
+                [gameObjectB2.Object] = 4,
+            };
+
+            _combatCalculations
+                .Setup(x => x.CalculateActorIncrementValue)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => speedMapping[actor]));
+            _combatCalculations
+                .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
+                .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
+
+            _combatTurnManager.StartCombat(_filterContext.Object);
+            _combatTurnManager.ProgressTurn(_filterContext.Object, 1);
+            var results = _combatTurnManager
+                .GetSnapshot(_filterContext.Object, 1)
+                .ToArray();
+
+            Assert.Equal(gameObjectB1.Object, Assert.Single(results));
+            _mockRepository.VerifyAll();
+
+            // FIXME: this is a pretty crap way to ensure we used a cached value but it works for now?
+            _combatGameObjectManager.Verify(x => x.GetGameObjects(), Times.Exactly(3));
+        }
+
+        [Fact]
         private void GetSnapshot_7InitialProgress2Turns5After_5AfterAreLast5OfFirst()
         {
             var gameObjectA1 = _mockRepository.Create<IGameObject>();

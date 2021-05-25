@@ -16,6 +16,9 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
         private readonly ICombatGameObjectProvider _combatGameObjectProvider;
         private readonly Dictionary<IGameObject, double> _actorCounters;
 
+        // we can keep a cached value of the actor with the current turn
+        // because once they are the active actor, the only thing that can
+        // change this is... progressing a turn!
         private IGameObject _cachedCurrentActor;
 
         public CombatTurnManager(
@@ -71,6 +74,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             Contract.Requires(
                 turns > 0,
                 $"{nameof(turns)} must be greater than 0.");
+            _cachedCurrentActor = null; // reset our cached value
 
             var actorOrder = CalculateTurnOrder(
                 filterContext,
