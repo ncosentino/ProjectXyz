@@ -6,6 +6,10 @@ namespace ProjectXyz.Plugins.Features.Filtering.Api
 {
     public interface IFilterContextFactory
     {
+        IFilterContext CreateContext(params IFilterAttribute[] attributes);
+
+        IFilterContext CreateContext(IEnumerable<IFilterAttribute> attributes);
+
         IFilterContext CreateContext(
             int minimumCount,
             int maximumCount,

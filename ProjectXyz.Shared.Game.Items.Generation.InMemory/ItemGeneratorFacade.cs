@@ -42,9 +42,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
             }
 
             var filteredGenerators = _attributeFilterer
-                .Filter(
+                .BidirectionalFilter(
                     _itemGenerators,
-                    filterContext)
+                    filterContext.Attributes)
                 .ToArray();
             if (!filteredGenerators.Any())
             {

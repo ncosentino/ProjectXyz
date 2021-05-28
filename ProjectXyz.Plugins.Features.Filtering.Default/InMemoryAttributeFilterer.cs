@@ -2,7 +2,6 @@
 using System.Linq;
 
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 
 namespace ProjectXyz.Plugins.Features.Filtering.Default
@@ -18,17 +17,45 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default
 
         public IEnumerable<T> Filter<T>(
             IEnumerable<T> source,
-            IFilterContext filterContext)
+            IReadOnlyCollection<IFilterAttributeValue> filterAttributes)
+        {
+            foreach (var sourceToFilter in source)
+            {
+                var metContextRequirements = true;
+                foreach (var filterAttribute in filterAttributes)
+                {
+                    var isAttrMatch = _attributeValueMatcher.Match(
+                        filterAttribute,
+                        sourceToFilter);
+                    if (!isAttrMatch)
+                    {
+                        metContextRequirements = false;
+                        break;
+                    }
+                }
+
+                if (!metContextRequirements)
+                {
+                    continue;
+                }
+
+                yield return sourceToFilter;
+            }
+        }
+
+        public IEnumerable<T> Filter<T>(
+            IEnumerable<T> source,
+            IEnumerable<IFilterAttribute> filterAttributes)
             where T : IHasFilterAttributes
         {
-            var requiredContextAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
-            var allContextAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
-            foreach (var contextAttribute in filterContext.Attributes)
+            var requiredFilterAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+            var allFilterAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+            foreach (var filterAttribute in filterAttributes)
             {
-                allContextAttributes.Add(contextAttribute.Id, contextAttribute);
-                if (contextAttribute.Required)
+                allFilterAttributes.Add(filterAttribute.Id, filterAttribute);
+                if (filterAttribute.Required)
                 {
-                    requiredContextAttributes.Add(contextAttribute.Id, contextAttribute);
+                    requiredFilterAttributes.Add(filterAttribute.Id, filterAttribute);
                 }
             }
 
@@ -47,30 +74,93 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default
 
                 var matchAttributeCache = new HashSet<IIdentifier>();
 
-                var metContextRequirements = true;
-                foreach (var requiredContextAttribute in requiredContextAttributes
+                var metFilterRequirements = true;
+                foreach (var requiredFilterAttribute in requiredFilterAttributes
                     .Keys
                     .Where(x => !matchAttributeCache.Contains(x)))
                 {
-                    if (!allSourceAttributes.ContainsKey(requiredContextAttribute))
+                    if (!allSourceAttributes.ContainsKey(requiredFilterAttribute))
                     {
-                        metContextRequirements = false;
+                        metFilterRequirements = false;
                         break;
                     }
 
                     var isAttrMatch = _attributeValueMatcher.Match(
-                        allSourceAttributes[requiredContextAttribute].Value,
-                        allContextAttributes[requiredContextAttribute].Value);
+                        allSourceAttributes[requiredFilterAttribute].Value,
+                        allFilterAttributes[requiredFilterAttribute].Value);
                     if (!isAttrMatch)
                     {
-                        metContextRequirements = false;
+                        metFilterRequirements = false;
                         break;
                     }
 
-                    matchAttributeCache.Add(requiredContextAttribute);
+                    matchAttributeCache.Add(requiredFilterAttribute);
                 }
 
-                if (!metContextRequirements)
+                if (!metFilterRequirements)
+                {
+                    continue;
+                }
+
+                yield return sourceToFilter;
+            }
+        }
+
+        public IEnumerable<T> BidirectionalFilter<T>(
+            IEnumerable<T> source,
+            IEnumerable<IFilterAttribute> filterAttributes)
+            where T : IHasFilterAttributes
+        {
+            var requiredFilterAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+            var allFilterAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+            foreach (var filterAttribute in filterAttributes)
+            {
+                allFilterAttributes.Add(filterAttribute.Id, filterAttribute);
+                if (filterAttribute.Required)
+                {
+                    requiredFilterAttributes.Add(filterAttribute.Id, filterAttribute);
+                }
+            }
+
+            foreach (var sourceToFilter in source)
+            {
+                var requiredSourceAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+                var allSourceAttributes = new Dictionary<IIdentifier, IFilterAttribute>();
+                foreach (var sourceAttribute in sourceToFilter.SupportedAttributes)
+                {
+                    allSourceAttributes.Add(sourceAttribute.Id, sourceAttribute);
+                    if (sourceAttribute.Required)
+                    {
+                        requiredSourceAttributes.Add(sourceAttribute.Id, sourceAttribute);
+                    }
+                }
+
+                var matchAttributeCache = new HashSet<IIdentifier>();
+
+                var metFilterRequirements = true;
+                foreach (var requiredFilterAttribute in requiredFilterAttributes
+                    .Keys
+                    .Where(x => !matchAttributeCache.Contains(x)))
+                {
+                    if (!allSourceAttributes.ContainsKey(requiredFilterAttribute))
+                    {
+                        metFilterRequirements = false;
+                        break;
+                    }
+
+                    var isAttrMatch = _attributeValueMatcher.Match(
+                        allSourceAttributes[requiredFilterAttribute].Value,
+                        allFilterAttributes[requiredFilterAttribute].Value);
+                    if (!isAttrMatch)
+                    {
+                        metFilterRequirements = false;
+                        break;
+                    }
+
+                    matchAttributeCache.Add(requiredFilterAttribute);
+                }
+
+                if (!metFilterRequirements)
                 {
                     continue;
                 }
@@ -80,7 +170,7 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default
                     .Keys
                     .Where(x => !matchAttributeCache.Contains(x)))
                 {
-                    if (!allContextAttributes.ContainsKey(requiredSourceAttribute))
+                    if (!allFilterAttributes.ContainsKey(requiredSourceAttribute))
                     {
                         metSourceRequirements = false;
                         break;
@@ -88,7 +178,7 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default
 
                     var isAttrMatch = _attributeValueMatcher.Match(
                         allSourceAttributes[requiredSourceAttribute].Value,
-                        allContextAttributes[requiredSourceAttribute].Value);
+                        allFilterAttributes[requiredSourceAttribute].Value);
                     if (!isAttrMatch)
                     {
                         metSourceRequirements = false;

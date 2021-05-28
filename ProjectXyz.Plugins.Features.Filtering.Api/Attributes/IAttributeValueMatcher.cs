@@ -5,5 +5,9 @@
         bool Match(
             IFilterAttributeValue v1,
             IFilterAttributeValue v2);
+
+        bool Match(
+            IFilterAttributeValue filterAttributeValue,
+            object obj);
     }
 }

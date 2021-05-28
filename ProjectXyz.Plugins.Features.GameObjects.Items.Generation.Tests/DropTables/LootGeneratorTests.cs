@@ -27,6 +27,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         private readonly Mock<IAttributeFilterer> _attributeFilterer;
         private readonly Mock<IRandom> _random;
         private readonly Mock<IFilterContext> _filterContext;
+        private readonly IFilterAttribute[] _filterContextAttributes;
         private readonly Mock<IEnumerable<IDropTable>> _unfilteredDropTables;
 
         public LootGeneratorTests()
@@ -38,6 +39,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
             _attributeFilterer = _mockRepository.Create<IAttributeFilterer>();
             _random = _mockRepository.Create<IRandom>();
             _filterContext = _mockRepository.Create<IFilterContext>();
+            _filterContextAttributes = new IFilterAttribute[] { };
             _unfilteredDropTables = _mockRepository.Create<IEnumerable<IDropTable>>();
 
             _lootGenerator = new LootGenerator(
@@ -60,10 +62,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 .Setup(x => x.GetAllDropTables())
                 .Returns(_unfilteredDropTables.Object);
 
+            _filterContext
+                .Setup(x => x.Attributes)
+                .Returns(_filterContextAttributes);
+
             _attributeFilterer
-                .Setup(x => x.Filter(
+                .Setup(x => x.BidirectionalFilter(
                     _unfilteredDropTables.Object,
-                    _filterContext.Object))
+                    _filterContextAttributes))
                 .Returns(filteredDropTables);
 
             _filterContext
@@ -99,10 +105,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 .Setup(x => x.GetAllDropTables())
                 .Returns(_unfilteredDropTables.Object);
 
+            _filterContext
+                .Setup(x => x.Attributes)
+                .Returns(_filterContextAttributes);
+
             _attributeFilterer
-                .Setup(x => x.Filter(
+                .Setup(x => x.BidirectionalFilter(
                     _unfilteredDropTables.Object,
-                    _filterContext.Object))
+                    _filterContextAttributes))
                 .Returns(filteredDropTables);
 
             _filterContext
@@ -129,10 +139,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 .Setup(x => x.GetAllDropTables())
                 .Returns(_unfilteredDropTables.Object);
 
+            _filterContext
+                .Setup(x => x.Attributes)
+                .Returns(_filterContextAttributes);
+
             _attributeFilterer
-                .Setup(x => x.Filter(
+                .Setup(x => x.BidirectionalFilter(
                     _unfilteredDropTables.Object,
-                    _filterContext.Object))
+                    _filterContextAttributes))
                 .Returns(filteredDropTables);
 
             _filterContext
@@ -179,10 +193,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 .Setup(x => x.GetAllDropTables())
                 .Returns(_unfilteredDropTables.Object);
 
+            _filterContext
+                .Setup(x => x.Attributes)
+                .Returns(_filterContextAttributes);
+
             _attributeFilterer
-                .Setup(x => x.Filter(
+                .Setup(x => x.BidirectionalFilter(
                     _unfilteredDropTables.Object,
-                    _filterContext.Object))
+                    _filterContextAttributes))
                 .Returns(filteredDropTables);
 
             _filterContext
@@ -239,10 +257,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 .Setup(x => x.GetAllDropTables())
                 .Returns(_unfilteredDropTables.Object);
 
+            _filterContext
+                .Setup(x => x.Attributes)
+                .Returns(_filterContextAttributes);
+
             _attributeFilterer
-                .Setup(x => x.Filter(
+                .Setup(x => x.BidirectionalFilter(
                     _unfilteredDropTables.Object,
-                    _filterContext.Object))
+                    _filterContextAttributes))
                 .Returns(filteredDropTables);
 
             _filterContext

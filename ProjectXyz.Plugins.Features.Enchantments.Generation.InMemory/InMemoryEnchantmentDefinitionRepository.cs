@@ -32,9 +32,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory
                     $"your dependency injection framework?");
             }
 
-            var filteredEnchantmentDefinitions = _attributeFilterer.Filter(
+            var filteredEnchantmentDefinitions = _attributeFilterer.BidirectionalFilter(
                 _enchantmentDefinitions,
-                filterContext);
+                filterContext.Attributes);
             foreach (var filteredEnchantmentDefinition in filteredEnchantmentDefinitions)
             {
                 // TODO: ensure we have all of the Enchantment generation components

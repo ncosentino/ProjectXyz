@@ -8,6 +8,15 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default
 {
     public sealed class FilterContextFactory : IFilterContextFactory
     {
+        public IFilterContext CreateContext(params IFilterAttribute[] attributes) =>
+            CreateContext((IEnumerable<IFilterAttribute>)attributes);
+
+        public IFilterContext CreateContext(IEnumerable<IFilterAttribute> attributes)
+        {
+            var newContext = new FilterContext(attributes);
+            return newContext;
+        }
+
         public IFilterContext CreateContext(
             IFilterContext source,
             params IFilterAttribute[] attributes)

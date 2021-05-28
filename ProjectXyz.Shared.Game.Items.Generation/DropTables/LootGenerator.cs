@@ -37,9 +37,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
             // filter the drop tables
             var allDropTables = _dropTableRepository.GetAllDropTables();
             var filteredDropTables = _attributeFilterer
-                .Filter(
+                .BidirectionalFilter(
                     allDropTables,
-                    filterContext)
+                    filterContext.Attributes)
                 .ToArray();
             if (filteredDropTables.Length < 1)
             {

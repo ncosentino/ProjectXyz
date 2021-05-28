@@ -25,9 +25,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 
         public IEnumerable<IItemDefinition> LoadItemDefinitions(IFilterContext filterContext)
         {
-            var filteredItemDefinitions = _attributeFilterer.Filter(
+            var filteredItemDefinitions = _attributeFilterer.BidirectionalFilter(
                 ItemDefinitions,
-                filterContext);
+                filterContext.Attributes);
             foreach (var filteredItemDefinition in filteredItemDefinitions)
             {
                 // TODO: ensure we have all of the item generation components

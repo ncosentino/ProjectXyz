@@ -22,9 +22,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
         /// <inheritdoc/>
         public IEnumerable<ISkillDefinition> GetSkillDefinitions(IFilterContext filterContext)
         {
-            var filtered = _attributeFilterer.Filter(
+            var filtered = _attributeFilterer.BidirectionalFilter(
                 _skillDefinitions,
-                filterContext);
+                filterContext.Attributes);
             return filtered;
         }
     }

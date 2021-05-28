@@ -6,7 +6,16 @@ namespace ProjectXyz.Plugins.Features.Filtering.Api.Attributes
     {
         IEnumerable<T> Filter<T>(
             IEnumerable<T> source,
-            IFilterContext filterContext)
+            IReadOnlyCollection<IFilterAttributeValue> filterAttributes);
+
+        IEnumerable<T> Filter<T>(
+            IEnumerable<T> source,
+            IEnumerable<IFilterAttribute> filterAttributes)
+            where T : IHasFilterAttributes;
+
+        IEnumerable<T> BidirectionalFilter<T>(
+            IEnumerable<T> source,
+            IEnumerable<IFilterAttribute> filterAttributes)
             where T : IHasFilterAttributes;
     }
 }

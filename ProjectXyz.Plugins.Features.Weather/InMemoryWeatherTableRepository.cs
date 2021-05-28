@@ -22,9 +22,9 @@ namespace ProjectXyz.Plugins.Features.Weather
 
         public IEnumerable<IWeatherTable> GetWeatherTables(IFilterContext filterContext)
         {
-            var matches = _attributeFilterer.Filter(
+            var matches = _attributeFilterer.BidirectionalFilter(
                 _weatherTables,
-                filterContext);
+                filterContext.Attributes);
             return matches;
         }
     }

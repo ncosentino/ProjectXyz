@@ -37,9 +37,9 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                     $"facade. Did you forget to call '{nameof(Register)}()'?");
             }
 
-            var filteredGenerators = _attributeFilterer.Filter(
+            var filteredGenerators = _attributeFilterer.BidirectionalFilter(
                 _enchantmentGenerators,
-                filterContext);
+                filterContext.Attributes);
             var generator = filteredGenerators.RandomOrDefault(_random);
             if (generator == null)
             {
