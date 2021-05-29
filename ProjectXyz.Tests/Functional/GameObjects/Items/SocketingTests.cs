@@ -4,11 +4,16 @@ using System.Linq;
 
 using Autofac;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
+using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.CommonBehaviors;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
@@ -35,7 +40,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
         }
 
         [Fact]
-        private void Socket_MatchesSocketPattern_SocketsSuccessfullyAndNewItemCreated()
+        private void TryHandle_MatchesSocketPattern_SocketsSuccessfullyAndNewItemCreated()
         {
             var socketTypeId = new StringIdentifier("socket type id");
 
@@ -65,7 +70,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
         }
 
         [Fact]
-        private void Socket_DoesNotMatchSocketPattern_SocketsSuccessfullyNoNewItem()
+        private void TryHandle_DoesNotMatchSocketPattern_SocketsSuccessfullyNoNewItem()
         {
             var socketTypeId = new StringIdentifier(Guid.NewGuid().ToString());
 
@@ -92,8 +97,40 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
                 out var socketPatternItem));
             Assert.Null(socketPatternItem);
         }
-    }
 
+        [Fact]
+        private void TryHandle_MeetsTransformativeDefinition_SuccessAndNewItemReturned()
+        {
+            var socketTypeId = new StringIdentifier(Guid.NewGuid().ToString());
+
+            var canBeSocketedItem = _itemFactory.Create(
+                _canBeSocketedBehaviorFactory.Create(new[]
+                {
+                    socketTypeId,
+                }),
+                new TagsBehavior(new StringIdentifier("target socketable base item")));
+
+            var canFitSocketBehavior = _canFitSocketBehaviorFactory.Create(
+                socketTypeId,
+                1);
+            var canFitSocketItem = _itemFactory.Create(
+                canFitSocketBehavior,
+                new TagsBehavior(new StringIdentifier("socket 0 tag")));
+
+            Assert.True(
+                canBeSocketedItem
+                    .GetOnly<ICanBeSocketedBehavior>()
+                    .Socket(canFitSocketItem.GetOnly<ICanFitSocketBehavior>()),
+                $"Expected to be able socket '{canFitSocketItem}' into " +
+                $"'{canBeSocketedItem}'.");
+
+            Assert.True(_socketPatternHandlerFacade.TryHandle(
+                _socketableInfoFactory.Create(canBeSocketedItem),
+                out var socketPatternItem));
+            Assert.NotNull(socketPatternItem);
+            Assert.NotEqual(canBeSocketedItem, socketPatternItem);
+        }
+    }
 
     public sealed class TestModule : SingleRegistrationModule
     {
@@ -101,6 +138,26 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
         {
             builder
                 .RegisterType<TestSocketPatternHandler>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .Register(x => new InMemoryTransformativeSocketPatternRepository(new ITransformativeSocketPatternDefinition[]
+                {
+                    new TransformativeSocketPatternDefinition(
+                        new IFilterAttributeValue[]
+                        {
+                            new AnyTagsFilter(new StringIdentifier("target socketable base item")),
+                            new OrderedSocketFilter(new[]
+                            {
+                                // single socket
+                                new[]
+                                {
+                                    new AnyTagsFilter(new StringIdentifier("socket 0 tag")),
+                                }
+                            }),
+                        },
+                        new IGeneratorComponent[] { }),
+                }))
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

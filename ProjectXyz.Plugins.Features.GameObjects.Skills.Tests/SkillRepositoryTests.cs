@@ -98,9 +98,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             containerBuilder.RegisterModule(new GenerationModule());
             containerBuilder.RegisterModule(new JaceModule());
             containerBuilder.RegisterModule(new StatesModule());
-            containerBuilder.RegisterModule(new FilteringModule());
+            containerBuilder.RegisterModule(new Shared.Behaviors.Filtering.Autofac.FilteringModule());
             containerBuilder.RegisterModule(new GameObjectsModule());
-            containerBuilder.RegisterModule(new CommonBehaviorsModule());
+            containerBuilder.RegisterModule(new CommonBehaviors.Autofac.FilteringModule());
             containerBuilder.RegisterModule(new ProvidedImplementationsModule());
             containerBuilder.RegisterModule(new TriggeringModule());
             containerBuilder

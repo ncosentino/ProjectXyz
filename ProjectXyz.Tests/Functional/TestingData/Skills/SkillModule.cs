@@ -4,7 +4,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.GameObjects.Skills;
 using ProjectXyz.Shared.Framework;
 
-namespace ProjectXyz.Tests.Functional.TestingData.Items
+namespace ProjectXyz.Tests.Functional.TestingData.Skills
 {
     public sealed class SkillsModule : Module
     {

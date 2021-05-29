@@ -1,7 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Autofac
 {
@@ -17,6 +17,23 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Autofac
                 .RegisterType<SocketableInfoFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+               .RegisterType<TransformativeSocketPatternHandler>()
+               .AsImplementedInterfaces()
+               .SingleInstance();
+            builder
+               .RegisterType<TransformativeSocketPatternRepositoryFacade>()
+               .AsImplementedInterfaces()
+               .SingleInstance();
+            builder
+               .RegisterType<OrderedSocketFilterHandler>()
+               .SingleInstance();
+            builder
+                .RegisterBuildCallback(c =>
+                {
+                    var facade = c.Resolve<IAttributeValueMatchFacade>();
+                    facade.Register(c.Resolve<OrderedSocketFilterHandler>().Matcher);
+                });
         }
     }
 }
