@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
+  </ItemGroup>
+
+</Project>

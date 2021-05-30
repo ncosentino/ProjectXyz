@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api.csproj" />
+  </ItemGroup>
+
+</Project>

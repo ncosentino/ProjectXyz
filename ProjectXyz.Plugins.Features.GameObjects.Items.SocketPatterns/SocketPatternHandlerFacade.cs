@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api;
@@ -8,27 +10,37 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
 {
     public sealed class SocketPatternHandlerFacade : ISocketPatternHandlerFacade
     {
-        private IReadOnlyCollection<ISocketPatternHandler> _handlers;
+        private Lazy<IReadOnlyCollection<ISocketPatternHandler>> _lazyHandlers;
 
-        public SocketPatternHandlerFacade(IEnumerable<IDiscoverableSocketPatternHandler> handlers)
+        public SocketPatternHandlerFacade(Lazy<IEnumerable<IDiscoverableSocketPatternHandler>> handlers)
         {
-            _handlers = handlers.ToArray();
+            _lazyHandlers = new Lazy<IReadOnlyCollection<ISocketPatternHandler>>(() =>
+                handlers.Value.ToArray());
         }
 
         public bool TryHandle(
             ISocketableInfo socketableInfo,
             out IGameObject newItem)
         {
-            newItem = null;
-            foreach (var handler in _handlers)
+            IGameObject resultingItem = null;
+            Parallel.ForEach(_lazyHandlers.Value, (handler, handlersLoopState, _) =>
             {
-                if (handler.TryHandle(socketableInfo, out newItem))
+                if (!handler.TryHandle(
+                    socketableInfo,
+                    out var handlerOutput))
                 {
-                    return true;
+                    return;
                 }
-            }
 
-            return false;
+                if (!handlersLoopState.IsStopped)
+                {
+                    handlersLoopState.Stop();
+                    resultingItem = handlerOutput;
+                }
+            });
+
+            newItem = resultingItem;
+            return newItem != null;
         }
     }
 }
