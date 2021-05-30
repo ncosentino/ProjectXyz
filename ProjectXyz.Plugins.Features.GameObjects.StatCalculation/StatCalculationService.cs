@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
@@ -32,17 +34,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation
         {
             if (visited(gameObject))
             {
-                yield break;
+                return new IGameObject[0];
             }
 
-            foreach (var entry in _getEnchantmentsMapping)
+            var results = new ConcurrentBag<IGameObject>();
+            Parallel.ForEach(_getEnchantmentsMapping, entry =>
             {
                 if (!entry.CanGetEnchantments(gameObject))
                 {
-                    continue;
+                    return;
                 }
 
-                foreach (var enchantment in entry.GetEnchantments(
+                foreach(var enchantment in entry.GetEnchantments(
                     this,
                     this,
                     gameObject,
@@ -50,9 +53,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation
                     statId,
                     context))
                 {
-                    yield return enchantment;
+                    results.Add(enchantment);
                 }
-            }
+            });
+
+            return results;
         }
 
         public double GetStatValue(

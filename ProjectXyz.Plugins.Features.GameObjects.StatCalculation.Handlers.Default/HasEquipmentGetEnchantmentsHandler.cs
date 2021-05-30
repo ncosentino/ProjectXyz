@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
@@ -66,14 +65,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     var baseEquipmentStatsEnchantment = _enchantmentFactory.Create(
                         new IBehavior[]
                         {
-                        new EnchantmentTargetBehavior(equipmentTarget),
-                        new HasStatDefinitionIdBehavior()
-                        {
-                            StatDefinitionId = statId,
-                        },
-                        new EnchantmentExpressionBehavior(
-                            _calculationPriorityFactory.Create<int>(-1),
-                            $"{statTerm} + {enchantmentValue}")
+                            new EnchantmentTargetBehavior(equipmentTarget),
+                            new HasStatDefinitionIdBehavior()
+                            {
+                                StatDefinitionId = statId,
+                            },
+                            new EnchantmentExpressionBehavior(
+                                _calculationPriorityFactory.Create<int>(-1),
+                                $"{statTerm} + {enchantmentValue}")
                         });
                     allEquipmentEnchantments.Add(baseEquipmentStatsEnchantment);
                 }
