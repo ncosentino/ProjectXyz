@@ -1,4 +1,6 @@
-﻿using ProjectXyz.Api.GameObjects;
+﻿using System.Threading.Tasks;
+
+using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api;
@@ -28,24 +30,28 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
             ISocketableInfo socketableInfo,
             out IGameObject newItem)
         {
-            foreach (var definition in _transformativeSocketPatternRepository.GetAll())
+            IGameObject resultItem = null;
+            Parallel.ForEach(_transformativeSocketPatternRepository.GetAll(), (definition, definitionsLoopState, _) =>
             {
                 if (!_attributeFilterer.IsMatch(
                     socketableInfo.Item,
                     definition.Filters))
                 {
-                    continue;
+                    return;
                 }
 
-                var newBehaviors = _componentToBehaviorConverterFacade.Convert(
-                    socketableInfo.Item.Behaviors,
-                    definition.GeneratorComponents);
-                newItem = _gameObjectFactory.Create(newBehaviors);
-                return true;
-            }
+                if (!definitionsLoopState.IsStopped)
+                {
+                    definitionsLoopState.Stop();
+                    var newBehaviors = _componentToBehaviorConverterFacade.Convert(
+                        socketableInfo.Item.Behaviors,
+                        definition.GeneratorComponents);
+                    resultItem = _gameObjectFactory.Create(newBehaviors);
+                }
+            });
 
-            newItem = null;
-            return false;
+            newItem = resultItem;
+            return newItem != null;
         }
     }
 }

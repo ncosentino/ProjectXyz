@@ -40,7 +40,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
         }
 
         [Fact]
-        private void TryHandle_MatchesSocketPattern_SocketsSuccessfullyAndNewItemCreated()
+        private void TryHandle_MatchesSocketPattern_ReturnsTrueValidOutputItem()
         {
             var socketTypeId = new StringIdentifier("socket type id");
 
@@ -70,7 +70,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
         }
 
         [Fact]
-        private void TryHandle_DoesNotMatchSocketPattern_SocketsSuccessfullyNoNewItem()
+        private void TryHandle_DoesNotMatchSocketPattern_ReturnsFalseNullOutputItem()
         {
             var socketTypeId = new StringIdentifier(Guid.NewGuid().ToString());
 
@@ -99,7 +99,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
         }
 
         [Fact]
-        private void TryHandle_MeetsTransformativeDefinition_SuccessAndNewItemReturned()
+        private void TryHandle_MeetsTransformativeDefinition_ReturnsTrueValidOutputItem()
         {
             var socketTypeId = new StringIdentifier(Guid.NewGuid().ToString());
 
