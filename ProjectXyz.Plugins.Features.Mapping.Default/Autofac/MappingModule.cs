@@ -45,6 +45,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
                 .RegisterType<AStarPathFinderFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
+            builder
+                .RegisterType<BoundingRectangleCollisionDetector>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }

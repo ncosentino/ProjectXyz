@@ -11,7 +11,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 {
     public sealed class AStarPathFinder : IPathFinder
     {
-        private readonly IGameObject _map;
         private readonly IPathFinderCollisionDetector _collisionDetector;
         private readonly Dictionary<int, Dictionary<int, IGameObject>> _grid;
 
@@ -19,7 +18,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             IGameObject map,
             IPathFinderCollisionDetector collisionDetector)
         {
-            _map = map;
             _collisionDetector = collisionDetector;
             _grid = new Dictionary<int, Dictionary<int, IGameObject>>();
             foreach (var tile in map.GetOnly<IMapLayersBehavior>().Layers.First().Tiles)
