@@ -72,7 +72,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                 foreach (var adjacentPosition in GetAdjacentPositions(
                     currentNode.Position,
                     includeDiagonals: true,
-                    resetCollisions: false))
+                    collidersToIgnore: null))
                 {
                     if (closedListPositions.Contains(adjacentPosition))
                     {
@@ -121,38 +121,48 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
-        public IEnumerable<Vector2> GetAdjacentPositions(
+        public IEnumerable<Vector2> GetAdjacentPositionsToTile(
             Vector2 position,
             bool includeDiagonals) => GetAdjacentPositions(
-                position,
+                ToTilePosition(position),
                 includeDiagonals,
-                true);
+                null);
+
+        public IEnumerable<Vector2> GetAdjacentPositionsToObject(
+            Vector2 position,
+            Vector2 size,
+            bool includeDiagonals) => GetAdjacentPositions(
+                ToTilePosition(position),
+                includeDiagonals,
+                new[] { ToRect(position, size) });
 
         private IEnumerable<Vector2> GetAdjacentPositions(
             Vector2 position,
             bool includeDiagonals,
-            bool resetCollisions)
+            IEnumerable<Vector4> collidersToIgnore = null)
         {
-            if (resetCollisions)
+            var tilePosition = ToTilePosition(position);
+
+            if (collidersToIgnore != null)
             {
-                _collisionDetector.Reset(new Vector4[] { });
+                _collisionDetector.Reset(collidersToIgnore);
             }
 
             var adjacentVectors = new List<Vector2>()
             {
-                new Vector2(position.X, position.Y + 1),
-                new Vector2(position.X, position.Y - 1),
-                new Vector2(position.X + 1, position.Y),
-                new Vector2(position.X - 1, position.Y),
+                new Vector2(tilePosition.X, tilePosition.Y + 1),
+                new Vector2(tilePosition.X, tilePosition.Y - 1),
+                new Vector2(tilePosition.X + 1, tilePosition.Y),
+                new Vector2(tilePosition.X - 1, tilePosition.Y),
             };
             if (includeDiagonals)
             {
                 adjacentVectors.AddRange(new[]
                 {
-                    new Vector2(position.X + 1, position.Y + 1),
-                    new Vector2(position.X - 1, position.Y - 1),
-                    new Vector2(position.X + 1, position.Y + 1),
-                    new Vector2(position.X + 1, position.Y - 1),
+                    new Vector2(tilePosition.X + 1, tilePosition.Y + 1),
+                    new Vector2(tilePosition.X - 1, tilePosition.Y - 1),
+                    new Vector2(tilePosition.X - 1, tilePosition.Y + 1),
+                    new Vector2(tilePosition.X + 1, tilePosition.Y - 1),
                 });
             }
 
@@ -164,7 +174,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                 }
 
                 if (_collisionDetector.CollisionsAlongPath(
-                    position,
+                    tilePosition,
                     adjacentVector))
                 {
                     continue;
@@ -172,6 +182,23 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 
                 yield return adjacentVector;
             }
+        }
+
+        private Vector2 ToTilePosition(Vector2 position)
+        {
+            // ensure integer-based
+            var tilePosition = new Vector2((int)position.X, (int)position.Y);
+            return tilePosition;
+        }
+
+        private Vector4 ToRect(Vector2 position, Vector2 size)
+        {
+            var rect = new Vector4(
+                position.X - size.X / 2,
+                position.Y - size.Y / 2,
+                position.X + size.X / 2,
+                position.Y + size.Y / 2);
+            return rect;
         }
 
         private bool TryGetTile(int x, int y, out IGameObject tile)

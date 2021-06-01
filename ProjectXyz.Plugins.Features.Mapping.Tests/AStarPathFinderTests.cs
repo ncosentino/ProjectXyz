@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
@@ -190,6 +191,59 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                     new Vector2(4, 4),
                 },
                 path);
+        }
+
+        // 4 X o o o X
+        // 3 o o o o o
+        // 2 o o o o o
+        // 1 o o o o o 
+        // 0 X o o o X
+        //   0 1 2 3 4
+        [ClassData(typeof(AdjacentToCornersTestData))]
+        [Theory]
+        private void GetAdjacentPositionsToTile_MapCornersNoColisions_AdjacentTiles(
+            Vector2 target,
+            IReadOnlyCollection<Vector2> expectedPoints)
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new IGameObject[] { };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var path = pathFinder
+                .GetAdjacentPositionsToTile(target, true)
+                .ToArray();
+            Assert.Equal(
+                expectedPoints.OrderBy(x => x.ToString()),
+                path.OrderBy(x => x.ToString()));
+        }
+
+        private sealed class AdjacentToCornersTestData : IEnumerable<object[]>
+        {
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[]
+                {
+                    new Vector2(0, 0),
+                    new[] { new Vector2(0,1), new Vector2(1,1), new Vector2(1,0) },
+                };
+                yield return new object[]
+                {
+                    new Vector2(0, 4),
+                    new[] { new Vector2(0,3), new Vector2(1,3), new Vector2(1,4) },
+                };
+                yield return new object[]
+                {
+                    new Vector2(4, 4),
+                    new[] { new Vector2(3,4), new Vector2(3,3), new Vector2(4,3) },
+                };
+                yield return new object[]
+                {
+                    new Vector2(4, 0),
+                    new[] { new Vector2(3,0), new Vector2(3,1), new Vector2(4,1) },
+                };
+            }
         }
     }
 }
