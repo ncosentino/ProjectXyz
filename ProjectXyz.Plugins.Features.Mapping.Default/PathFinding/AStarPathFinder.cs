@@ -187,7 +187,9 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
         private Vector2 ToTilePosition(Vector2 position)
         {
             // ensure integer-based
-            var tilePosition = new Vector2((int)position.X, (int)position.Y);
+            var tilePosition = new Vector2(
+                (int)Math.Round(position.X),
+                (int)Math.Round(position.Y));
             return tilePosition;
         }
 

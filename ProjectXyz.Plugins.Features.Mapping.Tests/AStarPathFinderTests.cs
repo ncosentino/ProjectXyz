@@ -67,9 +67,9 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
 
             var path = pathFinder
                 .FindPath(
-                    new Vector2(0, 0),
-                    new Vector2(4, 4),
-                    new Vector2(1, 1))
+                    startPosition: new Vector2(0, 0),
+                    endPosition: new Vector2(4, 4),
+                    size: new Vector2(1, 1))
                 .ToArray();
 
             Assert.Equal(
