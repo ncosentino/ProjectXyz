@@ -72,6 +72,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                 foreach (var adjacentPosition in GetAdjacentPositions(
                     currentNode.Position,
                     includeDiagonals: true,
+                    checkCollisions: true,
                     collidersToIgnore: null))
                 {
                     if (closedListPositions.Contains(adjacentPosition))
@@ -121,29 +122,49 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
-        public IEnumerable<Vector2> GetAdjacentPositionsToTile(
+        public IEnumerable<Vector2> GetAllAdjacentPositionsToTile(
             Vector2 position,
             bool includeDiagonals) => GetAdjacentPositions(
                 ToTilePosition(position),
                 includeDiagonals,
+                false,
                 null);
 
-        public IEnumerable<Vector2> GetAdjacentPositionsToObject(
+        public IEnumerable<Vector2> GetFreeAdjacentPositionsToTile(
+            Vector2 position,
+            bool includeDiagonals) => GetAdjacentPositions(
+                ToTilePosition(position),
+                includeDiagonals,
+                true,
+                null);
+
+        public IEnumerable<Vector2> GetAllAdjacentPositionsToObject(
             Vector2 position,
             Vector2 size,
             bool includeDiagonals) => GetAdjacentPositions(
                 ToTilePosition(position),
                 includeDiagonals,
+                false,
+                new[] { ToRect(position, size) });
+
+        public IEnumerable<Vector2> GetFreeAdjacentPositionsToObject(
+            Vector2 position,
+            Vector2 size,
+            bool includeDiagonals) => GetAdjacentPositions(
+                ToTilePosition(position),
+                includeDiagonals,
+                true,
                 new[] { ToRect(position, size) });
 
         private IEnumerable<Vector2> GetAdjacentPositions(
             Vector2 position,
             bool includeDiagonals,
+            bool checkCollisions,
             IEnumerable<Vector4> collidersToIgnore = null)
         {
             var tilePosition = ToTilePosition(position);
 
-            if (collidersToIgnore != null)
+            if (checkCollisions && collidersToIgnore != null)
             {
                 _collisionDetector.Reset(collidersToIgnore);
             }
@@ -173,7 +194,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                     continue;
                 }
 
-                if (_collisionDetector.CollisionsAlongPath(
+                if (checkCollisions && _collisionDetector.CollisionsAlongPath(
                     tilePosition,
                     adjacentVector))
                 {

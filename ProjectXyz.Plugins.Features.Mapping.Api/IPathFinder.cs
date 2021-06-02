@@ -10,11 +10,20 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
             Vector2 endPosition,
             Vector2 size);
 
-        IEnumerable<Vector2> GetAdjacentPositionsToTile(
+        IEnumerable<Vector2> GetAllAdjacentPositionsToTile(
             Vector2 position,
             bool includeDiagonals);
 
-        IEnumerable<Vector2> GetAdjacentPositionsToObject(
+        IEnumerable<Vector2> GetFreeAdjacentPositionsToTile(
+            Vector2 position,
+            bool includeDiagonals);
+
+        IEnumerable<Vector2> GetAllAdjacentPositionsToObject(
+            Vector2 position,
+            Vector2 size,
+            bool includeDiagonals);
+
+        IEnumerable<Vector2> GetFreeAdjacentPositionsToObject(
             Vector2 position,
             Vector2 size,
             bool includeDiagonals);

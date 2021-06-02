@@ -201,7 +201,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         //   0 1 2 3 4
         [ClassData(typeof(AdjacentToCornersTestData))]
         [Theory]
-        private void GetAdjacentPositionsToTile_MapCornersNoColisions_AdjacentTiles(
+        private void GetAllAdjacentPositionsToTile_MapCornersNoColisions_AdjacentTiles(
             Vector2 target,
             IReadOnlyCollection<Vector2> expectedPoints)
         {
@@ -210,7 +210,31 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             var pathFinder = CreatePathFinder(map, gameObjects);
 
             var path = pathFinder
-                .GetAdjacentPositionsToTile(target, true)
+                .GetAllAdjacentPositionsToTile(target, true)
+                .ToArray();
+            Assert.Equal(
+                expectedPoints.OrderBy(x => x.ToString()),
+                path.OrderBy(x => x.ToString()));
+        }
+
+        // 4 X o o o X
+        // 3 o o o o o
+        // 2 o o o o o
+        // 1 o o o o o 
+        // 0 X o o o X
+        //   0 1 2 3 4
+        [ClassData(typeof(AdjacentToCornersTestData))]
+        [Theory]
+        private void GetFreeAdjacentPositionsToTile_MapCornersNoColisions_AdjacentTiles(
+            Vector2 target,
+            IReadOnlyCollection<Vector2> expectedPoints)
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new IGameObject[] { };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var path = pathFinder
+                .GetFreeAdjacentPositionsToTile(target, true)
                 .ToArray();
             Assert.Equal(
                 expectedPoints.OrderBy(x => x.ToString()),
