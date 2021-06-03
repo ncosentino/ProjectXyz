@@ -38,8 +38,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             Vector2 endPosition,
             Vector2 size)
         {
-            var startNode = new Node(new Vector2((int)startPosition.X, (int)startPosition.Y));
-            var endNode = new Node(new Vector2((int)endPosition.X, (int)endPosition.Y));
+            var startNode = new Node(ToTilePosition(startPosition));
+            var endNode = new Node(ToTilePosition(endPosition));
 
             // we want to make sure we dont collide with the starting position rectangle
             _collisionDetector.Reset(new[]
