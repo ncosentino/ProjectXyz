@@ -122,6 +122,48 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
+        public IEnumerable<Vector2> GetFreeTilesInRadius(
+            Vector2 position,
+            int radiusInTiles)
+        {
+            _collisionDetector.Reset(new Vector4[] { });
+
+            // this code is based on the answer here:
+            // https://gamedev.stackexchange.com/a/66665/153530
+            // FIXME: based on the link above, this treats angled movement as
+            // a different distance, but our current movement doesn't quite
+            // factor this in.
+            var tilePosition = ToTilePosition(position);
+            var rowStart = (int)Math.Ceiling(tilePosition.Y - radiusInTiles);
+            var rowEnd = (int)Math.Floor(tilePosition.Y + radiusInTiles);
+            for (var row = rowStart; row <= rowEnd; row++)
+            {
+                var rowDifference = row - tilePosition.Y;
+                var columnRange = Math.Sqrt(radiusInTiles * radiusInTiles - rowDifference * rowDifference);
+
+                var columnStart = (int)Math.Ceiling(tilePosition.X - columnRange);
+                var columnEnd = (int)Math.Floor(tilePosition.X + columnRange);
+                for (var column = columnStart; column <= columnEnd; column++)
+                {
+                    var targetTile = new Vector2(column, row);
+                    if (!TryGetTile((int)targetTile.X, (int)targetTile.Y, out _))
+                    {
+                        continue;
+                    }
+
+                    // FIXME: how do we check for collisions at a point properly?
+                    if (_collisionDetector.CollisionsAlongPath(
+                        targetTile,
+                        targetTile))
+                    {
+                        continue;
+                    }
+
+                    yield return targetTile;
+                }
+            }
+        }
+
         public IEnumerable<Vector2> GetAllAdjacentPositionsToTile(
             Vector2 position,
             bool includeDiagonals) => GetAdjacentPositions(

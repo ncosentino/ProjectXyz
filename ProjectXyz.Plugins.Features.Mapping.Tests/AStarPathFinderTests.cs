@@ -241,6 +241,53 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 path.OrderBy(x => x.ToString()));
         }
 
+        // 4 o o o o o
+        // 3 o o o o o
+        // 2 o B o o o
+        // 1 o A C o o 
+        // 0 o o o o o
+        //   0 1 2 3 4
+        [Fact]
+        private void GetFreeTilesInRadius_2AdjacentFullTileObjects_ExpectedTiles()
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new[]
+            {
+                // A
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 1),
+                }),
+                // B
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 2),
+                }),
+                // C
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(2, 1),
+                }),
+            };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var path = pathFinder
+                .GetFreeTilesInRadius(
+                    new Vector2(1, 1), // at position A
+                    1)
+                .ToArray();
+            Assert.Equal(
+                new[]
+                {
+                    new Vector2(0, 1),
+                    new Vector2(1, 0),
+                }.OrderBy(x => x.X).ThenBy(x => x.Y),
+                path.OrderBy(x => x.X).ThenBy(x => x.Y));
+        }
+
         private sealed class AdjacentToCornersTestData : IEnumerable<object[]>
         {
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

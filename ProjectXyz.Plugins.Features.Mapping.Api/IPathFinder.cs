@@ -27,5 +27,9 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
             Vector2 position,
             Vector2 size,
             bool includeDiagonals);
+
+        IEnumerable<Vector2> GetFreeTilesInRadius(
+            Vector2 position,
+            int radiusInTiles);
     }
 }
