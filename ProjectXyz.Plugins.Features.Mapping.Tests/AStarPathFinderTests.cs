@@ -60,7 +60,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         }
 
         [Fact]
-        private void FindPath_SquareGridCornerToCorner_DiagonalPath()
+        private void FindPath_SquareGridCornerToCornerWithDiagonals_DiagonalPath()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var pathFinder = CreatePathFinder(map, Enumerable.Empty<IGameObject>());
@@ -69,7 +69,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 .FindPath(
                     startPosition: new Vector2(0, 0),
                     endPosition: new Vector2(4, 4),
-                    size: new Vector2(1, 1))
+                    size: new Vector2(1, 1),
+                    includeDiagonals: true)
                 .ToArray();
 
             Assert.Equal(
@@ -84,7 +85,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         }
 
         [Fact]
-        private void FindPath_SquareGridCornerToCornerWithSingleCollision_AvoidsCollision()
+        private void FindPath_SquareGridCornerToCornerWithSingleCollisionWithDiagonals_AvoidsCollision()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -101,7 +102,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 .FindPath(
                     new Vector2(0, 0),
                     new Vector2(4, 4),
-                    new Vector2(1, 1))
+                    new Vector2(1, 1),
+                    includeDiagonals: true)
                 .ToArray();
             Assert.Equal(
                 new[]
@@ -117,7 +119,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         }
 
         [Fact]
-        private void FindPath_SquareGridCornerToCornerCoveredTarget_NoPath()
+        private void FindPath_SquareGridCornerToCornerCoveredTargetWithDiagonals_NoPath()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -134,7 +136,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 .FindPath(
                     new Vector2(0, 0),
                     new Vector2(4, 4),
-                    new Vector2(1, 1))
+                    new Vector2(1, 1),
+                    includeDiagonals: true)
                 .ToArray();
             Assert.Empty(path);
         }
@@ -146,7 +149,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         // 0 o X o o o
         //   0 1 2 3 4
         [Fact]
-        private void FindPath_ZigZagAroundCollisions_ExpectedPath()
+        private void FindPath_ZigZagAroundCollisionsWithDiagonals_ExpectedPath()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -168,7 +171,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 .FindPath(
                     new Vector2(0, 0),
                     new Vector2(4, 4),
-                    new Vector2(1f, 1f))
+                    new Vector2(1f, 1f),
+                    includeDiagonals: true)
                 .ToArray();
             Assert.Equal(
                 new[]
@@ -248,7 +252,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         // 0 o o o o o
         //   0 1 2 3 4
         [Fact]
-        private void GetFreeTilesInRadius_2AdjacentFullTileObjects_ExpectedTiles()
+        private void GetAllowedPathDestinations_2AdjacentFullTileObjectsDistance1_ExpectedTiles()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -263,27 +267,82 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 new GameObject(new IBehavior[]
                 {
                     new SizeBehavior(1, 1),
-                    new PositionBehavior(1, 2),
+                    new PositionBehavior(1.5, 2.5),
                 }),
                 // C
                 new GameObject(new IBehavior[]
                 {
                     new SizeBehavior(1, 1),
-                    new PositionBehavior(2, 1),
+                    new PositionBehavior(2.5, 1.5),
                 }),
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
             var path = pathFinder
-                .GetFreeTilesInRadius(
+                .GetAllowedPathDestinations(
                     new Vector2(1, 1), // at position A
-                    1)
+                    new Vector2(1, 1),
+                    1,
+                    true)
                 .ToArray();
             Assert.Equal(
                 new[]
                 {
                     new Vector2(0, 1),
                     new Vector2(1, 0),
+                }.OrderBy(x => x.X).ThenBy(x => x.Y),
+                path.OrderBy(x => x.X).ThenBy(x => x.Y));
+        }
+
+        // 4 o o o o o
+        // 3 o o o o o
+        // 2 o B o o o
+        // 1 o A C o o 
+        // 0 o o o o o
+        //   0 1 2 3 4
+        [Fact]
+        private void GetAllowedPathDestinations_2AdjacentFullTileObjectsDistance2_ExpectedTiles()
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new[]
+            {
+                // A
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 1),
+                }),
+                // B
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1.5, 2.5),
+                }),
+                // C
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(2.5, 1.5),
+                }),
+            };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var path = pathFinder
+                .GetAllowedPathDestinations(
+                    new Vector2(1, 1), // at position A
+                    new Vector2(1, 1),
+                    2,
+                    true)
+                .ToArray();
+            Assert.Equal(
+                new[]
+                {
+                    new Vector2(0, 1),
+                    new Vector2(1, 0),
+                    new Vector2(0, 0),
+                    new Vector2(2, 0),
+                    new Vector2(0, 2),
+                    //new Vector2(2, 2), // FIXME: (2,2) should be included but collisions don't currently let us intersect corners to perform diagonal movement
                 }.OrderBy(x => x.X).ThenBy(x => x.Y),
                 path.OrderBy(x => x.X).ThenBy(x => x.Y));
         }

@@ -8,7 +8,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
         IEnumerable<Vector2> FindPath(
             Vector2 startPosition,
             Vector2 endPosition,
-            Vector2 size);
+            Vector2 size,
+            bool includeDiagonals);
 
         IEnumerable<Vector2> GetAllAdjacentPositionsToTile(
             Vector2 position,
@@ -28,8 +29,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
             Vector2 size,
             bool includeDiagonals);
 
-        IEnumerable<Vector2> GetFreeTilesInRadius(
+        IEnumerable<Vector2> GetAllowedPathDestinations(
             Vector2 position,
-            double radius);
+            Vector2 size,
+            double maximumDistance,
+            bool includeDiagonals);
     }
 }

@@ -36,7 +36,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
         public IEnumerable<Vector2> FindPath(
             Vector2 startPosition,
             Vector2 endPosition,
-            Vector2 size)
+            Vector2 size,
+            bool includeDiagonals)
         {
             var startNode = new Node(ToTilePosition(startPosition));
             var endNode = new Node(ToTilePosition(endPosition));
@@ -71,7 +72,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 
                 foreach (var adjacentPosition in GetAdjacentPositions(
                     currentNode.Position,
-                    includeDiagonals: true,
+                    includeDiagonals: includeDiagonals,
                     checkCollisions: true,
                     collidersToIgnore: null))
                 {
@@ -122,44 +123,77 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
-        public IEnumerable<Vector2> GetFreeTilesInRadius(
+        public IEnumerable<Vector2> GetAllowedPathDestinations(
             Vector2 position,
-            double radius)
+            Vector2 size,
+            double maximumDistance,
+            bool includeDiagonals)
         {
-            _collisionDetector.Reset(new Vector4[] { });
+            var startNode = new Node(ToTilePosition(position));
 
-            // this code is based on the answer here:
-            // https://gamedev.stackexchange.com/a/66665/153530
-            // FIXME: based on the link above, this treats angled movement as
-            // a different distance, but our current movement doesn't quite
-            // factor this in.
-            var tilePosition = ToTilePosition(position);
-            var rowStart = (int)Math.Ceiling(tilePosition.Y - radius);
-            var rowEnd = (int)Math.Floor(tilePosition.Y + radius);
-            for (var row = rowStart; row <= rowEnd; row++)
+            // we want to make sure we dont collide with the starting position rectangle
+            _collisionDetector.Reset(new[]
             {
-                var rowDifference = row - tilePosition.Y;
-                var columnRange = Math.Sqrt(radius * radius - rowDifference * rowDifference);
+                new Vector4(
+                    position.X - size.X / 2,
+                    position.Y - size.Y / 2,
+                    position.X + size.X / 2,
+                    position.Y + size.Y / 2),
+            });
 
-                var columnStart = (int)Math.Ceiling(tilePosition.X - columnRange);
-                var columnEnd = (int)Math.Floor(tilePosition.X + columnRange);
-                for (var column = columnStart; column <= columnEnd; column++)
+            var openList = new List<Node>();
+            var openListPositions = new HashSet<Vector2>();
+            var closedListPositions = new HashSet<Vector2>();
+
+            // add start node to Open List
+            openList.Add(startNode);
+            openListPositions.Add(startNode.Position);
+
+            // ensures no negative numbers before squaring
+            var maxDistanceSquared = Math.Pow(Math.Max(0, maximumDistance), 2);
+
+            while (openList.Count != 0)
+            {
+                var currentNode = openList[0];
+
+                openList.Remove(currentNode);
+                openListPositions.Remove(currentNode.Position);
+                closedListPositions.Add(currentNode.Position);
+
+                foreach (var adjacentPosition in GetAdjacentPositions(
+                    currentNode.Position,
+                    includeDiagonals: includeDiagonals,
+                    checkCollisions: true,
+                    collidersToIgnore: null))
                 {
-                    var targetTile = new Vector2(column, row);
-                    if (!TryGetTile((int)targetTile.X, (int)targetTile.Y, out _))
+                    if (closedListPositions.Contains(adjacentPosition))
                     {
                         continue;
                     }
 
-                    // FIXME: how do we check for collisions at a point properly?
-                    if (_collisionDetector.CollisionsAlongPath(
-                        targetTile,
-                        targetTile))
+                    if (openListPositions.Contains(adjacentPosition))
                     {
                         continue;
                     }
 
-                    yield return targetTile;
+                    var distanceToTargetSquared =
+                        Math.Pow(adjacentPosition.X - startNode.Position.X, 2) +
+                        Math.Pow(adjacentPosition.Y - startNode.Position.Y, 2);
+                    if (distanceToTargetSquared > maxDistanceSquared)
+                    {
+                        continue;
+                    }
+
+                    var weight = 1;
+                    var adjacentNode = new Node(
+                        adjacentPosition,
+                        currentNode,
+                        (float)distanceToTargetSquared,
+                        weight);
+
+                    openList.Add(adjacentNode);
+                    openListPositions.Add(adjacentNode.Position);
+                    yield return adjacentNode.Position;
                 }
             }
         }
