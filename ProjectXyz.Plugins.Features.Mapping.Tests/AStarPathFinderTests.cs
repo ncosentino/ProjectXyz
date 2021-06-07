@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -65,13 +66,11 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             var map = CreateMap(CreateTileGrid(5, 5));
             var pathFinder = CreatePathFinder(map, Enumerable.Empty<IGameObject>());
 
-            var path = pathFinder
-                .FindPath(
-                    startPosition: new Vector2(0, 0),
-                    endPosition: new Vector2(4, 4),
-                    size: new Vector2(1, 1),
-                    includeDiagonals: true)
-                .ToArray();
+            var path = pathFinder.FindPath(
+                startPosition: new Vector2(0, 0),
+                endPosition: new Vector2(4, 4),
+                size: new Vector2(1, 1),
+                includeDiagonals: true);
 
             Assert.Equal(
                 new[]
@@ -81,7 +80,19 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                     new Vector2(3, 3),
                     new Vector2(4, 4)
                 },
-                path);
+                path.Positions);
+            Assert.Equal<double>(
+                new double[]
+                {
+                    1.41421,
+                    2.82843,
+                    4.24264,
+                    5.65685
+                },
+                path.AccumulatedDistancePerPoint.OrderBy(x => x.Value).Select(x => Math.Round(x.Value, 5)));
+            Assert.Equal(
+                5.6568542495,
+                Math.Round(path.TotalDistance, 10));
         }
 
         [Fact]
@@ -98,13 +109,12 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
-            var path = pathFinder
-                .FindPath(
-                    new Vector2(0, 0),
-                    new Vector2(4, 4),
-                    new Vector2(1, 1),
-                    includeDiagonals: true)
-                .ToArray();
+            var path = pathFinder.FindPath(
+                new Vector2(0, 0),
+                new Vector2(4, 4),
+                new Vector2(1, 1),
+                includeDiagonals: true);
+            
             Assert.Equal(
                 new[]
                 {
@@ -115,7 +125,21 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                     new Vector2(3, 4),
                     new Vector2(4, 4)
                 },
-                path);
+                path.Positions);
+            Assert.Equal(
+                new double[]
+                {
+                    1d,
+                    2d,
+                    3.41421,
+                    4.82843,
+                    5.82843,
+                    6.82843,
+                },
+                path.AccumulatedDistancePerPoint.OrderBy(x => x.Value).Select(x => Math.Round(x.Value, 5)));
+            Assert.Equal(
+                6.8284271247,
+                Math.Round(path.TotalDistance, 10));
         }
 
         [Fact]
@@ -132,14 +156,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
-            var path = pathFinder
-                .FindPath(
-                    new Vector2(0, 0),
-                    new Vector2(4, 4),
-                    new Vector2(1, 1),
-                    includeDiagonals: true)
-                .ToArray();
-            Assert.Empty(path);
+            var path = pathFinder.FindPath(
+                new Vector2(0, 0),
+                new Vector2(4, 4),
+                new Vector2(1, 1),
+                includeDiagonals: true);
+            Assert.Equal(
+                Path.Empty,
+                path);
         }
 
         // 4 o o o X o
@@ -167,13 +191,11 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
-            var path = pathFinder
-                .FindPath(
-                    new Vector2(0, 0),
-                    new Vector2(4, 4),
-                    new Vector2(1f, 1f),
-                    includeDiagonals: true)
-                .ToArray();
+            var path = pathFinder.FindPath(
+                new Vector2(0, 0),
+                new Vector2(4, 4),
+                new Vector2(1f, 1f),
+                includeDiagonals: true);
             Assert.Equal(
                 new[]
                 {
@@ -194,7 +216,31 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                     new Vector2(4, 3),
                     new Vector2(4, 4),
                 },
-                path);
+                path.Positions);
+            Assert.Equal(
+                new double[]
+                {
+                    1d,
+                    2d,
+                    3d,
+                    4d,
+                    5d,
+                    6d,
+                    7d,
+                    8d,
+                    9d,
+                    10d,
+                    11d,
+                    12d,
+                    13d,
+                    14d,
+                    15d,
+                    16d,
+                },
+                path.AccumulatedDistancePerPoint.OrderBy(x => x.Value).Select(x => Math.Round(x.Value, 5)));
+            Assert.Equal(
+                16,
+                Math.Round(path.TotalDistance, 10));
         }
 
         // 4 X o o o X

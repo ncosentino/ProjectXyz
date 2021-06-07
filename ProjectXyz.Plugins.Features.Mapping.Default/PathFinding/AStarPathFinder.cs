@@ -33,7 +33,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
-        public IEnumerable<Vector2> FindPath(
+        public IPath FindPath(
             Vector2 startPosition,
             Vector2 endPosition,
             Vector2 size,
@@ -106,21 +106,29 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             // construct path, if end was not closed return null
             if (!closedListPositions.Contains(endNode.Position))
             {
-                yield break;
+                return Path.Empty;
             }
 
             // the ol' reversy
-            var returnStack = new Stack<Vector2>();
+            var returnStack = new Stack<Node>();
             while (currentNode != startNode && currentNode != null)
             {
-                returnStack.Push(currentNode.Position);
+                returnStack.Push(currentNode);
                 currentNode = currentNode.Parent;
             }
 
-            while (returnStack.Count > 0)
+            var lastNodeAccumulated = startNode;
+            var accumulatedDistance = 0d;
+            var path = new Path(returnStack.Select(n =>
             {
-                yield return returnStack.Pop();
-            }
+                accumulatedDistance += Math.Sqrt(
+                    Math.Pow(n.Position.X - lastNodeAccumulated.Position.X, 2) + 
+                    Math.Pow(n.Position.Y - lastNodeAccumulated.Position.Y, 2));
+                var entry = new KeyValuePair<Vector2, double>(n.Position, accumulatedDistance);
+                lastNodeAccumulated = n;
+                return entry;
+            }));
+            return path;
         }
 
         public IEnumerable<Vector2> GetAllowedPathDestinations(

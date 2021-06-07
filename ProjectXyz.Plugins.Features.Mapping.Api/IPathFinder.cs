@@ -5,7 +5,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IPathFinder
     {
-        IEnumerable<Vector2> FindPath(
+        IPath FindPath(
             Vector2 startPosition,
             Vector2 endPosition,
             Vector2 size,
