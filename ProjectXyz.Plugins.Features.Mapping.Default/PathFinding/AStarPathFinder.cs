@@ -89,7 +89,9 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                     var distanceToTarget =
                         Math.Abs(adjacentPosition.X - endNode.Position.X) +
                         Math.Abs(adjacentPosition.Y - endNode.Position.Y);
-                    var weight = 1;
+                    var weight = (float)Math.Sqrt(
+                         Math.Pow(adjacentPosition.X - currentNode.Position.X, 2) +
+                         Math.Pow(adjacentPosition.Y - currentNode.Position.Y, 2));
 
                     var adjacentNode = new Node(
                         adjacentPosition,
@@ -117,17 +119,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                 currentNode = currentNode.Parent;
             }
 
-            var lastNodeAccumulated = startNode;
-            var accumulatedDistance = 0d;
-            var path = new Path(returnStack.Select(n =>
-            {
-                accumulatedDistance += Math.Sqrt(
-                    Math.Pow(n.Position.X - lastNodeAccumulated.Position.X, 2) + 
-                    Math.Pow(n.Position.Y - lastNodeAccumulated.Position.Y, 2));
-                var entry = new KeyValuePair<Vector2, double>(n.Position, accumulatedDistance);
-                lastNodeAccumulated = n;
-                return entry;
-            }));
+            var path = new Path(returnStack.Select(n => new KeyValuePair<Vector2, double>(n.Position, n.Cost)));
             return path;
         }
 
@@ -157,9 +149,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             openList.Add(startNode);
             openListPositions.Add(startNode.Position);
 
-            // ensures no negative numbers before squaring
-            var maxDistanceSquared = Math.Pow(Math.Max(0, maximumDistance), 2);
-
             while (openList.Count != 0)
             {
                 var currentNode = openList[0];
@@ -184,20 +173,18 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                         continue;
                     }
 
-                    var distanceToTargetSquared =
-                        Math.Pow(adjacentPosition.X - startNode.Position.X, 2) +
-                        Math.Pow(adjacentPosition.Y - startNode.Position.Y, 2);
-                    if (distanceToTargetSquared > maxDistanceSquared)
-                    {
-                        continue;
-                    }
-
-                    var weight = 1;
+                    var weight = (float)Math.Sqrt(
+                        Math.Pow(adjacentPosition.X - currentNode.Position.X, 2) +
+                        Math.Pow(adjacentPosition.Y - currentNode.Position.Y, 2));
                     var adjacentNode = new Node(
                         adjacentPosition,
                         currentNode,
-                        (float)distanceToTargetSquared,
+                        0f,
                         weight);
+                    if (adjacentNode.Cost > maximumDistance)
+                    {
+                        continue;
+                    }
 
                     openList.Add(adjacentNode);
                     openListPositions.Add(adjacentNode.Position);
@@ -328,7 +315,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
         private sealed class Node
         {
             public Node(Vector2 position)
-                : this(position, null, -1, 1)
+                : this(position, null, -1, 0)
             {
             }
 

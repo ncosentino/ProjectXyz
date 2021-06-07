@@ -91,7 +91,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 },
                 path.AccumulatedDistancePerPoint.OrderBy(x => x.Value).Select(x => Math.Round(x.Value, 5)));
             Assert.Equal(
-                5.6568542495,
+                5.6568541527,
                 Math.Round(path.TotalDistance, 10));
         }
 
@@ -138,7 +138,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 },
                 path.AccumulatedDistancePerPoint.OrderBy(x => x.Value).Select(x => Math.Round(x.Value, 5)));
             Assert.Equal(
-                6.8284271247,
+                6.8284273148,
                 Math.Round(path.TotalDistance, 10));
         }
 
