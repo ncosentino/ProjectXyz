@@ -12,7 +12,7 @@ namespace ProjectXyz.Shared.Framework
         public Identifier(T value)
         {
             Value = value;
-            _lazyToString = new Lazy<string>(value.ToString);
+            _lazyToString = new Lazy<string>(Value.ToString);
         }
 
         public override string ToString() => _lazyToString.Value;
