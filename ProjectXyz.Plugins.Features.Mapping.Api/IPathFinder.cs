@@ -30,6 +30,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
 
         IEnumerable<Vector2> GetFreeTilesInRadius(
             Vector2 position,
-            int radiusInTiles);
+            double radius);
     }
 }

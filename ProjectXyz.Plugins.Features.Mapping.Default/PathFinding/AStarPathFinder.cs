@@ -124,7 +124,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 
         public IEnumerable<Vector2> GetFreeTilesInRadius(
             Vector2 position,
-            int radiusInTiles)
+            double radius)
         {
             _collisionDetector.Reset(new Vector4[] { });
 
@@ -134,12 +134,12 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             // a different distance, but our current movement doesn't quite
             // factor this in.
             var tilePosition = ToTilePosition(position);
-            var rowStart = (int)Math.Ceiling(tilePosition.Y - radiusInTiles);
-            var rowEnd = (int)Math.Floor(tilePosition.Y + radiusInTiles);
+            var rowStart = (int)Math.Ceiling(tilePosition.Y - radius);
+            var rowEnd = (int)Math.Floor(tilePosition.Y + radius);
             for (var row = rowStart; row <= rowEnd; row++)
             {
                 var rowDifference = row - tilePosition.Y;
-                var columnRange = Math.Sqrt(radiusInTiles * radiusInTiles - rowDifference * rowDifference);
+                var columnRange = Math.Sqrt(radius * radius - rowDifference * rowDifference);
 
                 var columnStart = (int)Math.Ceiling(tilePosition.X - columnRange);
                 var columnEnd = (int)Math.Floor(tilePosition.X + columnRange);
