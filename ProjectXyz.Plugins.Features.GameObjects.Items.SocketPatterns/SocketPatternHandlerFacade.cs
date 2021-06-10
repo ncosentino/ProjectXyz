@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
@@ -19,6 +20,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
         }
 
         public bool TryHandle(
+            IFilterContext filterContext,
             ISocketableInfo socketableInfo,
             out IGameObject newItem)
         {
@@ -26,6 +28,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
             Parallel.ForEach(_lazyHandlers.Value, (handler, handlersLoopState, _) =>
             {
                 if (!handler.TryHandle(
+                    filterContext,
                     socketableInfo,
                     out var handlerOutput))
                 {

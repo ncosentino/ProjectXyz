@@ -10,7 +10,9 @@ using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
+using ProjectXyz.Plugins.Features.Filtering.Default;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns;
@@ -63,6 +65,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
                 $"'{canBeSocketedItem}'.");
 
             Assert.True(_socketPatternHandlerFacade.TryHandle(
+                new FilterContext(new IFilterAttribute[] { }),
                 _socketableInfoFactory.Create(canBeSocketedItem),
                 out var socketPatternItem));
             Assert.NotNull(socketPatternItem);
@@ -93,6 +96,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
                 $"'{canBeSocketedItem}'.");
 
             Assert.False(_socketPatternHandlerFacade.TryHandle(
+                new FilterContext(new IFilterAttribute[] { }),
                 _socketableInfoFactory.Create(canBeSocketedItem),
                 out var socketPatternItem));
             Assert.Null(socketPatternItem);
@@ -125,6 +129,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
                 $"'{canBeSocketedItem}'.");
 
             Assert.True(_socketPatternHandlerFacade.TryHandle(
+                new FilterContext(new IFilterAttribute[] { }),
                 _socketableInfoFactory.Create(canBeSocketedItem),
                 out var socketPatternItem));
             Assert.NotNull(socketPatternItem);
@@ -169,7 +174,10 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items
 
         private sealed class TestSocketPatternHandler : IDiscoverableSocketPatternHandler
         {
-            public bool TryHandle(ISocketableInfo socketableInfo, out IGameObject newItem)
+            public bool TryHandle(
+                IFilterContext filterContext,
+                ISocketableInfo socketableInfo,
+                out IGameObject newItem)
             {
                 newItem = null;
 

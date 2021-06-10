@@ -2,6 +2,7 @@
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api;
 
@@ -27,6 +28,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
         }
 
         public bool TryHandle(
+            IFilterContext filterContext,
             ISocketableInfo socketableInfo,
             out IGameObject newItem)
         {
@@ -44,6 +46,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns
                 {
                     definitionsLoopState.Stop();
                     var newBehaviors = _componentToBehaviorConverterFacade.Convert(
+                        filterContext,
                         socketableInfo.Item.Behaviors,
                         definition.GeneratorComponents);
                     resultItem = _gameObjectFactory.Create(newBehaviors);

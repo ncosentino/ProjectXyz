@@ -58,6 +58,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
                 .ReadEnchantmentDefinitions(filterContext))
             {
                 var enchantmentBehaviors = _filterComponentToBehaviorConverter.Convert(
+                    filterContext,
                     Enumerable.Empty<IBehavior>(),
                     enchantmentDefinition.GeneratorComponents);
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);

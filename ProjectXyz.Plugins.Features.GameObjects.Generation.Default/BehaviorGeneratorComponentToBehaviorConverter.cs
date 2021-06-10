@@ -2,6 +2,7 @@
 
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
 {
@@ -10,6 +11,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
         public bool CanConvert(IGeneratorComponent generatorComponent) => generatorComponent is IBehaviorGeneratorComponent;
 
         public IEnumerable<IBehavior> Convert(
+            IFilterContext filterContext,
             IEnumerable<IBehavior> baseBehaviors,
             IGeneratorComponent generatorComponent)
         {

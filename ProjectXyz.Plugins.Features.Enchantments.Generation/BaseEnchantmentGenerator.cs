@@ -56,6 +56,7 @@ namespace ProjectXyz.Plugins.Features.Enchantments.Generation
 
                 // create the whole set of components for the enchantment from the enchantment generation components
                 var enchantmentBehaviors = _filterComponentToBehaviorConverter.Convert(
+                    filterContext,
                     Enumerable.Empty<IBehavior>(),
                     enchantmentDefinition.GeneratorComponents);
                 var enchantment = _enchantmentFactory.Create(enchantmentBehaviors);

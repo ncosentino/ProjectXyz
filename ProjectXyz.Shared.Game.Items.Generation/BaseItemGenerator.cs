@@ -55,6 +55,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 
                 // create the whole set of components for the item from the item generation components
                 var itemBehaviors = _filterComponentToBehaviorConverter.Convert(
+                    filterContext,
                     new[]
                     {
                         new ItemDefinitionIdentifierBehavior(GetItemDefinitionId(itemDefinition)),

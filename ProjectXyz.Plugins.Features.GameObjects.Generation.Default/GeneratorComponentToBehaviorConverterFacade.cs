@@ -5,6 +5,7 @@ using System.Linq;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Api.Logging;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
 {
@@ -64,11 +65,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
         }
 
         public IEnumerable<IBehavior> Convert(
+            IFilterContext filterContext,
             IEnumerable<IBehavior> baseBehaviors,
             IGeneratorComponent generatorComponent) =>
-            Convert(baseBehaviors, new[] { generatorComponent });
+            Convert(filterContext, baseBehaviors, new[] { generatorComponent });
 
         public IEnumerable<IBehavior> Convert(
+            IFilterContext filterContext,
             IEnumerable<IBehavior> baseBehaviors,
             IEnumerable<IGeneratorComponent> generatorComponents)
         {
@@ -92,6 +95,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Generation.Default
 
                 var converted = convertCallback
                     .Invoke(
+                        filterContext,
                         accumulatedBehaviors,
                         generatorComponent)
                     .ToArray();
