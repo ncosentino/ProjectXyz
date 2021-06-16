@@ -20,6 +20,9 @@ namespace ProjectXyz.Game.Core.Engine
         private readonly IReadOnlyMapGameObjectManager _gameObjectManager;
         private readonly IReadOnlyCollection<ISystem> _systems;
         private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
+        private readonly object _updateLoopProtectionLock;
+
+        private bool _updateLoopProtection;
 
         public GameEngine(
             IReadOnlyMapGameObjectManager gameObjectManager,
@@ -27,6 +30,8 @@ namespace ProjectXyz.Game.Core.Engine
             IEnumerable<IDiscoverableSystemUpdateComponentCreator> systemUpdateComponentCreators,
             ILogger logger)
         {
+            _updateLoopProtectionLock = new object();
+
             _gameObjectManager = gameObjectManager;
             _logger = logger;
             _systems = systems
@@ -58,9 +63,29 @@ namespace ProjectXyz.Game.Core.Engine
                 cancellationToken);
         }
 
-        public void Update() => Update(CancellationToken.None);
+        public async Task UpdateAsync()
+        {
+            lock (_updateLoopProtectionLock)
+            {
+                if (_updateLoopProtection)
+                {
+                    return;
+                }
 
-        private void Update(CancellationToken cancellationToken)
+                _updateLoopProtection = true;
+            }
+
+            try
+            {
+                await UpdateAsync(CancellationToken.None).ConfigureAwait(false);
+            }
+            finally 
+            {
+                _updateLoopProtection = false;
+            }
+        }
+
+        private async Task UpdateAsync(CancellationToken cancellationToken)
         {
             var systemUpdateComponents = new List<IComponent>();
             foreach (var systemUpdateComponentCreator in _systemUpdateComponentCreators)
@@ -78,13 +103,15 @@ namespace ProjectXyz.Game.Core.Engine
                     break;
                 }
 
-                system.Update(
-                    systemUpdateContext,
-                    _gameObjectManager.GameObjects);
+                await system
+                    .UpdateAsync(
+                        systemUpdateContext,
+                        _gameObjectManager.GameObjects)
+                    .ConfigureAwait(false);
             }
         }
 
-        private void GameLoop(object args)
+        private async Task GameLoop(object args)
         {
             _logger.Debug($"Game loop started for '{this}'.");
 
@@ -93,7 +120,7 @@ namespace ProjectXyz.Game.Core.Engine
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                Update(cancellationToken);
+                await UpdateAsync(cancellationToken).ConfigureAwait(false);
             }
         }
 

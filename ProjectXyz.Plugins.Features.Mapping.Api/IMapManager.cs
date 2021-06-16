@@ -1,4 +1,5 @@
-﻿using ProjectXyz.Plugins.Features.Filtering.Api;
+﻿using System.Threading.Tasks;
+
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 
@@ -8,8 +9,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
     {
         void UnloadMap();
 
-        void SwitchMap(IIdentifier mapId);
+        Task SwitchMapAsync(IIdentifier mapId);
 
-        void SwitchMap(IFilterContext filterContext);
+        Task SwitchMapAsync(IFilterContext filterContext);
     }
 }

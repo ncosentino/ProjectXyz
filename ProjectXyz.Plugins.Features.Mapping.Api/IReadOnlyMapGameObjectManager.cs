@@ -9,6 +9,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
     {
         event EventHandler<GameObjectsSynchronizedEventArgs> Synchronized;
 
+        bool IsSynchronizing { get; }
+
         IReadOnlyCollection<IGameObject> GameObjects { get; }
     }
 }

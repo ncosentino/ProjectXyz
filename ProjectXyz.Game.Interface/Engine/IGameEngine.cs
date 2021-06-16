@@ -1,7 +1,9 @@
-﻿namespace ProjectXyz.Game.Interface.Engine
+﻿using System.Threading.Tasks;
+
+namespace ProjectXyz.Game.Interface.Engine
 {
     public interface IGameEngine
     {
-        void Update();
+        Task UpdateAsync();
     }
 }

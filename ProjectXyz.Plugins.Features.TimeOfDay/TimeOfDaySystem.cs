@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.TurnBased.Api;
 
@@ -24,7 +25,7 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 
         public int? Priority => null;
 
-        public void Update(
+        public async Task UpdateAsync(
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IGameObject> gameObjects)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
@@ -7,10 +8,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapGameObjectRepository
     {
-        IEnumerable<IGameObject> LoadForMap(IIdentifier mapId);
-
-        void SaveState(
-            IGameObject map,
-            IEnumerable<IGameObject> gameObjects);
+        Task<IReadOnlyCollection<IGameObject>> LoadForMapAsync(IIdentifier mapId);
     }
 }

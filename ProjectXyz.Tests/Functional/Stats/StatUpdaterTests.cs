@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Autofac;
 
@@ -82,7 +83,7 @@ namespace ProjectXyz.Tests.Functional.Stats
 
         [Theory,
          MemberData(nameof(GetGlobalTimeElapsedSingleEnchantmentTestData))]
-        private void GlobalTimeElapsed_SingleBaseStatEnchantment_ExpectedBaseStat(
+        private async Task GlobalTimeElapsed_SingleBaseStatEnchantment_ExpectedBaseStat(
             string _,
             IGameObject enchantment,
             double elapsedTurns,
@@ -91,7 +92,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Setup
             var baseTime = DateTime.UtcNow;
             _manualTimeProvider.SetTimeUtc(baseTime);
-            _gameEngine.Update();
+            await _gameEngine.UpdateAsync();
 
             var hasMutableStats = _hasMutableStatsBehaviorFactory.Create();
             var hasEnchantments = _hasEnchantmentsBehaviorFactory.Create();
@@ -107,7 +108,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             var elapsedSeconds = elapsedTurns;
 
             UsingCleanTurnBasedmanager(() =>
-            UsingCleanMapGameObjectManager(() =>
+            UsingCleanMapGameObjectManager(async () =>
             {
                 _turnBasedManager.GlobalSync = true;
                 _turnBasedManager.SyncTurnsFromElapsedTime = true;
@@ -117,7 +118,7 @@ namespace ProjectXyz.Tests.Functional.Stats
 
                 // Execute
                 _manualTimeProvider.SetTimeUtc(baseTime.AddSeconds(elapsedSeconds));
-                _gameEngine.Update();
+                await _gameEngine.UpdateAsync();
             }));
 
             // Assert
@@ -146,7 +147,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             hasEnchantments.AddEnchantments(enchantment);
             
             UsingCleanTurnBasedmanager(() =>
-            UsingCleanMapGameObjectManager(() =>
+            UsingCleanMapGameObjectManager(async () =>
             {
                 _turnBasedManager.GlobalSync = true;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
@@ -157,7 +158,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 // Execute
                 for (int i = 0; i < elapsedTurns; i++)
                 {
-                    _gameEngine.Update();
+                    await _gameEngine.UpdateAsync();
                 }
             }));
 
@@ -183,7 +184,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             hasEnchantments.AddEnchantments(enchantment);
             
             UsingCleanTurnBasedmanager(() =>
-            UsingCleanMapGameObjectManager(() =>
+            UsingCleanMapGameObjectManager(async () =>
             {
                 _turnBasedManager.GlobalSync = false;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
@@ -197,7 +198,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 _mapGameObjectManager.Synchronize();
 
                 // Execute
-                _gameEngine.Update();
+                await _gameEngine.UpdateAsync();
             }));
 
             // Assert
@@ -222,7 +223,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             hasEnchantments.AddEnchantments(enchantment);
             
             UsingCleanTurnBasedmanager(() =>
-            UsingCleanMapGameObjectManager(() =>
+            UsingCleanMapGameObjectManager(async () =>
             {
                 _turnBasedManager.GlobalSync = false;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
@@ -235,7 +236,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 _mapGameObjectManager.Synchronize();
 
                 // Execute
-                _gameEngine.Update();
+                await _gameEngine.UpdateAsync();
             }));
 
             // Assert
@@ -271,7 +272,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             item.GetOnly<IHasEnchantmentsBehavior>().AddEnchantments(enchantment);
 
             UsingCleanTurnBasedmanager(() =>
-            UsingCleanMapGameObjectManager(() =>
+            UsingCleanMapGameObjectManager(async () =>
             {
                 _turnBasedManager.GlobalSync = false;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
@@ -285,7 +286,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 _mapGameObjectManager.Synchronize();
 
                 // Execute
-                _gameEngine.Update();
+                await _gameEngine.UpdateAsync();
             }));
 
             // Assert
@@ -315,7 +316,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             _turnBasedManager.SetApplicableObjects(new IGameObject[] { });
         }
 
-        private void UsingCleanMapGameObjectManager(Action callback)
+        private void UsingCleanMapGameObjectManager(Func<Task> callback)
         {
             _mapGameObjectManager.MarkForRemoval(_mapGameObjectManager.GameObjects);
             _mapGameObjectManager.Synchronize();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
@@ -26,7 +27,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 
         public int? Priority => null;
 
-        public void Update(
+        public async Task UpdateAsync(
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IGameObject> gameObjects)
         {

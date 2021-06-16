@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using NexusLabs.Framework;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.Weather
 
         public int? Priority => null;
 
-        public void Update(
+        public async Task UpdateAsync(
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IGameObject> gameObjects)
         {

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Systems;
 using ProjectXyz.Plugins.Features.Mapping.Api;
@@ -19,7 +18,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public int? Priority => null;
 
-        public void Update(
+        public async Task UpdateAsync(
             ISystemUpdateContext systemUpdateContext,
             IEnumerable<IGameObject> gameObjects)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
@@ -16,6 +17,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         private readonly IMapIdentifiers _mapIdentifiers;
         private readonly IMapRepository _mapRepository;
         private readonly IMapGameObjectManager _mapGameObjectManager;
+        private readonly IMapStateRepository _mapStateRepository;
         private readonly IMapGameObjectRepository _mapGameObjectRepository;
         private readonly IPathFinderFactory _pathFinderFactory;
         private readonly IFilterContextFactory _filterContextFactory;
@@ -25,6 +27,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             IMapIdentifiers mapIdentifiers,
             IMapRepository mapRepository,
             IMapGameObjectManager mapGameObjectManager,
+            IMapStateRepository mapStateRepository,
             IMapGameObjectRepository mapGameObjectRepository,
             IPathFinderFactory pathFinderFactory,
             IFilterContextFactory filterContextFactory,
@@ -33,6 +36,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _mapIdentifiers = mapIdentifiers;
             _mapRepository = mapRepository;
             _mapGameObjectManager = mapGameObjectManager;
+            _mapStateRepository = mapStateRepository;
             _mapGameObjectRepository = mapGameObjectRepository;
             _pathFinderFactory = pathFinderFactory;
             _filterContextFactory = filterContextFactory;
@@ -58,17 +62,16 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
             MapChanged?.Invoke(this, EventArgs.Empty);
 
-            _mapGameObjectManager.MarkForRemoval(_mapGameObjectManager.GameObjects);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.ClearGameObjectsImmediate();
 
             MapPopulated?.Invoke(this, EventArgs.Empty);
         }
 
-        public void SwitchMap(IFilterContext filterContext)
+        public async Task SwitchMapAsync(IFilterContext filterContext)
         {
             MapChanging?.Invoke(this, EventArgs.Empty);
 
-            var nextMap = _mapRepository.LoadMaps(filterContext).Single();
+            var nextMap = (await _mapRepository.LoadMapsAsync(filterContext)).Single();
 
             if (ActiveMap != null)
             {
@@ -86,7 +89,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 var mapGameObjectsToSave = _mapGameObjectManager
                     .GameObjects
                     .Where(x => !x.Has<ISkipMapSaveStateBehavior>());
-                _mapGameObjectRepository.SaveState(
+                _mapStateRepository.SaveState(
                     ActiveMap,
                     mapGameObjectsToSave);
             }
@@ -102,8 +105,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
 
             var mapId = ActiveMap.GetOnly<IIdentifierBehavior>().Id;
-            var mapGameObjectsToAdd = _mapGameObjectRepository
-                .LoadForMap(mapId)
+            var mapGameObjectsToAdd = (await _mapGameObjectRepository
+                .LoadForMapAsync(mapId))
                 .Concat(_gameObjectRepository
                     .LoadAll()
                     .Where(x => x.Has<IAlwaysLoadWithMapBehavior>()));
@@ -113,7 +116,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             MapPopulated?.Invoke(this, EventArgs.Empty);
         }
 
-        public void SwitchMap(IIdentifier mapId)
+        public async Task SwitchMapAsync(IIdentifier mapId)
         {
             var filterContext = _filterContextFactory.CreateFilterContextForSingle(new[]
             {
@@ -122,7 +125,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                     new IdentifierFilterAttributeValue(mapId),
                     true)
             });
-            SwitchMap(filterContext);
+            await SwitchMapAsync(filterContext);
         }
     }
 }

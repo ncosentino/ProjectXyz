@@ -15,5 +15,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
         void MarkForAddition(IEnumerable<IGameObject> gameObjects);
 
         void Synchronize();
+
+        void ClearGameObjectsImmediate();
     }
 }

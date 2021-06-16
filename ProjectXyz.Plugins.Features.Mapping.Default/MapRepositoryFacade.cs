@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
@@ -16,11 +18,15 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _repositories = repositories.ToArray();
         }
 
-        public IEnumerable<IGameObject> LoadMaps(IFilterContext filterContext)
+        public async Task<IReadOnlyCollection<IGameObject>> LoadMapsAsync(IFilterContext filterContext)
         {
-            var maps = _repositories
-                .SelectMany(x => x.LoadMaps(filterContext));
+            var maps = (await SelectManyAsync(_repositories, x => x.LoadMapsAsync(filterContext))).ToArray();
             return maps;
+        }
+
+        private static async Task<IEnumerable<T1>> SelectManyAsync<T, T1>(IEnumerable<T> enumeration, Func<T, Task<IReadOnlyCollection<T1>>> func)
+        {
+            return (await Task.WhenAll(enumeration.Select(func)).ConfigureAwait(false)).SelectMany(s => s);
         }
     }
 }

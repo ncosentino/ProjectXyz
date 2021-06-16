@@ -2,11 +2,12 @@
 
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
+using System.Threading.Tasks;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapRepository
     {
-        IEnumerable<IGameObject> LoadMaps(IFilterContext filterContext);
+        Task<IReadOnlyCollection<IGameObject>> LoadMapsAsync(IFilterContext filterContext);
     }
 }
