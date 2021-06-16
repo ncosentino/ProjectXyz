@@ -10,14 +10,18 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
     {
         public GameObjectsSynchronizedEventArgs(
             IEnumerable<IGameObject> added,
-            IEnumerable<IGameObject> removed)
+            IEnumerable<IGameObject> removed,
+            IEnumerable<IGameObject> fullSet)
         {
             Added = added.ToArray();
             Removed = removed.ToArray();
+            FullSet = fullSet.ToArray();
         }
 
         public IReadOnlyCollection<IGameObject> Added { get; }
 
         public IReadOnlyCollection<IGameObject> Removed { get; }
+
+        public IReadOnlyCollection<IGameObject> FullSet { get; }
     }
 }

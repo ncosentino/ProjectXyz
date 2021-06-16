@@ -124,7 +124,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                         this,
                         new GameObjectsSynchronizedEventArgs(
                             addedGameObjects,
-                            removedGameObjects));
+                            removedGameObjects,
+                            _gameObjects));
                 }
             }
             finally

@@ -23,6 +23,8 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
         public IEnumerable<IComponent> CreateNext(IReadOnlyCollection<IComponent> components)
         {
+            var applicableGameObjects = _turnBasedManager.GetApplicableGameObjects();
+
             double elapsedTurns;
             if (_turnBasedManager.SyncTurnsFromElapsedTime)
             {
@@ -36,13 +38,13 @@ namespace ProjectXyz.Plugins.Features.TurnBased
             }
             else
             {
-                elapsedTurns = _turnBasedManager.ApplicableGameObjects.Count > 0
+                elapsedTurns = applicableGameObjects.Count > 0
                     ? 1
                     : 0;
             }
 
             var component = new GenericComponent<ITurnInfo>(new TurnInfo(
-                _turnBasedManager.ApplicableGameObjects,
+                applicableGameObjects,
                 elapsedTurns,
                 _turnBasedManager.GlobalSync));
             if (_turnBasedManager.ClearApplicableOnUpdate)
