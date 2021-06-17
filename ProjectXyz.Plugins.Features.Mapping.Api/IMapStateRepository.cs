@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
@@ -14,8 +13,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
         bool HasState(IIdentifier mapId);
 
         void SaveState(
-            IGameObject map,
-            IEnumerable<IGameObject> gameObjects);
+            IIdentifier mapId,
+            IEnumerable<IIdentifier> gameObjectIds);
 
         void ClearState();
     }

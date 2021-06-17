@@ -74,12 +74,16 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 _gameObjectRepository.Save(gameObject);
             }
 
-            var mapGameObjectsToSave = _mapGameObjectManager
-                .GameObjects
-                .Where(x => !x.Has<ISkipMapSaveStateBehavior>());
-            _mapStateRepository.SaveState(
-                ActiveMap,
-                mapGameObjectsToSave);
+            if (!ActiveMap.Has<IIgnoreSavingGameObjectStateBehavior>())
+            {
+                var mapGameObjectIdsToSave = _mapGameObjectManager
+                    .GameObjects
+                    .Where(x => !x.Has<ISkipMapSaveStateBehavior>())
+                    .Select(x => x.GetOnly<IReadOnlyIdentifierBehavior>().Id);
+                _mapStateRepository.SaveState(
+                    ActiveMap.GetOnly<IReadOnlyIdentifierBehavior>().Id,
+                    mapGameObjectIdsToSave);
+            }
         }
 
         public async Task SwitchMapAsync(IFilterContext filterContext)
@@ -109,7 +113,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 .Where(x => !x.Has<IAlwaysLoadWithMapBehavior>());
             _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
 
-            var mapId = ActiveMap.GetOnly<IIdentifierBehavior>().Id;
+            var mapId = ActiveMap.GetOnly<IReadOnlyIdentifierBehavior>().Id;
             var mapGameObjectsToAdd = (await _mapGameObjectRepository
                 .LoadForMapAsync(mapId))
                 .Concat(_gameObjectRepository
