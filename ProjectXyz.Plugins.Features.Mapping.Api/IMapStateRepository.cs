@@ -7,6 +7,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapStateRepository
     {
+        IEnumerable<KeyValuePair<IIdentifier, IReadOnlyCollection<IIdentifier>>> GetAllState();
+
         IEnumerable<IIdentifier> GetState(IIdentifier mapId);
 
         bool HasState(IIdentifier mapId);

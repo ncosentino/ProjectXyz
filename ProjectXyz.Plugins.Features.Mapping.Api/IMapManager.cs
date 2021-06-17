@@ -12,5 +12,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Api
         Task SwitchMapAsync(IIdentifier mapId);
 
         Task SwitchMapAsync(IFilterContext filterContext);
+
+        Task SaveActiveMapStateAsync();
     }
 }

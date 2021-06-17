@@ -67,6 +67,21 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             MapPopulated?.Invoke(this, EventArgs.Empty);
         }
 
+        public async Task SaveActiveMapStateAsync()
+        {
+            foreach (var gameObject in _mapGameObjectManager.GameObjects)
+            {
+                _gameObjectRepository.Save(gameObject);
+            }
+
+            var mapGameObjectsToSave = _mapGameObjectManager
+                .GameObjects
+                .Where(x => !x.Has<ISkipMapSaveStateBehavior>());
+            _mapStateRepository.SaveState(
+                ActiveMap,
+                mapGameObjectsToSave);
+        }
+
         public async Task SwitchMapAsync(IFilterContext filterContext)
         {
             MapChanging?.Invoke(this, EventArgs.Empty);
@@ -81,17 +96,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                     return;
                 }
 
-                foreach (var gameObject in _mapGameObjectManager.GameObjects)
-                {
-                    _gameObjectRepository.Save(gameObject);
-                }
-
-                var mapGameObjectsToSave = _mapGameObjectManager
-                    .GameObjects
-                    .Where(x => !x.Has<ISkipMapSaveStateBehavior>());
-                _mapStateRepository.SaveState(
-                    ActiveMap,
-                    mapGameObjectsToSave);
+                await SaveActiveMapStateAsync();
             }
 
             ActiveMap = nextMap;
