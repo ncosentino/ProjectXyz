@@ -213,7 +213,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 fireDamageEnchant.GetOnly<IApplyEnchantmentsBehavior>().EnchantmentDefinitionIds);
             Assert.Contains(
                 new IntIdentifier(0),
-                fireDamageEnchant.GetOnly<ITargetCombatTeamBehavior>().AffectedTeams);
+                fireDamageEnchant.GetOnly<ITargetCombatTeamBehavior>().AffectedTeamIds);
             Assert.True(fireDamageEnchant.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
             Assert.True(fireDamageEnchant.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 0);
             Assert.Empty(fireDamageEnchant.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
@@ -223,7 +223,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             Assert.True(damage.Has<IInflictDamageBehavior>());
             Assert.Contains(
                 new IntIdentifier(1),
-                damage.GetOnly<ITargetCombatTeamBehavior>().AffectedTeams);
+                damage.GetOnly<ITargetCombatTeamBehavior>().AffectedTeamIds);
             Assert.True(damage.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
             Assert.True(damage.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 1);
             Assert.Contains(
