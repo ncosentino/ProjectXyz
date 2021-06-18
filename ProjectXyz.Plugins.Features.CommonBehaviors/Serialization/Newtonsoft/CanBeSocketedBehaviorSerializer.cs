@@ -16,6 +16,13 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
 {
     public sealed class CanEquipBehaviorSerializer : IDiscoverableCustomSerializer
     {
+        private readonly IIdentifierConverter _identifierConverter;
+
+        public CanEquipBehaviorSerializer(IIdentifierConverter identifierConverter)
+        {
+            _identifierConverter = identifierConverter;
+        }
+
         public Type TypeToRegisterFor { get; } = typeof(CanEquipBehavior);
 
         public NewtonsoftDeserializeDelegate Deserializer => (
@@ -27,15 +34,11 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
             var supportedEquipSlotIds = jsonObject["SupportedEquipSlotIds"]
                 .ToObject<JObject[]>()
                 .Select(x => (JValue)x["Identifier"])
-                .Select(x => int.TryParse(x.Value<string>(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var numericId)
-                    ? new IntIdentifier(numericId)
-                    : (IIdentifier)new StringIdentifier(x.Value<string>()));
+                .Select(x => _identifierConverter.Convert(x.Value<string>()));
             var equippedItems = jsonObject["EquippedItems"]
                 .ToObject<Dictionary<string, object>>()
                 .ToDictionary(
-                    x => int.TryParse(x.Key, NumberStyles.Integer, CultureInfo.InvariantCulture, out var numericId)
-                        ? new IntIdentifier(numericId)
-                        : (IIdentifier)new StringIdentifier(x.Key),
+                    x => _identifierConverter.Convert(x.Key),
                     x => deserializer
                         .Deserialize<IGameObject>((JObject)x.Value)
                         .GetOnly<ICanBeEquippedBehavior>());

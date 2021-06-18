@@ -17,7 +17,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NexusLabs.Framework" Version="0.0.9" />
+    <PackageReference Include="NexusLabs.Framework" Version="0.0.10" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

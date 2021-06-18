@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+
 using ProjectXyz.Api.Framework;
 
 namespace ProjectXyz.Shared.Framework

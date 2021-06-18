@@ -15,10 +15,14 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
     public sealed class HasMutableStatsBehaviorSerializer : IDiscoverableCustomSerializer
     {
         private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private readonly IIdentifierConverter _identifierConverter;
 
-        public HasMutableStatsBehaviorSerializer(IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
+        public HasMutableStatsBehaviorSerializer(
+            IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
+            IIdentifierConverter identifierConverter)
         {
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
+            _identifierConverter = identifierConverter;
         }
 
         public Type TypeToRegisterFor { get; } = typeof(HasMutableStatsBehavior);
@@ -35,10 +39,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
             {
                 foreach (var kvp in statValues)
                 {
-                    var statId = int.TryParse(kvp.Key, NumberStyles.Integer, CultureInfo.InvariantCulture, out var numericId)
-                        ? (IIdentifier)new IntIdentifier(numericId)
-                        : (IIdentifier)new StringIdentifier(kvp.Key);
-
+                    var statId = _identifierConverter.Convert(kvp.Key);
                     stats[statId] = kvp.Value;
                 }
             });

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,7 +11,9 @@ using Newtonsoft.Json.Linq;
 using NexusLabs.Framework;
 
 using ProjectXyz.Api.Data.Serialization;
+using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
+using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
@@ -20,17 +23,20 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
         private readonly IObjectToSerializationIdConverterFacade _objectToSerializationIdConverterFacade;
         private readonly ISerializableIdToTypeConverterFacade _serializableIdToTypeConverterFacade;
         private readonly ISerializableConverterFacade _serializableConverterFacade;
+        private readonly IIdentifierConverter _identifierConverter;
 
         public NewtonsoftJsonRecursiveSerialization(
             ICast cast,
             IObjectToSerializationIdConverterFacade objectToSerializationIdConverterFacade,
             ISerializableIdToTypeConverterFacade serializableIdToTypeConverterFacade,
-            ISerializableConverterFacade serializableConverterFacade)
+            ISerializableConverterFacade serializableConverterFacade,
+            IIdentifierConverter identifierConverter)
         {
             _cast = cast;
             _objectToSerializationIdConverterFacade = objectToSerializationIdConverterFacade;
             _serializableIdToTypeConverterFacade = serializableIdToTypeConverterFacade;
             _serializableConverterFacade = serializableConverterFacade;
+            _identifierConverter = identifierConverter;
         }
 
         public ISerializable ToSerializable(
@@ -94,6 +100,28 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             if (typeof(IDictionary).IsAssignableFrom(type))
             {
                 var uncastedDictionary = jsonObject.ToObject<IDictionary<string, object>>();
+                if (type.IsGenericType && type.GenericTypeArguments.First() == typeof(IIdentifier))
+                {
+                    var newSourceDict = new Dictionary<IIdentifier, object>();
+                    foreach (var kvp in uncastedDictionary)
+                    {
+                        if (!_identifierConverter.TryConvert(kvp.Key, out var key))
+                        {
+                            throw new InvalidOperationException(
+                                $"Cannot convert '{kvp.Key}' to type " +
+                                $"'{typeof(IIdentifier)}'. This is the expected " +
+                                $"key format of the dictionary type '{type}'. " +
+                                $"The JSON object could not be converted:\r\n" +
+                                $"{jsonObject}");
+                        }
+
+                        newSourceDict[key] = kvp.Value;
+                    }
+
+                    var identifierCastedDictionary = _cast.ToType(newSourceDict, type);
+                    return identifierCastedDictionary;
+                }
+
                 var castedDictionary = _cast.ToType(uncastedDictionary, type);
                 return castedDictionary;
             }
@@ -147,10 +175,26 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                     var jsonPropertyValue = jsonObject.GetValue(
                         property.Name,
                         StringComparison.OrdinalIgnoreCase);
-                    var convertedValue = ConvertJsonValue(
-                        deserializer,
-                        property.PropertyType,
-                        jsonPropertyValue);
+                    
+                    object convertedValue;
+                    try
+                    {
+                        convertedValue = ConvertJsonValue(
+                            deserializer,
+                            property.PropertyType,
+                            jsonPropertyValue);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new InvalidOperationException(
+                            $"Could not convert JSON value '{jsonPropertyValue}' " +
+                            $"to type '{property.PropertyType}' from JSON object:\r\n" +
+                            $"{jsonObject}\r\n" +
+                            $"\r\n" +
+                            $"See inner exception for details.",
+                            ex);
+                    }
+
                     property.SetValue(instance, convertedValue);
                 }
             }

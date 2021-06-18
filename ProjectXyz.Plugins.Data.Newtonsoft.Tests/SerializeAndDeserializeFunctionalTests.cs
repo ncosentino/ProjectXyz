@@ -56,6 +56,35 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
             }
         }
 
+        [Fact]
+        private void Deserialize_MixedIdentifierDictionaryKeys_ExpectedResult()
+        {
+            var dataToSerialize = new Dictionary<IIdentifier, object>()
+            {
+                [new StringIdentifier("string-key")] = "a string",
+                [new IntIdentifier(123)] = 123,
+            };
+            var serializedStream = new MemoryStream();
+            _serializer.Serialize(
+                serializedStream,
+                dataToSerialize,
+                Encoding.UTF8);
+            serializedStream.Seek(0, SeekOrigin.Begin);
+
+            using (var reader = new StreamReader(serializedStream))
+            {
+                var json = reader.ReadToEnd();
+                serializedStream.Seek(0, SeekOrigin.Begin);
+
+                var deserialized = _deserializer.Deserialize<IReadOnlyDictionary<IIdentifier, object>>(serializedStream);
+                Assert.Equal(2, deserialized.Count);
+                Assert.Equal("a string", deserialized[new StringIdentifier("string-key")]);
+
+                // FIXME: pretty uncool about the int->long thing
+                Assert.Equal(123L, deserialized[new IntIdentifier(123)]);
+            }
+        }
+
         [ClassData(typeof(TestData))]
         [Theory]
         private void Deserialize_SerializedData_ExpectedResult(

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 using Newtonsoft.Json.Linq;
@@ -10,17 +9,20 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Serialization.Newtonsoft
 {
     public sealed class CanBeSocketedBehaviorSerializer : IDiscoverableCustomSerializer
     {
         private readonly ICanBeSocketedBehaviorFactory _canBeSocketedBehaviorFactory;
+        private readonly IIdentifierConverter _identifierConverter;
 
-        public CanBeSocketedBehaviorSerializer(ICanBeSocketedBehaviorFactory canBeSocketedBehaviorFactory)
+        public CanBeSocketedBehaviorSerializer(
+            ICanBeSocketedBehaviorFactory canBeSocketedBehaviorFactory,
+            IIdentifierConverter identifierConverter)
         {
             _canBeSocketedBehaviorFactory = canBeSocketedBehaviorFactory;
+            _identifierConverter = identifierConverter;
         }
 
         public Type TypeToRegisterFor { get; } = typeof(CanBeSocketedBehavior);
@@ -34,9 +36,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Serialization.
             var totalSocketTypes = jsonObject["TotalSocketTypes"]
                 .ToObject<Dictionary<string, int>>()
                 .SelectMany(x => Enumerable.Repeat(
-                    int.TryParse(x.Key, NumberStyles.Integer, CultureInfo.InvariantCulture, out var numericId)
-                        ? (IIdentifier)new IntIdentifier(numericId)
-                        : (IIdentifier)new StringIdentifier(x.Key),
+                    _identifierConverter.Convert(x.Key),
                     x.Value));
             var canBeSocketedBehavior = _canBeSocketedBehaviorFactory.Create(totalSocketTypes);
             
