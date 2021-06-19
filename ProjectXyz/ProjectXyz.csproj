@@ -20,6 +20,8 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement.Default\ProjectXyz.Plugins.Features.PartyManagement.Default.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement\ProjectXyz.Plugins.Features.PartyManagement.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj" />

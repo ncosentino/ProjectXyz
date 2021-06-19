@@ -301,9 +301,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crafting", "Crafting", "{BE3A5949-F756-4933-BB8B-00E27C33109E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api.csproj", "{AC5CADB9-130F-4F41-A990-6029B128EFE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api", "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api.csproj", "{AC5CADB9-130F-4F41-A990-6029B128EFE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default", "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default.csproj", "{FAF38B47-8CFF-441B-97ED-5E6BB4F39C39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default", "ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default.csproj", "{FAF38B47-8CFF-441B-97ED-5E6BB4F39C39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PartyManagement", "PartyManagement", "{7FCCB009-CA1C-402F-A5A8-F4B241A65FF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.PartyManagement", "ProjectXyz.Plugins.Features.PartyManagement\ProjectXyz.Plugins.Features.PartyManagement.csproj", "{F7C91A96-DC1A-49E1-BF94-1C95E5B2F58D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.PartyManagement.Default", "ProjectXyz.Plugins.Features.PartyManagement.Default\ProjectXyz.Plugins.Features.PartyManagement.Default.csproj", "{0AE18338-6CD1-4920-95CC-A21D1C55D428}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.PartyManagement.Tests", "ProjectXyz.Plugins.Features.PartyManagement.Tests\ProjectXyz.Plugins.Features.PartyManagement.Tests.csproj", "{8E480671-8002-4161-8032-747CC92F6CD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -703,6 +711,18 @@ Global
 		{FAF38B47-8CFF-441B-97ED-5E6BB4F39C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAF38B47-8CFF-441B-97ED-5E6BB4F39C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF38B47-8CFF-441B-97ED-5E6BB4F39C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7C91A96-DC1A-49E1-BF94-1C95E5B2F58D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C91A96-DC1A-49E1-BF94-1C95E5B2F58D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C91A96-DC1A-49E1-BF94-1C95E5B2F58D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C91A96-DC1A-49E1-BF94-1C95E5B2F58D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE18338-6CD1-4920-95CC-A21D1C55D428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE18338-6CD1-4920-95CC-A21D1C55D428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE18338-6CD1-4920-95CC-A21D1C55D428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE18338-6CD1-4920-95CC-A21D1C55D428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E480671-8002-4161-8032-747CC92F6CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E480671-8002-4161-8032-747CC92F6CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E480671-8002-4161-8032-747CC92F6CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E480671-8002-4161-8032-747CC92F6CD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -851,6 +871,10 @@ Global
 		{BE3A5949-F756-4933-BB8B-00E27C33109E} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{AC5CADB9-130F-4F41-A990-6029B128EFE2} = {BE3A5949-F756-4933-BB8B-00E27C33109E}
 		{FAF38B47-8CFF-441B-97ED-5E6BB4F39C39} = {BE3A5949-F756-4933-BB8B-00E27C33109E}
+		{7FCCB009-CA1C-402F-A5A8-F4B241A65FF0} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
+		{F7C91A96-DC1A-49E1-BF94-1C95E5B2F58D} = {7FCCB009-CA1C-402F-A5A8-F4B241A65FF0}
+		{0AE18338-6CD1-4920-95CC-A21D1C55D428} = {7FCCB009-CA1C-402F-A5A8-F4B241A65FF0}
+		{8E480671-8002-4161-8032-747CC92F6CD0} = {7FCCB009-CA1C-402F-A5A8-F4B241A65FF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8E8BA9-32A3-4415-A5E2-DF2166D03FA6}
