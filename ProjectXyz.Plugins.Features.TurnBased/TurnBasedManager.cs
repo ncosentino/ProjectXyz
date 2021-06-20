@@ -38,6 +38,8 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
         public bool GlobalSync { get; set; }
 
+        public IReadOnlyCollection<IGameObject> GetAllGameObjects() => _mapObjects;
+
         public IReadOnlyCollection<IGameObject> GetApplicableGameObjects()
         {
             if (GlobalSync)

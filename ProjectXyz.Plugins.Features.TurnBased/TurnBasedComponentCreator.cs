@@ -45,6 +45,7 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
             var component = new GenericComponent<ITurnInfo>(new TurnInfo(
                 applicableGameObjects,
+                _turnBasedManager.GetAllGameObjects(),
                 elapsedTurns,
                 _turnBasedManager.GlobalSync));
             if (_turnBasedManager.ClearApplicableOnUpdate)

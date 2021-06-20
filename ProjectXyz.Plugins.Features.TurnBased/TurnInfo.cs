@@ -9,13 +9,20 @@ namespace ProjectXyz.Plugins.Features.TurnBased
     {
         public TurnInfo(
             IReadOnlyCollection<IGameObject> applicableGameObjects,
+            IReadOnlyCollection<IGameObject> allGameObjects,
             double elapsedTurns,
             bool globalSync)
         {
-            // NOTE: directly assign for perf reasons here
+            // NOTE: directly assign for perf reasons here. caller must provide
+            // immutable collection
             ApplicableGameObjects = applicableGameObjects;
+            AllGameObjects = allGameObjects;
+
             ElapsedTurns = elapsedTurns;
+            GlobalSync = globalSync;
         }
+
+        public IReadOnlyCollection<IGameObject> AllGameObjects { get; }
 
         public IReadOnlyCollection<IGameObject> ApplicableGameObjects { get; }
 

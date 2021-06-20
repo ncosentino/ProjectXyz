@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using ProjectXyz.Api.GameObjects;
+﻿using System.Threading.Tasks;
 
 namespace ProjectXyz.Api.Systems
 {
     public interface ISystem
     {
-        Task UpdateAsync(
-            ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IGameObject> gameObjects);
+        Task UpdateAsync(ISystemUpdateContext systemUpdateContext);
     }
 }

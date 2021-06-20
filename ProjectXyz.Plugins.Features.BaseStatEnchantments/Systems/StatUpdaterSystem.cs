@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework.Entities;
@@ -27,9 +26,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 
         public int? Priority => null;
 
-        public async Task UpdateAsync(
-            ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IGameObject> gameObjects)
+        public async Task UpdateAsync(ISystemUpdateContext systemUpdateContext)
         {
             var turnInfo = systemUpdateContext
                 .GetFirst<IComponent<ITurnInfo>>()

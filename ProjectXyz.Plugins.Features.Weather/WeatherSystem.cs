@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,9 +39,7 @@ namespace ProjectXyz.Plugins.Features.Weather
 
         public int? Priority => null;
 
-        public async Task UpdateAsync(
-            ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IGameObject> gameObjects)
+        public async Task UpdateAsync(ISystemUpdateContext systemUpdateContext)
         {
             var elapsedTurns = systemUpdateContext
                 .GetFirst<IComponent<ITurnInfo>>()

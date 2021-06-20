@@ -13,5 +13,7 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Api
         bool GlobalSync { get; }
 
         IReadOnlyCollection<IGameObject> GetApplicableGameObjects();
+
+        IReadOnlyCollection<IGameObject> GetAllGameObjects();
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework.Entities;
@@ -25,9 +24,7 @@ namespace ProjectXyz.Plugins.Features.TimeOfDay
 
         public int? Priority => null;
 
-        public async Task UpdateAsync(
-            ISystemUpdateContext systemUpdateContext,
-            IEnumerable<IGameObject> gameObjects)
+        public async Task UpdateAsync(ISystemUpdateContext systemUpdateContext)
         {
             var elapsedTurns = systemUpdateContext
                 .GetFirst<IComponent<ITurnInfo>>()
