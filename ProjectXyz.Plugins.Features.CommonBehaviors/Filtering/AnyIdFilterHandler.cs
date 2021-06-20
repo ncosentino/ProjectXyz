@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Filtering
                     return false;
                 }
 
-                var match = filter.Ids.Any(id => Equals(identifierBehavior.Id, id));
+                var match = filter.Ids.Contains(identifierBehavior.Id);
                 return match;
             };
         }

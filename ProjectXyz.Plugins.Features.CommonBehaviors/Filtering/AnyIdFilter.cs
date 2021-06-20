@@ -15,7 +15,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Filtering
 
         public AnyIdFilter(IEnumerable<IIdentifier> ids)
         {
-            Ids = ids.ToArray();
+            Ids = new HashSet<IIdentifier>(ids);
         }
 
         public IReadOnlyCollection<IIdentifier> Ids { get; }
