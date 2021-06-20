@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Api.Logging;
 using ProjectXyz.Game.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
@@ -24,6 +25,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         private readonly IMapGameObjectRepository _mapGameObjectRepository;
         private readonly IPathFinderFactory _pathFinderFactory;
         private readonly IFilterContextFactory _filterContextFactory;
+        private readonly ILogger _logger;
         private readonly Lazy<IGameObjectRepository> _lazyGameObjectRepository;
         private readonly Lazy<IRosterManager> _lazyRosterManager;
 
@@ -35,6 +37,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             IMapGameObjectRepository mapGameObjectRepository,
             IPathFinderFactory pathFinderFactory,
             IFilterContextFactory filterContextFactory,
+            ILogger logger,
             Lazy<IGameObjectRepository> lazyGameObjectRepository,
             Lazy<IRosterManager> lazyRosterManager)
         {
@@ -45,6 +48,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _mapGameObjectRepository = mapGameObjectRepository;
             _pathFinderFactory = pathFinderFactory;
             _filterContextFactory = filterContextFactory;
+            _logger = logger;
             _lazyGameObjectRepository = lazyGameObjectRepository;
             _lazyRosterManager = lazyRosterManager;
         }
@@ -97,6 +101,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             MapChanging?.Invoke(this, EventArgs.Empty);
 
             var nextMap = (await _mapRepository.LoadMapsAsync(filterContext)).Single();
+            _logger.Debug(
+                $"Switching map to '{nextMap}'...");
 
             if (ActiveMap != null)
             {
@@ -123,16 +129,29 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 .Concat(_lazyRosterManager
                     .Value
                     .ActiveParty));
+            _logger.Debug(
+                "Game objects to add to map:\r\n" +
+                string.Join("\r\n,", mapGameObjectsToAdd
+                    .Select(obj => obj.GetOnly<IReadOnlyIdentifierBehavior>().Id)
+                    .Select(id => "\t" + id)));
+
             var mapGameObjectsToRemove = _mapGameObjectManager
                 .GameObjects
                 .Where(x => !x.Has<IAlwaysLoadWithMapBehavior>())
                 .Where(x => !mapGameObjectsToAdd.Contains(x));
+            _logger.Debug(
+                "Game objects to remove from map:\r\n" +
+                string.Join("\r\n,", mapGameObjectsToRemove
+                    .Select(obj => obj.GetOnly<IReadOnlyIdentifierBehavior>().Id)
+                    .Select(id => "\t" + id)));
 
             _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
             _mapGameObjectManager.MarkForAddition(mapGameObjectsToAdd);
             _mapGameObjectManager.Synchronize();
 
             MapPopulated?.Invoke(this, EventArgs.Empty);
+            _logger.Debug(
+                $"Switched map to '{nextMap}'.");
         }
 
         public async Task SwitchMapAsync(IIdentifier mapId)
