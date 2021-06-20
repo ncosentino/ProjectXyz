@@ -17,7 +17,7 @@ namespace ProjectXyz.Game.Core.Engine
         IGameEngine
     {
         private readonly ILogger _logger;
-        private readonly IReadOnlyMapGameObjectManager _gameObjectManager;
+        private readonly IReadOnlyMapGameObjectManager _mapGameObjectManager;
         private readonly IReadOnlyCollection<ISystem> _systems;
         private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
         private readonly object _updateLoopProtectionLock;
@@ -25,14 +25,14 @@ namespace ProjectXyz.Game.Core.Engine
         private bool _updateLoopProtection;
 
         public GameEngine(
-            IReadOnlyMapGameObjectManager gameObjectManager,
+            IReadOnlyMapGameObjectManager mapGameObjectManager,
             IEnumerable<IDiscoverableSystem> systems,
             IEnumerable<IDiscoverableSystemUpdateComponentCreator> systemUpdateComponentCreators,
             ILogger logger)
         {
             _updateLoopProtectionLock = new object();
 
-            _gameObjectManager = gameObjectManager;
+            _mapGameObjectManager = mapGameObjectManager;
             _logger = logger;
             _systems = systems
                 .OrderBy(x => x.Priority ?? int.MaxValue)
@@ -106,7 +106,7 @@ namespace ProjectXyz.Game.Core.Engine
                 await system
                     .UpdateAsync(
                         systemUpdateContext,
-                        _gameObjectManager.GameObjects)
+                        _mapGameObjectManager.GameObjects)
                     .ConfigureAwait(false);
             }
         }

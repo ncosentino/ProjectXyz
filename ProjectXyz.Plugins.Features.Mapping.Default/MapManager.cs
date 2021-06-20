@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.Mapping.Api;
+using ProjectXyz.Plugins.Features.PartyManagement;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
@@ -22,7 +24,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         private readonly IMapGameObjectRepository _mapGameObjectRepository;
         private readonly IPathFinderFactory _pathFinderFactory;
         private readonly IFilterContextFactory _filterContextFactory;
-        private readonly IGameObjectRepository _gameObjectRepository;
+        private readonly Lazy<IGameObjectRepository> _lazyGameObjectRepository;
+        private readonly Lazy<IRosterManager> _lazyRosterManager;
 
         public MapManager(
             IMapIdentifiers mapIdentifiers,
@@ -32,7 +35,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             IMapGameObjectRepository mapGameObjectRepository,
             IPathFinderFactory pathFinderFactory,
             IFilterContextFactory filterContextFactory,
-            IGameObjectRepository gameObjectRepository)
+            Lazy<IGameObjectRepository> lazyGameObjectRepository,
+            Lazy<IRosterManager> lazyRosterManager)
         {
             _mapIdentifiers = mapIdentifiers;
             _mapRepository = mapRepository;
@@ -41,7 +45,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _mapGameObjectRepository = mapGameObjectRepository;
             _pathFinderFactory = pathFinderFactory;
             _filterContextFactory = filterContextFactory;
-            _gameObjectRepository = gameObjectRepository;
+            _lazyGameObjectRepository = lazyGameObjectRepository;
+            _lazyRosterManager = lazyRosterManager;
         }
 
         public event EventHandler<EventArgs> MapChanging;
@@ -72,7 +77,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         {
             foreach (var gameObject in _mapGameObjectManager.GameObjects)
             {
-                _gameObjectRepository.Save(gameObject);
+                _lazyGameObjectRepository.Value.Save(gameObject);
             }
 
             if (!ActiveMap.Has<IIgnoreSavingGameObjectStateBehavior>())
@@ -109,16 +114,21 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
             MapChanged?.Invoke(this, EventArgs.Empty);
 
+            var mapId = ActiveMap.GetOnly<IReadOnlyIdentifierBehavior>().Id;
+            var mapGameObjectsToAdd = new HashSet<IGameObject>((await _mapGameObjectRepository
+                .LoadForMapAsync(mapId))
+                .Concat(_lazyGameObjectRepository
+                    .Value
+                    .Load(new[] { new PredicateFilter(x => x.Has<IAlwaysLoadWithMapBehavior>()) }))
+                .Concat(_lazyRosterManager
+                    .Value
+                    .ActiveParty));
             var mapGameObjectsToRemove = _mapGameObjectManager
                 .GameObjects
-                .Where(x => !x.Has<IAlwaysLoadWithMapBehavior>());
-            _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
+                .Where(x => !x.Has<IAlwaysLoadWithMapBehavior>())
+                .Where(x => !mapGameObjectsToAdd.Contains(x));
 
-            var mapId = ActiveMap.GetOnly<IReadOnlyIdentifierBehavior>().Id;
-            var mapGameObjectsToAdd = (await _mapGameObjectRepository
-                .LoadForMapAsync(mapId))
-                .Concat(_gameObjectRepository
-                    .Load(new[] { new PredicateFilter(x => x.Has<IAlwaysLoadWithMapBehavior>()) }));
+            _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
             _mapGameObjectManager.MarkForAddition(mapGameObjectsToAdd);
             _mapGameObjectManager.Synchronize();
 
