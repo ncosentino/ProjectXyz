@@ -10,9 +10,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Filtering
     {
         public AllTagsFilterHandler()
         {
-            Matcher = (filter, item) =>
+            Matcher = (filter, obj) =>
             {
-                if (!item.TryGetFirst<ITagsBehavior>(out var tagsBehavior))
+                if (!obj.TryGetFirst<ITagsBehavior>(out var tagsBehavior))
                 {
                     return false;
                 }

@@ -6,22 +6,22 @@ using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Filtering
 {
-    public sealed class AnyTagsFilterHandler
+    public sealed class AnyIdFilterHandler
     {
-        public AnyTagsFilterHandler()
+        public AnyIdFilterHandler()
         {
             Matcher = (filter, obj) =>
             {
-                if (!obj.TryGetFirst<ITagsBehavior>(out var tagsBehavior))
+                if (!obj.TryGetFirst<IIdentifierBehavior>(out var identifierBehavior))
                 {
                     return false;
                 }
 
-                var match = filter.Tags.Any(t1 => tagsBehavior.Tags.Any(t2 => t1.Equals(t2)));
+                var match = filter.Ids.Any(id => Equals(identifierBehavior.Id, id));
                 return match;
             };
         }
 
-        public GenericAttributeValueMatchDelegate<AnyTagsFilter, IGameObject> Matcher;
+        public GenericAttributeValueMatchDelegate<AnyIdFilter, IGameObject> Matcher;
     }
 }

@@ -16,11 +16,19 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Filtering.Autofac
                .RegisterType<AnyTagsFilterHandler>()
                .SingleInstance();
             builder
+               .RegisterType<AnyIdFilterHandler>()
+               .SingleInstance();
+            builder
+               .RegisterType<PredicateFilterHandler>()
+               .SingleInstance();
+            builder
                 .RegisterBuildCallback(c =>
                 {
                     var facade = c.Resolve<IAttributeValueMatchFacade>();
                     facade.Register(c.Resolve<AllTagsFilterHandler>().Matcher);
                     facade.Register(c.Resolve<AnyTagsFilterHandler>().Matcher);
+                    facade.Register(c.Resolve<AnyIdFilterHandler>().Matcher);
+                    facade.Register(c.Resolve<PredicateFilterHandler>().Matcher);
                 });
         }
     }

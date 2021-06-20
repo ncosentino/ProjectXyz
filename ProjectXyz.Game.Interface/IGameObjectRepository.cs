@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 
-using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
+using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 
 namespace ProjectXyz.Game.Api
 {
     public interface IGameObjectRepository
     {
-        IEnumerable<IGameObject> LoadAll();
-
-        IEnumerable<IGameObject> Load(IFilterContext filterContext);
+        IEnumerable<IGameObject> Load(IReadOnlyCollection<IFilterAttributeValue> filters);
 
         void Save(IGameObject gameObject);
 

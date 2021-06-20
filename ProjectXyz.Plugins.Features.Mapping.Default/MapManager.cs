@@ -6,6 +6,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Game.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.Mapping.Api;
@@ -117,8 +118,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             var mapGameObjectsToAdd = (await _mapGameObjectRepository
                 .LoadForMapAsync(mapId))
                 .Concat(_gameObjectRepository
-                    .LoadAll()
-                    .Where(x => x.Has<IAlwaysLoadWithMapBehavior>()));
+                    .Load(new[] { new PredicateFilter(x => x.Has<IAlwaysLoadWithMapBehavior>()) }));
             _mapGameObjectManager.MarkForAddition(mapGameObjectsToAdd);
             _mapGameObjectManager.Synchronize();
 
