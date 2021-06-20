@@ -138,24 +138,33 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
 
             IReadOnlyCollection<string> unsetPropertyNames = null;
             object instance = null;
+            Exception lastConstructorException = null;
             foreach (var constructor in bestMatchingConstructors)
             {
-                if (TryCreateInstance(
-                    deserializer,
-                    jsonObject,
-                    jsonPropertyNames,
-                    constructor,
-                    out unsetPropertyNames,
-                    out instance))
+                try
                 {
+                    instance = CreateInstance(
+                        deserializer,
+                        jsonObject,
+                        jsonPropertyNames,
+                        constructor,
+                        out unsetPropertyNames);
                     break;
+                }
+                catch (Exception ex)
+                {
+                    lastConstructorException = ex;
                 }
             }
 
             if (instance == null)
             {
                 throw new InvalidOperationException(
-                    $"Could not create instance of type '{type}'.");
+                    $"Could not create instance of type '{type}'. See inner " +
+                    $"exception for more details. Could not fulfill constructor " +
+                    $"requirements given the JSON object:\r\n" +
+                    $"{jsonObject}",
+                    lastConstructorException);
             }
 
             if (unsetPropertyNames.Any())
@@ -233,52 +242,42 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             }
         }
 
-        private bool TryCreateInstance(
+        private object CreateInstance(
             INewtonsoftJsonDeserializer deserializer,
             JObject jsonObject,
             IReadOnlyCollection<string> propertyNames,
             ConstructorInfo constructor,
-            out IReadOnlyCollection<string> unsetPropertyNames,
-            out object instance)
+            out IReadOnlyCollection<string> unsetPropertyNames)
         {
             var constructorParameters = new List<object>();
             var usedProperties = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            try
+            foreach (var requiredParameter in constructor.GetParameters())
             {
-                foreach (var requiredParameter in constructor.GetParameters())
+                bool jsonHasProperty = jsonObject.TryGetValue(
+                    requiredParameter.Name,
+                    StringComparison.OrdinalIgnoreCase,
+                    out var jsonPropertyValue);
+                var parameterValue = !jsonHasProperty || jsonPropertyValue == null
+                    ? null
+                    : ConvertJsonValue(
+                    deserializer,
+                    requiredParameter.ParameterType,
+                    jsonPropertyValue);
+                constructorParameters.Add(parameterValue);
+
+                if (jsonHasProperty)
                 {
-                    bool jsonHasProperty = jsonObject.TryGetValue(
-                        requiredParameter.Name,
-                        StringComparison.OrdinalIgnoreCase,
-                        out var jsonPropertyValue);
-                    var parameterValue = !jsonHasProperty || jsonPropertyValue == null
-                        ? null
-                        : ConvertJsonValue(
-                        deserializer,
-                        requiredParameter.ParameterType,
-                        jsonPropertyValue);
-                    constructorParameters.Add(parameterValue);
-
-                    if (jsonHasProperty)
-                    {
-                        usedProperties.Add(requiredParameter.Name);
-                    }
+                    usedProperties.Add(requiredParameter.Name);
                 }
+            }
 
-                var constructorParamsArray = constructorParameters.ToArray();
-                instance = constructor.Invoke(constructorParamsArray);
-                unsetPropertyNames = propertyNames
-                    .Where(x => !usedProperties.Contains(x))
-                    .ToArray();
-                return true;
-            }
-            catch
-            {
-                instance = null;
-                unsetPropertyNames = null;
-                return false;
-            }
+            var constructorParamsArray = constructorParameters.ToArray();
+            var instance = constructor.Invoke(constructorParamsArray);
+            unsetPropertyNames = propertyNames
+                .Where(x => !usedProperties.Contains(x))
+                .ToArray();
+            return instance;
         }
 
         private object ConvertJsonValue(
