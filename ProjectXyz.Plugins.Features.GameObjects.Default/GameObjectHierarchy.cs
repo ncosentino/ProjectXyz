@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Default
@@ -21,6 +23,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Default
             IGameObject parent,
             bool recursive)
         {
+            Contract.RequiresNotNull(
+                parent,
+                $"{nameof(parent)} cannot be null.");
+
             var queue = new Queue<IGameObject>();
             queue.Enqueue(parent);
 
@@ -41,6 +47,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Default
 
                     foreach (var child in gameObjectsForBehavior.GetChildren(behavior))
                     {
+                        Contract.RequiresNotNull(
+                            child,
+                            $"A value within the results of " +
+                            $"{nameof(IGameObjectsForBehavior)}.{nameof(IGameObjectsForBehavior.GetChildren)}() " +
+                            $"called with behavior '{behavior}' was null. This " +
+                            $"is not allowed.");
+
                         if (yielded.Contains(child))
                         {
                             continue;
