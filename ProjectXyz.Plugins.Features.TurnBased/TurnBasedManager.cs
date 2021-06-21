@@ -91,7 +91,7 @@ namespace ProjectXyz.Plugins.Features.TurnBased
         {
             // NOTE: we don't need to re-copy this since the event args have
             // an immutable collection already
-            _mapObjects = e.FullSet;
+            _mapObjects = e.ImmutableFullSet;
         }
     }
 }

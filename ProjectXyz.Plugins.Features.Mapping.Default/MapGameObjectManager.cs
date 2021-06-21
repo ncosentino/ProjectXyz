@@ -26,7 +26,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public event EventHandler<GameObjectsSynchronizedEventArgs> Synchronized;
 
-        public IReadOnlyCollection<IGameObject> GameObjects => _gameObjects;
+        public IReadOnlyCollection<IGameObject> GameObjects { get; private set; }
 
         public bool IsSynchronizing { get; private set; }
 
@@ -60,11 +60,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public void ClearGameObjectsImmediate()
         {
-            _gameObjectsToAdd.Clear();
-            _gameObjectsToRemove.Clear();
-            var copy = GameObjects.ToArray();
-            MarkForRemoval(copy);
-            Synchronize();
+            PreventSynchronizationDuring(() =>
+            {
+                _gameObjectsToAdd.Clear();
+                _gameObjectsToRemove.Clear();
+                var copy = GameObjects.ToArray();
+                MarkForRemoval(copy);
+                Synchronize();
+            });
         }
 
         public void Synchronize()
