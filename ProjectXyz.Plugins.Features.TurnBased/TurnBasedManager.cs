@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Mapping.Api;
 using ProjectXyz.Plugins.Features.TurnBased.Api;
@@ -68,8 +70,19 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
         public void SetApplicableObjects(IEnumerable<IGameObject> gameObjects)
         {
+            Contract.RequiresNotNull(
+                gameObjects,
+                $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
+
             _applicableGameObjects.Clear();
-            _applicableGameObjects.AddRange(gameObjects);
+            foreach (var gameObject in gameObjects)
+            {
+                Contract.RequiresNotNull(
+                    gameObject,
+                    $"One of the game objects in the provided argument " +
+                    $"'{nameof(gameObjects)}' was null.");
+                _applicableGameObjects.Add(gameObject);
+            }
         }
 
         private void MapGameObjectManager_Synchronized(
