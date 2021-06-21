@@ -22,6 +22,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _gameObjectsToRemove = new HashSet<IGameObject>();
             _gameObjectsToAdd = new HashSet<IGameObject>();
             _skipSynchronizationLock = new object();
+            GameObjects = new IGameObject[0];
         }
 
         public event EventHandler<GameObjectsSynchronizedEventArgs> Synchronized;
@@ -123,12 +124,13 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
                 if (requiredSync)
                 {
+                    GameObjects = _gameObjects.ToArray();
                     Synchronized?.Invoke(
                         this,
                         new GameObjectsSynchronizedEventArgs(
                             addedGameObjects,
                             removedGameObjects,
-                            _gameObjects));
+                            GameObjects));
                 }
             }
             finally

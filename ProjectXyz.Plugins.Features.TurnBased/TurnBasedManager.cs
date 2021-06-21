@@ -15,8 +15,6 @@ namespace ProjectXyz.Plugins.Features.TurnBased
         private readonly IReadOnlyMapGameObjectManager _mapGameObjectManager;
         private readonly List<IGameObject> _applicableGameObjects;
 
-        private IReadOnlyCollection<IGameObject> _mapObjects;
-
         public TurnBasedManager(
             IGameObjectHierarchy gameObjectHierarchy,
             IReadOnlyMapGameObjectManager mapGameObjectManager)
@@ -24,13 +22,10 @@ namespace ProjectXyz.Plugins.Features.TurnBased
             _gameObjectHierarchy = gameObjectHierarchy;
             _mapGameObjectManager = mapGameObjectManager;
             _applicableGameObjects = new List<IGameObject>();
-            _mapObjects = new List<IGameObject>();
 
             GlobalSync = true;
             SyncTurnsFromElapsedTime = true;
             ClearApplicableOnUpdate = true;
-
-            _mapGameObjectManager.Synchronized += MapGameObjectManager_Synchronized;
         }
 
 
@@ -40,13 +35,13 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
         public bool GlobalSync { get; set; }
 
-        public IReadOnlyCollection<IGameObject> GetAllGameObjects() => _mapObjects;
+        public IReadOnlyCollection<IGameObject> GetAllGameObjects() => _mapGameObjectManager.GameObjects;
 
         public IReadOnlyCollection<IGameObject> GetApplicableGameObjects()
         {
             if (GlobalSync)
             {
-                return _mapObjects;
+                return GetAllGameObjects();
             }
 
             // FIXME: why is it that we get the child objects only when we
@@ -83,15 +78,6 @@ namespace ProjectXyz.Plugins.Features.TurnBased
                     $"'{nameof(gameObjects)}' was null.");
                 _applicableGameObjects.Add(gameObject);
             }
-        }
-
-        private void MapGameObjectManager_Synchronized(
-            object sender, 
-            GameObjectsSynchronizedEventArgs e)
-        {
-            // NOTE: we don't need to re-copy this since the event args have
-            // an immutable collection already
-            _mapObjects = e.ImmutableFullSet;
         }
     }
 }
