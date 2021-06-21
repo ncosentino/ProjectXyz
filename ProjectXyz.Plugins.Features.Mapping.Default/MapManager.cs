@@ -115,7 +115,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             PathFinder = _pathFinderFactory.CreateForMap(ActiveMap);
 
             MapChanged?.Invoke(this, EventArgs.Empty);
-            await _mapGameObjectPopulator.PopulateMapGameObjectsAsync(mapId);
+            await _mapGameObjectPopulator.PopulateMapGameObjectsAsync(ActiveMap);
             MapPopulated?.Invoke(this, EventArgs.Empty);
             _logger.Debug(
                 $"Switched map to '{mapId}'.");

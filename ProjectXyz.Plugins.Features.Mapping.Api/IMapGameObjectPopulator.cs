@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Api
 {
     public interface IMapGameObjectPopulator
     {
-        Task PopulateMapGameObjectsAsync(IIdentifier mapId);
+        Task PopulateMapGameObjectsAsync(IGameObject map);
     }
 }

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Game.Api;
-using ProjectXyz.Plugins.Features.Combat.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
 using ProjectXyz.Plugins.Features.Mapping.Api;
@@ -22,26 +20,24 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         private readonly IMapGameObjectRepository _mapGameObjectRepository;
         private readonly Lazy<IRosterManager> _lazyRosterManager;
         private readonly Lazy<IGameObjectRepository> _lazyGameObjectRepository;
-        private readonly Lazy<IReadOnlyCombatTurnManager> _lazyCombatTurnManager;
 
         public MapGameObjectPopulator(
             ILogger logger,
             IMapGameObjectManager mapGameObjectManager,
             IMapGameObjectRepository mapGameObjectRepository,
             Lazy<IRosterManager> lazyRosterManager,
-            Lazy<IGameObjectRepository> lazyGameObjectRepository,
-            Lazy<IReadOnlyCombatTurnManager> lazyCombatTurnManager)
+            Lazy<IGameObjectRepository> lazyGameObjectRepository)
         {
             _logger = logger;
             _mapGameObjectManager = mapGameObjectManager;
             _mapGameObjectRepository = mapGameObjectRepository;
             _lazyRosterManager = lazyRosterManager;
             _lazyGameObjectRepository = lazyGameObjectRepository;
-            _lazyCombatTurnManager = lazyCombatTurnManager;
         }
 
-        public async Task PopulateMapGameObjectsAsync(IIdentifier mapId)
+        public async Task PopulateMapGameObjectsAsync(IGameObject map)
         {
+            var mapId = map.GetOnly<IReadOnlyIdentifierBehavior>().Id;
             _logger.Debug(
                 $"Populating game objects for map ID '{mapId}'...");
 
@@ -51,9 +47,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                     .Value
                     .Load(new[] { new PredicateFilter(x => x.Has<IAlwaysLoadWithMapBehavior>()) }));
 
-            var combatTurnManager = _lazyCombatTurnManager.Value;
             var rosterManager = _lazyRosterManager.Value;
-            mapGameObjectsToAdd = combatTurnManager.InCombat
+            mapGameObjectsToAdd = map.Has<ICombatMapBehavior>()
                 ? mapGameObjectsToAdd.Concat(rosterManager.ActiveParty)
                 : mapGameObjectsToAdd.AppendSingle(rosterManager.ActivePartyLeader);
             var mapGameObjectsToAddLookup = new HashSet<IGameObject>(mapGameObjectsToAdd);
