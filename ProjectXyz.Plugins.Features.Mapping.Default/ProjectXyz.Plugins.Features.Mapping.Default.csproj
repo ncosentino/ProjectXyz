@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />

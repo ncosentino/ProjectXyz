@@ -22,6 +22,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<MapGameObjectPopulator>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<MapFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
