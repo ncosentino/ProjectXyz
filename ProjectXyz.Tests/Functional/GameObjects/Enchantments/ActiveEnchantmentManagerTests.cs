@@ -50,6 +50,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
 
             var turnInfo = new TurnInfo(
                 new IGameObject[] { },
+                new IGameObject[] { },
                 elapsedTurns,
                 true);
             _fixture.ElapsedTurnsTriggerSourceMechanic.Update(turnInfo);
