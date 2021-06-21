@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Triggering;
 using ProjectXyz.Api.GameObjects;
@@ -28,11 +30,23 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 
         public void Add(IEnumerable<IGameObject> enchantments)
         {
+            Contract.RequiresNotNull(
+                enchantments,
+                $"{nameof(enchantments)} cannot be null. Use an empty enumerable.");
+
             foreach (var enchantment in enchantments)
             {
-                if (!_activeEnchantments.ContainsKey(enchantment))
+                Contract.RequiresNotNull(
+                    enchantment,
+                    $"One of the enchantments in the provided argument " +
+                    $"'{nameof(enchantments)}' was null.");
+
+                if (!_activeEnchantments.TryGetValue(
+                    enchantment,
+                    out var triggerMechanicsForEnchantment))
                 {
-                    _activeEnchantments[enchantment] = new List<ITriggerMechanic>();
+                    triggerMechanicsForEnchantment = new List<ITriggerMechanic>();
+                    _activeEnchantments[enchantment] = triggerMechanicsForEnchantment;
                 }
 
                 foreach (var enchantmentTriggerMechanicRegistrar in _enchantmentTriggerMechanicRegistrars)
@@ -42,7 +56,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
                         RemoveTriggerMechanicFromEnchantment);
                     foreach (var trigger in triggers)
                     {
-                        _activeEnchantments[enchantment].Add(trigger);
+                        triggerMechanicsForEnchantment.Add(trigger);
 
                         if (_triggerMechanicRegistrar.CanRegister(trigger))
                         {
@@ -59,8 +73,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 
         public void Remove(IEnumerable<IGameObject> enchantments)
         {
+            Contract.RequiresNotNull(
+                enchantments,
+                $"{nameof(enchantments)} cannot be null. Use an empty enumerable.");
+
             foreach (var enchantment in enchantments)
             {
+                Contract.RequiresNotNull(
+                    enchantment,
+                    $"One of the enchantments in the provided argument " +
+                    $"'{nameof(enchantments)}' was null.");
+
                 foreach (var triggerMechanic in _activeEnchantments[enchantment])
                 {
                     _triggerMechanicRegistrar.UnregisterTrigger(triggerMechanic);
@@ -74,15 +97,25 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
             IGameObject enchantment,
             ITriggerMechanic triggerMechanic)
         {
-            if (_activeEnchantments[enchantment].Count == 1)
-            {
-                _activeEnchantments.Remove(enchantment);
-            }
-            else if (!_activeEnchantments[enchantment].Remove(triggerMechanic))
+            if (!_activeEnchantments.TryGetValue(
+                enchantment,
+                out var triggerMechanicsForEnchantment))
             {
                 throw new InvalidOperationException(
                     $"Attempted to remove trigger '{triggerMechanic}' but the " +
-                    $"collection did not contain it.");
+                    $"enchantment '{enchantment}' was not found in the list " +
+                    $"of active enchantments.");
+            }
+
+            if (triggerMechanicsForEnchantment.Count == 1)
+            {
+                _activeEnchantments.Remove(enchantment);
+            }
+            else if (!triggerMechanicsForEnchantment.Remove(triggerMechanic))
+            {
+                throw new InvalidOperationException(
+                    $"Attempted to remove trigger '{triggerMechanic}' but the " +
+                    $"collection for enchantment '{enchantment}' did not contain it.");
             }
         }
     }

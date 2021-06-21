@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.GameObjects.Behaviors;
 
 namespace ProjectXyz.Api.GameObjects
@@ -11,6 +13,10 @@ namespace ProjectXyz.Api.GameObjects
         public static IEnumerable<TBehavior> Get<TBehavior>(this IGameObject gameObject)
             where TBehavior : IBehavior
         {
+            Contract.RequiresNotNull(
+                gameObject,
+                $"Cannot call extension method '{nameof(Get)}' on a null object.");
+
             return gameObject
                 .Behaviors
                 .Get<TBehavior>();
@@ -19,6 +25,10 @@ namespace ProjectXyz.Api.GameObjects
         public static bool Has<TBehavior>(this IGameObject gameObject)
             where TBehavior : IBehavior
         {
+            Contract.RequiresNotNull(
+                gameObject,
+                $"Cannot call extension method '{nameof(Has)}' on a null object.");
+
             return gameObject
                 .Behaviors
                 .Get<TBehavior>()
@@ -28,6 +38,10 @@ namespace ProjectXyz.Api.GameObjects
         public static TBehavior GetOnly<TBehavior>(this IGameObject gameObject)
             where TBehavior : IBehavior
         {
+            Contract.RequiresNotNull(
+                gameObject,
+                $"Cannot call extension method '{nameof(GetOnly)}' on a null object.");
+
             var match = gameObject
                 .Behaviors
                 .Get<TBehavior>()
@@ -50,6 +64,10 @@ namespace ProjectXyz.Api.GameObjects
         public static TBehavior GetFirst<TBehavior>(this IGameObject gameObject)
             where TBehavior : IBehavior
         {
+            Contract.RequiresNotNull(
+                gameObject,
+                $"Cannot call extension method '{nameof(GetFirst)}' on a null object.");
+
             return gameObject
                 .Behaviors
                 .GetFirst<TBehavior>();
@@ -60,6 +78,10 @@ namespace ProjectXyz.Api.GameObjects
             out TBehavior behavior)
             where TBehavior : IBehavior
         {
+            Contract.RequiresNotNull(
+                gameObject,
+                $"Cannot call extension method '{nameof(TryGetFirst)}' on a null object.");
+
             return gameObject
                 .Behaviors
                 .TryGetFirst(out behavior);
