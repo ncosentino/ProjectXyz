@@ -11,7 +11,6 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.Logging;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Autofac;
 using ProjectXyz.Plugins.Features.Enchantments.Generation.Autofac;
 using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.Autofac;
 using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
@@ -21,11 +20,10 @@ using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Generation.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.Macerus.Plugins.Content.Skills;
+using ProjectXyz.Plugins.Features.Triggering.Default.Autofac;
 using ProjectXyz.Plugins.Framework.Math.Jace;
-using ProjectXyz.Shared.Behaviors.Filtering.Autofac;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.States.Autofac;
-using ProjectXyz.Shared.Triggering.Autofac;
 
 using Xunit;
 
