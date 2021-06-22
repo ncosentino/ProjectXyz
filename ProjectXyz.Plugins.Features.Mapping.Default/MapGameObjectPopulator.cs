@@ -47,9 +47,12 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                     .Load(new[] { new PredicateFilter(x => x.Has<IAlwaysLoadWithMapBehavior>()) }));
 
             var rosterManager = _lazyRosterManager.Value;
-            mapGameObjectsToAdd = map.Has<ICombatMapBehavior>()
-                ? mapGameObjectsToAdd.Concat(rosterManager.ActiveParty)
-                : mapGameObjectsToAdd.AppendSingle(rosterManager.ActivePartyLeader);
+            mapGameObjectsToAdd = mapGameObjectsToAdd.Concat(
+                map.Has<ICombatMapBehavior>()
+                    ? rosterManager.ActiveParty
+                    : rosterManager.ActivePartyLeader == null
+                        ? new IGameObject[0]
+                        : new[] { rosterManager.ActivePartyLeader });
             var mapGameObjectsToAddLookup = new HashSet<IGameObject>(mapGameObjectsToAdd);
 
             _logger.Debug(

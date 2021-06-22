@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
@@ -36,10 +38,18 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public void MarkForRemoval(IEnumerable<IGameObject> gameObjects)
         {
+            Contract.RequiresNotNull(
+                gameObjects,
+                $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
+
             PreventSynchronizationDuring(() =>
             {
                 foreach (var gameObject in gameObjects)
                 {
+                    Contract.RequiresNotNull(
+                        gameObject,
+                        $"One of the game objects in the provided argument " +
+                        $"'{nameof(gameObjects)}' was null.");
                     _gameObjectsToRemove.TryAdd(gameObject, true);
                 }
             });
@@ -50,10 +60,18 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public void MarkForAddition(IEnumerable<IGameObject> gameObjects)
         {
+            Contract.RequiresNotNull(
+                gameObjects,
+                $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
+
             PreventSynchronizationDuring(() =>
             {
                 foreach (var gameObject in gameObjects)
                 {
+                    Contract.RequiresNotNull(
+                        gameObject,
+                        $"One of the game objects in the provided argument " +
+                        $"'{nameof(gameObjects)}' was null.");
                     _gameObjectsToAdd.TryAdd(gameObject, true);
                 }
             });
