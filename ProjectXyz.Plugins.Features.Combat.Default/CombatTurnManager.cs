@@ -4,9 +4,9 @@ using System.Linq;
 
 using NexusLabs.Contracts;
 
-using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Combat.Api;
+using ProjectXyz.Plugins.Features.Filtering.Api;
 
 namespace ProjectXyz.Plugins.Features.Combat.Default
 {

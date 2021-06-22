@@ -14,8 +14,8 @@ using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.ElapsedTime;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Plugins.Features.Mapping.Api;
-using ProjectXyz.Plugins.Features.TurnBased.Api;
+using ProjectXyz.Plugins.Features.Mapping;
+using ProjectXyz.Plugins.Features.TurnBased;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Tests.Functional.TestingData;
 

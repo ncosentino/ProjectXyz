@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj" />
   </ItemGroup>
 

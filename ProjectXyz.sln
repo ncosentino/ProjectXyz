@@ -271,7 +271,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapping", "Mapping", "{3EA3B906-92E4-4ED7-B955-E534E4FE7481}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Api", "ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj", "{59EA8234-53A4-498C-A04C-8878A5C593E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping", "ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj", "{59EA8234-53A4-498C-A04C-8878A5C593E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Mapping.Default", "ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj", "{BA7DCBE8-CA73-412C-8C78-CCD0960B89C9}"
 EndProject
@@ -283,9 +283,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TurnBased", "TurnBased", "{82E62E79-9A1C-43A5-96FF-E21656FCC46C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased.Api", "ProjectXyz.Plugins.Features.TurnBased.Api\ProjectXyz.Plugins.Features.TurnBased.Api.csproj", "{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased", "ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj", "{4D79BE5F-ED34-4261-8B4F-FD86D36C71B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased", "ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj", "{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.TurnBased.Default", "ProjectXyz.Plugins.Features.TurnBased.Default\ProjectXyz.Plugins.Features.TurnBased.Default.csproj", "{5A141027-3A7C-40E5-9EC1-5D0623DBFEB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Default", "ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj", "{EA6D03DD-882C-400F-910D-1D06658CF80A}"
 EndProject
@@ -311,7 +311,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.PartyManagement.Default", "ProjectXyz.Plugins.Features.PartyManagement.Default\ProjectXyz.Plugins.Features.PartyManagement.Default.csproj", "{0AE18338-6CD1-4920-95CC-A21D1C55D428}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.PartyManagement.Tests", "ProjectXyz.Plugins.Features.PartyManagement.Tests\ProjectXyz.Plugins.Features.PartyManagement.Tests.csproj", "{8E480671-8002-4161-8032-747CC92F6CD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.PartyManagement.Tests", "ProjectXyz.Plugins.Features.PartyManagement.Tests\ProjectXyz.Plugins.Features.PartyManagement.Tests.csproj", "{8E480671-8002-4161-8032-747CC92F6CD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

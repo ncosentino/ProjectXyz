@@ -27,6 +27,6 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Api\ProjectXyz.Plugins.Features.TimeOfDay.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Api\ProjectXyz.Plugins.Features.TurnBased.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj" />
   </ItemGroup>
 </Project>

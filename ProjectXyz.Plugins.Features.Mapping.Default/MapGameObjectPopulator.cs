@@ -8,7 +8,6 @@ using ProjectXyz.Api.Logging;
 using ProjectXyz.Game.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
-using ProjectXyz.Plugins.Features.Mapping.Api;
 using ProjectXyz.Plugins.Features.PartyManagement;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default

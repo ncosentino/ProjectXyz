@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Filtering.Api;
-using ProjectXyz.Plugins.Features.Mapping.Api;
+using ProjectXyz.Plugins.Features.Mapping;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
 {

@@ -12,7 +12,7 @@
     <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement\ProjectXyz.Plugins.Features.PartyManagement.csproj" />
   </ItemGroup>
 

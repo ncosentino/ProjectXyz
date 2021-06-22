@@ -4,8 +4,8 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Framework.Testing;
+using ProjectXyz.Plugins.Features.TurnBased.Default;
 using ProjectXyz.Tests.Functional.TestingData;
-using ProjectXyz.Plugins.Features.TurnBased;
 
 using Xunit;
 

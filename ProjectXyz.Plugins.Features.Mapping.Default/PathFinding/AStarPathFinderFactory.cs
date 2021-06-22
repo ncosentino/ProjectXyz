@@ -1,5 +1,4 @@
 ﻿using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 {

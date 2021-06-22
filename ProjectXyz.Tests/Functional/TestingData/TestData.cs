@@ -8,6 +8,7 @@ using ProjectXyz.Plugins.Features.Behaviors.Default;
 using ProjectXyz.Plugins.Features.ExpiringEnchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
+using ProjectXyz.Plugins.Features.TurnBased.Default.Duration;
 using ProjectXyz.Plugins.Features.TurnBased.Duration;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Tests.Functional.TestingData.Enchantments;

@@ -3,7 +3,7 @@
 using Moq;
 
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.Mapping.Api;
+using ProjectXyz.Plugins.Features.Mapping;
 using ProjectXyz.Plugins.Features.Mapping.Default;
 
 using Xunit;

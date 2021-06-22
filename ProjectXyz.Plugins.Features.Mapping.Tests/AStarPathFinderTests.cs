@@ -9,7 +9,6 @@ using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.Behaviors.Default;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Plugins.Features.Mapping.Api;
 using ProjectXyz.Plugins.Features.Mapping.Default;
 using ProjectXyz.Plugins.Features.Mapping.Default.PathFinding;
 

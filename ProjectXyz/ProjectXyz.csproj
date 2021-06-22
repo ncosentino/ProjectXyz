@@ -82,12 +82,12 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Api\ProjectXyz.Plugins.Features.Mapping.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Api\ProjectXyz.Plugins.Features.StateEnchantments.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.StateEnchantments.Shared\ProjectXyz.Plugins.Features.StateEnchantments.Shared.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Api\ProjectXyz.Plugins.Features.TimeOfDay.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Api\ProjectXyz.Plugins.Features.TurnBased.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Default\ProjectXyz.Plugins.Features.TurnBased.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Api\ProjectXyz.Plugins.Features.Weather.Api.csproj" />

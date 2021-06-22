@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.Mapping.Api;
 
 namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
@@ -65,8 +64,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             {
                 _gameObjectsToAdd.Clear();
                 _gameObjectsToRemove.Clear();
-                var copy = GameObjects.ToArray();
-                MarkForRemoval(copy);
+                var copy = _gameObjects.ToArray();
+                MarkForRemoval(GameObjects);
                 Synchronize();
             });
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 
 using ProjectXyz.Api.GameObjects.Behaviors;
-using ProjectXyz.Plugins.Features.Mapping.Api;
+using ProjectXyz.Plugins.Features.Mapping;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.Weather

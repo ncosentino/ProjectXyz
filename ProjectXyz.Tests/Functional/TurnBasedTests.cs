@@ -4,8 +4,8 @@ using Autofac;
 
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.Behaviors.Default;
-using ProjectXyz.Plugins.Features.Mapping.Api;
-using ProjectXyz.Plugins.Features.TurnBased.Api;
+using ProjectXyz.Plugins.Features.Mapping;
+using ProjectXyz.Plugins.Features.TurnBased;
 using ProjectXyz.Tests.Functional.TestingData;
 
 using Xunit;
