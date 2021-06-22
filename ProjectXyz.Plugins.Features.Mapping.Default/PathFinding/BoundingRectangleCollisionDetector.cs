@@ -12,15 +12,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
         private readonly IReadOnlyMapGameObjectManager _mapGameObjectManager;
         private readonly List<Vector4> _collisionBoxes;
 
-        private IReadOnlyCollection<IGameObject> _cachedMapObjects;
-
         public BoundingRectangleCollisionDetector(IReadOnlyMapGameObjectManager mapGameObjectManager)
         {
             _mapGameObjectManager = mapGameObjectManager;
             _collisionBoxes = new List<Vector4>();
-
-            _cachedMapObjects = new List<IGameObject>();
-            _mapGameObjectManager.Synchronized += MapGameObjectManager_Synchronized;
         }
 
         public void Reset(IEnumerable<Vector4> collidersToIgnore)
@@ -28,7 +23,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             var ignoreLookup = new HashSet<Vector4>(collidersToIgnore);
             _collisionBoxes.Clear();
 
-            foreach (var gameObject in _cachedMapObjects)
+            foreach (var gameObject in _mapGameObjectManager.GameObjects)
             {
                 var positionBehavior = gameObject.GetOnly<IPositionBehavior>();
                 var sizeBehavior = gameObject.GetOnly<ISizeBehavior>();
@@ -142,14 +137,6 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
 
             return true;
-        }
-
-        private void MapGameObjectManager_Synchronized(
-            object sender,
-            GameObjectsSynchronizedEventArgs e)
-        {
-            // can directly assign since event args have immutable collection
-            _cachedMapObjects = e.ImmutableFullSet;
         }
     }
 }
