@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-using ProjectXyz.Plugins.Features.Mapping;
-
 namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 {
     public sealed class Path : IPath
@@ -17,7 +15,9 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
         public Path(IEnumerable<KeyValuePair<Vector2, double>> accumulatedDistancePerPoint)
         {
             AccumulatedDistancePerPoint = accumulatedDistancePerPoint.ToDictionary(x => x.Key, x => x.Value);
-            _lazyTotalDistance = new Lazy<double>(() => AccumulatedDistancePerPoint.Last().Value);
+            _lazyTotalDistance = new Lazy<double>(() => AccumulatedDistancePerPoint.Any() 
+                ? AccumulatedDistancePerPoint.Last().Value
+                : 0);
         }
 
         public static IPath Empty => LAZY_EMPTY.Value;
