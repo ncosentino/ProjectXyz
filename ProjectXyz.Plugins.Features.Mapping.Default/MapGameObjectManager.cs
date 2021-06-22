@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,18 +9,18 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
     public sealed class MapGameObjectManager : IMapGameObjectManager
     {
-        private readonly HashSet<IGameObject> _gameObjects;
-        private readonly HashSet<IGameObject> _gameObjectsToRemove;
-        private readonly HashSet<IGameObject> _gameObjectsToAdd;
+        private readonly ConcurrentDictionary<IGameObject, bool> _gameObjects;
+        private readonly ConcurrentDictionary<IGameObject, bool> _gameObjectsToRemove;
+        private readonly ConcurrentDictionary<IGameObject, bool> _gameObjectsToAdd;
         private readonly object _skipSynchronizationLock;
 
         private bool _skipSynchronization;
 
         public MapGameObjectManager()
         {
-            _gameObjects = new HashSet<IGameObject>();
-            _gameObjectsToRemove = new HashSet<IGameObject>();
-            _gameObjectsToAdd = new HashSet<IGameObject>();
+            _gameObjects = new ConcurrentDictionary<IGameObject, bool>();
+            _gameObjectsToRemove = new ConcurrentDictionary<IGameObject, bool>();
+            _gameObjectsToAdd = new ConcurrentDictionary<IGameObject, bool>();
             _skipSynchronizationLock = new object();
             GameObjects = new IGameObject[0];
         }
@@ -39,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             {
                 foreach (var gameObject in gameObjects)
                 {
-                    _gameObjectsToRemove.Add(gameObject);
+                    _gameObjectsToAdd.TryAdd(gameObject, true);
                 }
             });
         }
@@ -53,7 +54,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             {
                 foreach (var gameObject in gameObjects)
                 {
-                    _gameObjectsToAdd.Add(gameObject);
+                    _gameObjectsToAdd.TryAdd(gameObject, true);
                 }
             });
         }
@@ -89,17 +90,17 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 var requiredSync = false;
 
                 var addedGameObjects = new HashSet<IGameObject>();
-                foreach (var gameObject in _gameObjectsToAdd.Where(x => !_gameObjectsToRemove.Contains(x)))
+                foreach (var gameObject in _gameObjectsToAdd.Keys.Where(x => !_gameObjectsToRemove.ContainsKey(x)))
                 {
                     // in some situations we're "adding" objects to the map
                     // even though they're already present just to ensure
                     // they stick around, but there's no actual net change
-                    if (_gameObjects.Contains(gameObject))
+                    if (_gameObjects.ContainsKey(gameObject))
                     {
                         continue;
                     }
 
-                    _gameObjects.Add(gameObject);
+                    _gameObjects.TryAdd(gameObject, true);
                     addedGameObjects.Add(gameObject);
                     requiredSync = true;
                 }
@@ -107,14 +108,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 _gameObjectsToAdd.Clear();
 
                 var removedGameObjects = new HashSet<IGameObject>();
-                foreach (var gameObject in _gameObjectsToRemove)
+                foreach (var gameObject in _gameObjectsToRemove.Keys)
                 {
-                    if (!_gameObjects.Contains(gameObject))
+                    if (!_gameObjects.ContainsKey(gameObject))
                     {
                         continue;
                     }
 
-                    _gameObjects.Remove(gameObject);
+                    _gameObjects.TryRemove(gameObject, out _);
                     removedGameObjects.Add(gameObject);
                     requiredSync = true;
                 }
@@ -123,7 +124,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
                 if (requiredSync)
                 {
-                    GameObjects = _gameObjects.ToArray();
+                    GameObjects = _gameObjects.Keys.ToArray();
                     Synchronized?.Invoke(
                         this,
                         new GameObjectsSynchronizedEventArgs(
