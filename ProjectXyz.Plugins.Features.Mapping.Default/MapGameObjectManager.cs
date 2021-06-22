@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             {
                 foreach (var gameObject in gameObjects)
                 {
-                    _gameObjectsToAdd.TryAdd(gameObject, true);
+                    _gameObjectsToRemove.TryAdd(gameObject, true);
                 }
             });
         }
