@@ -60,14 +60,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public void ClearGameObjectsImmediate()
         {
-            PreventSynchronizationDuring(() =>
-            {
-                _gameObjectsToAdd.Clear();
-                _gameObjectsToRemove.Clear();
-                var copy = _gameObjects.ToArray();
-                MarkForRemoval(GameObjects);
-                Synchronize();
-            });
+            _gameObjectsToAdd.Clear();
+            _gameObjectsToRemove.Clear();
+            MarkForRemoval(GameObjects);
+            Synchronize();
         }
 
         public void Synchronize()
