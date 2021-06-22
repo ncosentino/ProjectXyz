@@ -7,7 +7,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.States;
 using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Triggering;
+using ProjectXyz.Plugins.Features.Triggering;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;

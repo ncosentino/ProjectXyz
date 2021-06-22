@@ -1,5 +1,5 @@
 using System;
-using ProjectXyz.Api.Triggering;
+using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {

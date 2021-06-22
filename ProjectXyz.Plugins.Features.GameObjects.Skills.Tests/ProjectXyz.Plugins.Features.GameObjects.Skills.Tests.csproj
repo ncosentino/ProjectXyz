@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Shared.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering.Default\ProjectXyz.Plugins.Features.Triggering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />

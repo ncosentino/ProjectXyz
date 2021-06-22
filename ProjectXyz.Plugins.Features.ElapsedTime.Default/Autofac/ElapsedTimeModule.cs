@@ -1,7 +1,8 @@
 ﻿using Autofac;
+
 using ProjectXyz.Framework.Autofac;
 
-namespace ProjectXyz.Plugins.Features.ElapsedTime.Autofac
+namespace ProjectXyz.Plugins.Features.ElapsedTime.Default.Autofac
 {
     public sealed class ElapsedTimeModule : SingleRegistrationModule
     {

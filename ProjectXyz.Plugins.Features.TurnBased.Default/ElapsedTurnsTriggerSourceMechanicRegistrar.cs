@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using NexusLabs.Contracts;
 
-using ProjectXyz.Api.Triggering;
+using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default
 {

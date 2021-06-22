@@ -7,7 +7,7 @@ using NexusLabs.Contracts;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Triggering;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Triggering;
+using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {

@@ -36,9 +36,9 @@
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Features.BoundedStats.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Application.Core\ProjectXyz.Shared.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering.Default\ProjectXyz.Plugins.Features.Triggering.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Core\ProjectXyz.Plugins.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
@@ -95,7 +95,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.States.Simple\ProjectXyz.Shared.States.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Systems.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />

@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" />
   </ItemGroup>
 
 </Project>

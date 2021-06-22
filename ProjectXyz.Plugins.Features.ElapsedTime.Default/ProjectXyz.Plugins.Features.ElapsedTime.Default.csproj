@@ -22,8 +22,8 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering.Elapsed\ProjectXyz.Plugins.Features.ElapsedTime.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />

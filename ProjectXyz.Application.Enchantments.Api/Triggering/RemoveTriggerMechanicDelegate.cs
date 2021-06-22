@@ -1,5 +1,5 @@
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Triggering;
+using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Api.Enchantments.Triggering
 {

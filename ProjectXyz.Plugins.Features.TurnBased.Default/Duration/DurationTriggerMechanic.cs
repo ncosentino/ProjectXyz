@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-using ProjectXyz.Api.Triggering;
+using ProjectXyz.Plugins.Features.Triggering;
 using ProjectXyz.Plugins.Features.TurnBased.Duration;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default.Duration

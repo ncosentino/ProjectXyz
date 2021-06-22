@@ -20,6 +20,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Triggering\ProjectXyz.Api.Triggering.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" />
   </ItemGroup>
 </Project>

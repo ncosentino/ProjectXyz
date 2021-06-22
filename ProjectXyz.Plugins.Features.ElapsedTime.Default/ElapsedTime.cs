@@ -1,7 +1,7 @@
 ﻿using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Systems;
 
-namespace ProjectXyz.Plugins.Features.ElapsedTime
+namespace ProjectXyz.Plugins.Features.ElapsedTime.Default
 {
     public sealed class ElapsedTime : IElapsedTime
     {
