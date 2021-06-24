@@ -12,7 +12,11 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
     {
         private readonly IGameObjectHierarchy _gameObjectHierarchy;
         private readonly IReadOnlyMapGameObjectManager _mapGameObjectManager;
-        private readonly List<IGameObject> _applicableGameObjects;
+        
+        // don't mark as read-only, despite all of the best practices we try to
+        // do. this collection will get re-assigned as to not modify it while
+        // enumerating it. safer this way.
+        private List<IGameObject> _applicableGameObjects;
 
         public TurnBasedManager(
             IGameObjectHierarchy gameObjectHierarchy,
@@ -68,15 +72,18 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
                 gameObjects,
                 $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
 
-            _applicableGameObjects.Clear();
+            var applicableGameObjects = new List<IGameObject>();
             foreach (var gameObject in gameObjects)
             {
                 Contract.RequiresNotNull(
                     gameObject,
                     $"One of the game objects in the provided argument " +
                     $"'{nameof(gameObjects)}' was null.");
-                _applicableGameObjects.Add(gameObject);
+                applicableGameObjects.Add(gameObject);
             }
+
+            // re-assign entire list so we don't risk enumeration over changing collections
+            _applicableGameObjects = applicableGameObjects;
         }
     }
 }
