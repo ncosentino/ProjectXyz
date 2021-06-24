@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,17 +19,14 @@ namespace ProjectXyz.Game.Core.Engine
         private readonly ILogger _logger;
         private readonly IReadOnlyCollection<ISystem> _systems;
         private readonly IReadOnlyCollection<ISystemUpdateComponentCreator> _systemUpdateComponentCreators;
-        private readonly object _updateLoopProtectionLock;
 
-        private bool _updateLoopProtection;
+        private bool _isUpdating;
 
         public GameEngine(
             IEnumerable<IDiscoverableSystem> systems,
             IEnumerable<IDiscoverableSystemUpdateComponentCreator> systemUpdateComponentCreators,
             ILogger logger)
         {
-            _updateLoopProtectionLock = new object();
-
             _logger = logger;
             _systems = systems
                 .OrderBy(x => x.Priority ?? int.MaxValue)
@@ -61,23 +59,20 @@ namespace ProjectXyz.Game.Core.Engine
 
         public async Task UpdateAsync()
         {
-            lock (_updateLoopProtectionLock)
+            if (_isUpdating)
             {
-                if (_updateLoopProtection)
-                {
-                    return;
-                }
-
-                _updateLoopProtection = true;
+                throw new InvalidOperationException(
+                    $"Cannot call '{nameof(UpdateAsync)}()' while an update has not finished.");
             }
 
+            _isUpdating = true;
             try
             {
                 await UpdateAsync(CancellationToken.None).ConfigureAwait(false);
             }
             finally 
             {
-                _updateLoopProtection = false;
+                _isUpdating = false;
             }
         }
 
