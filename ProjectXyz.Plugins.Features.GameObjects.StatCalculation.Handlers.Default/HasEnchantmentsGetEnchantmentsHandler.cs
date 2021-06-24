@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -15,7 +17,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
             {
                 var enchantments = behaviors
                     .Get<IHasReadOnlyEnchantmentsBehavior>()
-                    ?.SelectMany(x => x.Enchantments)
+                    ?.SelectMany(x => x.Enchantments.Select(enchantment =>
+                    {
+                        Contract.RequiresNotNull(
+                            enchantment,
+                            $"'{x.Owner}.{x}' (id={x.Owner.GetOnly<IReadOnlyIdentifierBehavior>().Id}) " +
+                            $"returned a null enchantment as part of its " +
+                            $"collection which is against out contract.");
+                        return enchantment;
+                    }))
                     .ToArray()
                     ?? new IGameObject[0];
                 var selfEnchantments = enchantments
