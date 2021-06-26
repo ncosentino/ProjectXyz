@@ -93,6 +93,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<ActorAnimationOnUseConverter>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<UseOutOfCombatConverter>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

@@ -29,12 +29,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
 
         IIdentifier AnimationDeath { get; }
 
-        IIdentifier AnimationCastBack { get; }
+        IIdentifier AnimationDirectionBack { get; }
 
-        IIdentifier AnimationCastForward { get; }
+        IIdentifier AnimationDirectionForward { get; }
 
-        IIdentifier AnimationCastLeft { get; }
+        IIdentifier AnimationDirectionLeft { get; }
 
-        IIdentifier AnimationCastRight { get; }
+        IIdentifier AnimationDirectionRight { get; }
+
+        IIdentifier AnimationDirectionPlaceholder { get; }
     }
 }

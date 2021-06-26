@@ -1,6 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Autofac
 {
@@ -19,7 +20,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Autofac
             builder
                 .RegisterType<NoAdditionalActorBehaviorsProvider>()
                 .AsImplementedInterfaces()
+                .IfNotRegistered(typeof(IDiscoverableActorBehaviorsProvider))
                 .SingleInstance();
+            builder
+               .RegisterType<NoActorIdentifiers>()
+               .AsImplementedInterfaces()
+               .IfNotRegistered(typeof(IActorIdentifiers))
+               .SingleInstance();
             builder
                 .RegisterType<ActorBehaviorsInterceptorFacade>()
                 .AsImplementedInterfaces()
