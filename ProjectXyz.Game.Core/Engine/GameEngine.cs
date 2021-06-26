@@ -81,8 +81,20 @@ namespace ProjectXyz.Game.Core.Engine
             var systemUpdateComponents = new List<IComponent>();
             foreach (var systemUpdateComponentCreator in _systemUpdateComponentCreators)
             {
-                var nextComponents = systemUpdateComponentCreator.CreateNext(systemUpdateComponents);
-                systemUpdateComponents.AddRange(nextComponents);
+                try
+                {
+                    var nextComponents = systemUpdateComponentCreator.CreateNext(systemUpdateComponents);
+                    systemUpdateComponents.AddRange(nextComponents);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(
+                        $"Game engine experienced an exception while creating " +
+                        $"update components with '{systemUpdateComponentCreator}'. " +
+                        $"Exception will be rethrown.",
+                        ex);
+                    throw;
+                }
             }
             
             var systemUpdateContext = new SystemUpdateContext(systemUpdateComponents);
@@ -94,9 +106,21 @@ namespace ProjectXyz.Game.Core.Engine
                     break;
                 }
 
-                await system
-                    .UpdateAsync(systemUpdateContext)
-                    .ConfigureAwait(false);
+                try
+                {
+                    await system
+                      .UpdateAsync(systemUpdateContext)
+                      .ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(
+                        $"Game engine experienced an exception while running " +
+                        $"system '{system}.{nameof(ISystem.UpdateAsync)}'. " +
+                        $"Exception will be rethrown.",
+                        ex);
+                    throw;
+                }
             }
         }
 
