@@ -11,21 +11,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors.Api
         IIdentifier ActorDefinitionIdentifier { get; }
 
         // FIXME: are animations game specific?
-        IIdentifier AnimationStandBack { get; }
+        IIdentifier AnimationStand { get; }
 
-        IIdentifier AnimationStandForward { get; }
-
-        IIdentifier AnimationStandLeft { get; }
-
-        IIdentifier AnimationStandRight { get; }
-
-        IIdentifier AnimationWalkBack { get; }
-
-        IIdentifier AnimationWalkForward { get; }
-
-        IIdentifier AnimationWalkLeft { get; }
-
-        IIdentifier AnimationWalkRight { get; }
+        IIdentifier AnimationWalk { get; }
 
         IIdentifier AnimationDeath { get; }
 

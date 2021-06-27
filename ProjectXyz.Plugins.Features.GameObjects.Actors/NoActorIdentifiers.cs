@@ -1,5 +1,4 @@
-﻿
-using ProjectXyz.Api.Framework;
+﻿using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Shared.Framework;
 
@@ -13,21 +12,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 
         public IIdentifier ActorTypeIdentifier { get; } = new StringIdentifier("actor");
 
-        public IIdentifier AnimationStandBack { get; } = new StringIdentifier("animation-stand-back");
+        public IIdentifier AnimationStand { get; } = new StringIdentifier("animation-stand");
 
-        public IIdentifier AnimationStandForward { get; } = new StringIdentifier("animation-stand-forward");
-
-        public IIdentifier AnimationStandLeft { get; } = new StringIdentifier("animation-stand-left");
-
-        public IIdentifier AnimationStandRight { get; } = new StringIdentifier("animation-stand-right");
-
-        public IIdentifier AnimationWalkBack { get; } = new StringIdentifier("animation-walk-back");
-
-        public IIdentifier AnimationWalkForward { get; } = new StringIdentifier("animation-walk-forward");
-
-        public IIdentifier AnimationWalkLeft { get; } = new StringIdentifier("animation-walk-left");
-
-        public IIdentifier AnimationWalkRight { get; } = new StringIdentifier("animation-walk-right");
+        public IIdentifier AnimationWalk { get; } = new StringIdentifier("animation-walk");
 
         public IIdentifier AnimationDeath { get; } = new StringIdentifier("animation-death");
 
