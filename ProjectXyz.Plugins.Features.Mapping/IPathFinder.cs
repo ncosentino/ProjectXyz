@@ -1,10 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
+using ProjectXyz.Api.GameObjects;
+
 namespace ProjectXyz.Plugins.Features.Mapping
 {
     public interface IPathFinder
     {
+        IEnumerable<IGameObject> GetIntersectingGameObjects(
+            Vector2 position,
+            Vector2 size);
+
         IPath FindPath(
             Vector2 startPosition,
             Vector2 endPosition,

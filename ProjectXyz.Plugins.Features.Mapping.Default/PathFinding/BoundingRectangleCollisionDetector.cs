@@ -10,12 +10,12 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
     public sealed class BoundingRectangleCollisionDetector : IPathFinderCollisionDetector
     {
         private readonly IReadOnlyMapGameObjectManager _mapGameObjectManager;
-        private readonly List<Vector4> _collisionBoxes;
+        private readonly Dictionary<IGameObject, Vector4> _collisionBoxes;
 
         public BoundingRectangleCollisionDetector(IReadOnlyMapGameObjectManager mapGameObjectManager)
         {
             _mapGameObjectManager = mapGameObjectManager;
-            _collisionBoxes = new List<Vector4>();
+            _collisionBoxes = new Dictionary<IGameObject, Vector4>();
         }
 
         public void Reset(IEnumerable<Vector4> collidersToIgnore)
@@ -37,13 +37,13 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                     continue;
                 }
 
-                _collisionBoxes.Add(collisionBox);
+                _collisionBoxes[gameObject] = collisionBox;
             }
         }
 
         public bool CollisionsAlongPath(Vector2 source, Vector2 target)
         {
-            foreach (var collisionBox in _collisionBoxes)
+            foreach (var collisionBox in _collisionBoxes.Values)
             {
                 // FIXME: this assumes we can't have things like walls that are on an angle... ew.
                 if (SegmentIntersectRectangle(
@@ -62,6 +62,41 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
 
             return false;
         }
+
+        public IEnumerable<IGameObject> GameObjectsIntersectingArea(Vector4 area)
+        {
+            foreach (var entry in _collisionBoxes)
+            {
+                if (RectanglesIntersect(
+                    entry.Value.X, // x-min
+                    entry.Value.Y, // y-min
+                    entry.Value.Z, // x-max
+                    entry.Value.W, // y-max
+                    area.X,
+                    area.Y,
+                    area.Z,
+                    area.W))
+                {
+                    yield return entry.Key;
+                }
+            }
+        }
+
+        private static bool RectanglesIntersect(
+            double rectangle1MinX,
+            double rectangle1MinY,
+            double rectangle1MaxX,
+            double rectangle1MaxY,
+            double rectangle2MinX,
+            double rectangle2MinY,
+            double rectangle2MaxX,
+            double rectangle2MaxY)
+        {
+            return 
+                (rectangle2MaxX >= rectangle1MinX && rectangle2MinX <= rectangle1MaxX) &&
+                (rectangle2MaxY >= rectangle1MinY && rectangle2MinY <= rectangle1MaxY);
+        }
+
 
         private static bool SegmentIntersectRectangle(
             double rectangleMinX,

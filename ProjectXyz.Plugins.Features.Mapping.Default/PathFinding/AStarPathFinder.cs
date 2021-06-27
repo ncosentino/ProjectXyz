@@ -32,6 +32,19 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             }
         }
 
+        public IEnumerable<IGameObject> GetIntersectingGameObjects(
+            Vector2 position,
+            Vector2 size)
+        {
+            _collisionDetector.Reset(new Vector4[0]);
+            var area = new Vector4(
+                position.X - size.X / 2,
+                position.Y - size.Y / 2,
+                position.X + size.X / 2,
+                position.Y + size.Y / 2);
+            return _collisionDetector.GameObjectsIntersectingArea(area);
+        }
+
         public IPath FindPath(
             Vector2 startPosition,
             Vector2 endPosition,
@@ -89,8 +102,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                         Math.Abs(adjacentPosition.X - endNode.Position.X) +
                         Math.Abs(adjacentPosition.Y - endNode.Position.Y);
                     var weight = (float)Math.Sqrt(
-                         Math.Pow(adjacentPosition.X - currentNode.Position.X, 2) +
-                         Math.Pow(adjacentPosition.Y - currentNode.Position.Y, 2));
+                        Math.Pow(adjacentPosition.X - currentNode.Position.X, 2) +
+                        Math.Pow(adjacentPosition.Y - currentNode.Position.Y, 2));
 
                     var adjacentNode = new Node(
                         adjacentPosition,
