@@ -4,6 +4,7 @@ using System.Linq;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 
 namespace ProjectXyz.Plugins.Features.PartyManagement.Default
 {
@@ -21,6 +22,8 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
         public event EventHandler PartyLeaderChanged;
 
         public event EventHandler ActivePartyChanged;
+
+        public event EventHandler ControlledActorChanged;
 
         public event EventHandler RosterChanged;
 
@@ -40,6 +43,10 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
         }
 
         public IEnumerable<IGameObject> ActiveParty => FullRoster.Where(x => x.GetOnly<IRosterBehavior>().IsActiveParty);
+
+        public IGameObject CurrentlyControlledActor => ActiveParty.SingleOrDefault(x => 
+            x.TryGetFirst<IPlayerControlledBehavior>(out var playerControlledBehavior) &&
+            playerControlledBehavior.IsActive);
 
         public IReadOnlyCollection<IGameObject> FullRoster => _roster.Keys;
 
@@ -108,6 +115,32 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
             foreach (var actor in _roster.Keys.ToArray())
             {
                 RemoveFromRoster(actor);
+            }
+        }
+
+        public void SetActorToControl(IGameObject targetActor)
+        {
+            var lastControlled = CurrentlyControlledActor;
+
+            foreach (var actor in FullRoster)
+            {
+                if (!actor.TryGetFirst<IPlayerControlledBehavior>(out var playerControlledBehavior))
+                {
+                    continue;
+                }
+
+                if (playerControlledBehavior == null)
+                {
+                    continue;
+                }
+
+                var active = actor == targetActor;
+                playerControlledBehavior.IsActive = active;
+            }
+
+            if (lastControlled != CurrentlyControlledActor)
+            {
+                ControlledActorChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

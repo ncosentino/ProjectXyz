@@ -8,6 +8,8 @@ namespace ProjectXyz.Plugins.Features.PartyManagement
     {
         IEnumerable<IGameObject> ActiveParty { get; }
 
+        IGameObject CurrentlyControlledActor { get; }
+
         IGameObject ActivePartyLeader { get; }
 
         IReadOnlyCollection<IGameObject> FullRoster { get; }

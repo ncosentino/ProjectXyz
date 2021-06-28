@@ -10,5 +10,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement
         void RemoveFromRoster(IGameObject actor);
 
         void ClearRoster();
+
+        void SetActorToControl(IGameObject targetActor);
     }
 }
