@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
@@ -45,7 +46,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
             return _collisionDetector.GameObjectsIntersectingArea(area);
         }
 
-        public IPath FindPath(
+        public async Task<IPath> FindPathAsync(
             Vector2 startPosition,
             Vector2 endPosition,
             Vector2 size,
@@ -88,6 +89,8 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default.PathFinding
                     checkCollisions: true,
                     collidersToIgnore: null))
                 {
+                    await Task.Yield();
+
                     if (closedListPositions.Contains(adjacentPosition))
                     {
                         continue;

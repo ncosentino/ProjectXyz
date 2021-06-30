@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
 
@@ -11,7 +12,7 @@ namespace ProjectXyz.Plugins.Features.Mapping
             Vector2 position,
             Vector2 size);
 
-        IPath FindPath(
+        Task<IPath> FindPathAsync(
             Vector2 startPosition,
             Vector2 endPosition,
             Vector2 size,

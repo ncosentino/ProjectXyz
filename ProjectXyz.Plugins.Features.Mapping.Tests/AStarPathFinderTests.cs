@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
@@ -60,12 +61,12 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         }
 
         [Fact]
-        private void FindPath_SquareGridCornerToCornerWithDiagonals_DiagonalPath()
+        private async Task FindPathAsync_SquareGridCornerToCornerWithDiagonals_DiagonalPath()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var pathFinder = CreatePathFinder(map, Enumerable.Empty<IGameObject>());
 
-            var path = pathFinder.FindPath(
+            var path = await pathFinder.FindPathAsync(
                 startPosition: new Vector2(0, 0),
                 endPosition: new Vector2(4, 4),
                 size: new Vector2(1, 1),
@@ -95,7 +96,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         }
 
         [Fact]
-        private void FindPath_SquareGridCornerToCornerWithSingleCollisionWithDiagonals_AvoidsCollision()
+        private async Task FindPathAsync_SquareGridCornerToCornerWithSingleCollisionWithDiagonals_AvoidsCollision()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -108,7 +109,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
-            var path = pathFinder.FindPath(
+            var path = await pathFinder.FindPathAsync(
                 new Vector2(0, 0),
                 new Vector2(4, 4),
                 new Vector2(1, 1),
@@ -142,7 +143,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         }
 
         [Fact]
-        private void FindPath_SquareGridCornerToCornerCoveredTargetWithDiagonals_NoPath()
+        private async Task FindPathAsync_SquareGridCornerToCornerCoveredTargetWithDiagonals_NoPath()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -155,7 +156,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
-            var path = pathFinder.FindPath(
+            var path = await pathFinder.FindPathAsync(
                 new Vector2(0, 0),
                 new Vector2(4, 4),
                 new Vector2(1, 1),
@@ -172,7 +173,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         // 0 o X o o o
         //   0 1 2 3 4
         [Fact]
-        private void FindPath_ZigZagAroundCollisionsWithDiagonals_ExpectedPath()
+        private async Task FindPathAsync_ZigZagAroundCollisionsWithDiagonals_ExpectedPath()
         {
             var map = CreateMap(CreateTileGrid(5, 5));
             var gameObjects = new[]
@@ -190,7 +191,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
 
-            var path = pathFinder.FindPath(
+            var path = await pathFinder.FindPathAsync(
                 new Vector2(0, 0),
                 new Vector2(4, 4),
                 new Vector2(1f, 1f),
