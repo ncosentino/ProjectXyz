@@ -9,8 +9,8 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
             bool isActiveParty)
         {
             Contract.Requires(
-                !isPartyLeader || isActiveParty,
-                $"The behavior must be in the active party if it is expected " +
+                () => !isPartyLeader || isActiveParty,
+                () => $"The behavior must be in the active party if it is expected " +
                 $"to be the party leader. Since '{nameof(isPartyLeader)}' was " +
                 $"true, did you mean to set '{nameof(isActiveParty)}' to true " +
                 $"as well?");

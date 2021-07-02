@@ -1,24 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Actors</AssemblyTitle>
-    <Product>ProjectXyz.Plugins.Features.GameObjects.Actors</Product>
-    <Copyright>Copyright ©  2018</Copyright>
-    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Actors</AssemblyTitle>
-    <Product>ProjectXyz.Plugins.Features.GameObjects.Actors</Product>
-    <Copyright>Copyright ©  2018</Copyright>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
@@ -39,4 +28,5 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
   </ItemGroup>
+
 </Project>

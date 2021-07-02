@@ -70,10 +70,10 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
         {
             Contract.RequiresNotNull(
                 filterContext,
-                $"{nameof(filterContext)} cannot be null.");
+                () => $"{nameof(filterContext)} cannot be null.");
             Contract.Requires(
-                turns > 0,
-                $"{nameof(turns)} must be greater than 0.");
+                () => turns > 0,
+                () => $"{nameof(turns)} must be greater than 0.");
             _cachedCurrentActor = null; // reset our cached value
 
             var actorOrder = CalculateTurnOrder(
@@ -94,10 +94,10 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
         {
             Contract.RequiresNotNull(
                 filterContext,
-                $"{nameof(filterContext)} cannot be null.");
+                () => $"{nameof(filterContext)} cannot be null.");
             Contract.Requires(
-                length > 0,
-                $"{nameof(length)} must be greater than 0.");
+                () => length > 0,
+                () => $"{nameof(length)} must be greater than 0.");
 
             if (length == 1 && _cachedCurrentActor != null)
             {

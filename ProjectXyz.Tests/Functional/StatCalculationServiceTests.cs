@@ -24,6 +24,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Skills;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Effects;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Tests.Functional.TestingData;
@@ -127,14 +128,14 @@ namespace ProjectXyz.Tests.Functional
                     statId,
                     $"{statTerm} * 3",
                     _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue - 1),
-                    new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+                    new EnchantmentTargetBehavior(new StringIdentifier("owner.owner.owner")));
             var passiveEnchantment2 = _fixture
                 .EnchantmentFactory
                 .CreateExpressionEnchantment(
                     statId,
                     $"{statTerm} + 2",
                     _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue),
-                    new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+                    new EnchantmentTargetBehavior(new StringIdentifier("owner.owner.owner")));
 
             var hasEnchantmentsBehavior = _fixture
                 .HasEnchantmentsBehaviorFactory
@@ -146,11 +147,26 @@ namespace ProjectXyz.Tests.Functional
                 passiveEnchantment2,
             });
 
+            var effect = _fixture
+                .GameObjectFactory
+                .Create(new IBehavior[]
+                {
+                    hasEnchantmentsBehavior,
+                    new PassiveSkillBehavior(),
+                });
+            var executor = _fixture
+                .GameObjectFactory
+                .Create(new[]
+                {
+                    new SequentialEffectExecutorBehavior(new [] { effect }),
+                });
+
+
             var skill = _fixture
                 .GameObjectFactory
                 .Create(new[]
                 {
-                    hasEnchantmentsBehavior,
+                    new SkillEffectBehavior(new [] { executor }),
                 });
 
             var actor = _fixture.ActorFactory.Create(
@@ -192,7 +208,7 @@ namespace ProjectXyz.Tests.Functional
                     statId,
                     $"{statTerm} * 3",
                     _fixture.CalculationPriorityFactory.Create<int>(int.MaxValue - 1),
-                    new EnchantmentTargetBehavior(new StringIdentifier("owner")));
+                    new EnchantmentTargetBehavior(new StringIdentifier("owner.owner.owner")));
 
             var hasEnchantmentsBehavior = _fixture
                 .HasEnchantmentsBehaviorFactory
@@ -212,12 +228,25 @@ namespace ProjectXyz.Tests.Functional
                 stats[statId] = 7;
             });
 
-            var skill = _fixture
+            var effect = _fixture
                 .GameObjectFactory
                 .Create(new IBehavior[]
                 {
                     hasEnchantmentsBehavior,
-                    mutableStatsBehavior
+                    mutableStatsBehavior,
+                    new PassiveSkillBehavior(),
+                });
+            var executor = _fixture
+                .GameObjectFactory
+                .Create(new[]
+                {
+                    new SequentialEffectExecutorBehavior(new [] { effect }),
+                });
+            var skill = _fixture
+                .GameObjectFactory
+                .Create(new[]
+                {
+                    new SkillEffectBehavior(new [] { executor }),
                 });
 
             var actor = _fixture.ActorFactory.Create(

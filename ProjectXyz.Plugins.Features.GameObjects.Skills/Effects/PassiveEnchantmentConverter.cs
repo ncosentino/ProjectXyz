@@ -1,15 +1,14 @@
-﻿using ProjectXyz.Api.Enchantments.Generation;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Skills.Components.Api;
 using ProjectXyz.Shared.Framework;
 
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
+namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Effects
 {
     public sealed class PassiveEnchantmentGeneratorComponent : IGeneratorComponent
     {
@@ -24,7 +23,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
         public IReadOnlyCollection<IIdentifier> EnchantmentDefinitionIds { get; }
     }
 
-    public sealed class PassiveEnchantmentConverter : IBehaviorConverter
+    public sealed class PassiveEnchantmentConverter : ISkillEffectBehaviorConverter
     {
         private readonly IEnchantmentLoader _enchantmentLoader;
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;

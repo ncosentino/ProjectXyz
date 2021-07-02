@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NexusLabs.Framework" Version="0.0.10" />
+    <PackageReference Include="NexusLabs.Contracts" Version="0.0.4" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 

@@ -33,8 +33,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             IFilterContext filterContext)
         {
             Contract.Requires(
-                dropTable.GetType() == DropTableType,
-                $"The provided drop table '{dropTable}' must have the type '{DropTableType}'.");
+                () => dropTable.GetType() == DropTableType,
+                () => $"The provided drop table '{dropTable}' must have the type '{DropTableType}'.");
             return GenerateLoot((IItemDropTable)dropTable, filterContext);
         }
 

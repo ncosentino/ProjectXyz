@@ -1,14 +1,13 @@
 ﻿using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Plugins.Features.GameObjects.Skills.Components.Api;
 
-namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
+namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Effects
 {
     public sealed class InflictDamageGeneratorComponent : IGeneratorComponent
     {
     }
 
-    public sealed class InflictDamageConverter : IBehaviorConverter
+    public sealed class InflictDamageConverter : ISkillEffectBehaviorConverter
     {
         public bool CanConvert(IGeneratorComponent component)
         {

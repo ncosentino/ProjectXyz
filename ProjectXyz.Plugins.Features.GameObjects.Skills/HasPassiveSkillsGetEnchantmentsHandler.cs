@@ -2,7 +2,6 @@
 
 using Autofac;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
@@ -11,6 +10,7 @@ using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Effects;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
@@ -29,14 +29,38 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             GetEnchantments = (statVisitor, enchantmentVisitor, behaviors, target, statId, context) =>
             {
                 var hasSkillsBehavior = behaviors.GetOnly<IHasSkillsBehavior>();
-                var passiveSkillBehaviors = hasSkillsBehavior
+                var skillEffectBehaviors = hasSkillsBehavior
                     .Skills
                     .SelectMany(x => x.Behaviors)
-                    .TakeTypes<IHasEnchantmentsBehavior>()
+                    .TakeTypes<ISkillEffectBehavior>()
+                    .SelectMany(x => x
+                        .EffectExecutors
+                        .SelectMany(effExObj => effExObj
+                            .Behaviors
+                            .TakeTypes<ISkillEffectExecutorBehavior>()
+                            .SelectMany(effEx => effEx
+                            .Effects
+                            .Where(effect => effect.Has<IPassiveSkillEffectBehavior>()))))
+                    .ToArray();
+                var passiveEnchantmentBehaviors = skillEffectBehaviors
+                    .SelectMany(x => x.Get<IHasEnchantmentsBehavior>())
                     .ToArray();
 
+                // multiple levels of depth here we need to elaborate to
+                // explain what's going on. a skill has skill effect behaviors.
+                // each skill effect behavior contains an effect executor
+                // behavior. each effect executor behavior has enchantments.
+                // therefore, in order for a passive skill to take effect on an
+                // actor it's like:
+                // owner.owner.owner.self
+                // (Effect -> EffectExecutor -> Skill -> Actor)
+                // confusing? yes.
+                // FIXME: perfect example of why this is really difficult to
+                // use and we should revisit this
                 var skillsTarget = targetNavigator.NavigateDown(target);
-                var passiveSkillsOwnerEnchantments = passiveSkillBehaviors
+                skillsTarget = targetNavigator.NavigateDown(skillsTarget);
+                skillsTarget = targetNavigator.NavigateDown(skillsTarget);
+                var passiveSkillsOwnerEnchantments = passiveEnchantmentBehaviors
                     .SelectMany(x => enchantmentVisitor.GetEnchantments(
                         x.Owner,
                         y => y.Equals(behaviors), // TODO: handle visited
@@ -45,7 +69,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                         context))
                     .ToList();
 
-                var passiveSkillStats = passiveSkillBehaviors
+                var passiveSkillStats = passiveEnchantmentBehaviors
                     .Where(x => x.Owner.Has<IHasStatsBehavior>())
                     .Select(x => statVisitor.GetStatValue(
                         x.Owner,

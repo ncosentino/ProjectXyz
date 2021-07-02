@@ -7,6 +7,7 @@ using NexusLabs.Contracts;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Effects;
 
 using Xunit;
 
@@ -124,7 +125,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _skillRequirementsBehavior.Object,
                 new IBehavior[]
                 {
-                    _mockRepository.Create<IPassiveSkillBehavior>().Object,
+                    _mockRepository.Create<IPassiveSkillEffectBehavior>().Object,
                 });
 
             Assert.Equal(expectedSkill.Object, actualSkill);
@@ -168,7 +169,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _skillRequirementsBehavior.Object,
                 new IBehavior[]
                 {
-                    _mockRepository.Create<IPassiveSkillBehavior>().Object,
+                    _mockRepository.Create<IPassiveSkillEffectBehavior>().Object,
                 });
 
             Assert.Equal(expectedSkill.Object, actualSkill);

@@ -25,7 +25,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Default
         {
             Contract.RequiresNotNull(
                 parent,
-                $"{nameof(parent)} cannot be null.");
+                () => $"{nameof(parent)} cannot be null.");
 
             var queue = new Queue<IGameObject>();
             queue.Enqueue(parent);
@@ -49,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Default
                     {
                         Contract.RequiresNotNull(
                             child,
-                            $"A value within the results of " +
+                            () => $"A value within the results of " +
                             $"{nameof(IGameObjectsForBehavior)}.{nameof(IGameObjectsForBehavior.GetChildren)}() " +
                             $"called with behavior '{behavior}' was null. This " +
                             $"is not allowed.");

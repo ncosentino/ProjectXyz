@@ -54,13 +54,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
             }
 
             Contract.Requires(
-                filterContext.MinimumCount <= filterContext.MaximumCount,
-                $"The generation context must have a maximum " +
+                () => filterContext.MinimumCount <= filterContext.MaximumCount,
+                () => $"The generation context must have a maximum " +
                 $"({filterContext.MaximumCount}) greater than or " +
                 $"equal to the minimum ({filterContext.MinimumCount}).");
             Contract.Requires(
-                filterContext.MinimumCount >= 0,
-                $"The generation context must have a minimum " +
+                () => filterContext.MinimumCount >= 0,
+                () => $"The generation context must have a minimum " +
                 $"({filterContext.MinimumCount}) greater than or " +
                 $"equal to zero.");
 

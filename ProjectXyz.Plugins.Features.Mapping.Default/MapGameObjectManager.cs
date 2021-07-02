@@ -41,7 +41,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         {
             Contract.RequiresNotNull(
                 gameObjects,
-                $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
+                () => $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
 
             PreventSynchronizationDuring(() =>
             {
@@ -49,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 {
                     Contract.RequiresNotNull(
                         gameObject,
-                        $"One of the game objects in the provided argument " +
+                        () => $"One of the game objects in the provided argument " +
                         $"'{nameof(gameObjects)}' was null.");
                     _gameObjectsToRemove.TryAdd(gameObject, true);
                 }
@@ -63,7 +63,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
         {
             Contract.RequiresNotNull(
                 gameObjects,
-                $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
+                () => $"{nameof(gameObjects)} cannot be null. Use an empty enumerable.");
 
             PreventSynchronizationDuring(() =>
             {
@@ -71,7 +71,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 {
                     Contract.RequiresNotNull(
                         gameObject,
-                        $"One of the game objects in the provided argument " +
+                        () => $"One of the game objects in the provided argument " +
                         $"'{nameof(gameObjects)}' was null.");
                     _gameObjectsToAdd.TryAdd(gameObject, true);
                 }

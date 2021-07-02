@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using NexusLabs.Contracts;
+
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.Behaviors.Default;
@@ -28,7 +30,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Tests
             {
             });
 
-            Assert.Throws<InvalidOperationException>(() => _rosterManager.AddToRoster(actor));            
+            Assert.Throws<ContractException>(() => _rosterManager.AddToRoster(actor));            
         }
 
         [Fact]
@@ -39,7 +41,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Tests
                 new RosterBehavior(),
             });
 
-            Assert.Throws<InvalidOperationException>(() => _rosterManager.AddToRoster(actor));
+            Assert.Throws<ContractException>(() => _rosterManager.AddToRoster(actor));
         }
 
         [Fact]
@@ -50,7 +52,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Tests
                 new PlayerControlledBehavior(),
             });
 
-            Assert.Throws<InvalidOperationException>(() => _rosterManager.AddToRoster(actor));
+            Assert.Throws<ContractException>(() => _rosterManager.AddToRoster(actor));
         }
 
         [Fact]

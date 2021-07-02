@@ -20,7 +20,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Generation.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.Macerus.Plugins.Content.Skills;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Effects;
 using ProjectXyz.Plugins.Features.Triggering.Default.Autofac;
 using ProjectXyz.Plugins.Framework.Math.Jace;
 using ProjectXyz.Shared.Framework;
@@ -89,6 +89,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new SkillModule());
+            containerBuilder.RegisterModule(new EffectModule());
             containerBuilder.RegisterModule(new Plugins.Enchantments.Stats.Autofac.StatsModule());
             containerBuilder.RegisterModule(new Plugins.Stats.Autofac.StatsModule());
             containerBuilder.RegisterModule(new EnchantmentsGenerationModule());
@@ -166,67 +167,73 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
 
             _skillDefinitionRepositoryMock
                 .Setup(x => x.GetSkillDefinitions(filterContext))
-                .Returns(
+                .Returns( new[] {
                     SkillDefinition
                         .FromId("fireball")
                         .WithDisplayName("Fireball")
                         .WithDisplayIcon(@"graphics\skills\fireball")
                         .WithResourceRequirement(4, 10)
                         .CanBeUsedInCombat()
-                        .IsACombinationOf(
-                            ExecuteSkills.InParallel(
-                                SkillDefinition
-                                    .Anonymous()
+                        .HasEffects(
+                            SkillEffectExecutors.Sequence(
+                                SkillEffectDefinition
+                                    .New
                                     .Enchant("increase-fire-damage")
-                                    .AffectsTeams(0)
-                                    .StartsAtOffsetFromUser(0, 0)
-                                    .TargetsPattern()),
-                            ExecuteSkills.InSequence(
-                                SkillDefinition
-                                    .Anonymous()
+                                    .Targets(
+                                        new[] { 0 },
+                                        Tuple.Create(0, 0)),
+                                SkillEffectDefinition
+                                    .New
                                     .InflictDamage()
-                                    .AffectsTeams(1)
-                                    .StartsAtOffsetFromUser(0, 1)
-                                    .TargetsPattern(
-                                        Tuple.Create(0, 1))))
-                        .End());
+                                    .Targets(
+                                        new[] { 1 },
+                                        Tuple.Create(0, 1),
+                                        Tuple.Create(0, 2))))});
 
             var skills = _skillRepository
                 .GetSkills(filterContext)
                 .ToArray();
 
-            Assert.Equal(3, skills.Count());
+            Assert.Equal(1, skills.Count());
 
-            var fireball = skills[2];
+            var fireball = skills[0];
 
-            Assert.True(fireball.Has<IUseInCombatBehavior>());
+            Assert.True(fireball.Has<ISkillEffectBehavior>());
             Assert.True(fireball.GetOnly<IHasDisplayNameBehavior>().DisplayName == "Fireball");
             Assert.True(fireball.GetOnly<IHasDisplayIconBehavior>().IconResourceId.ToString() == @"graphics\skills\fireball");
             Assert.True(fireball.GetOnly<ISkillResourceUsageBehavior>().StaticStatRequirements[new IntIdentifier(4)] == 10);
 
-            var fireDamageEnchant = skills[0];
+            var effects = fireball
+                .GetOnly<ISkillEffectBehavior>()
+                .EffectExecutors
+                .SelectMany(x => x.Behaviors)
+                .TakeTypes<ISkillEffectExecutorBehavior>()
+                .SelectMany(x => x.Effects)
+                .ToArray();
+
+            var fireDamageEffect = effects[0];
 
             Assert.Contains(
                 new StringIdentifier("increase-fire-damage"),
-                fireDamageEnchant.GetOnly<IApplyEnchantmentsBehavior>().EnchantmentDefinitionIds);
+                fireDamageEffect.GetOnly<IApplyEnchantmentsBehavior>().EnchantmentDefinitionIds);
             Assert.Contains(
                 new IntIdentifier(0),
-                fireDamageEnchant.GetOnly<ITargetCombatTeamBehavior>().AffectedTeamIds);
-            Assert.True(fireDamageEnchant.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
-            Assert.True(fireDamageEnchant.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 0);
-            Assert.Empty(fireDamageEnchant.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
+                fireDamageEffect.GetOnly<ITargetCombatTeamBehavior>().AffectedTeamIds);
+            Assert.True(fireDamageEffect.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
+            Assert.True(fireDamageEffect.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 0);
+            Assert.Empty(fireDamageEffect.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
 
-            var damage = skills[1];
+            var damageEffect = effects[1];
 
-            Assert.True(damage.Has<IInflictDamageBehavior>());
+            Assert.True(damageEffect.Has<IInflictDamageBehavior>());
             Assert.Contains(
                 new IntIdentifier(1),
-                damage.GetOnly<ITargetCombatTeamBehavior>().AffectedTeamIds);
-            Assert.True(damage.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
-            Assert.True(damage.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 1);
+                damageEffect.GetOnly<ITargetCombatTeamBehavior>().AffectedTeamIds);
+            Assert.True(damageEffect.GetOnly<ITargetOriginBehavior>().OffsetFromCasterX == 0);
+            Assert.True(damageEffect.GetOnly<ITargetOriginBehavior>().OffsetFromCasterY == 1);
             Assert.Contains(
-                Tuple.Create(0, 1),
-                damage.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
+                Tuple.Create(0, 2),
+                damageEffect.GetOnly<ITargetPatternBehavior>().LocationsOffsetFromOrigin);
         }
     }
 }

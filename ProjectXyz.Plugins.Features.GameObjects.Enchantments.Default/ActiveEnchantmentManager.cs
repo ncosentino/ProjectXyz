@@ -32,13 +32,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
         {
             Contract.RequiresNotNull(
                 enchantments,
-                $"{nameof(enchantments)} cannot be null. Use an empty enumerable.");
+                () => $"{nameof(enchantments)} cannot be null. Use an empty enumerable.");
 
             foreach (var enchantment in enchantments)
             {
                 Contract.RequiresNotNull(
                     enchantment,
-                    $"One of the enchantments in the provided argument " +
+                    () => $"One of the enchantments in the provided argument " +
                     $"'{nameof(enchantments)}' was null.");
 
                 if (_activeEnchantmentsAndTriggerMechanics.ContainsKey(enchantment))
@@ -72,13 +72,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
         {
             Contract.RequiresNotNull(
                 enchantments,
-                $"{nameof(enchantments)} cannot be null. Use an empty enumerable.");
+                () => $"{nameof(enchantments)} cannot be null. Use an empty enumerable.");
 
             foreach (var enchantment in enchantments)
             {
                 Contract.RequiresNotNull(
                     enchantment,
-                    $"One of the enchantments in the provided argument " +
+                    () => $"One of the enchantments in the provided argument " +
                     $"'{nameof(enchantments)}' was null.");
 
                 foreach (var triggerMechanic in _activeEnchantmentsAndTriggerMechanics[enchantment])

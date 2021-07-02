@@ -21,7 +21,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     {
                         Contract.RequiresNotNull(
                             enchantment,
-                            $"'{x.Owner}.{x}' (id={x.Owner.GetOnly<IReadOnlyIdentifierBehavior>().Id}) " +
+                            () => $"'{x.Owner}.{x}' (id={x.Owner.GetOnly<IReadOnlyIdentifierBehavior>().Id}) " +
                             $"returned a null enchantment as part of its " +
                             $"collection which is against out contract.");
                         return enchantment;

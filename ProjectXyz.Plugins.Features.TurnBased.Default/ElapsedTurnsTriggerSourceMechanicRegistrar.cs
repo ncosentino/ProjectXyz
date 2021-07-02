@@ -18,33 +18,33 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
 
         public bool CanRegister(ITriggerMechanic triggerMechanic)
         {
-            Contract.RequiresNotNull(
+            ArgumentContract.RequiresNotNull(
                 triggerMechanic,
-                $"{nameof(triggerMechanic)} cannot be null.");
+                nameof(triggerMechanic));
             return triggerMechanic is IElapsedTurnsTriggerMechanic;
         }
 
         public void RegisterTrigger(ITriggerMechanic triggerMechanic)
         {
-            Contract.RequiresNotNull(
+            ArgumentContract.RequiresNotNull(
                 triggerMechanic,
-                $"{nameof(triggerMechanic)} cannot be null.");
+                nameof(triggerMechanic));
             _elapsedTimeTriggerMechanics.Add((IElapsedTurnsTriggerMechanic)triggerMechanic);
         }
 
         public void UnregisterTrigger(ITriggerMechanic triggerMechanic)
         {
-            Contract.RequiresNotNull(
+            ArgumentContract.RequiresNotNull(
                 triggerMechanic,
-                $"{nameof(triggerMechanic)} cannot be null.");
+                nameof(triggerMechanic));
             _elapsedTimeTriggerMechanics.Remove((IElapsedTurnsTriggerMechanic)triggerMechanic);
         }
 
         public async Task UpdateAsync(ITurnInfo turnInfo)
         {
-            Contract.RequiresNotNull(
+            ArgumentContract.RequiresNotNull(
                 turnInfo,
-                $"{nameof(turnInfo)} cannot be null.");
+                nameof(turnInfo));
             
             // FIXME: can this be done in parallel? does that have weird side effects?
             var snapshot = _elapsedTimeTriggerMechanics.ToArray();

@@ -1,21 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</AssemblyTitle>
-    <Product>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</Product>
-    <Copyright>Copyright ©  2018</Copyright>
-    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</AssemblyTitle>
-    <Product>ProjectXyz.Plugins.Features.GameObjects.Actors.Api</Product>
-    <Copyright>Copyright ©  2018</Copyright>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />

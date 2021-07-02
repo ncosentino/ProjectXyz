@@ -21,8 +21,8 @@ namespace ProjectXyz.Shared.Game.Behaviors
         protected virtual void OnRegisteredToOwner(IGameObject owner)
         {
             Contract.Requires(
-                Owner == owner,
-                $"Expecting {nameof(Owner)} ({Owner}) == {nameof(owner)} ({owner}).");
+                () => Owner == owner,
+                () => $"Expecting {nameof(Owner)} ({Owner}) == {nameof(owner)} ({owner}).");
         }
     }
 }

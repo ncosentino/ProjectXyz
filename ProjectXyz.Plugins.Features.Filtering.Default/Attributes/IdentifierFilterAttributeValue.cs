@@ -16,7 +16,7 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default.Attributes
         {
             Contract.RequiresNotNull(
                 value,
-                $"{nameof(value)} cannot be null.");
+                () => $"{nameof(value)} cannot be null.");
         }
 
         public IdentifierFilterAttributeValue(Func<IIdentifier> callback)
@@ -26,7 +26,7 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default.Attributes
                 var id = callback();
                 Contract.RequiresNotNull(
                     id,
-                    $"Identifier cannot be null.");
+                    () => $"Identifier cannot be null.");
                 return id;
             });
         }

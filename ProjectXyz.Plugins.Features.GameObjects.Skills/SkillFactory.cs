@@ -6,6 +6,7 @@ using NexusLabs.Contracts;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Skills.Effects;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills
 {
@@ -55,10 +56,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
                 .ToArray();
 
             Contract.Requires(
-                baseAndInjectedBehaviours.Any(x => x is IPassiveSkillBehavior) ||
-                !hasEnchantmentsBehavior.Enchantments.Any(),
-                $"Passive skills are the only ones that can have enchantments " +
-                $"as state. Did you forget to add '{typeof(IPassiveSkillBehavior)}'?");
+                () => baseAndInjectedBehaviours.Any(x => x is IPassiveSkillEffectBehavior) ||
+                    !hasEnchantmentsBehavior.Enchantments.Any(),
+                () => $"Passive skills are the only ones that can have enchantments " +
+                $"as state. Did you forget to add '{typeof(IPassiveSkillEffectBehavior)}'?");
 
             var additionalBehaviorsFromProviders = _skillBehaviorsProviderFacade
                 .GetBehaviors(baseAndInjectedBehaviours);

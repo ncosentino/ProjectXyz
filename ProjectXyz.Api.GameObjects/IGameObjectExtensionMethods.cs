@@ -15,7 +15,7 @@ namespace ProjectXyz.Api.GameObjects
         {
             Contract.RequiresNotNull(
                 gameObject,
-                $"Cannot call extension method '{nameof(Get)}' on a null object.");
+                () => $"Cannot call extension method '{nameof(Get)}' on a null object.");
 
             return gameObject
                 .Behaviors
@@ -27,7 +27,7 @@ namespace ProjectXyz.Api.GameObjects
         {
             Contract.RequiresNotNull(
                 gameObject,
-                $"Cannot call extension method '{nameof(Has)}' on a null object.");
+                () => $"Cannot call extension method '{nameof(Has)}' on a null object.");
 
             return gameObject
                 .Behaviors
@@ -40,23 +40,24 @@ namespace ProjectXyz.Api.GameObjects
         {
             Contract.RequiresNotNull(
                 gameObject,
-                $"Cannot call extension method '{nameof(GetOnly)}' on a null object.");
+                () => $"Cannot call extension method '{nameof(GetOnly)}' on a null object.");
 
             var match = gameObject
                 .Behaviors
                 .Get<TBehavior>()
                 .SingleOrDefault();
-            if (match == null)
-            {
-                var count = gameObject
-                    .Behaviors
-                    .Get<TBehavior>()
-                    .Count();
-                throw new InvalidOperationException(
-                    $"Game object '{gameObject}' had {count} behaviors " +
-                    $"matching type '{typeof(TBehavior)}' when only one was " +
-                    $"expected.");
-            }
+            Contract.RequiresNotNull(
+                match,
+                () => 
+                {
+                    var count = gameObject
+                        .Behaviors
+                        .Get<TBehavior>()
+                        .Count();
+                    return $"Game object '{gameObject}' had {count} behaviors " +
+                        $"matching type '{typeof(TBehavior)}' when only one was " +
+                        $"expected.";
+                });
 
             return match;
         }
@@ -66,7 +67,7 @@ namespace ProjectXyz.Api.GameObjects
         {
             Contract.RequiresNotNull(
                 gameObject,
-                $"Cannot call extension method '{nameof(GetFirst)}' on a null object.");
+                () => $"Cannot call extension method '{nameof(GetFirst)}' on a null object.");
 
             return gameObject
                 .Behaviors
@@ -80,7 +81,7 @@ namespace ProjectXyz.Api.GameObjects
         {
             Contract.RequiresNotNull(
                 gameObject,
-                $"Cannot call extension method '{nameof(TryGetFirst)}' on a null object.");
+                () => $"Cannot call extension method '{nameof(TryGetFirst)}' on a null object.");
 
             return gameObject
                 .Behaviors

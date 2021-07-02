@@ -2,7 +2,7 @@
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Components.Api;
 
-namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
+namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Effects
 {
     public sealed class SkillTargetOriginGeneratorComponent : IGeneratorComponent
     {
@@ -19,7 +19,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
         public int OffsetFromCasterY { get; }
     }
 
-    public sealed class SkillTargetOriginConverter : IBehaviorConverter
+    public sealed class SkillTargetOriginConverter : ISkillEffectBehaviorConverter
     {
         public bool CanConvert(
             IGeneratorComponent component)

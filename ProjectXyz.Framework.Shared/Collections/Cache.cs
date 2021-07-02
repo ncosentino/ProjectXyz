@@ -17,8 +17,8 @@ namespace ProjectXyz.Shared.Framework.Collections
         public Cache(int limit)
         {
             Contract.Requires(
-                limit > 0,
-                $"{nameof(limit)} must be >= 1.");
+                () => limit > 0,
+                () => $"{nameof(limit)} must be >= 1.");
 
             _cache = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
             Limit = limit;
