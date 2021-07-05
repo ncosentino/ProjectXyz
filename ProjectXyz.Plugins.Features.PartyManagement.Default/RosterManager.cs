@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+
+using NexusLabs.Contracts;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
@@ -10,13 +13,13 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
 {
     public sealed class RosterManager : IRosterManager
     {
-        private readonly Dictionary<IGameObject, IRosterBehavior> _roster;
+        private readonly ConcurrentDictionary<IGameObject, IRosterBehavior> _roster;
 
         private IGameObject _partyLeader;
 
         public RosterManager()
         {
-            _roster = new Dictionary<IGameObject, IRosterBehavior>();
+            _roster = new ConcurrentDictionary<IGameObject, IRosterBehavior>();
         }
 
         public event EventHandler PartyLeaderChanged;
@@ -42,13 +45,17 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
             }
         }
 
-        public IEnumerable<IGameObject> ActiveParty => FullRoster.Where(x => x.GetOnly<IRosterBehavior>().IsActiveParty);
+        public IEnumerable<IGameObject> ActiveParty => FullRoster
+            .Where(x => x.GetOnly<IRosterBehavior>().IsActiveParty);
 
         public IGameObject CurrentlyControlledActor => ActiveParty.SingleOrDefault(x => 
             x.TryGetFirst<IPlayerControlledBehavior>(out var playerControlledBehavior) &&
             playerControlledBehavior.IsActive);
 
-        public IReadOnlyCollection<IGameObject> FullRoster => _roster.Keys;
+        public IReadOnlyCollection<IGameObject> FullRoster => _roster
+            .Keys
+            .Cast<IGameObject>()
+            .ToArray();
 
         public bool ExistsInRoster(IGameObject actor) => _roster.ContainsKey(actor);
 
@@ -78,7 +85,9 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
             rosterBehavior.IsActivePartyChanged += RosterBehavior_IsActivePartyChanged;
             rosterBehavior.IsPartyLeaderChanged += RosterBehavior_IsPartyLeaderChanged;
 
-            _roster.Add(actor, rosterBehavior);
+            Contract.Requires(
+                _roster.TryAdd(actor, rosterBehavior),
+                $"Could not add '{actor}' to the roster.");
             RosterChanged?.Invoke(this, EventArgs.Empty);
 
             if (shouldBeNewPartyLeader)
@@ -106,7 +115,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
             rosterBehavior.IsActivePartyChanged -= RosterBehavior_IsActivePartyChanged;
             rosterBehavior.IsPartyLeaderChanged -= RosterBehavior_IsPartyLeaderChanged;
 
-            _roster.Remove(actor);
+            _roster.TryRemove(actor, out _);
             RosterChanged?.Invoke(this, EventArgs.Empty);
         }
 
