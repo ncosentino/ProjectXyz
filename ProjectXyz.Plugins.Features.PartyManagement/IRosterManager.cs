@@ -1,5 +1,4 @@
-﻿
-using ProjectXyz.Api.GameObjects;
+﻿using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.PartyManagement
 {
@@ -10,7 +9,5 @@ namespace ProjectXyz.Plugins.Features.PartyManagement
         void RemoveFromRoster(IGameObject actor);
 
         void ClearRoster();
-
-        void SetActorToControl(IGameObject targetActor);
     }
 }

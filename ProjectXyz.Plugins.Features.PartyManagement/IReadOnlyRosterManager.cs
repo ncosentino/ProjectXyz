@@ -8,7 +8,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement
     {
         IEnumerable<IGameObject> ActiveParty { get; }
 
-        IGameObject CurrentlyControlledActor { get; }
+        IGameObject ActiveControlledActor { get; }
 
         IGameObject ActivePartyLeader { get; }
 

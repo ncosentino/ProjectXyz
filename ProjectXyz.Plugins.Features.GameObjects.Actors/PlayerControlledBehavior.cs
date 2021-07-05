@@ -1,4 +1,6 @@
-﻿using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+﻿using System;
+
+using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
@@ -7,6 +9,23 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         BaseBehavior,
         IPlayerControlledBehavior
     {
-        public bool IsActive { get; set; }
+        private bool _isActive;
+
+        public event EventHandler<EventArgs> IsActiveChanged;
+
+        public bool IsActive 
+        {
+            get => _isActive; 
+            set
+            {
+                if (_isActive == value)
+                {
+                    return;
+                }
+
+                _isActive = value;
+                IsActiveChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
     }
 }
