@@ -8,10 +8,16 @@ namespace ProjectXyz.Plugins.Features.Triggering.Default
     {
         private readonly Lazy<IReadOnlyCollection<ITriggerMechanicRegistrar>> _triggerMechanicRegistrars;
 
-        public TriggerMechanicRegistrarFacade(Lazy<IEnumerable<IDiscoverableTriggerMechanicRegistrar>> triggerMechanicRegistrars)
+        public TriggerMechanicRegistrarFacade(
+            Lazy<IEnumerable<IDiscoverableTriggerMechanicRegistrar>> triggerMechanicRegistrars,
+            IEnumerable<IDiscoverableTriggerMechanic> triggerMechanics)
         {
             _triggerMechanicRegistrars = new Lazy<IReadOnlyCollection<ITriggerMechanicRegistrar>>(() =>
                 triggerMechanicRegistrars.Value.ToArray());
+            foreach (var triggerMechanic in triggerMechanics)
+            {
+                RegisterTrigger(triggerMechanic);
+            }
         }
 
         public bool CanRegister(ITriggerMechanic triggerMechanic) =>
@@ -23,9 +29,7 @@ namespace ProjectXyz.Plugins.Features.Triggering.Default
         {
             var registrars = _triggerMechanicRegistrars
                 .Value
-                .Where(x =>
-                    triggerMechanic.CanBeRegisteredTo(x) &&
-                    x.CanRegister(triggerMechanic));
+                .Where(x => x.CanRegister(triggerMechanic));
             foreach (var registrar in registrars)
             {
                 registrar.RegisterTrigger(triggerMechanic);

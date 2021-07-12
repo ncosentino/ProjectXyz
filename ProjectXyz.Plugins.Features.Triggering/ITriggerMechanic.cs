@@ -2,6 +2,5 @@
 {
     public interface ITriggerMechanic
     {
-        bool CanBeRegisteredTo(ITriggerMechanicRegistrar triggerMechanicRegistrar);
     }
 }
