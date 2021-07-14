@@ -1,26 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <AssemblyTitle>ProjectXyz.Shared.Framework.Entities</AssemblyTitle>
-    <Product>ProjectXyz.Shared.Framework.Entities</Product>
-    <Copyright>Copyright ©  2016</Copyright>
-    <AssemblyTitle>ProjectXyz.Shared.Framework.Entities</AssemblyTitle>
-    <Product>ProjectXyz.Shared.Framework.Entities</Product>
-    <Copyright>Copyright ©  2016</Copyright>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.5" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
   </ItemGroup>
+
 </Project>

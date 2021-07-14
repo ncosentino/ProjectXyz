@@ -1,30 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
-using ProjectXyz.Api.Enchantments;
+
 using ProjectXyz.Api.Enchantments.Triggering;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
-    public sealed class EnchantmentExpiryTriggerMechanicRegistrar : IEnchantmentTriggerMechanicRegistrar
+    public sealed class ExpiryEnchantmentTriggerMechanicFactory : IDiscoverableEnchantmentTriggerMechanicFactory
     {
         private readonly IExpiryTriggerMechanicFactory _expiryTriggerMechanicFactory;
 
-        public EnchantmentExpiryTriggerMechanicRegistrar(IExpiryTriggerMechanicFactory expiryTriggerMechanicFactory)
+        public ExpiryEnchantmentTriggerMechanicFactory(IExpiryTriggerMechanicFactory expiryTriggerMechanicFactory)
         {
             _expiryTriggerMechanicFactory = expiryTriggerMechanicFactory;
         }
 
-        public IEnumerable<ITriggerMechanic> RegisterToEnchantment(
+        public IEnumerable<ITriggerMechanic> CreateTriggerMechanicsForEnchantment(
             IGameObject enchantment,
-            RemoveTriggerMechanicDelegate removeTriggerMechanicCallback)
+            RemoveTriggerMechanicDelegate removeTriggerMechanicCallback,
+            RemoveEnchantmentDelegate removeEnchantmentCallback)
         {
             foreach (var expiryTrigger in enchantment
                 .Get<IExpiryTriggerBehavior>()
                 .Select(x => _expiryTriggerMechanicFactory.Create(
                     x,
-                    t => removeTriggerMechanicCallback(enchantment, t))))
+                    t => removeEnchantmentCallback(enchantment))))
             {
                 yield return expiryTrigger;
             }

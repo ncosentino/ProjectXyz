@@ -13,20 +13,20 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     public sealed class ActiveEnchantmentManager : IActiveEnchantmentManager
     {
-        private readonly Dictionary<IGameObject, List<ITriggerMechanic>> _activeEnchantments;
-        private readonly ITriggerMechanicRegistrar _triggerMechanicRegistrar;
-        private readonly IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> _enchantmentTriggerMechanicRegistrars;
+        private readonly Dictionary<IGameObject, List<ITriggerMechanic>> _activeEnchantmentsAndTriggerMechanics;
+        private readonly ITriggerMechanicRegistrarFacade _triggerMechanicRegistrar;
+        private readonly IEnchantmentTriggerMechanicFactoryFacade _enchantmentTriggerMechanicFactoryFacade;
 
         public ActiveEnchantmentManager(
-            ITriggerMechanicRegistrar triggerMechanicRegistrar,
-            IEnumerable<IEnchantmentTriggerMechanicRegistrar> enchantmentTriggerMechanicRegistrars)
+            ITriggerMechanicRegistrarFacade triggerMechanicRegistrar,
+            IEnchantmentTriggerMechanicFactoryFacade enchantmentTriggerMechanicFactoryFacade)
         {
-            _activeEnchantments = new Dictionary<IGameObject, List<ITriggerMechanic>>();
+            _activeEnchantmentsAndTriggerMechanics = new Dictionary<IGameObject, List<ITriggerMechanic>>();
             _triggerMechanicRegistrar = triggerMechanicRegistrar;
-            _enchantmentTriggerMechanicRegistrars = enchantmentTriggerMechanicRegistrars.ToArray();
+            _enchantmentTriggerMechanicFactoryFacade = enchantmentTriggerMechanicFactoryFacade;
         }
 
-        public IReadOnlyCollection<IGameObject> Enchantments => _activeEnchantments.Keys;
+        public IReadOnlyCollection<IGameObject> Enchantments => _activeEnchantmentsAndTriggerMechanics.Keys;
 
         public void Add(IEnumerable<IGameObject> enchantments)
         {
@@ -41,32 +41,29 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
                     $"One of the enchantments in the provided argument " +
                     $"'{nameof(enchantments)}' was null.");
 
-                if (!_activeEnchantments.TryGetValue(
-                    enchantment,
-                    out var triggerMechanicsForEnchantment))
+                if (_activeEnchantmentsAndTriggerMechanics.ContainsKey(enchantment))
                 {
-                    triggerMechanicsForEnchantment = new List<ITriggerMechanic>();
-                    _activeEnchantments[enchantment] = triggerMechanicsForEnchantment;
+                    continue;
                 }
 
-                foreach (var enchantmentTriggerMechanicRegistrar in _enchantmentTriggerMechanicRegistrars)
-                {
-                    var triggers = enchantmentTriggerMechanicRegistrar.RegisterToEnchantment(
-                        enchantment,
-                        RemoveTriggerMechanicFromEnchantment);
-                    foreach (var trigger in triggers)
-                    {
-                        triggerMechanicsForEnchantment.Add(trigger);
+                var triggerMechanicsForEnchantment = new List<ITriggerMechanic>();
+                _activeEnchantmentsAndTriggerMechanics[enchantment] = triggerMechanicsForEnchantment;
 
-                        if (_triggerMechanicRegistrar.CanRegister(trigger))
-                        {
-                            _triggerMechanicRegistrar.RegisterTrigger(trigger);
-                        }
-                        else
-                        {
-                            throw new InvalidOperationException($"Could not register '{trigger}' to '{_triggerMechanicRegistrar}'.");
-                        }
+                foreach (var trigger in _enchantmentTriggerMechanicFactoryFacade.CreateTriggerMechanicsForEnchantment(
+                    enchantment,
+                    RemoveTriggerMechanicFromEnchantment,
+                    RemoveEnchantment))
+                {
+                    triggerMechanicsForEnchantment.Add(trigger);
+
+                    if (!_triggerMechanicRegistrar.CanRegister(trigger))
+                    {
+                        throw new InvalidOperationException(
+                            $"Could not register '{trigger}' to " +
+                            $"'{_triggerMechanicRegistrar}'.");
                     }
+
+                    _triggerMechanicRegistrar.RegisterTrigger(trigger);
                 }
             }
         }
@@ -84,12 +81,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
                     $"One of the enchantments in the provided argument " +
                     $"'{nameof(enchantments)}' was null.");
 
-                foreach (var triggerMechanic in _activeEnchantments[enchantment])
+                foreach (var triggerMechanic in _activeEnchantmentsAndTriggerMechanics[enchantment])
                 {
                     _triggerMechanicRegistrar.UnregisterTrigger(triggerMechanic);
                 }
 
-                _activeEnchantments.Remove(enchantment);
+                _activeEnchantmentsAndTriggerMechanics.Remove(enchantment);
             }
         }
 
@@ -97,7 +94,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
             IGameObject enchantment,
             ITriggerMechanic triggerMechanic)
         {
-            if (!_activeEnchantments.TryGetValue(
+            if (!_activeEnchantmentsAndTriggerMechanics.TryGetValue(
                 enchantment,
                 out var triggerMechanicsForEnchantment))
             {
@@ -107,16 +104,36 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
                     $"of active enchantments.");
             }
 
-            if (triggerMechanicsForEnchantment.Count == 1)
-            {
-                _activeEnchantments.Remove(enchantment);
-            }
-            else if (!triggerMechanicsForEnchantment.Remove(triggerMechanic))
+            if (!triggerMechanicsForEnchantment.Remove(triggerMechanic))
             {
                 throw new InvalidOperationException(
                     $"Attempted to remove trigger '{triggerMechanic}' but the " +
                     $"collection for enchantment '{enchantment}' did not contain it.");
             }
+
+            _triggerMechanicRegistrar.UnregisterTrigger(triggerMechanic);
+        }
+
+        private void RemoveEnchantment(IGameObject enchantment)
+        {
+            if (!_activeEnchantmentsAndTriggerMechanics.TryGetValue(
+                enchantment,
+                out var triggerMechanics))
+            {
+                throw new InvalidOperationException(
+                    $"Attempted to remove '{enchantment}' but it was not found " +
+                    $"in the collection of active enchantments.");
+            }
+
+            // take a copy of the trigger mechanics before removing them!
+            foreach (var triggerMechanic in triggerMechanics.ToArray())
+            {
+                RemoveTriggerMechanicFromEnchantment(
+                    enchantment,
+                    triggerMechanic);
+            }
+
+            _activeEnchantmentsAndTriggerMechanics.Remove(enchantment);
         }
     }
 }

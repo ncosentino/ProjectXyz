@@ -8,7 +8,7 @@ namespace ProjectXyz.Plugins.Features.ExpiringEnchantments.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<EnchantmentExpiryTriggerMechanicRegistrar>()
+                .RegisterType<ExpiryEnchantmentTriggerMechanicFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

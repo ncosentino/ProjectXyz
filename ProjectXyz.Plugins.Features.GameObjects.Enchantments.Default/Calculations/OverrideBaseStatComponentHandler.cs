@@ -4,7 +4,6 @@ using System.Linq;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations
 {
@@ -25,7 +24,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculati
                 .TakeTypes<IOverrideBaseStatComponent>()
                 .OrderBy(x => x.Priority))
             {
-                yield return KeyValuePair.Create(
+                yield return new KeyValuePair<IIdentifier, double>(
                     component.StatDefinitionId,
                     component.Value);
             }

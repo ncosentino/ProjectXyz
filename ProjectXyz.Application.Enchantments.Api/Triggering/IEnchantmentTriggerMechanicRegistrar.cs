@@ -5,10 +5,11 @@ using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Api.Enchantments.Triggering
 {
-    public interface IEnchantmentTriggerMechanicRegistrar
+    public interface IEnchantmentTriggerMechanicFactory
     {
-        IEnumerable<ITriggerMechanic> RegisterToEnchantment(
+        IEnumerable<ITriggerMechanic> CreateTriggerMechanicsForEnchantment(
             IGameObject enchantment,
-            RemoveTriggerMechanicDelegate removeTriggerMechanicCallback);
+            RemoveTriggerMechanicDelegate removeTriggerMechanicCallback,
+            RemoveEnchantmentDelegate removeEnchantmentCallback);
     }
 }

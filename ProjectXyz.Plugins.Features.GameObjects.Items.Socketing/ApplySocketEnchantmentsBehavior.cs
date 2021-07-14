@@ -9,6 +9,17 @@ using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Socketing
 {
+    // FIXME: this feels like it may need more thought. if enchantments of the
+    // CanFitSocketBehavior object are changed, these will not apply to the
+    // parent.
+    // - is this supposed to be an optimization so that we don't need to go
+    //   into the socketed objects each time we ask for the enchantments from
+    //   something?
+    // - have we considered that if we have 10% damage on a jewel, is that 10%
+    //   damage going to the item it's placed in or the overall damage of the
+    //   actor? based on the enchantment target path system we use, this could
+    //   have different behavior if we ever want to move enchantments between
+    //   different game objects (i.e. through some special crafting or something)
     public sealed class ApplySocketEnchantmentsBehavior :
         BaseBehavior,
         IApplySocketEnchantmentsBehavior

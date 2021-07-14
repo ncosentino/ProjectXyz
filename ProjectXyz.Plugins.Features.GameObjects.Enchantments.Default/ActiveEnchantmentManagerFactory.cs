@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Triggering;
@@ -9,22 +8,22 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
 {
     public sealed class ActiveEnchantmentManagerFactory : IActiveEnchantmentManagerFactory
     {
-        private readonly ITriggerMechanicRegistrar _triggerMechanicRegistrar;
-        private readonly IReadOnlyCollection<IEnchantmentTriggerMechanicRegistrar> _enchantmentTriggerMechanicRegistrars;
+        private readonly Lazy<ITriggerMechanicRegistrarFacade> _lazyTriggerMechanicRegistrarFacade;
+        private readonly Lazy<IEnchantmentTriggerMechanicFactoryFacade> _lazyEnchantmentTriggerMechanicFactoryFacade;
 
         public ActiveEnchantmentManagerFactory(
-            ITriggerMechanicRegistrarFacade triggerMechanicRegistrarFacade,
-            IEnumerable<IEnchantmentTriggerMechanicRegistrar> enchantmentTriggerMechanicRegistrars)
+            Lazy<ITriggerMechanicRegistrarFacade> lazyTriggerMechanicRegistrarFacade,
+            Lazy<IEnchantmentTriggerMechanicFactoryFacade> lazyEnchantmentTriggerMechanicFactoryFacade)
         {
-            _triggerMechanicRegistrar = triggerMechanicRegistrarFacade;
-            _enchantmentTriggerMechanicRegistrars = enchantmentTriggerMechanicRegistrars.ToArray();
+            _lazyTriggerMechanicRegistrarFacade = lazyTriggerMechanicRegistrarFacade;
+            _lazyEnchantmentTriggerMechanicFactoryFacade = lazyEnchantmentTriggerMechanicFactoryFacade;
         }
 
         public IActiveEnchantmentManager Create()
         {
             return new ActiveEnchantmentManager(
-                _triggerMechanicRegistrar,
-                _enchantmentTriggerMechanicRegistrars);
+                _lazyTriggerMechanicRegistrarFacade.Value,
+                _lazyEnchantmentTriggerMechanicFactoryFacade.Value);
         }
     }
 }

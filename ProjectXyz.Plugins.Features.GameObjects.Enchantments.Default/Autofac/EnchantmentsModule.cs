@@ -12,7 +12,7 @@ using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
 {
-    public sealed class ProvidedImplementationsModule : SingleRegistrationModule
+    public sealed class EnchantmentsModule : SingleRegistrationModule
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
@@ -31,6 +31,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
                 .SingleInstance();
             builder
                 .RegisterType<ActiveEnchantmentManagerFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<EnchantmentTriggerMechanicFactoryFacade>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

@@ -99,7 +99,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             containerBuilder.RegisterModule(new Shared.Behaviors.Filtering.Autofac.FilteringModule());
             containerBuilder.RegisterModule(new GameObjectsModule());
             containerBuilder.RegisterModule(new CommonBehaviors.Autofac.CommonBehaviorsModule());
-            containerBuilder.RegisterModule(new ProvidedImplementationsModule());
+            containerBuilder.RegisterModule(new EnchantmentsModule());
             containerBuilder.RegisterModule(new TriggeringModule());
             containerBuilder
                 .RegisterInstance(new EnchantmentIdentifiers())

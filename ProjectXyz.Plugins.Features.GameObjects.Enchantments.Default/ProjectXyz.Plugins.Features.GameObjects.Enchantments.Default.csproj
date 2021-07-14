@@ -1,40 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</AssemblyTitle>
-    <Company>Nexus Labs</Company>
-    <Product>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</Product>
-    <Copyright>Copyright © Nexus Labs 2017</Copyright>
-    <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</AssemblyTitle>
-    <Company>Nexus Labs</Company>
-    <Product>ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default</Product>
-    <Copyright>Copyright © Nexus Labs 2017</Copyright>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NexusLabs.Contracts" Version="0.0.3" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.States\ProjectXyz.Api.States.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.State\ProjectXyz.Plugins.Features.StateEnchantments.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Calculations\StateContextProvider.cs" />
-    <Compile Remove="Calculations\StateExpressionInterceptor.cs" />
-    <Compile Remove="Calculations\StateExpressionInterceptorFactory.cs" />
-    <Compile Remove="Calculations\StateValueInjector.cs" />
-  </ItemGroup>
+
 </Project>

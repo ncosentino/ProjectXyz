@@ -38,7 +38,10 @@ namespace ProjectXyz.Plugins.Features.Triggering.Default
 
         public void UnregisterTrigger(ITriggerMechanic triggerMechanic)
         {
-            foreach (var registrar in _triggerMechanicRegistrars.Value)
+            var registrars = _triggerMechanicRegistrars
+                .Value
+                .Where(x => x.CanRegister(triggerMechanic));
+            foreach (var registrar in registrars)
             {
                 registrar.UnregisterTrigger(triggerMechanic);
             }
