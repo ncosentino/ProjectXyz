@@ -31,7 +31,6 @@ namespace ProjectXyz.Tests.Functional.TestingData
 
             EnchantmentCalculator = LifeTimeScope.Resolve<IEnchantmentCalculator>();
             EnchantmentApplier = LifeTimeScope.Resolve<IEnchantmentApplier>();
-            ElapsedTurnsTriggerSourceMechanic = LifeTimeScope.Resolve<IElapsedTurnsTriggerSourceMechanicRegistrar>();
             TriggerMechanicRegistrar = LifeTimeScope.Resolve<ITriggerMechanicRegistrar>();
             ActiveEnchantmentManagerFactory = LifeTimeScope.Resolve<IActiveEnchantmentManagerFactory>();
             HasEnchantmentsBehaviorFactory = LifeTimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
@@ -70,8 +69,6 @@ namespace ProjectXyz.Tests.Functional.TestingData
         public IStatManagerFactory StatManagerFactory { get; }
 
         public ITriggerMechanicRegistrar TriggerMechanicRegistrar { get; }
-
-        public IElapsedTurnsTriggerSourceMechanicRegistrar ElapsedTurnsTriggerSourceMechanic { get; }
 
         public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
 

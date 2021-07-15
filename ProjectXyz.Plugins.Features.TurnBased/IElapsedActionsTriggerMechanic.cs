@@ -4,8 +4,8 @@ using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Plugins.Features.TurnBased
 {
-    public interface IElapsedTurnsTriggerMechanic : ITriggerMechanic
+    public interface IElapsedActionsTriggerMechanic : ITriggerMechanic
     {
-        Task<bool> UpdateAsync(ITurnInfo turnInfo);
+        Task<bool> UpdateAsync(IActionInfo actionInfo);
     }
 }

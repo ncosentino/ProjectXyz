@@ -7,13 +7,13 @@ using ProjectXyz.Api.Systems;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default
 {
-    public sealed class ElapsedTurnsTriggerMechanicSystem : IDiscoverableSystem
+    public sealed class ElapsedActionsTriggerMechanicSystem : IDiscoverableSystem
     {
-        private readonly IElapsedTurnsTriggerSourceMechanic _elapsedTurnsTriggerSourceMechanic;
+        private readonly IElapsedActionsTriggerSourceMechanic _elapsedActionsTriggerSourceMechanic;
 
-        public ElapsedTurnsTriggerMechanicSystem(IElapsedTurnsTriggerSourceMechanic elapsedTurnsTriggerSourceMechanic)
+        public ElapsedActionsTriggerMechanicSystem(IElapsedActionsTriggerSourceMechanic elapsedActionsTriggerSourceMechanic)
         {
-            _elapsedTurnsTriggerSourceMechanic = elapsedTurnsTriggerSourceMechanic;
+            _elapsedActionsTriggerSourceMechanic = elapsedActionsTriggerSourceMechanic;
         }
 
         public int? Priority => null;
@@ -21,9 +21,9 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
         public async Task UpdateAsync(ISystemUpdateContext systemUpdateContext)
         {
             var turnInfo = systemUpdateContext
-                .GetFirst<IComponent<ITurnInfo>>()
+                .GetFirst<IComponent<IActionInfo>>()
                 .Value;
-            await _elapsedTurnsTriggerSourceMechanic
+            await _elapsedActionsTriggerSourceMechanic
                 .UpdateAsync(turnInfo)
                 .ConfigureAwait(false);
         }

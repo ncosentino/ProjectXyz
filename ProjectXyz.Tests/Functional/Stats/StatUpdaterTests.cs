@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using Autofac;
 
+using NexusLabs.Collections.Generic;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
@@ -110,7 +112,6 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.GlobalSync = true;
                 _turnBasedManager.SyncTurnsFromElapsedTime = true;
 
                 _mapGameObjectManager.MarkForAddition(gameObject);
@@ -149,7 +150,6 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.GlobalSync = true;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
 
                 _mapGameObjectManager.MarkForAddition(gameObject);
@@ -158,6 +158,9 @@ namespace ProjectXyz.Tests.Functional.Stats
                 // Execute
                 for (int i = 0; i < elapsedTurns; i++)
                 {
+                    _turnBasedManager.NotifyTurnTaken(
+                        gameObject,
+                        new FrozenList<IGameObject>(new[] { gameObject }));
                     await _gameEngine.UpdateAsync();
                 }
             }));
@@ -186,13 +189,8 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.GlobalSync = false;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
-                _turnBasedManager.ClearApplicableOnUpdate = false;
-                _turnBasedManager.SetApplicableObjects(new[]
-                {
-                    gameObject,
-                });
+                _turnBasedManager.NotifyTurnTaken(gameObject, new FrozenList<IGameObject>(new[] { gameObject }));
 
                 _mapGameObjectManager.MarkForAddition(gameObject);
                 _mapGameObjectManager.Synchronize();
@@ -225,12 +223,8 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.GlobalSync = false;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
-                _turnBasedManager.ClearApplicableOnUpdate = false;
-                _turnBasedManager.SetApplicableObjects(new IGameObject[]
-                {
-                });
+                _turnBasedManager.NotifyTurnTaken(null, new FrozenList<IGameObject>(new IGameObject[] { }));
 
                 _mapGameObjectManager.MarkForAddition(gameObject);
                 _mapGameObjectManager.Synchronize();
@@ -274,13 +268,8 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.GlobalSync = false;
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
-                _turnBasedManager.ClearApplicableOnUpdate = false;
-                _turnBasedManager.SetApplicableObjects(new IGameObject[]
-                {
-                    actor
-                });
+                _turnBasedManager.NotifyTurnTaken(actor, new FrozenList<IGameObject>(new[] { actor }));
 
                 _mapGameObjectManager.MarkForAddition(actor);
                 _mapGameObjectManager.Synchronize();
@@ -310,10 +299,7 @@ namespace ProjectXyz.Tests.Functional.Stats
 
         private void ResetTurnBasedManager()
         {
-            _turnBasedManager.GlobalSync = true;
             _turnBasedManager.SyncTurnsFromElapsedTime = true;
-            _turnBasedManager.ClearApplicableOnUpdate = true;
-            _turnBasedManager.SetApplicableObjects(new IGameObject[] { });
         }
 
         private void UsingCleanMapGameObjectManager(Func<Task> callback)

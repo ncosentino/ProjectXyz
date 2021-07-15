@@ -14,6 +14,14 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
+                .RegisterType<TurnInfoFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ActionInfoFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
                 .RegisterType<TurnBasedManager>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
@@ -22,11 +30,23 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<DurationTriggerMechanicFactory>()
+                .RegisterType<ElapsedActionsTriggerMechanicSystem>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<DurationInTurnsTriggerMechanicFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<DurationInActionsTriggerMechanicFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
                 .RegisterType<ElapsedTurnsTriggerSourceMechanicRegistrar>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<ElapsedActionsTriggerSourceMechanicRegistrar>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }

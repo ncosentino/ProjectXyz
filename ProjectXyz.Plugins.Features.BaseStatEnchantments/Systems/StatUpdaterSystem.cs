@@ -32,7 +32,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
                 .GetFirst<IComponent<ITurnInfo>>()
                 .Value;
 
-            foreach (var gameObject in turnInfo.ApplicableGameObjects)
+            foreach (var gameObject in turnInfo.AllGameObjects)
             {
                 if (!_behaviorFinder.TryFind(gameObject, out Tuple<IHasReadOnlyEnchantmentsBehavior, IHasMutableStatsBehavior> behaviours))
                 {

@@ -118,26 +118,34 @@ namespace ProjectXyz.Tests.Functional.TestingData
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
                     new AppliesToBaseStat(),
-                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
+                    new ExpiryTriggerBehavior(new DurationInTurnsTriggerBehavior(10)));
 
                 public IGameObject StatABaseStatAfter10Turns { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
                     STAT_DEFINITION_IDS.StatA,
                     "STAT_A + 5 * MIN(INTERVAL, 10)", // need to cap this at expiration limit
                     CALC_PRIORITIES.Middle,
                     new AppliesToBaseStat(),
-                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
+                    new ExpiryTriggerBehavior(new DurationInTurnsTriggerBehavior(10)));
 
                 public IGameObject StatAOnDemandAfter10TurnsIntervalIgnorant { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
                     STAT_DEFINITION_IDS.StatA,
                     "STAT_A + 5",
                     CALC_PRIORITIES.Middle,
-                    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
+                    new ExpiryTriggerBehavior(new DurationInTurnsTriggerBehavior(10)));
 
-                //public IGameObject StatAOnDemandAfter10Turns { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
-                //    STAT_DEFINITION_IDS.StatA,
-                //    "STAT_A + 5 * MIN(INTERVAL, 10)", // need to cap this at expiration limit
-                //    CALC_PRIORITIES.Middle,
-                //    new ExpiryTriggerBehavior(new DurationTriggerBehavior(10)));
+                public IGameObject StatABaseStatAfter10ActionsIntervalIgnorant { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + 5",
+                    CALC_PRIORITIES.Middle,
+                    new AppliesToBaseStat(),
+                    new ExpiryTriggerBehavior(new DurationInActionsTriggerBehavior(10)));
+
+                public IGameObject StatABaseStatAfter10Actions { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(
+                    STAT_DEFINITION_IDS.StatA,
+                    "STAT_A + 5 * MIN(INTERVAL, 10)", // need to cap this at expiration limit
+                    CALC_PRIORITIES.Middle,
+                    new AppliesToBaseStat(),
+                    new ExpiryTriggerBehavior(new DurationInActionsTriggerBehavior(10)));
             }
         }
 

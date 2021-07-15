@@ -5,13 +5,13 @@ using ProjectXyz.Plugins.Features.TurnBased.Duration;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default.Duration
 {
-    public sealed class DurationTriggerMechanicFactory : IDurationTriggerMechanicFactory
+    public sealed class DurationInTurnsTriggerMechanicFactory : IDurationInTurnsTriggerMechanicFactory
     {
         public ITriggerMechanic Create(
-            IDurationTriggerBehavior durationTriggerBehavior,
+            IDurationInTurnsTriggerBehavior durationTriggerBehavior,
             Action<ITriggerMechanic> triggeredCallback)
         {
-            var trigger = new DurationTriggerMechanic(
+            var trigger = new ElapsedTurnsTriggerMechanic(
                 durationTriggerBehavior,
                 (t, _) => triggeredCallback(t));
             return trigger;

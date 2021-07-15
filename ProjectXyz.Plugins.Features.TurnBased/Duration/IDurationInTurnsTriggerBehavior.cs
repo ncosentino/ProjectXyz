@@ -2,7 +2,7 @@
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Duration
 {
-    public interface IDurationTriggerBehavior : IBehavior
+    public interface IDurationInTurnsTriggerBehavior : IBehavior
     {
         double DurationInTurns { get; }
     }

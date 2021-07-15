@@ -7,26 +7,38 @@ namespace ProjectXyz.Plugins.Features.ExpiringEnchantments
 {
     public sealed class ExpiryTriggerMechanicFactory : IExpiryTriggerMechanicFactory
     {
-        private readonly IDurationTriggerMechanicFactory _durationTriggerMechanicFactory;
+        private readonly IDurationInTurnsTriggerMechanicFactory _durationInTurnsTriggerMechanicFactory;
+        private readonly IDurationInActionsTriggerMechanicFactory _durationInActionsTriggerMechanicFactory;
 
-        public ExpiryTriggerMechanicFactory(IDurationTriggerMechanicFactory durationTriggerMechanicFactory)
+        public ExpiryTriggerMechanicFactory(
+            IDurationInTurnsTriggerMechanicFactory durationInTurnsTriggerMechanicFactory,
+            IDurationInActionsTriggerMechanicFactory durationInActionsTriggerMechanicFactory)
         {
-            _durationTriggerMechanicFactory = durationTriggerMechanicFactory;
+            _durationInTurnsTriggerMechanicFactory = durationInTurnsTriggerMechanicFactory;
+            _durationInActionsTriggerMechanicFactory = durationInActionsTriggerMechanicFactory;
         }
 
         public ITriggerMechanic Create(
             IExpiryTriggerBehavior expiryTriggerBehavior,
             Action<ITriggerMechanic> triggeredCallback)
         {
-            var triggerComponent = expiryTriggerBehavior.TriggerBehavior;
-            if (triggerComponent is IDurationTriggerBehavior)
+            // FIXME: this is typical facade setup...
+            var triggerBehavior = expiryTriggerBehavior.TriggerBehavior;
+            if (triggerBehavior is IDurationInTurnsTriggerBehavior durationInTurnsTriggerBehavior)
             {
-                return _durationTriggerMechanicFactory.Create(
-                    (IDurationTriggerBehavior)triggerComponent,
+                return _durationInTurnsTriggerMechanicFactory.Create(
+                    durationInTurnsTriggerBehavior,
                     triggeredCallback);
             }
 
-            throw new NotSupportedException($"No factory is implemented for '{triggerComponent}'.");
+            if (triggerBehavior is IDurationInActionsTriggerBehavior durationInActionsTriggerBehavior)
+            {
+                return _durationInActionsTriggerMechanicFactory.Create(
+                    durationInActionsTriggerBehavior,
+                    triggeredCallback);
+            }
+
+            throw new NotSupportedException($"No factory is implemented for '{triggerBehavior}'.");
         }
     }
 }

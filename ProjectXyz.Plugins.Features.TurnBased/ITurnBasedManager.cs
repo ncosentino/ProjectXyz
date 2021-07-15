@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using ProjectXyz.Api.GameObjects;
+﻿using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.TurnBased
 {
@@ -8,10 +6,8 @@ namespace ProjectXyz.Plugins.Features.TurnBased
     {
         new bool SyncTurnsFromElapsedTime { get; set; }
 
-        new bool ClearApplicableOnUpdate { get; set; }
+        void NotifyActionTaken(IGameObject actor);
 
-        new bool GlobalSync { get; set; }
-
-        void SetApplicableObjects(IEnumerable<IGameObject> gameObjects);
+        void NotifyTurnTaken(IGameObject actor);
     }
 }

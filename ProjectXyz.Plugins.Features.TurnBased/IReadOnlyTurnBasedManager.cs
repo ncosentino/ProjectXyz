@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-
-using ProjectXyz.Api.GameObjects;
-
-namespace ProjectXyz.Plugins.Features.TurnBased
+﻿namespace ProjectXyz.Plugins.Features.TurnBased
 {
     public interface IReadOnlyTurnBasedManager
     {
         bool SyncTurnsFromElapsedTime { get; }
 
-        bool ClearApplicableOnUpdate { get; }
+        bool HasTurnTakenQueued { get; }
 
-        bool GlobalSync { get; }
+        bool HasActionTakenQueued { get; }
 
-        IReadOnlyCollection<IGameObject> GetApplicableGameObjects();
+        ITurnTakenInfo GetNextTurnTaken();
 
-        IReadOnlyCollection<IGameObject> GetAllGameObjects();
+        IActionTakenInfo GetNextActionTaken();
     }
 }

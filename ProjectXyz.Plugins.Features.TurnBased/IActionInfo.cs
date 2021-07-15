@@ -4,7 +4,7 @@ using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.TurnBased
 {
-    public interface ITurnInfo
+    public interface IActionInfo
     {
         IGameObject Actor { get; }
 
@@ -12,6 +12,6 @@ namespace ProjectXyz.Plugins.Features.TurnBased
 
         IFrozenHashSet<IGameObject> AllGameObjects { get; }
 
-        double ElapsedTurns { get; }
+        double ElapsedActions { get; }
     }
 }

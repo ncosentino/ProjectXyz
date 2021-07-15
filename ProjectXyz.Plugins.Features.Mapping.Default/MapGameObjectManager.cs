@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Collections.Generic;
 using NexusLabs.Contracts;
 
 using ProjectXyz.Api.GameObjects;
@@ -24,12 +25,12 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             _gameObjectsToRemove = new ConcurrentDictionary<IGameObject, bool>();
             _gameObjectsToAdd = new ConcurrentDictionary<IGameObject, bool>();
             _skipSynchronizationLock = new object();
-            GameObjects = new IGameObject[0];
+            GameObjects = new FrozenList<IGameObject>(Enumerable.Empty<IGameObject>());
         }
 
         public event EventHandler<GameObjectsSynchronizedEventArgs> Synchronized;
 
-        public IReadOnlyCollection<IGameObject> GameObjects { get; private set; }
+        public IFrozenCollection<IGameObject> GameObjects { get; private set; }
 
         public bool IsSynchronizing { get; private set; }
 
@@ -142,7 +143,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
                 if (requiredSync)
                 {
-                    GameObjects = _gameObjects.Keys.ToArray();
+                    GameObjects =  new FrozenList<IGameObject>(_gameObjects.Keys);
                     Synchronized?.Invoke(
                         this,
                         new GameObjectsSynchronizedEventArgs(

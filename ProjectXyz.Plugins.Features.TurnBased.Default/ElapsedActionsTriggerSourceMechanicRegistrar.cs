@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using NexusLabs.Contracts;
@@ -7,13 +7,13 @@ using ProjectXyz.Plugins.Features.Triggering;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default
 {
-    public sealed class ElapsedTurnsTriggerSourceMechanicRegistrar : IElapsedTurnsTriggerSourceMechanicRegistrar
+    public sealed class ElapsedActionsTriggerSourceMechanicRegistrar : IElapsedActionsTriggerSourceMechanicRegistrar
     {
-        private readonly List<IElapsedTurnsTriggerMechanic> _elapsedTimeTriggerMechanics;
+        private readonly List<IElapsedActionsTriggerMechanic> _elapsedTimeTriggerMechanics;
 
-        public ElapsedTurnsTriggerSourceMechanicRegistrar()
+        public ElapsedActionsTriggerSourceMechanicRegistrar()
         {
-            _elapsedTimeTriggerMechanics = new List<IElapsedTurnsTriggerMechanic>();
+            _elapsedTimeTriggerMechanics = new List<IElapsedActionsTriggerMechanic>();
         }
 
         public bool CanRegister(ITriggerMechanic triggerMechanic)
@@ -21,7 +21,7 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
             Contract.RequiresNotNull(
                 triggerMechanic,
                 $"{nameof(triggerMechanic)} cannot be null.");
-            return triggerMechanic is IElapsedTurnsTriggerMechanic;
+            return triggerMechanic is IElapsedActionsTriggerMechanic;
         }
 
         public void RegisterTrigger(ITriggerMechanic triggerMechanic)
@@ -29,7 +29,7 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
             Contract.RequiresNotNull(
                 triggerMechanic,
                 $"{nameof(triggerMechanic)} cannot be null.");
-            _elapsedTimeTriggerMechanics.Add((IElapsedTurnsTriggerMechanic)triggerMechanic);
+            _elapsedTimeTriggerMechanics.Add((IElapsedActionsTriggerMechanic)triggerMechanic);
         }
 
         public void UnregisterTrigger(ITriggerMechanic triggerMechanic)
@@ -37,21 +37,21 @@ namespace ProjectXyz.Plugins.Features.TurnBased.Default
             Contract.RequiresNotNull(
                 triggerMechanic,
                 $"{nameof(triggerMechanic)} cannot be null.");
-            _elapsedTimeTriggerMechanics.Remove((IElapsedTurnsTriggerMechanic)triggerMechanic);
+            _elapsedTimeTriggerMechanics.Remove((IElapsedActionsTriggerMechanic)triggerMechanic);
         }
 
-        public async Task UpdateAsync(ITurnInfo turnInfo)
+        public async Task UpdateAsync(IActionInfo actionInfo)
         {
             Contract.RequiresNotNull(
-                turnInfo,
-                $"{nameof(turnInfo)} cannot be null.");
-            
+                actionInfo,
+                $"{nameof(actionInfo)} cannot be null.");
+
             // FIXME: can this be done in parallel? does that have weird side effects?
             var snapshot = _elapsedTimeTriggerMechanics.ToArray();
             foreach (var trigger in snapshot)
             {
                 if (!await trigger
-                    .UpdateAsync(turnInfo)
+                    .UpdateAsync(actionInfo)
                     .ConfigureAwait(false))
                 {
                     _elapsedTimeTriggerMechanics.Remove(trigger);

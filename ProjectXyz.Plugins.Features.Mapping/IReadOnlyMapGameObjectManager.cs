@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+
+using NexusLabs.Collections.Generic;
 
 using ProjectXyz.Api.GameObjects;
 
@@ -11,6 +12,6 @@ namespace ProjectXyz.Plugins.Features.Mapping
 
         bool IsSynchronizing { get; }
 
-        IReadOnlyCollection<IGameObject> GameObjects { get; }
+        IFrozenCollection<IGameObject> GameObjects { get; }
     }
 }

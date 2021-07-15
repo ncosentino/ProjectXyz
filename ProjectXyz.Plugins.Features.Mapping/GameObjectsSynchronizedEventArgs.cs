@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using NexusLabs.Collections.Generic;
+
 using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.Mapping
@@ -11,17 +13,17 @@ namespace ProjectXyz.Plugins.Features.Mapping
         public GameObjectsSynchronizedEventArgs(
             IEnumerable<IGameObject> added,
             IEnumerable<IGameObject> removed,
-            IReadOnlyCollection<IGameObject> immutableFullSet)
+            IFrozenCollection<IGameObject> allGameObjects)
         {
             Added = added.ToArray();
             Removed = removed.ToArray();
-            ImmutableFullSet = immutableFullSet;
+            AllGameObjects = allGameObjects;
         }
 
         public IReadOnlyCollection<IGameObject> Added { get; }
 
         public IReadOnlyCollection<IGameObject> Removed { get; }
 
-        public IReadOnlyCollection<IGameObject> ImmutableFullSet { get; }
+        public IFrozenCollection<IGameObject> AllGameObjects { get; }
     }
 }

@@ -3,11 +3,11 @@ using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default.Duration
 {
-    public sealed class DurationTriggerBehavior :
+    public sealed class DurationInTurnsTriggerBehavior :
         BaseBehavior,
-        IDurationTriggerBehavior
+        IDurationInTurnsTriggerBehavior
     {
-        public DurationTriggerBehavior(double durationInTurns)
+        public DurationInTurnsTriggerBehavior(double durationInTurns)
         {
             DurationInTurns = durationInTurns;
         }

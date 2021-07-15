@@ -6,28 +6,28 @@ using ProjectXyz.Api.GameObjects;
 
 namespace ProjectXyz.Plugins.Features.TurnBased.Default
 {
-    public sealed class TurnInfo : ITurnInfo
+    public sealed class ActionInfo : IActionInfo
     {
         private readonly Lazy<IFrozenHashSet<IGameObject>> _lazyAllGameObjectsResolved;
 
-        public TurnInfo(
+        public ActionInfo(
             IGameObject actor,
             IFrozenCollection<IGameObject> applicableGameObjects,
             Lazy<IFrozenHashSet<IGameObject>> lazyAllGameObjectsResolved,
-            double elapsedTurns)
+            double elapsedActions)
         {
             Actor = actor;
             ApplicableGameObjects = applicableGameObjects;
             _lazyAllGameObjectsResolved = lazyAllGameObjectsResolved;
-            ElapsedTurns = elapsedTurns;
+            ElapsedActions = elapsedActions;
         }
 
         public IGameObject Actor { get; }
 
         public IFrozenCollection<IGameObject> ApplicableGameObjects { get; }
 
-        public IFrozenHashSet<IGameObject> AllGameObjects => _lazyAllGameObjectsResolved.Value;
+        public double ElapsedActions { get; }
 
-        public double ElapsedTurns { get; }
+        public IFrozenHashSet<IGameObject> AllGameObjects => _lazyAllGameObjectsResolved.Value;
     }
 }
