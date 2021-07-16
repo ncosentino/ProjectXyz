@@ -25,10 +25,11 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
         {
             var statDefinitionToComponentMapping = enchantments
                 .GroupBy(
-                    enchantment => enchantment
-                        .GetOnly<IHasStatDefinitionIdBehavior>()
-                        .StatDefinitionId,
+                    enchantment => enchantment.TryGetFirst<IHasStatDefinitionIdBehavior>(out var statDefinitionIdBehavior)
+                        ? statDefinitionIdBehavior.StatDefinitionId
+                        : null,
                     enchantment => enchantment)
+                .Where(x => x != null)
                 .ToDictionary(
                     group => group.Key,
                     group => group

@@ -21,13 +21,6 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
         public IGameObject Create(IEnumerable<IBehavior> behaviors)
         {
             if (behaviors
-                .TakeTypes<IHasStatDefinitionIdBehavior>()
-                .SingleOrDefault() == null)
-            {
-                throw new ArgumentException($"Missing required '{typeof(IHasStatDefinitionIdBehavior)}'.");
-            }
-
-            if (behaviors
                 .TakeTypes<IEnchantmentTargetBehavior>()
                 .SingleOrDefault() == null)
             {
