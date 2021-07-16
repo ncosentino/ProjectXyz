@@ -158,9 +158,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 // Execute
                 for (int i = 0; i < elapsedTurns; i++)
                 {
-                    _turnBasedManager.NotifyTurnTaken(
-                        gameObject,
-                        new FrozenList<IGameObject>(new[] { gameObject }));
+                    _turnBasedManager.NotifyTurnTaken(gameObject);
                     await _gameEngine.UpdateAsync();
                 }
             }));
@@ -189,11 +187,12 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
-                _turnBasedManager.NotifyTurnTaken(gameObject, new FrozenList<IGameObject>(new[] { gameObject }));
-
+                // sync before so the notification catches it
                 _mapGameObjectManager.MarkForAddition(gameObject);
                 _mapGameObjectManager.Synchronize();
+
+                _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
+                _turnBasedManager.NotifyTurnTaken(gameObject);
 
                 // Execute
                 await _gameEngine.UpdateAsync();
@@ -224,8 +223,9 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanMapGameObjectManager(async () =>
             {
                 _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
-                _turnBasedManager.NotifyTurnTaken(null, new FrozenList<IGameObject>(new IGameObject[] { }));
+                _turnBasedManager.NotifyTurnTaken(null);
 
+                // sync after so the notification misses it
                 _mapGameObjectManager.MarkForAddition(gameObject);
                 _mapGameObjectManager.Synchronize();
 
@@ -268,11 +268,11 @@ namespace ProjectXyz.Tests.Functional.Stats
             UsingCleanTurnBasedmanager(() =>
             UsingCleanMapGameObjectManager(async () =>
             {
-                _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
-                _turnBasedManager.NotifyTurnTaken(actor, new FrozenList<IGameObject>(new[] { actor }));
-
                 _mapGameObjectManager.MarkForAddition(actor);
                 _mapGameObjectManager.Synchronize();
+
+                _turnBasedManager.SyncTurnsFromElapsedTime = false; // no time syncing
+                _turnBasedManager.NotifyTurnTaken(actor);
 
                 // Execute
                 await _gameEngine.UpdateAsync();

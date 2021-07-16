@@ -127,11 +127,23 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
                 true,
                 activeEnchantmentManager.Enchantments.Contains(enchantment),
                 "Expecting the enchantment to be contained before elapsing any time.");
-            for (var i = 0; i < elapsedActions; i++)
+            if (elapsedActions > 0)
+            {
+                for (var i = 0; i < elapsedActions; i++)
+                {
+                    var actionInfo = _actionInfoFactory.Create(
+                        null,
+                        new FrozenList<IGameObject>(new IGameObject[] { }),
+                        1);
+                    await _elapsedActionsTriggerSourceMechanic.UpdateAsync(actionInfo);
+                }
+            }
+            else
             {
                 var actionInfo = _actionInfoFactory.Create(
                     null,
-                    new FrozenList<IGameObject>(new IGameObject[] { }));
+                    new FrozenList<IGameObject>(new IGameObject[] { }),
+                    0);
                 await _elapsedActionsTriggerSourceMechanic.UpdateAsync(actionInfo);
             }
 
