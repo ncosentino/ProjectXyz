@@ -90,11 +90,11 @@ namespace ProjectXyz.Tests.Functional.TestingData
 
             public sealed class DayTimeBuffEnchantments
             {
-                public IGameObject StatAPeak { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * TOD_DAY", CALC_PRIORITIES.Middle);
+                public IGameObject StatAPeak { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * TimeOfDayCycle", CALC_PRIORITIES.Middle);
 
-                public IGameObject StatABinary { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY >= 1, 1, 0)", CALC_PRIORITIES.Middle);
+                public IGameObject StatABinary { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TimeOfDayCycle >= 1, 1, 0)", CALC_PRIORITIES.Middle);
 
-                public IGameObject StatAOverZero { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TOD_DAY > 0, 1, 0)", CALC_PRIORITIES.Middle);
+                public IGameObject StatAOverZero { get; } = ENCHANTMENT_FACTORY.CreateExpressionEnchantment(STAT_DEFINITION_IDS.StatA, "STAT_A + 10 * if(TimeOfDayCycle > 0, 1, 0)", CALC_PRIORITIES.Middle);
             }
 
             public sealed class BuffOverTimeEnchantments

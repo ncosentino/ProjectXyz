@@ -4,11 +4,10 @@ using Autofac;
 
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
-using ProjectXyz.Api.States;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
-using ProjectXyz.Shared.Framework.Entities;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
 {
@@ -71,11 +70,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
             builder
                 .Register(c =>
                 {
-                    var stateContextProvider = c.Resolve<IStateContextProvider>();
-                    var stateContextProviderComponent = new GenericComponent<IStateContextProvider>(stateContextProvider);
-                    return new EnchantmentCalculatorContextFactory(new[]
+                    return new EnchantmentCalculatorContextFactory(new IComponent[]
                     {
-                        stateContextProviderComponent
+                        // FIXME: we used to have state stuff in here... but
+                        // that was it. is this component concept dead here?
                     });
                 })
                 .AsImplementedInterfaces()

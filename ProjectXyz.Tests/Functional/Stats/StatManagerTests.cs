@@ -2,11 +2,10 @@
 using System.Linq;
 
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.States;
 using ProjectXyz.Plugins.Enchantments.Stats;
 using ProjectXyz.Plugins.Stats;
-using ProjectXyz.Shared.Framework.Entities;
 using ProjectXyz.Tests.Functional.TestingData;
 
 using Xunit;
@@ -44,7 +43,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 _fixture.ContextConverter);
 
             var statCalculationContext = new StatCalculationContext(
-                new[] { new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider) },
+                new IComponent[] { },
                 new IGameObject[0]);
 
             // Execute

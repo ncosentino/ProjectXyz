@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Autofac;
+
 using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
-using ProjectXyz.Api.States;
-using ProjectXyz.Plugins.Enchantments.Calculations.State;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
-using ProjectXyz.Shared.Framework.Entities;
-using ProjectXyz.Shared.States;
+using ProjectXyz.Plugins.Features.TimeOfDay.Default;
 using ProjectXyz.Tests.Functional.TestingData;
 
 using Xunit;
@@ -93,8 +92,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
             var baseStats = new Dictionary<IIdentifier, double>();
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithEnchantments(enchantment)
-                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
+                .WithEnchantments(enchantment);
             var result = _fixture
                 .EnchantmentCalculator
                 .Calculate(
@@ -116,8 +114,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
             var baseStats = new Dictionary<IIdentifier, double>();
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithEnchantments(enchantments)
-                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
+                .WithEnchantments(enchantments);
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
@@ -134,20 +131,11 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
             double percentActiveState,
             double expectedResult)
         {
-            var stateContextProvider = new StateContextProvider(new Dictionary<IIdentifier, IStateContext>()
-            {
-                {
-                    _testData.States.States.TimeOfDay,
-                    new ConstantValueStateContext(new Dictionary<IIdentifier, double>()
-                    {
-                        { _testData.States.TimeOfDay.Day, percentActiveState }
-                    })
-                },
-            });
+            var timeOfDayManager = _fixture.LifeTimeScope.Resolve<ITimeOfDayManager>();
+            timeOfDayManager.CyclePercent = percentActiveState;
 
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithComponent(new GenericComponent<IStateContextProvider>(stateContextProvider))
                 .WithEnchantments(enchantment);
 
             var baseStats = new Dictionary<IIdentifier, double>();
@@ -171,8 +159,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
                 .WithElapsedTurns(elapsedTurns)
-                .WithEnchantments(enchantment)
-                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
+                .WithEnchantments(enchantment);
             var result = _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,
                 baseStats,
@@ -187,8 +174,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Enchantments
             var baseStats = new Dictionary<IIdentifier, double>();
             var enchantmentCalculatorContext = EnchantmentCalculatorContext
                 .None
-                .WithEnchantments(_testData.Enchantments.BadExpression)
-                .WithComponent(new GenericComponent<IStateContextProvider>(_fixture.StateContextProvider));
+                .WithEnchantments(_testData.Enchantments.BadExpression);
 
             Action method = () => _fixture.EnchantmentCalculator.Calculate(
                 enchantmentCalculatorContext,

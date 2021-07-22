@@ -17,13 +17,13 @@ using ProjectXyz.Plugins.Features.ExpressionEnchantments.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Generation.Default.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.Macerus.Plugins.Content.Skills;
 using ProjectXyz.Plugins.Features.Triggering.Default.Autofac;
 using ProjectXyz.Plugins.Framework.Math.Jace;
 using ProjectXyz.Shared.Framework;
-using ProjectXyz.Shared.States.Autofac;
 
 using Xunit;
 

@@ -22,9 +22,9 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.St
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.DropTables;
-using ProjectXyz.Plugins.Features.TimeOfDay.Api;
+using ProjectXyz.Plugins.Features.TimeOfDay;
 using ProjectXyz.Plugins.Features.Weather;
-using ProjectXyz.Plugins.Features.Weather.Api;
+using ProjectXyz.Plugins.Features.Weather.Default;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
