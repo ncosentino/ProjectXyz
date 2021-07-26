@@ -17,7 +17,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.8" />
+    <PackageReference Include="NexusLabs.Collections.Generic" Version="0.0.10" />
     <PackageReference Include="NexusLabs.Contracts" Version="0.0.4" />
   </ItemGroup>
   <ItemGroup>
