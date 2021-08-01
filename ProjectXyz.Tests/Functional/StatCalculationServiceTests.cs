@@ -152,13 +152,13 @@ namespace ProjectXyz.Tests.Functional
                 .Create(new IBehavior[]
                 {
                     hasEnchantmentsBehavior,
-                    new PassiveSkillBehavior(),
+                    new PassiveSkillEffectBehavior(),
                 });
             var executor = _fixture
                 .GameObjectFactory
                 .Create(new[]
                 {
-                    new SequentialEffectExecutorBehavior(new [] { effect }),
+                    new SequentialSkillEffectExecutorBehavior(new [] { effect }),
                 });
 
 
@@ -234,13 +234,13 @@ namespace ProjectXyz.Tests.Functional
                 {
                     hasEnchantmentsBehavior,
                     mutableStatsBehavior,
-                    new PassiveSkillBehavior(),
+                    new PassiveSkillEffectBehavior(),
                 });
             var executor = _fixture
                 .GameObjectFactory
                 .Create(new[]
                 {
-                    new SequentialEffectExecutorBehavior(new [] { effect }),
+                    new SequentialSkillEffectExecutorBehavior(new [] { effect }),
                 });
             var skill = _fixture
                 .GameObjectFactory
