@@ -91,9 +91,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public async Task SwitchMapAsync(IFilterContext filterContext)
         {
-            MapChanging?.Invoke(this, EventArgs.Empty);
+            await MapChanging
+                .InvokeOrderedAsync(this, EventArgs.Empty)
+                .ConfigureAwait(false);
 
-            var nextMap = (await _mapRepository.LoadMapsAsync(filterContext)).Single();
+            var nextMap = (await _mapRepository
+                .LoadMapsAsync(filterContext)
+                .ConfigureAwait(false))
+                .Single();
             var mapId = nextMap.GetOnly<IReadOnlyIdentifierBehavior>().Id;
 
             _logger.Debug(
@@ -113,9 +118,15 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             ActiveMap = nextMap;
             PathFinder = _pathFinderFactory.CreateForMap(ActiveMap);
 
-            MapChanged?.Invoke(this, EventArgs.Empty);
-            await _mapGameObjectPopulator.PopulateMapGameObjectsAsync(ActiveMap);
-            MapPopulated?.Invoke(this, EventArgs.Empty);
+            await MapChanged
+                .InvokeOrderedAsync(this, EventArgs.Empty)
+                .ConfigureAwait(false);
+            await _mapGameObjectPopulator
+                .PopulateMapGameObjectsAsync(ActiveMap)
+                .ConfigureAwait(false);
+            await MapPopulated
+                .InvokeOrderedAsync(this, EventArgs.Empty)
+                .ConfigureAwait(false);
             _logger.Debug(
                 $"Switched map to '{mapId}'.");
         }
@@ -129,7 +140,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                     new IdentifierFilterAttributeValue(mapId),
                     true)
             });
-            await SwitchMapAsync(filterContext);
+            await SwitchMapAsync(filterContext).ConfigureAwait(false);
         }
     }
 }
