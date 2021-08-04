@@ -73,7 +73,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
             _mapGameObjectManager.MarkForRemoval(mapGameObjectsToRemove);
             _mapGameObjectManager.MarkForAddition(mapGameObjectsToAddLookup);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             _logger.Debug(
                 $"Populated game objects for map ID '{mapId}'.");

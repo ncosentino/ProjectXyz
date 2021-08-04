@@ -56,18 +56,24 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public IPathFinder PathFinder { get; private set; }
 
-        public void UnloadMap()
+        public async Task UnloadMapAsync()
         {
-            MapChanging?.Invoke(this, EventArgs.Empty);
+            await MapChanging
+                .InvokeOrderedAsync(this, EventArgs.Empty)
+                .ConfigureAwait(false);
 
             ActiveMap = null;
             PathFinder = null;
 
-            MapChanged?.Invoke(this, EventArgs.Empty);
+            await MapChanged
+                .InvokeOrderedAsync(this, EventArgs.Empty)
+                .ConfigureAwait(false);
 
-            _mapGameObjectManager.ClearGameObjectsImmediate();
+            _mapGameObjectManager.ClearGameObjectsImmediateAsync();
 
-            MapPopulated?.Invoke(this, EventArgs.Empty);
+            await MapPopulated
+                .InvokeOrderedAsync(this, EventArgs.Empty)
+                .ConfigureAwait(false);
         }
 
         public async Task SaveActiveMapStateAsync()

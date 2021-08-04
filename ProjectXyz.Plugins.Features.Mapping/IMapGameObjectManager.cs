@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.GameObjects;
 
@@ -14,8 +15,8 @@ namespace ProjectXyz.Plugins.Features.Mapping
 
         void MarkForAddition(IEnumerable<IGameObject> gameObjects);
 
-        void Synchronize();
+        Task SynchronizeAsync();
 
-        void ClearGameObjectsImmediate();
+        Task ClearGameObjectsImmediateAsync();
     }
 }

@@ -65,7 +65,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             };
 
             _mapGameObjectManager.MarkForAddition(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             Assert.Single(_mapGameObjectManager.GameObjects, gameObject.Object);
             Assert.Equal(1, synchronizedCount);
@@ -78,14 +78,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             var gameObject = _mockRepository.Create<IGameObject>();
 
             _mapGameObjectManager.MarkForAddition(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             var synchronizedCount = 0;
             _mapGameObjectManager.Synchronized += (_, e) => synchronizedCount++;
 
             // add the same one
             _mapGameObjectManager.MarkForAddition(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             Assert.Single(_mapGameObjectManager.GameObjects, gameObject.Object);
             Assert.Equal(0, synchronizedCount);
@@ -101,7 +101,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             _mapGameObjectManager.Synchronized += (_, e) => synchronizedCount++;
 
             _mapGameObjectManager.MarkForRemoval(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             Assert.Empty(_mapGameObjectManager.GameObjects);
             Assert.Equal(0, synchronizedCount);
@@ -118,7 +118,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
 
             _mapGameObjectManager.MarkForAddition(gameObject.Object);
             _mapGameObjectManager.MarkForRemoval(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             Assert.Empty(_mapGameObjectManager.GameObjects);
             Assert.Equal(0, synchronizedCount);
@@ -131,13 +131,13 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
             var gameObject = _mockRepository.Create<IGameObject>();
 
             _mapGameObjectManager.MarkForAddition(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             var synchronizedCount = 0;
             _mapGameObjectManager.Synchronized += (_, e) => synchronizedCount++;
 
             _mapGameObjectManager.MarkForRemoval(gameObject.Object);
-            _mapGameObjectManager.Synchronize();
+            _mapGameObjectManager.SynchronizeAsync();
 
             Assert.Empty(_mapGameObjectManager.GameObjects);
             Assert.Equal(1, synchronizedCount);

@@ -7,7 +7,7 @@ namespace ProjectXyz.Plugins.Features.Mapping
 {
     public interface IMapManager : IMapProvider
     {
-        void UnloadMap();
+        Task UnloadMapAsync();
 
         Task SwitchMapAsync(IIdentifier mapId);
 

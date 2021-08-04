@@ -25,7 +25,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
         {
             var mapGameObjectManager = new MapGameObjectManager();
             mapGameObjectManager.MarkForAddition(gameObjects);
-            mapGameObjectManager.Synchronize();
+            mapGameObjectManager.SynchronizeAsync();
 
             var collisionDetector = new BoundingRectangleCollisionDetector(mapGameObjectManager);
             var pathFinder = new AStarPathFinder(map, collisionDetector);

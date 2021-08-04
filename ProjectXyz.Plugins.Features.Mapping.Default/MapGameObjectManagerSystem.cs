@@ -18,7 +18,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
 
         public async Task UpdateAsync(ISystemUpdateContext systemUpdateContext)
         {
-            _mutableGameObjectManager.Synchronize();
+            _mutableGameObjectManager.SynchronizeAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using NexusLabs.Collections.Generic;
 using NexusLabs.Contracts;
@@ -78,7 +79,7 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
             });
         }
 
-        public void ClearGameObjectsImmediate()
+        public async Task ClearGameObjectsImmediateAsync()
         {
             PreventSynchronizationDuring(() =>
             {
@@ -87,10 +88,10 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 MarkForRemoval(GameObjects);
             });
 
-            Synchronize();
+            await SynchronizeAsync().ConfigureAwait(false);
         }
 
-        public void Synchronize()
+        public async Task SynchronizeAsync()
         {
             if (_skipSynchronization)
             {
@@ -144,12 +145,14 @@ namespace ProjectXyz.Plugins.Features.Mapping.Default
                 if (requiredSync)
                 {
                     GameObjects =  new FrozenList<IGameObject>(_gameObjects.Keys);
-                    Synchronized?.Invoke(
-                        this,
-                        new GameObjectsSynchronizedEventArgs(
-                            addedGameObjects,
-                            removedGameObjects,
-                            GameObjects));
+                    await Synchronized
+                        .InvokeOrderedAsync(
+                            this,
+                            new GameObjectsSynchronizedEventArgs(
+                                addedGameObjects,
+                                removedGameObjects,
+                                GameObjects))
+                        .ConfigureAwait(false);
                 }
             }
             finally
