@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
@@ -26,15 +25,28 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items
 
         public IGameObject Create(IEnumerable<IBehavior> behaviors)
         {
-            var hasMutableStats = _hasMutableStatsBehaviorFactory.Create();
-            var idBehavior = new IdentifierBehavior(new StringIdentifier(Guid.NewGuid().ToString()));
+            var itemBehaviors = new List<IBehavior>();
 
-            var item = _gameObjectFactory.Create(
-                new IBehavior[]
-                {
-                    idBehavior,
-                    hasMutableStats
-                }.Concat(behaviors));
+            bool hasIdBehavior = false;
+            bool hasStatsBehavior = false;
+            foreach (var behavior in behaviors)
+            {
+                itemBehaviors.Add(behavior);
+                hasIdBehavior |= behavior is IReadOnlyIdentifierBehavior;
+                hasStatsBehavior |= behavior is IHasStatsBehavior;
+            }
+
+            if (!hasStatsBehavior)
+            {
+                itemBehaviors.Add(_hasMutableStatsBehaviorFactory.Create());
+            }
+
+            if (!hasIdBehavior)
+            {
+                itemBehaviors.Add(new IdentifierBehavior(new StringIdentifier(Guid.NewGuid().ToString())));
+            }
+
+            var item = _gameObjectFactory.Create(itemBehaviors);
             return item;
         }
     }
