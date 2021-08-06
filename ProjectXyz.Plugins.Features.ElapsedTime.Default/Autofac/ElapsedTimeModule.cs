@@ -11,6 +11,7 @@ namespace ProjectXyz.Plugins.Features.ElapsedTime.Default.Autofac
             builder
                 .RegisterType<RealTimeProvider>()
                 .AsImplementedInterfaces()
+                .IfNotRegistered(typeof(IRealTimeProvider))
                 .SingleInstance();
             builder
                 .RegisterType<ElapsedTimeComponentCreator>()
