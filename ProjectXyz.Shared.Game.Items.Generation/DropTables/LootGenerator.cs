@@ -9,7 +9,7 @@ using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
 {

@@ -6,7 +6,7 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default

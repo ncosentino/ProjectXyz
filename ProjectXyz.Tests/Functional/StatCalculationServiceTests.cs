@@ -19,7 +19,7 @@ using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.Generation.Default;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;

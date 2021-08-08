@@ -43,7 +43,7 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />

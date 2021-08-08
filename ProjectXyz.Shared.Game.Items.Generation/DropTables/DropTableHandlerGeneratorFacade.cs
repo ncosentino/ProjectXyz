@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
 {

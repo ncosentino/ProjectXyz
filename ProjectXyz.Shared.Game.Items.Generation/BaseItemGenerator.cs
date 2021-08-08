@@ -10,8 +10,8 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 {

@@ -2,7 +2,7 @@
 using System.Linq;
 
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables
 {

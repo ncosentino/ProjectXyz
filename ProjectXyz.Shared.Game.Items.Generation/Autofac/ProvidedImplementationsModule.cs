@@ -4,7 +4,7 @@ using System.Linq;
 using Autofac;
 
 using ProjectXyz.Framework.Autofac;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked;

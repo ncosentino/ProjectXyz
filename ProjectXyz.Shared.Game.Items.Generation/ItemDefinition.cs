@@ -3,7 +3,7 @@ using System.Linq;
 
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation
 {

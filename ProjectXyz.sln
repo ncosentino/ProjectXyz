@@ -101,7 +101,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TimeOfDay", "TimeOfDay", "{02E99FD1-9946-4B2E-9D7E-8173648EC9BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Api", "ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj", "{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items", "ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj", "{4AC90E8C-B0BA-4907-AC9D-03E878C0E8E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameObjects", "GameObjects", "{FB14DEEE-1016-4430-A24C-184F87992BC9}"
 EndProject
@@ -145,7 +145,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.CommonBehaviors", "ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj", "{A8A1AE40-22E9-461F-9713-2CFEF8C0C43A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items", "ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj", "{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.Default", "ProjectXyz.Shard.Game.GameObjects.Items.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Default.csproj", "{29C8E4A8-FF67-4B18-BC0F-73C3F7B7DF01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnhandledExceptionHandling", "UnhandledExceptionHandling", "{A961E96A-CD60-4D17-ACA1-E8446BF08ABC}"
 EndProject

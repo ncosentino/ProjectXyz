@@ -11,7 +11,7 @@ using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default;
 using ProjectXyz.Shared.Framework;

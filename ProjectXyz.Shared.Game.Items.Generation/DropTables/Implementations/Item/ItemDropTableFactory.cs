@@ -4,8 +4,8 @@ using System.Linq;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes; // FIXME: dependency on non-API
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Standard;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Standard;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item
 {

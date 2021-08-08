@@ -1,5 +1,5 @@
 ﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Linked;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Linked;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {

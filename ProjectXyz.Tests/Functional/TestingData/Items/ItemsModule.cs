@@ -1,7 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Tests.Functional.TestingData.Items

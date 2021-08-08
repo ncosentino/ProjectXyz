@@ -7,9 +7,9 @@ using NexusLabs.Contracts;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes; // FIXME: dependency on non-API
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables.Standard;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Standard;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item
 {

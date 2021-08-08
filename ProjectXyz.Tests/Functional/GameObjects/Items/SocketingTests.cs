@@ -13,7 +13,7 @@ using ProjectXyz.Plugins.Features.CommonBehaviors.Filtering;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.Filtering.Default;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns;
 using ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api;

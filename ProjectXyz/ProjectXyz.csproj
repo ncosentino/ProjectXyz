@@ -32,7 +32,7 @@
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Stats.Bounded\ProjectXyz.Plugins.Features.BoundedStats.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
@@ -93,7 +93,7 @@
     <ProjectReference Include="..\ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Stats.Calculations.Bounded\ProjectXyz.Plugins.Features.BoundedStats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Default.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj" />
     <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj" />

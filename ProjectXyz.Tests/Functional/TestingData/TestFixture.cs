@@ -9,7 +9,7 @@ using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Skills;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;

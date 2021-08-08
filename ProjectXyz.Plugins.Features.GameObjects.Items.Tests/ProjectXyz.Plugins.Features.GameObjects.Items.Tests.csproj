@@ -34,8 +34,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
     <ProjectReference Include="..\ProjectXyz.Application.Stats.Interface\ProjectXyz.Api.Stats.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Default.csproj" />
   </ItemGroup>
 </Project>

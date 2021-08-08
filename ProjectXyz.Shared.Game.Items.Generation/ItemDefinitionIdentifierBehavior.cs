@@ -1,5 +1,5 @@
 ﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Shared.Game.Behaviors;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation

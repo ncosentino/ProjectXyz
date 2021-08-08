@@ -1,6 +1,6 @@
 ﻿
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Api.Generation.DropTables;
+using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Tests.Functional.TestingData

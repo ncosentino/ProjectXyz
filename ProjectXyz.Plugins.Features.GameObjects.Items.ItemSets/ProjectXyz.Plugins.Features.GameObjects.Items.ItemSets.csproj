@@ -9,7 +9,7 @@
     <ProjectReference Include="..\ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Items\ProjectXyz.Plugins.Features.GameObjects.Items.Api.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
     <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
     <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
