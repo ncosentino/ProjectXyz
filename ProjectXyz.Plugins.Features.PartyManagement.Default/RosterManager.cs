@@ -61,8 +61,9 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Default
             }
         }
 
-        public IEnumerable<IGameObject> ActiveParty => FullRoster
-            .Where(x => x.GetOnly<IRosterBehavior>().IsActiveParty);
+        public IReadOnlyCollection<IGameObject> ActiveParty => FullRoster
+            .Where(x => x.GetOnly<IRosterBehavior>().IsActiveParty)
+            .ToArray();
 
         public IReadOnlyCollection<IGameObject> FullRoster => _roster
             .Keys

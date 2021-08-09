@@ -203,7 +203,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Tests
                 $"Expecting '{actor2}' to be in the active party.");
             Assert.Equal(actor2, _rosterManager.ActivePartyLeader);
             Assert.Equal(actor1, _rosterManager.ActiveControlledActor);
-            Assert.Equal(2, _rosterManager.ActiveParty.Count());
+            Assert.Equal(2, _rosterManager.ActiveParty.Count);
             Assert.Contains(actor1, _rosterManager.ActiveParty);
             Assert.Contains(actor2, _rosterManager.ActiveParty);
             Assert.Equal(2, _rosterManager.FullRoster.Count);
@@ -438,7 +438,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Tests
 
             // ensure our expected state before performing our test's action
             Assert.Equal(actor2, _rosterManager.ActivePartyLeader);
-            Assert.Equal(2, _rosterManager.ActiveParty.Count());
+            Assert.Equal(2, _rosterManager.ActiveParty.Count);
             Assert.Contains(actor1, _rosterManager.ActiveParty);
             Assert.Contains(actor2, _rosterManager.ActiveParty);
 
@@ -503,7 +503,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement.Tests
 
             // ensure our expected state before performing our test's action
             Assert.Equal(actor2, _rosterManager.ActivePartyLeader);
-            Assert.Equal(2, _rosterManager.ActiveParty.Count());
+            Assert.Equal(2, _rosterManager.ActiveParty.Count);
             Assert.Contains(actor1, _rosterManager.ActiveParty);
             Assert.Contains(actor2, _rosterManager.ActiveParty);
 

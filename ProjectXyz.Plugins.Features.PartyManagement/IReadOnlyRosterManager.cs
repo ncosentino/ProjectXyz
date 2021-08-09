@@ -6,7 +6,7 @@ namespace ProjectXyz.Plugins.Features.PartyManagement
 {
     public interface IReadOnlyRosterManager
     {
-        IEnumerable<IGameObject> ActiveParty { get; }
+        IReadOnlyCollection<IGameObject> ActiveParty { get; }
 
         IGameObject ActiveControlledActor { get; }
 
