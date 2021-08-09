@@ -134,6 +134,14 @@ namespace ProjectXyz.Shared.Behaviors.Filtering.Autofac
                             return isAttrtMatch;
                         });
                     attributeValueMatchFacade.Register<
+                        BooleanFilterAttributeValue,
+                        BooleanFilterAttributeValue>(
+                        (v1, v2) =>
+                        {
+                            var isAttrtMatch = v1.Value == v2.Value;
+                            return isAttrtMatch;
+                        });
+                    attributeValueMatchFacade.Register<
                         IdentifierFilterAttributeValue,
                         IdentifierFilterAttributeValue>(
                         (v1, v2) =>
