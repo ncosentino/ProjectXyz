@@ -8,6 +8,7 @@ using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Combat.Api;
 
 using Xunit;
+using System.Threading.Tasks;
 
 namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
 {
@@ -31,7 +32,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
         }
 
         [Fact]
-        private void GetSnapshot_AfterStartCombatSnapshotLength1_UsesCache()
+        private async Task GetSnapshot_AfterStartCombatSnapshotLength1_UsesCache()
         {
             var gameObjectA1 = _mockRepository.Create<IGameObject>();
             var gameObjectB1 = _mockRepository.Create<IGameObject>();
@@ -60,7 +61,9 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
                 .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
 
-            _combatTurnManager.StartCombat(_filterContext.Object);
+            await _combatTurnManager
+                .StartCombatAsync(_filterContext.Object)
+                .ConfigureAwait(false);
             var results = _combatTurnManager
                 .GetSnapshot(_filterContext.Object, 1)
                 .ToArray();
@@ -73,7 +76,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
         }
 
         [Fact]
-        private void GetSnapshot_After1TurnProgressedSnapshotLength1_UsesCache()
+        private async Task GetSnapshot_After1TurnProgressedSnapshotLength1_UsesCache()
         {
             var gameObjectA1 = _mockRepository.Create<IGameObject>();
             var gameObjectB1 = _mockRepository.Create<IGameObject>();
@@ -102,8 +105,12 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
                 .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
 
-            _combatTurnManager.StartCombat(_filterContext.Object);
-            _combatTurnManager.ProgressTurn(_filterContext.Object, 1);
+            await _combatTurnManager
+                .StartCombatAsync(_filterContext.Object)
+                .ConfigureAwait(false);
+            await _combatTurnManager
+                .ProgressTurnAsync(_filterContext.Object, 1)
+                .ConfigureAwait(false);
             var results = _combatTurnManager
                 .GetSnapshot(_filterContext.Object, 1)
                 .ToArray();
@@ -116,7 +123,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
         }
 
         [Fact]
-        private void GetSnapshot_7InitialProgress2Turns5After_5AfterAreLast5OfFirst()
+        private async Task GetSnapshot_7InitialProgress2Turns5After_5AfterAreLast5OfFirst()
         {
             var gameObjectA1 = _mockRepository.Create<IGameObject>();
             var gameObjectB1 = _mockRepository.Create<IGameObject>();
@@ -145,13 +152,17 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 .Setup(x => x.CalculateActorRequiredTargetValuePerTurn)
                 .Returns(new CombatCalculation<double>((context, actors, actor) => 100));
 
-            _combatTurnManager.StartCombat(_filterContext.Object);
+            await _combatTurnManager
+                .StartCombatAsync(_filterContext.Object)
+                .ConfigureAwait(false);
             var results1 = _combatTurnManager
                 .GetSnapshot(_filterContext.Object, 7)
                 .ToArray();
-            _combatTurnManager.ProgressTurn(
-                _filterContext.Object,
-                2);
+            await _combatTurnManager
+                .ProgressTurnAsync(
+                    _filterContext.Object,
+                    2)
+                .ConfigureAwait(false);
             var results2 = _combatTurnManager
                 .GetSnapshot(_filterContext.Object, 5)
                 .ToArray();
@@ -180,7 +191,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
         [InlineData(2, new[] { 0, 1 }, 0)]
         [InlineData(1, new[] { 0 }, 1)]
         [Theory]
-        private void ProgressTurn_VariableTurns_ExpectedEventArgs(
+        private async Task ProgressTurn_VariableTurns_ExpectedEventArgs(
             int numberOfTurns,
             int[] expectedProgressedActorIndices,
             int expectedNextActorIndex)
@@ -228,16 +239,18 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 turnProgressedCount++;
             };
 
-            _combatTurnManager.ProgressTurn(
-                _filterContext.Object,
-                numberOfTurns);
+            await _combatTurnManager
+                .ProgressTurnAsync(
+                    _filterContext.Object,
+                    numberOfTurns)
+                .ConfigureAwait(false);
 
             Assert.Equal(1, turnProgressedCount);
             _mockRepository.VerifyAll();
         }
 
         [Fact]
-        private void CombatStarted_3ActorsVariableSpeed_ExpectedEventArgs()
+        private async Task CombatStarted_3ActorsVariableSpeed_ExpectedEventArgs()
         {
             var gameObjectA1 = _mockRepository.Create<IGameObject>();
             var gameObjectB1 = _mockRepository.Create<IGameObject>();
@@ -274,8 +287,10 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
                 combatStartedCount++;
             };
 
-            _combatTurnManager.StartCombat(_filterContext.Object);
-            
+            await _combatTurnManager
+                .StartCombatAsync(_filterContext.Object)
+                .ConfigureAwait(false);
+
             Assert.Equal(1, combatStartedCount);
             _mockRepository.VerifyAll();
         }

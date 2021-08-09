@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using NexusLabs.Contracts;
 
@@ -38,7 +39,7 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
 
         public bool InCombat { get; private set; }
 
-        public void StartCombat(IFilterContext filterContext)
+        public async Task StartCombatAsync(IFilterContext filterContext)
         {
             _actorCounters.Clear();
 
@@ -47,10 +48,12 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             var eventArgs = new CombatStartedEventArgs(actorOrder);
 
             InCombat = true;
-            CombatStarted?.Invoke(this, eventArgs);
+            await CombatStarted
+                .InvokeOrderedAsync(this, eventArgs)
+                .ConfigureAwait(false);
         }
 
-        public void EndCombat(
+        public async Task EndCombatAsync(
             IEnumerable<IGameObject> winningTeam,
             IReadOnlyDictionary<int, IReadOnlyCollection<IGameObject>> losingTeams)
         {
@@ -61,10 +64,12 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
                 losingTeams);
 
             InCombat = false;
-            CombatEnded?.Invoke(this, eventArgs);
+            await CombatEnded
+                .InvokeOrderedAsync(this, eventArgs)
+                .ConfigureAwait(false);
         }
 
-        public void ProgressTurn(
+        public async Task ProgressTurnAsync(
             IFilterContext filterContext,
             int turns)
         {
@@ -85,7 +90,9 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             var eventArgs = new TurnProgressedEventArgs(
                 actorOrder,
                 _cachedCurrentActor);
-            TurnProgressed?.Invoke(this, eventArgs);
+            await TurnProgressed
+              .InvokeOrderedAsync(this, eventArgs)
+              .ConfigureAwait(false);
         }
 
         public IEnumerable<IGameObject> GetSnapshot(

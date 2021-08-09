@@ -2,18 +2,19 @@
 
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Api.GameObjects;
+using System.Threading.Tasks;
 
 namespace ProjectXyz.Plugins.Features.Combat.Api
 {
     public interface ICombatTurnManager : IObservableCombatTurnManager
     {        
-        void ProgressTurn(
+        Task ProgressTurnAsync(
             IFilterContext filterContext,
             int turns);
-        
-        void StartCombat(IFilterContext filterContext);
 
-        void EndCombat(
+        Task StartCombatAsync(IFilterContext filterContext);
+
+        Task EndCombatAsync(
             IEnumerable<IGameObject> winningTeam,
             IReadOnlyDictionary<int, IReadOnlyCollection<IGameObject>> losingTeams);
     }
