@@ -4,7 +4,6 @@ using System.Text;
 using Autofac;
 
 using ProjectXyz.Api.Data.Serialization;
-using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
@@ -17,13 +16,13 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Behaviors.Serialization.Newton
     {
         private static readonly ISerializer _serializer;
         private static readonly IDeserializer _deserializer;
-        private static readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private static readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         static HasMutableStatsBehaviorSerializationTests()
         {
             _serializer = CachedDependencyLoader.LifeTimeScope.Resolve<ISerializer>();
             _deserializer = CachedDependencyLoader.LifeTimeScope.Resolve<IDeserializer>();
-            _hasMutableStatsBehaviorFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IHasMutableStatsBehaviorFactory>();
+            _hasMutableStatsBehaviorFactory = CachedDependencyLoader.LifeTimeScope.Resolve<IHasStatsBehaviorFactory>();
         }
 
         [Fact]
@@ -38,7 +37,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Behaviors.Serialization.Newton
                 stats[new IntIdentifier(222)] = 89.0;
             });
 
-            IHasMutableStatsBehavior result;
+            IHasStatsBehavior result;
             using (var stream = new MemoryStream())
             {
                 _serializer.Serialize(
@@ -46,7 +45,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Behaviors.Serialization.Newton
                     hasMutableStatsBehavior,
                     Encoding.UTF8);
                 stream.Seek(0, SeekOrigin.Begin);
-                result = _deserializer.Deserialize<IHasMutableStatsBehavior>(stream);
+                result = _deserializer.Deserialize<IHasStatsBehavior>(stream);
             }
 
             Assert.True(

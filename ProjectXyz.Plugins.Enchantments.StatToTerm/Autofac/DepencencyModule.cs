@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Autofac;
-using ProjectXyz.Api.Stats;
+﻿using Autofac;
+
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.Stats;
 
 namespace ProjectXyz.Plugins.Enchantments.StatToTerm.Autofac
 {

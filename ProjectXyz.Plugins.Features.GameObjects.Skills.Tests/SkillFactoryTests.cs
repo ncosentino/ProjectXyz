@@ -24,7 +24,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
         private readonly Mock<IReadOnlyTemplateIdentifierBehavior> _templateIdentifierBehavior;
         private readonly Mock<IReadOnlyIdentifierBehavior> _identifierBehavior;
         private readonly Mock<ISkillResourceUsageBehavior> _skillResourceUsageBehavior;
-        private readonly Mock<IHasMutableStatsBehavior> _hasMutableStatsBehavior;
+        private readonly Mock<IHasStatsBehavior> _hasStatsBehavior;
         private readonly Mock<ISkillTargetModeBehavior> _skillTargetModeBehavior;
         private readonly Mock<IHasSkillSynergiesBehavior> _hasSkillSynergiesBehavior;
         private readonly Mock<IHasEnchantmentsBehavior> _hasEnchantmentsBehavior;
@@ -41,7 +41,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             _templateIdentifierBehavior = _mockRepository.Create<IReadOnlyTemplateIdentifierBehavior>();
             _identifierBehavior = _mockRepository.Create<IReadOnlyIdentifierBehavior>();
             _skillResourceUsageBehavior = _mockRepository.Create<ISkillResourceUsageBehavior>();
-            _hasMutableStatsBehavior = _mockRepository.Create<IHasMutableStatsBehavior>();
+            _hasStatsBehavior = _mockRepository.Create<IHasStatsBehavior>();
             _skillTargetModeBehavior = _mockRepository.Create<ISkillTargetModeBehavior>();
             _hasSkillSynergiesBehavior = _mockRepository.Create<IHasSkillSynergiesBehavior>();
             _hasEnchantmentsBehavior = _mockRepository.Create<IHasEnchantmentsBehavior>();
@@ -79,7 +79,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
                 _skillResourceUsageBehavior.Object,
-                _hasMutableStatsBehavior.Object,
+                _hasStatsBehavior.Object,
                 _skillTargetModeBehavior.Object,
                 _hasSkillSynergiesBehavior.Object,
                 _hasEnchantmentsBehavior.Object,
@@ -117,7 +117,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
                 _skillResourceUsageBehavior.Object,
-                _hasMutableStatsBehavior.Object,
+                _hasStatsBehavior.Object,
                 _skillTargetModeBehavior.Object,
                 _hasSkillSynergiesBehavior.Object,
                 _hasEnchantmentsBehavior.Object,
@@ -161,7 +161,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
                 _skillResourceUsageBehavior.Object,
-                _hasMutableStatsBehavior.Object,
+                _hasStatsBehavior.Object,
                 _skillTargetModeBehavior.Object,
                 _hasSkillSynergiesBehavior.Object,
                 _hasEnchantmentsBehavior.Object,
@@ -191,7 +191,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
                 _templateIdentifierBehavior.Object,
                 _identifierBehavior.Object,
                 _skillResourceUsageBehavior.Object,
-                _hasMutableStatsBehavior.Object,
+                _hasStatsBehavior.Object,
                 _skillTargetModeBehavior.Object,
                 _hasSkillSynergiesBehavior.Object,
                 _hasEnchantmentsBehavior.Object,

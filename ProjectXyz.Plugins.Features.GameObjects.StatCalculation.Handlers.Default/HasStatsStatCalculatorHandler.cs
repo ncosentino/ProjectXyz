@@ -31,7 +31,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     components,
                     context.Enchantments.Concat(enchantments));
                 var statValue = behaviors
-                    .GetOnly<IHasStatsBehavior>()
+                    .GetOnly<IHasReadOnlyStatsBehavior>()
                     .GetStatValue(
                         currentContext,
                         statId);
@@ -40,7 +40,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
         }
 
         public CanCalculateStatDelegate CanCalculateStat { get; } =
-            behaviors => behaviors.Has<IHasStatsBehavior>();
+            behaviors => behaviors.Has<IHasReadOnlyStatsBehavior>();
 
         public CalculateStatDelegate CalculateStat { get; }
     }

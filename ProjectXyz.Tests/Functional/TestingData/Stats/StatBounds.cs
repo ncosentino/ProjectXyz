@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Plugins.Features.BoundedStats;
-using ProjectXyz.Plugins.Features.BoundedStats.Api;
+using ProjectXyz.Plugins.Features.Stats.Bounded.Default;
+using ProjectXyz.Plugins.Features.Stats.Bounded;
 
 namespace ProjectXyz.Tests.Functional.TestingData.Stats
 {

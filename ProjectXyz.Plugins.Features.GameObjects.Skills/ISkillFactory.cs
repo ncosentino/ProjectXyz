@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills
             IReadOnlyTemplateIdentifierBehavior templateIdentifierBehavior,
             IReadOnlyIdentifierBehavior identifierBehavior,
             ISkillResourceUsageBehavior skillResourceUsageBehavior,
-            IHasMutableStatsBehavior hasMutableStatsBehavior,
+            IHasStatsBehavior hasStatsBehavior,
             ISkillTargetModeBehavior skillTargetModeBehavior,
             IHasSkillSynergiesBehavior hasSkillSynergiesBehavior,
             IHasEnchantmentsBehavior hasEnchantmentsBehavior, 

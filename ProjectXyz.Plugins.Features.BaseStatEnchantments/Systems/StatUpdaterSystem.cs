@@ -34,7 +34,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
 
             foreach (var gameObject in turnInfo.AllGameObjects)
             {
-                if (!_behaviorFinder.TryFind(gameObject, out Tuple<IHasReadOnlyEnchantmentsBehavior, IHasMutableStatsBehavior> behaviours))
+                if (!_behaviorFinder.TryFind(gameObject, out Tuple<IHasReadOnlyEnchantmentsBehavior, IHasStatsBehavior> behaviours))
                 {
                     continue;
                 }

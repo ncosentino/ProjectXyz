@@ -32,7 +32,7 @@ namespace ProjectXyz.Tests.Functional.Stats
         private static readonly IMapGameObjectManager _mapGameObjectManager;
         private static readonly IManualTimeProvider _manualTimeProvider;
         private static readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
-        private static readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private static readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         static StatUpdaterTests()
         {
@@ -43,7 +43,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             _mapGameObjectManager = _fixture.LifeTimeScope.Resolve<IMapGameObjectManager>();
             _manualTimeProvider = _fixture.LifeTimeScope.Resolve<IManualTimeProvider>();
             _hasEnchantmentsBehaviorFactory = _fixture.LifeTimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
-            _hasMutableStatsBehaviorFactory = _fixture.LifeTimeScope.Resolve<IHasMutableStatsBehaviorFactory>();
+            _hasMutableStatsBehaviorFactory = _fixture.LifeTimeScope.Resolve<IHasStatsBehaviorFactory>();
         }
 
         public static IEnumerable<object[]> GetGlobalTimeElapsedSingleEnchantmentTestData()
@@ -287,7 +287,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 5,
-                item.GetOnly<IHasMutableStatsBehavior>().BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
+                item.GetOnly<IHasStatsBehavior>().BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
 
         private async Task UsingCleanTurnBasedManagerAsync(Func<Task> callback)

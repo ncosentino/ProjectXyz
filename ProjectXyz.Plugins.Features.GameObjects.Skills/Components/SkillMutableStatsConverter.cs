@@ -33,10 +33,10 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
 
     public sealed class SkillMutableStatsConverter : IBehaviorConverter
     {
-        private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         public SkillMutableStatsConverter(
-            IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
+            IHasStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
         }

@@ -1,7 +1,7 @@
 ﻿using Autofac;
 
 using ProjectXyz.Api.Enchantments.Stats;
-using ProjectXyz.Api.Stats;
+using ProjectXyz.Plugins.Features.Stats;
 using ProjectXyz.Framework.Autofac;
 
 namespace ProjectXyz.Plugins.Enchantments.Stats.Autofac

@@ -4,7 +4,7 @@ using ProjectXyz.Api.Enchantments;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
-using ProjectXyz.Api.Stats;
+using ProjectXyz.Plugins.Features.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
@@ -50,7 +50,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                     .ToList();
 
                 var equipmentStats = equipment
-                    .Where(x => x.Owner.Has<IHasStatsBehavior>())
+                    .Where(x => x.Owner.Has<IHasReadOnlyStatsBehavior>())
                     .Select(x => statVisitor.GetStatValue(
                         x.Owner,
                         statId,

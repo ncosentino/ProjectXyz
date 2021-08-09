@@ -16,7 +16,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         private readonly IActorBehaviorsProviderFacade _actorBehaviorsProviderFacade;
         private readonly IActorBehaviorsInterceptorFacade _actorBehaviorsInterceptorFacade;
         private readonly IHasEnchantmentsBehaviorFactory _hasEnchantmentsBehaviorFactory;
-        private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         public ActorFactory(
             IActorIdentifiers actorIdentifiers,
@@ -24,7 +24,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             IActorBehaviorsProviderFacade actorBehaviorsProviderFacade,
             IActorBehaviorsInterceptorFacade actorBehaviorsInterceptorFacade,
             IHasEnchantmentsBehaviorFactory hasEnchantmentsBehaviorFactory,
-            IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
+            IHasStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
             _actorIdentifiers = actorIdentifiers;
             _gameObjectFactory = gameObjectFactory;

@@ -5,7 +5,6 @@ using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Api.Stats;
 using ProjectXyz.Plugins.Features.BaseStatEnchantments.Enchantments;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
@@ -14,6 +13,7 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
 using ProjectXyz.Plugins.Features.GameObjects.Skills;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.Handlers;
+using ProjectXyz.Plugins.Features.Stats;
 using ProjectXyz.Plugins.Features.Triggering;
 using ProjectXyz.Testing;
 using ProjectXyz.Tests.Functional.TestingData.Enchantments;
@@ -32,7 +32,7 @@ namespace ProjectXyz.Tests.Functional.TestingData
             TriggerMechanicRegistrar = LifeTimeScope.Resolve<ITriggerMechanicRegistrar>();
             ActiveEnchantmentManagerFactory = LifeTimeScope.Resolve<IActiveEnchantmentManagerFactory>();
             HasEnchantmentsBehaviorFactory = LifeTimeScope.Resolve<IHasEnchantmentsBehaviorFactory>();
-            HasMutableStatsBehaviorFactory = LifeTimeScope.Resolve<IHasMutableStatsBehaviorFactory>();
+            HasMutableStatsBehaviorFactory = LifeTimeScope.Resolve<IHasStatsBehaviorFactory>();
             StatManagerFactory = LifeTimeScope.Resolve<IStatManagerFactory>();
             ContextConverter = LifeTimeScope.Resolve<IConvert<IStatCalculationContext, IEnchantmentCalculatorContext>>();
             ActorFactory = LifeTimeScope.Resolve<IActorFactory>();
@@ -69,7 +69,7 @@ namespace ProjectXyz.Tests.Functional.TestingData
 
         public IActiveEnchantmentManagerFactory ActiveEnchantmentManagerFactory { get; }
 
-        public IHasMutableStatsBehaviorFactory HasMutableStatsBehaviorFactory { get; }
+        public IHasStatsBehaviorFactory HasMutableStatsBehaviorFactory { get; }
 
         public IHasEnchantmentsBehaviorFactory HasEnchantmentsBehaviorFactory { get; }
 

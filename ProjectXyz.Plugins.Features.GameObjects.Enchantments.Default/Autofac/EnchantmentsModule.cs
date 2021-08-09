@@ -5,7 +5,7 @@ using Autofac;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework.Entities;
-using ProjectXyz.Api.Stats.Calculations;
+using ProjectXyz.Plugins.Features.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 

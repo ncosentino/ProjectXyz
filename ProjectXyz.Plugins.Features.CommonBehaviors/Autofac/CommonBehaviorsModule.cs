@@ -10,7 +10,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
         protected override void SafeLoad(ContainerBuilder builder)
         {
             builder
-                .RegisterType<HasMutableStatsBehaviorFactory>()
+                .RegisterType<HasStatsBehaviorFactory>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

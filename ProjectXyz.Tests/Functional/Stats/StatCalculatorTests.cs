@@ -5,13 +5,13 @@ using System.Linq;
 using Jace;
 
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats;
-using ProjectXyz.Api.Stats.Calculations;
 using ProjectXyz.Plugins.Enchantments.Stats.StatExpressions;
-using ProjectXyz.Plugins.Features.BoundedStats;
-using ProjectXyz.Plugins.Features.BoundedStats.Api;
-using ProjectXyz.Plugins.Stats;
-using ProjectXyz.Plugins.Stats.Calculations;
+using ProjectXyz.Plugins.Features.Stats;
+using ProjectXyz.Plugins.Features.Stats.Bounded;
+using ProjectXyz.Plugins.Features.Stats.Bounded.Default;
+using ProjectXyz.Plugins.Features.Stats.Calculations;
+using ProjectXyz.Plugins.Features.Stats.Default;
+using ProjectXyz.Plugins.Features.Stats.Default.Calculations;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Shared.Framework.Math;
 
@@ -169,7 +169,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 },
                 1);
 
-            public IStatDefinitionToTermConverter StatDefinitionToTermConverter { get; } = ProjectXyz.Plugins.Stats.StatDefinitionToTermConverter.FromMapping(new Dictionary<IIdentifier, string>()
+            public IStatDefinitionToTermConverter StatDefinitionToTermConverter { get; } = ProjectXyz.Plugins.Features.Stats.Default.StatDefinitionToTermConverter.FromMapping(new Dictionary<IIdentifier, string>()
             {
                 { STAT_DEFINITION_IDS.ConstantValue, "STR" },
                 { STAT_DEFINITION_IDS.NonDependentExpression, "PHYS_DMG" },
@@ -178,7 +178,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 { STAT_DEFINITION_IDS.Override.ExpressionDependentOnOverridenConstantValue, "EXPR_OVERRIDE" },
             });
 
-            public IStatDefinitionToCalculationConverter StatDefinitionToCalculationConverter { get; } = ProjectXyz.Plugins.Stats.Calculations.StatDefinitionToCalculationConverter.FromMapping(new Dictionary<IIdentifier, string>()
+            public IStatDefinitionToCalculationConverter StatDefinitionToCalculationConverter { get; } = ProjectXyz.Plugins.Features.Stats.Default.Calculations.StatDefinitionToCalculationConverter.FromMapping(new Dictionary<IIdentifier, string>()
             {
                 { STAT_DEFINITION_IDS.ConstantValue, "123" },
                 { STAT_DEFINITION_IDS.NonDependentExpression, "(1 + 2 + 3 + 4) / 2" },

@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
+
 using ProjectXyz.Api.Framework;
+using ProjectXyz.Plugins.Features.Stats;
 
 namespace ProjectXyz.Api.Enchantments.Stats
 {
     public interface IStatManager
     {
+        event EventHandler<StatChangedEventArgs> BaseStatChanged;
+
         IReadOnlyDictionary<IIdentifier, double> BaseStats { get; }
 
         double GetValue(

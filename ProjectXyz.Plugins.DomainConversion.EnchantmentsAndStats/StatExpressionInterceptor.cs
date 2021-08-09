@@ -1,5 +1,5 @@
 ﻿using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats.Calculations;
+using ProjectXyz.Plugins.Features.Stats.Calculations;
 
 namespace ProjectXyz.Plugins.Enchantments.Stats.StatExpressions
 {

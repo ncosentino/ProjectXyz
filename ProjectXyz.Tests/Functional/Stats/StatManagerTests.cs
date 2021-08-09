@@ -5,7 +5,7 @@ using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Enchantments.Stats;
-using ProjectXyz.Plugins.Stats;
+using ProjectXyz.Plugins.Features.Stats.Default;
 using ProjectXyz.Tests.Functional.TestingData;
 
 using Xunit;

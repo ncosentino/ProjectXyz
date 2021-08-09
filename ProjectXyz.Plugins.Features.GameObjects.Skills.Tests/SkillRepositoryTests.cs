@@ -91,7 +91,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Tests
             containerBuilder.RegisterModule(new SkillModule());
             containerBuilder.RegisterModule(new EffectModule());
             containerBuilder.RegisterModule(new Plugins.Enchantments.Stats.Autofac.StatsModule());
-            containerBuilder.RegisterModule(new Plugins.Stats.Autofac.StatsModule());
+            containerBuilder.RegisterModule(new Stats.Default.Autofac.StatsModule());
             containerBuilder.RegisterModule(new EnchantmentsGenerationModule());
             containerBuilder.RegisterModule(new InMemoryEnchantmentsModule());
             containerBuilder.RegisterModule(new GenerationModule());

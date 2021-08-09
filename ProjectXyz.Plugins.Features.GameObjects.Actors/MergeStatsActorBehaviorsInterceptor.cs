@@ -9,9 +9,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {
     public sealed class MergeStatsActorBehaviorsInterceptor : IDiscoverableActorBehaviorsInterceptor
     {
-        private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
-        public MergeStatsActorBehaviorsInterceptor(IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
+        public MergeStatsActorBehaviorsInterceptor(IHasStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
         }
@@ -21,7 +21,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
         public IEnumerable<IBehavior> Intercept(IReadOnlyCollection<IBehavior> behaviors)
         {
             var hasStatsBehaviors = behaviors
-                .Get<IHasStatsBehavior>()
+                .Get<IHasReadOnlyStatsBehavior>()
                 .ToArray();
             if (hasStatsBehaviors.Length < 2)
             {
@@ -45,7 +45,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             });
 
             return behaviors
-                .Where(x => !(x is IHasStatsBehavior))
+                .Where(x => !(x is IHasReadOnlyStatsBehavior))
                 .AppendSingle(mutableStatsBehavior);
         }
     }

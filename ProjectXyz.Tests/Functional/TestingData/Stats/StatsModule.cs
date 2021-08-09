@@ -2,9 +2,10 @@
 using System.Linq;
 
 using Autofac;
+
 using ProjectXyz.Api.Framework;
-using ProjectXyz.Api.Stats;
 using ProjectXyz.Framework.Autofac;
+using ProjectXyz.Plugins.Features.Stats;
 
 namespace ProjectXyz.Tests.Functional.TestingData.Stats
 {

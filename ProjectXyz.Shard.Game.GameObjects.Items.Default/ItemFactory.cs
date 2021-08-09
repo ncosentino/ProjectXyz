@@ -13,11 +13,11 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Default
     public sealed class ItemFactory : IItemFactory
     {
         private readonly IGameObjectFactory _gameObjectFactory;
-        private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
 
         public ItemFactory(
             IGameObjectFactory gameObjectFactory,
-            IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory)
+            IHasStatsBehaviorFactory hasMutableStatsBehaviorFactory)
         {
             _gameObjectFactory = gameObjectFactory;
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
@@ -33,7 +33,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Default
             {
                 itemBehaviors.Add(behavior);
                 hasIdBehavior |= behavior is IReadOnlyIdentifierBehavior;
-                hasStatsBehavior |= behavior is IHasStatsBehavior;
+                hasStatsBehavior |= behavior is IHasReadOnlyStatsBehavior;
             }
 
             if (!hasStatsBehavior)

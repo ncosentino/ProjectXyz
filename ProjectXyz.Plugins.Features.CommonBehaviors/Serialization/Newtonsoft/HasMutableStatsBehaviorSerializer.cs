@@ -14,18 +14,18 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
 {
     public sealed class HasMutableStatsBehaviorSerializer : IDiscoverableCustomSerializer
     {
-        private readonly IHasMutableStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
+        private readonly IHasStatsBehaviorFactory _hasMutableStatsBehaviorFactory;
         private readonly IIdentifierConverter _identifierConverter;
 
         public HasMutableStatsBehaviorSerializer(
-            IHasMutableStatsBehaviorFactory hasMutableStatsBehaviorFactory,
+            IHasStatsBehaviorFactory hasMutableStatsBehaviorFactory,
             IIdentifierConverter identifierConverter)
         {
             _hasMutableStatsBehaviorFactory = hasMutableStatsBehaviorFactory;
             _identifierConverter = identifierConverter;
         }
 
-        public Type TypeToRegisterFor { get; } = typeof(HasMutableStatsBehavior);
+        public Type TypeToRegisterFor { get; } = typeof(HasStatsBehavior);
 
         public NewtonsoftDeserializeDelegate Deserializer => (
             deserializer,
@@ -54,7 +54,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
             type,
             serializableId) =>
         {
-            var hasMutableStatsBehavior = (HasMutableStatsBehavior)objectToConvert;
+            var hasMutableStatsBehavior = (HasStatsBehavior)objectToConvert;
             var serializable = new Serializable(
                 serializableId,
                 hasMutableStatsBehavior.BaseStats);

@@ -1,4 +1,4 @@
-using ProjectXyz.Api.Stats;
+using ProjectXyz.Plugins.Features.Stats;
 
 namespace ProjectXyz.Api.Enchantments.Stats
 {
