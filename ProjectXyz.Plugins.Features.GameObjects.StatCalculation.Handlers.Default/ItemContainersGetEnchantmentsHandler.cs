@@ -5,16 +5,15 @@ using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
 {
-    public sealed class HasItemContainersGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
+    public sealed class ItemContainersGetEnchantmentsHandler : IDiscoverableGetEnchantmentsHandler
     {
-        public HasItemContainersGetEnchantmentsHandler(ITargetNavigator targetNavigator)
+        public ItemContainersGetEnchantmentsHandler(ITargetNavigator targetNavigator)
         {
             GetEnchantments = (statVisitor, enchantmentVisitor, behaviors, target, statId, context) =>
             {
                 var itemTarget = targetNavigator.NavigateDown(targetNavigator.NavigateDown(target));
                 var itemContainers = behaviors
-                   .Get<IReadOnlyHasItemContainersBehavior>()
-                   .SelectMany(container => container.ItemContainers)
+                   .Get<IReadOnlyItemContainerBehavior>()
                    .ToArray();
                 var containerItems = itemContainers
                     .SelectMany(container => container.Items)
@@ -33,7 +32,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
         }
 
         public CanGetEnchantmentsDelegate CanGetEnchantments { get; } =
-            behaviors => behaviors.Has<IReadOnlyHasItemContainersBehavior>();
+            behaviors => behaviors.Has<IReadOnlyItemContainerBehavior>();
 
         public GetEnchantmentsDelegate GetEnchantments { get; }
     }

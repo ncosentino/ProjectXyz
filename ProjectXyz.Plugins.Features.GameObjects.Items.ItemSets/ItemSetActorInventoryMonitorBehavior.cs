@@ -27,8 +27,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
 
             var observableItemContainerBehaviors = owner
                 .Behaviors
-                .GetOnly<IHasItemContainersBehavior>()
-                .ItemContainers;
+                .Get<IObservableItemContainerBehavior>();
 
             var missingContainers = _observableItemContainerBehaviors.Except(observableItemContainerBehaviors);
             foreach (var missing in missingContainers)

@@ -347,8 +347,7 @@ namespace ProjectXyz.Tests.Functional
                 inventoryItemOnlyEnchantment);
 
             var inventory = actor
-                .GetOnly<IHasItemContainersBehavior>()
-                .ItemContainers
+                .Get<IItemContainerBehavior>()
                 .Single(c => c.ContainerId.Equals(new StringIdentifier("Inventory")));
 
             inventory.TryAddItem(inventoryItem);

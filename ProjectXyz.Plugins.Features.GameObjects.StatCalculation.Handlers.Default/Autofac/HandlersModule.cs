@@ -17,7 +17,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<HasItemContainersGetEnchantmentsHandler>()
+                .RegisterType<ItemContainersGetEnchantmentsHandler>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

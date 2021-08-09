@@ -35,8 +35,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
         public void UpdateItemSets(IGameObject actor)
         {
             var carriedItems = actor
-                .Get<IHasItemContainersBehavior>()
-                .SelectMany(x => x.ItemContainers.SelectMany(c => c.Items))
+                .Get<IItemContainerBehavior>()
+                .SelectMany(x => x.Items)
                 .SelectMany(x => x.Get<IBelongsToItemSetBehavior>())
                 .Select(x => new
                 {

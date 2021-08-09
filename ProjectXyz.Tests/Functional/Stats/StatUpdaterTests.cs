@@ -252,10 +252,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             var actorFactory = _fixture.LifeTimeScope.Resolve<IActorFactory>();
             var actor = actorFactory.Create(
                 new IdentifierBehavior(new StringIdentifier("actor")),
-                new[]
-                {
-                    new ItemContainerBehavior(new StringIdentifier("inventory")),
-                });
+                new IBehavior[] { });
 
             var item = new TestGameObject(new IBehavior[]
             {
@@ -264,7 +261,8 @@ namespace ProjectXyz.Tests.Functional.Stats
             });
             Assert.True(
                 actor
-                    .GetOnly<IItemContainerBehavior>()
+                    .Get<IItemContainerBehavior>()
+                    .Single(x => Equals(x.ContainerId, new StringIdentifier("Inventory")))
                     .TryAddItem(item),
                 $"Could not add '{item}' to item container of '{actor}'.");
 

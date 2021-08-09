@@ -22,10 +22,6 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<HasItemContainersBehaviorGameObjectsForBehavior>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .RegisterType<ItemContainerGameObjectsForBehavior>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

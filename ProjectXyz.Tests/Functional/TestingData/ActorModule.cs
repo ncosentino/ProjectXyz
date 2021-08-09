@@ -3,7 +3,6 @@
 using Autofac;
 
 using ProjectXyz.Api.GameObjects.Behaviors;
-using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
 using ProjectXyz.Shared.Framework;
@@ -27,9 +26,7 @@ namespace ProjectXyz.Tests.Functional.TestingData
         public IEnumerable<IBehavior> GetBehaviors(IReadOnlyCollection<IBehavior> baseBehaviors)
         {
             var inventory = new ItemContainerBehavior(new StringIdentifier("Inventory"));
-            var hasItemContainers = new HasItemContainersBehavior();
-            hasItemContainers.AddItemContainer(inventory);
-            yield return hasItemContainers;
+            yield return inventory;
 
             var canEquip = new CanEquipBehavior(new[]
             {
