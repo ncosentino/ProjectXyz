@@ -18,10 +18,10 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         public HasStatsBehavior(IStatManager statManager)
         {
             _statManager = statManager;
-            _statManager.BaseStatChanged += (s, e) => BaseStatChanged?.Invoke(this, e);
+            _statManager.BaseStatsChanged += (s, e) => BaseStatsChanged?.Invoke(this, e);
         }
 
-        public event EventHandler<StatChangedEventArgs> BaseStatChanged;
+        public event EventHandler<StatsChangedEventArgs> BaseStatsChanged;
 
         public IReadOnlyDictionary<IIdentifier, double> BaseStats => _statManager.BaseStats;
 

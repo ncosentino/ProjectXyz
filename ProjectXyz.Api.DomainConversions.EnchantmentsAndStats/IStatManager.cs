@@ -8,7 +8,7 @@ namespace ProjectXyz.Api.Enchantments.Stats
 {
     public interface IStatManager
     {
-        event EventHandler<StatChangedEventArgs> BaseStatChanged;
+        event EventHandler<StatsChangedEventArgs> BaseStatsChanged;
 
         IReadOnlyDictionary<IIdentifier, double> BaseStats { get; }
 

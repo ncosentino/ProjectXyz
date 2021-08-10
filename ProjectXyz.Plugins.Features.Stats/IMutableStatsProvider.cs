@@ -7,7 +7,7 @@ namespace ProjectXyz.Plugins.Features.Stats
 {
     public interface IMutableStatsProvider : IStatsProvider
     {
-        event EventHandler<StatChangedEventArgs> StatModified;
+        event EventHandler<StatsChangedEventArgs> StatsModified;
 
         void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback);
     }

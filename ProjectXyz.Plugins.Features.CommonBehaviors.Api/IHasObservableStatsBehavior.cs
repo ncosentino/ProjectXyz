@@ -6,6 +6,6 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
 {
     public interface IHasObservableStatsBehavior : IHasReadOnlyStatsBehavior
     {
-        event EventHandler<StatChangedEventArgs> BaseStatChanged;
+        event EventHandler<StatsChangedEventArgs> BaseStatsChanged;
     }
 }

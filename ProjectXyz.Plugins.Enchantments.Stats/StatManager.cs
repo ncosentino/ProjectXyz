@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
@@ -22,10 +23,10 @@ namespace ProjectXyz.Plugins.Enchantments.Stats
             _mutableStatsProvider = mutableStatsProvider;
             _statToEnchantmentContextConverter = statToEnchantmentContextConverter;
 
-            _mutableStatsProvider.StatModified += (s, e) => BaseStatChanged?.Invoke(this, e);
+            _mutableStatsProvider.StatsModified += (s, e) => BaseStatsChanged?.Invoke(this, e);
         }
 
-        public event EventHandler<StatChangedEventArgs> BaseStatChanged;
+        public event EventHandler<StatsChangedEventArgs> BaseStatsChanged;
 
         public IReadOnlyDictionary<IIdentifier, double> BaseStats => _mutableStatsProvider.Stats;
 

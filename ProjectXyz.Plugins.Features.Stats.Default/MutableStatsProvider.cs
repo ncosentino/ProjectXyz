@@ -19,17 +19,17 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
         public MutableStatsProvider(IEnumerable<KeyValuePair<IIdentifier, double>> stats)
         {
             _stats = new StatModifiedDictionary(stats);
-            _stats.Changed += (s, e) => StatModified?.Invoke(this, e);
+            _stats.StatsChanged += (s, e) => StatsModified?.Invoke(this, e);
         }
 
         public IReadOnlyDictionary<IIdentifier, double> Stats => _stats;
 
-        public event EventHandler<StatChangedEventArgs> StatModified;
+        public event EventHandler<StatsChangedEventArgs> StatsModified;
 
-        public void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback)
+        public void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback) => _stats.BulkUpdate(() =>
         {
             callback(_stats);
-        }
+        });
 
         public sealed class StatModifiedDictionary :
             IDictionary<IIdentifier, double>,
@@ -56,11 +56,13 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
                     }
 
                     _wrapped[key] = value;
-                    OnChanged(StatChanged.Changed, key, value);
+                    OnChanged(Features.Stats.StatChanged.Changed, key, value);
                 }
             }
 
-            public event EventHandler<StatChangedEventArgs> Changed;
+            public event EventHandler<StatsChangedEventArgs> StatsChanged;
+
+            private event EventHandler<StatChangedEventArgs> StatChanged;
 
             public ICollection<IIdentifier> Keys => _wrapped.Keys;
 
@@ -74,10 +76,49 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
 
             IEnumerable<double> IReadOnlyDictionary<IIdentifier, double>.Values => Values;
 
+            public void BulkUpdate(Action callback)
+            {
+                var added = new Dictionary<IIdentifier, double>();
+                var removed = new HashSet<IIdentifier>();
+                var changed = new Dictionary<IIdentifier, double>();
+                EventHandler<StatChangedEventArgs> handler = (s, e) =>
+                {
+                    if (e.Status == Features.Stats.StatChanged.Added)
+                    {
+                        added[e.StatDefinitionId] = e.Value.Value;
+                    }
+                    else if (e.Status == Features.Stats.StatChanged.Removed)
+                    {
+                        removed.Add(e.StatDefinitionId);
+                    }
+                    else
+                    {
+                        changed[e.StatDefinitionId] = e.Value.Value;
+                    }
+                };
+
+                StatChanged += handler;
+                try
+                {
+                    callback?.Invoke();
+                }
+                finally
+                {
+                    StatChanged -= handler;
+                }
+
+                if (added.Any() || removed.Any() || changed.Any())
+                {
+                    StatsChanged?.Invoke(
+                        this,
+                        new StatsChangedEventArgs(added, removed, changed));
+                }
+            }
+
             public void Add(IIdentifier key, double value)
             {
                 _wrapped.Add(key, value);
-                OnChanged(StatChanged.Added, key, value);
+                OnChanged(Features.Stats.StatChanged.Added, key, value);
             }
 
             public void Add(KeyValuePair<IIdentifier, double> item) =>
@@ -109,7 +150,7 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
                     return false;
                 }
 
-                OnChanged(StatChanged.Removed, key, null);
+                OnChanged(Features.Stats.StatChanged.Removed, key, null);
                 return true;
             }
 
@@ -125,7 +166,7 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
                 StatChanged status,
                 IIdentifier statDefinitionId,
                 double? value) =>
-                Changed?.Invoke(
+                StatChanged?.Invoke(
                     this,
                     new StatChangedEventArgs(
                         status,
