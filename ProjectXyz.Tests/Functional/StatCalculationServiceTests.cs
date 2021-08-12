@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Autofac;
 
@@ -197,7 +198,7 @@ namespace ProjectXyz.Tests.Functional
         }
 
         [Fact]
-        private void GetStatValue_ContextComponentAndPassiveSkillEnchantmentsWithBaseStats_ExpectedStat()
+        private async Task GetStatValue_ContextComponentAndPassiveSkillEnchantmentsWithBaseStats_ExpectedStat()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -223,7 +224,7 @@ namespace ProjectXyz.Tests.Functional
                 .HasMutableStatsBehaviorFactory
                 .Create();
 
-            mutableStatsBehavior.MutateStats(stats =>
+            await mutableStatsBehavior.MutateStatsAsync(async stats =>
             {
                 stats[statId] = 7;
             });

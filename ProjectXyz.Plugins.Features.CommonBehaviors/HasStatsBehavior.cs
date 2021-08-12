@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Enchantments.Stats;
 using ProjectXyz.Api.Framework;
@@ -18,7 +19,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
         public HasStatsBehavior(IStatManager statManager)
         {
             _statManager = statManager;
-            _statManager.BaseStatsChanged += (s, e) => BaseStatsChanged?.Invoke(this, e);
+            _statManager.BaseStatsChanged += async (s, e) => await BaseStatsChanged
+                .InvokeOrderedAsync(this, e)
+                .ConfigureAwait(false);
         }
 
         public event EventHandler<StatsChangedEventArgs> BaseStatsChanged;
@@ -31,9 +34,9 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors
                 statCalculationContext,
                 statDefinitionId);
 
-        public void MutateStats(Action<IDictionary<IIdentifier, double>> callback)
+        public async Task MutateStatsAsync(Func<IDictionary<IIdentifier, double>, Task> callback)
         {
-            _statManager.UsingMutableStats(callback);
+            await _statManager.UsingMutableStatsAsync(callback).ConfigureAwait(false);
         }
     }
 }

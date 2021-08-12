@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Enchantments.Stats;
@@ -23,7 +24,9 @@ namespace ProjectXyz.Plugins.Enchantments.Stats
             _mutableStatsProvider = mutableStatsProvider;
             _statToEnchantmentContextConverter = statToEnchantmentContextConverter;
 
-            _mutableStatsProvider.StatsModified += (s, e) => BaseStatsChanged?.Invoke(this, e);
+            _mutableStatsProvider.StatsModified += async (s, e) => await BaseStatsChanged
+                .InvokeOrderedAsync(this, e)
+                .ConfigureAwait(false);
         }
 
         public event EventHandler<StatsChangedEventArgs> BaseStatsChanged;
@@ -42,7 +45,7 @@ namespace ProjectXyz.Plugins.Enchantments.Stats
             return value;
         }
 
-        public void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback) =>
-            _mutableStatsProvider.UsingMutableStats(callback);
+        public Task UsingMutableStatsAsync(Func<IDictionary<IIdentifier, double>, Task> callback) =>
+            _mutableStatsProvider.UsingMutableStatsAsync(callback);
     }
 }

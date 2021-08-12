@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Features.Stats;
@@ -16,6 +17,6 @@ namespace ProjectXyz.Api.Enchantments.Stats
             IStatCalculationContext statCalculationContext,
             IIdentifier statDefinitionId);
 
-        void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback);
+        Task UsingMutableStatsAsync(Func<IDictionary<IIdentifier, double>, Task> callback);
     }
 }

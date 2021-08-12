@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
@@ -21,10 +22,10 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats
             _enchantmentCalculatorContextFactory = enchantmentCalculatorContextFactory;
         }
 
-        public void Update(
+        public async Task UpdateAsync(
             IReadOnlyDictionary<IIdentifier, double> baseStats,
             IReadOnlyCollection<IGameObject> enchantments,
-            Action<Action<IDictionary<IIdentifier, double>>> mutateStatsCallback,
+            Func<Func<IDictionary<IIdentifier, double>, Task>, Task> mutateStatsCallback,
             double elapsedTurns)
         {
             var enchantmentCalculatorContext = _enchantmentCalculatorContextFactory.CreateEnchantmentCalculatorContext(
@@ -35,7 +36,7 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Stats
                 enchantmentCalculatorContext,
                 baseStats);
 
-            mutateStatsCallback(mutableStats =>
+            await mutateStatsCallback.Invoke(async mutableStats =>
             {
                 foreach (var statToValueMapping in updatedStats)
                 {

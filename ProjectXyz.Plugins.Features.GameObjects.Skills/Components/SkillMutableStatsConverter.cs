@@ -53,13 +53,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Components
             var statsComponent = (SkillMutableStatsGeneratorComponent)component;
 
             var hasMutableStats = _hasMutableStatsBehaviorFactory.Create();
-            hasMutableStats.MutateStats(stats =>
-            {
-                foreach (var stat in statsComponent.Stats)
+            hasMutableStats
+                .MutateStatsAsync(async stats =>
                 {
-                    stats[stat.Key] = stat.Value;
-                }
-            });
+                    foreach (var stat in statsComponent.Stats)
+                    {
+                        stats[stat.Key] = stat.Value;
+                    }
+                })
+                .Wait();
 
             return hasMutableStats;
         }

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 using Autofac;
 
@@ -26,10 +27,10 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Behaviors.Serialization.Newton
         }
 
         [Fact]
-        private void FullSerialize_MixedStatIdentifierTypes_EquivalentDeserialized()
+        private async Task FullSerialize_MixedStatIdentifierTypes_EquivalentDeserialized()
         {
             var hasMutableStatsBehavior = _hasMutableStatsBehaviorFactory.Create();
-            hasMutableStatsBehavior.MutateStats(stats =>
+            await hasMutableStatsBehavior.MutateStatsAsync(async stats =>
             {
                 stats[new StringIdentifier("Stat A")] = 12.3;
                 stats[new StringIdentifier("Stat B")] = 45.6;

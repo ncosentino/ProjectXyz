@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 using Newtonsoft.Json.Linq;
 
@@ -8,7 +7,6 @@ using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
 {
@@ -35,14 +33,15 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
             var jsonObject = (JObject)deserializer.ReadObject(stream);
             var statValues = jsonObject.ToObject<Dictionary<string, double>>();
             var hasMutableStatsBehavior = _hasMutableStatsBehaviorFactory.Create();
-            hasMutableStatsBehavior.MutateStats(stats =>
-            {
-                foreach (var kvp in statValues)
+            hasMutableStatsBehavior
+                .MutateStatsAsync(async stats =>
                 {
-                    var statId = _identifierConverter.Convert(kvp.Key);
-                    stats[statId] = kvp.Value;
-                }
-            });
+                    foreach (var kvp in statValues)
+                    {
+                        var statId = _identifierConverter.Convert(kvp.Key);
+                        stats[statId] = kvp.Value;
+                    }
+                }).Wait();
 
             return hasMutableStatsBehavior;
         };

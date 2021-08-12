@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework;
 
@@ -9,6 +10,6 @@ namespace ProjectXyz.Plugins.Features.Stats
     {
         event EventHandler<StatsChangedEventArgs> StatsModified;
 
-        void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback);
+        Task UsingMutableStatsAsync(Func<IDictionary<IIdentifier, double>, Task> callback);
     }
 }

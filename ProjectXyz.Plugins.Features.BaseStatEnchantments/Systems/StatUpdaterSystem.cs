@@ -39,11 +39,18 @@ namespace ProjectXyz.Plugins.Features.BaseStatEnchantments.Systems
                     continue;
                 }
 
-                _statUpdater.Update(
-                    behaviours.Item2.BaseStats,
-                    behaviours.Item1.Enchantments,
-                    behaviours.Item2.MutateStats,
-                    turnInfo.ElapsedTurns);
+                await _statUpdater
+                    .UpdateAsync(
+                        behaviours.Item2.BaseStats,
+                        behaviours.Item1.Enchantments,
+                        async callback => await behaviours
+                            .Item2
+                            .MutateStatsAsync(async stats => await callback
+                                .Invoke(stats)
+                                .ConfigureAwait(false))
+                            .ConfigureAwait(false),
+                        turnInfo.ElapsedTurns)
+                    .ConfigureAwait(false);
             }
         }
     }

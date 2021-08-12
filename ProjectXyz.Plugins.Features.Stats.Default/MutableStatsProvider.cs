@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using ProjectXyz.Api.Framework;
 
@@ -19,16 +20,18 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
         public MutableStatsProvider(IEnumerable<KeyValuePair<IIdentifier, double>> stats)
         {
             _stats = new StatModifiedDictionary(stats);
-            _stats.StatsChanged += (s, e) => StatsModified?.Invoke(this, e);
+            _stats.StatsChanged += async (s, e) => await StatsModified
+                .InvokeOrderedAsync(this, e)
+                .ConfigureAwait(false);
         }
 
         public IReadOnlyDictionary<IIdentifier, double> Stats => _stats;
 
         public event EventHandler<StatsChangedEventArgs> StatsModified;
 
-        public void UsingMutableStats(Action<IDictionary<IIdentifier, double>> callback) => _stats.BulkUpdate(() =>
+        public Task UsingMutableStatsAsync(Func<IDictionary<IIdentifier, double>, Task> callback) => _stats.BulkUpdateAsync(async () =>
         {
-            callback(_stats);
+            await callback(_stats).ConfigureAwait(false);
         });
 
         public sealed class StatModifiedDictionary :
@@ -36,6 +39,7 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
             IReadOnlyDictionary<IIdentifier, double>
         {
             private readonly Dictionary<IIdentifier, double> _wrapped;
+            private bool _performingBulkUpdate;
 
             public StatModifiedDictionary(IEnumerable<KeyValuePair<IIdentifier, double>> items)
             {
@@ -44,25 +48,36 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
 
             public double this[IIdentifier key]
             {
-                get => _wrapped[key];
+                get => _wrapped.TryGetValue(key, out var existingValue)
+                    ? existingValue
+                    : default;
                 set
                 {
+                    var hadKey = _wrapped.TryGetValue(key, out var existingValue);
                     var changed =
-                        !_wrapped.TryGetValue(key, out var existing) ||
-                        existing != value;
+                        !hadKey ||
+                        existingValue != value;
                     if (!changed)
                     {
                         return;
                     }
 
                     _wrapped[key] = value;
-                    OnChanged(Features.Stats.StatChanged.Changed, key, value);
+                    OnChangedAsync(
+                        hadKey 
+                            ? Features.Stats.StatChanged.Changed
+                            : Features.Stats.StatChanged.Added,
+                        key,
+                        value, 
+                        existingValue).Wait();
                 }
             }
 
             public event EventHandler<StatsChangedEventArgs> StatsChanged;
 
             private event EventHandler<StatChangedEventArgs> StatChanged;
+
+            private event EventHandler<StatsChangedEventArgs> BulkStatsChangedCollector;
 
             public ICollection<IIdentifier> Keys => _wrapped.Keys;
 
@@ -76,49 +91,106 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
 
             IEnumerable<double> IReadOnlyDictionary<IIdentifier, double>.Values => Values;
 
-            public void BulkUpdate(Action callback)
+            public async Task BulkUpdateAsync(Func<Task> callback)
             {
-                var added = new Dictionary<IIdentifier, double>();
-                var removed = new HashSet<IIdentifier>();
-                var changed = new Dictionary<IIdentifier, double>();
-                EventHandler<StatChangedEventArgs> handler = (s, e) =>
-                {
-                    if (e.Status == Features.Stats.StatChanged.Added)
-                    {
-                        added[e.StatDefinitionId] = e.Value.Value;
-                    }
-                    else if (e.Status == Features.Stats.StatChanged.Removed)
-                    {
-                        removed.Add(e.StatDefinitionId);
-                    }
-                    else
-                    {
-                        changed[e.StatDefinitionId] = e.Value.Value;
-                    }
-                };
-
-                StatChanged += handler;
+                // FIXME: this pattern makes me SOOOO nervous. do we need to
+                // enforce mutual exclusion here across threads w/ a lock?
+                // this is super dangerous otherwise.
+                var wasPerformingBulkUpdate = _performingBulkUpdate;
+                _performingBulkUpdate = true;
                 try
                 {
-                    callback?.Invoke();
+                    var added = new Dictionary<IIdentifier, double>();
+                    var removed = new HashSet<IIdentifier>();
+                    var changed = new Dictionary<IIdentifier, Tuple<double, double>>();
+                    EventHandler<StatChangedEventArgs> handler = (s, e) =>
+                    {
+                        if (e.Status == Features.Stats.StatChanged.Added)
+                        {
+                            added[e.StatDefinitionId] = e.Value.Value;
+                        }
+                        else if (e.Status == Features.Stats.StatChanged.Removed)
+                        {
+                            removed.Add(e.StatDefinitionId);
+                        }
+                        else
+                        {
+                            changed[e.StatDefinitionId] = Tuple.Create(
+                                e.Value.Value,
+                                e.OldValue.Value);
+                        }
+                    };
+
+                    StatChanged += handler;
+                    try
+                    {
+                        await callback
+                            .Invoke()
+                            .ConfigureAwait(false);
+                    }
+                    finally
+                    {
+                        StatChanged -= handler;
+                    }
+
+
+                    if (added.Any() || removed.Any() || changed.Any())
+                    {
+                        var statsChangedArgs = new StatsChangedEventArgs(added, removed, changed);
+
+                        // this gets SUPER messy here but here's the
+                        // explanation... the event handlers for stats being
+                        // changed can cause other stats to get changed,
+                        // triggering this sort of recursive stat-changing
+                        // chain. a good example of this is if experience
+                        // requirements are met, we want to increase the level
+                        // of an actor. therefore, it's one stat change
+                        // triggering another. in order to help preserve the
+                        // ordering that callers would expect these events to
+                        // complete, we need to make this logic feel like it's
+                        // completing the first event handler before moving on
+                        // to sub-event handlers.
+                        if (wasPerformingBulkUpdate)
+                        {
+                            await BulkStatsChangedCollector
+                                .InvokeOrderedAsync(this, statsChangedArgs)
+                                .ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            var changedArgsAccumulator = new Queue<StatsChangedEventArgs>();
+                            changedArgsAccumulator.Enqueue(statsChangedArgs);
+
+                            EventHandler<StatsChangedEventArgs> bulkCollectorHandler = (s, e) => changedArgsAccumulator.Enqueue(e);
+                            BulkStatsChangedCollector += bulkCollectorHandler;
+                            try
+                            {
+                                while (changedArgsAccumulator.Count > 0)
+                                {
+                                    await StatsChanged
+                                        .InvokeOrderedAsync(
+                                            this,
+                                            changedArgsAccumulator.Dequeue())
+                                        .ConfigureAwait(false);
+                                }
+                            }
+                            finally
+                            {
+                                BulkStatsChangedCollector -= bulkCollectorHandler;
+                            }
+                        }
+                    }
                 }
                 finally
                 {
-                    StatChanged -= handler;
-                }
-
-                if (added.Any() || removed.Any() || changed.Any())
-                {
-                    StatsChanged?.Invoke(
-                        this,
-                        new StatsChangedEventArgs(added, removed, changed));
+                    _performingBulkUpdate = wasPerformingBulkUpdate;
                 }
             }
 
             public void Add(IIdentifier key, double value)
             {
                 _wrapped.Add(key, value);
-                OnChanged(Features.Stats.StatChanged.Added, key, value);
+                OnChangedAsync(Features.Stats.StatChanged.Added, key, value, null).Wait();
             }
 
             public void Add(KeyValuePair<IIdentifier, double> item) =>
@@ -150,7 +222,7 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
                     return false;
                 }
 
-                OnChanged(Features.Stats.StatChanged.Removed, key, null);
+                OnChangedAsync(Features.Stats.StatChanged.Removed, key, null, existing).Wait();
                 return true;
             }
 
@@ -162,16 +234,20 @@ namespace ProjectXyz.Plugins.Features.Stats.Default
 
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-            private void OnChanged(
+            private async Task OnChangedAsync(
                 StatChanged status,
                 IIdentifier statDefinitionId,
-                double? value) =>
-                StatChanged?.Invoke(
-                    this,
-                    new StatChangedEventArgs(
-                        status,
-                        statDefinitionId,
-                        value));
+                double? value,
+                double? oldValue) =>
+                await StatChanged
+                    .InvokeOrderedAsync(
+                        this,
+                        new StatChangedEventArgs(
+                            status,
+                            statDefinitionId,
+                            value,
+                            oldValue))
+                     .ConfigureAwait(false);
         }
     }
 }

@@ -9,11 +9,13 @@ namespace ProjectXyz.Plugins.Features.Stats
         public StatChangedEventArgs(
             StatChanged status,
             IIdentifier statDefinitionId,
-            double? value)
+            double? value,
+            double? oldValue)
         {
             Status = status;
             StatDefinitionId = statDefinitionId;
             Value = value;
+            OldValue = oldValue;
         }
 
         public StatChanged Status { get; }
@@ -21,5 +23,7 @@ namespace ProjectXyz.Plugins.Features.Stats
         public IIdentifier StatDefinitionId { get; }
 
         public double? Value { get; }
+
+        public double? OldValue { get; }
     }
 }

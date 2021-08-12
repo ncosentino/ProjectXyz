@@ -33,16 +33,17 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Actors
             // the stats away and put a mutable behavior in place.
 
             var mutableStatsBehavior = _hasMutableStatsBehaviorFactory.Create();
-            mutableStatsBehavior.MutateStats(stats =>
-            {
-                foreach (var hasStatsBehavior in hasStatsBehaviors)
+            mutableStatsBehavior
+                .MutateStatsAsync(async stats =>
                 {
-                    foreach (var stat in hasStatsBehavior.BaseStats)
+                    foreach (var hasStatsBehavior in hasStatsBehaviors)
                     {
-                        stats[stat.Key] = stat.Value;
+                        foreach (var stat in hasStatsBehavior.BaseStats)
+                        {
+                            stats[stat.Key] = stat.Value;
+                        }
                     }
-                }
-            });
+                }).Wait();
 
             return behaviors
                 .Where(x => !(x is IHasReadOnlyStatsBehavior))

@@ -11,7 +11,7 @@ namespace ProjectXyz.Plugins.Features.Stats
         public StatsChangedEventArgs(
             IEnumerable<KeyValuePair<IIdentifier, double>> addedStats,
             IEnumerable<IIdentifier> removedStats,
-            IEnumerable<KeyValuePair<IIdentifier, double>> changedStats)
+            IEnumerable<KeyValuePair<IIdentifier, Tuple<double, double>>> changedStats)
         {
             AddedStats = addedStats.ToDictionary(x => x.Key, x => x.Value);
             RemovedStats = removedStats.ToArray();
@@ -22,6 +22,6 @@ namespace ProjectXyz.Plugins.Features.Stats
 
         public IReadOnlyCollection<IIdentifier> RemovedStats { get; }
 
-        public IReadOnlyDictionary<IIdentifier, double> ChangedStats { get; }
+        public IReadOnlyDictionary<IIdentifier, Tuple<double, double>> ChangedStats { get; }
     }
 }
