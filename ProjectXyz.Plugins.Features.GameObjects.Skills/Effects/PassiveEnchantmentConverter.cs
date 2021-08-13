@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.GameObjects.Generation;
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Effects
@@ -51,7 +51,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Skills.Effects
             var enchantments = _enchantmentLoader.LoadForEnchantmenDefinitionIds(
                 passiveEnchantComponent.EnchantmentDefinitionIds);
 
-            behavior.AddEnchantments(enchantments);
+            behavior.AddEnchantmentsAsync(enchantments);
 
             return behavior;
         }

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Autofac;
 
 using ProjectXyz.Api.Enchantments.Calculations;
-using ProjectXyz.Api.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Api.GameObjects;
@@ -15,10 +14,12 @@ using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Enchantments.Stats;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
-using ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory;
 using ProjectXyz.Plugins.Features.GameObjects.Generation.Default;
 using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets;
@@ -118,7 +119,7 @@ namespace ProjectXyz.Tests.Functional
         }
 
         [Fact]
-        private void GetStatValue_ContextComponentLowPriorityAndPassiveSkillEnchantmentsHighPriority_ExpectedStat()
+        private async Task GetStatValue_ContextComponentLowPriorityAndPassiveSkillEnchantmentsHighPriority_ExpectedStat()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -142,7 +143,7 @@ namespace ProjectXyz.Tests.Functional
                 .HasEnchantmentsBehaviorFactory
                 .Create();
 
-            hasEnchantmentsBehavior.AddEnchantments(new[]
+            await hasEnchantmentsBehavior.AddEnchantmentsAsync(new[]
             {
                 passiveEnchantment1,
                 passiveEnchantment2,
@@ -215,7 +216,7 @@ namespace ProjectXyz.Tests.Functional
                 .HasEnchantmentsBehaviorFactory
                 .Create();
 
-            hasEnchantmentsBehavior.AddEnchantments(new[]
+            await hasEnchantmentsBehavior.AddEnchantmentsAsync(new[]
             {
                 passiveEnchantment
             });

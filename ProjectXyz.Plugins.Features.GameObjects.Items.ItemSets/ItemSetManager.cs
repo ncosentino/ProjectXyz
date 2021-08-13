@@ -2,13 +2,14 @@
 using System.Linq;
 
 using ProjectXyz.Api.Enchantments;
-using ProjectXyz.Api.Enchantments.Generation;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
 using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
@@ -240,14 +241,14 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                     if (current.Count < entryToAdd.Value.Count)
                     {
                         actorEnchantmentsBehavior
-                            .AddEnchantments(entryToAdd
+                            .AddEnchantmentsAsync(entryToAdd
                                 .Value
                                 .Skip(entryToAdd.Value.Count - current.Count));
                     }
                     else if (current.Count > entryToAdd.Value.Count)
                     {
                         actorEnchantmentsBehavior
-                            .RemoveEnchantments(current
+                            .RemoveEnchantmentsAsync(current
                             .ToArray() // we need a copy here
                             .Skip(current.Count - entryToAdd.Value.Count));
                     }
@@ -257,12 +258,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
                 }
                 else
                 {
-                    actorEnchantmentsBehavior.AddEnchantments(entryToAdd.Value);
+                    actorEnchantmentsBehavior.AddEnchantmentsAsync(entryToAdd.Value);
                 }
             }
 
             // remove what's leftover
-            actorEnchantmentsBehavior.RemoveEnchantments(currentEnchantments.SelectMany(x => x.Value));
+            actorEnchantmentsBehavior.RemoveEnchantmentsAsync(currentEnchantments.SelectMany(x => x.Value));
         }
 
         // FIXME: can this be an extension method somewhere? Where would it 

@@ -2,16 +2,17 @@
 
 using Autofac;
 
-using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Tests.Functional.TestingData;
+using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
 using ProjectXyz.Plugins.Features.GameObjects.Items;
 using ProjectXyz.Shared.Framework;
+using ProjectXyz.Tests.Functional.TestingData;
 
 using Xunit;
 

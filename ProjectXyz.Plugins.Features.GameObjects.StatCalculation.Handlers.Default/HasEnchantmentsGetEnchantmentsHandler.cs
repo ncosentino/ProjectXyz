@@ -5,6 +5,7 @@ using NexusLabs.Contracts;
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
 using ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default
@@ -16,7 +17,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
             GetEnchantments = (statVisitor, enchantmentVisitor, behaviors, target, statId, context) =>
             {
                 var enchantments = behaviors
-                    .Get<IHasReadOnlyEnchantmentsBehavior>()
+                    .Get<IReadOnlyHasEnchantmentsBehavior>()
                     ?.SelectMany(x => x.Enchantments.Select(enchantment =>
                     {
                         Contract.RequiresNotNull(
@@ -48,7 +49,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Defau
         }
 
         public CanGetEnchantmentsDelegate CanGetEnchantments { get; } =
-            behaviors => behaviors.Has<IHasReadOnlyEnchantmentsBehavior>();
+            behaviors => behaviors.Has<IReadOnlyHasEnchantmentsBehavior>();
 
         public GetEnchantmentsDelegate GetEnchantments { get; }
     }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Autofac;
 
@@ -8,6 +9,7 @@ using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
 using ProjectXyz.Shared.Framework;
 using ProjectXyz.Testing;
 
@@ -31,10 +33,10 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Behaviors.Serialization.Newton
         }
 
         [Fact]
-        private void FullSerialize_TwoEnchantments_EquivalentDeserialized()
+        private async Task FullSerialize_TwoEnchantments_EquivalentDeserialized()
         {
             var hasEnchantmentsBehavior = _hasEnchantmentsBehaviorFactory.Create();
-            hasEnchantmentsBehavior.AddEnchantments(new[]
+            await hasEnchantmentsBehavior.AddEnchantmentsAsync(new[]
             {
                 _gameObjectFactory.Create(new [] { new IdentifierBehavior(new StringIdentifier("enchantment1")) }),
                 _gameObjectFactory.Create(new [] { new IdentifierBehavior(new StringIdentifier("enchantment2")) }),

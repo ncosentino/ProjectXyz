@@ -81,7 +81,16 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default
                     () => $"One of the enchantments in the provided argument " +
                     $"'{nameof(enchantments)}' was null.");
 
-                foreach (var triggerMechanic in _activeEnchantmentsAndTriggerMechanics[enchantment])
+                if (!_activeEnchantmentsAndTriggerMechanics.TryGetValue(
+                    enchantment,
+                    out var triggerMechanicsForEnchantment))
+                {
+                    throw new InvalidOperationException(
+                        $"Attempted to remove '{enchantment}' but it was not " +
+                        $"found in the list of active enchantments.");
+                }
+
+                foreach (var triggerMechanic in triggerMechanicsForEnchantment)
                 {
                     _triggerMechanicRegistrar.UnregisterTrigger(triggerMechanic);
                 }

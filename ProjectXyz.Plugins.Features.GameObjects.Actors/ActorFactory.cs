@@ -6,6 +6,7 @@ using ProjectXyz.Api.GameObjects.Behaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors;
 using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Plugins.Features.GameObjects.Actors.Api;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Actors
 {

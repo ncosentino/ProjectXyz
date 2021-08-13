@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Shared.Framework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default", "ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default.csproj", "{18E59339-25CA-46BF-B6FA-8D992A303050}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Enchantments", "ProjectXyz.Application.Enchantments.Api\ProjectXyz.Api.Enchantments.csproj", "{D9FC9425-991E-4D82-AD07-1F7E501CC27C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments", "ProjectXyz.Plugins.Features.GameObjects.Enchantments\ProjectXyz.Plugins.Features.GameObjects.Enchantments.csproj", "{D9FC9425-991E-4D82-AD07-1F7E501CC27C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.ExpressionEnchantments", "ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj", "{D3DE6090-306A-4C84-8CCB-86BBD50D7885}"
 EndProject
@@ -37,11 +37,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enchantments", "Enchantment
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Stats.Bounded.Default", "ProjectXyz.Plugins.Features.Stats.Bounded.Default\ProjectXyz.Plugins.Features.Stats.Bounded.Default.csproj", "{523BB036-1DDF-419E-851E-8685E4EC744F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Enchantments.Stats", "ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Api.Enchantments.Stats.csproj", "{2C772806-3C50-468C-8A13-CFA42592322A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats", "ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.csproj", "{2C772806-3C50-468C-8A13-CFA42592322A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Enchantments.Stats.StatExpressions", "ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Enchantments.Stats.StatExpressions.csproj", "{BF07FB51-D73C-49B7-8632-B2A58F9BF17F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.StatExpressions", "ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.StatExpressions.csproj", "{BF07FB51-D73C-49B7-8632-B2A58F9BF17F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Stats.Bounded", "ProjectXyz.Plugins.Features.Stats.Bounded\ProjectXyz.Plugins.Features.Stats.Bounded.csproj", "{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C}"
 EndProject
@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.ElapsedTime", "ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj", "{B76D36D7-02DE-43FA-B5AF-52A2A8A5DC6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Enchantments.StatToTerm", "ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Enchantments.StatToTerm.csproj", "{566FADA1-BCBC-41E4-9327-64214A1A6D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.StatToTerm", "ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Features.GameObjects.Enchantments.StatToTerm.csproj", "{566FADA1-BCBC-41E4-9327-64214A1A6D30}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Framework.Tests", "ProjectXyz.Framework.Tests\ProjectXyz.Framework.Tests.csproj", "{3C0F3FEF-DB2B-4FC2-9272-284E49994333}"
 EndProject
@@ -129,13 +129,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Filtering.Api", "ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj", "{BC5887BD-4022-497A-A792-F3CEDFFEA874}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Enchantments.Generation", "ProjectXyz.Api.Enchantments.Generation\ProjectXyz.Api.Enchantments.Generation.csproj", "{A578219F-0115-4536-AE85-9B6496E1D21D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation", "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.csproj", "{A578219F-0115-4536-AE85-9B6496E1D21D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameObjects", "GameObjects", "{06036003-2B25-42BD-8074-AB45DDD4B40E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{3873E97E-C3C2-4C0D-9196-8450354967CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Enchantments.Generation", "ProjectXyz.Plugins.Features.Enchantments.Generation\ProjectXyz.Plugins.Features.Enchantments.Generation.csproj", "{C87767ED-6D08-4710-9E45-BA47A9184BF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default", "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default.csproj", "{C87767ED-6D08-4710-9E45-BA47A9184BF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonBehaviors", "CommonBehaviors", "{23813F2B-B24A-463A-989F-97E74EDFE87C}"
 EndProject
@@ -179,7 +179,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Framework.Autofa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.CommonBehaviors.Tests", "ProjectXyz.Plugins.Features.CommonBehaviors.Tests\ProjectXyz.Plugins.Features.CommonBehaviors.Tests.csproj", "{D09925AA-BFCB-42A0-A998-589AE6D03148}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Enchantments.Stats", "ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Enchantments.Stats.csproj", "{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.Default", "ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.Default.csproj", "{EBB6B4A6-3E77-43E6-BE8F-FACFC2D4D653}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StatCalculation", "StatCalculation", "{F98147E6-5044-4ED6-A3F4-DF1653A58F15}"
 EndProject
@@ -213,7 +213,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enchantments", "Enchantment
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generation", "Generation", "{4675B0A2-9B55-4C35-9863-DD84A0AF5219}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory", "ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.Enchantments.Generation.InMemory.csproj", "{AFFC3DA4-E1B3-45FF-848C-E4B0D4B63E73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory", "ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory.csproj", "{AFFC3DA4-E1B3-45FF-848C-E4B0D4B63E73}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Api.Data.Databases", "ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj", "{D54D0844-092D-4CCE-B01A-4AEA8B440926}"
 EndProject
@@ -238,8 +238,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Skills", "ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj", "{9610A531-3581-4F4D-90BB-2977B2778385}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Filtering.Default", "ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj", "{3329B059-C7B2-4D39-A002-DA530F0B3541}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests", "ProjectXyz.Plugins.Features.GameObjects.Skills.Tests\ProjectXyz.Plugins.Features.GameObjects.Skills.Tests.csproj", "{054F10F2-310C-40A0-BDD8-2A345355A4A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets", "ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj", "{2D504688-A90A-43DE-8FF2-E84ABA46A4AD}"
 EndProject
@@ -291,7 +289,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Triggering", "Triggering", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stats", "Stats", "{BA1B1139-4BF6-4141-A9DB-BC21EED9CFD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectXyz.Plugins.Features.Stats.Tests", "ProjectXyz.Plugins.Features.Stats.Tests\ProjectXyz.Plugins.Features.Stats.Tests.csproj", "{5326F892-B49E-4060-BB2C-D5575BD4B150}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectXyz.Plugins.Features.Stats.Tests", "ProjectXyz.Plugins.Features.Stats.Tests\ProjectXyz.Plugins.Features.Stats.Tests.csproj", "{5326F892-B49E-4060-BB2C-D5575BD4B150}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -615,10 +613,6 @@ Global
 		{3329B059-C7B2-4D39-A002-DA530F0B3541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3329B059-C7B2-4D39-A002-DA530F0B3541}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3329B059-C7B2-4D39-A002-DA530F0B3541}.Release|Any CPU.Build.0 = Release|Any CPU
-		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{054F10F2-310C-40A0-BDD8-2A345355A4A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D504688-A90A-43DE-8FF2-E84ABA46A4AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D504688-A90A-43DE-8FF2-E84ABA46A4AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D504688-A90A-43DE-8FF2-E84ABA46A4AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -703,12 +697,12 @@ Global
 		{66ECD308-648E-4AC6-A37A-A868DF43CA6C} = {DAB1F3EB-AD06-4CA0-BE64-7F7267ECCBFC}
 		{3FF8799D-1850-46DC-BD5E-632485E89058} = {7F0E8840-224B-4473-89E6-1FE66EE93E8C}
 		{18E59339-25CA-46BF-B6FA-8D992A303050} = {347226E9-35EB-468E-9884-130B7D502E2A}
-		{D9FC9425-991E-4D82-AD07-1F7E501CC27C} = {E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5}
+		{D9FC9425-991E-4D82-AD07-1F7E501CC27C} = {0BDD1CB0-4E11-4453-8370-8B9176818A63}
 		{D3DE6090-306A-4C84-8CCB-86BBD50D7885} = {082E360F-BD44-4AEF-BFA9-5BFDD278EE27}
 		{585F063F-E452-4A6B-B29E-36BA8BF14FBD} = {0BDD1CB0-4E11-4453-8370-8B9176818A63}
 		{E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5} = {0F769E14-559C-4A23-BA23-20CECD2636A6}
 		{523BB036-1DDF-419E-851E-8685E4EC744F} = {65BD92C5-5BDE-412F-B4E7-71B0A2E39FF8}
-		{2C772806-3C50-468C-8A13-CFA42592322A} = {E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5}
+		{2C772806-3C50-468C-8A13-CFA42592322A} = {BA1B1139-4BF6-4141-A9DB-BC21EED9CFD4}
 		{2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B} = {15BDBEA4-4170-4040-9C45-C392D6098151}
 		{BF07FB51-D73C-49B7-8632-B2A58F9BF17F} = {BA1B1139-4BF6-4141-A9DB-BC21EED9CFD4}
 		{DE382CF7-D84E-4A89-9C6D-3F2A7729B40C} = {65BD92C5-5BDE-412F-B4E7-71B0A2E39FF8}
@@ -753,7 +747,7 @@ Global
 		{FF377F10-928C-4281-8ADB-E40D9A664967} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{B369DF7D-3FE2-417A-9C69-E8FFECBBBF6D} = {15BDBEA4-4170-4040-9C45-C392D6098151}
 		{BC5887BD-4022-497A-A792-F3CEDFFEA874} = {BFF0574C-FE77-4043-83D9-0B0D532A3F12}
-		{A578219F-0115-4536-AE85-9B6496E1D21D} = {E5A37BD8-C51F-4B41-BA22-BC41AB9CE9B5}
+		{A578219F-0115-4536-AE85-9B6496E1D21D} = {4675B0A2-9B55-4C35-9863-DD84A0AF5219}
 		{06036003-2B25-42BD-8074-AB45DDD4B40E} = {9FC699C8-887A-4FB4-B8C3-3075EF23553B}
 		{3873E97E-C3C2-4C0D-9196-8450354967CE} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
 		{C87767ED-6D08-4710-9E45-BA47A9184BF1} = {4675B0A2-9B55-4C35-9863-DD84A0AF5219}
@@ -806,7 +800,6 @@ Global
 		{ACE36FEB-FC45-465A-936F-1CAE04BF0CC9} = {FB14DEEE-1016-4430-A24C-184F87992BC9}
 		{9610A531-3581-4F4D-90BB-2977B2778385} = {ACE36FEB-FC45-465A-936F-1CAE04BF0CC9}
 		{3329B059-C7B2-4D39-A002-DA530F0B3541} = {BFF0574C-FE77-4043-83D9-0B0D532A3F12}
-		{054F10F2-310C-40A0-BDD8-2A345355A4A4} = {ACE36FEB-FC45-465A-936F-1CAE04BF0CC9}
 		{2D504688-A90A-43DE-8FF2-E84ABA46A4AD} = {3873E97E-C3C2-4C0D-9196-8450354967CE}
 		{3EA3B906-92E4-4ED7-B955-E534E4FE7481} = {2876D6F5-C798-4EE2-A6E5-AA8D0FA6460B}
 		{59EA8234-53A4-498C-A04C-8878A5C593E5} = {3EA3B906-92E4-4ED7-B955-E534E4FE7481}

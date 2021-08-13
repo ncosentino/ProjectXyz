@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>ProjectXyz.Api.Enchantments.Stats</AssemblyTitle>
+    <Product>ProjectXyz.Api.Enchantments.Stats</Product>
+    <Copyright>Copyright ©  2017</Copyright>
+    <AssemblyTitle>ProjectXyz.Api.Enchantments.Stats</AssemblyTitle>
+    <Product>ProjectXyz.Api.Enchantments.Stats</Product>
+    <Copyright>Copyright ©  2017</Copyright>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments\ProjectXyz.Plugins.Features.GameObjects.Enchantments.csproj" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats\ProjectXyz.Plugins.Features.Stats.csproj" />
+  </ItemGroup>
+</Project>

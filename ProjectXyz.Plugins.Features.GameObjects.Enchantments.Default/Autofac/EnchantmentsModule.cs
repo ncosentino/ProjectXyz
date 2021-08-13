@@ -8,6 +8,7 @@ using ProjectXyz.Api.Framework.Entities;
 using ProjectXyz.Plugins.Features.Stats.Calculations;
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Calculations;
+using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Serialization.Newtonsoft;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
 {
@@ -34,6 +35,18 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.Autofac
                 .SingleInstance();
             builder
                 .RegisterType<EnchantmentTriggerMechanicFactoryFacade>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<HasEnchantmentsBehaviorFactory>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<HasEnchantmentsGameObjectsForBehavior>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder
+                .RegisterType<HasEnchantmentsBehaviorSerializer>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
         }
