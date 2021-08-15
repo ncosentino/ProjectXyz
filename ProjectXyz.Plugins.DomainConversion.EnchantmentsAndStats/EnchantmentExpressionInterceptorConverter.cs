@@ -8,7 +8,9 @@ namespace ProjectXyz.Plugins.Enchantments.Stats.StatExpressions
     {
         public IStatExpressionInterceptor Convert(IEnchantmentExpressionInterceptor enchantmentExpressionInterceptor)
         {
-            return new StatExpressionInterceptor(enchantmentExpressionInterceptor.Intercept, enchantmentExpressionInterceptor.Priority);
+            return new StatExpressionInterceptor(
+                enchantmentExpressionInterceptor.Intercept,
+                enchantmentExpressionInterceptor.Priority);
         }
 
         public bool CanConvert(IEnchantmentExpressionInterceptor enchantmentExpressionInterceptor) => enchantmentExpressionInterceptor != null;

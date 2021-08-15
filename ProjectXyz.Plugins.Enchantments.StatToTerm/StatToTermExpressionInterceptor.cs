@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using ProjectXyz.Api.Enchantments.Calculations;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Api.Framework.Collections;
@@ -32,7 +33,12 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
                 statDefinitionId,
                 () => new IEnchantmentExpressionBehavior[0]);
 
-            var term = _statDefinitionIdToTermMapping[statDefinitionId];
+            if (_statDefinitionIdToTermMapping.TryGetValue(
+                statDefinitionId,
+                out var term))
+            {
+                return expression;
+            }
 
             expression = applicableEnchantments.Aggregate(
                 expression,
