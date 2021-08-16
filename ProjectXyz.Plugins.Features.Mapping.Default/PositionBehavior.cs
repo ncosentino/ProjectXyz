@@ -1,9 +1,8 @@
 ﻿using System;
 
-using ProjectXyz.Plugins.Features.CommonBehaviors.Api;
 using ProjectXyz.Shared.Game.Behaviors;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors
+namespace ProjectXyz.Plugins.Features.Mapping.Default
 {
     public sealed class PositionBehavior :
         BaseBehavior,

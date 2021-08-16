@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
+namespace ProjectXyz.Plugins.Features.Mapping
 {
     public interface IObservablePositionBehavior : IReadOnlyPositionBehavior
     {

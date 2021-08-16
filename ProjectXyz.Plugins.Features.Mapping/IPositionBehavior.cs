@@ -1,4 +1,4 @@
-﻿namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
+﻿namespace ProjectXyz.Plugins.Features.Mapping
 {
     public interface IPositionBehavior : IObservablePositionBehavior
     {

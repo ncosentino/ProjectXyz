@@ -1,7 +1,6 @@
-﻿
-using ProjectXyz.Api.GameObjects.Behaviors;
+﻿using ProjectXyz.Api.GameObjects.Behaviors;
 
-namespace ProjectXyz.Plugins.Features.CommonBehaviors.Api
+namespace ProjectXyz.Plugins.Features.Mapping
 {
     public interface IReadOnlyPositionBehavior : IBehavior
     {
