@@ -312,13 +312,13 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 new GameObject(new IBehavior[]
                 {
                     new SizeBehavior(1, 1),
-                    new PositionBehavior(1.5, 2.5),
+                    new PositionBehavior(1, 2),
                 }),
                 // C
                 new GameObject(new IBehavior[]
                 {
                     new SizeBehavior(1, 1),
-                    new PositionBehavior(2.5, 1.5),
+                    new PositionBehavior(2, 1),
                 }),
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
@@ -361,13 +361,13 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                 new GameObject(new IBehavior[]
                 {
                     new SizeBehavior(1, 1),
-                    new PositionBehavior(1.5, 2.5),
+                    new PositionBehavior(1, 2),
                 }),
                 // C
                 new GameObject(new IBehavior[]
                 {
                     new SizeBehavior(1, 1),
-                    new PositionBehavior(2.5, 1.5),
+                    new PositionBehavior(2, 1),
                 }),
             };
             var pathFinder = CreatePathFinder(map, gameObjects);
@@ -390,6 +390,174 @@ namespace ProjectXyz.Plugins.Features.Mapping.Tests
                     //new Vector2(2, 2), // FIXME: (2,2) should be included but collisions don't currently let us intersect corners to perform diagonal movement
                 }.OrderBy(x => x.X).ThenBy(x => x.Y),
                 path.OrderBy(x => x.X).ThenBy(x => x.Y));
+        }
+
+        // 4 o o o o o
+        // 3 o o o o o
+        // 2 o B o o o
+        // 1 o A C o o 
+        // 0 o o o o o
+        //   0 1 2 3 4
+        [Fact]
+        private void GetIntersectingGameObjects_3AdjacentSourceInSetFullSize_3Objects()
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new[]
+            {
+                // A
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 1),
+                }),
+                // B
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 2),
+                }),
+                // C
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(2, 1),
+                }),
+            };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var interesctingGameObjects = pathFinder
+                .GetIntersectingGameObjects(
+                    new Vector2(1, 1), // at position A
+                    new Vector2(1, 1))
+                .ToArray();
+            Assert.Equal(
+                3,
+                interesctingGameObjects.Length);
+        }
+
+        // 4 o o o o o
+        // 3 o o o o o
+        // 2 o B o o o
+        // 1 o A C o o 
+        // 0 o o o o o
+        //   0 1 2 3 4
+        [Fact]
+        private void GetIntersectingGameObjects_3AdjacentSourceInSetButSmaller_1Object()
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new[]
+            {
+                // A
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 1),
+                }),
+                // B
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 2),
+                }),
+                // C
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(2, 1),
+                }),
+            };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var interesctingGameObjects = pathFinder
+                .GetIntersectingGameObjects(
+                    new Vector2(1, 1), // at position A
+                    new Vector2(1f - float.Epsilon, 1f - float.Epsilon))
+                .ToArray();
+            Assert.Equal(
+                3,
+                interesctingGameObjects.Length);
+        }
+
+        // 4 o o o o o
+        // 3 o o o o o
+        // 2 o B o o o
+        // 1 o A C o o 
+        // 0 o o o o o
+        //   0 1 2 3 4
+        [Fact]
+        private void GetIntersectingGameObjectsAtTile_3AdjacentSourceInSet_3Objects()
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new[]
+            {
+                // A
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 1),
+                }),
+                // B
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 2),
+                }),
+                // C
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(2, 1),
+                }),
+            };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var interesctingGameObjects = pathFinder
+                .GetIntersectingGameObjectsAtTile(new Vector2(1, 1)) // at position A
+                .ToArray();
+            Assert.Equal(
+                3,
+                interesctingGameObjects.Length);
+        }
+
+        // 4 o o o o o
+        // 3 o o o o o
+        // 2 o B o o o
+        // 1 o A C o o 
+        // 0 o o o o o
+        //   0 1 2 3 4
+        [Fact]
+        private void GetIntersectingGameObjectsAtTile_3AdjacentSourceInSet_1Object()
+        {
+            var map = CreateMap(CreateTileGrid(5, 5));
+            var gameObjects = new[]
+            {
+                // A
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 1),
+                }),
+                // B
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(1, 2),
+                }),
+                // C
+                new GameObject(new IBehavior[]
+                {
+                    new SizeBehavior(1, 1),
+                    new PositionBehavior(2, 1),
+                }),
+            };
+            var pathFinder = CreatePathFinder(map, gameObjects);
+
+            var interesctingGameObjects = pathFinder
+                .GetIntersectingGameObjectsAtTile(new Vector2(1, 1)) // at position A
+                .ToArray();
+            Assert.Equal(
+                3,
+                interesctingGameObjects.Length);
         }
 
         private sealed class AdjacentToCornersTestData : IEnumerable<object[]>
