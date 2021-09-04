@@ -29,6 +29,7 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                     .Cast<object>()
                     .Select(x => serializer.GetObjectToSerialize(
                         x,
-                        visited)));
+                        visited))
+                    .Where(x => x != null));
     }
 }

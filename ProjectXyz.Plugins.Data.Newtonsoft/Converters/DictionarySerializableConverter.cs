@@ -28,11 +28,18 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
                 .Cast<object>()
                 .Select(x => new
                 {
+                    // FIXME: this should actually be converting the KEY
+                    // through our facade as well... we may need custom
+                    // serialization! however, it looks like the built-in
+                    // dictionary serializer doesn't handle non-string keys
+                    // very well... almost like it just calls ToString().
+                    // serializer.GetObjectToSerialize(x, visited),
                     Key = x,
                     Value = serializer.GetObjectToSerialize(
                         ((IDictionary)objectToConvert)[x],
                         visited)
                 })
+                .Where(x => x.Key != null && x.Value != null)
                 .ToDictionary(x => x.Key, x => x.Value));
     }
 }
