@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,7 +12,6 @@ using NexusLabs.Framework;
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Api.Framework;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
-using ProjectXyz.Shared.Framework;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft
 {

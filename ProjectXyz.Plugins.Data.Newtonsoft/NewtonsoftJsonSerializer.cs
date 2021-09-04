@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 using Newtonsoft.Json;
@@ -15,7 +16,9 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
         private readonly JsonSerializer _jsonSerializer;
         private readonly IObjectToSerializationIdConverterFacade _objectToSerializationIdConverterFacade;
         private readonly Dictionary<Type, ConvertToSerializableDelegate> _mapping;
-        
+        private readonly HashSet<Type> _ignoredTypes;
+        private readonly HashSet<Type> _allowedTypes;
+
         private ConvertToSerializableDelegate _defaultConverter;
 
         public NewtonsoftJsonSerializer(
@@ -25,11 +28,23 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             _jsonSerializer = jsonSerializer;
             _objectToSerializationIdConverterFacade = objectToSerializationIdConverterFacade;
             _mapping = new Dictionary<Type, ConvertToSerializableDelegate>();
+            _ignoredTypes = new HashSet<Type>();
+            _allowedTypes = new HashSet<Type>();
         }
 
         public void RegisterDefaultSerializableConverter(ConvertToSerializableDelegate converter)
         {
             _defaultConverter = converter;
+        }
+
+        public void RegisterTypeToIgnore(Type type)
+        {
+            _ignoredTypes.Add(type);
+        }
+
+        public void RegisterAllowedType(Type type)
+        {
+            _allowedTypes.Add(type);
         }
 
         public void Serialize<TSerializable>(
@@ -66,6 +81,16 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
             Type objectType,
             HashSet<object> visited)
         {
+            if (_ignoredTypes.Contains(objectType))
+            {
+                return null;
+            }
+
+            if (_allowedTypes.Any() && !_allowedTypes.Contains(objectType))
+            {
+                return null;
+            }
+
             if (objectToSerialize is ISerializable)
             {
                 return (ISerializable)objectToSerialize;

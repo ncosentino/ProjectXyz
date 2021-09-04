@@ -9,5 +9,9 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Api
         void Register(
             Type type,
             ConvertToSerializableDelegate converter);
+
+        void RegisterTypeToIgnore(Type type);
+
+        void RegisterAllowedType(Type type);
     }
 }
