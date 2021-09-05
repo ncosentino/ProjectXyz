@@ -29,7 +29,11 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
             builder
                 .RegisterType<CanEquipBehaviorSerializer>()
                 .AsImplementedInterfaces()
-                .SingleInstance();            
+                .SingleInstance();
+            builder
+                .RegisterType<ItemContainerBehaviorSerializer>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
         }
     }
 }
