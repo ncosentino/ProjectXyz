@@ -15,20 +15,24 @@ using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
+
     public sealed class NewtonsoftJsonDeserializer : INewtonsoftJsonDeserializerFacade
     {
         private readonly JsonSerializer _jsonSerializer;
         private readonly ICast _cast;
+        private readonly IJsonSerializationSettings _settings;
         private readonly Dictionary<string, NewtonsoftDeserializeDelegate> _mapping;
 
         private NewtonsoftDeserializeDelegate _defaultConverter;
 
         public NewtonsoftJsonDeserializer(
             JsonSerializer jsonSerializer,
-            ICast cast)
+            ICast cast,
+            IJsonSerializationSettings settings)
         {
             _jsonSerializer = jsonSerializer;
             _cast = cast;
+            _settings = settings;
             _mapping = new Dictionary<string, NewtonsoftDeserializeDelegate>();
         }
 
@@ -69,13 +73,13 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft
 
         public TDeserializable Deserialize<TDeserializable>(JObject serializable)
         {
-            var objectData = serializable[nameof(ISerializable.Data)];
+            var objectData = serializable[_settings.DataPropertySerializedName];
             if (!NeedsDeserialization(objectData.Type))
             {
                 return (TDeserializable)objectData.Value<JValue>().Value;
             }
 
-            var serializableId = serializable[nameof(ISerializable.SerializableId)].Value<string>();
+            var serializableId = serializable[_settings.SerializableIdPropertySerializedName].Value<string>();
             if (string.IsNullOrWhiteSpace(serializableId))
             {
                 throw new InvalidOperationException(

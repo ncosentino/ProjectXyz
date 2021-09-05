@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+
+using Autofac;
 
 using Newtonsoft.Json;
 
@@ -14,23 +16,41 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
     {
         protected override void SafeLoad(ContainerBuilder builder)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                DateParseHandling = DateParseHandling.None
-            };
-            settings.Converters.Add(new JsonInt32Converter());
-            var jsonSerializer = JsonSerializer.Create(settings);
-
+            var jsonKey = Guid.NewGuid();
+            builder
+                .Register(x =>
+                {
+                    var contractResolver = x.Resolve<ShorthandSerializableResolver>();
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        MissingMemberHandling = MissingMemberHandling.Ignore,
+                        DateParseHandling = DateParseHandling.None,
+                        ContractResolver = contractResolver,
+                    };
+                    settings.Converters.Add(new JsonInt32Converter());
+                    var jsonSerializer = JsonSerializer.Create(settings);
+                    return jsonSerializer;
+                })
+                .Keyed(jsonKey, typeof(JsonSerializer))
+                .SingleInstance();
+            builder
+                .RegisterType<ShorthandSerializableResolver>()
+                .SingleInstance();
+            builder
+                .RegisterType<DefaultJsonSerializationSettings>()
+                .AsImplementedInterfaces()
+                .IfNotRegistered(typeof(IJsonSerializationSettings))
+                .SingleInstance();
             builder
                 .Register(x => new NewtonsoftJsonDeserializer(
-                    jsonSerializer,
-                    x.Resolve<ICast>()))
+                    x.ResolveKeyed<JsonSerializer>(jsonKey),
+                    x.Resolve<ICast>(),
+                    x.Resolve<IJsonSerializationSettings>()))
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
                .Register(x => new NewtonsoftJsonSerializer(
-                   jsonSerializer,
+                   x.ResolveKeyed<JsonSerializer>(jsonKey),
                    x.Resolve<IObjectToSerializationIdConverterFacade>()))
                .AsImplementedInterfaces()
                .SingleInstance();

@@ -182,11 +182,10 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                     new Action<object, object, string>((original, result, json) =>
                     {
                         Assert.IsAssignableFrom<IReadOnlyList<object>>(result);
-                        Assert.Equal(2, ((IReadOnlyList<object>)result).Count);
 
                         // NOTE: these singleton objects are TRULY non constructable so... we can't get them back
-                        Assert.Null(((IReadOnlyList<object>)result).First());
-                        Assert.Null(((IReadOnlyList<object>)result).Last());
+                        Assert.Empty(((IReadOnlyList<object>)result));
+                                                
                         Assert.NotNull(json);
                         Assert.NotEmpty(json);
                     }),
@@ -259,7 +258,7 @@ namespace ProjectXyz.Shared.Game.GameObjects.Generation.Data.Json.Tests
                         Assert.IsAssignableFrom<ObjectWithIntArrayInputReadOnlyCollectionProperty>(result);
 
                         // ensure the collection primitives are treates as such
-                        Assert.Contains("\"Data\":[1,2,3]", json);
+                        Assert.Contains("\"d\":[1,2,3]", json);
                     }),
                 },
                 new object[]
