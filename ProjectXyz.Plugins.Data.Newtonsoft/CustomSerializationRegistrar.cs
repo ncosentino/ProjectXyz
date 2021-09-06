@@ -1,35 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using ProjectXyz.Api.Data.Serialization;
 using ProjectXyz.Plugins.Data.Newtonsoft.Api;
 
 namespace ProjectXyz.Plugins.Data.Newtonsoft
 {
-    public sealed class CustomSerializationRegistrar
+    public sealed class CustomSerializationRegistrar : ICustomSerializationRegistrar
     {
         private readonly IObjectToSerializationIdConverterFacade _objectToSerializationIdConverterFacade;
-        private readonly INewtonsoftJsonDeserializerFacade _newtonsoftJsonDeserializerFacade;
-        private readonly INewtonsoftJsonSerializerFacade _newtonsoftJsonSerializerFacade;
+        private readonly Lazy<IReadOnlyCollection<IDiscoverableCustomSerializer>> _lazyCustomSerializers;
 
         public CustomSerializationRegistrar(
-            IObjectToSerializationIdConverterFacade objectToSerializationIdConverterFacade, 
-            INewtonsoftJsonDeserializerFacade newtonsoftJsonDeserializerFacade,
-            INewtonsoftJsonSerializerFacade newtonsoftJsonSerializerFacade,
-            IEnumerable<IDiscoverableCustomSerializer> customSerializers)
+            IObjectToSerializationIdConverterFacade objectToSerializationIdConverterFacade,
+            Lazy<IEnumerable<IDiscoverableCustomSerializer>> lazyCustomSerializers)
         {
             _objectToSerializationIdConverterFacade = objectToSerializationIdConverterFacade;
-            _newtonsoftJsonDeserializerFacade = newtonsoftJsonDeserializerFacade;
-            _newtonsoftJsonSerializerFacade = newtonsoftJsonSerializerFacade;
+            _lazyCustomSerializers = new Lazy<IReadOnlyCollection<IDiscoverableCustomSerializer>>(()
+                => lazyCustomSerializers.Value.ToArray());
+        }
 
-            foreach (var customSerializer in customSerializers)
+        public void RegisterSerializers(INewtonsoftJsonSerializerFacade serializerFacade)
+        {
+            foreach (var customSerializer in _lazyCustomSerializers.Value)
             {
-                _newtonsoftJsonSerializerFacade.Register(
+                serializerFacade.Register(
                     customSerializer.TypeToRegisterFor,
                     customSerializer.ConvertToSerializable);
+            }
+        }
 
+        public void RegisterDeserializers(INewtonsoftJsonDeserializerFacade deserializerFacade)
+        {
+            foreach (var customSerializer in _lazyCustomSerializers.Value)
+            {
                 var serializableId = _objectToSerializationIdConverterFacade
                     .ConvertToSerializationId(customSerializer.TypeToRegisterFor);
-                _newtonsoftJsonDeserializerFacade.Register(
+                deserializerFacade.Register(
                     serializableId,
                     customSerializer.Deserializer);
             }

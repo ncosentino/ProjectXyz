@@ -10,8 +10,8 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
         {
             builder
                 .RegisterType<CustomSerializationRegistrar>()
-                .AutoActivate()
-                .AsSelf();
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder
                 .RegisterType<SerializableConverterFacade>()
                 .AsImplementedInterfaces()

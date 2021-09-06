@@ -21,7 +21,6 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Autofac
                 .RegisterType<EquipmentGameObjectsForBehavior>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-
             builder
                 .RegisterType<HasMutableStatsBehaviorSerializer>()
                 .AsImplementedInterfaces()

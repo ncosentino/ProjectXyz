@@ -67,6 +67,10 @@ namespace ProjectXyz.Plugins.Data.Newtonsoft.Autofac
 
                     var deserializerFacade = x.Context.Resolve<INewtonsoftJsonDeserializerFacade>();
                     deserializerFacade.RegisterDefaultDeserializableConverter(instance.FromStream);
+
+                    var customSerializationRegistrar = x.Context.Resolve<ICustomSerializationRegistrar>();
+                    customSerializationRegistrar.RegisterSerializers(serializerFacade);
+                    customSerializationRegistrar.RegisterDeserializers(deserializerFacade);
                 });
         }
     }

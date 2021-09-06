@@ -31,11 +31,7 @@ namespace ProjectXyz.Plugins.Features.CommonBehaviors.Serialization.Newtonsoft
             serializableId) =>
         {
             var jsonObject = (JObject)deserializer.ReadObject(stream);
-            ////var containerId = jsonObject["ContainerId"]
-            ////    .ToObject<JObject[]>()
-            ////    .Select(x => (JValue)x["Identifier"])
-            ////    .Select(x => _identifierConverter.Convert(x.Value<string>()));
-            var containerId = new StringIdentifier("FIXME");
+            var containerId = _identifierConverter.Convert(((JValue)jsonObject["ContainerId"]["Identifier"]).Value<string>());
             var items = jsonObject["Items"]
                 .ToObject<object[]>()
                 .Select(x => deserializer.Deserialize<IGameObject>((JObject)x));
