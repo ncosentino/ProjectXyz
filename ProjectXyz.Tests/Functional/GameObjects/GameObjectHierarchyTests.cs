@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 using Autofac;
 
@@ -41,7 +42,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects
         }
 
         [Fact]
-        private void GetChildrenRecursive_ActorWithEnchantedEquipmentAndItems_AllChildGameObjects()
+        private async Task GetChildrenRecursive_ActorWithEnchantedEquipmentAndItems_AllChildGameObjects()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -88,7 +89,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects
                 _hasEnchantmentsBehaviorFactory.Create());
             var equippable = item.GetOnly<ICanBeEquippedBehavior>();
             var itemEnchantmentsBehavior = item.GetOnly<IHasEnchantmentsBehavior>();
-            itemEnchantmentsBehavior.AddEnchantments(
+            await itemEnchantmentsBehavior.AddEnchantmentsAsync(
                 itemOnlyEnchantment1,
                 itemOnlyEnchantment2,
                 actorOnlyEnchantment);
@@ -103,7 +104,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects
             var inventoryItem = _itemFactory
                 .Create(_hasEnchantmentsBehaviorFactory.Create());
             var inventoryItemEnchantmentsBehavior = inventoryItem.GetOnly<IHasEnchantmentsBehavior>();
-            inventoryItemEnchantmentsBehavior.AddEnchantments(
+            await inventoryItemEnchantmentsBehavior.AddEnchantmentsAsync(
                 itemOnlyEnchantment1,
                 inventoryItemOnlyEnchantment);
 

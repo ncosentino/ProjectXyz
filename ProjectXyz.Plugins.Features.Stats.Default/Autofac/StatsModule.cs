@@ -2,8 +2,6 @@
 
 using ProjectXyz.Framework.Autofac;
 using ProjectXyz.Plugins.Features.Stats.Default.Calculations;
-using ProjectXyz.Plugins.Features.Stats.Calculations;
-using ProjectXyz.Plugins.Features.Stats.Default.Calculations;
 
 using IStringExpressionEvaluator = ProjectXyz.Api.Framework.Math.IStringExpressionEvaluator;
 

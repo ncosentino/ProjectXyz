@@ -33,7 +33,7 @@ namespace ProjectXyz.Plugins.Enchantments.StatToTerm
                 statDefinitionId,
                 () => new IEnchantmentExpressionBehavior[0]);
 
-            if (_statDefinitionIdToTermMapping.TryGetValue(
+            if (!_statDefinitionIdToTermMapping.TryGetValue(
                 statDefinitionId,
                 out var term))
             {

@@ -45,7 +45,7 @@ namespace ProjectXyz.Tests.Functional
         }
 
         [Fact]
-        private void GetStatValue_ContextEnchantmentLowPriorityAndBuffEnchantmentHighPriority_ExpectedStat()
+        private async Task GetStatValue_ContextEnchantmentLowPriorityAndBuffEnchantmentHighPriority_ExpectedStat()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -68,9 +68,9 @@ namespace ProjectXyz.Tests.Functional
             var actor = _fixture.ActorFactory.Create(
                 new IdentifierBehavior(),
                 Enumerable.Empty<IBehavior>());
-            actor
+            await actor
                 .GetOnly<IHasEnchantmentsBehavior>()
-                .AddEnchantments(buffEnchantment);
+                .AddEnchantmentsAsync(buffEnchantment);
 
             var context = new StatCalculationContext(
                 new IComponent[0],
@@ -82,7 +82,7 @@ namespace ProjectXyz.Tests.Functional
         }
 
         [Fact]
-        private void GetStatValue_ContextEnchantmentHighPriorityAndBuffEnchantmentLowPriority_ExpectedStat()
+        private async Task GetStatValue_ContextEnchantmentHighPriorityAndBuffEnchantmentLowPriority_ExpectedStat()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -105,9 +105,9 @@ namespace ProjectXyz.Tests.Functional
             var actor = _fixture.ActorFactory.Create(
                 new IdentifierBehavior(),
                 Enumerable.Empty<IBehavior>());
-            actor
+            await actor
                 .GetOnly<IHasEnchantmentsBehavior>()
-                .AddEnchantments(buffEnchantment);
+                .AddEnchantmentsAsync(buffEnchantment);
 
             var context = new StatCalculationContext(
                 new IComponent[0],
@@ -279,7 +279,7 @@ namespace ProjectXyz.Tests.Functional
         }
 
         [Fact]
-        private void GetStatValue_InventoryBuffEquipmentBuff_ExpectedStat()
+        private async Task GetStatValue_InventoryBuffEquipmentBuff_ExpectedStat()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -328,7 +328,7 @@ namespace ProjectXyz.Tests.Functional
                     _fixture.HasEnchantmentsBehaviorFactory.Create());
             var equippable = item.GetOnly<ICanBeEquippedBehavior>();
             var itemEnchantmentsBehavior = item.GetOnly<IHasEnchantmentsBehavior>();
-            itemEnchantmentsBehavior.AddEnchantments(
+            await itemEnchantmentsBehavior.AddEnchantmentsAsync(
                 itemOnlyEnchantment1,
                 itemOnlyEnchantment2,
                 actorOnlyEnchantment);
@@ -344,7 +344,7 @@ namespace ProjectXyz.Tests.Functional
                 .ItemFactory
                 .Create(_fixture.HasEnchantmentsBehaviorFactory.Create());
             var inventoryItemEnchantmentsBehavior = inventoryItem.GetOnly<IHasEnchantmentsBehavior>();
-            inventoryItemEnchantmentsBehavior.AddEnchantments(
+            inventoryItemEnchantmentsBehavior.AddEnchantmentsAsync(
                 itemOnlyEnchantment1,
                 inventoryItemOnlyEnchantment);
 
@@ -360,7 +360,7 @@ namespace ProjectXyz.Tests.Functional
         }
 
         [Fact]
-        private void GetStatValue_SocketBuff_ExpectedStat()
+        private async Task GetStatValue_SocketBuff_ExpectedStat()
         {
             var statId = new StringIdentifier("Stat A");
             var statTerm = new StringIdentifier("STAT_A");
@@ -400,9 +400,9 @@ namespace ProjectXyz.Tests.Functional
                     }),
                     new CanBeEquippedBehavior(equipSlotId),
                     _fixture.HasEnchantmentsBehaviorFactory.Create());
-            canBeSocketedItem
+            await canBeSocketedItem
                 .GetOnly<IHasEnchantmentsBehavior>()
-                .AddEnchantments(canBeSocketedEnchantment);
+                .AddEnchantmentsAsync(canBeSocketedEnchantment);
             var equippable = canBeSocketedItem.GetOnly<ICanBeEquippedBehavior>();
 
             var canFitSocketItem = _fixture
@@ -410,9 +410,9 @@ namespace ProjectXyz.Tests.Functional
                 .Create(
                     new CanFitSocketBehavior(socketTypeId, 1),
                     _fixture.HasEnchantmentsBehaviorFactory.Create());
-            canFitSocketItem
+            await canFitSocketItem
                 .GetOnly<IHasEnchantmentsBehavior>()
-                .AddEnchantments(fitInSocketEnchantment);
+                .AddEnchantmentsAsync(fitInSocketEnchantment);
 
             Assert.True(
                 canBeSocketedItem

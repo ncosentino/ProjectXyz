@@ -103,7 +103,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 hasMutableStats,
             });
 
-            hasEnchantments.AddEnchantments(enchantment);
+            await hasEnchantments.AddEnchantmentsAsync(enchantment);
             
             // FIXME: do a proper conversion here
             var elapsedSeconds = elapsedTurns;
@@ -146,7 +146,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 hasMutableStats,
             });
 
-            hasEnchantments.AddEnchantments(enchantment);
+            await hasEnchantments.AddEnchantmentsAsync(enchantment);
             
             await UsingCleanTurnBasedManagerAsync(async () =>
             await UsingCleanMapGameObjectManagerAsync(async () =>
@@ -185,7 +185,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             });
 
             var enchantment = _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant;
-            hasEnchantments.AddEnchantments(enchantment);
+            await hasEnchantments .AddEnchantmentsAsync(enchantment);
             
             await UsingCleanTurnBasedManagerAsync(async () =>
             await UsingCleanMapGameObjectManagerAsync(async () =>
@@ -222,7 +222,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             });
 
             var enchantment = _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant;
-            hasEnchantments.AddEnchantments(enchantment);
+            await hasEnchantments .AddEnchantmentsAsync(enchantment);
             
             await UsingCleanTurnBasedManagerAsync(async () =>
             await UsingCleanMapGameObjectManagerAsync(async () =>
@@ -268,7 +268,7 @@ namespace ProjectXyz.Tests.Functional.Stats
                 $"Could not add '{item}' to item container of '{actor}'.");
 
             var enchantment = _testData.Enchantments.BuffsThatExpire.StatABaseStatAfter10TurnsIntervalIgnorant;
-            item.GetOnly<IHasEnchantmentsBehavior>().AddEnchantments(enchantment);
+            await item .GetOnly<IHasEnchantmentsBehavior>().AddEnchantmentsAsync(enchantment);
 
             await UsingCleanTurnBasedManagerAsync(async () =>
             await UsingCleanMapGameObjectManagerAsync(async () =>
