@@ -2,61 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using NexusLabs.Framework;
-
-using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Filtering.Api;
-using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
-using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default
 {
     public sealed class EnchantmentGeneratorFacade : IEnchantmentGeneratorFacade
     {
-        private readonly List<IEnchantmentGenerator> _enchantmentGenerators;
-        private readonly IAttributeFilterer _attributeFilterer;
-        private readonly IRandom _random;
+        private readonly Lazy<IReadOnlyCollection<IEnchantmentGenerator>> _lazyEnchantmentGenerators;
 
         public EnchantmentGeneratorFacade(
-            IAttributeFilterer attributeFilterer,
-            IRandom random,
-            IEnumerable<IDiscoverableEnchantmentGenerator> discoverableEnchantmentGenerators)
+            Lazy<IEnumerable<IDiscoverableEnchantmentGenerator>> lazyDiscoverableEnchantmentGenerators)
         {
-            _attributeFilterer = attributeFilterer;
-            _random = random;
-            _enchantmentGenerators = new List<IEnchantmentGenerator>(discoverableEnchantmentGenerators);
+            _lazyEnchantmentGenerators = new Lazy<IReadOnlyCollection<IEnchantmentGenerator>>(() =>
+                lazyDiscoverableEnchantmentGenerators.Value.ToArray());
         }
 
         public IEnumerable<IGameObject> GenerateEnchantments(IFilterContext filterContext)
         {
-            if (!_enchantmentGenerators.Any())
+            if (!_lazyEnchantmentGenerators.Value.Any())
             {
                 throw new InvalidOperationException(
                     $"There are no enchantment generators registered to this " +
-                    $"facade. Did you forget to call '{nameof(Register)}()'?");
+                    $"facade. Did you forget to register your type of " +
+                    $"'{typeof(IDiscoverableEnchantmentGenerator)}'?");
             }
 
-            var filteredGenerators = _attributeFilterer.BidirectionalFilter(
-                _enchantmentGenerators,
-                filterContext.Attributes);
-            var generator = filteredGenerators.RandomOrDefault(_random);
-            if (generator == null)
-            {
-                return Enumerable.Empty<IGameObject>();
-            }
-
-            var generatedEnchantments = generator.GenerateEnchantments(filterContext);
+            var generatedEnchantments = _lazyEnchantmentGenerators
+                .Value
+                .SelectMany(generator => generator.GenerateEnchantments(filterContext));
             return generatedEnchantments;
-        }
-
-        public IEnumerable<IFilterAttribute> SupportedAttributes => _enchantmentGenerators
-            .SelectMany(x => x.SupportedAttributes)
-            .Distinct();
-
-        public void Register(IEnchantmentGenerator enchantmentGenerator)
-        {
-            _enchantmentGenerators.Add(enchantmentGenerator);
         }
     }
 }

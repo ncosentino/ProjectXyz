@@ -3,7 +3,6 @@ using System.Linq;
 
 using ProjectXyz.Api.GameObjects.Generation;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
-using ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default
 {
