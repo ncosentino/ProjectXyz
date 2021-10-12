@@ -143,6 +143,11 @@ namespace ProjectXyz.Plugins.Features.Combat.Default
             var actors = _combatGameObjectProvider
                 .GetGameObjects()
                 .ToArray();
+            if (actors.Length < 1)
+            {
+                yield break;
+            }
+
             var counter = 0;
             while (counter < total)
             {

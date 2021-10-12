@@ -9,6 +9,7 @@ using ProjectXyz.Plugins.Features.Combat.Api;
 
 using Xunit;
 using System.Threading.Tasks;
+using System;
 
 namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
 {
@@ -29,6 +30,21 @@ namespace ProjectXyz.Plugins.Features.Combat.Default.Tests
             _combatTurnManager = new CombatTurnManager(
                 _combatCalculations.Object,
                 _combatGameObjectManager.Object);
+        }
+
+        [Fact]
+        private void GetSnapshot_NoActors_Empty()
+        {
+            _combatGameObjectManager
+                .Setup(x => x.GetGameObjects())
+                .Returns(Array.Empty<IGameObject>());
+
+            var results = _combatTurnManager
+                .GetSnapshot(_filterContext.Object, 1)
+                .ToArray();
+
+            Assert.Empty(results);
+            _mockRepository.VerifyAll();
         }
 
         [Fact]
