@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>ProjectXyz.Plugins.Features.GameObjects.Items.Tests</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.GameObjects.Items.Tests</Product>
     <Copyright>Copyright ©  2021</Copyright>

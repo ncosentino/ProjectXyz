@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>ProjectXyz.Shared.Triggering</AssemblyTitle>
     <Company>Nexus Labs</Company>
     <Product>ProjectXyz.Shared.Triggering</Product>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if !NET5_0_OR_GREATER
+using System.Collections.Generic;
 
 namespace ProjectXyz.Shared.Framework
 {
@@ -12,3 +13,4 @@ namespace ProjectXyz.Shared.Framework
         }
     }
 }
+#endif

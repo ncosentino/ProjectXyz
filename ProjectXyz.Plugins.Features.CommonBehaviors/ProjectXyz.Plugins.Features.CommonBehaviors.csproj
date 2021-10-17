@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>ProjectXyz.Plugins.Features.CommonBehaviors</AssemblyTitle>
     <Product>ProjectXyz.Plugins.Features.CommonBehaviors</Product>
     <Copyright>Copyright ©  2018</Copyright>

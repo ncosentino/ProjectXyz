@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RootNamespace>ProjectXyz.Plugins.StatCalculations</RootNamespace>
     <AssemblyName>ProjectXyz.Plugins.StatCalculations</AssemblyName>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>ProjectXyz.Plugins.StatCalculations</AssemblyTitle>
     <Product>ProjectXyz.Plugins.StatCalculations</Product>
     <Copyright>Copyright ©  2019</Copyright>

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>ProjectXyz.Api.Framework</AssemblyTitle>
     <Product>ProjectXyz.Api.Framework</Product>
     <Copyright>Copyright ©  2018</Copyright>

@@ -1,103 +1,138 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <Deterministic>true</Deterministic>
     <Authors>Nexus Software Labs</Authors>
     <Copyright>Copyright © Nexus Software Labs 2020</Copyright>
     <PackageId>ProjectXyz</PackageId>
     <Company>Nexus Software Labs</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.1</Version>
+    <Description>An RPG back-end for playing around with design, architecture, and patterns.</Description>
+    <PackageProjectUrl>https://github.com/ncosentino/ProjectXyz</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ncosentino/ProjectXyz</RepositoryUrl>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <PackageVersionSettings>AssemblyVersion.IncrementWithAutoReset.None</PackageVersionSettings>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    <AssemblyInfoVersionSettings>NoneWithAutoReset.NoneWithAutoReset.NoneWithAutoReset.Increment</AssemblyInfoVersionSettings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <PackageVersionSettings>AssemblyVersion.IncrementWithAutoReset.None</PackageVersionSettings>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    <AssemblyInfoVersionSettings>NoneWithAutoReset.NoneWithAutoReset.NoneWithAutoReset.Increment</AssemblyInfoVersionSettings>
+  </PropertyGroup>
+  
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
       <Output TaskParameter="Assemblies" ItemName="CurrentAssembly" />
     </GetAssemblyIdentity>
     <!--NOTE: editing this following block in VS visual editor can break the formatting.-->
-    <Exec Command="REM ------&#xD;&#xA;REM This approach packs to your bin, then copies&#xD;&#xA;REM ------&#xD;&#xA;REM del &quot;$(TargetDir)*.nupkg&quot;&#xD;&#xA;REM nuget pack $(ProjectFileName) -Symbols -IncludeReferencedProjects -OutputDirectory &quot;$(OutDir)\&quot; -properties Configuration=$(ConfigurationName)&#xD;&#xA;REM xcopy &quot;$(TargetDir)*.nupkg&quot; &quot;$(SolutionDir)..\..\nuget-repo&quot; /C /Y&#xD;&#xA;&#xD;&#xA;REM ------&#xD;&#xA;REM This approach packs directly to your local nuget repo&#xD;&#xA;REM ------&#xD;&#xA;&#xD;&#xA;FOR /F &quot;tokens=* USEBACKQ&quot; %25%25F IN (`$(ProjectDir)GenerateProjectAssemblyVersion.exe $(ProjectDir)$(ProjectFileName)`) DO (&#xD;&#xA;SET generatedVersion=%25%25F&#xD;&#xA;)&#xD;&#xA;ECHO Generated Version: %25generatedVersion%25&#xD;&#xA;&#xD;&#xA;nuget pack $(ProjectFileName) -Verbosity detailed -Symbols -IncludeReferencedProjects -OutputDirectory &quot;$(projectDir)..\..\..\nuget-repo&quot; -Version %25generatedVersion%25 -properties Configuration=$(ConfigurationName)" />
   </Target>
   <ItemGroup>
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Default\ProjectXyz.Plugins.Features.ElapsedTime.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement.Default\ProjectXyz.Plugins.Features.PartyManagement.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement\ProjectXyz.Plugins.Features.PartyManagement.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Default\ProjectXyz.Plugins.Features.TimeOfDay.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats.Bounded\ProjectXyz.Plugins.Features.Stats.Bounded.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering.Default\ProjectXyz.Plugins.Features.Triggering.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments\ProjectXyz.Plugins.Features.GameObjects.Enchantments.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats.Default\ProjectXyz.Plugins.Features.Stats.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats\ProjectXyz.Plugins.Features.Stats.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Api\ProjectXyz.Framework.ViewWelding.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding\ProjectXyz.Framework.ViewWelding.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft.Api\ProjectXyz.Plugins.Data.Newtonsoft.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft\ProjectXyz.Plugins.Data.Newtonsoft.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.StatExpressions.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Features.GameObjects.Enchantments.StatToTerm.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Default\ProjectXyz.Plugins.Features.TurnBased.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Default\ProjectXyz.Plugins.Features.Weather.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats.Bounded.Default\ProjectXyz.Plugins.Features.Stats.Bounded.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj" />
-    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj" />
+    <PackageReference Include="Teronis.MSBuild.Packaging.ProjectBuildInPackage" Version="0.1.8-alpha.223">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime.Default\ProjectXyz.Plugins.Features.ElapsedTime.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Api\ProjectXyz.Plugins.Features.Filtering.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Filtering.Default\ProjectXyz.Plugins.Features.Filtering.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Crafting.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement.Default\ProjectXyz.Plugins.Features.PartyManagement.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.PartyManagement\ProjectXyz.Plugins.Features.PartyManagement.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay.Default\ProjectXyz.Plugins.Features.TimeOfDay.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Databases\ProjectXyz.Api.Data.Databases.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.Data.Serialization\ProjectXyz.Api.Data.Serialization.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.DomainConversions.EnchantmentsAndStats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework.Entities\ProjectXyz.Api.Framework.Entities.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.Framework\ProjectXyz.Api.Framework.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects.Generation\ProjectXyz.Api.GameObjects.Generation.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.GameObjects\ProjectXyz.Api.GameObjects.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items\ProjectXyz.Plugins.Features.GameObjects.Items.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.Logging\ProjectXyz.Api.Logging.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats.Bounded\ProjectXyz.Plugins.Features.Stats.Bounded.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Api.Systems\ProjectXyz.Api.Systems.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering\ProjectXyz.Plugins.Features.Triggering.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Triggering.Default\ProjectXyz.Plugins.Features.Triggering.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments\ProjectXyz.Plugins.Features.GameObjects.Enchantments.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats.Default\ProjectXyz.Plugins.Features.Stats.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats\ProjectXyz.Plugins.Features.Stats.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Autofac\ProjectXyz.Framework.Autofac.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Core.Dependencies.Autofac\ProjectXyz.Plugins.Framework.Math.Jace.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Entities.Shared\ProjectXyz.Shared.Framework.Entities.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Framework.Shared\ProjectXyz.Shared.Framework.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding.Api\ProjectXyz.Framework.ViewWelding.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Framework.ViewWelding\ProjectXyz.Framework.ViewWelding.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Game.Core.Autofac\ProjectXyz.Game.Core.Autofac.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Game.Core\ProjectXyz.Game.Core.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Game.Interface\ProjectXyz.Game.Interface.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft.Api\ProjectXyz.Plugins.Data.Newtonsoft.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Data.Newtonsoft\ProjectXyz.Plugins.Data.Newtonsoft.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndStats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.StatExpressions.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.DomainConversion.EnchantmentsAndTriggers\ProjectXyz.Plugins.Features.ExpiringEnchantments.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Calculations.Expressions\ProjectXyz.Plugins.Features.ExpressionEnchantments.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.Stats\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Stats.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Enchantments.StatToTerm\ProjectXyz.Plugins.Features.GameObjects.Enchantments.StatToTerm.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api\ProjectXyz.Plugins.Features.BaseStatEnchantments.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.BaseStatEnchantments\ProjectXyz.Plugins.Features.BaseStatEnchantments.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Api\ProjectXyz.Plugins.Features.Combat.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Combat.Default\ProjectXyz.Plugins.Features.Combat.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors.Api\ProjectXyz.Plugins.Features.CommonBehaviors.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.CommonBehaviors\ProjectXyz.Plugins.Features.CommonBehaviors.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.InMemory.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ExpressioEnchantments.Api\ProjectXyz.Plugins.Features.ExpressionEnchantments.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors.Api\ProjectXyz.Plugins.Features.GameObjects.Actors.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Actors\ProjectXyz.Plugins.Features.GameObjects.Actors.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Default\ProjectXyz.Plugins.Features.GameObjects.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Generation.Default\ProjectXyz.Plugins.Features.GameObjects.Generation.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets\ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing\ProjectXyz.Plugins.Features.GameObjects.Items.Socketing.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns\ProjectXyz.Plugins.Features.GameObjects.Items.SocketPatterns.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Skills\ProjectXyz.Plugins.Features.GameObjects.Skills.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Api.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.Handlers.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.StatCalculation\ProjectXyz.Plugins.Features.GameObjects.StatCalculation.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping\ProjectXyz.Plugins.Features.Mapping.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Mapping.Default\ProjectXyz.Plugins.Features.Mapping.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States\ProjectXyz.Plugins.Features.GameObjects.Enchantments.States.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TimeOfDay\ProjectXyz.Plugins.Features.TimeOfDay.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased.Default\ProjectXyz.Plugins.Features.TurnBased.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.TurnBased\ProjectXyz.Plugins.Features.TurnBased.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.UnhandledExceptionHandling\ProjectXyz.Plugins.Features.UnhandledExceptionHandling.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather\ProjectXyz.Plugins.Features.Weather.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Weather.Default\ProjectXyz.Plugins.Features.Weather.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Framework.NexusLabs\ProjectXyz.Plugins.Framework.NexusLabs.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.Stats.Bounded.Default\ProjectXyz.Plugins.Features.Stats.Bounded.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.ElapsedTime\ProjectXyz.Plugins.Features.ElapsedTime.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Shard.Game.GameObjects.Items.Default\ProjectXyz.Plugins.Features.GameObjects.Items.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Data.Serialization\ProjectXyz.Shared.Data.Serialization.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Behaviors\ProjectXyz.Shared.Game.Behaviors.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default\ProjectXyz.Plugins.Features.GameObjects.Enchantments.Default.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation.InMemory\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\ProjectXyz.Shared.Game.Items.Generation\ProjectXyz.Plugins.Features.GameObjects.Items.Generation.csproj" PrivateAssets="all" />
   </ItemGroup>
 </Project>
