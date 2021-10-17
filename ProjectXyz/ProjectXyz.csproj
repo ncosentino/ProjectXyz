@@ -7,7 +7,7 @@
     <PackageId>ProjectXyz</PackageId>
     <Company>Nexus Software Labs</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.1</Version>
+    <Version>0.1.4</Version>
     <Description>An RPG back-end for playing around with design, architecture, and patterns.</Description>
     <PackageProjectUrl>https://github.com/ncosentino/ProjectXyz</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ncosentino/ProjectXyz</RepositoryUrl>

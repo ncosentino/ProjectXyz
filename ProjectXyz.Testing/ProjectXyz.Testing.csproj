@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>ProjectXyz.Testing</AssemblyTitle>
     <Product>ProjectXyz.Testing</Product>
     <Copyright>Copyright ©  2020</Copyright>

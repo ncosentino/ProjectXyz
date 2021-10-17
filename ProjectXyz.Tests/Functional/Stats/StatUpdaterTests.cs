@@ -126,7 +126,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 expectedValue,
-                hasMutableStats.BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
+                DictionaryExtensions.GetValueOrDefault(hasMutableStats.BaseStats, enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
 
         [Theory,
@@ -169,7 +169,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 expectedValue,
-                hasMutableStats.BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
+                DictionaryExtensions.GetValueOrDefault(hasMutableStats.BaseStats, enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
 
         [Fact]
@@ -206,7 +206,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 5,
-                hasMutableStats.BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
+                DictionaryExtensions.GetValueOrDefault(hasMutableStats.BaseStats, enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
 
         [Fact]
@@ -243,7 +243,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 0,
-                hasMutableStats.BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
+                DictionaryExtensions.GetValueOrDefault(hasMutableStats.BaseStats, enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
 
         [Fact]
@@ -288,7 +288,7 @@ namespace ProjectXyz.Tests.Functional.Stats
             // Assert
             Assert.Equal(
                 5,
-                item.GetOnly<IHasStatsBehavior>().BaseStats.GetValueOrDefault(enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
+                DictionaryExtensions.GetValueOrDefault(item.GetOnly<IHasStatsBehavior>().BaseStats, enchantment.Behaviors.GetOnly<IHasStatDefinitionIdBehavior>().StatDefinitionId));
         }
 
         private async Task UsingCleanTurnBasedManagerAsync(Func<Task> callback)

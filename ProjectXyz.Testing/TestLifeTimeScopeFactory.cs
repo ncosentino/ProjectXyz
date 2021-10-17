@@ -15,6 +15,13 @@ namespace ProjectXyz.Testing
         public ILifetimeScope CreateScope()
         {
             var moduleDiscoverer = new ModuleDiscoverer();
+            moduleDiscoverer.AssemblyLoadFailed += (s, e) =>
+            {
+                if (e.AssemblyFilePath.EndsWith("testhost.exe", StringComparison.Ordinal))
+                {
+                    e.Handled = true;
+                }
+            };
             var moduleDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var modules = moduleDiscoverer
                 .Discover(moduleDirectory, "*.exe")
