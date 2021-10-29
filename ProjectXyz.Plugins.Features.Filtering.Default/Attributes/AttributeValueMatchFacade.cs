@@ -55,12 +55,15 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default.Attributes
                 }
             }
 
-            foreach (var entry in _delegateMappingObjects)
+            if (matchCallback == null)
             {
-                if (entry.Item1(filterAttributeValue, obj))
+                foreach (var entry in _delegateMappingObjects)
                 {
-                    matchCallback = entry.Item2;
-                    break;
+                    if (entry.Item1(filterAttributeValue, obj))
+                    {
+                        matchCallback = entry.Item2;
+                        break;
+                    }
                 }
             }
 
@@ -119,12 +122,15 @@ namespace ProjectXyz.Plugins.Features.Filtering.Default.Attributes
                     }
                 }
 
-                foreach (var entry in _delegateMappingObjects)
+                if (matchCallback == null)
                 {
-                    if (entry.Item1(v1, v2))
+                    foreach (var entry in _delegateMappingObjects)
                     {
-                        matchCallback = entry.Item2;
-                        break;
+                        if (entry.Item1(v1, v2))
+                        {
+                            matchCallback = entry.Item2;
+                            break;
+                        }
                     }
                 }
 
