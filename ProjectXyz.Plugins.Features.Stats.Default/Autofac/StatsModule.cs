@@ -54,10 +54,6 @@ namespace ProjectXyz.Plugins.Features.Stats.Default.Autofac
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<StatDefinitionToTermMappingRepositoryFacade>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-            builder
                 .Register(c => StatDefinitionToCalculationMappingRepository.None)
                 .AsImplementedInterfaces()
                 .SingleInstance();
