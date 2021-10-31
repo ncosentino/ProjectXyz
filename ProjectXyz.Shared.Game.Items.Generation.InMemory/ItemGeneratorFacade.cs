@@ -8,7 +8,7 @@ using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Api.Attributes;
 using ProjectXyz.Api.Framework.Collections;
 using ProjectXyz.Api.GameObjects;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
+using ProjectXyz.Plugins.Features.Filtering.Default.Attributes;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
 {
@@ -41,10 +41,13 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory
                 yield break;
             }
 
+            // when picking a generator, since it's the "middleman", anything "
+            // required" on our context becomes optional just for selecting the
+            // generator. generation itself will enforce requirements.
             var filteredGenerators = _attributeFilterer
                 .BidirectionalFilter(
                     _itemGenerators,
-                    filterContext.Attributes)
+                    filterContext.Attributes.Select(x => x.CopyWithRequired(false)))
                 .ToArray();
             if (!filteredGenerators.Any())
             {
