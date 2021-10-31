@@ -3,9 +3,10 @@ using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Linked
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Linked
 {
-    public sealed class WightedEntry : IWeightedEntry
+    public sealed class WeightedEntry
+        : IWeightedEntry
     {
-        public WightedEntry(
+        public WeightedEntry(
             double weight,
             IIdentifier dropTableId)
         {

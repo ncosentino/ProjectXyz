@@ -315,7 +315,7 @@ namespace ProjectXyz.Tests.Functional.GameObjects.Items.Generation.DropTables
                             2,
                             new IWeightedEntry[]
                             {
-                                new WightedEntry(1, new StringIdentifier("Table B")),
+                                new WeightedEntry(1, new StringIdentifier("Table B")),
                             }),
                         // Weather Table, Generates 1
                         itemDropTableFactory.Create(
