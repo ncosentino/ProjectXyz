@@ -7,8 +7,6 @@ using NexusLabs.Contracts;
 using ProjectXyz.Api.GameObjects;
 using ProjectXyz.Plugins.Features.Filtering.Api;
 using ProjectXyz.Plugins.Features.Filtering.Default.Attributes; // FIXME: dependency on non-API
-using ProjectXyz.Plugins.Features.GameObjects.Items.Generation;
-using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables;
 using ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Standard;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Implementations.Item
@@ -46,11 +44,15 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.DropTables.Im
             // from our caller, but acknowledging that any that were required
             // are now fulfilled up until this point. we then cobine in the
             // newly provided attributes from the drop table.
+            var dropTableProvidedAttributes = dropTable.ProvidedAttributes.ToDictionary(
+                x => x.Id,
+                x => x);
             var currentDropContext = _filterContextFactory.CreateContext(
                 dropTable.MinimumGenerateCount,
                 dropTable.MaximumGenerateCount,
                 filterContext
                     .Attributes
+                    .Where(x => !dropTableProvidedAttributes.ContainsKey(x.Id))
                     .Select(x => x.Required
                         ? x.CopyWithRequired(false)
                         : x)

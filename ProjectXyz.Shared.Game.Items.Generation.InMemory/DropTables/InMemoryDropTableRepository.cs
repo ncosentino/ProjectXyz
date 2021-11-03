@@ -19,8 +19,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.InMemory.Drop
 
         public IEnumerable<IDropTable> GetAllDropTables() => DropTables.Values;
 
-        public IDropTable GetForDropTableId(IIdentifier dropTableId) => DropTables
-            .First(x => Equals(x.Key, dropTableId))
-            .Value;
+        public IDropTable GetForDropTableId(IIdentifier dropTableId) => 
+            DropTables.TryGetValue(dropTableId, out var match)
+                ? match
+                : null;
     }
 }
