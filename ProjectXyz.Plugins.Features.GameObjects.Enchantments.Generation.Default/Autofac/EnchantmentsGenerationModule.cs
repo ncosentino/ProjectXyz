@@ -13,7 +13,7 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Defaul
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder
-                .RegisterType<BaseEnchantmentGenerator>()
+                .RegisterType<EnchantmentGenerator>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder

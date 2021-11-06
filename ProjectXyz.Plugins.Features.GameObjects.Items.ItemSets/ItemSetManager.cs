@@ -276,12 +276,8 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.ItemSets
             // FIXME: optimize this to take multiple enchantment definition 
             // IDs and use a filter attribute value that is a collection of
             // identifiers (i.e. All/Any string collection example)
-            var filterContext = _filterContextFactory.CreateFilterContextForSingle(new FilterAttribute(
-                new StringIdentifier("id"),
-                new IdentifierFilterAttributeValue(enchantmentDefinitionId),
-                true));
             var enchantment = _enchantmentLoader
-                .Load(filterContext)
+                .LoadForEnchantmenDefinitionIds(new[] { enchantmentDefinitionId })
                 .Single();
             enchantment = _enchantmentFactory.Create(enchantment
                 .Behaviors

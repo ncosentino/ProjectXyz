@@ -13,14 +13,14 @@ using ProjectXyz.Plugins.Features.Filtering.Api;
 
 namespace ProjectXyz.Plugins.Features.GameObjects.Enchantments.Generation.Default
 {
-    public sealed class BaseEnchantmentGenerator : IBaseEnchantmentGenerator
+    public sealed class EnchantmentGenerator : IDiscoverableEnchantmentGenerator
     {
         private readonly IEnchantmentFactory _enchantmentFactory;
         private readonly IRandom _random;
         private readonly IReadOnlyEnchantmentDefinitionRepositoryFacade _enchantmentDefinitionRepository;
         private readonly IGeneratorComponentToBehaviorConverterFacade _filterComponentToBehaviorConverter;
 
-        public BaseEnchantmentGenerator(
+        public EnchantmentGenerator(
             IEnchantmentFactory enchantmentFactory,
             IRandom random,
             IReadOnlyEnchantmentDefinitionRepositoryFacade enchantmentDefinitionRepository,
