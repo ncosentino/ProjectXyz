@@ -112,6 +112,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         public void GenerateLoot_NoContextAttributesTableProvidedAttributes_ExpectedContext()
         {
             var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
+            dropTableProvidedAttribute
+                .Setup(x => x.Id)
+                .Returns(new StringIdentifier("filter-id"));
 
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
@@ -162,6 +165,9 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         public void GenerateLoot_RequiredContextAttributesTableProvidedAttributes_ExpectedContext()
         {
             var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
+            dropTableProvidedAttribute
+                .Setup(x => x.Id)
+                .Returns(new StringIdentifier("filter-id"));
 
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
@@ -224,9 +230,12 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
         }
 
         [Fact]
-        public void GenerateLoot_NotRequiredContextAttributesTableProvidedAttributes_ExpectedContext()
+        public void GenerateLoot_NotRequiredContextAttributesTableProvidedAttributes_FilterContextOverridenByDropTable()
         {
             var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
+            dropTableProvidedAttribute
+                .Setup(x => x.Id)
+                .Returns(new StringIdentifier("filter-id"));
 
             var dropTable = new ItemDropTable(
                 new StringIdentifier("TheDropTable"),
@@ -247,6 +256,66 @@ namespace ProjectXyz.Plugins.Features.GameObjects.Items.Generation.Tests.DropTab
                 .Returns(expectedItems);
 
             var sourceFilterAttribute = _mockRepository.Create<IFilterAttribute>();
+            sourceFilterAttribute
+                .Setup(x => x.Id)
+                .Returns(new StringIdentifier("filter-id"));
+
+            _sourceFilterContext
+                .Setup(x => x.Attributes)
+                .Returns(new IFilterAttribute[]
+                {
+                    sourceFilterAttribute.Object,
+                });
+
+            _filterContextFactory
+                .Setup(x => x.CreateContext(
+                    123,
+                    456,
+                    It.Is<IEnumerable<IFilterAttribute>>(attrs =>
+                        attrs.Any(attr => attr.Equals(dropTableProvidedAttribute.Object)) &&
+                        attrs.Count() == 1)))
+                .Returns(_newFilterContext.Object);
+
+            var results = _itemDropTableHandlerGenerator
+                .GenerateLoot(
+                    dropTable,
+                    _sourceFilterContext.Object)
+                .ToArray();
+
+            Assert.Equal<IGameObject>(expectedItems, results);
+            _mockRepository.VerifyAll();
+        }
+
+        [Fact]
+        public void GenerateLoot_NotRequiredContextAttributesTableProvidedAttributes_FilterContextMergedWithDropTable()
+        {
+            var dropTableProvidedAttribute = _mockRepository.Create<IFilterAttribute>();
+            dropTableProvidedAttribute
+                .Setup(x => x.Id)
+                .Returns(new StringIdentifier("filter-id"));
+
+            var dropTable = new ItemDropTable(
+                new StringIdentifier("TheDropTable"),
+                123,
+                456,
+                Enumerable.Empty<IFilterAttribute>(),
+                new[]
+                {
+                    dropTableProvidedAttribute.Object,
+                });
+            var expectedItems = new IGameObject[]
+            {
+                _mockRepository.Create<IGameObject>().Object,
+            };
+
+            _itemGeneratorFacade
+                .Setup(x => x.GenerateItems(_newFilterContext.Object))
+                .Returns(expectedItems);
+
+            var sourceFilterAttribute = _mockRepository.Create<IFilterAttribute>();
+            sourceFilterAttribute
+                .Setup(x => x.Id)
+                .Returns(new StringIdentifier("some-other-filter-id"));
             sourceFilterAttribute
                 .Setup(x => x.Required)
                 .Returns(false);
